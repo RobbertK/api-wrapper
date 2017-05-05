@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container manual-root manual-index" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/MapCreatorEU/m4n-api" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual" data-toc-name="example">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;" data-link="manual/example/examples.html"><a href="manual/example/examples.html" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#create-a-new-resource" data-ice="link">Create a new resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#modify-a-resource" data-ice="link">Modify a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#clone-a-resource" data-ice="link">Clone a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#pagination" data-ice="link">Pagination</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html" data-ice="link">Authentication</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#web" data-ice="link">Web</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#implicit-flow" data-ice="link">Implicit Flow</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#implicit-flow-pop-up" data-ice="link">Implicit flow pop-up</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#implicit-flow-pop-up-advanced-" data-ice="link">Implicit flow pop-up (advanced)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#password-flow-dangerous-" data-ice="link">Password flow (dangerous)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#nodejs" data-ice="link">Nodejs</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#password-flow" data-ice="link">Password Flow</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="reference">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#class" data-ice="link">Class</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  
+
+  <p class="manual-badge" data-ice="manualBadge"><img src="./manual-badge.svg"></p>
+
+  <div class="manual-cards">
+    
+  <div class="manual-card-wrap" data-ice="cards">
+      <h1 data-ice="label" class="manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;"><span data-ice="label-inner">Basics</span></h1>
+      <div class="manual-card">
+        <div data-ice="card"><h1>Basics</h1><p>These examples assume that an instance of the api exists and is authenticated. 
+See the node and web authentication examples for more information on authenticating.</p><h3>Create a new resource</h3><p>Create a new color and dump the new resource to the console after saving</p><pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
+api.colors.new(data).save().then(console.dir);</code>
+</code></pre><h3>Modify a resource</h3><p>Change profession of the current user and save it.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.get(&apos;me&apos;).then(me =&gt; {
+  me.profession = &apos;Developer&apos;;
+  me.save(); // Optional chaining to get the updated resource
+});</code>
+</code></pre><h3>Clone a resource</h3><p>Setting the id to null forces the creation of a new object upon saving. </p><pre><code class="lang-js"><code class="source-code prettyprint">api.colors(1).then(color =&gt; {
+  color.id = null;
+  color.save();
+});</code>
+</code></pre><h3>Pagination</h3><p>Listing resources with pagination. First page with 5 items per page</p><pre><code class="lang-js"><code class="source-code prettyprint">api.colors.list(1, 20).then(page =&gt; {
+  console.log(&apos;Got resources:&apos;);
+
+  for (var i = 0; i &lt; page.data.length; i++) {
+    console.log(page.data[i].toString());
+  }
+});</code>
+</code></pre><p>Loop over every page and print the result to the console.</p><pre><code class="lang-js"><code class="source-code prettyprint">function parsePages() {
+  for (var i = 0; i &lt; page.data.length; i++) {
+    console.log(page.data[i].toString());     
+  }  
+
+  if (page.hasNext) {
+    console.log(&apos;Grabbing page &apos; + (page.page + 1));
+    page.next().then(parsePage);
+  }
+}
+
+api.colors.list(1, 50).then(parsePages);</code>
+</code></pre><p>Select current user but do not fetch any info to make fetching resources easier.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).colors().then(page =&gt; {
+  console.dir(page.data);
+});</code>
+</code></pre></div>
+        <a data-ice="link" href="manual/example/examples.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <h1 data-ice="label" class="manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">Authentication</span></h1>
+      <div class="manual-card">
+        <div data-ice="card"><h1>Authentication</h1><p>Authentication is done through <a href="https://oauth.org">OAuth</a>. This library provides multiple <a href="https://aaronparecki.com/oauth-2-simplified/#authorization">OAuth flow</a>
+implementations for authentication. A client id can be obtained through a support
+ticket but this is planned to change in the near future. The client will first
+check if any tokens can be found in the cache before requiring authentication.
+If one can be found the <code>api.authenticate()</code> method will instantly resolve without 
+any side-effects. The variable <code>api.authenticated</code> will be set to true if a token
+has been found and is still valid. </p><p>Tokens are stored in HTTPS cookies if possible and using <code>localStorage</code> when the
+browser is not using a HTTPS connection. No storage mechanism has been implemented
+for <a href="https://nodejs.org">nodejs</a> applications yet.</p><h2>Web</h2><p>Multiple flows are supported for web browsers. All the web examples assume the web
+build of the library has been included in the target page.</p><h3>Implicit Flow</h3><p>A client id is required to use the implicit flow. The redirect url <em>must</em> be the 
+same as the one linked to the client id. The callback url is automatically 
+guessed if none is provided.</p><pre><code class="lang-js"><code class="source-code prettyprint">// Obtained client id
+var clientId = 1;
+
+// Callback url is set to the current url by default
+var auth = new maps4news.ImplicitFlow(clientId);
+var api = new maps4news.Maps4News(auth);
+
+// This will hijack the page if no authentication cache can
+// be found. Smartest thing to do is to just let it happen
+// and initialize any other code afterwards.
+api.authenticate().then(function() {
+  // Get the current user and dump the result to the console.
+  api.users.get(&apos;me&apos;).then(console.dir);
+});</code>
+</code></pre><h3>Implicit flow pop-up</h3><p>Just like the Implicit Flow a client id is required. </p><pre><code class="lang-js"><code class="source-code prettyprint">// Obtained client id
+var clientId = 1;
+
+// Callback url is set to the current url by default. The
+// script is smart enough close the page if it detects that
+// it&apos;s a child after authentication. This means that either
+// the current page can be set as the callback (default) or
+// a custom page that just contains `api.authenticate()`
+// that uses ImplicitFlowPopup as the auth parameter.
+var auth = new maps4news.ImplicitFlowPopup(clientId);
+var api = new maps4news.Maps4News(auth);
+
+// This will create a pop-up window containing the log in
+// page. Once the pop-up redirects back to the callback it
+// will resolve the promise. The callback page should contain
+api.authenticate().then(function() {
+  // Get the current user and dump the result to the console.
+  api.users.get(&apos;me&apos;).then(console.dir);
+});</code>
+</code></pre><h3>Implicit flow pop-up (advanced)</h3><p>Due to the nature of the implicit flow pop-up (referred to as IFP from now on)
+method the callback page can be set to a blank page that just grabs the token 
+and then closes. This can be done in the following way.</p><p><strong>index.html:</strong></p><pre><code class="lang-js"><code class="source-code prettyprint">var clientId = 1;
+var callbackUrl = &apos;https://example.com/callback.html&apos;;
+
+var auth = new maps4news.ImplicitFlowPopup(clientId);
+var api = new maps4news.Maps4News(auth);
+
+// This will resolve once the callback page has been loaded
+api.authenticate().then(function() {
+  // Get the current user and dump the result to the console.
+  api.users.get(&apos;me&apos;).then(console.dir);
+});</code>
+</code></pre><p><strong>callback.html:</strong></p><pre><code class="lang-js"><code class="source-code prettyprint">var clientId = 1;
+
+// This will instantly detect the token and close the page
+new maps4news.ImplicitFlowPopup(clientId);</code>
+</code></pre><h3>Password flow (dangerous)</h3><p>The password flow is <strong>NOT</strong> intended to be used in the browser. If you do 
+decide to use the password flow then it is recommended to make sure that 
+the site is <strong>NOT</strong> public facing and using HTTPS. Leaking the <a href="https://www.youtube.com/watch?v=zwZISypgA9M">secret</a> is
+a very bad idea.</p><pre><code class="lang-js"><code class="source-code prettyprint">var clientId = 1; // client id
+var secret = &apos;&apos;; // secret
+var username = &apos;user@example.com&apos;; // email is used for authentication
+var password = &apos;Password1!&apos;; // password
+
+// Secret will be leaked if this is used on a webpage. Please only use
+// this for non-web applications.
+var auth = new maps4news.PasswordFlow(clientId, secret, username, password);
+var api = new maps4news.Maps4News(auth);
+
+// This will resolve once the authentication has completed
+api.authenticate().then(function() {
+  // Get the current user and dump the result to the console.
+  api.users.get(&apos;me&apos;).then(console.dir);
+});</code>
+</code></pre><h3>Dummy flow</h3><p>The dummy flow can be used when a token <em>should</em> be present in the cache. </p><pre><code class="lang-js"><code class="source-code prettyprint">var auth = new maps4news.DummyFlow();
+var api = new maps4news.Maps4News(auth);
+
+// Manually check if we&apos;re logged in
+if (api.authenticated) {
+    console.log(&apos;Found authentication token in cache!&apos;);
+}
+
+api.authenticate().then(function() {
+    // Will only resolve if a token was found
+    console.log(&quot;We&apos;re authenticated&quot;);
+}).catch(function(err) {
+    // This will be called if `api.authenticated` is false
+    console.log(err.toString());
+});</code>
+</code></pre><h2>Nodejs</h2><p>The library currently only supports the password flow and the dummy flow
+for <a href="https://nodejs.org">nodejs</a>. Other flows might be added in the future.</p><h3>Password Flow</h3><p>Make sure to store your <a href="https://www.youtube.com/watch?v=zwZISypgA9M">secret</a> somewhere safe and to only store the token
+and <strong>never</strong> the unencrypted user password.</p><pre><code class="lang-js"><code class="source-code prettyprint">var clientId = 1; // client id
+var secret = &apos;&apos;; // secret
+var username = &apos;user@example.com&apos;; // email is used for authentication
+var password = &apos;Password1!&apos;; // password
+
+var auth = new maps4news.PasswordFlow(clientId, secret, username, password);
+var api = new maps4news.Maps4News(auth);
+
+// This will resolve once the authentication has completed
+api.authenticate().then(function() {
+  // Get the current user and dump the result to the console.
+  api.users.get(&apos;me&apos;).then(console.dir);
+});</code>
+</code></pre><h3>Dummy flow</h3><p>The dummy flow can also be used when a token is known.</p><pre><code class="lang-js"><code class="source-code prettyprint">var auth = new maps4news.DummyFlow();
+var api = new maps4news.Maps4News(auth);
+
+var token = {
+  token: &quot;eyJ0eXAiOiJKV1...&quot;,
+  type: &quot;Bearer&quot;,
+  expires: &quot;Thu, 18 May 2017 14:14:38 GMT&quot;
+};
+
+// Set the token
+api.auth.token = maps4news.OAuthToken.fromResponseObject(token);
+
+// Manually check if we&apos;re logged in
+if (api.authenticated) {
+    console.log(&apos;Found authentication token in cache!&apos;);
+}
+
+api.authenticate().then(function() {
+    // Will only resolve if a token was found
+    console.log(&quot;We&apos;re authenticated&quot;);
+}).catch(function(err) {
+    // This will be called if `api.authenticated` is false
+    console.log(err.toString());
+});</code>
+</code></pre></div>
+        <a data-ice="link" href="manual/example/examples.authentication.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <h1 data-ice="label" class="manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">References</span></h1>
+      <div class="manual-card">
+        <div data-ice="card"><h1>References</h1>
+<div data-ice="classSummary"><h2 id="class">Class Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Class Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractClassError.html">AbstractClassError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Thrown upon invocation of an abstract class</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractError.html">AbstractError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Thrown by abstract methods and classes</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractMethodError.html">AbstractMethodError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Thrown upon invocation of an abstract method</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/exceptions/ApiError.js~ApiError.html">ApiError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Errors generated by the API</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Choropleth resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Color resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Contract resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      <span class="abstract" data-ice="abstract">abstract</span>
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Base of all resource items that support Crud operations</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      <span class="abstract" data-ice="abstract">abstract</span>
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Crud base for resource sets</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Dimension.js~Dimension.html">Dimension</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Dimension resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/DimensionSet.js~DimensionSet.html">DimensionSet</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Dimension sets</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/oauth/DummyFlow.js~DummyFlow.html">DummyFlow</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Dummy flow for when the token should be available in the
+cache and no attempt at authentication should be made.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Faq.js~Faq.html">Faq</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Faq resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Feature.js~Feature.html">Feature</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Font.js~Font.html">Font</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/FontFamily.js~FontFamily.html">FontFamily</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Group.js~Group.html">Group</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Highlight.js~Highlight.html">Highlight</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/oauth/ImplicitFlow.js~ImplicitFlow.html">ImplicitFlow</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Implicit OAuth flow using redirection</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.html">ImplicitFlowPopup</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Implicit OAuth flow using a pop-up.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/InsetMap.js~InsetMap.html">InsetMap</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Job.js~Job.html">Job</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/JobResult.js~JobResult.html">JobResult</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/JobRevision.js~JobRevision.html">JobRevision</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/JobShare.js~JobShare.html">JobShare</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/JobType.js~JobType.html">JobType</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Language.js~Language.html">Language</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Layer.js~Layer.html">Layer</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Base API class</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Mapstyle.js~Mapstyle.html">Mapstyle</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/MapstyleSet.js~MapstyleSet.html">MapstyleSet</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Notification.js~Notification.html">Notification</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      <span class="abstract" data-ice="abstract">abstract</span>
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>OAuth base class</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/oauth/OAuthError.js~OAuthError.html">OAuthError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>OAuth error</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Oauth token container</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Proxy for accessing paginated resources</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Password authentication flow</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Permission.js~Permission.html">Permission</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/PlaceName.js~PlaceName.html">PlaceName</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      <span class="abstract" data-ice="abstract">abstract</span>
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Resource base</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/exceptions/StaticClassError.js~StaticClassError.html">StaticClassError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Thrown upon invocation of a static class</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/exceptions/ValidationError.js~ValidationError.html">ValidationError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Extension of <span><a href="class/src/exceptions/ApiError.js~ApiError.html">ApiError</a></span> containing an extra field for validation errors</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+<table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Protected Class Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/base/ImageHandler.js~ImageHandler.html">ImageHandler</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Image resource handler</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Proxy for accessing resource.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Disables the constructor and throws a <span><a href="class/src/exceptions/StaticClassError.js~StaticClassError.html">StaticClassError</a></span> when an instance is created.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/utils/uuid.js~Uuid.html">Uuid</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>UUID util class</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+</div>
+        <a data-ice="link" href="identifiers.html"></a>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/Maps4News.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/MapCreatorEU/m4n-api" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Dimension.js~Dimension.html">Dimension</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/DimensionSet.js~DimensionSet.html">DimensionSet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Faq.js~Faq.html">Faq</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Feature.js~Feature.html">Feature</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Font.js~Font.html">Font</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/FontFamily.js~FontFamily.html">FontFamily</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Group.js~Group.html">Group</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Highlight.js~Highlight.html">Highlight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/InsetMap.js~InsetMap.html">InsetMap</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Job.js~Job.html">Job</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/JobResult.js~JobResult.html">JobResult</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/JobRevision.js~JobRevision.html">JobRevision</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/JobShare.js~JobShare.html">JobShare</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/JobType.js~JobType.html">JobType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Language.js~Language.html">Language</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Layer.js~Layer.html">Layer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Mapstyle.js~Mapstyle.html">Mapstyle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/MapstyleSet.js~MapstyleSet.html">MapstyleSet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Notification.js~Notification.html">Notification</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Permission.js~Permission.html">Permission</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/PlaceName.js~PlaceName.html">PlaceName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ImageHandler.js~ImageHandler.html">ImageHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">exceptions</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractClassError.html">AbstractClassError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractError.html">AbstractError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractMethodError.html">AbstractMethodError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/ApiError.js~ApiError.html">ApiError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/StaticClassError.js~StaticClassError.html">StaticClassError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/ValidationError.js~ValidationError.html">ValidationError</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">oauth</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/DummyFlow.js~DummyFlow.html">DummyFlow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/ImplicitFlow.js~ImplicitFlow.html">ImplicitFlow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.html">ImplicitFlowPopup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthError.js~OAuthError.html">OAuthError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/uuid.js~Uuid.html">Uuid</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Maps4News.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// Polyfill for terrible browsers (looking at you IE)
+import &apos;babel-polyfill&apos;;
+
+import {isParentOf} from &apos;./utils/reflection&apos;;
+import OAuth from &apos;./oauth/OAuth&apos;;
+import {makeRequest} from &apos;./utils/requests&apos;;
+import ApiError from &apos;./exceptions/ApiError&apos;;
+import ValidationError from &apos;./exceptions/ValidationError&apos;;
+import ResourceProxy from &apos;./ResourceProxy&apos;;
+import Color from &apos;./crud/Color&apos;;
+import Choropleth from &apos;./crud/Choropleth&apos;;
+import Contract from &apos;./crud/Contract&apos;;
+import DimensionSet from &apos;./crud/DimensionSet&apos;;
+import Dimension from &apos;./crud/Dimension&apos;;
+import Faq from &apos;./crud/Faq&apos;;
+import Feature from &apos;./crud/Feature&apos;;
+import Group from &apos;./crud/Group&apos;;
+import FontFamily from &apos;./crud/FontFamily&apos;;
+import Font from &apos;./crud/Font&apos;;
+import Highlight from &apos;./crud/Highlight&apos;;
+import InsetMap from &apos;./crud/InsetMap&apos;;
+import User from &apos;./crud/User&apos;;
+import Notification from &apos;./crud/Notification&apos;;
+import Language from &apos;./crud/Language&apos;;
+import Layer from &apos;./crud/Layer&apos;;
+import Mapstyle from &apos;./crud/Mapstyle&apos;;
+import Permission from &apos;./crud/Permission&apos;;
+import MapstyleSet from &apos;./crud/MapstyleSet&apos;;
+import JobShare from &apos;./crud/JobShare&apos;;
+import Job from &apos;./crud/Job&apos;;
+import JobType from &apos;./crud/JobType&apos;;
+import Organisation from &apos;./crud/Organisation&apos;;
+import PlaceName from &apos;./crud/PlaceName&apos;;
+import Svg from &apos;./crud/Svg&apos;;
+import SvgSetType from &apos;./crud/SvgSetType&apos;;
+import SvgSet from &apos;./crud/SvgSet&apos;;
+
+/**
+ * Base API class
+ */
+export default class Maps4News {
+  /**
+   * @param {OAuth} auth - Authentication flow
+   * @param {string} host - Remote API host
+   */
+  constructor(auth, host = &apos;https://api.maps4news.com&apos;) {
+    this.auth = auth;
+    this.host = host;
+  }
+
+  /**
+   * Get api version
+   * @returns {string} - Api version
+   * @constant
+   */
+  get version() {
+    return &apos;v1&apos;;
+  }
+
+  /**
+   * Get authentication provider instance
+   * @returns {OAuth} - OAuth instance
+   */
+  get auth() {
+    return this._auth;
+  }
+
+  /**
+   * Set authentication provider instance
+   * @param {OAuth} value -- OAuth instance
+   */
+  set auth(value) {
+    if (!isParentOf(OAuth, value)) {
+      throw new TypeError(&apos;auth must be an instance of OAuth&apos;);
+    }
+
+    this._auth = value;
+  }
+
+  /**
+   * Test if the client is authenticated with the api and has a valid token
+   * @returns {boolean} - If the client is authenticated with the api
+   */
+  get authenticated() {
+    return this._auth.authenticated;
+  }
+
+  /**
+   * The current host
+   * @returns {string} - The current host
+   */
+  get host() {
+    return this._host;
+  }
+
+  /**
+   * The remote host
+   * @param {string} value - A valid url
+   */
+  set host(value) {
+    this._host = value;
+    this._auth.host = value;
+  }
+
+  /**
+   * Authenticate with the api using the authentication method provided.
+   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}
+   */
+  authenticate() {
+    return new Promise((resolve, reject) =&gt; {
+      this._auth.authenticate().then(() =&gt; {
+        this._auth.token.save();
+
+        resolve(this);
+      }).catch(reject);
+    });
+  }
+
+  /**
+   * Request an url using the API token (if available)
+   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls
+   * @param {string} method - Http method
+   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded
+   *                               and the content-type will be set to `application/json`
+   * @param {object} headers - Any headers that should be set for the request
+   * @param {string} responseType - The XmlHttpRequest type
+   * @param {boolean} raw - When set to true the promise will resolve with the request object
+   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}
+   */
+  request(url, method = &apos;GET&apos;, data = {}, headers = {}, responseType = &apos;&apos;, raw = false) {
+    if (!url.startsWith(&apos;http&apos;)) {
+      // Removes &apos;/&apos; at the start of the string (if any)
+      url = url.replace(/(^\/+)/, () =&gt; &apos;&apos;);
+      url = `${this._host}/${this.version}/${url}`;
+    }
+
+    if (this.authenticated) {
+      headers.Authorization = this._auth.token.toString();
+    }
+
+    return new Promise((resolve, reject) =&gt; {
+      makeRequest(url, method, data, headers, responseType).then(request =&gt; {
+        if (request.getResponseHeader(&apos;Content-Type&apos;) !== &apos;application/json&apos;) {
+          resolve(raw ? request : request.response);
+        } else {
+          const response = JSON.parse(request.responseText);
+
+          if (!response.success) {
+            const err = response.error;
+
+            if (!err.validation_errors) {
+              reject(new ApiError(err.type, err.message, request.status));
+            } else {
+              reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));
+            }
+          } else {
+            // Return an empty object if no data has been sent
+            // instead of returning undefined.
+            resolve(raw ? request : response.data || {});
+          }
+        }
+      }).catch(request =&gt; {
+        const err = JSON.parse(request.responseText).error;
+
+        reject(new ApiError(err.type, err.message, request.status));
+      });
+    });
+  }
+
+  /**
+   * Choropleth accessor
+   * @see {@link Choropleth}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get choropleths() {
+    return new ResourceProxy(this, Choropleth);
+  }
+
+  /**
+   * Color accessor
+   * @see {@link Color}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get colors() {
+    return new ResourceProxy(this, Color);
+  }
+
+  /**
+   * Contract accessor
+   * @see {@link Contract}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get contracts() {
+    return new ResourceProxy(this, Contract);
+  }
+
+  /**
+   * Dimension accessor
+   * @see {@link Dimension}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get dimensions() {
+    return new ResourceProxy(this, Dimension);
+  }
+
+  /**
+   * Dimension set accessor
+   * @see {@link DimensionSet}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get dimensionSets() {
+    return new ResourceProxy(this, DimensionSet);
+  }
+
+  /**
+   * Faq accessor
+   * @see {@link Faq}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get faqs() {
+    return new ResourceProxy(this, Faq);
+  }
+
+  /**
+   * Feature accessor
+   * @see {@link Feature}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get features() {
+    return new ResourceProxy(this, Feature);
+  }
+
+  /**
+   * Font accessor
+   * @see {@link Font}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get fonts() {
+    return new ResourceProxy(this, Font);
+  }
+
+  /**
+   * FontFamily accessor
+   * @see {@link FontFamily}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get fontFamilies() {
+    return new ResourceProxy(this, FontFamily);
+  }
+
+  /**
+   * Group accessor
+   * @see {@link Group}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get groups() {
+    return new ResourceProxy(this, Group);
+  }
+
+  /**
+   * Highlight accessor
+   * @see {@link Highlight}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get highlights() {
+    return new ResourceProxy(this, Highlight);
+  }
+
+  /**
+   * InsetMap accessor
+   * @see {@link InsetMap}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get insetMaps() {
+    return new ResourceProxy(this, InsetMap);
+  }
+
+  /**
+   * Job accessor
+   * @see {@link Job}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get jobs() {
+    return new ResourceProxy(this, Job);
+  }
+
+  /**
+   * JobShare accessor
+   * @see {@link JobShare}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get jobShares() {
+    return new ResourceProxy(this, JobShare);
+  }
+
+  /**
+   * JobType accessor
+   * @see {@link JobType}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get jobTypes() {
+    return new ResourceProxy(this, JobType);
+  }
+
+  /**
+   * Language accessor
+   * @see {@link Language}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get languages() {
+    return new ResourceProxy(this, Language);
+  }
+
+  /**
+   * Layer accessor
+   * @see {@link Layer}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get layers() {
+    return new ResourceProxy(this, Layer);
+  }
+
+  /**
+   * Mapstyle accessor
+   * @see {@link Mapstyle}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get mapstyles() {
+    return new ResourceProxy(this, Mapstyle);
+  }
+
+  /**
+   * MapstyleSet accessor
+   * @see {@link MapstyleSet}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get mapstylesSets() {
+    return new ResourceProxy(this, MapstyleSet);
+  }
+
+  /**
+   * Notification accessor
+   * @see {@link Notification}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get notifications() {
+    return new ResourceProxy(this, Notification);
+  }
+
+  /**
+   * Organisation accessor
+   * @see {@link Organisation}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get organisations() {
+    return new ResourceProxy(this, Organisation);
+  }
+
+  /**
+   * Permission accessor
+   * @see {@link Permission}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get permissions() {
+    return new ResourceProxy(this, Permission);
+  }
+
+  /**
+   * PlaceName accessor
+   * @see {@link PlaceName}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get placeNames() {
+    return new ResourceProxy(this, PlaceName);
+  }
+
+  /**
+   * Svg accessor
+   * @see {@link Svg}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get svgs() {
+    return new ResourceProxy(this, Svg);
+  }
+
+  /**
+   * SvgSet accessor
+   * @see {@link SvgSet}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get svgSets() {
+    return new ResourceProxy(this, SvgSet);
+  }
+
+  /**
+   * SvgSetType accessor
+   * @see {@link SvgSetType}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get svgSetTypes() {
+    return new ResourceProxy(this, SvgSetType);
+  }
+
+  /**
+   * User accessor
+   * @see {@link User}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get users() {
+    return new ResourceProxy(this, User);
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

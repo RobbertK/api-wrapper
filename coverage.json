@@ -1,0 +1,378 @@
+{
+  "coverage": "68.98%",
+  "expectCount": 287,
+  "actualCount": 198,
+  "files": {
+    "src/exceptions/AbstractError.js": {
+      "expectCount": 5,
+      "actualCount": 3,
+      "undocumentLines": [
+        10,
+        19
+      ]
+    },
+    "src/exceptions/ApiError.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
+    "src/crud/Choropleth.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/crud/Color.js": {
+      "expectCount": 3,
+      "actualCount": 1,
+      "undocumentLines": [
+        11,
+        7
+      ]
+    },
+    "src/crud/Contract.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/crud/base/CrudBase.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/crud/base/CrudSetBase.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/crud/Dimension.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/crud/DimensionSet.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        16,
+        8,
+        12
+      ]
+    },
+    "src/oauth/DummyFlow.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        9
+      ]
+    },
+    "src/crud/Faq.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/crud/Feature.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        8,
+        4
+      ]
+    },
+    "src/crud/Font.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/FontFamily.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        12,
+        4,
+        8
+      ]
+    },
+    "src/crud/Group.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        5,
+        22
+      ]
+    },
+    "src/crud/Highlight.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/base/ImageHandler.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/oauth/ImplicitFlow.js": {
+      "expectCount": 14,
+      "actualCount": 10,
+      "undocumentLines": [
+        32,
+        30,
+        56,
+        33
+      ]
+    },
+    "src/oauth/ImplicitFlowPopup.js": {
+      "expectCount": 6,
+      "actualCount": 5,
+      "undocumentLines": [
+        23
+      ]
+    },
+    "src/crud/InsetMap.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/Job.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        5,
+        22
+      ]
+    },
+    "src/crud/JobResult.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/JobRevision.js": {
+      "expectCount": 11,
+      "actualCount": 7,
+      "undocumentLines": [
+        6,
+        7,
+        11,
+        15
+      ]
+    },
+    "src/crud/JobShare.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        3,
+        22,
+        26
+      ]
+    },
+    "src/crud/JobType.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        12,
+        4,
+        8
+      ]
+    },
+    "src/crud/Language.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/Layer.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        4,
+        17,
+        13
+      ]
+    },
+    "src/Maps4News.js": {
+      "expectCount": 37,
+      "actualCount": 37,
+      "undocumentLines": []
+    },
+    "src/crud/Mapstyle.js": {
+      "expectCount": 3,
+      "actualCount": 1,
+      "undocumentLines": [
+        4,
+        13
+      ]
+    },
+    "src/crud/MapstyleSet.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        13,
+        5,
+        9
+      ]
+    },
+    "src/crud/Notification.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/oauth/OAuth.js": {
+      "expectCount": 9,
+      "actualCount": 4,
+      "undocumentLines": [
+        19,
+        22,
+        23,
+        20,
+        21
+      ]
+    },
+    "src/oauth/OAuthError.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/oauth/OAuthToken.js": {
+      "expectCount": 13,
+      "actualCount": 9,
+      "undocumentLines": [
+        22,
+        14,
+        15,
+        16
+      ]
+    },
+    "src/crud/Organisation.js": {
+      "expectCount": 16,
+      "actualCount": 14,
+      "undocumentLines": [
+        14,
+        90
+      ]
+    },
+    "src/PaginatedResourceListing.js": {
+      "expectCount": 15,
+      "actualCount": 15,
+      "undocumentLines": []
+    },
+    "src/oauth/PasswordFlow.js": {
+      "expectCount": 12,
+      "actualCount": 11,
+      "undocumentLines": [
+        116
+      ]
+    },
+    "src/crud/Permission.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/PlaceName.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/base/ResourceBase.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
+    "src/ResourceProxy.js": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/utils/StaticClass.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "src/exceptions/StaticClassError.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/crud/Svg.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/crud/SvgSet.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        13,
+        5,
+        9
+      ]
+    },
+    "src/crud/SvgSetType.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        14,
+        18
+      ]
+    },
+    "src/crud/User.js": {
+      "expectCount": 14,
+      "actualCount": 11,
+      "undocumentLines": [
+        14,
+        19,
+        15
+      ]
+    },
+    "src/utils/uuid.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/exceptions/ValidationError.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    }
+  }
+}
