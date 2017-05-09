@@ -10,6 +10,10 @@
   
   
   <script src="script/manual.js"></script>
+<script data-ice="userScript" src="user/script/0-bundle.js"></script>
+<script data-ice="userScript" src="user/script/1-sandbox.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="user/css/0-sidebar_fix.css">
+<link data-ice="userStyle" rel="stylesheet" href="user/css/1-hide_import.css">
 </head>
 <body class="layout-container manual-root manual-index" data-ice="rootContainer">
 
@@ -31,10 +35,17 @@
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
+<div data-ice="manual" data-toc-name="installation">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/installation.html"><a href="manual/installation/installation.html" data-ice="link">Installation</a></li>
+</ul>
+  </div>
 <div data-ice="manual" data-toc-name="example">
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;" data-link="manual/example/examples.html"><a href="manual/example/examples.html" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#getting-a-resource" data-ice="link">Getting a resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#create-a-new-resource" data-ice="link">Create a new resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#modify-a-resource" data-ice="link">Modify a resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#clone-a-resource" data-ice="link">Clone a resource</a></li>
@@ -69,10 +80,43 @@
   <div class="manual-cards">
     
   <div class="manual-card-wrap" data-ice="cards">
+      <h1 data-ice="label" class="manual-color manual-color-installation" data-section-count="&#x25A0;"><span data-ice="label-inner">Installation</span></h1>
+      <div class="manual-card">
+        <div data-ice="card"><h1>Installation</h1><p>Installation can be done through either <a href="https://npmjs.com">npm</a> or <a href="https://yarnpkg.com">yarn</a>.</p><pre><code class="lang-sh"><code class="source-code prettyprint">// Using npm
+npm install --save @mapcreator/maps4news
+
+// Using yarn
+yarn add @mapcreator/maps4news</code>
+</code></pre><p>After installation the package can be imported as follows:</p><pre><code class="lang-js"><code class="source-code prettyprint">var m4n = require(&apos;@mapcreator/maps4news&apos;);
+
+// Do stuff
+var auth = new m4n.ImplicitFlow(1);
+var api = new m4n.Maps4News(auth);</code>
+</code></pre><p>or using ES6 import statements:</p><pre><code class="lang-js"><code class="source-code prettyprint">import {Maps4News, DummyFlow} from &apos;@mapcreator/maps4news&apos;;
+
+// Do stuff
+var auth = new DummyFlow();
+var api = new Maps4News(auth);</code>
+</code></pre></div>
+        <a data-ice="link" href="manual/installation/installation.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
       <h1 data-ice="label" class="manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;"><span data-ice="label-inner">Basics</span></h1>
       <div class="manual-card">
         <div data-ice="card"><h1>Basics</h1><p>These examples assume that an instance of the api exists and is authenticated. 
-See the node and web authentication examples for more information on authenticating.</p><h3>Create a new resource</h3><p>Create a new color and dump the new resource to the console after saving</p><pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
+See the node and web authentication examples for more information on authenticating.</p><h3>Getting a resource</h3><p>Resources are bound to the base api class by default. Resources can be fetched in 
+two ways; by selecting them (<code>.select</code>) or by fetching them (<code>.get</code>). Selecting them will only set the
+object&apos;s id to it&apos;s properties. Fetching a resource</p><p>Fetch resource and all it&apos;s properties:</p><pre><code class="lang-js"><code class="source-code prettyprint">api.colors.get(1).then(function(color) {
+    console.log(color.id + &quot; &quot; + color.name + &quot;: &quot; + color.hex);
+})</code>
+</code></pre><p>Select the current user to quickly obtain related mapstyle sets:</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).mapstyleSets().then(function(sets) {
+    for(var i = 0; i &lt; sets.data.length; i++) {
+        console.log(sets.data[i].name);
+    }
+});</code>
+</code></pre><p>Selection is only usefull as a stepping stone to related resources that can be easily obtained 
+using the id of the parent. Please refer to the <a href="https://api.beta.maps4news.com/docs/">api documentation</a> for further reference.</p><h3>Create a new resource</h3><p>Create a new color and dump the new resource to the console after saving</p><pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
 api.colors.new(data).save().then(console.dir);</code>
 </code></pre><h3>Modify a resource</h3><p>Change profession of the current user and save it.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.get(&apos;me&apos;).then(me =&gt; {
   me.profession = &apos;Developer&apos;;
@@ -1123,6 +1167,34 @@ cache and no attempt at authentication should be made.</p>
         <p>
           
           
+          <span data-ice="name"><span><a href="class/src/exceptions/NodeError.js~NodeError.html">NodeError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Invoked upon nodejs specific errors</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
           <span data-ice="name"><span><a href="class/src/crud/Notification.js~Notification.html">Notification</a></span></span>
         </p>
       </div>
@@ -1488,6 +1560,34 @@ cache and no attempt at authentication should be made.</p>
         
         
         
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/exceptions/UnsupportedCrudError.js~UnsupportedCrudError.html">UnsupportedCrudError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Thrown upon invocation of an unsupported crud method</p>
+</div>
       </div>
     </td>
     <td>

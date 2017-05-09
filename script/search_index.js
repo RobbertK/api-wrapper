@@ -1,308 +1,320 @@
 window.esdocSearchIndex = [
   [
-    "maps4news/src/exceptions/abstracterror.js~abstractclasserror",
+    "@mapcreator/maps4news/src/exceptions/abstracterror.js~abstractclasserror",
     "class/src/exceptions/AbstractError.js~AbstractClassError.html",
-    "<span>AbstractClassError</span> <span class=\"search-result-import-path\">maps4news/src/exceptions/AbstractError.js</span>",
+    "<span>AbstractClassError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/AbstractError.js</span>",
     "class"
   ],
   [
-    "maps4news/src/exceptions/abstracterror.js~abstracterror",
+    "@mapcreator/maps4news/src/exceptions/abstracterror.js~abstracterror",
     "class/src/exceptions/AbstractError.js~AbstractError.html",
-    "<span>AbstractError</span> <span class=\"search-result-import-path\">maps4news/src/exceptions/AbstractError.js</span>",
+    "<span>AbstractError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/AbstractError.js</span>",
     "class"
   ],
   [
-    "maps4news/src/exceptions/abstracterror.js~abstractmethoderror",
+    "@mapcreator/maps4news/src/exceptions/abstracterror.js~abstractmethoderror",
     "class/src/exceptions/AbstractError.js~AbstractMethodError.html",
-    "<span>AbstractMethodError</span> <span class=\"search-result-import-path\">maps4news/src/exceptions/AbstractError.js</span>",
+    "<span>AbstractMethodError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/AbstractError.js</span>",
     "class"
   ],
   [
-    "maps4news/src/exceptions/apierror.js~apierror",
+    "@mapcreator/maps4news/src/exceptions/apierror.js~apierror",
     "class/src/exceptions/ApiError.js~ApiError.html",
-    "<span>ApiError</span> <span class=\"search-result-import-path\">maps4news/src/exceptions/ApiError.js</span>",
+    "<span>ApiError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/ApiError.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/choropleth.js~choropleth",
+    "@mapcreator/maps4news/src/crud/choropleth.js~choropleth",
     "class/src/crud/Choropleth.js~Choropleth.html",
-    "<span>Choropleth</span> <span class=\"search-result-import-path\">maps4news/src/crud/Choropleth.js</span>",
+    "<span>Choropleth</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Choropleth.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/color.js~color",
+    "@mapcreator/maps4news/src/crud/color.js~color",
     "class/src/crud/Color.js~Color.html",
-    "<span>Color</span> <span class=\"search-result-import-path\">maps4news/src/crud/Color.js</span>",
+    "<span>Color</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Color.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/contract.js~contract",
+    "@mapcreator/maps4news/src/crud/contract.js~contract",
     "class/src/crud/Contract.js~Contract.html",
-    "<span>Contract</span> <span class=\"search-result-import-path\">maps4news/src/crud/Contract.js</span>",
+    "<span>Contract</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Contract.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/base/crudbase.js~crudbase",
+    "@mapcreator/maps4news/src/crud/base/crudbase.js~crudbase",
     "class/src/crud/base/CrudBase.js~CrudBase.html",
-    "<span>CrudBase</span> <span class=\"search-result-import-path\">maps4news/src/crud/base/CrudBase.js</span>",
+    "<span>CrudBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/CrudBase.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/base/crudsetbase.js~crudsetbase",
+    "@mapcreator/maps4news/src/crud/base/crudsetbase.js~crudsetbase",
     "class/src/crud/base/CrudSetBase.js~CrudSetBase.html",
-    "<span>CrudSetBase</span> <span class=\"search-result-import-path\">maps4news/src/crud/base/CrudSetBase.js</span>",
+    "<span>CrudSetBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/CrudSetBase.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/dimension.js~dimension",
+    "@mapcreator/maps4news/src/crud/dimension.js~dimension",
     "class/src/crud/Dimension.js~Dimension.html",
-    "<span>Dimension</span> <span class=\"search-result-import-path\">maps4news/src/crud/Dimension.js</span>",
+    "<span>Dimension</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Dimension.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/dimensionset.js~dimensionset",
+    "@mapcreator/maps4news/src/crud/dimensionset.js~dimensionset",
     "class/src/crud/DimensionSet.js~DimensionSet.html",
-    "<span>DimensionSet</span> <span class=\"search-result-import-path\">maps4news/src/crud/DimensionSet.js</span>",
+    "<span>DimensionSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/DimensionSet.js</span>",
     "class"
   ],
   [
-    "maps4news/src/oauth/dummyflow.js~dummyflow",
+    "@mapcreator/maps4news/src/oauth/dummyflow.js~dummyflow",
     "class/src/oauth/DummyFlow.js~DummyFlow.html",
-    "<span>DummyFlow</span> <span class=\"search-result-import-path\">maps4news/src/oauth/DummyFlow.js</span>",
+    "<span>DummyFlow</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/DummyFlow.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/faq.js~faq",
+    "@mapcreator/maps4news/src/crud/faq.js~faq",
     "class/src/crud/Faq.js~Faq.html",
-    "<span>Faq</span> <span class=\"search-result-import-path\">maps4news/src/crud/Faq.js</span>",
+    "<span>Faq</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Faq.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/feature.js~feature",
+    "@mapcreator/maps4news/src/crud/feature.js~feature",
     "class/src/crud/Feature.js~Feature.html",
-    "<span>Feature</span> <span class=\"search-result-import-path\">maps4news/src/crud/Feature.js</span>",
+    "<span>Feature</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Feature.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/font.js~font",
+    "@mapcreator/maps4news/src/crud/font.js~font",
     "class/src/crud/Font.js~Font.html",
-    "<span>Font</span> <span class=\"search-result-import-path\">maps4news/src/crud/Font.js</span>",
+    "<span>Font</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Font.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/fontfamily.js~fontfamily",
+    "@mapcreator/maps4news/src/crud/fontfamily.js~fontfamily",
     "class/src/crud/FontFamily.js~FontFamily.html",
-    "<span>FontFamily</span> <span class=\"search-result-import-path\">maps4news/src/crud/FontFamily.js</span>",
+    "<span>FontFamily</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/FontFamily.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/group.js~group",
+    "@mapcreator/maps4news/src/crud/group.js~group",
     "class/src/crud/Group.js~Group.html",
-    "<span>Group</span> <span class=\"search-result-import-path\">maps4news/src/crud/Group.js</span>",
+    "<span>Group</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Group.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/highlight.js~highlight",
+    "@mapcreator/maps4news/src/crud/highlight.js~highlight",
     "class/src/crud/Highlight.js~Highlight.html",
-    "<span>Highlight</span> <span class=\"search-result-import-path\">maps4news/src/crud/Highlight.js</span>",
+    "<span>Highlight</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Highlight.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/base/imagehandler.js~imagehandler",
+    "@mapcreator/maps4news/src/crud/base/imagehandler.js~imagehandler",
     "class/src/crud/base/ImageHandler.js~ImageHandler.html",
-    "<span>ImageHandler</span> <span class=\"search-result-import-path\">maps4news/src/crud/base/ImageHandler.js</span>",
+    "<span>ImageHandler</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/ImageHandler.js</span>",
     "class"
   ],
   [
-    "maps4news/src/oauth/implicitflow.js~implicitflow",
+    "@mapcreator/maps4news/src/oauth/implicitflow.js~implicitflow",
     "class/src/oauth/ImplicitFlow.js~ImplicitFlow.html",
-    "<span>ImplicitFlow</span> <span class=\"search-result-import-path\">maps4news/src/oauth/ImplicitFlow.js</span>",
+    "<span>ImplicitFlow</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/ImplicitFlow.js</span>",
     "class"
   ],
   [
-    "maps4news/src/oauth/implicitflowpopup.js~implicitflowpopup",
+    "@mapcreator/maps4news/src/oauth/implicitflowpopup.js~implicitflowpopup",
     "class/src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.html",
-    "<span>ImplicitFlowPopup</span> <span class=\"search-result-import-path\">maps4news/src/oauth/ImplicitFlowPopup.js</span>",
+    "<span>ImplicitFlowPopup</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/ImplicitFlowPopup.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/insetmap.js~insetmap",
+    "@mapcreator/maps4news/src/crud/insetmap.js~insetmap",
     "class/src/crud/InsetMap.js~InsetMap.html",
-    "<span>InsetMap</span> <span class=\"search-result-import-path\">maps4news/src/crud/InsetMap.js</span>",
+    "<span>InsetMap</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/InsetMap.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/job.js~job",
+    "@mapcreator/maps4news/src/crud/job.js~job",
     "class/src/crud/Job.js~Job.html",
-    "<span>Job</span> <span class=\"search-result-import-path\">maps4news/src/crud/Job.js</span>",
+    "<span>Job</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Job.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/jobresult.js~jobresult",
+    "@mapcreator/maps4news/src/crud/jobresult.js~jobresult",
     "class/src/crud/JobResult.js~JobResult.html",
-    "<span>JobResult</span> <span class=\"search-result-import-path\">maps4news/src/crud/JobResult.js</span>",
+    "<span>JobResult</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobResult.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/jobrevision.js~jobrevision",
+    "@mapcreator/maps4news/src/crud/jobrevision.js~jobrevision",
     "class/src/crud/JobRevision.js~JobRevision.html",
-    "<span>JobRevision</span> <span class=\"search-result-import-path\">maps4news/src/crud/JobRevision.js</span>",
+    "<span>JobRevision</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobRevision.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/jobshare.js~jobshare",
+    "@mapcreator/maps4news/src/crud/jobshare.js~jobshare",
     "class/src/crud/JobShare.js~JobShare.html",
-    "<span>JobShare</span> <span class=\"search-result-import-path\">maps4news/src/crud/JobShare.js</span>",
+    "<span>JobShare</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobShare.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/jobtype.js~jobtype",
+    "@mapcreator/maps4news/src/crud/jobtype.js~jobtype",
     "class/src/crud/JobType.js~JobType.html",
-    "<span>JobType</span> <span class=\"search-result-import-path\">maps4news/src/crud/JobType.js</span>",
+    "<span>JobType</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobType.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/language.js~language",
+    "@mapcreator/maps4news/src/crud/language.js~language",
     "class/src/crud/Language.js~Language.html",
-    "<span>Language</span> <span class=\"search-result-import-path\">maps4news/src/crud/Language.js</span>",
+    "<span>Language</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Language.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/layer.js~layer",
+    "@mapcreator/maps4news/src/crud/layer.js~layer",
     "class/src/crud/Layer.js~Layer.html",
-    "<span>Layer</span> <span class=\"search-result-import-path\">maps4news/src/crud/Layer.js</span>",
+    "<span>Layer</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Layer.js</span>",
     "class"
   ],
   [
-    "maps4news~maps4news",
+    "@mapcreator/maps4news/src/maps4news.js~maps4news",
     "class/src/Maps4News.js~Maps4News.html",
-    "<span>Maps4News</span> <span class=\"search-result-import-path\">maps4news</span>",
+    "<span>Maps4News</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/Maps4News.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/mapstyle.js~mapstyle",
+    "@mapcreator/maps4news/src/crud/mapstyle.js~mapstyle",
     "class/src/crud/Mapstyle.js~Mapstyle.html",
-    "<span>Mapstyle</span> <span class=\"search-result-import-path\">maps4news/src/crud/Mapstyle.js</span>",
+    "<span>Mapstyle</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Mapstyle.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/mapstyleset.js~mapstyleset",
+    "@mapcreator/maps4news/src/crud/mapstyleset.js~mapstyleset",
     "class/src/crud/MapstyleSet.js~MapstyleSet.html",
-    "<span>MapstyleSet</span> <span class=\"search-result-import-path\">maps4news/src/crud/MapstyleSet.js</span>",
+    "<span>MapstyleSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/MapstyleSet.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/notification.js~notification",
+    "@mapcreator/maps4news/src/exceptions/nodeerror.js~nodeerror",
+    "class/src/exceptions/NodeError.js~NodeError.html",
+    "<span>NodeError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/NodeError.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/crud/notification.js~notification",
     "class/src/crud/Notification.js~Notification.html",
-    "<span>Notification</span> <span class=\"search-result-import-path\">maps4news/src/crud/Notification.js</span>",
+    "<span>Notification</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Notification.js</span>",
     "class"
   ],
   [
-    "maps4news/src/oauth/oauth.js~oauth",
+    "@mapcreator/maps4news/src/oauth/oauth.js~oauth",
     "class/src/oauth/OAuth.js~OAuth.html",
-    "<span>OAuth</span> <span class=\"search-result-import-path\">maps4news/src/oauth/OAuth.js</span>",
+    "<span>OAuth</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/OAuth.js</span>",
     "class"
   ],
   [
-    "maps4news/src/oauth/oautherror.js~oautherror",
+    "@mapcreator/maps4news/src/oauth/oautherror.js~oautherror",
     "class/src/oauth/OAuthError.js~OAuthError.html",
-    "<span>OAuthError</span> <span class=\"search-result-import-path\">maps4news/src/oauth/OAuthError.js</span>",
+    "<span>OAuthError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/OAuthError.js</span>",
     "class"
   ],
   [
-    "maps4news/src/oauth/oauthtoken.js~oauthtoken",
+    "@mapcreator/maps4news/src/oauth/oauthtoken.js~oauthtoken",
     "class/src/oauth/OAuthToken.js~OAuthToken.html",
-    "<span>OAuthToken</span> <span class=\"search-result-import-path\">maps4news/src/oauth/OAuthToken.js</span>",
+    "<span>OAuthToken</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/OAuthToken.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/organisation.js~organisation",
+    "@mapcreator/maps4news/src/crud/organisation.js~organisation",
     "class/src/crud/Organisation.js~Organisation.html",
-    "<span>Organisation</span> <span class=\"search-result-import-path\">maps4news/src/crud/Organisation.js</span>",
+    "<span>Organisation</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Organisation.js</span>",
     "class"
   ],
   [
-    "maps4news/src/paginatedresourcelisting.js~paginatedresourcelisting",
+    "@mapcreator/maps4news/src/paginatedresourcelisting.js~paginatedresourcelisting",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html",
-    "<span>PaginatedResourceListing</span> <span class=\"search-result-import-path\">maps4news/src/PaginatedResourceListing.js</span>",
+    "<span>PaginatedResourceListing</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/PaginatedResourceListing.js</span>",
     "class"
   ],
   [
-    "maps4news/src/oauth/passwordflow.js~passwordflow",
+    "@mapcreator/maps4news/src/oauth/passwordflow.js~passwordflow",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html",
-    "<span>PasswordFlow</span> <span class=\"search-result-import-path\">maps4news/src/oauth/PasswordFlow.js</span>",
+    "<span>PasswordFlow</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/PasswordFlow.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/permission.js~permission",
+    "@mapcreator/maps4news/src/crud/permission.js~permission",
     "class/src/crud/Permission.js~Permission.html",
-    "<span>Permission</span> <span class=\"search-result-import-path\">maps4news/src/crud/Permission.js</span>",
+    "<span>Permission</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Permission.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/placename.js~placename",
+    "@mapcreator/maps4news/src/crud/placename.js~placename",
     "class/src/crud/PlaceName.js~PlaceName.html",
-    "<span>PlaceName</span> <span class=\"search-result-import-path\">maps4news/src/crud/PlaceName.js</span>",
+    "<span>PlaceName</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/PlaceName.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/base/resourcebase.js~resourcebase",
+    "@mapcreator/maps4news/src/crud/base/resourcebase.js~resourcebase",
     "class/src/crud/base/ResourceBase.js~ResourceBase.html",
-    "<span>ResourceBase</span> <span class=\"search-result-import-path\">maps4news/src/crud/base/ResourceBase.js</span>",
+    "<span>ResourceBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/ResourceBase.js</span>",
     "class"
   ],
   [
-    "maps4news/src/resourceproxy.js~resourceproxy",
+    "@mapcreator/maps4news/src/resourceproxy.js~resourceproxy",
     "class/src/ResourceProxy.js~ResourceProxy.html",
-    "<span>ResourceProxy</span> <span class=\"search-result-import-path\">maps4news/src/ResourceProxy.js</span>",
+    "<span>ResourceProxy</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/ResourceProxy.js</span>",
     "class"
   ],
   [
-    "maps4news/src/utils/staticclass.js~staticclass",
+    "@mapcreator/maps4news/src/utils/staticclass.js~staticclass",
     "class/src/utils/StaticClass.js~StaticClass.html",
-    "<span>StaticClass</span> <span class=\"search-result-import-path\">maps4news/src/utils/StaticClass.js</span>",
+    "<span>StaticClass</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/StaticClass.js</span>",
     "class"
   ],
   [
-    "maps4news/src/exceptions/staticclasserror.js~staticclasserror",
+    "@mapcreator/maps4news/src/exceptions/staticclasserror.js~staticclasserror",
     "class/src/exceptions/StaticClassError.js~StaticClassError.html",
-    "<span>StaticClassError</span> <span class=\"search-result-import-path\">maps4news/src/exceptions/StaticClassError.js</span>",
+    "<span>StaticClassError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/StaticClassError.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/svg.js~svg",
+    "@mapcreator/maps4news/src/crud/svg.js~svg",
     "class/src/crud/Svg.js~Svg.html",
-    "<span>Svg</span> <span class=\"search-result-import-path\">maps4news/src/crud/Svg.js</span>",
+    "<span>Svg</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Svg.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/svgset.js~svgset",
+    "@mapcreator/maps4news/src/crud/svgset.js~svgset",
     "class/src/crud/SvgSet.js~SvgSet.html",
-    "<span>SvgSet</span> <span class=\"search-result-import-path\">maps4news/src/crud/SvgSet.js</span>",
+    "<span>SvgSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/SvgSet.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/svgsettype.js~svgsettype",
+    "@mapcreator/maps4news/src/crud/svgsettype.js~svgsettype",
     "class/src/crud/SvgSetType.js~SvgSetType.html",
-    "<span>SvgSetType</span> <span class=\"search-result-import-path\">maps4news/src/crud/SvgSetType.js</span>",
+    "<span>SvgSetType</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/SvgSetType.js</span>",
     "class"
   ],
   [
-    "maps4news/src/crud/user.js~user",
+    "@mapcreator/maps4news/src/exceptions/unsupportedcruderror.js~unsupportedcruderror",
+    "class/src/exceptions/UnsupportedCrudError.js~UnsupportedCrudError.html",
+    "<span>UnsupportedCrudError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/UnsupportedCrudError.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/crud/user.js~user",
     "class/src/crud/User.js~User.html",
-    "<span>User</span> <span class=\"search-result-import-path\">maps4news/src/crud/User.js</span>",
+    "<span>User</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/User.js</span>",
     "class"
   ],
   [
-    "maps4news/src/utils/uuid.js~uuid",
+    "@mapcreator/maps4news/src/utils/uuid.js~uuid",
     "class/src/utils/uuid.js~Uuid.html",
-    "<span>Uuid</span> <span class=\"search-result-import-path\">maps4news/src/utils/uuid.js</span>",
+    "<span>Uuid</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/uuid.js</span>",
     "class"
   ],
   [
-    "maps4news/src/exceptions/validationerror.js~validationerror",
+    "@mapcreator/maps4news/src/exceptions/validationerror.js~validationerror",
     "class/src/exceptions/ValidationError.js~ValidationError.html",
-    "<span>ValidationError</span> <span class=\"search-result-import-path\">maps4news/src/exceptions/ValidationError.js</span>",
+    "<span>ValidationError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/ValidationError.js</span>",
     "class"
   ],
   [
@@ -643,13 +655,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -739,13 +751,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1920,9 +1932,21 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/exceptions/nodeerror.js",
+    "file/src/exceptions/NodeError.js.html",
+    "src/exceptions/NodeError.js",
+    "file"
+  ],
+  [
     "src/exceptions/staticclasserror.js",
     "file/src/exceptions/StaticClassError.js.html",
     "src/exceptions/StaticClassError.js",
+    "file"
+  ],
+  [
+    "src/exceptions/unsupportedcruderror.js",
+    "file/src/exceptions/UnsupportedCrudError.js.html",
+    "src/exceptions/UnsupportedCrudError.js",
     "file"
   ],
   [
@@ -2238,6 +2262,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/oauth/oauthtoken.js~oauthtoken.nodetokenfilename",
+    "class/src/oauth/OAuthToken.js~OAuthToken.html#static-get-nodeTokenFilename",
+    "src/oauth/OAuthToken.js~OAuthToken.nodeTokenFilename",
+    "member"
+  ],
+  [
     "src/oauth/oauthtoken.js~oauthtoken.recover",
     "class/src/oauth/OAuthToken.js~OAuthToken.html#static-method-recover",
     "src/oauth/OAuthToken.js~OAuthToken.recover",
@@ -2269,13 +2299,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
@@ -2293,13 +2323,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],

@@ -1,14 +1,14 @@
 {
-  "coverage": "68.98%",
-  "expectCount": 287,
-  "actualCount": 198,
+  "coverage": "69.31%",
+  "expectCount": 290,
+  "actualCount": 201,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
-        10,
-        19
+        19,
+        10
       ]
     },
     "src/exceptions/ApiError.js": {
@@ -171,10 +171,10 @@
       "expectCount": 11,
       "actualCount": 7,
       "undocumentLines": [
-        6,
         7,
-        11,
-        15
+        8,
+        12,
+        16
       ]
     },
     "src/crud/JobShare.js": {
@@ -236,6 +236,11 @@
         9
       ]
     },
+    "src/exceptions/NodeError.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/crud/Notification.js": {
       "expectCount": 2,
       "actualCount": 0,
@@ -261,13 +266,13 @@
       "undocumentLines": []
     },
     "src/oauth/OAuthToken.js": {
-      "expectCount": 13,
-      "actualCount": 9,
+      "expectCount": 14,
+      "actualCount": 10,
       "undocumentLines": [
-        22,
-        14,
+        23,
         15,
-        16
+        16,
+        17
       ]
     },
     "src/crud/Organisation.js": {
@@ -350,10 +355,15 @@
       "expectCount": 3,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        14,
-        18
+        4,
+        15,
+        19
       ]
+    },
+    "src/exceptions/UnsupportedCrudError.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "src/crud/User.js": {
       "expectCount": 14,

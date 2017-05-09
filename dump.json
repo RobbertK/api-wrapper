@@ -19,7 +19,7 @@
     "longname": "src/Maps4News.js~Maps4News",
     "access": null,
     "export": true,
-    "importPath": "maps4news",
+    "importPath": "@mapcreator/maps4news/src/Maps4News.js",
     "importStyle": "Maps4News",
     "description": "Base API class",
     "lineNumber": 41,
@@ -1427,7 +1427,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/PaginatedResourceListing.js",
+    "importPath": "@mapcreator/maps4news/src/PaginatedResourceListing.js",
     "importStyle": "PaginatedResourceListing",
     "description": "Proxy for accessing paginated resources",
     "lineNumber": 8,
@@ -2193,7 +2193,7 @@
     "longname": "src/ResourceProxy.js~ResourceProxy",
     "access": "protected",
     "export": true,
-    "importPath": "maps4news/src/ResourceProxy.js",
+    "importPath": "@mapcreator/maps4news/src/ResourceProxy.js",
     "importStyle": "ResourceProxy",
     "description": "Proxy for accessing resource. This will make sure that they\nare properly wrapped before the promise resolves.",
     "lineNumber": 10,
@@ -2571,7 +2571,7 @@
     "longname": "src/crud/Choropleth.js~Choropleth",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Choropleth.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Choropleth.js",
     "importStyle": "Choropleth",
     "description": "Choropleth resource",
     "lineNumber": 6,
@@ -2625,7 +2625,7 @@
     "longname": "src/crud/Color.js~Color",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Color.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Color.js",
     "importStyle": "Color",
     "description": "Color resource",
     "lineNumber": 6,
@@ -2704,7 +2704,7 @@
     "longname": "src/crud/Contract.js~Contract",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Contract.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Contract.js",
     "importStyle": "Contract",
     "description": "Contract resource",
     "lineNumber": 6,
@@ -2758,7 +2758,7 @@
     "longname": "src/crud/Dimension.js~Dimension",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Dimension.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Dimension.js",
     "importStyle": "Dimension",
     "description": "Dimension resource",
     "lineNumber": 6,
@@ -2812,7 +2812,7 @@
     "longname": "src/crud/DimensionSet.js~DimensionSet",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/DimensionSet.js",
+    "importPath": "@mapcreator/maps4news/src/crud/DimensionSet.js",
     "importStyle": "DimensionSet",
     "description": "Dimension sets",
     "lineNumber": 7,
@@ -2941,7 +2941,7 @@
     "longname": "src/crud/Faq.js~Faq",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Faq.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Faq.js",
     "importStyle": "Faq",
     "description": "Faq resource",
     "lineNumber": 6,
@@ -2995,7 +2995,7 @@
     "longname": "src/crud/Feature.js~Feature",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Feature.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Feature.js",
     "importStyle": "Feature",
     "description": null,
     "lineNumber": 3,
@@ -3081,7 +3081,7 @@
     "longname": "src/crud/Font.js~Font",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Font.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Font.js",
     "importStyle": "Font",
     "description": null,
     "lineNumber": 3,
@@ -3142,7 +3142,7 @@
     "longname": "src/crud/FontFamily.js~FontFamily",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/FontFamily.js",
+    "importPath": "@mapcreator/maps4news/src/crud/FontFamily.js",
     "importStyle": "FontFamily",
     "description": null,
     "lineNumber": 3,
@@ -3253,7 +3253,7 @@
     "longname": "src/crud/Group.js~Group",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Group.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Group.js",
     "importStyle": "Group",
     "description": null,
     "lineNumber": 5,
@@ -3370,7 +3370,7 @@
     "longname": "src/crud/Highlight.js~Highlight",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Highlight.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Highlight.js",
     "importStyle": "Highlight",
     "description": null,
     "lineNumber": 3,
@@ -3431,7 +3431,7 @@
     "longname": "src/crud/InsetMap.js~InsetMap",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/InsetMap.js",
+    "importPath": "@mapcreator/maps4news/src/crud/InsetMap.js",
     "importStyle": "InsetMap",
     "description": null,
     "lineNumber": 3,
@@ -3492,7 +3492,7 @@
     "longname": "src/crud/Job.js~Job",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Job.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Job.js",
     "importStyle": "Job",
     "description": null,
     "lineNumber": 5,
@@ -3609,7 +3609,7 @@
     "longname": "src/crud/JobResult.js~JobResult",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/JobResult.js",
+    "importPath": "@mapcreator/maps4news/src/crud/JobResult.js",
     "importStyle": "JobResult",
     "description": null,
     "lineNumber": 3,
@@ -3718,7 +3718,7 @@
     "__docId__": 134,
     "kind": "file",
     "name": "src/crud/JobRevision.js",
-    "content": "import CrudBase from './base/CrudBase';\nimport Layer from './Layer';\nimport JobShare from './JobShare';\nimport JobResult from './JobResult';\n\nexport default class JobRevision extends CrudBase {\n  get baseUrl() {\n    return `/jobs/${this['job_id']}/revisions`;\n  }\n\n  get path() {\n    return '/jobs/{job_id}/revisions/{id}';\n  }\n\n  get resourceName() {\n    return 'job-revisions';\n  }\n\n  /**\n   * Save updated job revision\n   * @returns {void}\n   * @todo unimplemented\n   */\n  save() {\n    throw new Error('Unimplemented');\n  }\n\n  /**\n   * Get job object\n   * @returns {Promise} - Resolves with {@link Object} instance containing the map object and rejects with {@link OAuthError}\n   * @todo document object format\n   */\n  object() {\n    const url = `${this.url}/object`;\n\n    return this.api.request(url);\n  }\n\n  /**\n   * Build the revision\n   * @param {String} callbackUrl - Optional callback url for when the job completes\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link OAuthError}\n   */\n  build(callbackUrl) {\n    const url = `${this.url}/build`;\n    const data = {callback: callbackUrl};\n\n    return this.api.request(url, 'POST', data);\n  }\n\n  /**\n   * Cancels a running job\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link OAuthError}\n   */\n  cancel() {\n    const url = `${this.url}/cancel`;\n\n    return this.api.request(url, 'POST');\n  }\n\n  /**\n   * Get layers\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link OAuthError}\n   */\n  layers() {\n    return this._listResource(Layer);\n  }\n\n  /**\n   * Share the job revision\n   * @param {String} visibility - See {@link JobShareVisibility}, either `private` or `organisation`\n   * @returns {Promise} - Resolves with a {@link String} containing the share link and rejects with {@link OAuthError}\n   */\n  share(visibility = JobShare.visibility.PRIVATE) {\n    visibility = visibility.toLowerCase();\n\n    if (visibility !== JobShare.visibility.ORGANISATION &&\n        visibility !== JobShare.visibility.PRIVATE) {\n      throw new Error(`Unknown visibility '${visibility}'`);\n    }\n\n    const url = `${this.url}/share`;\n\n    return this.api.request(url, 'POST', {visibility});\n  }\n\n  /**\n   * Get the job result\n   * @returns {Promise} - Resolves with a {@link JobResult} instance and rejects with {@link OAuthError}\n   */\n  result() {\n    const url = `${this.url}/result`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url)\n        .catch(reject)\n        .then(data => resolve(new JobResult(data)));\n    });\n  }\n}\n",
+    "content": "import CrudBase from './base/CrudBase';\nimport Layer from './Layer';\nimport JobShare from './JobShare';\nimport JobResult from './JobResult';\nimport {isParentOf} from \"../utils/reflection\";\n\nexport default class JobRevision extends CrudBase {\n  get baseUrl() {\n    return `/jobs/${this['job_id']}/revisions`;\n  }\n\n  get path() {\n    return '/jobs/{job_id}/revisions/{id}';\n  }\n\n  get resourceName() {\n    return 'job-revisions';\n  }\n\n  /**\n   * Save updated job revision\n   * @param {Object} object - Map object\n   * @param {Array<Layer>|Array<Number>|null} layers - Array containing all layers for this revision. If set to null the same layers will be used\n   * @returns {Promise} - Resolves with a new {@link JobRevision} instance and rejects with {@link ApiError}\n   * @throws TypeError\n   */\n  save(object = {}, layers = null) {\n    if (layers && layers.length > 0) {\n      if (isParentOf(Layer, layers[0])) {\n        layers = layers.map(layer => layer.id);\n      } else if (typeof layers[0] !== 'number') {\n        throw new TypeError('layers property is not of type Array<Layer>, Array<Number> or null');\n      }\n    }\n\n    const data = {\n      'object': JSON.stringify(object),\n      'language_code': this.languageCode,\n      'mapstyle_set_id': this.mapstyleSetId,\n    };\n\n    if (layers) {\n      data.layers = layers;\n    }\n\n    return new Promise((resolve, reject) => {\n      this.api.request(this.baseUrl, 'POST', data)\n        .catch(reject)\n        .then(data => resolve(new JobRevision(this.api, data)));\n    });\n  }\n\n  /**\n   * Get job object\n   * @returns {Promise} - Resolves with {@link Object} instance containing the map object and rejects with {@link ApiError}\n   * @todo document object format\n   */\n  object() {\n    const url = `${this.url}/object`;\n\n    return this.api.request(url);\n  }\n\n  /**\n   * Build the revision\n   * @param {String} callbackUrl - Optional callback url for when the job completes\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  build(callbackUrl) {\n    const url = `${this.url}/build`;\n    const data = {callback: callbackUrl};\n\n    return this.api.request(url, 'POST', data);\n  }\n\n  /**\n   * Cancels a running job\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  cancel() {\n    const url = `${this.url}/cancel`;\n\n    return this.api.request(url, 'POST');\n  }\n\n  /**\n   * Get layers\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   */\n  layers() {\n    return this._listResource(Layer);\n  }\n\n  /**\n   * Share the job revision\n   * @param {String} visibility - See {@link JobShareVisibility}, either `private` or `organisation`\n   * @returns {Promise} - Resolves with a {@link String} containing the share link and rejects with {@link ApiError}\n   */\n  share(visibility = JobShare.visibility.PRIVATE) {\n    visibility = visibility.toLowerCase();\n\n    if (visibility !== JobShare.visibility.ORGANISATION &&\n        visibility !== JobShare.visibility.PRIVATE) {\n      throw new Error(`Unknown visibility '${visibility}'`);\n    }\n\n    const url = `${this.url}/share`;\n\n    return this.api.request(url, 'POST', {visibility});\n  }\n\n  /**\n   * Get the job result\n   * @returns {Promise} - Resolves with a {@link JobResult} instance and rejects with {@link ApiError}\n   */\n  result() {\n    const url = `${this.url}/result`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url)\n        .catch(reject)\n        .then(data => resolve(new JobResult(this.api, data)));\n    });\n  }\n}\n",
     "static": true,
     "longname": "src/crud/JobRevision.js",
     "access": null,
@@ -3734,10 +3734,10 @@
     "longname": "src/crud/JobRevision.js~JobRevision",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/JobRevision.js",
+    "importPath": "@mapcreator/maps4news/src/crud/JobRevision.js",
     "importStyle": "JobRevision",
     "description": null,
-    "lineNumber": 6,
+    "lineNumber": 7,
     "undocument": true,
     "unknown": [
       {
@@ -3761,7 +3761,7 @@
     "longname": "src/crud/JobRevision.js~JobRevision#baseUrl",
     "access": null,
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 8,
     "undocument": true,
     "unknown": [
       {
@@ -3786,7 +3786,7 @@
     "longname": "src/crud/JobRevision.js~JobRevision#path",
     "access": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 12,
     "undocument": true,
     "unknown": [
       {
@@ -3811,7 +3811,7 @@
     "longname": "src/crud/JobRevision.js~JobRevision#resourceName",
     "access": null,
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 16,
     "undocument": true,
     "unknown": [
       {
@@ -3836,25 +3836,51 @@
     "longname": "src/crud/JobRevision.js~JobRevision#save",
     "access": null,
     "description": "Save updated job revision",
-    "lineNumber": 24,
-    "todo": [
-      "unimplemented"
-    ],
+    "lineNumber": 27,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{void}"
+        "tagValue": "{Promise} - Resolves with a new {@link JobRevision} instance and rejects with {@link ApiError}"
       }
     ],
-    "params": [],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "object",
+        "description": "Map object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Array<Layer>|Array<Number>|null"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "layers",
+        "description": "Array containing all layers for this revision. If set to null the same layers will be used"
+      }
+    ],
     "return": {
       "nullable": null,
       "types": [
-        "void"
+        "Promise"
       ],
       "spread": false,
-      "description": ""
-    }
+      "description": "Resolves with a new {@link JobRevision} instance and rejects with {@link ApiError}"
+    },
+    "throws": [
+      {
+        "types": [
+          "*"
+        ],
+        "description": "TypeError"
+      }
+    ]
   },
   {
     "__docId__": 140,
@@ -3867,14 +3893,14 @@
     "longname": "src/crud/JobRevision.js~JobRevision#object",
     "access": null,
     "description": "Get job object",
-    "lineNumber": 33,
+    "lineNumber": 58,
     "todo": [
       "document object format"
     ],
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with {@link Object} instance containing the map object and rejects with {@link OAuthError}"
+        "tagValue": "{Promise} - Resolves with {@link Object} instance containing the map object and rejects with {@link ApiError}"
       }
     ],
     "params": [],
@@ -3884,7 +3910,7 @@
         "Promise"
       ],
       "spread": false,
-      "description": "Resolves with {@link Object} instance containing the map object and rejects with {@link OAuthError}"
+      "description": "Resolves with {@link Object} instance containing the map object and rejects with {@link ApiError}"
     }
   },
   {
@@ -3898,11 +3924,11 @@
     "longname": "src/crud/JobRevision.js~JobRevision#build",
     "access": null,
     "description": "Build the revision",
-    "lineNumber": 44,
+    "lineNumber": 69,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with an empty {@link Object} and rejects with {@link OAuthError}"
+        "tagValue": "{Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}"
       }
     ],
     "params": [
@@ -3923,7 +3949,7 @@
         "Promise"
       ],
       "spread": false,
-      "description": "Resolves with an empty {@link Object} and rejects with {@link OAuthError}"
+      "description": "Resolves with an empty {@link Object} and rejects with {@link ApiError}"
     }
   },
   {
@@ -3937,11 +3963,11 @@
     "longname": "src/crud/JobRevision.js~JobRevision#cancel",
     "access": null,
     "description": "Cancels a running job",
-    "lineNumber": 55,
+    "lineNumber": 80,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with an empty {@link Object} and rejects with {@link OAuthError}"
+        "tagValue": "{Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}"
       }
     ],
     "params": [],
@@ -3951,7 +3977,7 @@
         "Promise"
       ],
       "spread": false,
-      "description": "Resolves with an empty {@link Object} and rejects with {@link OAuthError}"
+      "description": "Resolves with an empty {@link Object} and rejects with {@link ApiError}"
     }
   },
   {
@@ -3965,11 +3991,11 @@
     "longname": "src/crud/JobRevision.js~JobRevision#layers",
     "access": null,
     "description": "Get layers",
-    "lineNumber": 65,
+    "lineNumber": 90,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link OAuthError}"
+        "tagValue": "{Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}"
       }
     ],
     "params": [],
@@ -3979,7 +4005,7 @@
         "Promise"
       ],
       "spread": false,
-      "description": "Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link OAuthError}"
+      "description": "Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}"
     }
   },
   {
@@ -3993,11 +4019,11 @@
     "longname": "src/crud/JobRevision.js~JobRevision#share",
     "access": null,
     "description": "Share the job revision",
-    "lineNumber": 74,
+    "lineNumber": 99,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with a {@link String} containing the share link and rejects with {@link OAuthError}"
+        "tagValue": "{Promise} - Resolves with a {@link String} containing the share link and rejects with {@link ApiError}"
       }
     ],
     "params": [
@@ -4018,7 +4044,7 @@
         "Promise"
       ],
       "spread": false,
-      "description": "Resolves with a {@link String} containing the share link and rejects with {@link OAuthError}"
+      "description": "Resolves with a {@link String} containing the share link and rejects with {@link ApiError}"
     }
   },
   {
@@ -4032,11 +4058,11 @@
     "longname": "src/crud/JobRevision.js~JobRevision#result",
     "access": null,
     "description": "Get the job result",
-    "lineNumber": 91,
+    "lineNumber": 116,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with a {@link JobResult} instance and rejects with {@link OAuthError}"
+        "tagValue": "{Promise} - Resolves with a {@link JobResult} instance and rejects with {@link ApiError}"
       }
     ],
     "params": [],
@@ -4046,7 +4072,7 @@
         "Promise"
       ],
       "spread": false,
-      "description": "Resolves with a {@link JobResult} instance and rejects with {@link OAuthError}"
+      "description": "Resolves with a {@link JobResult} instance and rejects with {@link ApiError}"
     }
   },
   {
@@ -4069,7 +4095,7 @@
     "longname": "src/crud/JobShare.js~JobShare",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/JobShare.js",
+    "importPath": "@mapcreator/maps4news/src/crud/JobShare.js",
     "importStyle": "JobShare",
     "description": null,
     "lineNumber": 3,
@@ -4212,7 +4238,7 @@
     "longname": "src/crud/JobShare.js~JobShareVisibility",
     "access": null,
     "export": false,
-    "importPath": "maps4news/src/crud/JobShare.js",
+    "importPath": "@mapcreator/maps4news/src/crud/JobShare.js",
     "importStyle": null,
     "description": "Job share visibility enum",
     "lineNumber": 35,
@@ -4294,7 +4320,7 @@
     "longname": "src/crud/JobType.js~JobType",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/JobType.js",
+    "importPath": "@mapcreator/maps4news/src/crud/JobType.js",
     "importStyle": "JobType",
     "description": null,
     "lineNumber": 3,
@@ -4405,7 +4431,7 @@
     "longname": "src/crud/Language.js~Language",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Language.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Language.js",
     "importStyle": "Language",
     "description": null,
     "lineNumber": 3,
@@ -4466,7 +4492,7 @@
     "longname": "src/crud/Layer.js~Layer",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Layer.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Layer.js",
     "importStyle": "Layer",
     "description": null,
     "lineNumber": 4,
@@ -4584,7 +4610,7 @@
     "longname": "src/crud/Mapstyle.js~Mapstyle",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Mapstyle.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Mapstyle.js",
     "importStyle": "Mapstyle",
     "description": null,
     "lineNumber": 4,
@@ -4677,7 +4703,7 @@
     "longname": "src/crud/MapstyleSet.js~MapstyleSet",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/MapstyleSet.js",
+    "importPath": "@mapcreator/maps4news/src/crud/MapstyleSet.js",
     "importStyle": "MapstyleSet",
     "description": null,
     "lineNumber": 4,
@@ -4813,7 +4839,7 @@
     "longname": "src/crud/Notification.js~Notification",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Notification.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Notification.js",
     "importStyle": "Notification",
     "description": null,
     "lineNumber": 3,
@@ -4874,7 +4900,7 @@
     "longname": "src/crud/Organisation.js~Organisation",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Organisation.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Organisation.js",
     "importStyle": "Organisation",
     "description": null,
     "lineNumber": 14,
@@ -5448,7 +5474,7 @@
     "longname": "src/crud/Permission.js~Permission",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Permission.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Permission.js",
     "importStyle": "Permission",
     "description": null,
     "lineNumber": 3,
@@ -5509,7 +5535,7 @@
     "longname": "src/crud/PlaceName.js~PlaceName",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/PlaceName.js",
+    "importPath": "@mapcreator/maps4news/src/crud/PlaceName.js",
     "importStyle": "PlaceName",
     "description": null,
     "lineNumber": 3,
@@ -5570,7 +5596,7 @@
     "longname": "src/crud/Svg.js~Svg",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/Svg.js",
+    "importPath": "@mapcreator/maps4news/src/crud/Svg.js",
     "importStyle": "Svg",
     "description": null,
     "lineNumber": 3,
@@ -5631,7 +5657,7 @@
     "longname": "src/crud/SvgSet.js~SvgSet",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/SvgSet.js",
+    "importPath": "@mapcreator/maps4news/src/crud/SvgSet.js",
     "importStyle": "SvgSet",
     "description": null,
     "lineNumber": 4,
@@ -5751,7 +5777,7 @@
     "__docId__": 215,
     "kind": "file",
     "name": "src/crud/SvgSetType.js",
-    "content": "import CrudBase from './base/CrudBase';\n\nexport default class SvgSetType extends CrudBase {\n  /**\n   * Disabled because svg set type does not support soft deletes\n   * @returns {void}\n   * @throws Error\n   * @private\n   */\n  restore() {\n    throw new Error('Svg set types don\\'t support soft deletes');\n  }\n\n  get path() {\n    return '/svgs/sets/types/{id}';\n  }\n\n  get resourceName() {\n    return 'svg-set-types';\n  }\n}\n",
+    "content": "import CrudBase from './base/CrudBase';\nimport UnsupportedCrudError from '../exceptions/UnsupportedCrudError';\n\nexport default class SvgSetType extends CrudBase {\n  /**\n   * Disabled because svg set type does not support soft deletes\n   * @returns {void}\n   * @throws Error\n   * @private\n   */\n  restore() {\n    throw new UnsupportedCrudError('Svg set types don\\'t support soft deletes');\n  }\n\n  get path() {\n    return '/svgs/sets/types/{id}';\n  }\n\n  get resourceName() {\n    return 'svg-set-types';\n  }\n}\n",
     "static": true,
     "longname": "src/crud/SvgSetType.js",
     "access": null,
@@ -5767,10 +5793,10 @@
     "longname": "src/crud/SvgSetType.js~SvgSetType",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/SvgSetType.js",
+    "importPath": "@mapcreator/maps4news/src/crud/SvgSetType.js",
     "importStyle": "SvgSetType",
     "description": null,
-    "lineNumber": 3,
+    "lineNumber": 4,
     "undocument": true,
     "unknown": [
       {
@@ -5794,7 +5820,7 @@
     "longname": "src/crud/SvgSetType.js~SvgSetType#restore",
     "access": "private",
     "description": "Disabled because svg set type does not support soft deletes",
-    "lineNumber": 10,
+    "lineNumber": 11,
     "unknown": [
       {
         "tagName": "@returns",
@@ -5830,7 +5856,7 @@
     "longname": "src/crud/SvgSetType.js~SvgSetType#path",
     "access": null,
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 15,
     "undocument": true,
     "unknown": [
       {
@@ -5855,7 +5881,7 @@
     "longname": "src/crud/SvgSetType.js~SvgSetType#resourceName",
     "access": null,
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 19,
     "undocument": true,
     "unknown": [
       {
@@ -5889,7 +5915,7 @@
     "longname": "src/crud/User.js~User",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/User.js",
+    "importPath": "@mapcreator/maps4news/src/crud/User.js",
     "importStyle": "User",
     "description": null,
     "lineNumber": 14,
@@ -6284,7 +6310,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/base/CrudBase.js",
+    "importPath": "@mapcreator/maps4news/src/crud/base/CrudBase.js",
     "importStyle": "CrudBase",
     "description": "Base of all resource items that support Crud operations",
     "lineNumber": 9,
@@ -6632,7 +6658,7 @@
     "longname": "src/crud/base/CrudSetBase.js~CrudSetBase",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/base/CrudSetBase.js",
+    "importPath": "@mapcreator/maps4news/src/crud/base/CrudSetBase.js",
     "importStyle": "CrudSetBase",
     "description": "Crud base for resource sets",
     "lineNumber": 8,
@@ -6722,7 +6748,7 @@
     "longname": "src/crud/base/ImageHandler.js~ImageHandler",
     "access": "protected",
     "export": true,
-    "importPath": "maps4news/src/crud/base/ImageHandler.js",
+    "importPath": "@mapcreator/maps4news/src/crud/base/ImageHandler.js",
     "importStyle": "ImageHandler",
     "description": "Image resource handler",
     "lineNumber": 11,
@@ -6991,7 +7017,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/crud/base/ResourceBase.js",
+    "importPath": "@mapcreator/maps4news/src/crud/base/ResourceBase.js",
     "importStyle": "ResourceBase",
     "description": "Resource base",
     "lineNumber": 10,
@@ -7451,7 +7477,7 @@
     "longname": "src/exceptions/AbstractError.js~AbstractError",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/exceptions/AbstractError.js",
+    "importPath": "@mapcreator/maps4news/src/exceptions/AbstractError.js",
     "importStyle": "{AbstractError}",
     "description": "Thrown by abstract methods and classes",
     "lineNumber": 4,
@@ -7469,7 +7495,7 @@
     "longname": "src/exceptions/AbstractError.js~AbstractClassError",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/exceptions/AbstractError.js",
+    "importPath": "@mapcreator/maps4news/src/exceptions/AbstractError.js",
     "importStyle": "{AbstractClassError}",
     "description": "Thrown upon invocation of an abstract class",
     "lineNumber": 9,
@@ -7508,7 +7534,7 @@
     "longname": "src/exceptions/AbstractError.js~AbstractMethodError",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/exceptions/AbstractError.js",
+    "importPath": "@mapcreator/maps4news/src/exceptions/AbstractError.js",
     "importStyle": "{AbstractMethodError}",
     "description": "Thrown upon invocation of an abstract method",
     "lineNumber": 18,
@@ -7558,7 +7584,7 @@
     "longname": "src/exceptions/ApiError.js~ApiError",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/exceptions/ApiError.js",
+    "importPath": "@mapcreator/maps4news/src/exceptions/ApiError.js",
     "importStyle": "ApiError",
     "description": "Errors generated by the API",
     "lineNumber": 4,
@@ -7805,6 +7831,35 @@
   {
     "__docId__": 294,
     "kind": "file",
+    "name": "src/exceptions/NodeError.js",
+    "content": "/**\n * Invoked upon nodejs specific errors\n */\nexport default class NodeError extends Error { }\n",
+    "static": true,
+    "longname": "src/exceptions/NodeError.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 295,
+    "kind": "class",
+    "name": "NodeError",
+    "memberof": "src/exceptions/NodeError.js",
+    "static": true,
+    "longname": "src/exceptions/NodeError.js~NodeError",
+    "access": null,
+    "export": true,
+    "importPath": "@mapcreator/maps4news/src/exceptions/NodeError.js",
+    "importStyle": "NodeError",
+    "description": "Invoked upon nodejs specific errors",
+    "lineNumber": 4,
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "__docId__": 296,
+    "kind": "file",
     "name": "src/exceptions/StaticClassError.js",
     "content": "/**\n * Thrown upon invocation of a static class\n * @see StaticClass\n */\nexport default class StaticClassError extends Error {}\n",
     "static": true,
@@ -7814,7 +7869,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 295,
+    "__docId__": 297,
     "kind": "class",
     "name": "StaticClassError",
     "memberof": "src/exceptions/StaticClassError.js",
@@ -7822,7 +7877,7 @@
     "longname": "src/exceptions/StaticClassError.js~StaticClassError",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/exceptions/StaticClassError.js",
+    "importPath": "@mapcreator/maps4news/src/exceptions/StaticClassError.js",
     "importStyle": "StaticClassError",
     "description": "Thrown upon invocation of a static class",
     "see": [
@@ -7835,7 +7890,36 @@
     ]
   },
   {
-    "__docId__": 296,
+    "__docId__": 298,
+    "kind": "file",
+    "name": "src/exceptions/UnsupportedCrudError.js",
+    "content": "/**\n * Thrown upon invocation of an unsupported crud method\n */\nexport default class UnsupportedCrudError extends Error {}\n",
+    "static": true,
+    "longname": "src/exceptions/UnsupportedCrudError.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 299,
+    "kind": "class",
+    "name": "UnsupportedCrudError",
+    "memberof": "src/exceptions/UnsupportedCrudError.js",
+    "static": true,
+    "longname": "src/exceptions/UnsupportedCrudError.js~UnsupportedCrudError",
+    "access": null,
+    "export": true,
+    "importPath": "@mapcreator/maps4news/src/exceptions/UnsupportedCrudError.js",
+    "importStyle": "UnsupportedCrudError",
+    "description": "Thrown upon invocation of an unsupported crud method",
+    "lineNumber": 4,
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "__docId__": 300,
     "kind": "file",
     "name": "src/exceptions/ValidationError.js",
     "content": "import ApiError from './ApiError';\n\n/**\n * Extension of {@link ApiError} containing an extra field for validation errors\n */\nexport default class ValidationError extends ApiError {\n  /**\n   * @param {String} type - Error type\n   * @param {String} message - Error message\n   * @param {Number} code - Http error code\n   * @param {Object<String, Array<String>>} validationErrors - Any validation errors\n   */\n  constructor(type, message, code, validationErrors) {\n    super(type, message, code);\n    this._validationErrors = validationErrors;\n  }\n\n  /**\n   * Any validation errors\n   * @returns {Object.<String, Array.<String>>} - Object containing arrays of validation errors where the field is stored in the key\n   */\n  get validationErrors() {\n    return this._validationErrors;\n  }\n}\n",
@@ -7846,7 +7930,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 297,
+    "__docId__": 301,
     "kind": "class",
     "name": "ValidationError",
     "memberof": "src/exceptions/ValidationError.js",
@@ -7854,7 +7938,7 @@
     "longname": "src/exceptions/ValidationError.js~ValidationError",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/exceptions/ValidationError.js",
+    "importPath": "@mapcreator/maps4news/src/exceptions/ValidationError.js",
     "importStyle": "ValidationError",
     "description": "Extension of {@link ApiError} containing an extra field for validation errors",
     "lineNumber": 6,
@@ -7864,7 +7948,7 @@
     ]
   },
   {
-    "__docId__": 298,
+    "__docId__": 302,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exceptions/ValidationError.js~ValidationError",
@@ -7919,7 +8003,7 @@
     ]
   },
   {
-    "__docId__": 299,
+    "__docId__": 303,
     "kind": "member",
     "name": "_validationErrors",
     "memberof": "src/exceptions/ValidationError.js~ValidationError",
@@ -7942,7 +8026,7 @@
     }
   },
   {
-    "__docId__": 300,
+    "__docId__": 304,
     "kind": "get",
     "name": "validationErrors",
     "memberof": "src/exceptions/ValidationError.js~ValidationError",
@@ -7974,7 +8058,7 @@
     }
   },
   {
-    "__docId__": 301,
+    "__docId__": 305,
     "kind": "file",
     "name": "src/index.js",
     "content": "// Core\nexport {default as Maps4News} from './Maps4News';\n\n// Flows\nexport {default as OAuth} from './oauth/OAuth';\nexport {default as ImplicitFlow} from './oauth/ImplicitFlow';\nexport {default as ImplicitFlowPopup} from './oauth/ImplicitFlowPopup';\nexport {default as PasswordFlow} from './oauth/PasswordFlow';\nexport {default as DummyFlow} from './oauth/DummyFlow';\n\n// Exceptions\nexport {default as ApiError} from './exceptions/ApiError';\nexport {AbstractError, AbstractClassError, AbstractMethodError} from './exceptions/AbstractError';\nexport {default as ValidationError} from './exceptions/ValidationError';\nexport {default as StaticClassError} from './exceptions/StaticClassError';\n",
@@ -7985,7 +8069,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 302,
+    "__docId__": 306,
     "kind": "file",
     "name": "src/oauth/DummyFlow.js",
     "content": "import OAuthError from './OAuthError';\nimport OAuth from './OAuth';\n\n/**\n * Dummy flow for when the token should be available in the\n * cache and no attempt at authentication should be made.\n */\nexport default class DummyFlow extends OAuth {\n  constructor() {\n    super('', []);\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else {\n        reject(new OAuthError('dummy_error', 'Attempted authentication using a dummy authenticator'));\n      }\n    });\n  }\n}\n",
@@ -7996,7 +8080,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 303,
+    "__docId__": 307,
     "kind": "class",
     "name": "DummyFlow",
     "memberof": "src/oauth/DummyFlow.js",
@@ -8004,7 +8088,7 @@
     "longname": "src/oauth/DummyFlow.js~DummyFlow",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/oauth/DummyFlow.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/DummyFlow.js",
     "importStyle": "DummyFlow",
     "description": "Dummy flow for when the token should be available in the\ncache and no attempt at authentication should be made.",
     "lineNumber": 8,
@@ -8014,7 +8098,7 @@
     ]
   },
   {
-    "__docId__": 304,
+    "__docId__": 308,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/DummyFlow.js~DummyFlow",
@@ -8035,7 +8119,7 @@
     "params": []
   },
   {
-    "__docId__": 305,
+    "__docId__": 309,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/DummyFlow.js~DummyFlow",
@@ -8063,7 +8147,7 @@
     }
   },
   {
-    "__docId__": 306,
+    "__docId__": 310,
     "kind": "file",
     "name": "src/oauth/ImplicitFlow.js",
     "content": "import OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {encodeQueryString} from '../utils/requests';\nimport OAuthError from './OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Implicit OAuth flow using redirection\n */\nexport default class ImplicitFlow extends OAuth {\n\n  /**\n   * Implicit authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = true) {\n    super(clientId, scopes);\n\n    if (isNode()) {\n      throw new Error(`${this.constructor.name} can't be used under nodejs`);\n    }\n\n    this.path = '/oauth/authorize';\n\n    this.callbackUrl = callbackUrl;\n    this.useState = useState;\n\n    if (!this.callbackUrl) {\n      // Drop the anchor (if any)\n      this.callbackUrl = window.location.toString().split('#')[0];\n    }\n\n    this._anchorParams = [\n      'access_token', 'token_type', 'expires_in',\n    ];\n\n    if (this.useState) {\n      this._anchorParams.push('state');\n    }\n\n    if (this._anchorContainsOAuthResponse()) {\n      const anchorParams = this._getOAuthAnchorParams();\n\n      this._cleanAnchorParams();\n\n      if (this.useState && !StateContainer.validate(anchorParams['state'])) {\n        throw Error('Invalid state in url');\n      } else {\n        this.token = OAuthToken.fromResponseObject(anchorParams);\n      }\n    }\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else if (this._anchorContainsError()) {\n        const err = this._getError();\n\n        this._cleanAnchorParams();\n\n        reject(err);\n      } else {\n        window.location = this._buildRedirectUrl();\n      }\n    });\n  }\n\n  /**\n   * Builds the url for redirection\n   * @returns {String} - Redirect url\n   * @protected\n   */\n  _buildRedirectUrl() {\n    const queryParams = {\n      'client_id': this.clientId,\n      'redirect_uri': this.callbackUrl,\n      'response_type': 'token',\n      'scope': this.scopes.join(' '),\n    };\n\n    if (this.useState) {\n      queryParams['state'] = StateContainer.generate();\n    }\n\n    return `${this.host + this.path}?${encodeQueryString(queryParams)}`;\n  }\n\n  /**\n   * Builds an object containing all the anchor parameters\n   * @returns {Object<String, String>} - Anchor paramenters\n   * @protected\n   */\n  _getAnchorParams() {\n    const out = {};\n    const query = window.location.hash.substr(1);\n\n    for (const raw of query.split('&')) {\n      const pair = raw.split('=').map(decodeURIComponent);\n\n      out[pair[0]] = pair[1];\n    }\n\n    return out;\n  }\n\n  /**\n   * Fetch OAuth anchor params\n   * @param {Object<String, String>} query - Optional override for the query to analyse, defaults to {@link ImplicitFlow#_getAnchorParams}\n   * @returns {Object<String, String>} - List of OAuth anchor parameters\n   * @protected\n   */\n  _getOAuthAnchorParams(query = this._getAnchorParams()) {\n    return Object.keys(query)\n      .filter(key => this._anchorParams.includes(key))\n      .reduce((obj, key) => {\n        obj[key] = query[key];\n        return obj;\n      }, {});\n  }\n\n  /**\n   * Remove OAuth related anchor parameters\n   * @returns {void}\n   * @protected\n   */\n  _cleanAnchorParams() {\n    const anchorParams = this._getAnchorParams();\n    const targets = this._anchorParams;\n\n    // Just in case\n    targets.push('state', 'error');\n\n    for (const key of targets) {\n      // Should silently fail when key doesn't exist\n      delete anchorParams[key];\n    }\n\n    window.location.hash = encodeQueryString(anchorParams);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth response\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth response\n   * @protected\n   */\n  _anchorContainsOAuthResponse() {\n    const queryKeys = Object.keys(this._getOAuthAnchorParams());\n\n    // Check if all the params are in the anchor\n    return this._anchorParams.reduce((output, key) => {\n      return output && queryKeys.includes(key);\n    }, true);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth error\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth error\n   * @protected\n   */\n  _anchorContainsError() {\n    return Boolean(this._getAnchorParams()['error']);\n  }\n\n  /**\n   * Get and return the error in the anchor\n   * @returns {OAuthError} - OAuthError object\n   * @protected\n   */\n  _getError() {\n    if (!this._anchorContainsError()) {\n      throw Error('No OAuthError found in anchor');\n    }\n\n    const params = this._getAnchorParams();\n\n    return new OAuthError(\n      params['error'], params['message']\n    );\n  }\n}\n",
@@ -8074,7 +8158,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 307,
+    "__docId__": 311,
     "kind": "class",
     "name": "ImplicitFlow",
     "memberof": "src/oauth/ImplicitFlow.js",
@@ -8082,7 +8166,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/oauth/ImplicitFlow.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/ImplicitFlow.js",
     "importStyle": "ImplicitFlow",
     "description": "Implicit OAuth flow using redirection",
     "lineNumber": 11,
@@ -8092,7 +8176,7 @@
     ]
   },
   {
-    "__docId__": 308,
+    "__docId__": 312,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8161,7 +8245,7 @@
     }
   },
   {
-    "__docId__": 309,
+    "__docId__": 313,
     "kind": "member",
     "name": "path",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8184,7 +8268,7 @@
     }
   },
   {
-    "__docId__": 310,
+    "__docId__": 314,
     "kind": "member",
     "name": "callbackUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8207,7 +8291,7 @@
     }
   },
   {
-    "__docId__": 311,
+    "__docId__": 315,
     "kind": "member",
     "name": "useState",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8230,7 +8314,7 @@
     }
   },
   {
-    "__docId__": 312,
+    "__docId__": 316,
     "kind": "member",
     "name": "callbackUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8253,7 +8337,7 @@
     }
   },
   {
-    "__docId__": 313,
+    "__docId__": 317,
     "kind": "member",
     "name": "_anchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8276,7 +8360,7 @@
     }
   },
   {
-    "__docId__": 314,
+    "__docId__": 318,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8299,7 +8383,7 @@
     }
   },
   {
-    "__docId__": 315,
+    "__docId__": 319,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8327,7 +8411,7 @@
     }
   },
   {
-    "__docId__": 316,
+    "__docId__": 320,
     "kind": "method",
     "name": "_buildRedirectUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8355,7 +8439,7 @@
     }
   },
   {
-    "__docId__": 317,
+    "__docId__": 321,
     "kind": "method",
     "name": "_getAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8383,7 +8467,7 @@
     }
   },
   {
-    "__docId__": 318,
+    "__docId__": 322,
     "kind": "method",
     "name": "_getOAuthAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8422,7 +8506,7 @@
     }
   },
   {
-    "__docId__": 319,
+    "__docId__": 323,
     "kind": "method",
     "name": "_cleanAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8450,7 +8534,7 @@
     }
   },
   {
-    "__docId__": 320,
+    "__docId__": 324,
     "kind": "method",
     "name": "_anchorContainsOAuthResponse",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8478,7 +8562,7 @@
     }
   },
   {
-    "__docId__": 321,
+    "__docId__": 325,
     "kind": "method",
     "name": "_anchorContainsError",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8506,7 +8590,7 @@
     }
   },
   {
-    "__docId__": 322,
+    "__docId__": 326,
     "kind": "method",
     "name": "_getError",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -8534,7 +8618,7 @@
     }
   },
   {
-    "__docId__": 323,
+    "__docId__": 327,
     "kind": "file",
     "name": "src/oauth/ImplicitFlowPopup.js",
     "content": "import ImplicitFlow from './ImplicitFlow';\nimport OAuthToken from './OAuthToken';\nimport OAuthError from './OAuthError';\n\n/**\n * Implicit OAuth flow using a pop-up.\n */\nexport default class ImplicitFlowPopup extends ImplicitFlow {\n  /**\n   * Implicit pop-up authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @param {String} windowOptions - optional window options for the pop-up window\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = false, windowOptions = 'width=800, height=600') {\n    super(clientId, callbackUrl, scopes, useState);\n\n    this.windowOptions = windowOptions;\n\n    if (window.name === ImplicitFlowPopup.popupWindowName) {\n      const data = this.token.toResponseObject() || this._getAnchorParams();\n\n      localStorage.setItem(ImplicitFlowPopup.localStorageKey, JSON.stringify(data));\n\n      window.close();\n    }\n  }\n\n  /**\n   * Popup window name\n   * @returns {String} - window.name of the created pop-up\n   * @constant\n   */\n  static get popupWindowName() {\n    return 'm4n_api_auth';\n  }\n\n  /**\n   * localStorage key name for temporarily storing the token\n   * @returns {String} - key name\n   * @constant\n   */\n  static get localStorageKey() {\n    return 'm4n_api_auth_response';\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    if (window.name === ImplicitFlowPopup.popupWindowName) {\n      return new Promise(() => {\n      });\n    }\n\n    // Should be super.super.authenticate() :/\n    if (this.authenticated) {\n      return new Promise(resolve => {\n        resolve(this.token);\n      });\n    }\n\n    return new Promise((resolve, reject) => {\n      const popup = window.open(\n        this._buildRedirectUrl(),\n        ImplicitFlowPopup.popupWindowName,\n        this.windowOptions\n      );\n\n      const ticker = setInterval(() => {\n        if (popup.closed) {\n          clearInterval(ticker);\n\n          const data = JSON.parse(localStorage.getItem(ImplicitFlowPopup.localStorageKey));\n\n          localStorage.removeItem(ImplicitFlowPopup.localStorageKey);\n\n          if (!data) {\n            reject(new OAuthError('window_closed', 'Pop-up window was closed'));\n          } else if (data.error) {\n            reject(new OAuthError(data.error, data.message));\n          } else {\n            resolve(this.token = OAuthToken.fromResponseObject(data));\n          }\n        }\n      }, 500);\n    });\n  }\n}\n",
@@ -8545,7 +8629,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 324,
+    "__docId__": 328,
     "kind": "class",
     "name": "ImplicitFlowPopup",
     "memberof": "src/oauth/ImplicitFlowPopup.js",
@@ -8553,7 +8637,7 @@
     "longname": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/oauth/ImplicitFlowPopup.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/ImplicitFlowPopup.js",
     "importStyle": "ImplicitFlowPopup",
     "description": "Implicit OAuth flow using a pop-up.",
     "lineNumber": 8,
@@ -8563,7 +8647,7 @@
     ]
   },
   {
-    "__docId__": 325,
+    "__docId__": 329,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -8642,7 +8726,7 @@
     }
   },
   {
-    "__docId__": 326,
+    "__docId__": 330,
     "kind": "member",
     "name": "windowOptions",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -8665,7 +8749,7 @@
     }
   },
   {
-    "__docId__": 327,
+    "__docId__": 331,
     "kind": "get",
     "name": "popupWindowName",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -8701,7 +8785,7 @@
     }
   },
   {
-    "__docId__": 328,
+    "__docId__": 332,
     "kind": "get",
     "name": "localStorageKey",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -8737,7 +8821,7 @@
     }
   },
   {
-    "__docId__": 329,
+    "__docId__": 333,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -8765,7 +8849,7 @@
     }
   },
   {
-    "__docId__": 330,
+    "__docId__": 334,
     "kind": "file",
     "name": "src/oauth/OAuth.js",
     "content": "import OAuthToken from './OAuthToken';\nimport {AbstractClassError, AbstractMethodError} from '../exceptions/AbstractError';\n\n/**\n * OAuth base class\n * @abstract\n */\nexport default class OAuth {\n  /**\n   * @param {String} clientId - OAuth client id\n   * @param {Array<String>} scopes - A list of required scopes\n   * @returns {void}\n   */\n  constructor(clientId, scopes = ['*']) {\n    if (this.constructor === OAuth) {\n      throw new AbstractClassError();\n    }\n\n    this.clientId = String(clientId);\n    this.scopes = scopes;\n    this.token = OAuthToken.recover();\n    this.host = 'https://api.Maps4News.com';\n    this.path = '/';\n  }\n\n  /**\n   * If the current instance has a valid token\n   * @returns {Boolean} - if a valid token is availble\n   */\n  get authenticated() {\n    return this.token !== null && !this.token.expired;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with OAuthToken and rejects with OAuthError\n   * @abstract\n   */\n  authenticate() {\n    throw new AbstractMethodError();\n  }\n}\n",
@@ -8776,7 +8860,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 331,
+    "__docId__": 335,
     "kind": "class",
     "name": "OAuth",
     "memberof": "src/oauth/OAuth.js",
@@ -8784,7 +8868,7 @@
     "longname": "src/oauth/OAuth.js~OAuth",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/oauth/OAuth.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/OAuth.js",
     "importStyle": "OAuth",
     "description": "OAuth base class",
     "lineNumber": 8,
@@ -8792,7 +8876,7 @@
     "interface": false
   },
   {
-    "__docId__": 332,
+    "__docId__": 336,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -8841,7 +8925,7 @@
     }
   },
   {
-    "__docId__": 333,
+    "__docId__": 337,
     "kind": "member",
     "name": "clientId",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -8864,7 +8948,7 @@
     }
   },
   {
-    "__docId__": 334,
+    "__docId__": 338,
     "kind": "member",
     "name": "scopes",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -8887,7 +8971,7 @@
     }
   },
   {
-    "__docId__": 335,
+    "__docId__": 339,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -8910,7 +8994,7 @@
     }
   },
   {
-    "__docId__": 336,
+    "__docId__": 340,
     "kind": "member",
     "name": "host",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -8933,7 +9017,7 @@
     }
   },
   {
-    "__docId__": 337,
+    "__docId__": 341,
     "kind": "member",
     "name": "path",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -8956,7 +9040,7 @@
     }
   },
   {
-    "__docId__": 338,
+    "__docId__": 342,
     "kind": "get",
     "name": "authenticated",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -8988,7 +9072,7 @@
     }
   },
   {
-    "__docId__": 339,
+    "__docId__": 343,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -9017,7 +9101,7 @@
     "abstract": true
   },
   {
-    "__docId__": 340,
+    "__docId__": 344,
     "kind": "file",
     "name": "src/oauth/OAuthError.js",
     "content": "/**\n * OAuth error\n */\nexport default class OAuthError extends Error {\n  /**\n   * OAuth error response\n   * @param {String} error - OAuth error key\n   * @param {String} message - OAuth error message\n   */\n  constructor(error, message = '') {\n    super();\n    this._error = String(error);\n    this._message = String(message);\n  }\n\n  /**\n   * OAuth error message\n   * @returns {String} - message\n   */\n  get message() {\n    return this._message;\n  }\n\n  /**\n   * OAuth error code\n   * @returns {String} - error\n   */\n  get error() {\n    return this._error;\n  }\n\n  /**\n   * Displayable error string\n   * @returns {String} - error\n   */\n  toString() {\n    let error = this._error;\n\n    if (error.includes('_')) {\n      error = error.replace('_', ' ').replace(/^./, x => x.toUpperCase());\n    }\n\n    if (this._message) {\n      return `${error}: ${this._message}`;\n    }\n    return error;\n\n  }\n}\n",
@@ -9028,7 +9112,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 341,
+    "__docId__": 345,
     "kind": "class",
     "name": "OAuthError",
     "memberof": "src/oauth/OAuthError.js",
@@ -9036,7 +9120,7 @@
     "longname": "src/oauth/OAuthError.js~OAuthError",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/oauth/OAuthError.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/OAuthError.js",
     "importStyle": "OAuthError",
     "description": "OAuth error",
     "lineNumber": 4,
@@ -9046,7 +9130,7 @@
     ]
   },
   {
-    "__docId__": 342,
+    "__docId__": 346,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -9081,7 +9165,7 @@
     ]
   },
   {
-    "__docId__": 343,
+    "__docId__": 347,
     "kind": "member",
     "name": "_error",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -9104,7 +9188,7 @@
     }
   },
   {
-    "__docId__": 344,
+    "__docId__": 348,
     "kind": "member",
     "name": "_message",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -9127,7 +9211,7 @@
     }
   },
   {
-    "__docId__": 345,
+    "__docId__": 349,
     "kind": "get",
     "name": "message",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -9159,7 +9243,7 @@
     }
   },
   {
-    "__docId__": 346,
+    "__docId__": 350,
     "kind": "get",
     "name": "error",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -9191,7 +9275,7 @@
     }
   },
   {
-    "__docId__": 347,
+    "__docId__": 351,
     "kind": "method",
     "name": "toString",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -9219,10 +9303,10 @@
     }
   },
   {
-    "__docId__": 348,
+    "__docId__": 352,
     "kind": "file",
     "name": "src/oauth/OAuthToken.js",
-    "content": "import {isNode} from '../utils/node';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || []\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken.storageName, forceLocalStorage = false) {\n    // TODO: Nodejs support\n    if (isNode()) {\n      return;\n    }\n\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (window.location.protocol === 'https:' && !forceLocalStorage) {\n\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken.storageName) {\n    // TODO: Nodejs support\n    if (isNode()) {\n      return null;\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
+    "content": "import {isNode} from '../utils/node';\nimport NodeError from '../exceptions/NodeError';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Filename for nodejs token storage\n   * @returns {string} - filename\n   * @constant\n   */\n  static get nodeTokenFilename() {\n    return '.m4n_token';\n  }\n\n  /**\n   * Gets the default name for the name parameter on save and restore\n   * @returns {string} - name\n   * @private\n   * @static\n   */\n  static get _defaultName() {\n    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || []\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken._defaultName, forceLocalStorage = false) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (isNode()) {\n      if (forceLocalStorage) {\n        throw new NodeError('Can not force localStorage usage when running under node');\n      }\n\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const json = JSON.stringify(data, null, 2);\n\n      fs.writeFileSync(name, json);\n    } else if (window.location.protocol === 'https:' && !forceLocalStorage) {\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken._defaultName) {\n    if (isNode()) {\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const raw = fs.readFileSync(name, json);\n      const data = JSON.parse(raw);\n\n      return new OAuthToken(data.token, data.type, new Date(data.expires));\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
     "static": true,
     "longname": "src/oauth/OAuthToken.js",
     "access": null,
@@ -9230,7 +9314,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 349,
+    "__docId__": 353,
     "kind": "class",
     "name": "OAuthToken",
     "memberof": "src/oauth/OAuthToken.js",
@@ -9238,14 +9322,14 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/oauth/OAuthToken.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/OAuthToken.js",
     "importStyle": "OAuthToken",
     "description": "Oauth token container",
-    "lineNumber": 6,
+    "lineNumber": 7,
     "interface": false
   },
   {
-    "__docId__": 350,
+    "__docId__": 354,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9255,7 +9339,7 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 13,
+    "lineNumber": 14,
     "params": [
       {
         "nullable": null,
@@ -9301,35 +9385,12 @@
     ]
   },
   {
-    "__docId__": 351,
+    "__docId__": 355,
     "kind": "member",
     "name": "scopes",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
     "static": false,
     "longname": "src/oauth/OAuthToken.js~OAuthToken#scopes",
-    "access": null,
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 352,
-    "kind": "member",
-    "name": "token",
-    "memberof": "src/oauth/OAuthToken.js~OAuthToken",
-    "static": false,
-    "longname": "src/oauth/OAuthToken.js~OAuthToken#token",
     "access": null,
     "description": null,
     "lineNumber": 15,
@@ -9347,12 +9408,12 @@
     }
   },
   {
-    "__docId__": 353,
+    "__docId__": 356,
     "kind": "member",
-    "name": "type",
+    "name": "token",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
     "static": false,
-    "longname": "src/oauth/OAuthToken.js~OAuthToken#type",
+    "longname": "src/oauth/OAuthToken.js~OAuthToken#token",
     "access": null,
     "description": null,
     "lineNumber": 16,
@@ -9370,15 +9431,15 @@
     }
   },
   {
-    "__docId__": 354,
+    "__docId__": 357,
     "kind": "member",
-    "name": "expires",
+    "name": "type",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
     "static": false,
-    "longname": "src/oauth/OAuthToken.js~OAuthToken#expires",
+    "longname": "src/oauth/OAuthToken.js~OAuthToken#type",
     "access": null,
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 17,
     "undocument": true,
     "unknown": [
       {
@@ -9393,7 +9454,7 @@
     }
   },
   {
-    "__docId__": 355,
+    "__docId__": 358,
     "kind": "member",
     "name": "expires",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9401,7 +9462,7 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken#expires",
     "access": null,
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 23,
     "undocument": true,
     "unknown": [
       {
@@ -9416,7 +9477,30 @@
     }
   },
   {
-    "__docId__": 356,
+    "__docId__": 359,
+    "kind": "member",
+    "name": "expires",
+    "memberof": "src/oauth/OAuthToken.js~OAuthToken",
+    "static": false,
+    "longname": "src/oauth/OAuthToken.js~OAuthToken#expires",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 360,
     "kind": "method",
     "name": "toString",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9426,7 +9510,7 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken#toString",
     "access": null,
     "description": "String representation of the token, usable in the Authorization header",
-    "lineNumber": 34,
+    "lineNumber": 35,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9444,7 +9528,7 @@
     }
   },
   {
-    "__docId__": 357,
+    "__docId__": 361,
     "kind": "method",
     "name": "toResponseObject",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9454,7 +9538,7 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken#toResponseObject",
     "access": null,
     "description": "Get equivalent OAuth response object",
-    "lineNumber": 42,
+    "lineNumber": 43,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9472,7 +9556,7 @@
     }
   },
   {
-    "__docId__": 358,
+    "__docId__": 362,
     "kind": "get",
     "name": "expired",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9482,7 +9566,7 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken#expired",
     "access": null,
     "description": "If the token has expired",
-    "lineNumber": 55,
+    "lineNumber": 56,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9504,7 +9588,7 @@
     }
   },
   {
-    "__docId__": 359,
+    "__docId__": 363,
     "kind": "get",
     "name": "storageName",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9514,7 +9598,7 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken.storageName",
     "access": null,
     "description": "Internal storage key name",
-    "lineNumber": 64,
+    "lineNumber": 65,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9540,7 +9624,75 @@
     }
   },
   {
-    "__docId__": 360,
+    "__docId__": 364,
+    "kind": "get",
+    "name": "nodeTokenFilename",
+    "memberof": "src/oauth/OAuthToken.js~OAuthToken",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/oauth/OAuthToken.js~OAuthToken.nodeTokenFilename",
+    "access": null,
+    "description": "Filename for nodejs token storage",
+    "lineNumber": 74,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{string} - filename"
+      },
+      {
+        "tagName": "@constant",
+        "tagValue": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "filename"
+    },
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 365,
+    "kind": "get",
+    "name": "_defaultName",
+    "memberof": "src/oauth/OAuthToken.js~OAuthToken",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/oauth/OAuthToken.js~OAuthToken._defaultName",
+    "access": "private",
+    "description": "Gets the default name for the name parameter on save and restore",
+    "lineNumber": 84,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{string} - name"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "name"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 366,
     "kind": "method",
     "name": "fromResponseObject",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9550,7 +9702,7 @@
     "longname": "src/oauth/OAuthToken.js~OAuthToken.fromResponseObject",
     "access": null,
     "description": "Build instance from response object",
-    "lineNumber": 73,
+    "lineNumber": 93,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9580,7 +9732,7 @@
     }
   },
   {
-    "__docId__": 361,
+    "__docId__": 367,
     "kind": "method",
     "name": "save",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9593,7 +9745,7 @@
     "see": [
       "OAuthToken#recover"
     ],
-    "lineNumber": 93,
+    "lineNumber": 113,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9632,7 +9784,7 @@
     }
   },
   {
-    "__docId__": 362,
+    "__docId__": 368,
     "kind": "method",
     "name": "recover",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -9645,7 +9797,7 @@
     "see": [
       "OAuthToken#save"
     ],
-    "lineNumber": 121,
+    "lineNumber": 146,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9675,7 +9827,7 @@
     }
   },
   {
-    "__docId__": 363,
+    "__docId__": 369,
     "kind": "file",
     "name": "src/oauth/PasswordFlow.js",
     "content": "import OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport {encodeQueryString, makeRequest} from '../utils/requests';\nimport OAuthError from './OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Password authentication flow\n */\nexport default class PasswordFlow extends OAuth {\n  /**\n   * @param {string} clientId - OAuth client id\n   * @param {string} secret - OAuth secret\n   * @param {string} username - Valid username (email)\n   * @param {string} password - Valid password\n   * @param {Array<string>} scopes - A list of required scopes\n   */\n  constructor(clientId, secret, username, password, scopes = ['*']) {\n    super(clientId, scopes);\n\n    this._secret = secret;\n    this._username = username;\n    this._password = password;\n\n    this._path = '/oauth/token';\n\n    // Because the client requires a secret HTTPS is highly recommended\n    if (!isNode() && window.location.protocol !== 'https:') {\n      console.warn(\"Page was not loaded using https. You're probably leaking secrets right now\");\n    }\n  }\n\n  /**\n   * it's a secret :o (client secret)\n   * @returns {String} - secret\n   */\n  get secret() {\n    return this._secret;\n  }\n\n  /**\n   * Set client secret\n   * @param {String} value - secret\n   */\n  set secret(value) {\n    this._secret = value;\n  }\n\n  /**\n   * Get the username for authentication\n   * @returns {String} - Username (email)\n   */\n  get username() {\n    return this._username;\n  }\n\n  /**\n   * Get the username for authentication\n   * @param {String} value - Username (email)\n   */\n  set username(value) {\n    this._username = value;\n  }\n\n  /**\n   * Get the password\n   * @returns {String} - Password\n   */\n  get password() {\n    return this._password;\n  }\n\n  /**\n   * Set the password\n   * @param {String} value - password\n   */\n  set password(value) {\n    this._password = value;\n  }\n\n  /**\n   * OAuth path\n   * @returns {String} - OAuth path\n   */\n  get path() {\n    return this._path;\n  }\n\n  /**\n   * OAuth path\n   * @param {String} value - OAuth path\n   */\n  set path(value) {\n    this._path = value;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    const url = this.host + this._path;\n    const query = {\n      'grant_type': '_password',\n      'client_id': this.clientId,\n      'client_secret': this._secret,\n      'username': this._username,\n      'password': this._password,\n      'scope': this.scopes.join(' '),\n    };\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, 'POST', encodeQueryString(query)).then(request => {\n        const data = JSON.parse(request.responseText);\n\n        this.token = OAuthToken.fromResponseObject(data);\n        this.token.scopes = this.scopes;\n        resolve(this.token);\n      }).catch(request => {\n        const data = JSON.parse(request.responseText);\n\n        reject(new OAuthError(data['error'], data['message']));\n      });\n    });\n  }\n}\n",
@@ -9686,7 +9838,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 364,
+    "__docId__": 370,
     "kind": "class",
     "name": "PasswordFlow",
     "memberof": "src/oauth/PasswordFlow.js",
@@ -9694,7 +9846,7 @@
     "longname": "src/oauth/PasswordFlow.js~PasswordFlow",
     "access": null,
     "export": true,
-    "importPath": "maps4news/src/oauth/PasswordFlow.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/PasswordFlow.js",
     "importStyle": "PasswordFlow",
     "description": "Password authentication flow",
     "lineNumber": 10,
@@ -9704,7 +9856,7 @@
     ]
   },
   {
-    "__docId__": 365,
+    "__docId__": 371,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9769,7 +9921,7 @@
     ]
   },
   {
-    "__docId__": 366,
+    "__docId__": 372,
     "kind": "member",
     "name": "_secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9792,7 +9944,7 @@
     }
   },
   {
-    "__docId__": 367,
+    "__docId__": 373,
     "kind": "member",
     "name": "_username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9815,7 +9967,7 @@
     }
   },
   {
-    "__docId__": 368,
+    "__docId__": 374,
     "kind": "member",
     "name": "_password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9838,7 +9990,7 @@
     }
   },
   {
-    "__docId__": 369,
+    "__docId__": 375,
     "kind": "member",
     "name": "_path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9861,7 +10013,7 @@
     }
   },
   {
-    "__docId__": 370,
+    "__docId__": 376,
     "kind": "get",
     "name": "secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9893,7 +10045,7 @@
     }
   },
   {
-    "__docId__": 371,
+    "__docId__": 377,
     "kind": "set",
     "name": "secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9923,7 +10075,7 @@
     }
   },
   {
-    "__docId__": 372,
+    "__docId__": 378,
     "kind": "member",
     "name": "_secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9946,7 +10098,7 @@
     }
   },
   {
-    "__docId__": 373,
+    "__docId__": 379,
     "kind": "get",
     "name": "username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -9978,7 +10130,7 @@
     }
   },
   {
-    "__docId__": 374,
+    "__docId__": 380,
     "kind": "set",
     "name": "username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10008,7 +10160,7 @@
     }
   },
   {
-    "__docId__": 375,
+    "__docId__": 381,
     "kind": "member",
     "name": "_username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10031,7 +10183,7 @@
     }
   },
   {
-    "__docId__": 376,
+    "__docId__": 382,
     "kind": "get",
     "name": "password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10063,7 +10215,7 @@
     }
   },
   {
-    "__docId__": 377,
+    "__docId__": 383,
     "kind": "set",
     "name": "password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10093,7 +10245,7 @@
     }
   },
   {
-    "__docId__": 378,
+    "__docId__": 384,
     "kind": "member",
     "name": "_password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10116,7 +10268,7 @@
     }
   },
   {
-    "__docId__": 379,
+    "__docId__": 385,
     "kind": "get",
     "name": "path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10148,7 +10300,7 @@
     }
   },
   {
-    "__docId__": 380,
+    "__docId__": 386,
     "kind": "set",
     "name": "path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10178,7 +10330,7 @@
     }
   },
   {
-    "__docId__": 381,
+    "__docId__": 387,
     "kind": "member",
     "name": "_path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10201,7 +10353,7 @@
     }
   },
   {
-    "__docId__": 382,
+    "__docId__": 388,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10229,7 +10381,7 @@
     }
   },
   {
-    "__docId__": 383,
+    "__docId__": 389,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -10252,7 +10404,7 @@
     }
   },
   {
-    "__docId__": 384,
+    "__docId__": 390,
     "kind": "file",
     "name": "src/oauth/StateContainer.js",
     "content": "import StaticClass from '../utils/StaticClass';\nimport Uuid from '../utils/uuid';\n\n/**\n * State container for keeping track of OAuth states (crsf tokens)\n * @static\n * @private\n */\nexport default class StateContainer extends StaticClass {\n  /**\n   * LocalStorage key prefix\n   * @returns {String} - prefix\n   * @constant\n   */\n  static get prefix() {\n    return 'm4n_api_state_';\n  }\n\n  /**\n   * Generate and store a state that can be checked at a later point\n   * @returns {string} - state\n   */\n  static generate() {\n    const key = StateContainer.prefix + Date.now();\n    const value = Uuid.uuid4();\n\n    localStorage.setItem(key, value);\n    return value;\n  }\n\n  /**\n   * Validate a state\n   * @param {String} state - state to validate\n   * @param {Boolean} purge - remove from state db after validation\n   * @returns {Boolean} - if the state is valid\n   */\n  static validate(state, purge = true) {\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n\n      if (localStorage.getItem(key) === state) {\n        if (purge) {\n          localStorage.removeItem(key);\n        }\n\n        return true;\n      }\n    }\n\n    return false;\n  }\n\n  /**\n   * Remove all states from the state db\n   * @returns {void}\n   */\n  static clean() {\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n      const prefix = key.slice(0, StateContainer.prefix.length);\n\n      if (prefix === StateContainer.prefix) {\n        localStorage.removeItem(key);\n      }\n    }\n  }\n\n  /**\n   * Get states with their corresponding state db key\n   * @returns {Object<String, String>} - List of stored states\n   */\n  static list() {\n    const out = {};\n\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n      const prefix = key.slice(0, StateContainer.prefix.length);\n\n      if (prefix === StateContainer.prefix) {\n        out[key] = localStorage.getItem(key);\n      }\n    }\n\n    return out;\n  }\n}\n",
@@ -10263,7 +10415,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 385,
+    "__docId__": 391,
     "kind": "class",
     "name": "StateContainer",
     "memberof": "src/oauth/StateContainer.js",
@@ -10271,7 +10423,7 @@
     "longname": "src/oauth/StateContainer.js~StateContainer",
     "access": "private",
     "export": true,
-    "importPath": "maps4news/src/oauth/StateContainer.js",
+    "importPath": "@mapcreator/maps4news/src/oauth/StateContainer.js",
     "importStyle": "StateContainer",
     "description": "State container for keeping track of OAuth states (crsf tokens)",
     "lineNumber": 9,
@@ -10281,7 +10433,7 @@
     ]
   },
   {
-    "__docId__": 386,
+    "__docId__": 392,
     "kind": "get",
     "name": "prefix",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -10317,7 +10469,7 @@
     }
   },
   {
-    "__docId__": 387,
+    "__docId__": 393,
     "kind": "method",
     "name": "generate",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -10345,7 +10497,7 @@
     }
   },
   {
-    "__docId__": 388,
+    "__docId__": 394,
     "kind": "method",
     "name": "validate",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -10394,7 +10546,7 @@
     }
   },
   {
-    "__docId__": 389,
+    "__docId__": 395,
     "kind": "method",
     "name": "clean",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -10422,7 +10574,7 @@
     }
   },
   {
-    "__docId__": 390,
+    "__docId__": 396,
     "kind": "method",
     "name": "list",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -10450,7 +10602,7 @@
     }
   },
   {
-    "__docId__": 391,
+    "__docId__": 397,
     "kind": "file",
     "name": "src/utils/StaticClass.js",
     "content": "import StaticClassError from '../exceptions/StaticClassError';\n\n/**\n * Disables the constructor and throws a {@link StaticClassError} when an instance is created.\n * @protected\n */\nexport default class StaticClass {\n  constructor() {\n    throw new StaticClassError();\n  }\n}\n",
@@ -10461,7 +10613,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 392,
+    "__docId__": 398,
     "kind": "class",
     "name": "StaticClass",
     "memberof": "src/utils/StaticClass.js",
@@ -10469,14 +10621,14 @@
     "longname": "src/utils/StaticClass.js~StaticClass",
     "access": "protected",
     "export": true,
-    "importPath": "maps4news/src/utils/StaticClass.js",
+    "importPath": "@mapcreator/maps4news/src/utils/StaticClass.js",
     "importStyle": "StaticClass",
     "description": "Disables the constructor and throws a {@link StaticClassError} when an instance is created.",
     "lineNumber": 7,
     "interface": false
   },
   {
-    "__docId__": 393,
+    "__docId__": 399,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/StaticClass.js~StaticClass",
@@ -10497,7 +10649,7 @@
     "params": []
   },
   {
-    "__docId__": 394,
+    "__docId__": 400,
     "kind": "file",
     "name": "src/utils/caseConverter.js",
     "content": "/**\n * Converts snake_case strings to camelCase\n * @param {String} str - a snake_case string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function snakeToCamelCase(str) {\n  return str.replace(/(?:(_[a-z\\d]))/g, x => x[1].toUpperCase());\n}\n\n/**\n * Converts camelCase strings to snake_case\n * @param {String} str - a camelCase string\n * @returns {String} - Converted snake_case string\n * @private\n */\nexport function camelToSnakeCase(str) {\n  return str.replace(/([A-Z])/g, x => '_' + x.toLowerCase());\n}\n",
@@ -10508,7 +10660,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 395,
+    "__docId__": 401,
     "kind": "function",
     "name": "snakeToCamelCase",
     "memberof": "src/utils/caseConverter.js",
@@ -10518,7 +10670,7 @@
     "longname": "src/utils/caseConverter.js~snakeToCamelCase",
     "access": "private",
     "export": true,
-    "importPath": "maps4news/src/utils/caseConverter.js",
+    "importPath": "@mapcreator/maps4news/src/utils/caseConverter.js",
     "importStyle": "{snakeToCamelCase}",
     "description": "Converts snake_case strings to camelCase",
     "lineNumber": 7,
@@ -10550,7 +10702,7 @@
     }
   },
   {
-    "__docId__": 396,
+    "__docId__": 402,
     "kind": "function",
     "name": "camelToSnakeCase",
     "memberof": "src/utils/caseConverter.js",
@@ -10560,7 +10712,7 @@
     "longname": "src/utils/caseConverter.js~camelToSnakeCase",
     "access": "private",
     "export": true,
-    "importPath": "maps4news/src/utils/caseConverter.js",
+    "importPath": "@mapcreator/maps4news/src/utils/caseConverter.js",
     "importStyle": "{camelToSnakeCase}",
     "description": "Converts camelCase strings to snake_case",
     "lineNumber": 17,
@@ -10592,7 +10744,7 @@
     }
   },
   {
-    "__docId__": 397,
+    "__docId__": 403,
     "kind": "file",
     "name": "src/utils/node.js",
     "content": "/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  // eslint-disable-next-line no-undef\n  return typeof window === 'undefined' && typeof module !== 'undefined' && module.exports;\n}\n",
@@ -10603,7 +10755,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 398,
+    "__docId__": 404,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -10613,7 +10765,7 @@
     "longname": "src/utils/node.js~isNode",
     "access": "private",
     "export": true,
-    "importPath": "maps4news/src/utils/node.js",
+    "importPath": "@mapcreator/maps4news/src/utils/node.js",
     "importStyle": "{isNode}",
     "description": "Test if the application is running under nodejs",
     "see": [
@@ -10637,7 +10789,7 @@
     }
   },
   {
-    "__docId__": 399,
+    "__docId__": 405,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n",
@@ -10648,7 +10800,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 400,
+    "__docId__": 406,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -10658,7 +10810,7 @@
     "longname": "src/utils/reflection.js~isParentOf",
     "access": "private",
     "export": true,
-    "importPath": "maps4news/src/utils/reflection.js",
+    "importPath": "@mapcreator/maps4news/src/utils/reflection.js",
     "importStyle": "{isParentOf}",
     "description": "Tests if the parent is a parent of child",
     "examples": [
@@ -10705,7 +10857,7 @@
     }
   },
   {
-    "__docId__": 401,
+    "__docId__": 407,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/**\n * Makes a HTTP request and returns a promise. Promise will fail/reject if the\n * status code isn't 2XX.\n * @param {string} url - Target url\n * @param {string} method - HTTP method\n * @param {string|object<string, string>} body - raw body content or object to be json encoded\n * @param {object<string, string>} headers - headers\n * @param {string} responseType - XMLHttpRequest response type\n *\n * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx\n * @private\n */\nexport function makeRequest(url, method = 'GET', body = '', headers = {}, responseType = '') {\n  return new Promise((resolve, reject) => {\n    method = method.toUpperCase();\n\n    const request = new XMLHttpRequest();\n\n    request.responseType = responseType;\n\n    const hasContentType = Object.keys(headers)\n        .filter(x => x.toLowerCase() === 'content-type')\n        .length > 0;\n\n    request.open(method, url, true);\n\n    // Automatically detect possible content-type header\n    if (typeof body === 'object') {\n      body = JSON.stringify(body);\n\n      if (!hasContentType) {\n        headers['Content-Type'] = 'application/json';\n      }\n    } else if (body && !hasContentType) {\n      headers['Content-Type'] = 'application/x-www-form-urlencoded';\n    }\n\n    // Apply headers\n    for (const key of Object.keys(headers)) {\n      request.setRequestHeader(key, headers[key]);\n    }\n\n    request.onreadystatechange = () => {\n      // State 4 === Done\n      if (request.readyState === XMLHttpRequest.DONE) {\n        if (request.status >= 200 && request.status < 300) {\n          resolve(request);\n        } else {\n          reject(request);\n        }\n      }\n    };\n\n    if (body && method !== 'GET') {\n      request.send(body);\n    } else {\n      request.send();\n    }\n  });\n}\n\n/**\n * Encodes an object to a http query string\n * @param {object<string, string>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nexport function encodeQueryString(paramsObject) {\n  return Object\n    .keys(paramsObject)\n    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(paramsObject[key])}`)\n    .join('&');\n}\n\n",
@@ -10716,7 +10868,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 402,
+    "__docId__": 408,
     "kind": "function",
     "name": "makeRequest",
     "memberof": "src/utils/requests.js",
@@ -10726,7 +10878,7 @@
     "longname": "src/utils/requests.js~makeRequest",
     "access": "private",
     "export": true,
-    "importPath": "maps4news/src/utils/requests.js",
+    "importPath": "@mapcreator/maps4news/src/utils/requests.js",
     "importStyle": "{makeRequest}",
     "description": "Makes a HTTP request and returns a promise. Promise will fail/reject if the\nstatus code isn't 2XX.",
     "lineNumber": 13,
@@ -10799,7 +10951,7 @@
     }
   },
   {
-    "__docId__": 403,
+    "__docId__": 409,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -10809,7 +10961,7 @@
     "longname": "src/utils/requests.js~encodeQueryString",
     "access": "private",
     "export": true,
-    "importPath": "maps4news/src/utils/requests.js",
+    "importPath": "@mapcreator/maps4news/src/utils/requests.js",
     "importStyle": "{encodeQueryString}",
     "description": "Encodes an object to a http query string",
     "see": [
@@ -10844,7 +10996,7 @@
     }
   },
   {
-    "__docId__": 404,
+    "__docId__": 410,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "import StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @protected\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    // Use the secure method if possible\n    return typeof crypto !== 'undefined' ? Uuid._uuid4Safe() : Uuid._uuid4Unsafe();\n  }\n\n  /**\n   * Unsafe UUID4 generation using Math.random\n   * @returns {string} - Uuid\n   *\n   * @see http://stackoverflow.com/a/8809472\n   * @license MIT|Public Domain\n   * @private\n   */\n  static _uuid4Unsafe() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Safe UUID4 generation using the crypto api\n   * @returns {String} - Uuid\n   * @private\n   */\n  static _uuid4Safe() {\n    let data = new Uint8Array(16);\n\n    crypto.getRandomValues(data);\n\n    // cast to array so we can use pop()\n    data = [].slice.call(data);\n\n    // Replace 'xx' with a two width base 16 number\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/xx/g, () => {\n      // Prepend 00 for padding and grab the last two characters\n      return ('00' + data.pop().toString(16)).slice(-2);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -10855,7 +11007,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 405,
+    "__docId__": 411,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -10863,7 +11015,7 @@
     "longname": "src/utils/uuid.js~Uuid",
     "access": "protected",
     "export": true,
-    "importPath": "maps4news/src/utils/uuid.js",
+    "importPath": "@mapcreator/maps4news/src/utils/uuid.js",
     "importStyle": "Uuid",
     "description": "UUID util class",
     "lineNumber": 8,
@@ -10873,7 +11025,7 @@
     ]
   },
   {
-    "__docId__": 406,
+    "__docId__": 412,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -10901,7 +11053,7 @@
     }
   },
   {
-    "__docId__": 407,
+    "__docId__": 413,
     "kind": "method",
     "name": "_uuid4Unsafe",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -10936,7 +11088,7 @@
     }
   },
   {
-    "__docId__": 408,
+    "__docId__": 414,
     "kind": "method",
     "name": "_uuid4Safe",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -10964,7 +11116,7 @@
     }
   },
   {
-    "__docId__": 409,
+    "__docId__": 415,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -10992,7 +11144,7 @@
     }
   },
   {
-    "__docId__": 411,
+    "__docId__": 417,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -11004,7 +11156,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 412,
+    "__docId__": 418,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -11016,7 +11168,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 413,
+    "__docId__": 419,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -11028,7 +11180,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 414,
+    "__docId__": 420,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -11040,7 +11192,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 415,
+    "__docId__": 421,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -11052,7 +11204,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 416,
+    "__docId__": 422,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -11064,7 +11216,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 417,
+    "__docId__": 423,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -11076,7 +11228,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 418,
+    "__docId__": 424,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -11088,7 +11240,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 419,
+    "__docId__": 425,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -11100,7 +11252,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 420,
+    "__docId__": 426,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -11112,7 +11264,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 421,
+    "__docId__": 427,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -11124,7 +11276,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 422,
+    "__docId__": 428,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -11136,7 +11288,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 423,
+    "__docId__": 429,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -11148,7 +11300,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 424,
+    "__docId__": 430,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -11160,7 +11312,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 425,
+    "__docId__": 431,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -11172,7 +11324,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 426,
+    "__docId__": 432,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -11184,7 +11336,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 427,
+    "__docId__": 433,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -11196,7 +11348,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 428,
+    "__docId__": 434,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -11208,7 +11360,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 429,
+    "__docId__": 435,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -11220,7 +11372,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 430,
+    "__docId__": 436,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -11232,7 +11384,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 431,
+    "__docId__": 437,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -11244,7 +11396,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 432,
+    "__docId__": 438,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -11256,7 +11408,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 433,
+    "__docId__": 439,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -11268,7 +11420,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 434,
+    "__docId__": 440,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -11280,7 +11432,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 435,
+    "__docId__": 441,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -11292,7 +11444,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 436,
+    "__docId__": 442,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -11304,7 +11456,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 437,
+    "__docId__": 443,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -11316,7 +11468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 438,
+    "__docId__": 444,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -11328,7 +11480,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 439,
+    "__docId__": 445,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -11340,7 +11492,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 440,
+    "__docId__": 446,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -11352,7 +11504,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 441,
+    "__docId__": 447,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -11364,7 +11516,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 442,
+    "__docId__": 448,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -11376,7 +11528,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 443,
+    "__docId__": 449,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -11388,7 +11540,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 444,
+    "__docId__": 450,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -11400,7 +11552,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 445,
+    "__docId__": 451,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -11412,7 +11564,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 446,
+    "__docId__": 452,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -11424,7 +11576,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 447,
+    "__docId__": 453,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -11436,7 +11588,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 448,
+    "__docId__": 454,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -11448,7 +11600,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 449,
+    "__docId__": 455,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -11460,7 +11612,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 450,
+    "__docId__": 456,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -11472,7 +11624,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 451,
+    "__docId__": 457,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -11484,7 +11636,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 452,
+    "__docId__": 458,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -11496,7 +11648,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 453,
+    "__docId__": 459,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -11508,7 +11660,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 454,
+    "__docId__": 460,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -11520,7 +11672,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 455,
+    "__docId__": 461,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -11532,7 +11684,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 456,
+    "__docId__": 462,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -11544,7 +11696,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 457,
+    "__docId__": 463,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -11557,7 +11709,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 459,
+    "__docId__": 465,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -11569,7 +11721,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 460,
+    "__docId__": 466,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -11581,7 +11733,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 461,
+    "__docId__": 467,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -11593,7 +11745,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 462,
+    "__docId__": 468,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -11605,7 +11757,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 463,
+    "__docId__": 469,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -11617,7 +11769,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 464,
+    "__docId__": 470,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -11629,7 +11781,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 465,
+    "__docId__": 471,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -11641,7 +11793,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 466,
+    "__docId__": 472,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

@@ -10,6 +10,10 @@
   
   
   <script src="script/manual.js"></script>
+<script data-ice="userScript" src="user/script/0-bundle.js"></script>
+<script data-ice="userScript" src="user/script/1-sandbox.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="user/css/0-sidebar_fix.css">
+<link data-ice="userStyle" rel="stylesheet" href="user/css/1-hide_import.css">
 </head>
 <body class="layout-container" data-ice="rootContainer">
 
@@ -72,7 +76,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractError.html">AbstractError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractMethodError.html">AbstractMethodError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/ApiError.js~ApiError.html">ApiError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/NodeError.js~NodeError.html">NodeError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/StaticClassError.js~StaticClassError.html">StaticClassError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/UnsupportedCrudError.js~UnsupportedCrudError.html">UnsupportedCrudError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/ValidationError.js~ValidationError.html">ValidationError</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">oauth</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/DummyFlow.js~DummyFlow.html">DummyFlow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/ImplicitFlow.js~ImplicitFlow.html">ImplicitFlow</a></span></span></li>
@@ -92,6 +98,7 @@
 import Layer from &apos;./Layer&apos;;
 import JobShare from &apos;./JobShare&apos;;
 import JobResult from &apos;./JobResult&apos;;
+import {isParentOf} from &quot;../utils/reflection&quot;;
 
 export default class JobRevision extends CrudBase {
   get baseUrl() {
@@ -108,16 +115,40 @@ export default class JobRevision extends CrudBase {
 
   /**
    * Save updated job revision
-   * @returns {void}
-   * @todo unimplemented
+   * @param {Object} object - Map object
+   * @param {Array&lt;Layer&gt;|Array&lt;Number&gt;|null} layers - Array containing all layers for this revision. If set to null the same layers will be used
+   * @returns {Promise} - Resolves with a new {@link JobRevision} instance and rejects with {@link ApiError}
+   * @throws TypeError
    */
-  save() {
-    throw new Error(&apos;Unimplemented&apos;);
+  save(object = {}, layers = null) {
+    if (layers &amp;&amp; layers.length &gt; 0) {
+      if (isParentOf(Layer, layers[0])) {
+        layers = layers.map(layer =&gt; layer.id);
+      } else if (typeof layers[0] !== &apos;number&apos;) {
+        throw new TypeError(&apos;layers property is not of type Array&lt;Layer&gt;, Array&lt;Number&gt; or null&apos;);
+      }
+    }
+
+    const data = {
+      &apos;object&apos;: JSON.stringify(object),
+      &apos;language_code&apos;: this.languageCode,
+      &apos;mapstyle_set_id&apos;: this.mapstyleSetId,
+    };
+
+    if (layers) {
+      data.layers = layers;
+    }
+
+    return new Promise((resolve, reject) =&gt; {
+      this.api.request(this.baseUrl, &apos;POST&apos;, data)
+        .catch(reject)
+        .then(data =&gt; resolve(new JobRevision(this.api, data)));
+    });
   }
 
   /**
    * Get job object
-   * @returns {Promise} - Resolves with {@link Object} instance containing the map object and rejects with {@link OAuthError}
+   * @returns {Promise} - Resolves with {@link Object} instance containing the map object and rejects with {@link ApiError}
    * @todo document object format
    */
   object() {
@@ -129,7 +160,7 @@ export default class JobRevision extends CrudBase {
   /**
    * Build the revision
    * @param {String} callbackUrl - Optional callback url for when the job completes
-   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link OAuthError}
+   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
    */
   build(callbackUrl) {
     const url = `${this.url}/build`;
@@ -140,7 +171,7 @@ export default class JobRevision extends CrudBase {
 
   /**
    * Cancels a running job
-   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link OAuthError}
+   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
    */
   cancel() {
     const url = `${this.url}/cancel`;
@@ -150,7 +181,7 @@ export default class JobRevision extends CrudBase {
 
   /**
    * Get layers
-   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link OAuthError}
+   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}
    */
   layers() {
     return this._listResource(Layer);
@@ -159,7 +190,7 @@ export default class JobRevision extends CrudBase {
   /**
    * Share the job revision
    * @param {String} visibility - See {@link JobShareVisibility}, either `private` or `organisation`
-   * @returns {Promise} - Resolves with a {@link String} containing the share link and rejects with {@link OAuthError}
+   * @returns {Promise} - Resolves with a {@link String} containing the share link and rejects with {@link ApiError}
    */
   share(visibility = JobShare.visibility.PRIVATE) {
     visibility = visibility.toLowerCase();
@@ -176,7 +207,7 @@ export default class JobRevision extends CrudBase {
 
   /**
    * Get the job result
-   * @returns {Promise} - Resolves with a {@link JobResult} instance and rejects with {@link OAuthError}
+   * @returns {Promise} - Resolves with a {@link JobResult} instance and rejects with {@link ApiError}
    */
   result() {
     const url = `${this.url}/result`;
@@ -184,7 +215,7 @@ export default class JobRevision extends CrudBase {
     return new Promise((resolve, reject) =&gt; {
       this.api.request(url)
         .catch(reject)
-        .then(data =&gt; resolve(new JobResult(data)));
+        .then(data =&gt; resolve(new JobResult(this.api, data)));
     });
   }
 }

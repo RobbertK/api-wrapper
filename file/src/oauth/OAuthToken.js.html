@@ -10,6 +10,10 @@
   
   
   <script src="script/manual.js"></script>
+<script data-ice="userScript" src="user/script/0-bundle.js"></script>
+<script data-ice="userScript" src="user/script/1-sandbox.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="user/css/0-sidebar_fix.css">
+<link data-ice="userStyle" rel="stylesheet" href="user/css/1-hide_import.css">
 </head>
 <body class="layout-container" data-ice="rootContainer">
 
@@ -72,7 +76,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractError.html">AbstractError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/AbstractError.js~AbstractMethodError.html">AbstractMethodError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/ApiError.js~ApiError.html">ApiError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/NodeError.js~NodeError.html">NodeError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/StaticClassError.js~StaticClassError.html">StaticClassError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/UnsupportedCrudError.js~UnsupportedCrudError.html">UnsupportedCrudError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exceptions/ValidationError.js~ValidationError.html">ValidationError</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">oauth</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/DummyFlow.js~DummyFlow.html">DummyFlow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/ImplicitFlow.js~ImplicitFlow.html">ImplicitFlow</a></span></span></li>
@@ -89,6 +95,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/oauth/OAuthToken.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {isNode} from &apos;../utils/node&apos;;
+import NodeError from &apos;../exceptions/NodeError&apos;;
 
 /**
  * Oauth token container
@@ -156,6 +163,25 @@ export default class OAuthToken {
   }
 
   /**
+   * Filename for nodejs token storage
+   * @returns {string} - filename
+   * @constant
+   */
+  static get nodeTokenFilename() {
+    return &apos;.m4n_token&apos;;
+  }
+
+  /**
+   * Gets the default name for the name parameter on save and restore
+   * @returns {string} - name
+   * @private
+   * @static
+   */
+  static get _defaultName() {
+    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;
+  }
+
+  /**
    * Build instance from response object
    * @param {String|Object} data - object or JSON string
    * @returns {OAuthToken} - New OAuthToken instance
@@ -180,20 +206,25 @@ export default class OAuthToken {
    * @returns {void}
    * @see OAuthToken#recover
    */
-  save(name = OAuthToken.storageName, forceLocalStorage = false) {
-    // TODO: Nodejs support
-    if (isNode()) {
-      return;
-    }
-
+  save(name = OAuthToken._defaultName, forceLocalStorage = false) {
     const data = {
       token: this.token,
       type: this.type,
       expires: this.expires.toUTCString(),
     };
 
-    if (window.location.protocol === &apos;https:&apos; &amp;&amp; !forceLocalStorage) {
+    if (isNode()) {
+      if (forceLocalStorage) {
+        throw new NodeError(&apos;Can not force localStorage usage when running under node&apos;);
+      }
 
+      // We&apos;re using eval to require fs to make sure that it isn&apos;t added to the bundle
+      // eslint-disable-next-line no-eval
+      const fs = eval(&apos;require(&quot;fs&quot;)&apos;);
+      const json = JSON.stringify(data, null, 2);
+
+      fs.writeFileSync(name, json);
+    } else if (window.location.protocol === &apos;https:&apos; &amp;&amp; !forceLocalStorage) {
       const dataEncoded = encodeURIComponent(JSON.stringify(data));
 
       document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;
@@ -208,10 +239,15 @@ export default class OAuthToken {
    * @returns {OAuthToken|null} - null if none could be recovered
    * @see OAuthToken#save
    */
-  static recover(name = OAuthToken.storageName) {
-    // TODO: Nodejs support
+  static recover(name = OAuthToken._defaultName) {
     if (isNode()) {
-      return null;
+      // We&apos;re using eval to require fs to make sure that it isn&apos;t added to the bundle
+      // eslint-disable-next-line no-eval
+      const fs = eval(&apos;require(&quot;fs&quot;)&apos;);
+      const raw = fs.readFileSync(name, json);
+      const data = JSON.parse(raw);
+
+      return new OAuthToken(data.token, data.type, new Date(data.expires));
     }
 
     // Cookie

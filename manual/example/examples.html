@@ -10,6 +10,10 @@
   
   
   <script src="script/manual.js"></script>
+<script data-ice="userScript" src="user/script/0-bundle.js"></script>
+<script data-ice="userScript" src="user/script/1-sandbox.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="user/css/0-sidebar_fix.css">
+<link data-ice="userStyle" rel="stylesheet" href="user/css/1-hide_import.css">
 </head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
@@ -31,10 +35,17 @@
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
+<div data-ice="manual" data-toc-name="installation">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/installation.html"><a href="manual/installation/installation.html" data-ice="link">Installation</a></li>
+</ul>
+  </div>
 <div data-ice="manual" data-toc-name="example">
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;" data-link="manual/example/examples.html"><a href="manual/example/examples.html" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#getting-a-resource" data-ice="link">Getting a resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#create-a-new-resource" data-ice="link">Create a new resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#modify-a-resource" data-ice="link">Modify a resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#clone-a-resource" data-ice="link">Clone a resource</a></li>
@@ -70,6 +81,24 @@
   <div data-ice="content"><h1 id="basics">Basics</h1>
 <p>These examples assume that an instance of the api exists and is authenticated. 
 See the node and web authentication examples for more information on authenticating.</p>
+<h3 id="getting-a-resource">Getting a resource</h3>
+<p>Resources are bound to the base api class by default. Resources can be fetched in 
+two ways; by selecting them (<code>.select</code>) or by fetching them (<code>.get</code>). Selecting them will only set the
+object&apos;s id to it&apos;s properties. Fetching a resource</p>
+<p>Fetch resource and all it&apos;s properties:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.colors.get(1).then(function(color) {
+    console.log(color.id + &quot; &quot; + color.name + &quot;: &quot; + color.hex);
+})</code>
+</code></pre>
+<p>Select the current user to quickly obtain related mapstyle sets:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).mapstyleSets().then(function(sets) {
+    for(var i = 0; i &lt; sets.data.length; i++) {
+        console.log(sets.data[i].name);
+    }
+});</code>
+</code></pre>
+<p>Selection is only usefull as a stepping stone to related resources that can be easily obtained 
+using the id of the parent. Please refer to the <a href="https://api.beta.maps4news.com/docs/">api documentation</a> for further reference.</p>
 <h3 id="create-a-new-resource">Create a new resource</h3>
 <p>Create a new color and dump the new resource to the console after saving</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
