@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "src/Maps4News.js",
-    "content": "// Polyfill for terrible browsers (looking at you IE)\nimport 'babel-polyfill';\n\nimport {isParentOf} from './utils/reflection';\nimport OAuth from './oauth/OAuth';\nimport {makeRequest} from './utils/requests';\nimport ApiError from './exceptions/ApiError';\nimport ValidationError from './exceptions/ValidationError';\nimport ResourceProxy from './ResourceProxy';\nimport Color from './crud/Color';\nimport Choropleth from './crud/Choropleth';\nimport Contract from './crud/Contract';\nimport DimensionSet from './crud/DimensionSet';\nimport Dimension from './crud/Dimension';\nimport Faq from './crud/Faq';\nimport Feature from './crud/Feature';\nimport Group from './crud/Group';\nimport FontFamily from './crud/FontFamily';\nimport Font from './crud/Font';\nimport Highlight from './crud/Highlight';\nimport InsetMap from './crud/InsetMap';\nimport User from './crud/User';\nimport Notification from './crud/Notification';\nimport Language from './crud/Language';\nimport Layer from './crud/Layer';\nimport Mapstyle from './crud/Mapstyle';\nimport Permission from './crud/Permission';\nimport MapstyleSet from './crud/MapstyleSet';\nimport JobShare from './crud/JobShare';\nimport Job from './crud/Job';\nimport JobType from './crud/JobType';\nimport Organisation from './crud/Organisation';\nimport PlaceName from './crud/PlaceName';\nimport Svg from './crud/Svg';\nimport SvgSetType from './crud/SvgSetType';\nimport SvgSet from './crud/SvgSet';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth, host = 'https://api.maps4news.com') {\n    this.auth = auth;\n    this.host = host;\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this._auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    this._host = value;\n    this._auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      this._auth.authenticate().then(() => {\n        this._auth.token.save();\n\n        resolve(this);\n      }).catch(reject);\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {string} responseType - The XmlHttpRequest type\n   * @param {boolean} raw - When set to true the promise will resolve with the request object\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, responseType = '', raw = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    if (this.authenticated) {\n      headers.Authorization = this._auth.token.toString();\n    }\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, method, data, headers, responseType).then(request => {\n        if (request.getResponseHeader('Content-Type') !== 'application/json') {\n          resolve(raw ? request : request.response);\n        } else {\n          const response = JSON.parse(request.responseText);\n\n          if (!response.success) {\n            const err = response.error;\n\n            if (!err.validation_errors) {\n              reject(new ApiError(err.type, err.message, request.status));\n            } else {\n              reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));\n            }\n          } else {\n            // Return an empty object if no data has been sent\n            // instead of returning undefined.\n            resolve(raw ? request : response.data || {});\n          }\n        }\n      }).catch(request => {\n        const err = JSON.parse(request.responseText).error;\n\n        reject(new ApiError(err.type, err.message, request.status));\n      });\n    });\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return new ResourceProxy(this, Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return new ResourceProxy(this, Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return new ResourceProxy(this, Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return new ResourceProxy(this, Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return new ResourceProxy(this, DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return new ResourceProxy(this, Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return new ResourceProxy(this, Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return new ResourceProxy(this, Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return new ResourceProxy(this, FontFamily);\n  }\n\n  /**\n   * Group accessor\n   * @see {@link Group}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get groups() {\n    return new ResourceProxy(this, Group);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return new ResourceProxy(this, Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return new ResourceProxy(this, InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return new ResourceProxy(this, Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return new ResourceProxy(this, JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return new ResourceProxy(this, JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return new ResourceProxy(this, Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return new ResourceProxy(this, Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return new ResourceProxy(this, Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstylesSets() {\n    return new ResourceProxy(this, MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return new ResourceProxy(this, Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return new ResourceProxy(this, Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return new ResourceProxy(this, Permission);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return new ResourceProxy(this, PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return new ResourceProxy(this, Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return new ResourceProxy(this, SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return new ResourceProxy(this, SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return new ResourceProxy(this, User);\n  }\n}\n",
+    "content": "// Polyfill for terrible browsers (looking at you IE)\nimport 'babel-polyfill';\n\nimport {isParentOf} from './utils/reflection';\nimport OAuth from './oauth/OAuth';\nimport {makeRequest} from './utils/requests';\nimport ApiError from './exceptions/ApiError';\nimport ValidationError from './exceptions/ValidationError';\nimport ResourceProxy from './ResourceProxy';\nimport Color from './crud/Color';\nimport Choropleth from './crud/Choropleth';\nimport Contract from './crud/Contract';\nimport DimensionSet from './crud/DimensionSet';\nimport Dimension from './crud/Dimension';\nimport Faq from './crud/Faq';\nimport Feature from './crud/Feature';\nimport Group from './crud/Group';\nimport FontFamily from './crud/FontFamily';\nimport Font from './crud/Font';\nimport Highlight from './crud/Highlight';\nimport InsetMap from './crud/InsetMap';\nimport User from './crud/User';\nimport Notification from './crud/Notification';\nimport Language from './crud/Language';\nimport Layer from './crud/Layer';\nimport Mapstyle from './crud/Mapstyle';\nimport Permission from './crud/Permission';\nimport MapstyleSet from './crud/MapstyleSet';\nimport JobShare from './crud/JobShare';\nimport Job from './crud/Job';\nimport JobType from './crud/JobType';\nimport Organisation from './crud/Organisation';\nimport PlaceName from './crud/PlaceName';\nimport Svg from './crud/Svg';\nimport SvgSetType from './crud/SvgSetType';\nimport SvgSet from './crud/SvgSet';\nimport DummyFlow from './oauth/DummyFlow';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = 'https://api.maps4news.com') {\n    this.auth = auth;\n    this.host = host;\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this._auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    this._host = value;\n    this._auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      this._auth.authenticate().then(() => {\n        this._auth.token.save();\n\n        resolve(this);\n      }).catch(reject);\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {string} responseType - The XmlHttpRequest type\n   * @param {boolean} raw - When set to true the promise will resolve with the request object\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, responseType = '', raw = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    if (this.authenticated) {\n      headers.Authorization = this._auth.token.toString();\n    }\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, method, data, headers, responseType).then(request => {\n        if (request.getResponseHeader('Content-Type') !== 'application/json') {\n          resolve(raw ? request : request.response);\n        } else {\n          const response = JSON.parse(request.responseText);\n\n          if (!response.success) {\n            const err = response.error;\n\n            if (!err.validation_errors) {\n              reject(new ApiError(err.type, err.message, request.status));\n            } else {\n              reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));\n            }\n          } else {\n            // Return an empty object if no data has been sent\n            // instead of returning undefined.\n            resolve(raw ? request : response.data || {});\n          }\n        }\n      }).catch(request => {\n        const err = JSON.parse(request.responseText).error;\n\n        reject(new ApiError(err.type, err.message, request.status));\n      });\n    });\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return new ResourceProxy(this, Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return new ResourceProxy(this, Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return new ResourceProxy(this, Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return new ResourceProxy(this, Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return new ResourceProxy(this, DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return new ResourceProxy(this, Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return new ResourceProxy(this, Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return new ResourceProxy(this, Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return new ResourceProxy(this, FontFamily);\n  }\n\n  /**\n   * Group accessor\n   * @see {@link Group}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get groups() {\n    return new ResourceProxy(this, Group);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return new ResourceProxy(this, Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return new ResourceProxy(this, InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return new ResourceProxy(this, Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return new ResourceProxy(this, JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return new ResourceProxy(this, JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return new ResourceProxy(this, Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return new ResourceProxy(this, Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return new ResourceProxy(this, Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstylesSets() {\n    return new ResourceProxy(this, MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return new ResourceProxy(this, Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return new ResourceProxy(this, Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return new ResourceProxy(this, Permission);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return new ResourceProxy(this, PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return new ResourceProxy(this, Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return new ResourceProxy(this, SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return new ResourceProxy(this, SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return new ResourceProxy(this, User);\n  }\n}\n",
     "static": true,
     "longname": "src/Maps4News.js",
     "access": null,
@@ -22,7 +22,7 @@
     "importPath": "@mapcreator/maps4news/src/Maps4News.js",
     "importStyle": "Maps4News",
     "description": "Base API class",
-    "lineNumber": 41,
+    "lineNumber": 42,
     "interface": false
   },
   {
@@ -36,7 +36,7 @@
     "longname": "src/Maps4News.js~Maps4News#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 46,
+    "lineNumber": 47,
     "params": [
       {
         "nullable": null,
@@ -69,7 +69,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": null,
-    "lineNumber": 47,
+    "lineNumber": 48,
     "undocument": true,
     "unknown": [
       {
@@ -92,7 +92,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": null,
-    "lineNumber": 48,
+    "lineNumber": 49,
     "undocument": true,
     "unknown": [
       {
@@ -117,7 +117,7 @@
     "longname": "src/Maps4News.js~Maps4News#version",
     "access": null,
     "description": "Get api version",
-    "lineNumber": 56,
+    "lineNumber": 57,
     "unknown": [
       {
         "tagName": "@returns",
@@ -153,7 +153,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": "Get authentication provider instance",
-    "lineNumber": 64,
+    "lineNumber": 65,
     "unknown": [
       {
         "tagName": "@returns",
@@ -185,7 +185,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": "Set authentication provider instance",
-    "lineNumber": 72,
+    "lineNumber": 73,
     "params": [
       {
         "nullable": null,
@@ -213,7 +213,7 @@
     "longname": "src/Maps4News.js~Maps4News#_auth",
     "access": null,
     "description": null,
-    "lineNumber": 77,
+    "lineNumber": 78,
     "undocument": true,
     "unknown": [
       {
@@ -238,7 +238,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticated",
     "access": null,
     "description": "Test if the client is authenticated with the api and has a valid token",
-    "lineNumber": 84,
+    "lineNumber": 85,
     "unknown": [
       {
         "tagName": "@returns",
@@ -270,7 +270,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": "The current host",
-    "lineNumber": 92,
+    "lineNumber": 93,
     "unknown": [
       {
         "tagName": "@returns",
@@ -302,7 +302,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": "The remote host",
-    "lineNumber": 100,
+    "lineNumber": 101,
     "params": [
       {
         "nullable": null,
@@ -330,7 +330,7 @@
     "longname": "src/Maps4News.js~Maps4News#_host",
     "access": null,
     "description": null,
-    "lineNumber": 101,
+    "lineNumber": 102,
     "undocument": true,
     "unknown": [
       {
@@ -355,7 +355,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticate",
     "access": null,
     "description": "Authenticate with the api using the authentication method provided.",
-    "lineNumber": 109,
+    "lineNumber": 110,
     "unknown": [
       {
         "tagName": "@returns",
@@ -383,7 +383,7 @@
     "longname": "src/Maps4News.js~Maps4News#request",
     "access": null,
     "description": "Request an url using the API token (if available)",
-    "lineNumber": 130,
+    "lineNumber": 131,
     "unknown": [
       {
         "tagName": "@returns",
@@ -476,7 +476,7 @@
     "see": [
       "{@link Choropleth}"
     ],
-    "lineNumber": 175,
+    "lineNumber": 176,
     "unknown": [
       {
         "tagName": "@returns",
@@ -511,7 +511,7 @@
     "see": [
       "{@link Color}"
     ],
-    "lineNumber": 184,
+    "lineNumber": 185,
     "unknown": [
       {
         "tagName": "@returns",
@@ -546,7 +546,7 @@
     "see": [
       "{@link Contract}"
     ],
-    "lineNumber": 193,
+    "lineNumber": 194,
     "unknown": [
       {
         "tagName": "@returns",
@@ -581,7 +581,7 @@
     "see": [
       "{@link Dimension}"
     ],
-    "lineNumber": 202,
+    "lineNumber": 203,
     "unknown": [
       {
         "tagName": "@returns",
@@ -616,7 +616,7 @@
     "see": [
       "{@link DimensionSet}"
     ],
-    "lineNumber": 211,
+    "lineNumber": 212,
     "unknown": [
       {
         "tagName": "@returns",
@@ -651,7 +651,7 @@
     "see": [
       "{@link Faq}"
     ],
-    "lineNumber": 220,
+    "lineNumber": 221,
     "unknown": [
       {
         "tagName": "@returns",
@@ -686,7 +686,7 @@
     "see": [
       "{@link Feature}"
     ],
-    "lineNumber": 229,
+    "lineNumber": 230,
     "unknown": [
       {
         "tagName": "@returns",
@@ -721,7 +721,7 @@
     "see": [
       "{@link Font}"
     ],
-    "lineNumber": 238,
+    "lineNumber": 239,
     "unknown": [
       {
         "tagName": "@returns",
@@ -756,7 +756,7 @@
     "see": [
       "{@link FontFamily}"
     ],
-    "lineNumber": 247,
+    "lineNumber": 248,
     "unknown": [
       {
         "tagName": "@returns",
@@ -791,7 +791,7 @@
     "see": [
       "{@link Group}"
     ],
-    "lineNumber": 256,
+    "lineNumber": 257,
     "unknown": [
       {
         "tagName": "@returns",
@@ -826,7 +826,7 @@
     "see": [
       "{@link Highlight}"
     ],
-    "lineNumber": 265,
+    "lineNumber": 266,
     "unknown": [
       {
         "tagName": "@returns",
@@ -861,7 +861,7 @@
     "see": [
       "{@link InsetMap}"
     ],
-    "lineNumber": 274,
+    "lineNumber": 275,
     "unknown": [
       {
         "tagName": "@returns",
@@ -896,7 +896,7 @@
     "see": [
       "{@link Job}"
     ],
-    "lineNumber": 283,
+    "lineNumber": 284,
     "unknown": [
       {
         "tagName": "@returns",
@@ -931,7 +931,7 @@
     "see": [
       "{@link JobShare}"
     ],
-    "lineNumber": 292,
+    "lineNumber": 293,
     "unknown": [
       {
         "tagName": "@returns",
@@ -966,7 +966,7 @@
     "see": [
       "{@link JobType}"
     ],
-    "lineNumber": 301,
+    "lineNumber": 302,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1001,7 +1001,7 @@
     "see": [
       "{@link Language}"
     ],
-    "lineNumber": 310,
+    "lineNumber": 311,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1036,7 +1036,7 @@
     "see": [
       "{@link Layer}"
     ],
-    "lineNumber": 319,
+    "lineNumber": 320,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1071,7 +1071,7 @@
     "see": [
       "{@link Mapstyle}"
     ],
-    "lineNumber": 328,
+    "lineNumber": 329,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1106,7 +1106,7 @@
     "see": [
       "{@link MapstyleSet}"
     ],
-    "lineNumber": 337,
+    "lineNumber": 338,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1141,7 +1141,7 @@
     "see": [
       "{@link Notification}"
     ],
-    "lineNumber": 346,
+    "lineNumber": 347,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1176,7 +1176,7 @@
     "see": [
       "{@link Organisation}"
     ],
-    "lineNumber": 355,
+    "lineNumber": 356,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1211,7 +1211,7 @@
     "see": [
       "{@link Permission}"
     ],
-    "lineNumber": 364,
+    "lineNumber": 365,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1246,7 +1246,7 @@
     "see": [
       "{@link PlaceName}"
     ],
-    "lineNumber": 373,
+    "lineNumber": 374,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1281,7 +1281,7 @@
     "see": [
       "{@link Svg}"
     ],
-    "lineNumber": 382,
+    "lineNumber": 383,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1316,7 +1316,7 @@
     "see": [
       "{@link SvgSet}"
     ],
-    "lineNumber": 391,
+    "lineNumber": 392,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1351,7 +1351,7 @@
     "see": [
       "{@link SvgSetType}"
     ],
-    "lineNumber": 400,
+    "lineNumber": 401,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1386,7 +1386,7 @@
     "see": [
       "{@link User}"
     ],
-    "lineNumber": 409,
+    "lineNumber": 410,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9306,7 +9306,7 @@
     "__docId__": 352,
     "kind": "file",
     "name": "src/oauth/OAuthToken.js",
-    "content": "import {isNode} from '../utils/node';\nimport NodeError from '../exceptions/NodeError';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Filename for nodejs token storage\n   * @returns {string} - filename\n   * @constant\n   */\n  static get nodeTokenFilename() {\n    return '.m4n_token';\n  }\n\n  /**\n   * Gets the default name for the name parameter on save and restore\n   * @returns {string} - name\n   * @private\n   * @static\n   */\n  static get _defaultName() {\n    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || []\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken._defaultName, forceLocalStorage = false) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (isNode()) {\n      if (forceLocalStorage) {\n        throw new NodeError('Can not force localStorage usage when running under node');\n      }\n\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const json = JSON.stringify(data, null, 2);\n\n      fs.writeFileSync(name, json);\n    } else if (window.location.protocol === 'https:' && !forceLocalStorage) {\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken._defaultName) {\n    if (isNode()) {\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const raw = fs.readFileSync(name, json);\n      const data = JSON.parse(raw);\n\n      return new OAuthToken(data.token, data.type, new Date(data.expires));\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
+    "content": "import {isNode} from '../utils/node';\nimport NodeError from '../exceptions/NodeError';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Filename for nodejs token storage\n   * @returns {string} - filename\n   * @constant\n   */\n  static get nodeTokenFilename() {\n    return '.m4n_token';\n  }\n\n  /**\n   * Gets the default name for the name parameter on save and restore\n   * @returns {string} - name\n   * @private\n   * @static\n   */\n  static get _defaultName() {\n    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || []\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken._defaultName, forceLocalStorage = false) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (isNode()) {\n      if (forceLocalStorage) {\n        throw new NodeError('Can not force localStorage usage when running under node');\n      }\n\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const json = JSON.stringify(data, null, 2);\n\n      fs.writeFileSync(name, json);\n    } else if (window.location.protocol === 'https:' && !forceLocalStorage) {\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken._defaultName) {\n    if (isNode()) {\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const raw = fs.readFileSync(name);\n      const data = JSON.parse(raw);\n\n      return new OAuthToken(data.token, data.type, new Date(data.expires));\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
     "static": true,
     "longname": "src/oauth/OAuthToken.js",
     "access": null,
