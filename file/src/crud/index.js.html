@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/utils/node.js | API Document</title>
+  <title data-ice="title">src/crud/index.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -94,17 +94,36 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/utils/node.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
- * Test if the application is running under nodejs
- * @returns {boolean} - Is the application running under node?
- * @see https://nodejs.org
- * @private
- */
-export function isNode() {
-  // eslint-disable-next-line no-undef
-  return typeof window === &apos;undefined&apos; &amp;&amp; typeof module !== &apos;undefined&apos; &amp;&amp; module.exports;
-}
+<div class="content" data-ice="content"><h1 data-ice="title">src/crud/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export {default as Choropleth} from &apos;./Choropleth&apos;;
+export {default as Color} from &apos;./Color&apos;;
+export {default as Contract} from &apos;./Contract&apos;;
+export {default as Dimension} from &apos;./Dimension&apos;;
+export {default as DimensionSet} from &apos;./DimensionSet&apos;;
+export {default as Faq} from &apos;./Faq&apos;;
+export {default as Feature} from &apos;./Feature&apos;;
+export {default as Font} from &apos;./Font&apos;;
+export {default as FontFamily} from &apos;./FontFamily&apos;;
+export {default as Group} from &apos;./Group&apos;;
+export {default as Highlight} from &apos;./Highlight&apos;;
+export {default as InsetMap} from &apos;./InsetMap&apos;;
+export {default as Job} from &apos;./Job&apos;;
+export {default as JobResult} from &apos;./JobResult&apos;;
+export {default as JobRevision} from &apos;./JobRevision&apos;;
+export {default as JobShare} from &apos;./JobShare&apos;;
+export {default as JobType} from &apos;./JobType&apos;;
+export {default as Language} from &apos;./Language&apos;;
+export {default as Layer} from &apos;./Layer&apos;;
+export {default as Mapstyle} from &apos;./Mapstyle&apos;;
+export {default as MapstyleSet} from &apos;./MapstyleSet&apos;;
+export {default as Notification} from &apos;./Notification&apos;;
+export {default as Organisation} from &apos;./Organisation&apos;;
+export {default as Permission} from &apos;./Permission&apos;;
+export {default as PlaceName} from &apos;./PlaceName&apos;;
+export {default as Svg} from &apos;./Svg&apos;;
+export {default as SvgSet} from &apos;./SvgSet&apos;;
+export {default as SvgSetType} from &apos;./SvgSetType&apos;;
+export {default as User} from &apos;./User&apos;;
 </code></pre>
 
 </div>

@@ -1,6 +1,6 @@
 {
-  "coverage": "69.31%",
-  "expectCount": 290,
+  "coverage": "69.07%",
+  "expectCount": 291,
   "actualCount": 201,
   "files": {
     "src/exceptions/AbstractError.js": {
@@ -383,6 +383,13 @@
       "expectCount": 3,
       "actualCount": 3,
       "undocumentLines": []
+    },
+    "src/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        19
+      ]
     }
   }
 }
