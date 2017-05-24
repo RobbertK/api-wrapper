@@ -96,7 +96,9 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/Maps4News.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// Polyfill for terrible browsers (looking at you IE)
-import &apos;babel-polyfill&apos;;
+if (!global._babelPolyfill) {
+  require(&apos;babel-polyfill&apos;);
+}
 
 import {isParentOf} from &apos;./utils/reflection&apos;;
 import OAuth from &apos;./oauth/OAuth&apos;;
