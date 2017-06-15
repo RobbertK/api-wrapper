@@ -95,9 +95,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/crud/FontFamily.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CrudBase from &apos;./base/CrudBase&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CrudSetBase from &apos;./base/CrudSetBase&apos;;
+import Font from &apos;./Font&apos;;
 
-export default class FontFamily extends CrudBase {
+export default class FontFamily extends CrudSetBase {
   get path() {
     return &apos;/fonts/families/{id}&apos;;
   }
@@ -108,6 +109,10 @@ export default class FontFamily extends CrudBase {
 
   get ownable() {
     return true;
+  }
+
+  get _Child() {
+    return Font;
   }
 }
 </code></pre>
