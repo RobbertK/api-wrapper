@@ -327,7 +327,7 @@ var CrudBase = function (_ResourceBase) {
       var perPage = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
       if (!url) {
-        url = this.url + '/' + new Target(this.api).resourceName;
+        url = this.url + '/' + new Target(this.api).resourceName + 's';
       }
 
       var resolver = new _PaginatedResourceListing2.default(this.api, url, Target);
@@ -6517,7 +6517,7 @@ var PaginatedResourceListing = function () {
           var rowCount = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Total'));
           var totalPages = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Pages'));
 
-          var instance = new PaginatedResourceListing(_this.api, _this.route, _this._Target, page, perPage, totalPages, rowCount, response.data.map(function (row) {
+          var instance = new PaginatedResourceListing(_this.api, _this.route, _this._Target, _this.query, page, perPage, totalPages, rowCount, response.data.map(function (row) {
             return new _this._Target(_this.api, row);
           }));
 
