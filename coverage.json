@@ -1,7 +1,7 @@
 {
-  "coverage": "69.31%",
-  "expectCount": 290,
-  "actualCount": 201,
+  "coverage": "69.83%",
+  "expectCount": 295,
+  "actualCount": 206,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -284,8 +284,8 @@
       ]
     },
     "src/PaginatedResourceListing.js": {
-      "expectCount": 15,
-      "actualCount": 15,
+      "expectCount": 17,
+      "actualCount": 17,
       "undocumentLines": []
     },
     "src/oauth/PasswordFlow.js": {
@@ -317,8 +317,8 @@
       "undocumentLines": []
     },
     "src/ResourceProxy.js": {
-      "expectCount": 9,
-      "actualCount": 9,
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "src/utils/StaticClass.js": {
@@ -377,6 +377,11 @@
     "src/exceptions/ValidationError.js": {
       "expectCount": 3,
       "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/utils/requests.js": {
+      "expectCount": 2,
+      "actualCount": 2,
       "undocumentLines": []
     }
   }

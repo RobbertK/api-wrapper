@@ -312,6 +312,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/utils/requests.js~encodequerystring",
+    "function/index.html#static-function-encodeQueryString",
+    "<span>encodeQueryString</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/requests.js</span>",
+    "function"
+  ],
+  [
+    "@mapcreator/maps4news/src/utils/requests.js~makerequest",
+    "function/index.html#static-function-makeRequest",
+    "<span>makeRequest</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/requests.js</span>",
+    "function"
+  ],
+  [
     "builtinexternal/ecmascriptexternal.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -745,13 +757,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -936,6 +948,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
+    "member"
+  ],
+  [
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
+    "member"
+  ],
+  [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
@@ -999,6 +1023,12 @@ window.esdocSearchIndex = [
     "src/resourceproxy.js~resourceproxy#new",
     "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-new",
     "src/ResourceProxy.js~ResourceProxy#new",
+    "method"
+  ],
+  [
+    "src/resourceproxy.js~resourceproxy#search",
+    "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-search",
+    "src/ResourceProxy.js~ResourceProxy#search",
     "method"
   ],
   [
@@ -2329,25 +2359,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
-    "src/oauth/PasswordFlow.js~PasswordFlow#path",
-    "member"
-  ],
-  [
-    "src/oauth/passwordflow.js~passwordflow#path",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
-    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "src/oauth/passwordflow.js~passwordflow#path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
+    "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
+    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "member"
+  ],
+  [
+    "src/oauth/passwordflow.js~passwordflow#secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
@@ -2359,13 +2389,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],

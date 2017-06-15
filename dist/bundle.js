@@ -4000,7 +4000,7 @@ exports.encodeQueryString = encodeQueryString;
  * @param {string} responseType - XMLHttpRequest response type
  *
  * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx
- * @private
+ * @protected
  */
 function makeRequest(url) {
   var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
@@ -4078,16 +4078,48 @@ function makeRequest(url) {
 }
 
 /**
- * Encodes an object to a http query string
- * @param {object<string, string>} paramsObject - data to be encoded
+ * Encodes an object to a http query string with support for recursion
+ * @param {object<string, *>} paramsObject - data to be encoded
+ * @returns {string} - encoded http query string
+ *
+ * @protected
+ */
+function encodeQueryString(paramsObject) {
+  return _encodeQueryString(paramsObject);
+}
+
+/**
+ * Encodes an object to a http query string with support for recursion
+ * @param {Object<string, *>} paramsObject - data to be encoded
+ * @param {Array<string>} _basePrefix - Used internally for tracking recursion
  * @returns {string} - encoded http query string
  *
  * @see http://stackoverflow.com/a/39828481
  * @private
  */
-function encodeQueryString(paramsObject) {
+function _encodeQueryString(paramsObject) {
+  var _basePrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
   return Object.keys(paramsObject).map(function (key) {
-    return encodeURIComponent(key) + '=' + encodeURIComponent(paramsObject[key]);
+    var prefix = _basePrefix.slice(0);
+
+    if (_typeof(paramsObject[key]) === 'object') {
+      prefix.push(key);
+
+      return _encodeQueryString(paramsObject[key], prefix);
+    }
+
+    prefix.push(key);
+
+    var out = '';
+
+    out += encodeURIComponent(prefix.shift()); // main key
+    out += prefix.map(function (item) {
+      return '[' + encodeURIComponent(item) + ']';
+    }).join(''); // optional array keys
+    out += '=' + encodeURIComponent(paramsObject[key]); // value
+
+    return out;
   }).join('&');
 }
 
@@ -6327,15 +6359,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _requests = __webpack_require__(67);
-
-var _reflection = __webpack_require__(42);
 
 var _Maps4News = __webpack_require__(55);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
+
+var _reflection = __webpack_require__(42);
+
+var _requests = __webpack_require__(67);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6349,6 +6383,7 @@ var PaginatedResourceListing = function () {
    * @param {Maps4News} api - Instance of the api
    * @param {String} route - Resource route
    * @param {ResourceBase} Target - Wrapper target
+   * @param {Object|{}} query - Search query
    * @param {Number} page - Page number
    * @param {Number} perPage - Amount of items per page
    * @param {Number} pageCount - Resolved page count
@@ -6357,11 +6392,12 @@ var PaginatedResourceListing = function () {
    * @private
    */
   function PaginatedResourceListing(api, route, Target) {
-    var page = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
-    var perPage = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 12;
-    var pageCount = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
-    var rowCount = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0;
-    var data = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : [];
+    var query = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+    var page = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+    var perPage = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 12;
+    var pageCount = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : null;
+    var rowCount = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 0;
+    var data = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : [];
 
     _classCallCheck(this, PaginatedResourceListing);
 
@@ -6372,6 +6408,7 @@ var PaginatedResourceListing = function () {
     this._api = api;
     this._route = route;
     this._Target = Target;
+    this._query = query;
 
     this._data = data;
     this._page = page;
@@ -6410,6 +6447,11 @@ var PaginatedResourceListing = function () {
 
       if (perPage) {
         query['per_page'] = Math.max(1, perPage);
+      }
+
+      // Add search query (if any)
+      if (Object.keys(this.query).length > 0) {
+        query['search'] = this.query;
       }
 
       var url = this.route + '?' + (0, _requests.encodeQueryString)(query);
@@ -6544,6 +6586,98 @@ var PaginatedResourceListing = function () {
     key: 'rows',
     get: function get() {
       return this._rows;
+    }
+
+    /**
+     * Optional search query
+     * @default {}
+     * @return {Object<String, String|Array<String>>} - Query
+     */
+
+  }, {
+    key: 'query',
+    get: function get() {
+      return this._query;
+    }
+
+    /**
+     * Optional search query
+     * @param {Object<String, String|Array<String>>} value - Query
+     * @throws TypeError
+     * @default {}
+     * @see ResourceProxy#search
+     */
+    ,
+    set: function set(value) {
+      // Verify query structure
+      if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== 'object') {
+        throw new TypeError('Expected value to be of type "object" got "' + (typeof value === 'undefined' ? 'undefined' : _typeof(value)) + '"');
+      }
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(value)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
+
+          if (typeof key !== 'string') {
+            throw new TypeError('Expected key to be of type "string" got "' + (typeof key === 'undefined' ? 'undefined' : _typeof(key)) + '"');
+          }
+
+          if (Array.isArray(value[key])) {
+            if (value[key].length > 0) {
+              var _iteratorNormalCompletion2 = true;
+              var _didIteratorError2 = false;
+              var _iteratorError2 = undefined;
+
+              try {
+                for (var _iterator2 = value[key][Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                  var query = _step2.value;
+
+                  if (typeof query !== 'string') {
+                    throw new TypeError('Expected query for "' + key + '" to be of type "string" got "' + (typeof key === 'undefined' ? 'undefined' : _typeof(key)) + '"');
+                  }
+                }
+              } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+              } finally {
+                try {
+                  if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                    _iterator2.return();
+                  }
+                } finally {
+                  if (_didIteratorError2) {
+                    throw _iteratorError2;
+                  }
+                }
+              }
+            } else {
+              // Drop empty nodes
+              delete value[key];
+            }
+          } else if (typeof value[key] !== 'string') {
+            throw new TypeError('Expected query value to be of type "string" or "array" got "' + (typeof key === 'undefined' ? 'undefined' : _typeof(key)) + '"');
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      this._query = value;
     }
   }, {
     key: 'hasNext',
@@ -9213,8 +9347,35 @@ var ResourceProxy = function () {
 
 
   _createClass(ResourceProxy, [{
-    key: 'list',
+    key: 'search',
 
+
+    /**
+     * Lists target resource
+     * @param {Object<String, String|Array<String>>} query - Query
+     * @param {Number} page - The page to be requested
+     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link OAuthError}
+     *
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * var query = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * }
+     *
+     * api.layers.search(query).then(console.dir);
+     */
+    value: function search(query) {
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+      var url = this.new().baseUrl;
+      var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query);
+
+      return resolver.getPage(page, perPage);
+    }
 
     /**
      * Lists target resource
@@ -9222,14 +9383,14 @@ var ResourceProxy = function () {
      * @param {Number} perPage - Amount of items per page. This is silently capped by the API
      * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link OAuthError}
      */
+
+  }, {
+    key: 'list',
     value: function list() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-      var url = this.new().baseUrl;
-      var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target);
-
-      return resolver.getPage(page, perPage);
+      return this.search({}, page, perPage);
     }
 
     /**

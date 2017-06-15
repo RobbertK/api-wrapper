@@ -52,6 +52,7 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#modify-a-resource" data-ice="link">Modify a resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#clone-a-resource" data-ice="link">Clone a resource</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#pagination" data-ice="link">Pagination</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#searching" data-ice="link">Searching</a></li>
 <li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html" data-ice="link">Authentication</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#web" data-ice="link">Web</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#implicit-flow" data-ice="link">Implicit Flow</a></li>
@@ -69,6 +70,7 @@
       
     <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#class" data-ice="link">Class</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
 </ul>
   </div>
 </div>
@@ -131,7 +133,7 @@ object&apos;s id to it&apos;s properties. Fetching a resource</p><p>Fetch resour
     }
 });</code>
 </code></pre><p>Selection is only usefull as a stepping stone to related resources that can be easily obtained 
-using the id of the parent. Please refer to the <a href="https://api.beta.maps4news.com/docs/">api documentation</a> for further reference.</p><h3>Create a new resource</h3><p>Create a new color and dump the new resource to the console after saving</p><pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
+using the id of the parent. Please refer to the [api documentation] for further reference.</p><h3>Create a new resource</h3><p>Create a new color and dump the new resource to the console after saving</p><pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
 api.colors.new(data).save().then(console.dir);</code>
 </code></pre><h3>Modify a resource</h3><p>Change profession of the current user and save it.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.get(&apos;me&apos;).then(me =&gt; {
   me.profession = &apos;Developer&apos;;
@@ -163,7 +165,13 @@ api.colors.list(1, 50).then(parsePages);</code>
 </code></pre><p>Select current user but do not fetch any info to make fetching resources easier.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).colors().then(page =&gt; {
   console.dir(page.data);
 });</code>
-</code></pre></div>
+</code></pre><h3>Searching</h3><p>Resource lists can be queried to search for specific records as follows:</p><pre><code class="lang-js"><code class="source-code prettyprint">var query = {
+  name: &apos;^:test&apos;,
+  scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
+}
+api.layers.search(query).then(console.dir);</code>
+</code></pre><p>The <code>search</code> method is an extension of <code>list</code>. This means that <code>.search({})</code> is the same as 
+<code>list()</code>. More information about search query formatting can be found in the [api documentation].</p></div>
         <a data-ice="link" href="manual/example/examples.html"></a>
       </div>
     </div>
@@ -1759,7 +1767,69 @@ cache and no attempt at authentication should be made.</p>
 </table>
 </div>
 
-
+<div data-ice="functionSummary"><h2 id="function">Function Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Protected Function Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span><span data-ice="signature">(paramsObject: <span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, <span>*</span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Encodes an object to a http query string with support for recursion</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span><span data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, method: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, body: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;, headers: <span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;, responseType: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Makes a HTTP request and returns a promise.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
 
 

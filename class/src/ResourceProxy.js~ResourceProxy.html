@@ -88,6 +88,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -340,6 +342,34 @@ are properly wrapped before the promise resolves.</p>
         
         
         <div data-ice="description"><p>Build a new isntance of the target</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html#instance-method-search">search</a></span></span><span data-ice="signature">(query: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;, page: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, perPage: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Lists target resource</p>
 </div>
       </div>
     </td>
@@ -642,7 +672,7 @@ are properly wrapped before the promise resolves.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber71">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber92">source</a></span></span>
     </span>
   </h3>
 
@@ -716,7 +746,7 @@ are properly wrapped before the promise resolves.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber83">source</a></span></span>
     </span>
   </h3>
 
@@ -797,7 +827,7 @@ are properly wrapped before the promise resolves.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber119">source</a></span></span>
     </span>
   </h3>
 
@@ -860,6 +890,108 @@ are properly wrapped before the promise resolves.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-search">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">search</span><span data-ice="signature">(query: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;, page: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, perPage: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber70">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Lists target resource</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">query</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Query</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">page</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The page to be requested</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">perPage</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Amount of items per page. This is silently capped by the API</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Resolves with <span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span> instance and rejects with <span><a href="class/src/oauth/OAuthError.js~OAuthError.html">OAuthError</a></span></p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
+// See Api documentation for search query syntax
+var query = {
+  name: &apos;^:test&apos;,
+  scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
+}
+
+api.layers.search(query).then(console.dir);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-select">
     <span class="access" data-ice="access">public</span>
     
@@ -871,7 +1003,7 @@ are properly wrapped before the promise resolves.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber89">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceProxy.js.html#lineNumber110">source</a></span></span>
     </span>
   </h3>
 

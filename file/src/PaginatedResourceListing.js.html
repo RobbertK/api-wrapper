@@ -88,14 +88,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/PaginatedResourceListing.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {encodeQueryString} from &apos;./utils/requests&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Maps4News from &apos;./Maps4News&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
-import Maps4News from &apos;./Maps4News&apos;;
+import {encodeQueryString} from &apos;./utils/requests&apos;;
 
 /**
  * Proxy for accessing paginated resources
@@ -105,6 +107,7 @@ export default class PaginatedResourceListing {
    * @param {Maps4News} api - Instance of the api
    * @param {String} route - Resource route
    * @param {ResourceBase} Target - Wrapper target
+   * @param {Object|{}} query - Search query
    * @param {Number} page - Page number
    * @param {Number} perPage - Amount of items per page
    * @param {Number} pageCount - Resolved page count
@@ -112,7 +115,7 @@ export default class PaginatedResourceListing {
    * @param {Array&lt;ResourceBase&gt;} data - Resolved data
    * @private
    */
-  constructor(api, route, Target, page = 1, perPage = 12, pageCount = null, rowCount = 0, data = []) {
+  constructor(api, route, Target, query = {}, page = 1, perPage = 12, pageCount = null, rowCount = 0, data = []) {
     if (!isParentOf(Maps4News, api)) {
       throw new TypeError(&apos;Expected api to be of type Maps4News&apos;);
     }
@@ -120,6 +123,7 @@ export default class PaginatedResourceListing {
     this._api = api;
     this._route = route;
     this._Target = Target;
+    this._query = query;
 
     this._data = data;
     this._page = page;
@@ -202,6 +206,52 @@ export default class PaginatedResourceListing {
   }
 
   /**
+   * Optional search query
+   * @default {}
+   * @return {Object&lt;String, String|Array&lt;String&gt;&gt;} - Query
+   */
+  get query() {
+    return this._query;
+  }
+
+  /**
+   * Optional search query
+   * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} value - Query
+   * @throws TypeError
+   * @default {}
+   * @see ResourceProxy#search
+   */
+  set query(value) {
+    // Verify query structure
+    if (typeof value !== &apos;object&apos;) {
+      throw new TypeError(`Expected value to be of type &quot;object&quot; got &quot;${typeof value}&quot;`);
+    }
+
+    for (const key of Object.keys(value)) {
+      if (typeof key !== &apos;string&apos;) {
+        throw new TypeError(`Expected key to be of type &quot;string&quot; got &quot;${typeof key}&quot;`);
+      }
+
+      if (Array.isArray(value[key])) {
+        if (value[key].length &gt; 0) {
+          for (const query of value[key]) {
+            if (typeof query !== &apos;string&apos;) {
+              throw new TypeError(`Expected query for &quot;${key}&quot; to be of type &quot;string&quot; got &quot;${typeof key}&quot;`);
+            }
+          }
+        } else {
+          // Drop empty nodes
+          delete value[key];
+        }
+      } else if (typeof value[key] !== &apos;string&apos;) {
+        throw new TypeError(`Expected query value to be of type &quot;string&quot; or &quot;array&quot; got &quot;${typeof key}&quot;`);
+      }
+    }
+
+    this._query = value;
+  }
+
+  /**
    * Get target page
    * @param {Number} page - Page number
    * @param {Number} perPage - Amount of items per page (max 50)
@@ -217,6 +267,11 @@ export default class PaginatedResourceListing {
 
     if (perPage) {
       query[&apos;per_page&apos;] = Math.max(1, perPage);
+    }
+
+    // Add search query (if any)
+    if (Object.keys(this.query).length &gt; 0) {
+      query[&apos;search&apos;] = this.query;
     }
 
     const url = `${this.route}?${encodeQueryString(query)}`;

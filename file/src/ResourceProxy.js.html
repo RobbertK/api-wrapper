@@ -88,6 +88,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -147,15 +149,36 @@ export default class ResourceProxy {
 
   /**
    * Lists target resource
+   * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} query - Query
+   * @param {Number} page - The page to be requested
+   * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link OAuthError}
+   *
+   * @example
+   * // Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
+   * // See Api documentation for search query syntax
+   * var query = {
+   *   name: &apos;^:test&apos;,
+   *   scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
+   * }
+   *
+   * api.layers.search(query).then(console.dir);
+   */
+  search(query, page = 1, perPage = null) {
+    const url = this.new().baseUrl;
+    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);
+
+    return resolver.getPage(page, perPage);
+  }
+
+  /**
+   * Lists target resource
    * @param {Number} page - The page to be requested
    * @param {Number} perPage - Amount of items per page. This is silently capped by the API
    * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link OAuthError}
    */
   list(page = 1, perPage = null) {
-    const url = this.new().baseUrl;
-    const resolver = new PaginatedResourceListing(this._api, url, this.Target);
-
-    return resolver.getPage(page, perPage);
+    return this.search({}, page, perPage);
   }
 
   /**

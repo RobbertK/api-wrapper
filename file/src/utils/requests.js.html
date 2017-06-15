@@ -88,6 +88,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -103,7 +105,7 @@
  * @param {string} responseType - XMLHttpRequest response type
  *
  * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx
- * @private
+ * @protected
  */
 export function makeRequest(url, method = &apos;GET&apos;, body = &apos;&apos;, headers = {}, responseType = &apos;&apos;) {
   return new Promise((resolve, reject) =&gt; {
@@ -155,20 +157,48 @@ export function makeRequest(url, method = &apos;GET&apos;, body = &apos;&apos;, 
 }
 
 /**
- * Encodes an object to a http query string
- * @param {object&lt;string, string&gt;} paramsObject - data to be encoded
+ * Encodes an object to a http query string with support for recursion
+ * @param {object&lt;string, *&gt;} paramsObject - data to be encoded
+ * @returns {string} - encoded http query string
+ *
+ * @protected
+ */
+export function encodeQueryString(paramsObject) {
+  return _encodeQueryString(paramsObject);
+}
+
+/**
+ * Encodes an object to a http query string with support for recursion
+ * @param {Object&lt;string, *&gt;} paramsObject - data to be encoded
+ * @param {Array&lt;string&gt;} _basePrefix - Used internally for tracking recursion
  * @returns {string} - encoded http query string
  *
  * @see http://stackoverflow.com/a/39828481
  * @private
  */
-export function encodeQueryString(paramsObject) {
+function _encodeQueryString(paramsObject, _basePrefix = []) {
   return Object
     .keys(paramsObject)
-    .map(key =&gt; `${encodeURIComponent(key)}=${encodeURIComponent(paramsObject[key])}`)
-    .join(&apos;&amp;&apos;);
-}
+    .map(key =&gt; {
+      const prefix = _basePrefix.slice(0);
 
+      if (typeof paramsObject[key] === &apos;object&apos;) {
+        prefix.push(key);
+
+        return _encodeQueryString(paramsObject[key], prefix);
+      }
+
+      prefix.push(key);
+
+      let out = &apos;&apos;;
+
+      out += encodeURIComponent(prefix.shift()); // main key
+      out += prefix.map(item =&gt; `[${encodeURIComponent(item)}]`).join(&apos;&apos;); // optional array keys
+      out += &apos;=&apos; + encodeURIComponent(paramsObject[key]); // value
+
+      return out;
+    }).join(&apos;&amp;&apos;);
+}
 </code></pre>
 
 </div>
