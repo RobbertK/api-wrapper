@@ -38,7 +38,9 @@
 <div data-ice="manual" data-toc-name="installation">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/installation.html"><a href="manual/installation/installation.html" data-ice="link">Installation</a></li>
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/building.html"><a href="manual/installation/building.html" data-ice="link">Building</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/building.html"><a href="manual/installation/building.html#building-docs" data-ice="link">Building docs</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/installation.html"><a href="manual/installation/installation.html" data-ice="link">Installation</a></li>
 </ul>
   </div>
 <div data-ice="manual" data-toc-name="example">
@@ -67,7 +69,6 @@
       
     <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#class" data-ice="link">Class</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
 </ul>
   </div>
 </div>
@@ -81,6 +82,19 @@
   <div class="manual-cards">
     
   <div class="manual-card-wrap" data-ice="cards">
+      <h1 data-ice="label" class="manual-color manual-color-installation" data-section-count="&#x25A0;"><span data-ice="label-inner">Building</span></h1>
+      <div class="manual-card">
+        <div data-ice="card"><h1>Building</h1><p>Building the api can be done using [yarn] and [webpack]. The result will be placed in the <code>/dist</code> folder. Both the web 
+and nodejs releases are built this way.</p><pre><code class="lang-sh"><code class="source-code prettyprint">yarn install
+./node_modules/.bin/webpack --progress</code>
+</code></pre><h2>Building docs</h2><p>The docs can be built using [esdoc] after which they can be found in the <code>/docs</code> folder.</p><pre><code class="lang-sh"><code class="source-code prettyprint">yarn install
+./node_modules/.bin/esdoc</code>
+</code></pre><p>Development docs can be built by adding <code>&quot;private&quot;</code> to the <code>esdoc.access</code> variable in <code>package.json</code> before building the
+docs. </p></div>
+        <a data-ice="link" href="manual/installation/building.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
       <h1 data-ice="label" class="manual-color manual-color-installation" data-section-count="&#x25A0;"><span data-ice="label-inner">Installation</span></h1>
       <div class="manual-card">
         <div data-ice="card"><h1>Installation</h1><p>Installation can be done through either <a href="https://npmjs.com">npm</a> or <a href="https://yarnpkg.com">yarn</a>.</p><pre><code class="lang-sh"><code class="source-code prettyprint">// Using npm
@@ -1741,73 +1755,12 @@ cache and no attempt at authentication should be made.</p>
       
     </td>
   </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">protected</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/utils/uuid.js~Uuid.html">Uuid</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>UUID util class</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
 </tbody>
 </table>
 </div>
 
 
-<div data-ice="variableSummary"><h2 id="variable">Variable Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Variable Summary</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="variable/index.html#static-variable-resources">resources</a></span></span><span data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+
 
 
 </div>

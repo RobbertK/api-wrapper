@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">Example</title>
+  <title data-ice="title">Installation</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -78,77 +78,21 @@
   <div class="manual-breadcrumb-list">
     <a href="./manual/./index.html">Manual</a>
     <span>&#xBB;</span>
-    <span data-ice="title">Example</span>
+    <span data-ice="title">Installation</span>
   </div>
-  <div data-ice="content"><h1 id="basics">Basics</h1>
-<p>These examples assume that an instance of the api exists and is authenticated. 
-See the node and web authentication examples for more information on authenticating.</p>
-<h3 id="getting-a-resource">Getting a resource</h3>
-<p>Resources are bound to the base api class by default. Resources can be fetched in 
-two ways; by selecting them (<code>.select</code>) or by fetching them (<code>.get</code>). Selecting them will only set the
-object&apos;s id to it&apos;s properties. Fetching a resource</p>
-<p>Fetch resource and all it&apos;s properties:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">api.colors.get(1).then(function(color) {
-    console.log(color.id + &quot; &quot; + color.name + &quot;: &quot; + color.hex);
-})</code>
+  <div data-ice="content"><h1 id="building">Building</h1>
+<p>Building the api can be done using [yarn] and [webpack]. The result will be placed in the <code>/dist</code> folder. Both the web 
+and nodejs releases are built this way.</p>
+<pre><code class="lang-sh"><code class="source-code prettyprint">yarn install
+./node_modules/.bin/webpack --progress</code>
 </code></pre>
-<p>Select the current user to quickly obtain related mapstyle sets:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).mapstyleSets().then(function(sets) {
-    for(var i = 0; i &lt; sets.data.length; i++) {
-        console.log(sets.data[i].name);
-    }
-});</code>
+<h2 id="building-docs">Building docs</h2>
+<p>The docs can be built using [esdoc] after which they can be found in the <code>/docs</code> folder.</p>
+<pre><code class="lang-sh"><code class="source-code prettyprint">yarn install
+./node_modules/.bin/esdoc</code>
 </code></pre>
-<p>Selection is only usefull as a stepping stone to related resources that can be easily obtained 
-using the id of the parent. Please refer to the <a href="https://api.beta.maps4news.com/docs/">api documentation</a> for further reference.</p>
-<h3 id="create-a-new-resource">Create a new resource</h3>
-<p>Create a new color and dump the new resource to the console after saving</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
-api.colors.new(data).save().then(console.dir);</code>
-</code></pre>
-<h3 id="modify-a-resource">Modify a resource</h3>
-<p>Change profession of the current user and save it.</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">api.users.get(&apos;me&apos;).then(me =&gt; {
-  me.profession = &apos;Developer&apos;;
-  me.save(); // Optional chaining to get the updated resource
-});</code>
-</code></pre>
-<h3 id="clone-a-resource">Clone a resource</h3>
-<p>Setting the id to null forces the creation of a new object upon saving. </p>
-<pre><code class="lang-js"><code class="source-code prettyprint">api.colors(1).then(color =&gt; {
-  color.id = null;
-  color.save();
-});</code>
-</code></pre>
-<h3 id="pagination">Pagination</h3>
-<p>Listing resources with pagination. First page with 5 items per page</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">api.colors.list(1, 20).then(page =&gt; {
-  console.log(&apos;Got resources:&apos;);
-
-  for (var i = 0; i &lt; page.data.length; i++) {
-    console.log(page.data[i].toString());
-  }
-});</code>
-</code></pre>
-<p>Loop over every page and print the result to the console.</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">function parsePages() {
-  for (var i = 0; i &lt; page.data.length; i++) {
-    console.log(page.data[i].toString());     
-  }  
-
-  if (page.hasNext) {
-    console.log(&apos;Grabbing page &apos; + (page.page + 1));
-    page.next().then(parsePage);
-  }
-}
-
-api.colors.list(1, 50).then(parsePages);</code>
-</code></pre>
-<p>Select current user but do not fetch any info to make fetching resources easier.</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).colors().then(page =&gt; {
-  console.dir(page.data);
-});</code>
-</code></pre>
+<p>Development docs can be built by adding <code>&quot;private&quot;</code> to the <code>esdoc.access</code> variable in <code>package.json</code> before building the
+docs. </p>
 </div>
 </div>
 </div>

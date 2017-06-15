@@ -306,22 +306,10 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/utils/uuid.js~uuid",
-    "class/src/utils/uuid.js~Uuid.html",
-    "<span>Uuid</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/uuid.js</span>",
-    "class"
-  ],
-  [
     "@mapcreator/maps4news/src/exceptions/validationerror.js~validationerror",
     "class/src/exceptions/ValidationError.js~ValidationError.html",
     "<span>ValidationError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/ValidationError.js</span>",
     "class"
-  ],
-  [
-    "@mapcreator/maps4news/src/index.js~resources",
-    "variable/index.html#static-variable-resources",
-    "<span>resources</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/index.js</span>",
-    "variable"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~array",
@@ -661,13 +649,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -1216,6 +1204,24 @@ window.esdocSearchIndex = [
     "file/src/crud/Job.js.html",
     "src/crud/Job.js",
     "file"
+  ],
+  [
+    "src/crud/job.js~job#getrevision",
+    "class/src/crud/Job.js~Job.html#instance-method-getRevision",
+    "src/crud/Job.js~Job#getRevision",
+    "method"
+  ],
+  [
+    "src/crud/job.js~job#lastarchiveurl",
+    "class/src/crud/Job.js~Job.html#instance-get-lastArchiveUrl",
+    "src/crud/Job.js~Job#lastArchiveUrl",
+    "member"
+  ],
+  [
+    "src/crud/job.js~job#lastpreviewurl",
+    "class/src/crud/Job.js~Job.html#instance-get-lastPreviewUrl",
+    "src/crud/Job.js~Job#lastPreviewUrl",
+    "member"
   ],
   [
     "src/crud/job.js~job#resourcename",
@@ -2323,25 +2329,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
-    "src/oauth/PasswordFlow.js~PasswordFlow#path",
-    "member"
-  ],
-  [
-    "src/oauth/passwordflow.js~passwordflow#path",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
-    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "src/oauth/passwordflow.js~passwordflow#path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
+    "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
+    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "member"
+  ],
+  [
+    "src/oauth/passwordflow.js~passwordflow#secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
@@ -2353,13 +2359,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
@@ -2410,17 +2416,5 @@ window.esdocSearchIndex = [
     "file/src/utils/uuid.js.html",
     "src/utils/uuid.js",
     "file"
-  ],
-  [
-    "src/utils/uuid.js~uuid.nil",
-    "class/src/utils/uuid.js~Uuid.html#static-method-nil",
-    "src/utils/uuid.js~Uuid.nil",
-    "method"
-  ],
-  [
-    "src/utils/uuid.js~uuid.uuid4",
-    "class/src/utils/uuid.js~Uuid.html#static-method-uuid4",
-    "src/utils/uuid.js~Uuid.uuid4",
-    "method"
   ]
 ]

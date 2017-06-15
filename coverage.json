@@ -1,6 +1,6 @@
 {
-  "coverage": "69.07%",
-  "expectCount": 291,
+  "coverage": "69.31%",
+  "expectCount": 290,
   "actualCount": 201,
   "files": {
     "src/exceptions/AbstractError.js": {
@@ -152,11 +152,11 @@
       ]
     },
     "src/crud/Job.js": {
-      "expectCount": 4,
-      "actualCount": 2,
+      "expectCount": 7,
+      "actualCount": 5,
       "undocumentLines": [
         5,
-        22
+        36
       ]
     },
     "src/crud/JobResult.js": {
@@ -374,22 +374,10 @@
         15
       ]
     },
-    "src/utils/uuid.js": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
     "src/exceptions/ValidationError.js": {
       "expectCount": 3,
       "actualCount": 3,
       "undocumentLines": []
-    },
-    "src/index.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        19
-      ]
     }
   }
 }

@@ -4606,10 +4606,52 @@ var Job = function (_CrudBase) {
     value: function revisions() {
       return this._listResource(_JobRevision2.default, this.url + '/revisions');
     }
+
+    /**
+     * Get revision by id
+     * @param {string} id - Revision id
+     * @returns {Promise} -  Resolves with {@link JobRevision} instance and rejects with {@link OAuthError}
+     */
+
+  }, {
+    key: 'getRevision',
+    value: function getRevision() {
+      var _this2 = this;
+
+      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'last';
+
+      return new Promise(function (resolve, reject) {
+        _this2._api.request(_this2.path() + '/revisions/' + id).catch(reject).then(function (data) {
+          return resolve(new _JobRevision2.default(_this2._api, data));
+        });
+      });
+    }
   }, {
     key: 'resourceName',
     get: function get() {
       return 'jobs';
+    }
+
+    /**
+     * Get the most up to date preview url
+     * @returns {string} - Last preview url
+     */
+
+  }, {
+    key: 'lastPreviewUrl',
+    get: function get() {
+      return this.path() + '/revisions/last/result/preview';
+    }
+
+    /**
+     * Get the most up to date archive url
+     * @returns {string} - Last archive url
+     */
+
+  }, {
+    key: 'lastArchiveUrl',
+    get: function get() {
+      return this.path() + '/revisions/last/result/archive';
     }
   }]);
 
@@ -9465,6 +9507,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Resources
 
 
+/**
+ * Resource export. Set to private in jsdoc to make sure
+ * it doesn't show up as a useless doc page in the docs.
+ * @type {object<string, ResourceBase>} resources
+ * @private
+ */
 var resources = exports.resources = _resources;
 
 /***/ }),
@@ -9674,7 +9722,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 /**
  * UUID util class
  * @static
- * @protected
+ * @private
  */
 var Uuid = function (_StaticClass) {
   _inherits(Uuid, _StaticClass);
