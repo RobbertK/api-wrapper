@@ -4621,7 +4621,7 @@ var Job = function (_CrudBase) {
       var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'last';
 
       return new Promise(function (resolve, reject) {
-        _this2._api.request(_this2.path() + '/revisions/' + id).catch(reject).then(function (data) {
+        _this2._api.request(_this2.path + '/revisions/' + id).catch(reject).then(function (data) {
           return resolve(new _JobRevision2.default(_this2._api, data));
         });
       });
@@ -4640,7 +4640,7 @@ var Job = function (_CrudBase) {
   }, {
     key: 'lastPreviewUrl',
     get: function get() {
-      return this.path() + '/revisions/last/result/preview';
+      return this.path + '/revisions/last/result/preview';
     }
 
     /**
@@ -4651,7 +4651,7 @@ var Job = function (_CrudBase) {
   }, {
     key: 'lastArchiveUrl',
     get: function get() {
-      return this.path() + '/revisions/last/result/archive';
+      return this.path + '/revisions/last/result/archive';
     }
   }]);
 
