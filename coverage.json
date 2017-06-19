@@ -1,7 +1,7 @@
 {
-  "coverage": "70.1%",
-  "expectCount": 291,
-  "actualCount": 204,
+  "coverage": "70.3%",
+  "expectCount": 293,
+  "actualCount": 206,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -358,12 +358,12 @@
       "undocumentLines": []
     },
     "src/crud/User.js": {
-      "expectCount": 15,
-      "actualCount": 12,
+      "expectCount": 17,
+      "actualCount": 14,
       "undocumentLines": [
-        15,
-        20,
-        16
+        18,
+        23,
+        19
       ]
     },
     "src/exceptions/ValidationError.js": {
