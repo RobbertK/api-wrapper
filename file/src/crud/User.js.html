@@ -48,7 +48,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Feature.js~Feature.html">Feature</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Font.js~Font.html">Font</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/FontFamily.js~FontFamily.html">FontFamily</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Group.js~Group.html">Group</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Highlight.js~Highlight.html">Highlight</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/InsetMap.js~InsetMap.html">InsetMap</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Job.js~Job.html">Job</a></span></span></li>
@@ -107,6 +106,7 @@ import Layer from &apos;./Layer&apos;;
 import Job from &apos;./Job&apos;;
 import JobType from &apos;./JobType&apos;;
 import JobShare from &apos;./JobShare&apos;;
+import Permission from &apos;./Permission&apos;;
 
 export default class User extends CrudBase {
   get resourceName() {
@@ -212,6 +212,14 @@ export default class User extends CrudBase {
    */
   jobShares() {
     return this._listResource(JobShare);
+  }
+
+  /**
+   * Get the list job shares linked to the user
+   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Permission} instances and rejects with {@link OAuthError}
+   */
+  permissions() {
+    return this._listResource(Permission);
   }
 }
 </code></pre>

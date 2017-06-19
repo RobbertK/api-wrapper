@@ -48,7 +48,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Feature.js~Feature.html">Feature</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Font.js~Font.html">Font</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/FontFamily.js~FontFamily.html">FontFamily</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Group.js~Group.html">Group</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Highlight.js~Highlight.html">Highlight</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/InsetMap.js~InsetMap.html">InsetMap</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Job.js~Job.html">Job</a></span></span></li>
@@ -96,16 +95,16 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/crud/Organisation.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CrudBase from &apos;./base/CrudBase&apos;;
-import MapstyleSet from &apos;./MapstyleSet&apos;;
-import DimensionSet from &apos;./DimensionSet&apos;;
-import FontFamily from &apos;./FontFamily&apos;;
-import SvgSet from &apos;./SvgSet&apos;;
 import Color from &apos;./Color&apos;;
-import Feature from &apos;./Feature&apos;;
-import Layer from &apos;./Layer&apos;;
-import JobType from &apos;./JobType&apos;;
-import JobShare from &apos;./JobShare&apos;;
 import Contract from &apos;./Contract&apos;;
+import DimensionSet from &apos;./DimensionSet&apos;;
+import Feature from &apos;./Feature&apos;;
+import FontFamily from &apos;./FontFamily&apos;;
+import JobShare from &apos;./JobShare&apos;;
+import JobType from &apos;./JobType&apos;;
+import Layer from &apos;./Layer&apos;;
+import MapstyleSet from &apos;./MapstyleSet&apos;;
+import SvgSet from &apos;./SvgSet&apos;;
 import User from &apos;./User&apos;;
 
 export default class Organisation extends CrudBase {
@@ -121,7 +120,7 @@ export default class Organisation extends CrudBase {
   /**
    * Attach items to the organisation
    * @param {Array&lt;ResourceBase&gt;} items - List of items to attach
-   * @returns {Array&lt;Promise&gt;} - Array containing promises for each item type Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.
+   * @returns {Array&lt;Promise&gt;} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
    */
   attach(items) {
     return this._modifyResourceLink(items, &apos;POST&apos;);
@@ -130,7 +129,7 @@ export default class Organisation extends CrudBase {
   /**
    * Unlink items from the organisation
    * @param {Array&lt;ResourceBase&gt;} items - List of items to unlink
-   * @returns {Array&lt;Promise&gt;} - Array containing promises for each item type Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.
+   * @returns {Array&lt;Promise&gt;} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
    */
   unlink(items) {
     return this._modifyResourceLink(items, &apos;DELETE&apos;);
@@ -140,11 +139,11 @@ export default class Organisation extends CrudBase {
    * Sync, attach or unlink resources
    * @param {Array&lt;ResourceBase&gt;} items - List of items to sync or attach
    * @param {String} method - Http method to use
-   * @returns {Array&lt;Promise&gt;} - Array containing promises for each item type Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.
+   * @returns {Array&lt;Promise&gt;} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
    * @private
    */
   _modifyResourceLink(items, method) {
-    const collections = this._reduceOwnable(items);
+    const collections  = this._reduceOwnable(items);
     const out = [];
 
     for (const key of Object.keys(collections)) {
