@@ -1,7 +1,7 @@
 {
-  "coverage": "70.3%",
-  "expectCount": 293,
-  "actualCount": 206,
+  "coverage": "70.5%",
+  "expectCount": 295,
+  "actualCount": 208,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -206,8 +206,8 @@
       ]
     },
     "src/Maps4News.js": {
-      "expectCount": 36,
-      "actualCount": 36,
+      "expectCount": 37,
+      "actualCount": 37,
       "undocumentLines": []
     },
     "src/crud/Mapstyle.js": {
@@ -304,8 +304,8 @@
       ]
     },
     "src/crud/base/ResourceBase.js": {
-      "expectCount": 10,
-      "actualCount": 10,
+      "expectCount": 11,
+      "actualCount": 11,
       "undocumentLines": []
     },
     "src/ResourceProxy.js": {

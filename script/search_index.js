@@ -655,13 +655,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -745,13 +745,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -850,6 +850,12 @@ window.esdocSearchIndex = [
     "class/src/Maps4News.js~Maps4News.html#instance-get-svgs",
     "src/Maps4News.js~Maps4News#svgs",
     "member"
+  ],
+  [
+    "src/maps4news.js~maps4news#testxhr",
+    "class/src/Maps4News.js~Maps4News.html#instance-method-testXhr",
+    "src/Maps4News.js~Maps4News#testXhr",
+    "method"
   ],
   [
     "src/maps4news.js~maps4news#users",
@@ -1866,6 +1872,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/crud/base/resourcebase.js~resourcebase#fieldnames",
+    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-fieldNames",
+    "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
+    "member"
+  ],
+  [
     "src/crud/base/resourcebase.js~resourcebase#ownable",
     "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-ownable",
     "src/crud/base/ResourceBase.js~ResourceBase#ownable",
@@ -2329,13 +2341,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
@@ -2371,13 +2383,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],

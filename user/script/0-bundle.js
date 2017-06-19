@@ -1545,6 +1545,17 @@ var ResourceBase = function () {
 
       return this._api.host + '/' + this._api.version + basePath;
     }
+
+    /**
+     * List fields that contain object data
+     * @returns {Array<String>} - A list of fields
+     */
+
+  }, {
+    key: 'fieldNames',
+    get: function get() {
+      return Object.keys(this._baseProperties).map(_caseConverter.snakeToCamelCase);
+    }
   }]);
 
   return ResourceBase;
@@ -2527,6 +2538,25 @@ var Maps4News = function () {
      */
 
   }, {
+    key: 'testXhr',
+
+
+    /**
+     * Test if XHR requests can be made
+     * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx
+     */
+    value: function testXhr() {
+      var _this2 = this;
+
+      return new Promise(function (reject, resolve) {
+        (0, _requests.makeRequest)(_this2.host + '/favicon.ico').then(function (x) {
+          return resolve(x.status);
+        }).catch(function (x) {
+          return reject(x.status);
+        });
+      });
+    }
+  }, {
     key: 'version',
     get: function get() {
       return 'v1';
@@ -2584,6 +2614,7 @@ var Maps4News = function () {
      */
     ,
     set: function set(value) {
+      value = value.replace(/\/+$/, '');
       this._host = value;
       this._auth.host = value;
     }
@@ -5372,7 +5403,7 @@ var User = function (_CrudBase) {
   }, {
     key: 'language',
     value: function language() {
-      return new _ResourceProxy2.default(this.api, _Language2.default).get(this.organisationId);
+      return new _ResourceProxy2.default(this.api, _Language2.default).get(this.languageCode);
     }
 
     // region Resource listing

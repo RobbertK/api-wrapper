@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 4767,
+  "end": 4765,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 4767,
+    "end": 4765,
     "loc": {
       "start": {
         "line": 1,
@@ -1135,7 +1135,7 @@
       {
         "type": "ExportDefaultDeclaration",
         "start": 585,
-        "end": 4766,
+        "end": 4764,
         "loc": {
           "start": {
             "line": 18,
@@ -1149,7 +1149,7 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 600,
-          "end": 4766,
+          "end": 4764,
           "loc": {
             "start": {
               "line": 18,
@@ -1197,7 +1197,7 @@
           "body": {
             "type": "ClassBody",
             "start": 628,
-            "end": 4766,
+            "end": 4764,
             "loc": {
               "start": {
                 "line": 18,
@@ -2450,7 +2450,7 @@
               {
                 "type": "ClassMethod",
                 "start": 1319,
-                "end": 1412,
+                "end": 1410,
                 "loc": {
                   "start": {
                     "line": 47,
@@ -2490,7 +2490,7 @@
                 "body": {
                   "type": "BlockStatement",
                   "start": 1330,
-                  "end": 1412,
+                  "end": 1410,
                   "loc": {
                     "start": {
                       "line": 47,
@@ -2505,7 +2505,7 @@
                     {
                       "type": "ReturnStatement",
                       "start": 1336,
-                      "end": 1408,
+                      "end": 1406,
                       "loc": {
                         "start": {
                           "line": 48,
@@ -2513,13 +2513,13 @@
                         },
                         "end": {
                           "line": 48,
-                          "column": 76
+                          "column": 74
                         }
                       },
                       "argument": {
                         "type": "CallExpression",
                         "start": 1343,
-                        "end": 1407,
+                        "end": 1405,
                         "loc": {
                           "start": {
                             "line": 48,
@@ -2527,7 +2527,7 @@
                           },
                           "end": {
                             "line": 48,
-                            "column": 75
+                            "column": 73
                           }
                         },
                         "callee": {
@@ -2670,7 +2670,7 @@
                           {
                             "type": "MemberExpression",
                             "start": 1387,
-                            "end": 1406,
+                            "end": 1404,
                             "loc": {
                               "start": {
                                 "line": 48,
@@ -2678,7 +2678,7 @@
                               },
                               "end": {
                                 "line": 48,
-                                "column": 74
+                                "column": 72
                               }
                             },
                             "object": {
@@ -2699,7 +2699,7 @@
                             "property": {
                               "type": "Identifier",
                               "start": 1392,
-                              "end": 1406,
+                              "end": 1404,
                               "loc": {
                                 "start": {
                                   "line": 48,
@@ -2707,11 +2707,11 @@
                                 },
                                 "end": {
                                   "line": 48,
-                                  "column": 74
+                                  "column": 72
                                 },
-                                "identifierName": "organisationId"
+                                "identifierName": "languageCode"
                               },
-                              "name": "organisationId"
+                              "name": "languageCode"
                             },
                             "computed": false
                           }
@@ -2744,8 +2744,8 @@
                   {
                     "type": "CommentLine",
                     "value": " region Resource listing",
-                    "start": 1416,
-                    "end": 1442,
+                    "start": 1414,
+                    "end": 1440,
                     "loc": {
                       "start": {
                         "line": 51,
@@ -2760,8 +2760,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list notifications linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}\n   ",
-                    "start": 1445,
-                    "end": 1663,
+                    "start": 1443,
+                    "end": 1661,
                     "loc": {
                       "start": {
                         "line": 52,
@@ -2777,8 +2777,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 1666,
-                "end": 1732,
+                "start": 1664,
+                "end": 1730,
                 "loc": {
                   "start": {
                     "line": 56,
@@ -2792,8 +2792,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1666,
-                  "end": 1679,
+                  "start": 1664,
+                  "end": 1677,
                   "loc": {
                     "start": {
                       "line": 56,
@@ -2817,8 +2817,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1682,
-                  "end": 1732,
+                  "start": 1680,
+                  "end": 1730,
                   "loc": {
                     "start": {
                       "line": 56,
@@ -2832,8 +2832,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 1688,
-                      "end": 1728,
+                      "start": 1686,
+                      "end": 1726,
                       "loc": {
                         "start": {
                           "line": 57,
@@ -2846,8 +2846,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 1695,
-                        "end": 1727,
+                        "start": 1693,
+                        "end": 1725,
                         "loc": {
                           "start": {
                             "line": 57,
@@ -2860,8 +2860,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 1695,
-                          "end": 1713,
+                          "start": 1693,
+                          "end": 1711,
                           "loc": {
                             "start": {
                               "line": 57,
@@ -2874,8 +2874,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 1695,
-                            "end": 1699,
+                            "start": 1693,
+                            "end": 1697,
                             "loc": {
                               "start": {
                                 "line": 57,
@@ -2889,8 +2889,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 1700,
-                            "end": 1713,
+                            "start": 1698,
+                            "end": 1711,
                             "loc": {
                               "start": {
                                 "line": 57,
@@ -2909,8 +2909,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 1714,
-                            "end": 1726,
+                            "start": 1712,
+                            "end": 1724,
                             "loc": {
                               "start": {
                                 "line": 57,
@@ -2935,8 +2935,8 @@
                   {
                     "type": "CommentLine",
                     "value": " region Resource listing",
-                    "start": 1416,
-                    "end": 1442,
+                    "start": 1414,
+                    "end": 1440,
                     "loc": {
                       "start": {
                         "line": 51,
@@ -2951,8 +2951,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list notifications linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}\n   ",
-                    "start": 1445,
-                    "end": 1663,
+                    "start": 1443,
+                    "end": 1661,
                     "loc": {
                       "start": {
                         "line": 52,
@@ -2969,8 +2969,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list mapstyle sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   ",
-                    "start": 1736,
-                    "end": 1953,
+                    "start": 1734,
+                    "end": 1951,
                     "loc": {
                       "start": {
                         "line": 60,
@@ -2986,8 +2986,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 1956,
-                "end": 2020,
+                "start": 1954,
+                "end": 2018,
                 "loc": {
                   "start": {
                     "line": 64,
@@ -3001,8 +3001,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1956,
-                  "end": 1968,
+                  "start": 1954,
+                  "end": 1966,
                   "loc": {
                     "start": {
                       "line": 64,
@@ -3026,8 +3026,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1971,
-                  "end": 2020,
+                  "start": 1969,
+                  "end": 2018,
                   "loc": {
                     "start": {
                       "line": 64,
@@ -3041,8 +3041,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 1977,
-                      "end": 2016,
+                      "start": 1975,
+                      "end": 2014,
                       "loc": {
                         "start": {
                           "line": 65,
@@ -3055,8 +3055,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 1984,
-                        "end": 2015,
+                        "start": 1982,
+                        "end": 2013,
                         "loc": {
                           "start": {
                             "line": 65,
@@ -3069,8 +3069,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 1984,
-                          "end": 2002,
+                          "start": 1982,
+                          "end": 2000,
                           "loc": {
                             "start": {
                               "line": 65,
@@ -3083,8 +3083,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 1984,
-                            "end": 1988,
+                            "start": 1982,
+                            "end": 1986,
                             "loc": {
                               "start": {
                                 "line": 65,
@@ -3098,8 +3098,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 1989,
-                            "end": 2002,
+                            "start": 1987,
+                            "end": 2000,
                             "loc": {
                               "start": {
                                 "line": 65,
@@ -3118,8 +3118,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 2003,
-                            "end": 2014,
+                            "start": 2001,
+                            "end": 2012,
                             "loc": {
                               "start": {
                                 "line": 65,
@@ -3144,8 +3144,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list mapstyle sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   ",
-                    "start": 1736,
-                    "end": 1953,
+                    "start": 1734,
+                    "end": 1951,
                     "loc": {
                       "start": {
                         "line": 60,
@@ -3162,8 +3162,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list dimension sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2024,
-                    "end": 2243,
+                    "start": 2022,
+                    "end": 2241,
                     "loc": {
                       "start": {
                         "line": 68,
@@ -3179,8 +3179,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2246,
-                "end": 2312,
+                "start": 2244,
+                "end": 2310,
                 "loc": {
                   "start": {
                     "line": 72,
@@ -3194,8 +3194,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2246,
-                  "end": 2259,
+                  "start": 2244,
+                  "end": 2257,
                   "loc": {
                     "start": {
                       "line": 72,
@@ -3219,8 +3219,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2262,
-                  "end": 2312,
+                  "start": 2260,
+                  "end": 2310,
                   "loc": {
                     "start": {
                       "line": 72,
@@ -3234,8 +3234,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2268,
-                      "end": 2308,
+                      "start": 2266,
+                      "end": 2306,
                       "loc": {
                         "start": {
                           "line": 73,
@@ -3248,8 +3248,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 2275,
-                        "end": 2307,
+                        "start": 2273,
+                        "end": 2305,
                         "loc": {
                           "start": {
                             "line": 73,
@@ -3262,8 +3262,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 2275,
-                          "end": 2293,
+                          "start": 2273,
+                          "end": 2291,
                           "loc": {
                             "start": {
                               "line": 73,
@@ -3276,8 +3276,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 2275,
-                            "end": 2279,
+                            "start": 2273,
+                            "end": 2277,
                             "loc": {
                               "start": {
                                 "line": 73,
@@ -3291,8 +3291,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 2280,
-                            "end": 2293,
+                            "start": 2278,
+                            "end": 2291,
                             "loc": {
                               "start": {
                                 "line": 73,
@@ -3311,8 +3311,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 2294,
-                            "end": 2306,
+                            "start": 2292,
+                            "end": 2304,
                             "loc": {
                               "start": {
                                 "line": 73,
@@ -3337,8 +3337,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list dimension sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2024,
-                    "end": 2243,
+                    "start": 2022,
+                    "end": 2241,
                     "loc": {
                       "start": {
                         "line": 68,
@@ -3355,8 +3355,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list font families linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2316,
-                    "end": 2532,
+                    "start": 2314,
+                    "end": 2530,
                     "loc": {
                       "start": {
                         "line": 76,
@@ -3372,8 +3372,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2535,
-                "end": 2598,
+                "start": 2533,
+                "end": 2596,
                 "loc": {
                   "start": {
                     "line": 80,
@@ -3387,8 +3387,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2535,
-                  "end": 2547,
+                  "start": 2533,
+                  "end": 2545,
                   "loc": {
                     "start": {
                       "line": 80,
@@ -3412,8 +3412,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2550,
-                  "end": 2598,
+                  "start": 2548,
+                  "end": 2596,
                   "loc": {
                     "start": {
                       "line": 80,
@@ -3427,8 +3427,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2556,
-                      "end": 2594,
+                      "start": 2554,
+                      "end": 2592,
                       "loc": {
                         "start": {
                           "line": 81,
@@ -3441,8 +3441,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 2563,
-                        "end": 2593,
+                        "start": 2561,
+                        "end": 2591,
                         "loc": {
                           "start": {
                             "line": 81,
@@ -3455,8 +3455,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 2563,
-                          "end": 2581,
+                          "start": 2561,
+                          "end": 2579,
                           "loc": {
                             "start": {
                               "line": 81,
@@ -3469,8 +3469,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 2563,
-                            "end": 2567,
+                            "start": 2561,
+                            "end": 2565,
                             "loc": {
                               "start": {
                                 "line": 81,
@@ -3484,8 +3484,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 2568,
-                            "end": 2581,
+                            "start": 2566,
+                            "end": 2579,
                             "loc": {
                               "start": {
                                 "line": 81,
@@ -3504,8 +3504,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 2582,
-                            "end": 2592,
+                            "start": 2580,
+                            "end": 2590,
                             "loc": {
                               "start": {
                                 "line": 81,
@@ -3530,8 +3530,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list font families linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2316,
-                    "end": 2532,
+                    "start": 2314,
+                    "end": 2530,
                     "loc": {
                       "start": {
                         "line": 76,
@@ -3548,8 +3548,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list svg sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2602,
-                    "end": 2809,
+                    "start": 2600,
+                    "end": 2807,
                     "loc": {
                       "start": {
                         "line": 84,
@@ -3565,8 +3565,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2812,
-                "end": 2866,
+                "start": 2810,
+                "end": 2864,
                 "loc": {
                   "start": {
                     "line": 88,
@@ -3580,8 +3580,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2812,
-                  "end": 2819,
+                  "start": 2810,
+                  "end": 2817,
                   "loc": {
                     "start": {
                       "line": 88,
@@ -3605,8 +3605,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2822,
-                  "end": 2866,
+                  "start": 2820,
+                  "end": 2864,
                   "loc": {
                     "start": {
                       "line": 88,
@@ -3620,8 +3620,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2828,
-                      "end": 2862,
+                      "start": 2826,
+                      "end": 2860,
                       "loc": {
                         "start": {
                           "line": 89,
@@ -3634,8 +3634,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 2835,
-                        "end": 2861,
+                        "start": 2833,
+                        "end": 2859,
                         "loc": {
                           "start": {
                             "line": 89,
@@ -3648,8 +3648,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 2835,
-                          "end": 2853,
+                          "start": 2833,
+                          "end": 2851,
                           "loc": {
                             "start": {
                               "line": 89,
@@ -3662,8 +3662,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 2835,
-                            "end": 2839,
+                            "start": 2833,
+                            "end": 2837,
                             "loc": {
                               "start": {
                                 "line": 89,
@@ -3677,8 +3677,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 2840,
-                            "end": 2853,
+                            "start": 2838,
+                            "end": 2851,
                             "loc": {
                               "start": {
                                 "line": 89,
@@ -3697,8 +3697,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 2854,
-                            "end": 2860,
+                            "start": 2852,
+                            "end": 2858,
                             "loc": {
                               "start": {
                                 "line": 89,
@@ -3723,8 +3723,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list svg sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2602,
-                    "end": 2809,
+                    "start": 2600,
+                    "end": 2807,
                     "loc": {
                       "start": {
                         "line": 84,
@@ -3741,8 +3741,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list colors linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2870,
-                    "end": 3074,
+                    "start": 2868,
+                    "end": 3072,
                     "loc": {
                       "start": {
                         "line": 92,
@@ -3758,8 +3758,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 3077,
-                "end": 3129,
+                "start": 3075,
+                "end": 3127,
                 "loc": {
                   "start": {
                     "line": 96,
@@ -3773,8 +3773,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 3077,
-                  "end": 3083,
+                  "start": 3075,
+                  "end": 3081,
                   "loc": {
                     "start": {
                       "line": 96,
@@ -3798,8 +3798,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3086,
-                  "end": 3129,
+                  "start": 3084,
+                  "end": 3127,
                   "loc": {
                     "start": {
                       "line": 96,
@@ -3813,8 +3813,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 3092,
-                      "end": 3125,
+                      "start": 3090,
+                      "end": 3123,
                       "loc": {
                         "start": {
                           "line": 97,
@@ -3827,8 +3827,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 3099,
-                        "end": 3124,
+                        "start": 3097,
+                        "end": 3122,
                         "loc": {
                           "start": {
                             "line": 97,
@@ -3841,8 +3841,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 3099,
-                          "end": 3117,
+                          "start": 3097,
+                          "end": 3115,
                           "loc": {
                             "start": {
                               "line": 97,
@@ -3855,8 +3855,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 3099,
-                            "end": 3103,
+                            "start": 3097,
+                            "end": 3101,
                             "loc": {
                               "start": {
                                 "line": 97,
@@ -3870,8 +3870,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 3104,
-                            "end": 3117,
+                            "start": 3102,
+                            "end": 3115,
                             "loc": {
                               "start": {
                                 "line": 97,
@@ -3890,8 +3890,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 3118,
-                            "end": 3123,
+                            "start": 3116,
+                            "end": 3121,
                             "loc": {
                               "start": {
                                 "line": 97,
@@ -3916,8 +3916,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list colors linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   ",
-                    "start": 2870,
-                    "end": 3074,
+                    "start": 2868,
+                    "end": 3072,
                     "loc": {
                       "start": {
                         "line": 92,
@@ -3934,8 +3934,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list jobs linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Job} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3133,
-                    "end": 3333,
+                    "start": 3131,
+                    "end": 3331,
                     "loc": {
                       "start": {
                         "line": 100,
@@ -3951,8 +3951,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 3336,
-                "end": 3384,
+                "start": 3334,
+                "end": 3382,
                 "loc": {
                   "start": {
                     "line": 104,
@@ -3966,8 +3966,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 3336,
-                  "end": 3340,
+                  "start": 3334,
+                  "end": 3338,
                   "loc": {
                     "start": {
                       "line": 104,
@@ -3991,8 +3991,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3343,
-                  "end": 3384,
+                  "start": 3341,
+                  "end": 3382,
                   "loc": {
                     "start": {
                       "line": 104,
@@ -4006,8 +4006,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 3349,
-                      "end": 3380,
+                      "start": 3347,
+                      "end": 3378,
                       "loc": {
                         "start": {
                           "line": 105,
@@ -4020,8 +4020,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 3356,
-                        "end": 3379,
+                        "start": 3354,
+                        "end": 3377,
                         "loc": {
                           "start": {
                             "line": 105,
@@ -4034,8 +4034,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 3356,
-                          "end": 3374,
+                          "start": 3354,
+                          "end": 3372,
                           "loc": {
                             "start": {
                               "line": 105,
@@ -4048,8 +4048,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 3356,
-                            "end": 3360,
+                            "start": 3354,
+                            "end": 3358,
                             "loc": {
                               "start": {
                                 "line": 105,
@@ -4063,8 +4063,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 3361,
-                            "end": 3374,
+                            "start": 3359,
+                            "end": 3372,
                             "loc": {
                               "start": {
                                 "line": 105,
@@ -4083,8 +4083,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 3375,
-                            "end": 3378,
+                            "start": 3373,
+                            "end": 3376,
                             "loc": {
                               "start": {
                                 "line": 105,
@@ -4109,8 +4109,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list jobs linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Job} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3133,
-                    "end": 3333,
+                    "start": 3131,
+                    "end": 3331,
                     "loc": {
                       "start": {
                         "line": 100,
@@ -4127,8 +4127,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list features linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3388,
-                    "end": 3596,
+                    "start": 3386,
+                    "end": 3594,
                     "loc": {
                       "start": {
                         "line": 108,
@@ -4144,8 +4144,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 3599,
-                "end": 3655,
+                "start": 3597,
+                "end": 3653,
                 "loc": {
                   "start": {
                     "line": 112,
@@ -4159,8 +4159,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 3599,
-                  "end": 3607,
+                  "start": 3597,
+                  "end": 3605,
                   "loc": {
                     "start": {
                       "line": 112,
@@ -4184,8 +4184,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3610,
-                  "end": 3655,
+                  "start": 3608,
+                  "end": 3653,
                   "loc": {
                     "start": {
                       "line": 112,
@@ -4199,8 +4199,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 3616,
-                      "end": 3651,
+                      "start": 3614,
+                      "end": 3649,
                       "loc": {
                         "start": {
                           "line": 113,
@@ -4213,8 +4213,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 3623,
-                        "end": 3650,
+                        "start": 3621,
+                        "end": 3648,
                         "loc": {
                           "start": {
                             "line": 113,
@@ -4227,8 +4227,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 3623,
-                          "end": 3641,
+                          "start": 3621,
+                          "end": 3639,
                           "loc": {
                             "start": {
                               "line": 113,
@@ -4241,8 +4241,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 3623,
-                            "end": 3627,
+                            "start": 3621,
+                            "end": 3625,
                             "loc": {
                               "start": {
                                 "line": 113,
@@ -4256,8 +4256,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 3628,
-                            "end": 3641,
+                            "start": 3626,
+                            "end": 3639,
                             "loc": {
                               "start": {
                                 "line": 113,
@@ -4276,8 +4276,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 3642,
-                            "end": 3649,
+                            "start": 3640,
+                            "end": 3647,
                             "loc": {
                               "start": {
                                 "line": 113,
@@ -4302,8 +4302,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list features linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3388,
-                    "end": 3596,
+                    "start": 3386,
+                    "end": 3594,
                     "loc": {
                       "start": {
                         "line": 108,
@@ -4320,8 +4320,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list layers linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3659,
-                    "end": 3863,
+                    "start": 3657,
+                    "end": 3861,
                     "loc": {
                       "start": {
                         "line": 116,
@@ -4337,8 +4337,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 3866,
-                "end": 3918,
+                "start": 3864,
+                "end": 3916,
                 "loc": {
                   "start": {
                     "line": 120,
@@ -4352,8 +4352,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 3866,
-                  "end": 3872,
+                  "start": 3864,
+                  "end": 3870,
                   "loc": {
                     "start": {
                       "line": 120,
@@ -4377,8 +4377,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3875,
-                  "end": 3918,
+                  "start": 3873,
+                  "end": 3916,
                   "loc": {
                     "start": {
                       "line": 120,
@@ -4392,8 +4392,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 3881,
-                      "end": 3914,
+                      "start": 3879,
+                      "end": 3912,
                       "loc": {
                         "start": {
                           "line": 121,
@@ -4406,8 +4406,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 3888,
-                        "end": 3913,
+                        "start": 3886,
+                        "end": 3911,
                         "loc": {
                           "start": {
                             "line": 121,
@@ -4420,8 +4420,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 3888,
-                          "end": 3906,
+                          "start": 3886,
+                          "end": 3904,
                           "loc": {
                             "start": {
                               "line": 121,
@@ -4434,8 +4434,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 3888,
-                            "end": 3892,
+                            "start": 3886,
+                            "end": 3890,
                             "loc": {
                               "start": {
                                 "line": 121,
@@ -4449,8 +4449,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 3893,
-                            "end": 3906,
+                            "start": 3891,
+                            "end": 3904,
                             "loc": {
                               "start": {
                                 "line": 121,
@@ -4469,8 +4469,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 3907,
-                            "end": 3912,
+                            "start": 3905,
+                            "end": 3910,
                             "loc": {
                               "start": {
                                 "line": 121,
@@ -4495,8 +4495,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list layers linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3659,
-                    "end": 3863,
+                    "start": 3657,
+                    "end": 3861,
                     "loc": {
                       "start": {
                         "line": 116,
@@ -4513,8 +4513,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list job types linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3922,
-                    "end": 4131,
+                    "start": 3920,
+                    "end": 4129,
                     "loc": {
                       "start": {
                         "line": 124,
@@ -4530,8 +4530,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 4134,
-                "end": 4190,
+                "start": 4132,
+                "end": 4188,
                 "loc": {
                   "start": {
                     "line": 128,
@@ -4545,8 +4545,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 4134,
-                  "end": 4142,
+                  "start": 4132,
+                  "end": 4140,
                   "loc": {
                     "start": {
                       "line": 128,
@@ -4570,8 +4570,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4145,
-                  "end": 4190,
+                  "start": 4143,
+                  "end": 4188,
                   "loc": {
                     "start": {
                       "line": 128,
@@ -4585,8 +4585,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4151,
-                      "end": 4186,
+                      "start": 4149,
+                      "end": 4184,
                       "loc": {
                         "start": {
                           "line": 129,
@@ -4599,8 +4599,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 4158,
-                        "end": 4185,
+                        "start": 4156,
+                        "end": 4183,
                         "loc": {
                           "start": {
                             "line": 129,
@@ -4613,8 +4613,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 4158,
-                          "end": 4176,
+                          "start": 4156,
+                          "end": 4174,
                           "loc": {
                             "start": {
                               "line": 129,
@@ -4627,8 +4627,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 4158,
-                            "end": 4162,
+                            "start": 4156,
+                            "end": 4160,
                             "loc": {
                               "start": {
                                 "line": 129,
@@ -4642,8 +4642,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 4163,
-                            "end": 4176,
+                            "start": 4161,
+                            "end": 4174,
                             "loc": {
                               "start": {
                                 "line": 129,
@@ -4662,8 +4662,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 4177,
-                            "end": 4184,
+                            "start": 4175,
+                            "end": 4182,
                             "loc": {
                               "start": {
                                 "line": 129,
@@ -4688,8 +4688,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list job types linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   ",
-                    "start": 3922,
-                    "end": 4131,
+                    "start": 3920,
+                    "end": 4129,
                     "loc": {
                       "start": {
                         "line": 124,
@@ -4706,8 +4706,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   ",
-                    "start": 4194,
-                    "end": 4405,
+                    "start": 4192,
+                    "end": 4403,
                     "loc": {
                       "start": {
                         "line": 132,
@@ -4723,8 +4723,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 4408,
-                "end": 4466,
+                "start": 4406,
+                "end": 4464,
                 "loc": {
                   "start": {
                     "line": 136,
@@ -4738,8 +4738,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 4408,
-                  "end": 4417,
+                  "start": 4406,
+                  "end": 4415,
                   "loc": {
                     "start": {
                       "line": 136,
@@ -4763,8 +4763,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4420,
-                  "end": 4466,
+                  "start": 4418,
+                  "end": 4464,
                   "loc": {
                     "start": {
                       "line": 136,
@@ -4778,8 +4778,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4426,
-                      "end": 4462,
+                      "start": 4424,
+                      "end": 4460,
                       "loc": {
                         "start": {
                           "line": 137,
@@ -4792,8 +4792,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 4433,
-                        "end": 4461,
+                        "start": 4431,
+                        "end": 4459,
                         "loc": {
                           "start": {
                             "line": 137,
@@ -4806,8 +4806,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 4433,
-                          "end": 4451,
+                          "start": 4431,
+                          "end": 4449,
                           "loc": {
                             "start": {
                               "line": 137,
@@ -4820,8 +4820,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 4433,
-                            "end": 4437,
+                            "start": 4431,
+                            "end": 4435,
                             "loc": {
                               "start": {
                                 "line": 137,
@@ -4835,8 +4835,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 4438,
-                            "end": 4451,
+                            "start": 4436,
+                            "end": 4449,
                             "loc": {
                               "start": {
                                 "line": 137,
@@ -4855,8 +4855,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 4452,
-                            "end": 4460,
+                            "start": 4450,
+                            "end": 4458,
                             "loc": {
                               "start": {
                                 "line": 137,
@@ -4881,8 +4881,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   ",
-                    "start": 4194,
-                    "end": 4405,
+                    "start": 4192,
+                    "end": 4403,
                     "loc": {
                       "start": {
                         "line": 132,
@@ -4899,8 +4899,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Permission} instances and rejects with {@link ApiError}\n   ",
-                    "start": 4470,
-                    "end": 4683,
+                    "start": 4468,
+                    "end": 4681,
                     "loc": {
                       "start": {
                         "line": 140,
@@ -4916,8 +4916,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 4686,
-                "end": 4748,
+                "start": 4684,
+                "end": 4746,
                 "loc": {
                   "start": {
                     "line": 144,
@@ -4931,8 +4931,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 4686,
-                  "end": 4697,
+                  "start": 4684,
+                  "end": 4695,
                   "loc": {
                     "start": {
                       "line": 144,
@@ -4956,8 +4956,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4700,
-                  "end": 4748,
+                  "start": 4698,
+                  "end": 4746,
                   "loc": {
                     "start": {
                       "line": 144,
@@ -4971,8 +4971,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4706,
-                      "end": 4744,
+                      "start": 4704,
+                      "end": 4742,
                       "loc": {
                         "start": {
                           "line": 145,
@@ -4985,8 +4985,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 4713,
-                        "end": 4743,
+                        "start": 4711,
+                        "end": 4741,
                         "loc": {
                           "start": {
                             "line": 145,
@@ -4999,8 +4999,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 4713,
-                          "end": 4731,
+                          "start": 4711,
+                          "end": 4729,
                           "loc": {
                             "start": {
                               "line": 145,
@@ -5013,8 +5013,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 4713,
-                            "end": 4717,
+                            "start": 4711,
+                            "end": 4715,
                             "loc": {
                               "start": {
                                 "line": 145,
@@ -5028,8 +5028,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 4718,
-                            "end": 4731,
+                            "start": 4716,
+                            "end": 4729,
                             "loc": {
                               "start": {
                                 "line": 145,
@@ -5048,8 +5048,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 4732,
-                            "end": 4742,
+                            "start": 4730,
+                            "end": 4740,
                             "loc": {
                               "start": {
                                 "line": 145,
@@ -5074,8 +5074,8 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Permission} instances and rejects with {@link ApiError}\n   ",
-                    "start": 4470,
-                    "end": 4683,
+                    "start": 4468,
+                    "end": 4681,
                     "loc": {
                       "start": {
                         "line": 140,
@@ -5092,8 +5092,8 @@
                   {
                     "type": "CommentLine",
                     "value": " endregion",
-                    "start": 4752,
-                    "end": 4764,
+                    "start": 4750,
+                    "end": 4762,
                     "loc": {
                       "start": {
                         "line": 148,
@@ -5152,8 +5152,8 @@
     {
       "type": "CommentLine",
       "value": " region Resource listing",
-      "start": 1416,
-      "end": 1442,
+      "start": 1414,
+      "end": 1440,
       "loc": {
         "start": {
           "line": 51,
@@ -5168,8 +5168,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list notifications linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}\n   ",
-      "start": 1445,
-      "end": 1663,
+      "start": 1443,
+      "end": 1661,
       "loc": {
         "start": {
           "line": 52,
@@ -5184,8 +5184,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list mapstyle sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   ",
-      "start": 1736,
-      "end": 1953,
+      "start": 1734,
+      "end": 1951,
       "loc": {
         "start": {
           "line": 60,
@@ -5200,8 +5200,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list dimension sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   ",
-      "start": 2024,
-      "end": 2243,
+      "start": 2022,
+      "end": 2241,
       "loc": {
         "start": {
           "line": 68,
@@ -5216,8 +5216,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list font families linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   ",
-      "start": 2316,
-      "end": 2532,
+      "start": 2314,
+      "end": 2530,
       "loc": {
         "start": {
           "line": 76,
@@ -5232,8 +5232,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list svg sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   ",
-      "start": 2602,
-      "end": 2809,
+      "start": 2600,
+      "end": 2807,
       "loc": {
         "start": {
           "line": 84,
@@ -5248,8 +5248,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list colors linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   ",
-      "start": 2870,
-      "end": 3074,
+      "start": 2868,
+      "end": 3072,
       "loc": {
         "start": {
           "line": 92,
@@ -5264,8 +5264,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list jobs linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Job} instances and rejects with {@link ApiError}\n   ",
-      "start": 3133,
-      "end": 3333,
+      "start": 3131,
+      "end": 3331,
       "loc": {
         "start": {
           "line": 100,
@@ -5280,8 +5280,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list features linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   ",
-      "start": 3388,
-      "end": 3596,
+      "start": 3386,
+      "end": 3594,
       "loc": {
         "start": {
           "line": 108,
@@ -5296,8 +5296,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list layers linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   ",
-      "start": 3659,
-      "end": 3863,
+      "start": 3657,
+      "end": 3861,
       "loc": {
         "start": {
           "line": 116,
@@ -5312,8 +5312,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list job types linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   ",
-      "start": 3922,
-      "end": 4131,
+      "start": 3920,
+      "end": 4129,
       "loc": {
         "start": {
           "line": 124,
@@ -5328,8 +5328,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   ",
-      "start": 4194,
-      "end": 4405,
+      "start": 4192,
+      "end": 4403,
       "loc": {
         "start": {
           "line": 132,
@@ -5344,8 +5344,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Permission} instances and rejects with {@link ApiError}\n   ",
-      "start": 4470,
-      "end": 4683,
+      "start": 4468,
+      "end": 4681,
       "loc": {
         "start": {
           "line": 140,
@@ -5360,8 +5360,8 @@
     {
       "type": "CommentLine",
       "value": " endregion",
-      "start": 4752,
-      "end": 4764,
+      "start": 4750,
+      "end": 4762,
       "loc": {
         "start": {
           "line": 148,
@@ -10871,9 +10871,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "organisationId",
+      "value": "languageCode",
       "start": 1392,
-      "end": 1406,
+      "end": 1404,
       "loc": {
         "start": {
           "line": 48,
@@ -10881,7 +10881,7 @@
         },
         "end": {
           "line": 48,
-          "column": 74
+          "column": 72
         }
       }
     },
@@ -10897,16 +10897,16 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1406,
-      "end": 1407,
+      "start": 1404,
+      "end": 1405,
       "loc": {
         "start": {
           "line": 48,
-          "column": 74
+          "column": 72
         },
         "end": {
           "line": 48,
-          "column": 75
+          "column": 73
         }
       }
     },
@@ -10923,16 +10923,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1407,
-      "end": 1408,
+      "start": 1405,
+      "end": 1406,
       "loc": {
         "start": {
           "line": 48,
-          "column": 75
+          "column": 73
         },
         "end": {
           "line": 48,
-          "column": 76
+          "column": 74
         }
       }
     },
@@ -10948,8 +10948,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1411,
-      "end": 1412,
+      "start": 1409,
+      "end": 1410,
       "loc": {
         "start": {
           "line": 49,
@@ -10964,8 +10964,8 @@
     {
       "type": "CommentLine",
       "value": " region Resource listing",
-      "start": 1416,
-      "end": 1442,
+      "start": 1414,
+      "end": 1440,
       "loc": {
         "start": {
           "line": 51,
@@ -10980,8 +10980,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list notifications linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}\n   ",
-      "start": 1445,
-      "end": 1663,
+      "start": 1443,
+      "end": 1661,
       "loc": {
         "start": {
           "line": 52,
@@ -11006,8 +11006,8 @@
         "binop": null
       },
       "value": "notifications",
-      "start": 1666,
-      "end": 1679,
+      "start": 1664,
+      "end": 1677,
       "loc": {
         "start": {
           "line": 56,
@@ -11031,8 +11031,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1679,
-      "end": 1680,
+      "start": 1677,
+      "end": 1678,
       "loc": {
         "start": {
           "line": 56,
@@ -11056,8 +11056,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1680,
-      "end": 1681,
+      "start": 1678,
+      "end": 1679,
       "loc": {
         "start": {
           "line": 56,
@@ -11081,8 +11081,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1682,
-      "end": 1683,
+      "start": 1680,
+      "end": 1681,
       "loc": {
         "start": {
           "line": 56,
@@ -11109,8 +11109,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 1688,
-      "end": 1694,
+      "start": 1686,
+      "end": 1692,
       "loc": {
         "start": {
           "line": 57,
@@ -11137,8 +11137,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 1695,
-      "end": 1699,
+      "start": 1693,
+      "end": 1697,
       "loc": {
         "start": {
           "line": 57,
@@ -11163,8 +11163,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1699,
-      "end": 1700,
+      "start": 1697,
+      "end": 1698,
       "loc": {
         "start": {
           "line": 57,
@@ -11189,8 +11189,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 1700,
-      "end": 1713,
+      "start": 1698,
+      "end": 1711,
       "loc": {
         "start": {
           "line": 57,
@@ -11214,8 +11214,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1713,
-      "end": 1714,
+      "start": 1711,
+      "end": 1712,
       "loc": {
         "start": {
           "line": 57,
@@ -11240,8 +11240,8 @@
         "binop": null
       },
       "value": "Notification",
-      "start": 1714,
-      "end": 1726,
+      "start": 1712,
+      "end": 1724,
       "loc": {
         "start": {
           "line": 57,
@@ -11265,8 +11265,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1726,
-      "end": 1727,
+      "start": 1724,
+      "end": 1725,
       "loc": {
         "start": {
           "line": 57,
@@ -11291,8 +11291,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1727,
-      "end": 1728,
+      "start": 1725,
+      "end": 1726,
       "loc": {
         "start": {
           "line": 57,
@@ -11316,8 +11316,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1731,
-      "end": 1732,
+      "start": 1729,
+      "end": 1730,
       "loc": {
         "start": {
           "line": 58,
@@ -11332,8 +11332,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list mapstyle sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   ",
-      "start": 1736,
-      "end": 1953,
+      "start": 1734,
+      "end": 1951,
       "loc": {
         "start": {
           "line": 60,
@@ -11358,8 +11358,8 @@
         "binop": null
       },
       "value": "mapstyleSets",
-      "start": 1956,
-      "end": 1968,
+      "start": 1954,
+      "end": 1966,
       "loc": {
         "start": {
           "line": 64,
@@ -11383,8 +11383,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1968,
-      "end": 1969,
+      "start": 1966,
+      "end": 1967,
       "loc": {
         "start": {
           "line": 64,
@@ -11408,8 +11408,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1969,
-      "end": 1970,
+      "start": 1967,
+      "end": 1968,
       "loc": {
         "start": {
           "line": 64,
@@ -11433,8 +11433,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1971,
-      "end": 1972,
+      "start": 1969,
+      "end": 1970,
       "loc": {
         "start": {
           "line": 64,
@@ -11461,8 +11461,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 1977,
-      "end": 1983,
+      "start": 1975,
+      "end": 1981,
       "loc": {
         "start": {
           "line": 65,
@@ -11489,8 +11489,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 1984,
-      "end": 1988,
+      "start": 1982,
+      "end": 1986,
       "loc": {
         "start": {
           "line": 65,
@@ -11515,8 +11515,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1988,
-      "end": 1989,
+      "start": 1986,
+      "end": 1987,
       "loc": {
         "start": {
           "line": 65,
@@ -11541,8 +11541,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 1989,
-      "end": 2002,
+      "start": 1987,
+      "end": 2000,
       "loc": {
         "start": {
           "line": 65,
@@ -11566,8 +11566,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2002,
-      "end": 2003,
+      "start": 2000,
+      "end": 2001,
       "loc": {
         "start": {
           "line": 65,
@@ -11592,8 +11592,8 @@
         "binop": null
       },
       "value": "MapstyleSet",
-      "start": 2003,
-      "end": 2014,
+      "start": 2001,
+      "end": 2012,
       "loc": {
         "start": {
           "line": 65,
@@ -11617,8 +11617,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2014,
-      "end": 2015,
+      "start": 2012,
+      "end": 2013,
       "loc": {
         "start": {
           "line": 65,
@@ -11643,8 +11643,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2015,
-      "end": 2016,
+      "start": 2013,
+      "end": 2014,
       "loc": {
         "start": {
           "line": 65,
@@ -11668,8 +11668,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2019,
-      "end": 2020,
+      "start": 2017,
+      "end": 2018,
       "loc": {
         "start": {
           "line": 66,
@@ -11684,8 +11684,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list dimension sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   ",
-      "start": 2024,
-      "end": 2243,
+      "start": 2022,
+      "end": 2241,
       "loc": {
         "start": {
           "line": 68,
@@ -11710,8 +11710,8 @@
         "binop": null
       },
       "value": "dimensionSets",
-      "start": 2246,
-      "end": 2259,
+      "start": 2244,
+      "end": 2257,
       "loc": {
         "start": {
           "line": 72,
@@ -11735,8 +11735,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2259,
-      "end": 2260,
+      "start": 2257,
+      "end": 2258,
       "loc": {
         "start": {
           "line": 72,
@@ -11760,8 +11760,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2260,
-      "end": 2261,
+      "start": 2258,
+      "end": 2259,
       "loc": {
         "start": {
           "line": 72,
@@ -11785,8 +11785,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2262,
-      "end": 2263,
+      "start": 2260,
+      "end": 2261,
       "loc": {
         "start": {
           "line": 72,
@@ -11813,8 +11813,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 2268,
-      "end": 2274,
+      "start": 2266,
+      "end": 2272,
       "loc": {
         "start": {
           "line": 73,
@@ -11841,8 +11841,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 2275,
-      "end": 2279,
+      "start": 2273,
+      "end": 2277,
       "loc": {
         "start": {
           "line": 73,
@@ -11867,8 +11867,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2279,
-      "end": 2280,
+      "start": 2277,
+      "end": 2278,
       "loc": {
         "start": {
           "line": 73,
@@ -11893,8 +11893,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 2280,
-      "end": 2293,
+      "start": 2278,
+      "end": 2291,
       "loc": {
         "start": {
           "line": 73,
@@ -11918,8 +11918,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2293,
-      "end": 2294,
+      "start": 2291,
+      "end": 2292,
       "loc": {
         "start": {
           "line": 73,
@@ -11944,8 +11944,8 @@
         "binop": null
       },
       "value": "DimensionSet",
-      "start": 2294,
-      "end": 2306,
+      "start": 2292,
+      "end": 2304,
       "loc": {
         "start": {
           "line": 73,
@@ -11969,8 +11969,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2306,
-      "end": 2307,
+      "start": 2304,
+      "end": 2305,
       "loc": {
         "start": {
           "line": 73,
@@ -11995,8 +11995,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2307,
-      "end": 2308,
+      "start": 2305,
+      "end": 2306,
       "loc": {
         "start": {
           "line": 73,
@@ -12020,8 +12020,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2311,
-      "end": 2312,
+      "start": 2309,
+      "end": 2310,
       "loc": {
         "start": {
           "line": 74,
@@ -12036,8 +12036,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list font families linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   ",
-      "start": 2316,
-      "end": 2532,
+      "start": 2314,
+      "end": 2530,
       "loc": {
         "start": {
           "line": 76,
@@ -12062,8 +12062,8 @@
         "binop": null
       },
       "value": "fontFamilies",
-      "start": 2535,
-      "end": 2547,
+      "start": 2533,
+      "end": 2545,
       "loc": {
         "start": {
           "line": 80,
@@ -12087,8 +12087,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2547,
-      "end": 2548,
+      "start": 2545,
+      "end": 2546,
       "loc": {
         "start": {
           "line": 80,
@@ -12112,8 +12112,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2548,
-      "end": 2549,
+      "start": 2546,
+      "end": 2547,
       "loc": {
         "start": {
           "line": 80,
@@ -12137,8 +12137,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2550,
-      "end": 2551,
+      "start": 2548,
+      "end": 2549,
       "loc": {
         "start": {
           "line": 80,
@@ -12165,8 +12165,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 2556,
-      "end": 2562,
+      "start": 2554,
+      "end": 2560,
       "loc": {
         "start": {
           "line": 81,
@@ -12193,8 +12193,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 2563,
-      "end": 2567,
+      "start": 2561,
+      "end": 2565,
       "loc": {
         "start": {
           "line": 81,
@@ -12219,8 +12219,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2567,
-      "end": 2568,
+      "start": 2565,
+      "end": 2566,
       "loc": {
         "start": {
           "line": 81,
@@ -12245,8 +12245,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 2568,
-      "end": 2581,
+      "start": 2566,
+      "end": 2579,
       "loc": {
         "start": {
           "line": 81,
@@ -12270,8 +12270,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2581,
-      "end": 2582,
+      "start": 2579,
+      "end": 2580,
       "loc": {
         "start": {
           "line": 81,
@@ -12296,8 +12296,8 @@
         "binop": null
       },
       "value": "FontFamily",
-      "start": 2582,
-      "end": 2592,
+      "start": 2580,
+      "end": 2590,
       "loc": {
         "start": {
           "line": 81,
@@ -12321,8 +12321,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2592,
-      "end": 2593,
+      "start": 2590,
+      "end": 2591,
       "loc": {
         "start": {
           "line": 81,
@@ -12347,8 +12347,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2593,
-      "end": 2594,
+      "start": 2591,
+      "end": 2592,
       "loc": {
         "start": {
           "line": 81,
@@ -12372,8 +12372,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2597,
-      "end": 2598,
+      "start": 2595,
+      "end": 2596,
       "loc": {
         "start": {
           "line": 82,
@@ -12388,8 +12388,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list svg sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   ",
-      "start": 2602,
-      "end": 2809,
+      "start": 2600,
+      "end": 2807,
       "loc": {
         "start": {
           "line": 84,
@@ -12414,8 +12414,8 @@
         "binop": null
       },
       "value": "svgSets",
-      "start": 2812,
-      "end": 2819,
+      "start": 2810,
+      "end": 2817,
       "loc": {
         "start": {
           "line": 88,
@@ -12439,8 +12439,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2819,
-      "end": 2820,
+      "start": 2817,
+      "end": 2818,
       "loc": {
         "start": {
           "line": 88,
@@ -12464,8 +12464,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2820,
-      "end": 2821,
+      "start": 2818,
+      "end": 2819,
       "loc": {
         "start": {
           "line": 88,
@@ -12489,8 +12489,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2822,
-      "end": 2823,
+      "start": 2820,
+      "end": 2821,
       "loc": {
         "start": {
           "line": 88,
@@ -12517,8 +12517,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 2828,
-      "end": 2834,
+      "start": 2826,
+      "end": 2832,
       "loc": {
         "start": {
           "line": 89,
@@ -12545,8 +12545,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 2835,
-      "end": 2839,
+      "start": 2833,
+      "end": 2837,
       "loc": {
         "start": {
           "line": 89,
@@ -12571,8 +12571,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2839,
-      "end": 2840,
+      "start": 2837,
+      "end": 2838,
       "loc": {
         "start": {
           "line": 89,
@@ -12597,8 +12597,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 2840,
-      "end": 2853,
+      "start": 2838,
+      "end": 2851,
       "loc": {
         "start": {
           "line": 89,
@@ -12622,8 +12622,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2853,
-      "end": 2854,
+      "start": 2851,
+      "end": 2852,
       "loc": {
         "start": {
           "line": 89,
@@ -12648,8 +12648,8 @@
         "binop": null
       },
       "value": "SvgSet",
-      "start": 2854,
-      "end": 2860,
+      "start": 2852,
+      "end": 2858,
       "loc": {
         "start": {
           "line": 89,
@@ -12673,8 +12673,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2860,
-      "end": 2861,
+      "start": 2858,
+      "end": 2859,
       "loc": {
         "start": {
           "line": 89,
@@ -12699,8 +12699,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2861,
-      "end": 2862,
+      "start": 2859,
+      "end": 2860,
       "loc": {
         "start": {
           "line": 89,
@@ -12724,8 +12724,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2865,
-      "end": 2866,
+      "start": 2863,
+      "end": 2864,
       "loc": {
         "start": {
           "line": 90,
@@ -12740,8 +12740,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list colors linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   ",
-      "start": 2870,
-      "end": 3074,
+      "start": 2868,
+      "end": 3072,
       "loc": {
         "start": {
           "line": 92,
@@ -12766,8 +12766,8 @@
         "binop": null
       },
       "value": "colors",
-      "start": 3077,
-      "end": 3083,
+      "start": 3075,
+      "end": 3081,
       "loc": {
         "start": {
           "line": 96,
@@ -12791,8 +12791,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3083,
-      "end": 3084,
+      "start": 3081,
+      "end": 3082,
       "loc": {
         "start": {
           "line": 96,
@@ -12816,8 +12816,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3084,
-      "end": 3085,
+      "start": 3082,
+      "end": 3083,
       "loc": {
         "start": {
           "line": 96,
@@ -12841,8 +12841,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3086,
-      "end": 3087,
+      "start": 3084,
+      "end": 3085,
       "loc": {
         "start": {
           "line": 96,
@@ -12869,8 +12869,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 3092,
-      "end": 3098,
+      "start": 3090,
+      "end": 3096,
       "loc": {
         "start": {
           "line": 97,
@@ -12897,8 +12897,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 3099,
-      "end": 3103,
+      "start": 3097,
+      "end": 3101,
       "loc": {
         "start": {
           "line": 97,
@@ -12923,8 +12923,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3103,
-      "end": 3104,
+      "start": 3101,
+      "end": 3102,
       "loc": {
         "start": {
           "line": 97,
@@ -12949,8 +12949,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 3104,
-      "end": 3117,
+      "start": 3102,
+      "end": 3115,
       "loc": {
         "start": {
           "line": 97,
@@ -12974,8 +12974,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3117,
-      "end": 3118,
+      "start": 3115,
+      "end": 3116,
       "loc": {
         "start": {
           "line": 97,
@@ -13000,8 +13000,8 @@
         "binop": null
       },
       "value": "Color",
-      "start": 3118,
-      "end": 3123,
+      "start": 3116,
+      "end": 3121,
       "loc": {
         "start": {
           "line": 97,
@@ -13025,8 +13025,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3123,
-      "end": 3124,
+      "start": 3121,
+      "end": 3122,
       "loc": {
         "start": {
           "line": 97,
@@ -13051,8 +13051,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3124,
-      "end": 3125,
+      "start": 3122,
+      "end": 3123,
       "loc": {
         "start": {
           "line": 97,
@@ -13076,8 +13076,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3128,
-      "end": 3129,
+      "start": 3126,
+      "end": 3127,
       "loc": {
         "start": {
           "line": 98,
@@ -13092,8 +13092,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list jobs linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Job} instances and rejects with {@link ApiError}\n   ",
-      "start": 3133,
-      "end": 3333,
+      "start": 3131,
+      "end": 3331,
       "loc": {
         "start": {
           "line": 100,
@@ -13118,8 +13118,8 @@
         "binop": null
       },
       "value": "jobs",
-      "start": 3336,
-      "end": 3340,
+      "start": 3334,
+      "end": 3338,
       "loc": {
         "start": {
           "line": 104,
@@ -13143,8 +13143,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3340,
-      "end": 3341,
+      "start": 3338,
+      "end": 3339,
       "loc": {
         "start": {
           "line": 104,
@@ -13168,8 +13168,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3341,
-      "end": 3342,
+      "start": 3339,
+      "end": 3340,
       "loc": {
         "start": {
           "line": 104,
@@ -13193,8 +13193,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3343,
-      "end": 3344,
+      "start": 3341,
+      "end": 3342,
       "loc": {
         "start": {
           "line": 104,
@@ -13221,8 +13221,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 3349,
-      "end": 3355,
+      "start": 3347,
+      "end": 3353,
       "loc": {
         "start": {
           "line": 105,
@@ -13249,8 +13249,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 3356,
-      "end": 3360,
+      "start": 3354,
+      "end": 3358,
       "loc": {
         "start": {
           "line": 105,
@@ -13275,8 +13275,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3360,
-      "end": 3361,
+      "start": 3358,
+      "end": 3359,
       "loc": {
         "start": {
           "line": 105,
@@ -13301,8 +13301,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 3361,
-      "end": 3374,
+      "start": 3359,
+      "end": 3372,
       "loc": {
         "start": {
           "line": 105,
@@ -13326,8 +13326,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3374,
-      "end": 3375,
+      "start": 3372,
+      "end": 3373,
       "loc": {
         "start": {
           "line": 105,
@@ -13352,8 +13352,8 @@
         "binop": null
       },
       "value": "Job",
-      "start": 3375,
-      "end": 3378,
+      "start": 3373,
+      "end": 3376,
       "loc": {
         "start": {
           "line": 105,
@@ -13377,8 +13377,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3378,
-      "end": 3379,
+      "start": 3376,
+      "end": 3377,
       "loc": {
         "start": {
           "line": 105,
@@ -13403,8 +13403,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3379,
-      "end": 3380,
+      "start": 3377,
+      "end": 3378,
       "loc": {
         "start": {
           "line": 105,
@@ -13428,8 +13428,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3383,
-      "end": 3384,
+      "start": 3381,
+      "end": 3382,
       "loc": {
         "start": {
           "line": 106,
@@ -13444,8 +13444,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list features linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   ",
-      "start": 3388,
-      "end": 3596,
+      "start": 3386,
+      "end": 3594,
       "loc": {
         "start": {
           "line": 108,
@@ -13470,8 +13470,8 @@
         "binop": null
       },
       "value": "features",
-      "start": 3599,
-      "end": 3607,
+      "start": 3597,
+      "end": 3605,
       "loc": {
         "start": {
           "line": 112,
@@ -13495,8 +13495,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3607,
-      "end": 3608,
+      "start": 3605,
+      "end": 3606,
       "loc": {
         "start": {
           "line": 112,
@@ -13520,8 +13520,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3608,
-      "end": 3609,
+      "start": 3606,
+      "end": 3607,
       "loc": {
         "start": {
           "line": 112,
@@ -13545,8 +13545,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3610,
-      "end": 3611,
+      "start": 3608,
+      "end": 3609,
       "loc": {
         "start": {
           "line": 112,
@@ -13573,8 +13573,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 3616,
-      "end": 3622,
+      "start": 3614,
+      "end": 3620,
       "loc": {
         "start": {
           "line": 113,
@@ -13601,8 +13601,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 3623,
-      "end": 3627,
+      "start": 3621,
+      "end": 3625,
       "loc": {
         "start": {
           "line": 113,
@@ -13627,8 +13627,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3627,
-      "end": 3628,
+      "start": 3625,
+      "end": 3626,
       "loc": {
         "start": {
           "line": 113,
@@ -13653,8 +13653,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 3628,
-      "end": 3641,
+      "start": 3626,
+      "end": 3639,
       "loc": {
         "start": {
           "line": 113,
@@ -13678,8 +13678,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3641,
-      "end": 3642,
+      "start": 3639,
+      "end": 3640,
       "loc": {
         "start": {
           "line": 113,
@@ -13704,8 +13704,8 @@
         "binop": null
       },
       "value": "Feature",
-      "start": 3642,
-      "end": 3649,
+      "start": 3640,
+      "end": 3647,
       "loc": {
         "start": {
           "line": 113,
@@ -13729,8 +13729,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3649,
-      "end": 3650,
+      "start": 3647,
+      "end": 3648,
       "loc": {
         "start": {
           "line": 113,
@@ -13755,8 +13755,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3650,
-      "end": 3651,
+      "start": 3648,
+      "end": 3649,
       "loc": {
         "start": {
           "line": 113,
@@ -13780,8 +13780,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3654,
-      "end": 3655,
+      "start": 3652,
+      "end": 3653,
       "loc": {
         "start": {
           "line": 114,
@@ -13796,8 +13796,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list layers linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   ",
-      "start": 3659,
-      "end": 3863,
+      "start": 3657,
+      "end": 3861,
       "loc": {
         "start": {
           "line": 116,
@@ -13822,8 +13822,8 @@
         "binop": null
       },
       "value": "layers",
-      "start": 3866,
-      "end": 3872,
+      "start": 3864,
+      "end": 3870,
       "loc": {
         "start": {
           "line": 120,
@@ -13847,8 +13847,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3872,
-      "end": 3873,
+      "start": 3870,
+      "end": 3871,
       "loc": {
         "start": {
           "line": 120,
@@ -13872,8 +13872,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3873,
-      "end": 3874,
+      "start": 3871,
+      "end": 3872,
       "loc": {
         "start": {
           "line": 120,
@@ -13897,8 +13897,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3875,
-      "end": 3876,
+      "start": 3873,
+      "end": 3874,
       "loc": {
         "start": {
           "line": 120,
@@ -13925,8 +13925,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 3881,
-      "end": 3887,
+      "start": 3879,
+      "end": 3885,
       "loc": {
         "start": {
           "line": 121,
@@ -13953,8 +13953,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 3888,
-      "end": 3892,
+      "start": 3886,
+      "end": 3890,
       "loc": {
         "start": {
           "line": 121,
@@ -13979,8 +13979,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3892,
-      "end": 3893,
+      "start": 3890,
+      "end": 3891,
       "loc": {
         "start": {
           "line": 121,
@@ -14005,8 +14005,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 3893,
-      "end": 3906,
+      "start": 3891,
+      "end": 3904,
       "loc": {
         "start": {
           "line": 121,
@@ -14030,8 +14030,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3906,
-      "end": 3907,
+      "start": 3904,
+      "end": 3905,
       "loc": {
         "start": {
           "line": 121,
@@ -14056,8 +14056,8 @@
         "binop": null
       },
       "value": "Layer",
-      "start": 3907,
-      "end": 3912,
+      "start": 3905,
+      "end": 3910,
       "loc": {
         "start": {
           "line": 121,
@@ -14081,8 +14081,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3912,
-      "end": 3913,
+      "start": 3910,
+      "end": 3911,
       "loc": {
         "start": {
           "line": 121,
@@ -14107,8 +14107,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3913,
-      "end": 3914,
+      "start": 3911,
+      "end": 3912,
       "loc": {
         "start": {
           "line": 121,
@@ -14132,8 +14132,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3917,
-      "end": 3918,
+      "start": 3915,
+      "end": 3916,
       "loc": {
         "start": {
           "line": 122,
@@ -14148,8 +14148,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list job types linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   ",
-      "start": 3922,
-      "end": 4131,
+      "start": 3920,
+      "end": 4129,
       "loc": {
         "start": {
           "line": 124,
@@ -14174,8 +14174,8 @@
         "binop": null
       },
       "value": "jobTypes",
-      "start": 4134,
-      "end": 4142,
+      "start": 4132,
+      "end": 4140,
       "loc": {
         "start": {
           "line": 128,
@@ -14199,8 +14199,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4142,
-      "end": 4143,
+      "start": 4140,
+      "end": 4141,
       "loc": {
         "start": {
           "line": 128,
@@ -14224,8 +14224,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4143,
-      "end": 4144,
+      "start": 4141,
+      "end": 4142,
       "loc": {
         "start": {
           "line": 128,
@@ -14249,8 +14249,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4145,
-      "end": 4146,
+      "start": 4143,
+      "end": 4144,
       "loc": {
         "start": {
           "line": 128,
@@ -14277,8 +14277,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 4151,
-      "end": 4157,
+      "start": 4149,
+      "end": 4155,
       "loc": {
         "start": {
           "line": 129,
@@ -14305,8 +14305,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 4158,
-      "end": 4162,
+      "start": 4156,
+      "end": 4160,
       "loc": {
         "start": {
           "line": 129,
@@ -14331,8 +14331,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 4162,
-      "end": 4163,
+      "start": 4160,
+      "end": 4161,
       "loc": {
         "start": {
           "line": 129,
@@ -14357,8 +14357,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 4163,
-      "end": 4176,
+      "start": 4161,
+      "end": 4174,
       "loc": {
         "start": {
           "line": 129,
@@ -14382,8 +14382,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4176,
-      "end": 4177,
+      "start": 4174,
+      "end": 4175,
       "loc": {
         "start": {
           "line": 129,
@@ -14408,8 +14408,8 @@
         "binop": null
       },
       "value": "JobType",
-      "start": 4177,
-      "end": 4184,
+      "start": 4175,
+      "end": 4182,
       "loc": {
         "start": {
           "line": 129,
@@ -14433,8 +14433,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4184,
-      "end": 4185,
+      "start": 4182,
+      "end": 4183,
       "loc": {
         "start": {
           "line": 129,
@@ -14459,8 +14459,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 4185,
-      "end": 4186,
+      "start": 4183,
+      "end": 4184,
       "loc": {
         "start": {
           "line": 129,
@@ -14484,8 +14484,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4189,
-      "end": 4190,
+      "start": 4187,
+      "end": 4188,
       "loc": {
         "start": {
           "line": 130,
@@ -14500,8 +14500,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   ",
-      "start": 4194,
-      "end": 4405,
+      "start": 4192,
+      "end": 4403,
       "loc": {
         "start": {
           "line": 132,
@@ -14526,8 +14526,8 @@
         "binop": null
       },
       "value": "jobShares",
-      "start": 4408,
-      "end": 4417,
+      "start": 4406,
+      "end": 4415,
       "loc": {
         "start": {
           "line": 136,
@@ -14551,8 +14551,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4417,
-      "end": 4418,
+      "start": 4415,
+      "end": 4416,
       "loc": {
         "start": {
           "line": 136,
@@ -14576,8 +14576,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4418,
-      "end": 4419,
+      "start": 4416,
+      "end": 4417,
       "loc": {
         "start": {
           "line": 136,
@@ -14601,8 +14601,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4420,
-      "end": 4421,
+      "start": 4418,
+      "end": 4419,
       "loc": {
         "start": {
           "line": 136,
@@ -14629,8 +14629,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 4426,
-      "end": 4432,
+      "start": 4424,
+      "end": 4430,
       "loc": {
         "start": {
           "line": 137,
@@ -14657,8 +14657,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 4433,
-      "end": 4437,
+      "start": 4431,
+      "end": 4435,
       "loc": {
         "start": {
           "line": 137,
@@ -14683,8 +14683,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 4437,
-      "end": 4438,
+      "start": 4435,
+      "end": 4436,
       "loc": {
         "start": {
           "line": 137,
@@ -14709,8 +14709,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 4438,
-      "end": 4451,
+      "start": 4436,
+      "end": 4449,
       "loc": {
         "start": {
           "line": 137,
@@ -14734,8 +14734,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4451,
-      "end": 4452,
+      "start": 4449,
+      "end": 4450,
       "loc": {
         "start": {
           "line": 137,
@@ -14760,8 +14760,8 @@
         "binop": null
       },
       "value": "JobShare",
-      "start": 4452,
-      "end": 4460,
+      "start": 4450,
+      "end": 4458,
       "loc": {
         "start": {
           "line": 137,
@@ -14785,8 +14785,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4460,
-      "end": 4461,
+      "start": 4458,
+      "end": 4459,
       "loc": {
         "start": {
           "line": 137,
@@ -14811,8 +14811,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 4461,
-      "end": 4462,
+      "start": 4459,
+      "end": 4460,
       "loc": {
         "start": {
           "line": 137,
@@ -14836,8 +14836,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4465,
-      "end": 4466,
+      "start": 4463,
+      "end": 4464,
       "loc": {
         "start": {
           "line": 138,
@@ -14852,8 +14852,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Permission} instances and rejects with {@link ApiError}\n   ",
-      "start": 4470,
-      "end": 4683,
+      "start": 4468,
+      "end": 4681,
       "loc": {
         "start": {
           "line": 140,
@@ -14878,8 +14878,8 @@
         "binop": null
       },
       "value": "permissions",
-      "start": 4686,
-      "end": 4697,
+      "start": 4684,
+      "end": 4695,
       "loc": {
         "start": {
           "line": 144,
@@ -14903,8 +14903,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4697,
-      "end": 4698,
+      "start": 4695,
+      "end": 4696,
       "loc": {
         "start": {
           "line": 144,
@@ -14928,8 +14928,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4698,
-      "end": 4699,
+      "start": 4696,
+      "end": 4697,
       "loc": {
         "start": {
           "line": 144,
@@ -14953,8 +14953,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4700,
-      "end": 4701,
+      "start": 4698,
+      "end": 4699,
       "loc": {
         "start": {
           "line": 144,
@@ -14981,8 +14981,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 4706,
-      "end": 4712,
+      "start": 4704,
+      "end": 4710,
       "loc": {
         "start": {
           "line": 145,
@@ -15009,8 +15009,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 4713,
-      "end": 4717,
+      "start": 4711,
+      "end": 4715,
       "loc": {
         "start": {
           "line": 145,
@@ -15035,8 +15035,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 4717,
-      "end": 4718,
+      "start": 4715,
+      "end": 4716,
       "loc": {
         "start": {
           "line": 145,
@@ -15061,8 +15061,8 @@
         "binop": null
       },
       "value": "_listResource",
-      "start": 4718,
-      "end": 4731,
+      "start": 4716,
+      "end": 4729,
       "loc": {
         "start": {
           "line": 145,
@@ -15086,8 +15086,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4731,
-      "end": 4732,
+      "start": 4729,
+      "end": 4730,
       "loc": {
         "start": {
           "line": 145,
@@ -15112,8 +15112,8 @@
         "binop": null
       },
       "value": "Permission",
-      "start": 4732,
-      "end": 4742,
+      "start": 4730,
+      "end": 4740,
       "loc": {
         "start": {
           "line": 145,
@@ -15137,8 +15137,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4742,
-      "end": 4743,
+      "start": 4740,
+      "end": 4741,
       "loc": {
         "start": {
           "line": 145,
@@ -15163,8 +15163,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 4743,
-      "end": 4744,
+      "start": 4741,
+      "end": 4742,
       "loc": {
         "start": {
           "line": 145,
@@ -15188,8 +15188,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4747,
-      "end": 4748,
+      "start": 4745,
+      "end": 4746,
       "loc": {
         "start": {
           "line": 146,
@@ -15204,8 +15204,8 @@
     {
       "type": "CommentLine",
       "value": " endregion",
-      "start": 4752,
-      "end": 4764,
+      "start": 4750,
+      "end": 4762,
       "loc": {
         "start": {
           "line": 148,
@@ -15229,8 +15229,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 4765,
-      "end": 4766,
+      "start": 4763,
+      "end": 4764,
       "loc": {
         "start": {
           "line": 149,
@@ -15255,8 +15255,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 4767,
-      "end": 4767,
+      "start": 4765,
+      "end": 4765,
       "loc": {
         "start": {
           "line": 150,

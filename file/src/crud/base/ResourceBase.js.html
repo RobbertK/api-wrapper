@@ -229,6 +229,16 @@ export default class ResourceBase {
   }
 
   /**
+   * List fields that contain object data
+   * @returns {Array&lt;String&gt;} - A list of fields
+   */
+  get fieldNames() {
+    return Object
+      .keys(this._baseProperties)
+      .map(snakeToCamelCase);
+  }
+
+  /**
    * String representation of the resource, similar to Python&apos;s __repr__
    * @returns {string} - Resource name and id
    */
