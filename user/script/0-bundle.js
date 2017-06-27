@@ -2823,7 +2823,7 @@ var Maps4News = function () {
      */
 
   }, {
-    key: 'mapstylesSets',
+    key: 'mapstyleSets',
     get: function get() {
       return new _ResourceProxy2.default(this, _MapstyleSet2.default);
     }
