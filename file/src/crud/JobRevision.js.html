@@ -87,7 +87,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTypeName">getTypeName</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -106,7 +105,7 @@ export default class JobRevision extends CrudBase {
     return `/jobs/${this[&apos;job_id&apos;]}/revisions`;
   }
 
-  get path() {
+  get resourcePath() {
     return &apos;/jobs/{job_id}/revisions/{id}&apos;;
   }
 

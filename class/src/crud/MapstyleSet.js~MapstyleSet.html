@@ -87,7 +87,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTypeName">getTypeName</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -180,7 +179,7 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-path">path</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span data-ice="name"><span><a href="class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-resourceName">resourceName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -207,7 +206,7 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-resourceName">resourceName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span data-ice="name"><span><a href="class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-resourcePath">resourcePath</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -347,34 +346,6 @@
       <span class="access" data-ice="access">public</span>
       
       <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-path">path</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Resource path template</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
       <span class="abstract" data-ice="abstract">abstract</span>
       <span class="override" data-ice="override"></span>
     </td>
@@ -390,6 +361,34 @@
         
         
         <div data-ice="description"><p>Resource name</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourcePath">resourcePath</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Resource path template</p>
 </div>
       </div>
     </td>
@@ -746,50 +745,6 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-path">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span data-ice="name">path</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/crud/MapstyleSet.js.html#lineNumber5">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Resource path template</p>
-</div>
-
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-path">ResourceBase#path</a></span></div>
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-resourceName">
     <span class="access" data-ice="access">public</span>
     
@@ -812,6 +767,50 @@
 </div>
 
   <div data-ice="override"><h4>Override:</h4><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName">ResourceBase#resourceName</a></span></div>
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-resourcePath">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">resourcePath</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/crud/MapstyleSet.js.html#lineNumber5">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Resource path template</p>
+</div>
+
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourcePath">ResourceBase#resourcePath</a></span></div>
 
   <div data-ice="properties">
 </div>

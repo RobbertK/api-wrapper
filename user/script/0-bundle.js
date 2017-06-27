@@ -1473,7 +1473,7 @@ var ResourceBase = function () {
      */
 
   }, {
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/' + this.resourceName + '/{id}';
     }
@@ -1503,7 +1503,7 @@ var ResourceBase = function () {
   }, {
     key: 'url',
     get: function get() {
-      var url = this._api.host + '/' + this._api.version + this.path;
+      var url = this._api.host + '/' + this._api.version + this.resourcePath;
 
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
@@ -1541,7 +1541,7 @@ var ResourceBase = function () {
   }, {
     key: 'baseUrl',
     get: function get() {
-      var basePath = this.path.match(/^(\/[^{]+\b)/)[1];
+      var basePath = this.resourcePath.match(/^(\/[^{]+\b)/)[1];
 
       return this._api.host + '/' + this._api.version + basePath;
     }
@@ -1826,6 +1826,12 @@ function isParentOf(parent, child) {
   return false;
 }
 
+/**
+ * Get the name of the value type
+ * @param {*} value - Any value
+ * @private
+ * @returns {string} - Value type name
+ */
 function getTypeName(value) {
   value = typeof value === 'function' ? value : value.constructor;
 
@@ -2125,7 +2131,7 @@ var JobShare = function (_CrudBase) {
      */
 
   }, {
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/jobs/shares/{id}';
     }
@@ -3117,7 +3123,7 @@ var DimensionSet = function (_CrudSetBase) {
   }
 
   _createClass(DimensionSet, [{
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/dimensions/sets/{id}';
     }
@@ -3233,7 +3239,7 @@ var FontFamily = function (_CrudSetBase) {
   }
 
   _createClass(FontFamily, [{
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/fonts/families/{id}';
     }
@@ -3294,7 +3300,7 @@ var JobType = function (_CrudBase) {
   }
 
   _createClass(JobType, [{
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/jobs/types/{id}';
     }
@@ -3354,7 +3360,7 @@ var MapstyleSet = function (_CrudSetBase) {
   }
 
   _createClass(MapstyleSet, [{
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/mapstyles/sets/{id}';
     }
@@ -3419,7 +3425,7 @@ var SvgSet = function (_CrudSetBase) {
   }
 
   _createClass(SvgSet, [{
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/svgs/sets/{id}';
     }
@@ -3903,9 +3909,11 @@ function makeRequest(url) {
 
     request.responseType = responseType;
 
-    var hasContentType = Object.keys(headers).filter(function (x) {
-      return x.toLowerCase() === 'content-type';
-    }).length > 0;
+    function hasHeader(h) {
+      return Object.keys(headers).filter(function (x) {
+        return x.toLowerCase() === h.toLowerCase();
+      }).length > 0;
+    }
 
     request.open(method, url, true);
 
@@ -3913,11 +3921,15 @@ function makeRequest(url) {
     if ((typeof body === 'undefined' ? 'undefined' : _typeof(body)) === 'object') {
       body = JSON.stringify(body);
 
-      if (!hasContentType) {
+      if (!hasHeader('Content-Type')) {
         headers['Content-Type'] = 'application/json';
       }
-    } else if (body && !hasContentType) {
+    } else if (body && !hasHeader('Content-Type')) {
       headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    }
+
+    if (!hasHeader('Accept')) {
+      headers['Accept'] = 'application/json';
     }
 
     // Apply headers
@@ -4587,7 +4599,7 @@ var Job = function (_CrudBase) {
       var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'last';
 
       return new Promise(function (resolve, reject) {
-        _this2._api.request(_this2.path + '/revisions/' + id).catch(reject).then(function (data) {
+        _this2._api.request(_this2.resourcePath + '/revisions/' + id).catch(reject).then(function (data) {
           return resolve(new _JobRevision2.default(_this2._api, data));
         });
       });
@@ -4606,7 +4618,7 @@ var Job = function (_CrudBase) {
   }, {
     key: 'lastPreviewUrl',
     get: function get() {
-      return this.path + '/revisions/last/result/preview';
+      return this.resourcePath + '/revisions/last/result/preview';
     }
 
     /**
@@ -4617,7 +4629,7 @@ var Job = function (_CrudBase) {
   }, {
     key: 'lastArchiveUrl',
     get: function get() {
-      return this.path + '/revisions/last/result/archive';
+      return this.resourcePath + '/revisions/last/result/archive';
     }
   }]);
 
@@ -7800,7 +7812,7 @@ var JobRevision = function (_CrudBase) {
       return '/jobs/' + this['job_id'] + '/revisions';
     }
   }, {
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/jobs/{job_id}/revisions/{id}';
     }
@@ -7913,7 +7925,7 @@ var SvgSetType = function (_CrudBase) {
       throw new _UnsupportedCrudError2.default('Svg set types don\'t support soft deletes');
     }
   }, {
-    key: 'path',
+    key: 'resourcePath',
     get: function get() {
       return '/svgs/sets/types/{id}';
     }

@@ -312,12 +312,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "@mapcreator/maps4news/src/utils/reflection.js~gettypename",
-    "function/index.html#static-function-getTypeName",
-    "<span>getTypeName</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/reflection.js</span>",
-    "function"
-  ],
-  [
     "@mapcreator/maps4news/src/utils/requests.js~makerequest",
     "function/index.html#static-function-makeRequest",
     "<span>makeRequest</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/requests.js</span>",
@@ -949,13 +943,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
@@ -1104,15 +1098,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/crud/dimensionset.js~dimensionset#path",
-    "class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-path",
-    "src/crud/DimensionSet.js~DimensionSet#path",
-    "member"
-  ],
-  [
     "src/crud/dimensionset.js~dimensionset#resourcename",
     "class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-resourceName",
     "src/crud/DimensionSet.js~DimensionSet#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/dimensionset.js~dimensionset#resourcepath",
+    "class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-resourcePath",
+    "src/crud/DimensionSet.js~DimensionSet#resourcePath",
     "member"
   ],
   [
@@ -1170,15 +1164,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/crud/fontfamily.js~fontfamily#path",
-    "class/src/crud/FontFamily.js~FontFamily.html#instance-get-path",
-    "src/crud/FontFamily.js~FontFamily#path",
-    "member"
-  ],
-  [
     "src/crud/fontfamily.js~fontfamily#resourcename",
     "class/src/crud/FontFamily.js~FontFamily.html#instance-get-resourceName",
     "src/crud/FontFamily.js~FontFamily#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/fontfamily.js~fontfamily#resourcepath",
+    "class/src/crud/FontFamily.js~FontFamily.html#instance-get-resourcePath",
+    "src/crud/FontFamily.js~FontFamily#resourcePath",
     "member"
   ],
   [
@@ -1308,15 +1302,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/crud/jobrevision.js~jobrevision#path",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-path",
-    "src/crud/JobRevision.js~JobRevision#path",
-    "member"
-  ],
-  [
     "src/crud/jobrevision.js~jobrevision#resourcename",
     "class/src/crud/JobRevision.js~JobRevision.html#instance-get-resourceName",
     "src/crud/JobRevision.js~JobRevision#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/jobrevision.js~jobrevision#resourcepath",
+    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-resourcePath",
+    "src/crud/JobRevision.js~JobRevision#resourcePath",
     "member"
   ],
   [
@@ -1344,15 +1338,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/jobshare.js~jobshare#path",
-    "class/src/crud/JobShare.js~JobShare.html#instance-get-path",
-    "src/crud/JobShare.js~JobShare#path",
-    "member"
-  ],
-  [
     "src/crud/jobshare.js~jobshare#resourcename",
     "class/src/crud/JobShare.js~JobShare.html#instance-get-resourceName",
     "src/crud/JobShare.js~JobShare#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/jobshare.js~jobshare#resourcepath",
+    "class/src/crud/JobShare.js~JobShare.html#instance-get-resourcePath",
+    "src/crud/JobShare.js~JobShare#resourcePath",
     "member"
   ],
   [
@@ -1374,15 +1368,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/crud/jobtype.js~jobtype#path",
-    "class/src/crud/JobType.js~JobType.html#instance-get-path",
-    "src/crud/JobType.js~JobType#path",
-    "member"
-  ],
-  [
     "src/crud/jobtype.js~jobtype#resourcename",
     "class/src/crud/JobType.js~JobType.html#instance-get-resourceName",
     "src/crud/JobType.js~JobType#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/jobtype.js~jobtype#resourcepath",
+    "class/src/crud/JobType.js~JobType.html#instance-get-resourcePath",
+    "src/crud/JobType.js~JobType#resourcePath",
     "member"
   ],
   [
@@ -1458,15 +1452,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/crud/mapstyleset.js~mapstyleset#path",
-    "class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-path",
-    "src/crud/MapstyleSet.js~MapstyleSet#path",
-    "member"
-  ],
-  [
     "src/crud/mapstyleset.js~mapstyleset#resourcename",
     "class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-resourceName",
     "src/crud/MapstyleSet.js~MapstyleSet#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/mapstyleset.js~mapstyleset#resourcepath",
+    "class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-resourcePath",
+    "src/crud/MapstyleSet.js~MapstyleSet#resourcePath",
     "member"
   ],
   [
@@ -1626,15 +1620,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/crud/svgset.js~svgset#path",
-    "class/src/crud/SvgSet.js~SvgSet.html#instance-get-path",
-    "src/crud/SvgSet.js~SvgSet#path",
-    "member"
-  ],
-  [
     "src/crud/svgset.js~svgset#resourcename",
     "class/src/crud/SvgSet.js~SvgSet.html#instance-get-resourceName",
     "src/crud/SvgSet.js~SvgSet#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/svgset.js~svgset#resourcepath",
+    "class/src/crud/SvgSet.js~SvgSet.html#instance-get-resourcePath",
+    "src/crud/SvgSet.js~SvgSet#resourcePath",
     "member"
   ],
   [
@@ -1644,15 +1638,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/svgsettype.js~svgsettype#path",
-    "class/src/crud/SvgSetType.js~SvgSetType.html#instance-get-path",
-    "src/crud/SvgSetType.js~SvgSetType#path",
-    "member"
-  ],
-  [
     "src/crud/svgsettype.js~svgsettype#resourcename",
     "class/src/crud/SvgSetType.js~SvgSetType.html#instance-get-resourceName",
     "src/crud/SvgSetType.js~SvgSetType#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/svgsettype.js~svgsettype#resourcepath",
+    "class/src/crud/SvgSetType.js~SvgSetType.html#instance-get-resourcePath",
+    "src/crud/SvgSetType.js~SvgSetType#resourcePath",
     "member"
   ],
   [
@@ -1896,12 +1890,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/crud/base/resourcebase.js~resourcebase#path",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-path",
-    "src/crud/base/ResourceBase.js~ResourceBase#path",
-    "member"
-  ],
-  [
     "src/crud/base/resourcebase.js~resourcebase#refresh",
     "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-refresh",
     "src/crud/base/ResourceBase.js~ResourceBase#refresh",
@@ -1911,6 +1899,12 @@ window.esdocSearchIndex = [
     "src/crud/base/resourcebase.js~resourcebase#resourcename",
     "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName",
     "src/crud/base/ResourceBase.js~ResourceBase#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/base/resourcebase.js~resourcebase#resourcepath",
+    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourcePath",
+    "src/crud/base/ResourceBase.js~ResourceBase#resourcePath",
     "member"
   ],
   [
@@ -2353,13 +2347,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
