@@ -1794,6 +1794,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.isParentOf = isParentOf;
+exports.getTypeName = getTypeName;
 /**
  * Tests if the parent is a parent of child
  * @param {function|object} parent - Instance or Class
@@ -1823,6 +1824,12 @@ function isParentOf(parent, child) {
   } while (child.name !== '');
 
   return false;
+}
+
+function getTypeName(value) {
+  value = typeof value === 'function' ? value : value.constructor;
+
+  return value.name;
 }
 
 /***/ }),
@@ -4722,6 +4729,11 @@ var Language = function (_CrudBase) {
   }
 
   _createClass(Language, [{
+    key: 'toString',
+    value: function toString() {
+      return this.constructor.name + '(' + this.code + ')';
+    }
+  }, {
     key: 'resourceName',
     get: function get() {
       return 'languages';
@@ -6874,7 +6886,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Proxy for accessing paginated resources
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
 
 var _Maps4News = __webpack_require__(55);
 
@@ -6888,9 +6903,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/**
- * Proxy for accessing paginated resources
- */
 var PaginatedResourceListing = function () {
   /**
    * @param {Maps4News} api - Instance of the api
@@ -7124,7 +7136,7 @@ var PaginatedResourceListing = function () {
     set: function set(value) {
       // Verify query structure
       if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== 'object') {
-        throw new TypeError('Expected value to be of type "object" got "' + (typeof value === 'undefined' ? 'undefined' : _typeof(value)) + '"');
+        throw new TypeError('Expected value to be of type "Object" got "' + (0, _reflection.getTypeName)(value) + '"');
       }
 
       var _iteratorNormalCompletion = true;
@@ -7136,7 +7148,7 @@ var PaginatedResourceListing = function () {
           var key = _step.value;
 
           if (typeof key !== 'string') {
-            throw new TypeError('Expected key to be of type "string" got "' + (typeof key === 'undefined' ? 'undefined' : _typeof(key)) + '"');
+            throw new TypeError('Expected key to be of type "String" got "' + (0, _reflection.getTypeName)(key) + '"');
           }
 
           if (Array.isArray(value[key])) {
@@ -7150,7 +7162,7 @@ var PaginatedResourceListing = function () {
                   var query = _step2.value;
 
                   if (typeof query !== 'string') {
-                    throw new TypeError('Expected query for "' + key + '" to be of type "string" got "' + (typeof key === 'undefined' ? 'undefined' : _typeof(key)) + '"');
+                    throw new TypeError('Expected query for "' + key + '" to be of type "String" got "' + (0, _reflection.getTypeName)(query) + '"');
                   }
                 }
               } catch (err) {
@@ -7172,7 +7184,7 @@ var PaginatedResourceListing = function () {
               delete value[key];
             }
           } else if (typeof value[key] !== 'string') {
-            throw new TypeError('Expected query value to be of type "string" or "array" got "' + (typeof key === 'undefined' ? 'undefined' : _typeof(key)) + '"');
+            throw new TypeError('Expected query value to be of type "string" or "Array" got "' + (0, _reflection.getTypeName)(key) + '"');
           }
         }
       } catch (err) {
@@ -9901,7 +9913,7 @@ var Uuid = function (_StaticClass) {
      */
     value: function uuid4() {
       // Use the secure method if possible
-      return typeof crypto !== 'undefined' ? Uuid._uuid4Safe() : Uuid._uuid4Unsafe();
+      return typeof crypto !== 'undefined' && crypto.getRandomValues ? Uuid._uuid4Safe() : Uuid._uuid4Unsafe();
     }
 
     /**

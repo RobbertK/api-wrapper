@@ -1,7 +1,7 @@
 {
-  "coverage": "70.5%",
-  "expectCount": 295,
-  "actualCount": 208,
+  "coverage": "69.69%",
+  "expectCount": 297,
+  "actualCount": 207,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -189,11 +189,12 @@
       ]
     },
     "src/crud/Language.js": {
-      "expectCount": 2,
+      "expectCount": 3,
       "actualCount": 0,
       "undocumentLines": [
         3,
-        4
+        4,
+        8
       ]
     },
     "src/crud/Layer.js": {
@@ -277,8 +278,10 @@
     },
     "src/PaginatedResourceListing.js": {
       "expectCount": 17,
-      "actualCount": 17,
-      "undocumentLines": []
+      "actualCount": 16,
+      "undocumentLines": [
+        8
+      ]
     },
     "src/oauth/PasswordFlow.js": {
       "expectCount": 12,
@@ -375,6 +378,13 @@
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
+    },
+    "src/utils/reflection.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        32
+      ]
     }
   }
 }
