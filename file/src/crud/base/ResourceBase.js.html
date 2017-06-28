@@ -94,10 +94,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/crud/base/ResourceBase.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {snakeToCamelCase} from &apos;../../utils/caseConverter&apos;;
-import {AbstractClassError, AbstractError} from &apos;../../exceptions/AbstractError&apos;;
-import {isParentOf} from &apos;../../utils/reflection&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {AbstractClassError, AbstractError} from &apos;../../exceptions/AbstractError&apos;;
 import Maps4News from &apos;../../Maps4News&apos;;
+import {snakeToCamelCase} from &apos;../../utils/caseConverter&apos;;
+import {isParentOf} from &apos;../../utils/reflection&apos;;
 
 /**
  * Resource base
@@ -175,8 +175,11 @@ export default class ResourceBase {
    * @private
    */
   _applyProperties() {
-    for (const key of Object.keys(this._baseProperties)) {
-      Object.defineProperty(this, snakeToCamelCase(key), {
+    const protectedFields = [&apos;id&apos;, &apos;created_at&apos;, &apos;updated_at&apos;, &apos;deleted_at&apos;];
+    const fields = Object.keys(this._baseProperties);
+
+    for (const key of fields) {
+      const desc = {
         enumerable: true,
         configurable: true,
 
@@ -187,10 +190,24 @@ export default class ResourceBase {
 
           return this._baseProperties[key];
         },
+      };
 
-        set: (val) =&gt; {
-          this._properties[key] = val;
-          return val;
+      if (!protectedFields.includes(key)) {
+        // eslint-disable-next-line no-return-assign
+        desc.set = val =&gt; this._properties[key] = val;
+      }
+
+      Object.defineProperty(this, snakeToCamelCase(key), desc);
+    }
+
+    // Add deleted field if possible
+    if (fields.includes(&apos;deleted_at&apos;)) {
+      Object.defineProperty(this, &apos;deleted&apos;, {
+        enumerable: true,
+        configurable: true,
+
+        get: () =&gt; {
+          return Boolean(this.deletedAt);
         },
       });
     }

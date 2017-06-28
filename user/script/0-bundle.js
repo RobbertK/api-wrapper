@@ -1313,15 +1313,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _caseConverter = __webpack_require__(169);
-
 var _AbstractError = __webpack_require__(48);
-
-var _reflection = __webpack_require__(42);
 
 var _Maps4News = __webpack_require__(55);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
+
+var _caseConverter = __webpack_require__(169);
+
+var _reflection = __webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1399,8 +1399,11 @@ var ResourceBase = function () {
     value: function _applyProperties() {
       var _this2 = this;
 
+      var protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];
+      var fields = Object.keys(this._baseProperties);
+
       var _loop = function _loop(key) {
-        Object.defineProperty(_this2, (0, _caseConverter.snakeToCamelCase)(key), {
+        var desc = {
           enumerable: true,
           configurable: true,
 
@@ -1410,13 +1413,17 @@ var ResourceBase = function () {
             }
 
             return _this2._baseProperties[key];
-          },
-
-          set: function set(val) {
-            _this2._properties[key] = val;
-            return val;
           }
-        });
+        };
+
+        if (!protectedFields.includes(key)) {
+          // eslint-disable-next-line no-return-assign
+          desc.set = function (val) {
+            return _this2._properties[key] = val;
+          };
+        }
+
+        Object.defineProperty(_this2, (0, _caseConverter.snakeToCamelCase)(key), desc);
       };
 
       var _iteratorNormalCompletion = true;
@@ -1424,11 +1431,13 @@ var ResourceBase = function () {
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = Object.keys(this._baseProperties)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var key = _step.value;
 
           _loop(key);
         }
+
+        // Add deleted field if possible
       } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
@@ -1442,6 +1451,17 @@ var ResourceBase = function () {
             throw _iteratorError;
           }
         }
+      }
+
+      if (fields.includes('deleted_at')) {
+        Object.defineProperty(this, 'deleted', {
+          enumerable: true,
+          configurable: true,
+
+          get: function get() {
+            return Boolean(_this2.deletedAt);
+          }
+        });
       }
     }
 

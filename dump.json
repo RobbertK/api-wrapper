@@ -7320,7 +7320,7 @@
     "__docId__": 269,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
-    "content": "import {snakeToCamelCase} from '../../utils/caseConverter';\nimport {AbstractClassError, AbstractError} from '../../exceptions/AbstractError';\nimport {isParentOf} from '../../utils/reflection';\nimport Maps4News from '../../Maps4News';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/\\{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    for (const key of Object.keys(this._baseProperties)) {\n      Object.defineProperty(this, snakeToCamelCase(key), {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n\n        set: (val) => {\n          this._properties[key] = val;\n          return val;\n        },\n      });\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      url = url.replace(`{${key}}`, this[key]);\n    }\n\n    return url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n}\n",
+    "content": "import {AbstractClassError, AbstractError} from '../../exceptions/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport {snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/\\{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    const protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];\n    const fields = Object.keys(this._baseProperties);\n\n    for (const key of fields) {\n      const desc = {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n      };\n\n      if (!protectedFields.includes(key)) {\n        // eslint-disable-next-line no-return-assign\n        desc.set = val => this._properties[key] = val;\n      }\n\n      Object.defineProperty(this, snakeToCamelCase(key), desc);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      url = url.replace(`{${key}}`, this[key]);\n    }\n\n    return url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/ResourceBase.js",
     "access": null,
@@ -7663,7 +7663,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#ownable",
     "access": null,
     "description": "If the resource can be owned by an organisation",
-    "lineNumber": 107,
+    "lineNumber": 124,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7695,7 +7695,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#url",
     "access": null,
     "description": "Auto generated resource url",
-    "lineNumber": 115,
+    "lineNumber": 132,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7727,7 +7727,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#baseUrl",
     "access": null,
     "description": "Auto generated Resource base url",
-    "lineNumber": 129,
+    "lineNumber": 146,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7759,7 +7759,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
     "access": null,
     "description": "List fields that contain object data",
-    "lineNumber": 139,
+    "lineNumber": 156,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7791,7 +7791,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#toString",
     "access": null,
     "description": "String representation of the resource, similar to Python's __repr__",
-    "lineNumber": 149,
+    "lineNumber": 166,
     "unknown": [
       {
         "tagName": "@returns",
