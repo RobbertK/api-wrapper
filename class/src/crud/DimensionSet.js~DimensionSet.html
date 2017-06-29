@@ -86,7 +86,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthError.js~OAuthError.html">OAuthError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/utils/reflection.js~Trait.html">Trait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -94,13 +98,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import DimensionSet from &apos;<span><a href="file/src/crud/DimensionSet.js.html#lineNumber7">@mapcreator/maps4news/src/crud/DimensionSet.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import DimensionSet from &apos;<span><a href="file/src/crud/DimensionSet.js.html#lineNumber12">@mapcreator/maps4news/src/crud/DimensionSet.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/crud/DimensionSet.js.html#lineNumber7">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/crud/DimensionSet.js.html#lineNumber12">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -109,8 +113,8 @@
   
 
   
+  <div class="flat-list" data-ice="mixinExtends"><h4>Mixin Extends:</h4><div><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span>, <span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></div></div>
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span> &#x2192; <span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span> &#x2192; <span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span> &#x2192; DimensionSet</div></div>
   
   
   
@@ -141,33 +145,6 @@
   <tbody>
   
   <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-ownable">ownable</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       
@@ -702,50 +679,6 @@
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-ownable">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span data-ice="name">ownable</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/crud/DimensionSet.js.html#lineNumber16">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>If the resource can be owned by an organisation</p>
-</div>
-
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-ownable">ResourceBase#ownable</a></span></div>
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-resourceName">
     <span class="access" data-ice="access">public</span>
     
@@ -757,7 +690,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/DimensionSet.js.html#lineNumber12">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/DimensionSet.js.html#lineNumber17">source</a></span></span>
     </span>
   </h3>
 
@@ -801,7 +734,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/DimensionSet.js.html#lineNumber8">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/DimensionSet.js.html#lineNumber13">source</a></span></span>
     </span>
   </h3>
 

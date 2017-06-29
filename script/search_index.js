@@ -96,6 +96,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/traits/handlesimages.js~handlesimages",
+    "class/src/traits/HandlesImages.js~HandlesImages.html",
+    "<span>HandlesImages</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/traits/HandlesImages.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/crud/highlight.js~highlight",
     "class/src/crud/Highlight.js~Highlight.html",
     "<span>Highlight</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Highlight.js</span>",
@@ -222,6 +228,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/traits/ownableresource.js~ownableresource",
+    "class/src/traits/OwnableResource.js~OwnableResource.html",
+    "<span>OwnableResource</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/traits/OwnableResource.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/paginatedresourcelisting.js~paginatedresourcelisting",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html",
     "<span>PaginatedResourceListing</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/PaginatedResourceListing.js</span>",
@@ -288,6 +300,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/utils/reflection.js~trait",
+    "class/src/utils/reflection.js~Trait.html",
+    "<span>Trait</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/reflection.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/exceptions/unsupportedcruderror.js~unsupportedcruderror",
     "class/src/exceptions/UnsupportedCrudError.js~UnsupportedCrudError.html",
     "<span>UnsupportedCrudError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/UnsupportedCrudError.js</span>",
@@ -315,6 +333,12 @@ window.esdocSearchIndex = [
     "@mapcreator/maps4news/src/utils/requests.js~makerequest",
     "function/index.html#static-function-makeRequest",
     "<span>makeRequest</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/requests.js</span>",
+    "function"
+  ],
+  [
+    "@mapcreator/maps4news/src/utils/reflection.js~mix",
+    "function/index.html#static-function-mix",
+    "<span>mix</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/reflection.js</span>",
     "function"
   ],
   [
@@ -655,13 +679,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -943,13 +967,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
@@ -1050,12 +1074,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/color.js~color#ownable",
-    "class/src/crud/Color.js~Color.html#instance-get-ownable",
-    "src/crud/Color.js~Color#ownable",
-    "member"
-  ],
-  [
     "src/crud/color.js~color#resourcename",
     "class/src/crud/Color.js~Color.html#instance-get-resourceName",
     "src/crud/Color.js~Color#resourceName",
@@ -1092,12 +1110,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/dimensionset.js~dimensionset#ownable",
-    "class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-ownable",
-    "src/crud/DimensionSet.js~DimensionSet#ownable",
-    "member"
-  ],
-  [
     "src/crud/dimensionset.js~dimensionset#resourcename",
     "class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-resourceName",
     "src/crud/DimensionSet.js~DimensionSet#resourceName",
@@ -1128,12 +1140,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/feature.js~feature#ownable",
-    "class/src/crud/Feature.js~Feature.html#instance-get-ownable",
-    "src/crud/Feature.js~Feature#ownable",
-    "member"
-  ],
-  [
     "src/crud/feature.js~feature#resourcename",
     "class/src/crud/Feature.js~Feature.html#instance-get-resourceName",
     "src/crud/Feature.js~Feature#resourceName",
@@ -1156,12 +1162,6 @@ window.esdocSearchIndex = [
     "file/src/crud/FontFamily.js.html",
     "src/crud/FontFamily.js",
     "file"
-  ],
-  [
-    "src/crud/fontfamily.js~fontfamily#ownable",
-    "class/src/crud/FontFamily.js~FontFamily.html#instance-get-ownable",
-    "src/crud/FontFamily.js~FontFamily#ownable",
-    "member"
   ],
   [
     "src/crud/fontfamily.js~fontfamily#resourcename",
@@ -1362,12 +1362,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/jobtype.js~jobtype#ownable",
-    "class/src/crud/JobType.js~JobType.html#instance-get-ownable",
-    "src/crud/JobType.js~JobType#ownable",
-    "member"
-  ],
-  [
     "src/crud/jobtype.js~jobtype#resourcename",
     "class/src/crud/JobType.js~JobType.html#instance-get-resourceName",
     "src/crud/JobType.js~JobType#resourceName",
@@ -1410,12 +1404,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/crud/layer.js~layer#ownable",
-    "class/src/crud/Layer.js~Layer.html#instance-get-ownable",
-    "src/crud/Layer.js~Layer#ownable",
-    "member"
-  ],
-  [
     "src/crud/layer.js~layer#resourcename",
     "class/src/crud/Layer.js~Layer.html#instance-get-resourceName",
     "src/crud/Layer.js~Layer#resourceName",
@@ -1428,12 +1416,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/mapstyle.js~mapstyle#imagehandler",
-    "class/src/crud/Mapstyle.js~Mapstyle.html#instance-get-imageHandler",
-    "src/crud/Mapstyle.js~Mapstyle#imageHandler",
-    "member"
-  ],
-  [
     "src/crud/mapstyle.js~mapstyle#resourcename",
     "class/src/crud/Mapstyle.js~Mapstyle.html#instance-get-resourceName",
     "src/crud/Mapstyle.js~Mapstyle#resourceName",
@@ -1444,12 +1426,6 @@ window.esdocSearchIndex = [
     "file/src/crud/MapstyleSet.js.html",
     "src/crud/MapstyleSet.js",
     "file"
-  ],
-  [
-    "src/crud/mapstyleset.js~mapstyleset#ownable",
-    "class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-ownable",
-    "src/crud/MapstyleSet.js~MapstyleSet#ownable",
-    "member"
   ],
   [
     "src/crud/mapstyleset.js~mapstyleset#resourcename",
@@ -1612,12 +1588,6 @@ window.esdocSearchIndex = [
     "file/src/crud/SvgSet.js.html",
     "src/crud/SvgSet.js",
     "file"
-  ],
-  [
-    "src/crud/svgset.js~svgset#ownable",
-    "class/src/crud/SvgSet.js~SvgSet.html#instance-get-ownable",
-    "src/crud/SvgSet.js~SvgSet#ownable",
-    "member"
   ],
   [
     "src/crud/svgset.js~svgset#resourcename",
@@ -2389,13 +2359,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
@@ -2404,6 +2374,54 @@ window.esdocSearchIndex = [
     "file/src/oauth/StateContainer.js.html",
     "src/oauth/StateContainer.js",
     "file"
+  ],
+  [
+    "src/traits/handlesimages.js",
+    "file/src/traits/HandlesImages.js.html",
+    "src/traits/HandlesImages.js",
+    "file"
+  ],
+  [
+    "src/traits/handlesimages.js~handlesimages#imagehandler",
+    "class/src/traits/HandlesImages.js~HandlesImages.html#instance-get-imageHandler",
+    "src/traits/HandlesImages.js~HandlesImages#imageHandler",
+    "member"
+  ],
+  [
+    "src/traits/ownableresource.js",
+    "file/src/traits/OwnableResource.js.html",
+    "src/traits/OwnableResource.js",
+    "file"
+  ],
+  [
+    "src/traits/ownableresource.js~ownableresource#attachorganisations",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-attachOrganisations",
+    "src/traits/OwnableResource.js~OwnableResource#attachOrganisations",
+    "method"
+  ],
+  [
+    "src/traits/ownableresource.js~ownableresource#organisations",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-organisations",
+    "src/traits/OwnableResource.js~OwnableResource#organisations",
+    "method"
+  ],
+  [
+    "src/traits/ownableresource.js~ownableresource#ownable",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-get-ownable",
+    "src/traits/OwnableResource.js~OwnableResource#ownable",
+    "member"
+  ],
+  [
+    "src/traits/ownableresource.js~ownableresource#syncorganisations",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-syncOrganisations",
+    "src/traits/OwnableResource.js~OwnableResource#syncOrganisations",
+    "method"
+  ],
+  [
+    "src/traits/ownableresource.js~ownableresource#unlinkorganisations",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-unlinkOrganisations",
+    "src/traits/OwnableResource.js~OwnableResource#unlinkOrganisations",
+    "method"
   ],
   [
     "src/utils/staticclass.js",

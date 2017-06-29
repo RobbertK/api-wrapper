@@ -86,7 +86,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthError.js~OAuthError.html">OAuthError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/utils/reflection.js~Trait.html">Trait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -137,6 +141,50 @@ export function getTypeName(value) {
 
   return value.name;
 }
+
+export function mix(baseClass, ...mixins) {
+  const cocktail = class _Cocktail extends baseClass {
+    constructor(...args) {
+      super(...args);
+      mixins.forEach((mixin) =&gt; {
+        if (mixin.prototype.initializer) {
+          mixin.prototype.initializer.call(this);
+        }
+      });
+    }
+  };
+
+
+  for (const mixin of mixins) {
+    if (!isParentOf(Trait, mixin)) {
+      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);
+    }
+
+    copyProps(cocktail.prototype, mixin.prototype);
+    copyProps(cocktail, mixin);
+  }
+
+  cocktail.__mixins = mixins;
+
+  return cocktail;
+}
+
+function copyProps(target, source) {
+  Object
+    .getOwnPropertyNames(source)
+    .concat(Object.getOwnPropertySymbols(source))
+    .forEach((prop) =&gt; {
+      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {
+        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));
+      }
+    });
+}
+
+/**
+ * Trait interface
+ * @interface
+ */
+export class Trait {}
 </code></pre>
 
 </div>
