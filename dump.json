@@ -4657,7 +4657,7 @@
     "__docId__": 167,
     "kind": "file",
     "name": "src/crud/Mapstyle.js",
-    "content": "import CrudBase from './base/CrudBase';\nimport HandlesImages from '../traits/HandlesImages';\nimport {mix} from '../utils/reflection';\n\nexport default class Mapstyle extends mix(CrudBase, HandlesImages) {\n  get resourceName() {\n    return 'mapstyles';\n  }\n}\n",
+    "content": "import CrudBase from './base/CrudBase';\nimport HandlesImages from '../traits/HandlesImages';\nimport {mix} from '../utils/reflection';\n\n/**\n * @extends {CrudBase}\n * @extends {HandlesImages}\n */\nexport default class Mapstyle extends mix(CrudBase, HandlesImages) {\n  get resourceName() {\n    return 'mapstyles';\n  }\n}\n",
     "static": true,
     "longname": "src/crud/Mapstyle.js",
     "access": null,
@@ -4675,17 +4675,13 @@
     "export": true,
     "importPath": "@mapcreator/maps4news/src/crud/Mapstyle.js",
     "importStyle": "Mapstyle",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 9,
     "interface": false,
-    "expressionExtends": "mix(CrudBase, HandlesImages)"
+    "extends": [
+      "CrudBase",
+      "HandlesImages"
+    ]
   },
   {
     "__docId__": 169,
@@ -4698,7 +4694,7 @@
     "longname": "src/crud/Mapstyle.js~Mapstyle#resourceName",
     "access": null,
     "description": null,
-    "lineNumber": 6,
+    "lineNumber": 10,
     "undocument": true,
     "unknown": [
       {
@@ -4716,7 +4712,7 @@
     "__docId__": 170,
     "kind": "file",
     "name": "src/crud/MapstyleSet.js",
-    "content": "import HandlesImages from '../traits/HandlesImages';\nimport OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\nimport CrudSetBase from './base/CrudSetBase';\nimport Mapstyle from './Mapstyle';\n\n/**\n * Mapstyle set\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n * @extends {HandlesImages}\n */\nexport default class MapstyleSet extends mix(CrudSetBase, OwnableResource, HandlesImages) {\n  get resourcePath() {\n    return '/mapstyles/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'mapstyle-set';\n  }\n\n  get _Child() {\n    return Mapstyle;\n  }\n}\n",
+    "content": "import HandlesImages from '../traits/HandlesImages';\nimport OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\nimport CrudSetBase from './base/CrudSetBase';\nimport Mapstyle from './Mapstyle';\n\n/**\n * Mapstyle set\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class MapstyleSet extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/mapstyles/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'mapstyle-set';\n  }\n\n  get _Child() {\n    return Mapstyle;\n  }\n}\n",
     "static": true,
     "longname": "src/crud/MapstyleSet.js",
     "access": null,
@@ -4735,12 +4731,11 @@
     "importPath": "@mapcreator/maps4news/src/crud/MapstyleSet.js",
     "importStyle": "MapstyleSet",
     "description": "Mapstyle set",
-    "lineNumber": 13,
+    "lineNumber": 12,
     "interface": false,
     "extends": [
       "CrudSetBase",
-      "OwnableResource",
-      "HandlesImages"
+      "OwnableResource"
     ]
   },
   {
@@ -4754,7 +4749,7 @@
     "longname": "src/crud/MapstyleSet.js~MapstyleSet#resourcePath",
     "access": null,
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 13,
     "undocument": true,
     "unknown": [
       {
@@ -4779,7 +4774,7 @@
     "longname": "src/crud/MapstyleSet.js~MapstyleSet#resourceName",
     "access": null,
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 17,
     "undocument": true,
     "unknown": [
       {
@@ -4804,7 +4799,7 @@
     "longname": "src/crud/MapstyleSet.js~MapstyleSet#_Child",
     "access": null,
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 21,
     "undocument": true,
     "unknown": [
       {
@@ -11231,7 +11226,7 @@
     "__docId__": 418,
     "kind": "file",
     "name": "src/utils/reflection.js",
-    "content": "/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach((mixin) => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n\n/**\n * Trait interface\n * @interface\n */\nexport class Trait {}\n",
+    "content": "/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Constructor} baseClass - Target base class for the traits to be applied to\n * @param {Constructor} mixins - Traits to be applied\n * @returns {Constructor} - Constructor with any traits applied\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach((mixin) => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n\n/**\n * Trait interface\n * @interface\n */\nexport class Trait {}\n",
     "static": true,
     "longname": "src/utils/reflection.js",
     "access": null,
@@ -11350,34 +11345,43 @@
     "export": true,
     "importPath": "@mapcreator/maps4news/src/utils/reflection.js",
     "importStyle": "{mix}",
-    "description": null,
-    "lineNumber": 45,
-    "undocument": true,
+    "description": "Mix traits into the target class",
+    "lineNumber": 51,
     "unknown": [
       {
-        "tagName": "@_undocument",
-        "tagValue": ""
+        "tagName": "@returns",
+        "tagValue": "{Constructor} - Constructor with any traits applied"
       }
     ],
     "params": [
       {
-        "name": "baseClass",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Constructor"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "baseClass",
+        "description": "Target base class for the traits to be applied to"
       },
       {
-        "name": "mixins",
+        "nullable": null,
         "types": [
-          "...*"
+          "Constructor"
         ],
-        "spread": true
+        "spread": false,
+        "optional": false,
+        "name": "mixins",
+        "description": "Traits to be applied"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Constructor"
+      ],
+      "spread": false,
+      "description": "Constructor with any traits applied"
     }
   },
   {
@@ -11393,29 +11397,44 @@
     "export": false,
     "importPath": "@mapcreator/maps4news/src/utils/reflection.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 72,
-    "undocument": true,
+    "description": "Copy properties from target to source",
+    "lineNumber": 84,
     "unknown": [
       {
-        "tagName": "@_undocument",
-        "tagValue": ""
+        "tagName": "@returns",
+        "tagValue": "{object} - Resulting object with properties from both parameters"
       }
     ],
     "params": [
       {
-        "name": "target",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "target",
+        "description": "Object for the properties to be copied to"
       },
       {
-        "name": "source",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "source",
+        "description": "Object containing properties to be copied"
       }
-    ]
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "Resulting object with properties from both parameters"
+    }
   },
   {
     "__docId__": 423,
@@ -11429,7 +11448,7 @@
     "importPath": "@mapcreator/maps4news/src/utils/reflection.js",
     "importStyle": "{Trait}",
     "description": "Trait interface",
-    "lineNumber": 87,
+    "lineNumber": 99,
     "interface": true
   },
   {

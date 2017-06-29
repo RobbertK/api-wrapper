@@ -1,7 +1,7 @@
 {
-  "coverage": "74.41%",
+  "coverage": "75.08%",
   "expectCount": 297,
-  "actualCount": 221,
+  "actualCount": 223,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -208,18 +208,17 @@
     },
     "src/crud/Mapstyle.js": {
       "expectCount": 2,
-      "actualCount": 0,
+      "actualCount": 1,
       "undocumentLines": [
-        5,
-        6
+        10
       ]
     },
     "src/crud/MapstyleSet.js": {
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        18,
-        14
+        17,
+        13
       ]
     },
     "src/exceptions/NodeError.js": {
@@ -353,10 +352,8 @@
     },
     "src/utils/reflection.js": {
       "expectCount": 2,
-      "actualCount": 1,
-      "undocumentLines": [
-        45
-      ]
+      "actualCount": 2,
+      "undocumentLines": []
     },
     "src/exceptions/UnsupportedCrudError.js": {
       "expectCount": 1,

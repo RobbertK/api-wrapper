@@ -102,6 +102,10 @@
 import HandlesImages from &apos;../traits/HandlesImages&apos;;
 import {mix} from &apos;../utils/reflection&apos;;
 
+/**
+ * @extends {CrudBase}
+ * @extends {HandlesImages}
+ */
 export default class Mapstyle extends mix(CrudBase, HandlesImages) {
   get resourceName() {
     return &apos;mapstyles&apos;;

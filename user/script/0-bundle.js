@@ -511,6 +511,12 @@ function getTypeName(value) {
   return value.name;
 }
 
+/**
+ * Mix traits into the target class
+ * @param {Constructor} baseClass - Target base class for the traits to be applied to
+ * @param {Constructor} mixins - Traits to be applied
+ * @returns {Constructor} - Constructor with any traits applied
+ */
 function mix(baseClass) {
   for (var _len = arguments.length, mixins = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     mixins[_key - 1] = arguments[_key];
@@ -576,6 +582,12 @@ function mix(baseClass) {
   return cocktail;
 }
 
+/**
+ * Copy properties from target to source
+ * @param {object} target - Object for the properties to be copied to
+ * @param {object} source - Object containing properties to be copied
+ * @returns {object} - Resulting object with properties from both parameters
+ */
 function copyProps(target, source) {
   Object.getOwnPropertyNames(source).concat(Object.getOwnPropertySymbols(source)).forEach(function (prop) {
     if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {
@@ -4545,7 +4557,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * Mapstyle set
  * @extends {CrudSetBase}
  * @extends {OwnableResource}
- * @extends {HandlesImages}
  */
 var MapstyleSet = function (_mix) {
   _inherits(MapstyleSet, _mix);
@@ -4574,7 +4585,7 @@ var MapstyleSet = function (_mix) {
   }]);
 
   return MapstyleSet;
-}((0, _reflection.mix)(_CrudSetBase2.default, _OwnableResource2.default, _HandlesImages2.default));
+}((0, _reflection.mix)(_CrudSetBase2.default, _OwnableResource2.default));
 
 exports.default = MapstyleSet;
 
@@ -5226,6 +5237,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * @extends {CrudBase}
+ * @extends {HandlesImages}
+ */
 var Mapstyle = function (_mix) {
   _inherits(Mapstyle, _mix);
 

@@ -115,13 +115,14 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span><span data-ice="signature">(baseClass: <span>*</span>, mixins: ...<span>*</span>): <span>*</span></span>
+          <span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span><span data-ice="signature">(baseClass: <span>Constructor</span>, mixins: <span>Constructor</span>): <span>Constructor</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Mix traits into the target class</p>
+</div>
       </div>
     </td>
     <td>
@@ -204,18 +205,19 @@
     
     
     
-    <span data-ice="name">mix</span><span data-ice="signature">(baseClass: <span>*</span>, mixins: ...<span>*</span>): <span>*</span></span>
+    <span data-ice="name">mix</span><span data-ice="signature">(baseClass: <span>Constructor</span>, mixins: <span>Constructor</span>): <span>Constructor</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/utils/reflection.js.html#lineNumber45">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/utils/reflection.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {mix} from &apos;<span><a href="file/src/utils/reflection.js.html#lineNumber45">@mapcreator/maps4news/src/utils/reflection.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {mix} from &apos;<span><a href="file/src/utils/reflection.js.html#lineNumber51">@mapcreator/maps4news/src/utils/reflection.js</a></span>&apos;</code></pre></div>
   
   
-  
+  <div data-ice="description"><p>Mix traits into the target class</p>
+</div>
 
   
 
@@ -229,15 +231,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">baseClass</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span>Constructor</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Target base class for the traits to be applied to</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">mixins</td>
-      <td data-ice="type">...<span>*</span></td>
+      <td data-ice="type"><span>Constructor</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Traits to be applied</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -249,8 +253,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type" data-ice="returnType"><span>Constructor</span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Constructor with any traits applied</p>
+</td>
         </tr>
       </tbody>
     </table>

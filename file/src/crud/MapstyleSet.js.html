@@ -108,9 +108,8 @@ import Mapstyle from &apos;./Mapstyle&apos;;
  * Mapstyle set
  * @extends {CrudSetBase}
  * @extends {OwnableResource}
- * @extends {HandlesImages}
  */
-export default class MapstyleSet extends mix(CrudSetBase, OwnableResource, HandlesImages) {
+export default class MapstyleSet extends mix(CrudSetBase, OwnableResource) {
   get resourcePath() {
     return &apos;/mapstyles/sets/{id}&apos;;
   }
