@@ -154,6 +154,7 @@ export default class ImplicitFlow extends OAuth {
         throw Error(&apos;Invalid state in url&apos;);
       } else {
         this.token = OAuthToken.fromResponseObject(anchorParams);
+        this.token.save();
       }
     }
   }

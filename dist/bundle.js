@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:8273e527f9635ec126b3, chunkhash:d01fcf2ac2d5f4f51bd2, name:bundle
+ * hash:cce033c5572411eed090, chunkhash:4ec2857cece9c7f12f64, name:bundle
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.0) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -9153,6 +9153,7 @@ var ImplicitFlow = function (_OAuth) {
         throw Error('Invalid state in url');
       } else {
         _this.token = _OAuthToken2.default.fromResponseObject(anchorParams);
+        _this.token.save();
       }
     }
     return _this;

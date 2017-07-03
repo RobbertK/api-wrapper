@@ -8290,7 +8290,7 @@
     "__docId__": 313,
     "kind": "file",
     "name": "src/oauth/ImplicitFlow.js",
-    "content": "import OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {encodeQueryString} from '../utils/requests';\nimport OAuthError from './OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Implicit OAuth flow using redirection\n */\nexport default class ImplicitFlow extends OAuth {\n\n  /**\n   * Implicit authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = true) {\n    super(clientId, scopes);\n\n    if (isNode()) {\n      throw new Error(`${this.constructor.name} can't be used under nodejs`);\n    }\n\n    this.path = '/oauth/authorize';\n\n    this.callbackUrl = callbackUrl;\n    this.useState = useState;\n\n    if (!this.callbackUrl) {\n      // Drop the anchor (if any)\n      this.callbackUrl = window.location.toString().split('#')[0];\n    }\n\n    this._anchorParams = [\n      'access_token', 'token_type', 'expires_in',\n    ];\n\n    if (this.useState) {\n      this._anchorParams.push('state');\n    }\n\n    if (this._anchorContainsOAuthResponse()) {\n      const anchorParams = this._getOAuthAnchorParams();\n\n      this._cleanAnchorParams();\n\n      if (this.useState && !StateContainer.validate(anchorParams['state'])) {\n        throw Error('Invalid state in url');\n      } else {\n        this.token = OAuthToken.fromResponseObject(anchorParams);\n      }\n    }\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else if (this._anchorContainsError()) {\n        const err = this._getError();\n\n        this._cleanAnchorParams();\n\n        reject(err);\n      } else {\n        window.location = this._buildRedirectUrl();\n      }\n    });\n  }\n\n  /**\n   * Builds the url for redirection\n   * @returns {String} - Redirect url\n   * @protected\n   */\n  _buildRedirectUrl() {\n    const queryParams = {\n      'client_id': this.clientId,\n      'redirect_uri': this.callbackUrl,\n      'response_type': 'token',\n      'scope': this.scopes.join(' '),\n    };\n\n    if (this.useState) {\n      queryParams['state'] = StateContainer.generate();\n    }\n\n    return `${this.host + this.path}?${encodeQueryString(queryParams)}`;\n  }\n\n  /**\n   * Builds an object containing all the anchor parameters\n   * @returns {Object<String, String>} - Anchor paramenters\n   * @protected\n   */\n  _getAnchorParams() {\n    const out = {};\n    const query = window.location.hash.replace(/^#\\/?/g, '');\n\n\n    for (const raw of query.split('&')) {\n      const pair = raw.split('=').map(decodeURIComponent);\n\n      out[pair[0]] = pair[1];\n    }\n\n    return out;\n  }\n\n  /**\n   * Fetch OAuth anchor params\n   * @param {Object<String, String>} query - Optional override for the query to analyse, defaults to {@link ImplicitFlow#_getAnchorParams}\n   * @returns {Object<String, String>} - List of OAuth anchor parameters\n   * @protected\n   */\n  _getOAuthAnchorParams(query = this._getAnchorParams()) {\n    return Object.keys(query)\n      .filter(key => this._anchorParams.includes(key))\n      .reduce((obj, key) => {\n        obj[key] = query[key];\n        return obj;\n      }, {});\n  }\n\n  /**\n   * Remove OAuth related anchor parameters\n   * @returns {void}\n   * @protected\n   */\n  _cleanAnchorParams() {\n    const anchorParams = this._getAnchorParams();\n    const targets = this._anchorParams;\n\n    // Just in case\n    targets.push('state', 'error');\n\n    for (const key of targets) {\n      // Should silently fail when key doesn't exist\n      delete anchorParams[key];\n    }\n\n    window.location.hash = encodeQueryString(anchorParams);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth response\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth response\n   * @protected\n   */\n  _anchorContainsOAuthResponse() {\n    const queryKeys = Object.keys(this._getOAuthAnchorParams());\n\n    // Check if all the params are in the anchor\n    return this._anchorParams.reduce((output, key) => {\n      return output && queryKeys.includes(key);\n    }, true);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth error\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth error\n   * @protected\n   */\n  _anchorContainsError() {\n    return Boolean(this._getAnchorParams()['error']);\n  }\n\n  /**\n   * Get and return the error in the anchor\n   * @returns {OAuthError} - OAuthError object\n   * @protected\n   */\n  _getError() {\n    if (!this._anchorContainsError()) {\n      throw Error('No OAuthError found in anchor');\n    }\n\n    const params = this._getAnchorParams();\n\n    return new OAuthError(\n      params['error'], params['message']\n    );\n  }\n}\n",
+    "content": "import OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {encodeQueryString} from '../utils/requests';\nimport OAuthError from './OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Implicit OAuth flow using redirection\n */\nexport default class ImplicitFlow extends OAuth {\n\n  /**\n   * Implicit authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = true) {\n    super(clientId, scopes);\n\n    if (isNode()) {\n      throw new Error(`${this.constructor.name} can't be used under nodejs`);\n    }\n\n    this.path = '/oauth/authorize';\n\n    this.callbackUrl = callbackUrl;\n    this.useState = useState;\n\n    if (!this.callbackUrl) {\n      // Drop the anchor (if any)\n      this.callbackUrl = window.location.toString().split('#')[0];\n    }\n\n    this._anchorParams = [\n      'access_token', 'token_type', 'expires_in',\n    ];\n\n    if (this.useState) {\n      this._anchorParams.push('state');\n    }\n\n    if (this._anchorContainsOAuthResponse()) {\n      const anchorParams = this._getOAuthAnchorParams();\n\n      this._cleanAnchorParams();\n\n      if (this.useState && !StateContainer.validate(anchorParams['state'])) {\n        throw Error('Invalid state in url');\n      } else {\n        this.token = OAuthToken.fromResponseObject(anchorParams);\n        this.token.save();\n      }\n    }\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else if (this._anchorContainsError()) {\n        const err = this._getError();\n\n        this._cleanAnchorParams();\n\n        reject(err);\n      } else {\n        window.location = this._buildRedirectUrl();\n      }\n    });\n  }\n\n  /**\n   * Builds the url for redirection\n   * @returns {String} - Redirect url\n   * @protected\n   */\n  _buildRedirectUrl() {\n    const queryParams = {\n      'client_id': this.clientId,\n      'redirect_uri': this.callbackUrl,\n      'response_type': 'token',\n      'scope': this.scopes.join(' '),\n    };\n\n    if (this.useState) {\n      queryParams['state'] = StateContainer.generate();\n    }\n\n    return `${this.host + this.path}?${encodeQueryString(queryParams)}`;\n  }\n\n  /**\n   * Builds an object containing all the anchor parameters\n   * @returns {Object<String, String>} - Anchor paramenters\n   * @protected\n   */\n  _getAnchorParams() {\n    const out = {};\n    const query = window.location.hash.replace(/^#\\/?/g, '');\n\n\n    for (const raw of query.split('&')) {\n      const pair = raw.split('=').map(decodeURIComponent);\n\n      out[pair[0]] = pair[1];\n    }\n\n    return out;\n  }\n\n  /**\n   * Fetch OAuth anchor params\n   * @param {Object<String, String>} query - Optional override for the query to analyse, defaults to {@link ImplicitFlow#_getAnchorParams}\n   * @returns {Object<String, String>} - List of OAuth anchor parameters\n   * @protected\n   */\n  _getOAuthAnchorParams(query = this._getAnchorParams()) {\n    return Object.keys(query)\n      .filter(key => this._anchorParams.includes(key))\n      .reduce((obj, key) => {\n        obj[key] = query[key];\n        return obj;\n      }, {});\n  }\n\n  /**\n   * Remove OAuth related anchor parameters\n   * @returns {void}\n   * @protected\n   */\n  _cleanAnchorParams() {\n    const anchorParams = this._getAnchorParams();\n    const targets = this._anchorParams;\n\n    // Just in case\n    targets.push('state', 'error');\n\n    for (const key of targets) {\n      // Should silently fail when key doesn't exist\n      delete anchorParams[key];\n    }\n\n    window.location.hash = encodeQueryString(anchorParams);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth response\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth response\n   * @protected\n   */\n  _anchorContainsOAuthResponse() {\n    const queryKeys = Object.keys(this._getOAuthAnchorParams());\n\n    // Check if all the params are in the anchor\n    return this._anchorParams.reduce((output, key) => {\n      return output && queryKeys.includes(key);\n    }, true);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth error\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth error\n   * @protected\n   */\n  _anchorContainsError() {\n    return Boolean(this._getAnchorParams()['error']);\n  }\n\n  /**\n   * Get and return the error in the anchor\n   * @returns {OAuthError} - OAuthError object\n   * @protected\n   */\n  _getError() {\n    if (!this._anchorContainsError()) {\n      throw Error('No OAuthError found in anchor');\n    }\n\n    const params = this._getAnchorParams();\n\n    return new OAuthError(\n      params['error'], params['message']\n    );\n  }\n}\n",
     "static": true,
     "longname": "src/oauth/ImplicitFlow.js",
     "access": null,
@@ -8533,7 +8533,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#authenticate",
     "access": null,
     "description": "Authenticate",
-    "lineNumber": 65,
+    "lineNumber": 66,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8561,7 +8561,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#_buildRedirectUrl",
     "access": "protected",
     "description": "Builds the url for redirection",
-    "lineNumber": 86,
+    "lineNumber": 87,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8589,7 +8589,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#_getAnchorParams",
     "access": "protected",
     "description": "Builds an object containing all the anchor parameters",
-    "lineNumber": 106,
+    "lineNumber": 107,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8617,7 +8617,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#_getOAuthAnchorParams",
     "access": "protected",
     "description": "Fetch OAuth anchor params",
-    "lineNumber": 126,
+    "lineNumber": 127,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8656,7 +8656,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#_cleanAnchorParams",
     "access": "protected",
     "description": "Remove OAuth related anchor parameters",
-    "lineNumber": 140,
+    "lineNumber": 141,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8684,7 +8684,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#_anchorContainsOAuthResponse",
     "access": "protected",
     "description": "Test if the anchor contains an OAuth response",
-    "lineNumber": 160,
+    "lineNumber": 161,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8712,7 +8712,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#_anchorContainsError",
     "access": "protected",
     "description": "Test if the anchor contains an OAuth error",
-    "lineNumber": 174,
+    "lineNumber": 175,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8740,7 +8740,7 @@
     "longname": "src/oauth/ImplicitFlow.js~ImplicitFlow#_getError",
     "access": "protected",
     "description": "Get and return the error in the anchor",
-    "lineNumber": 183,
+    "lineNumber": 184,
     "unknown": [
       {
         "tagName": "@returns",
