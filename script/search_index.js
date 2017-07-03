@@ -816,6 +816,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/maps4news.js~maps4news#logout",
+    "class/src/Maps4News.js~Maps4News.html#instance-method-logout",
+    "src/Maps4News.js~Maps4News#logout",
+    "method"
+  ],
+  [
     "src/maps4news.js~maps4news#mapstylesets",
     "class/src/Maps4News.js~Maps4News.html#instance-get-mapstyleSets",
     "src/Maps4News.js~Maps4News#mapstyleSets",
@@ -967,13 +973,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
@@ -2160,6 +2166,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/oauth/oauth.js~oauth#forget",
+    "class/src/oauth/OAuth.js~OAuth.html#instance-method-forget",
+    "src/oauth/OAuth.js~OAuth#forget",
+    "method"
+  ],
+  [
     "src/oauth/oauth.js~oauth#host",
     "class/src/oauth/OAuth.js~OAuth.html#instance-member-host",
     "src/oauth/OAuth.js~OAuth#host",
@@ -2341,13 +2353,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
@@ -2359,13 +2371,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],

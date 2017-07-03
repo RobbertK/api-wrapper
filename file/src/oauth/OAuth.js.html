@@ -98,8 +98,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/oauth/OAuth.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import OAuthToken from &apos;./OAuthToken&apos;;
-import {AbstractClassError, AbstractMethodError} from &apos;../exceptions/AbstractError&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {AbstractClassError, AbstractMethodError} from &apos;../exceptions/AbstractError&apos;;
+import OAuthToken from &apos;./OAuthToken&apos;;
+import StateContainer from &apos;./StateContainer&apos;;
+import {isNode} from &apos;../utils/node&apos;;
 
 /**
  * OAuth base class
@@ -138,6 +140,22 @@ export default class OAuth {
    */
   authenticate() {
     throw new AbstractMethodError();
+  }
+
+  /**
+   * Forget the current session
+   * @returns {void}
+   */
+  forget() {
+    if (isNode()) {
+      // eslint-disable-next-line no-eval
+      eval(&apos;require(&quot;fs&quot;)&apos;).unlink(OAuthToken.nodeTokenFilename);
+    } else {
+      StateContainer.clean();
+      localStorage.removeItem(OAuthToken.storageName);
+    }
+
+    this.token = null;
   }
 }
 </code></pre>
