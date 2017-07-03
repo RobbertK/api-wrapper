@@ -92,8 +92,7 @@ If one can be found the <code>api.authenticate()</code> method will instantly re
 any side-effects. The variable <code>api.authenticated</code> will be set to true if a token
 has been found and is still valid. </p>
 <p>Tokens are stored in HTTPS cookies if possible and using <code>localStorage</code> when the
-browser is not using a HTTPS connection. No storage mechanism has been implemented
-for <a href="https://nodejs.org">nodejs</a> applications yet.</p>
+browser is not using a HTTPS connection. <a href="https://nodejs.org">Nodejs</a> uses a file named <code>.m4n_token</code> to store the token.</p>
 <h2 id="web">Web</h2>
 <p>Multiple flows are supported for web browsers. All the web examples assume the web
 build of the library has been included in the target page.</p>

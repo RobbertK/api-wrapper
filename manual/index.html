@@ -186,8 +186,7 @@ check if any tokens can be found in the cache before requiring authentication.
 If one can be found the <code>api.authenticate()</code> method will instantly resolve without 
 any side-effects. The variable <code>api.authenticated</code> will be set to true if a token
 has been found and is still valid. </p><p>Tokens are stored in HTTPS cookies if possible and using <code>localStorage</code> when the
-browser is not using a HTTPS connection. No storage mechanism has been implemented
-for <a href="https://nodejs.org">nodejs</a> applications yet.</p><h2>Web</h2><p>Multiple flows are supported for web browsers. All the web examples assume the web
+browser is not using a HTTPS connection. <a href="https://nodejs.org">Nodejs</a> uses a file named <code>.m4n_token</code> to store the token.</p><h2>Web</h2><p>Multiple flows are supported for web browsers. All the web examples assume the web
 build of the library has been included in the target page.</p><h3>Implicit Flow</h3><p>A client id is required to use the implicit flow. The redirect url <em>must</em> be the 
 same as the one linked to the client id. The callback url is automatically 
 guessed if none is provided.</p><pre><code class="lang-js"><code class="source-code prettyprint">// Obtained client id
