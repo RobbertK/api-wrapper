@@ -1834,9 +1834,10 @@ var OwnableResource = function (_Trait) {
     value: function _modifyOrganisationLink(items, method) {
       // This is a hack to fix a circular dependency issue
       var Organisation = __webpack_require__(51).default;
-      var isValid = items.filter(function (x) {
-        return !(0, _reflection.isParentOf)(Organisation, x);
-      }).length === 0;
+      var filter = function filter(x) {
+        return !(0, _reflection.isParentOf)(Organisation, x) && !(0, _reflection.isParentOf)(Number, x);
+      };
+      var isValid = items.filter(filter).length === 0;
 
       if (!isValid) {
         throw new TypeError('Array must contain either Numbers (organisationId) or Organisations.');
