@@ -205,7 +205,8 @@ export default class ImplicitFlow extends OAuth {
    */
   _getAnchorParams() {
     const out = {};
-    const query = window.location.hash.substr(1);
+    const query = window.location.hash.replace(/^#\/?/g, &apos;&apos;);
+
 
     for (const raw of query.split(&apos;&amp;&apos;)) {
       const pair = raw.split(&apos;=&apos;).map(decodeURIComponent);
