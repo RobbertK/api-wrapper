@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:5d06a20270a908fefb8f, chunkhash:f0c0be321b8678411616, name:bundle
+ * hash:2a2a5ad49085933746b5, chunkhash:f9dc6f97fd10c153b19b, name:bundle, version:v0.4.4
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.2) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.4) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -9379,7 +9379,7 @@ exports.default = ImplicitFlow;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.resources = exports.StaticClassError = exports.ValidationError = exports.AbstractMethodError = exports.AbstractClassError = exports.AbstractError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
+exports.version = exports.resources = exports.StaticClassError = exports.ValidationError = exports.AbstractMethodError = exports.AbstractClassError = exports.AbstractError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
 
 var _Maps4News = __webpack_require__(57);
 
@@ -9495,6 +9495,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 exports.resources = _resources;
+var version = exports.version = "v0.4.4";
 
 /***/ }),
 /* 165 */
