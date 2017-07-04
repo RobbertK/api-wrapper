@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:cce033c5572411eed090, chunkhash:4ec2857cece9c7f12f64, name:bundle
+ * hash:5d06a20270a908fefb8f, chunkhash:f0c0be321b8678411616, name:bundle
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.2) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -9483,9 +9483,9 @@ Object.defineProperty(exports, 'StaticClassError', {
   }
 });
 
-var _index = __webpack_require__(355);
+var _crud = __webpack_require__(355);
 
-var _resources = _interopRequireWildcard(_index);
+var _resources = _interopRequireWildcard(_crud);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -9494,13 +9494,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Resources
 
 
-/**
- * Resource export. Set to private in jsdoc to make sure
- * it doesn't show up as a useless doc page in the docs.
- * @type {object<string, ResourceBase>} resources
- * @private
- */
-var resources = exports.resources = _resources;
+exports.resources = _resources;
 
 /***/ }),
 /* 165 */
@@ -15006,260 +15000,150 @@ exports.default = PasswordFlow;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.User = exports.SvgSetType = exports.SvgSet = exports.Svg = exports.PlaceName = exports.Permission = exports.Organisation = exports.Notification = exports.MapstyleSet = exports.Mapstyle = exports.Layer = exports.Language = exports.JobType = exports.JobShare = exports.JobRevision = exports.JobResult = exports.Job = exports.InsetMap = exports.Highlight = exports.FontFamily = exports.Font = exports.Feature = exports.Faq = exports.DimensionSet = exports.Dimension = exports.Contract = exports.Color = exports.Choropleth = undefined;
 
-var _Choropleth = __webpack_require__(121);
+var _Choropleth2 = __webpack_require__(121);
 
-Object.defineProperty(exports, 'Choropleth', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Choropleth).default;
-  }
-});
+var _Choropleth3 = _interopRequireDefault(_Choropleth2);
 
-var _Color = __webpack_require__(58);
+var _Color2 = __webpack_require__(58);
 
-Object.defineProperty(exports, 'Color', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Color).default;
-  }
-});
+var _Color3 = _interopRequireDefault(_Color2);
 
-var _Contract = __webpack_require__(83);
+var _Contract2 = __webpack_require__(83);
 
-Object.defineProperty(exports, 'Contract', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Contract).default;
-  }
-});
+var _Contract3 = _interopRequireDefault(_Contract2);
 
-var _Dimension = __webpack_require__(84);
+var _Dimension2 = __webpack_require__(84);
 
-Object.defineProperty(exports, 'Dimension', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Dimension).default;
-  }
-});
+var _Dimension3 = _interopRequireDefault(_Dimension2);
 
-var _DimensionSet = __webpack_require__(60);
+var _DimensionSet2 = __webpack_require__(60);
 
-Object.defineProperty(exports, 'DimensionSet', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_DimensionSet).default;
-  }
-});
+var _DimensionSet3 = _interopRequireDefault(_DimensionSet2);
 
-var _Faq = __webpack_require__(126);
+var _Faq2 = __webpack_require__(126);
 
-Object.defineProperty(exports, 'Faq', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Faq).default;
-  }
-});
+var _Faq3 = _interopRequireDefault(_Faq2);
 
-var _Feature = __webpack_require__(62);
+var _Feature2 = __webpack_require__(62);
 
-Object.defineProperty(exports, 'Feature', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Feature).default;
-  }
-});
+var _Feature3 = _interopRequireDefault(_Feature2);
 
-var _Font = __webpack_require__(85);
+var _Font2 = __webpack_require__(85);
 
-Object.defineProperty(exports, 'Font', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Font).default;
-  }
-});
+var _Font3 = _interopRequireDefault(_Font2);
 
-var _FontFamily = __webpack_require__(63);
+var _FontFamily2 = __webpack_require__(63);
 
-Object.defineProperty(exports, 'FontFamily', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_FontFamily).default;
-  }
-});
+var _FontFamily3 = _interopRequireDefault(_FontFamily2);
 
-var _Highlight = __webpack_require__(127);
+var _Highlight2 = __webpack_require__(127);
 
-Object.defineProperty(exports, 'Highlight', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Highlight).default;
-  }
-});
+var _Highlight3 = _interopRequireDefault(_Highlight2);
 
-var _InsetMap = __webpack_require__(128);
+var _InsetMap2 = __webpack_require__(128);
 
-Object.defineProperty(exports, 'InsetMap', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_InsetMap).default;
-  }
-});
+var _InsetMap3 = _interopRequireDefault(_InsetMap2);
 
-var _Job = __webpack_require__(91);
+var _Job2 = __webpack_require__(91);
 
-Object.defineProperty(exports, 'Job', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Job).default;
-  }
-});
+var _Job3 = _interopRequireDefault(_Job2);
 
-var _JobResult = __webpack_require__(92);
+var _JobResult2 = __webpack_require__(92);
 
-Object.defineProperty(exports, 'JobResult', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_JobResult).default;
-  }
-});
+var _JobResult3 = _interopRequireDefault(_JobResult2);
 
-var _JobRevision = __webpack_require__(124);
+var _JobRevision2 = __webpack_require__(124);
 
-Object.defineProperty(exports, 'JobRevision', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_JobRevision).default;
-  }
-});
+var _JobRevision3 = _interopRequireDefault(_JobRevision2);
 
-var _JobShare = __webpack_require__(51);
+var _JobShare2 = __webpack_require__(51);
 
-Object.defineProperty(exports, 'JobShare', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_JobShare).default;
-  }
-});
+var _JobShare3 = _interopRequireDefault(_JobShare2);
 
-var _JobType = __webpack_require__(64);
+var _JobType2 = __webpack_require__(64);
 
-Object.defineProperty(exports, 'JobType', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_JobType).default;
-  }
-});
+var _JobType3 = _interopRequireDefault(_JobType2);
 
-var _Language = __webpack_require__(94);
+var _Language2 = __webpack_require__(94);
 
-Object.defineProperty(exports, 'Language', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Language).default;
-  }
-});
+var _Language3 = _interopRequireDefault(_Language2);
 
-var _Layer = __webpack_require__(52);
+var _Layer2 = __webpack_require__(52);
 
-Object.defineProperty(exports, 'Layer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Layer).default;
-  }
-});
+var _Layer3 = _interopRequireDefault(_Layer2);
 
-var _Mapstyle = __webpack_require__(87);
+var _Mapstyle2 = __webpack_require__(87);
 
-Object.defineProperty(exports, 'Mapstyle', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Mapstyle).default;
-  }
-});
+var _Mapstyle3 = _interopRequireDefault(_Mapstyle2);
 
-var _MapstyleSet = __webpack_require__(66);
+var _MapstyleSet2 = __webpack_require__(66);
 
-Object.defineProperty(exports, 'MapstyleSet', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_MapstyleSet).default;
-  }
-});
+var _MapstyleSet3 = _interopRequireDefault(_MapstyleSet2);
 
-var _Notification = __webpack_require__(90);
+var _Notification2 = __webpack_require__(90);
 
-Object.defineProperty(exports, 'Notification', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Notification).default;
-  }
-});
+var _Notification3 = _interopRequireDefault(_Notification2);
 
-var _Organisation = __webpack_require__(50);
+var _Organisation2 = __webpack_require__(50);
 
-Object.defineProperty(exports, 'Organisation', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Organisation).default;
-  }
-});
+var _Organisation3 = _interopRequireDefault(_Organisation2);
 
-var _Permission = __webpack_require__(93);
+var _Permission2 = __webpack_require__(93);
 
-Object.defineProperty(exports, 'Permission', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Permission).default;
-  }
-});
+var _Permission3 = _interopRequireDefault(_Permission2);
 
-var _PlaceName = __webpack_require__(129);
+var _PlaceName2 = __webpack_require__(129);
 
-Object.defineProperty(exports, 'PlaceName', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_PlaceName).default;
-  }
-});
+var _PlaceName3 = _interopRequireDefault(_PlaceName2);
 
-var _Svg = __webpack_require__(88);
+var _Svg2 = __webpack_require__(88);
 
-Object.defineProperty(exports, 'Svg', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Svg).default;
-  }
-});
+var _Svg3 = _interopRequireDefault(_Svg2);
 
-var _SvgSet = __webpack_require__(67);
+var _SvgSet2 = __webpack_require__(67);
 
-Object.defineProperty(exports, 'SvgSet', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_SvgSet).default;
-  }
-});
+var _SvgSet3 = _interopRequireDefault(_SvgSet2);
 
-var _SvgSetType = __webpack_require__(130);
+var _SvgSetType2 = __webpack_require__(130);
 
-Object.defineProperty(exports, 'SvgSetType', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_SvgSetType).default;
-  }
-});
+var _SvgSetType3 = _interopRequireDefault(_SvgSetType2);
 
-var _User = __webpack_require__(89);
+var _User2 = __webpack_require__(89);
 
-Object.defineProperty(exports, 'User', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_User).default;
-  }
-});
+var _User3 = _interopRequireDefault(_User2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Choropleth = _Choropleth3.default;
+exports.Color = _Color3.default;
+exports.Contract = _Contract3.default;
+exports.Dimension = _Dimension3.default;
+exports.DimensionSet = _DimensionSet3.default;
+exports.Faq = _Faq3.default;
+exports.Feature = _Feature3.default;
+exports.Font = _Font3.default;
+exports.FontFamily = _FontFamily3.default;
+exports.Highlight = _Highlight3.default;
+exports.InsetMap = _InsetMap3.default;
+exports.Job = _Job3.default;
+exports.JobResult = _JobResult3.default;
+exports.JobRevision = _JobRevision3.default;
+exports.JobShare = _JobShare3.default;
+exports.JobType = _JobType3.default;
+exports.Language = _Language3.default;
+exports.Layer = _Layer3.default;
+exports.Mapstyle = _Mapstyle3.default;
+exports.MapstyleSet = _MapstyleSet3.default;
+exports.Notification = _Notification3.default;
+exports.Organisation = _Organisation3.default;
+exports.Permission = _Permission3.default;
+exports.PlaceName = _PlaceName3.default;
+exports.Svg = _Svg3.default;
+exports.SvgSet = _SvgSet3.default;
+exports.SvgSetType = _SvgSetType3.default;
+exports.User = _User3.default;
 
 /***/ })
 /******/ ]);

@@ -1,6 +1,6 @@
 {
   "name": "@mapcreator/maps4news",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Maps4News JavaScript Api",
   "main": "dist/bundle.js",
   "repository": "git@github.com:MapCreatorEU/m4n-api.git",
@@ -13,7 +13,9 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.5.2",
     "contributors": "^0.5.1",
@@ -24,7 +26,8 @@
     "webpack-merge": "^4.1.0"
   },
   "scripts": {
-    "build": "$(npm bin)/webpack --progress",
+    "generate": "cd src/crud && rm index.js && rows=$(find . -type f -depth 1 -exec basename '{}' \\; | sed s/\\.js//) && for i in $rows; do echo \"export $i from './$i.js';\"; done > index.js",
+    "build": "npm run generate && $(npm bin)/webpack --progress",
     "watch": "$(npm bin)/webpack --progress --watch",
     "docs": "$(npm bin)/esdoc",
     "authors": "$(npm bin)/contributors | grep -v -e '^- [A-Za-z]' | tail -n +4 > AUTHORS.md"
