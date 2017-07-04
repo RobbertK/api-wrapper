@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:2a2a5ad49085933746b5, chunkhash:f9dc6f97fd10c153b19b, name:bundle, version:v0.4.4
+ * hash:83b84a280f17b021a20c, chunkhash:52557e5ac9a58379d013, name:bundle, version:v0.4.5
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.4) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -9379,109 +9379,55 @@ exports.default = ImplicitFlow;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.version = exports.resources = exports.StaticClassError = exports.ValidationError = exports.AbstractMethodError = exports.AbstractClassError = exports.AbstractError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
-
-var _Maps4News = __webpack_require__(57);
-
-Object.defineProperty(exports, 'Maps4News', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Maps4News).default;
-  }
-});
-
-var _OAuth = __webpack_require__(53);
-
-Object.defineProperty(exports, 'OAuth', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_OAuth).default;
-  }
-});
-
-var _ImplicitFlow = __webpack_require__(163);
-
-Object.defineProperty(exports, 'ImplicitFlow', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_ImplicitFlow).default;
-  }
-});
-
-var _ImplicitFlowPopup = __webpack_require__(353);
-
-Object.defineProperty(exports, 'ImplicitFlowPopup', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_ImplicitFlowPopup).default;
-  }
-});
-
-var _PasswordFlow = __webpack_require__(354);
-
-Object.defineProperty(exports, 'PasswordFlow', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_PasswordFlow).default;
-  }
-});
-
-var _DummyFlow = __webpack_require__(131);
-
-Object.defineProperty(exports, 'DummyFlow', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_DummyFlow).default;
-  }
-});
-
-var _ApiError = __webpack_require__(65);
-
-Object.defineProperty(exports, 'ApiError', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_ApiError).default;
-  }
-});
+exports.version = exports.resources = exports.StaticClassError = exports.ValidationError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
 
 var _AbstractError = __webpack_require__(49);
 
-Object.defineProperty(exports, 'AbstractError', {
-  enumerable: true,
-  get: function get() {
-    return _AbstractError.AbstractError;
-  }
-});
-Object.defineProperty(exports, 'AbstractClassError', {
-  enumerable: true,
-  get: function get() {
-    return _AbstractError.AbstractClassError;
-  }
-});
-Object.defineProperty(exports, 'AbstractMethodError', {
-  enumerable: true,
-  get: function get() {
-    return _AbstractError.AbstractMethodError;
-  }
+Object.keys(_AbstractError).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _AbstractError[key];
+    }
+  });
 });
 
-var _ValidationError = __webpack_require__(86);
+var _Maps4News2 = __webpack_require__(57);
 
-Object.defineProperty(exports, 'ValidationError', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_ValidationError).default;
-  }
-});
+var _Maps4News3 = _interopRequireDefault(_Maps4News2);
 
-var _StaticClassError = __webpack_require__(134);
+var _OAuth2 = __webpack_require__(53);
 
-Object.defineProperty(exports, 'StaticClassError', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_StaticClassError).default;
-  }
-});
+var _OAuth3 = _interopRequireDefault(_OAuth2);
+
+var _ImplicitFlow2 = __webpack_require__(163);
+
+var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
+
+var _ImplicitFlowPopup2 = __webpack_require__(353);
+
+var _ImplicitFlowPopup3 = _interopRequireDefault(_ImplicitFlowPopup2);
+
+var _PasswordFlow2 = __webpack_require__(354);
+
+var _PasswordFlow3 = _interopRequireDefault(_PasswordFlow2);
+
+var _DummyFlow2 = __webpack_require__(131);
+
+var _DummyFlow3 = _interopRequireDefault(_DummyFlow2);
+
+var _ApiError2 = __webpack_require__(65);
+
+var _ApiError3 = _interopRequireDefault(_ApiError2);
+
+var _ValidationError2 = __webpack_require__(86);
+
+var _ValidationError3 = _interopRequireDefault(_ValidationError2);
+
+var _StaticClassError2 = __webpack_require__(134);
+
+var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 
 var _crud = __webpack_require__(355);
 
@@ -9491,11 +9437,33 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+exports.Maps4News = _Maps4News3.default;
+
+// Flows
+// Core
+
+exports.OAuth = _OAuth3.default;
+exports.ImplicitFlow = _ImplicitFlow3.default;
+exports.ImplicitFlowPopup = _ImplicitFlowPopup3.default;
+exports.PasswordFlow = _PasswordFlow3.default;
+exports.DummyFlow = _DummyFlow3.default;
+
+// Exceptions
+
+exports.ApiError = _ApiError3.default;
+exports.ValidationError = _ValidationError3.default;
+exports.StaticClassError = _StaticClassError3.default;
+
 // Resources
 
-
 exports.resources = _resources;
-var version = exports.version = "v0.4.4";
+
+/**
+ * Package version
+ * @private
+ */
+
+var version = exports.version = "v0.4.5";
 
 /***/ }),
 /* 165 */
