@@ -144,14 +144,14 @@ api.colors.new(data).save().then(console.dir);</code>
   color.id = null;
   color.save();
 });</code>
-</code></pre><h3>Pagination</h3><p>Listing resources with pagination. First page with 5 items per page</p><pre><code class="lang-js"><code class="source-code prettyprint">api.colors.list(1, 20).then(page =&gt; {
+</code></pre><h3>Pagination</h3><p>Listing resources with pagination. First page with 5 items per page</p><pre><code class="lang-js"><code class="source-code prettyprint">api.colors.list(1, 5).then(page =&gt; {
   console.log(&apos;Got resources:&apos;);
 
   for (var i = 0; i &lt; page.data.length; i++) {
     console.log(page.data[i].toString());
   }
 });</code>
-</code></pre><p>Loop over every page and print the result to the console.</p><pre><code class="lang-js"><code class="source-code prettyprint">function parsePages() {
+</code></pre><p>Loop over every page and print the result to the console.</p><pre><code class="lang-js"><code class="source-code prettyprint">function parsePages(page) {
   for (var i = 0; i &lt; page.data.length; i++) {
     console.log(page.data[i].toString());     
   }  
@@ -162,7 +162,29 @@ api.colors.new(data).save().then(console.dir);</code>
   }
 }
 
-api.colors.list(1, 50).then(parsePages);</code>
+api.colors
+   .list(1, 50)
+   .then(parsePages);</code>
+</code></pre><p>Loop over all pages and return the data in a promise</p><pre><code class="lang-js"><code class="source-code prettyprint">function parsePages(page) {
+  var data = [];
+
+  function parse(page) {
+      data = data.concat(page.data);
+
+      if(page.hasNext) {
+          return page.next().then(parse);
+      } else {
+          return data;
+      }
+  }  
+
+  return parse(page);
+}
+
+api.colors
+   .list(1, 50)
+   .then(parsePages)
+   .then(d =&gt; console.log(&apos;Total rows: &apos; + d.length));</code>
 </code></pre><p>Select current user but do not fetch any info to make fetching resources easier.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).colors().then(page =&gt; {
   console.dir(page.data);
 });</code>

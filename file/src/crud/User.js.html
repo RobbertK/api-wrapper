@@ -98,28 +98,42 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/crud/User.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Notification from &apos;./Notification&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import ResourceProxy from &apos;../ResourceProxy&apos;;
 import CrudBase from &apos;./base/CrudBase&apos;;
-import MapstyleSet from &apos;./MapstyleSet&apos;;
-import DimensionSet from &apos;./DimensionSet&apos;;
-import FontFamily from &apos;./FontFamily&apos;;
-import SvgSet from &apos;./SvgSet&apos;;
 import Color from &apos;./Color&apos;;
+import DimensionSet from &apos;./DimensionSet&apos;;
 import Feature from &apos;./Feature&apos;;
-import Layer from &apos;./Layer&apos;;
+import FontFamily from &apos;./FontFamily&apos;;
 import Job from &apos;./Job&apos;;
-import JobType from &apos;./JobType&apos;;
 import JobShare from &apos;./JobShare&apos;;
-import Permission from &apos;./Permission&apos;;
-import Organisation from &apos;./Organisation&apos;;
-import ResourceProxy from &apos;../ResourceProxy&apos;;
+import JobType from &apos;./JobType&apos;;
 import Language from &apos;./Language&apos;;
+import Layer from &apos;./Layer&apos;;
+import MapstyleSet from &apos;./MapstyleSet&apos;;
+import Notification from &apos;./Notification&apos;;
+import Organisation from &apos;./Organisation&apos;;
+import Permission from &apos;./Permission&apos;;
+import SvgSet from &apos;./SvgSet&apos;;
 
 export default class User extends CrudBase {
   get resourceName() {
     return &apos;users&apos;;
   }
 
+  /**
+   * Check if user is an administrator
+   * @returns {Promise} - Resolves with a {@link Boolean} and rejects with {@link ApiError}
+   */
+  isAdmin() {
+    return this.permissions().then(permissions =&gt; {
+      return Boolean(permissions.find(p =&gt; p.name === &apos;is:admin&apos;));
+    });
+  }
+
+  /**
+   * Get all known ips
+   * @returns {Promise} - Resolves with {@link array&lt;string&gt;} instance and rejects with {@link ApiError}
+   */
   ips() {
     const url = `${this.url}/ips`;
 
@@ -127,7 +141,7 @@ export default class User extends CrudBase {
       this.api.request(url)
         .catch(reject)
         .then(data =&gt; resolve(
-          data.map(row =&gt; row[&apos;ip_address&apos;])
+          data.map(row =&gt; row[&apos;ip_address&apos;]),
         ));
     });
   }

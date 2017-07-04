@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:83b84a280f17b021a20c, chunkhash:52557e5ac9a58379d013, name:bundle, version:v0.4.5
+ * hash:ad22f51571541ec8c7e4, chunkhash:8b2888db6b82fc7414e7, name:bundle, version:v0.4.6
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -2979,7 +2979,7 @@ var _InsetMap = __webpack_require__(128);
 
 var _InsetMap2 = _interopRequireDefault(_InsetMap);
 
-var _Job = __webpack_require__(91);
+var _Job = __webpack_require__(90);
 
 var _Job2 = _interopRequireDefault(_Job);
 
@@ -2991,7 +2991,7 @@ var _JobType = __webpack_require__(64);
 
 var _JobType2 = _interopRequireDefault(_JobType);
 
-var _Language = __webpack_require__(94);
+var _Language = __webpack_require__(92);
 
 var _Language2 = _interopRequireDefault(_Language);
 
@@ -3007,7 +3007,7 @@ var _MapstyleSet = __webpack_require__(66);
 
 var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
 
-var _Notification = __webpack_require__(90);
+var _Notification = __webpack_require__(93);
 
 var _Notification2 = _interopRequireDefault(_Notification);
 
@@ -3015,7 +3015,7 @@ var _Organisation = __webpack_require__(50);
 
 var _Organisation2 = _interopRequireDefault(_Organisation);
 
-var _Permission = __webpack_require__(93);
+var _Permission = __webpack_require__(94);
 
 var _Permission2 = _interopRequireDefault(_Permission);
 
@@ -3055,7 +3055,7 @@ var _OAuth = __webpack_require__(53);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
-var _ResourceProxy = __webpack_require__(125);
+var _ResourceProxy = __webpack_require__(124);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
@@ -5368,69 +5368,69 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Notification = __webpack_require__(90);
+var _ResourceProxy = __webpack_require__(124);
 
-var _Notification2 = _interopRequireDefault(_Notification);
+var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
 var _CrudBase2 = __webpack_require__(8);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _MapstyleSet = __webpack_require__(66);
+var _Color = __webpack_require__(58);
 
-var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
+var _Color2 = _interopRequireDefault(_Color);
 
 var _DimensionSet = __webpack_require__(60);
 
 var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
 
-var _FontFamily = __webpack_require__(63);
-
-var _FontFamily2 = _interopRequireDefault(_FontFamily);
-
-var _SvgSet = __webpack_require__(67);
-
-var _SvgSet2 = _interopRequireDefault(_SvgSet);
-
-var _Color = __webpack_require__(58);
-
-var _Color2 = _interopRequireDefault(_Color);
-
 var _Feature = __webpack_require__(62);
 
 var _Feature2 = _interopRequireDefault(_Feature);
 
-var _Layer = __webpack_require__(52);
+var _FontFamily = __webpack_require__(63);
 
-var _Layer2 = _interopRequireDefault(_Layer);
+var _FontFamily2 = _interopRequireDefault(_FontFamily);
 
-var _Job = __webpack_require__(91);
+var _Job = __webpack_require__(90);
 
 var _Job2 = _interopRequireDefault(_Job);
-
-var _JobType = __webpack_require__(64);
-
-var _JobType2 = _interopRequireDefault(_JobType);
 
 var _JobShare = __webpack_require__(51);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _Permission = __webpack_require__(93);
+var _JobType = __webpack_require__(64);
 
-var _Permission2 = _interopRequireDefault(_Permission);
+var _JobType2 = _interopRequireDefault(_JobType);
+
+var _Language = __webpack_require__(92);
+
+var _Language2 = _interopRequireDefault(_Language);
+
+var _Layer = __webpack_require__(52);
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _MapstyleSet = __webpack_require__(66);
+
+var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
+
+var _Notification = __webpack_require__(93);
+
+var _Notification2 = _interopRequireDefault(_Notification);
 
 var _Organisation = __webpack_require__(50);
 
 var _Organisation2 = _interopRequireDefault(_Organisation);
 
-var _ResourceProxy = __webpack_require__(125);
+var _Permission = __webpack_require__(94);
 
-var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
+var _Permission2 = _interopRequireDefault(_Permission);
 
-var _Language = __webpack_require__(94);
+var _SvgSet = __webpack_require__(67);
 
-var _Language2 = _interopRequireDefault(_Language);
+var _SvgSet2 = _interopRequireDefault(_SvgSet);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5450,6 +5450,27 @@ var User = function (_CrudBase) {
   }
 
   _createClass(User, [{
+    key: 'isAdmin',
+
+
+    /**
+     * Check if user is an administrator
+     * @returns {Promise} - Resolves with a {@link Boolean} and rejects with {@link ApiError}
+     */
+    value: function isAdmin() {
+      return this.permissions().then(function (permissions) {
+        return Boolean(permissions.find(function (p) {
+          return p.name === 'is:admin';
+        }));
+      });
+    }
+
+    /**
+     * Get all known ips
+     * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}
+     */
+
+  }, {
     key: 'ips',
     value: function ips() {
       var _this2 = this;
@@ -5651,57 +5672,11 @@ var _CrudBase2 = __webpack_require__(8);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Notification = function (_CrudBase) {
-  _inherits(Notification, _CrudBase);
-
-  function Notification() {
-    _classCallCheck(this, Notification);
-
-    return _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).apply(this, arguments));
-  }
-
-  _createClass(Notification, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'notifications';
-    }
-  }]);
-
-  return Notification;
-}(_CrudBase3.default);
-
-exports.default = Notification;
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _CrudBase2 = __webpack_require__(8);
-
-var _CrudBase3 = _interopRequireDefault(_CrudBase2);
-
-var _JobResult = __webpack_require__(92);
+var _JobResult = __webpack_require__(91);
 
 var _JobResult2 = _interopRequireDefault(_JobResult);
 
-var _JobRevision = __webpack_require__(124);
+var _JobRevision = __webpack_require__(125);
 
 var _JobRevision2 = _interopRequireDefault(_JobRevision);
 
@@ -5798,7 +5773,7 @@ var Job = function (_CrudBase) {
 exports.default = Job;
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5866,53 +5841,7 @@ var JobResult = function (_CrudBase) {
 exports.default = JobResult;
 
 /***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ResourceBase2 = __webpack_require__(30);
-
-var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Permission = function (_ResourceBase) {
-  _inherits(Permission, _ResourceBase);
-
-  function Permission() {
-    _classCallCheck(this, Permission);
-
-    return _possibleConstructorReturn(this, (Permission.__proto__ || Object.getPrototypeOf(Permission)).apply(this, arguments));
-  }
-
-  _createClass(Permission, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'permissions';
-    }
-  }]);
-
-  return Permission;
-}(_ResourceBase3.default);
-
-exports.default = Permission;
-
-/***/ }),
-/* 94 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5961,6 +5890,98 @@ var Language = function (_CrudBase) {
 }(_CrudBase3.default);
 
 exports.default = Language;
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _CrudBase2 = __webpack_require__(8);
+
+var _CrudBase3 = _interopRequireDefault(_CrudBase2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Notification = function (_CrudBase) {
+  _inherits(Notification, _CrudBase);
+
+  function Notification() {
+    _classCallCheck(this, Notification);
+
+    return _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).apply(this, arguments));
+  }
+
+  _createClass(Notification, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'notifications';
+    }
+  }]);
+
+  return Notification;
+}(_CrudBase3.default);
+
+exports.default = Notification;
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ResourceBase2 = __webpack_require__(30);
+
+var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Permission = function (_ResourceBase) {
+  _inherits(Permission, _ResourceBase);
+
+  function Permission() {
+    _classCallCheck(this, Permission);
+
+    return _possibleConstructorReturn(this, (Permission.__proto__ || Object.getPrototypeOf(Permission)).apply(this, arguments));
+  }
+
+  _createClass(Permission, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'permissions';
+    }
+  }]);
+
+  return Permission;
+}(_ResourceBase3.default);
+
+exports.default = Permission;
 
 /***/ }),
 /* 95 */
@@ -7407,6 +7428,193 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _reflection = __webpack_require__(9);
+
+var _ResourceBase = __webpack_require__(30);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+
+var _PaginatedResourceListing = __webpack_require__(122);
+
+var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Proxy for accessing resource. This will make sure that they
+ * are properly wrapped before the promise resolves.
+ * @protected
+ */
+var ResourceProxy = function () {
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {ResourceBase} Target - Target to wrap
+   */
+  function ResourceProxy(api, Target) {
+    _classCallCheck(this, ResourceProxy);
+
+    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, Target)) {
+      throw new TypeError('Target is not a child of CrudBase');
+    }
+
+    if (typeof Target !== 'function') {
+      throw new TypeError('Target must to be a class not an instance');
+    }
+
+    this._api = api;
+    this._Target = Target;
+  }
+
+  /**
+   * Get api instance
+   * @returns {Maps4News} - Api instance
+   */
+
+
+  _createClass(ResourceProxy, [{
+    key: 'search',
+
+
+    /**
+     * Lists target resource
+     * @param {Object<String, String|Array<String>>} query - Query
+     * @param {Number} page - The page to be requested
+     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     *
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * var query = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * }
+     *
+     * api.layers.search(query).then(console.dir);
+     */
+    value: function search(query) {
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+      var url = this.new().baseUrl;
+      var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query);
+
+      return resolver.getPage(page, perPage);
+    }
+
+    /**
+     * Lists target resource
+     * @param {Number} page - The page to be requested
+     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'list',
+    value: function list() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      return this.search({}, page, perPage);
+    }
+
+    /**
+     * Get target resource
+     * @param {Number|String} id - The resource id to be requested
+     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'get',
+    value: function get(id) {
+      var _this = this;
+
+      var url = this.new({ id: id }).url;
+
+      return new Promise(function (resolve, reject) {
+        _this._api.request(url).catch(reject).then(function (data) {
+          return resolve(_this.new(data));
+        });
+      });
+    }
+
+    /**
+     * Select target resource without obtaining data
+     * @param {Number|String} id - Resource id
+     * @returns {ResourceBase} - Empty target resource
+     * @example
+     * api.users.select('me').colors().then(doSomethingCool);
+     */
+
+  }, {
+    key: 'select',
+    value: function select(id) {
+      return this.new({ id: id });
+    }
+
+    /**
+     * Build a new isntance of the target
+     * @param {Object<String, *>} data - Data for the object to be populated with
+     * @returns {ResourceBase} - Resource with target data
+     */
+
+  }, {
+    key: 'new',
+    value: function _new() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return new this.Target(this._api, data);
+    }
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Target to wrap results in
+     * @returns {ResourceBase} - Target constructor
+     * @constructor
+     */
+
+  }, {
+    key: 'Target',
+    get: function get() {
+      return this._Target;
+    }
+
+    /**
+     * The name of the target
+     * @returns {String} - Target name
+     */
+
+  }, {
+    key: 'accessorName',
+    get: function get() {
+      return this.Target.name.toLowerCase();
+    }
+  }]);
+
+  return ResourceProxy;
+}();
+
+exports.default = ResourceProxy;
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _CrudBase2 = __webpack_require__(8);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
@@ -7419,7 +7627,7 @@ var _JobShare = __webpack_require__(51);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _JobResult = __webpack_require__(92);
+var _JobResult = __webpack_require__(91);
 
 var _JobResult2 = _interopRequireDefault(_JobResult);
 
@@ -7600,193 +7808,6 @@ var JobRevision = function (_CrudBase) {
 }(_CrudBase3.default);
 
 exports.default = JobRevision;
-
-/***/ }),
-/* 125 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _reflection = __webpack_require__(9);
-
-var _ResourceBase = __webpack_require__(30);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
-
-var _PaginatedResourceListing = __webpack_require__(122);
-
-var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Proxy for accessing resource. This will make sure that they
- * are properly wrapped before the promise resolves.
- * @protected
- */
-var ResourceProxy = function () {
-  /**
-   * @param {Maps4News} api - Instance of the api
-   * @param {ResourceBase} Target - Target to wrap
-   */
-  function ResourceProxy(api, Target) {
-    _classCallCheck(this, ResourceProxy);
-
-    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, Target)) {
-      throw new TypeError('Target is not a child of CrudBase');
-    }
-
-    if (typeof Target !== 'function') {
-      throw new TypeError('Target must to be a class not an instance');
-    }
-
-    this._api = api;
-    this._Target = Target;
-  }
-
-  /**
-   * Get api instance
-   * @returns {Maps4News} - Api instance
-   */
-
-
-  _createClass(ResourceProxy, [{
-    key: 'search',
-
-
-    /**
-     * Lists target resource
-     * @param {Object<String, String|Array<String>>} query - Query
-     * @param {Number} page - The page to be requested
-     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     *
-     * @example
-     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
-     * // See Api documentation for search query syntax
-     * var query = {
-     *   name: '^:test',
-     *   scale_min: ['>:1', '<:10'],
-     * }
-     *
-     * api.layers.search(query).then(console.dir);
-     */
-    value: function search(query) {
-      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-      var url = this.new().baseUrl;
-      var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query);
-
-      return resolver.getPage(page, perPage);
-    }
-
-    /**
-     * Lists target resource
-     * @param {Number} page - The page to be requested
-     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'list',
-    value: function list() {
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-      return this.search({}, page, perPage);
-    }
-
-    /**
-     * Get target resource
-     * @param {Number|String} id - The resource id to be requested
-     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'get',
-    value: function get(id) {
-      var _this = this;
-
-      var url = this.new({ id: id }).url;
-
-      return new Promise(function (resolve, reject) {
-        _this._api.request(url).catch(reject).then(function (data) {
-          return resolve(_this.new(data));
-        });
-      });
-    }
-
-    /**
-     * Select target resource without obtaining data
-     * @param {Number|String} id - Resource id
-     * @returns {ResourceBase} - Empty target resource
-     * @example
-     * api.users.select('me').colors().then(doSomethingCool);
-     */
-
-  }, {
-    key: 'select',
-    value: function select(id) {
-      return this.new({ id: id });
-    }
-
-    /**
-     * Build a new isntance of the target
-     * @param {Object<String, *>} data - Data for the object to be populated with
-     * @returns {ResourceBase} - Resource with target data
-     */
-
-  }, {
-    key: 'new',
-    value: function _new() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      return new this.Target(this._api, data);
-    }
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Target to wrap results in
-     * @returns {ResourceBase} - Target constructor
-     * @constructor
-     */
-
-  }, {
-    key: 'Target',
-    get: function get() {
-      return this._Target;
-    }
-
-    /**
-     * The name of the target
-     * @returns {String} - Target name
-     */
-
-  }, {
-    key: 'accessorName',
-    get: function get() {
-      return this.Target.name.toLowerCase();
-    }
-  }]);
-
-  return ResourceProxy;
-}();
-
-exports.default = ResourceProxy;
 
 /***/ }),
 /* 126 */
@@ -9463,7 +9484,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.4.5";
+var version = exports.version = "v0.4.6";
 
 /***/ }),
 /* 165 */
@@ -15015,15 +15036,15 @@ var _InsetMap2 = __webpack_require__(128);
 
 var _InsetMap3 = _interopRequireDefault(_InsetMap2);
 
-var _Job2 = __webpack_require__(91);
+var _Job2 = __webpack_require__(90);
 
 var _Job3 = _interopRequireDefault(_Job2);
 
-var _JobResult2 = __webpack_require__(92);
+var _JobResult2 = __webpack_require__(91);
 
 var _JobResult3 = _interopRequireDefault(_JobResult2);
 
-var _JobRevision2 = __webpack_require__(124);
+var _JobRevision2 = __webpack_require__(125);
 
 var _JobRevision3 = _interopRequireDefault(_JobRevision2);
 
@@ -15035,7 +15056,7 @@ var _JobType2 = __webpack_require__(64);
 
 var _JobType3 = _interopRequireDefault(_JobType2);
 
-var _Language2 = __webpack_require__(94);
+var _Language2 = __webpack_require__(92);
 
 var _Language3 = _interopRequireDefault(_Language2);
 
@@ -15051,7 +15072,7 @@ var _MapstyleSet2 = __webpack_require__(66);
 
 var _MapstyleSet3 = _interopRequireDefault(_MapstyleSet2);
 
-var _Notification2 = __webpack_require__(90);
+var _Notification2 = __webpack_require__(93);
 
 var _Notification3 = _interopRequireDefault(_Notification2);
 
@@ -15059,7 +15080,7 @@ var _Organisation2 = __webpack_require__(50);
 
 var _Organisation3 = _interopRequireDefault(_Organisation2);
 
-var _Permission2 = __webpack_require__(93);
+var _Permission2 = __webpack_require__(94);
 
 var _Permission3 = _interopRequireDefault(_Permission2);
 
