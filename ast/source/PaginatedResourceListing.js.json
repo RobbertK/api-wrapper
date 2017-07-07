@@ -5954,9 +5954,9 @@
                                   "line": 166,
                                   "column": 22
                                 },
-                                "identifierName": "min"
+                                "identifierName": "max"
                               },
-                              "name": "min"
+                              "name": "max"
                             },
                             "computed": false
                           },
@@ -6106,9 +6106,9 @@
                                   "line": 167,
                                   "column": 22
                                 },
-                                "identifierName": "max"
+                                "identifierName": "min"
                               },
-                              "name": "max"
+                              "name": "min"
                             },
                             "computed": false
                           },
@@ -22420,7 +22420,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "min",
+      "value": "max",
       "start": 3981,
       "end": 3984,
       "loc": {
@@ -22706,7 +22706,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "max",
+      "value": "min",
       "start": 4017,
       "end": 4020,
       "loc": {

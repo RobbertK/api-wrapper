@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:ad22f51571541ec8c7e4, chunkhash:8b2888db6b82fc7414e7, name:bundle, version:v0.4.6
+ * hash:33c8a81852728d3e4009, chunkhash:59ef831ae0fcc1ae4cd0, name:bundle, version:v0.4.7
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -6970,8 +6970,8 @@ var PaginatedResourceListing = function () {
 
       page = Math.max(1, page);
 
-      perPage = Math.min(1, perPage);
-      perPage = Math.max(50, perPage);
+      perPage = Math.max(1, perPage);
+      perPage = Math.min(50, perPage);
 
       var query = { page: page };
 
@@ -9484,7 +9484,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.4.6";
+var version = exports.version = "v0.4.7";
 
 /***/ }),
 /* 165 */
