@@ -90,6 +90,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/utils/reflection.js~Trait.html">Trait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
@@ -100,7 +101,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/crud/base/ResourceBase.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {AbstractClassError, AbstractError} from &apos;../../exceptions/AbstractError&apos;;
 import Maps4News from &apos;../../Maps4News&apos;;
-import {snakeToCamelCase} from &apos;../../utils/caseConverter&apos;;
+import {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from &apos;../../utils/caseConverter&apos;;
 import {isParentOf} from &apos;../../utils/reflection&apos;;
 
 /**
@@ -120,6 +121,16 @@ export default class ResourceBase {
     if (!isParentOf(Maps4News, api)) {
       throw new TypeError(&apos;Expected api to be of type Maps4News&apos;);
     }
+
+    // Normalize keys to snake_case
+    Object.keys(data).map(key =&gt; {
+      const newKey = camelToSnakeCase(pascalToCamelCase(key));
+
+      if (newKey !== key) {
+        data[newKey] = data[key];
+        delete data[key];
+      }
+    });
 
     this._baseProperties = data;
     this._properties = {};

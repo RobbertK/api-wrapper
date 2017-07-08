@@ -1,7 +1,7 @@
 {
-  "coverage": "75.66%",
-  "expectCount": 300,
-  "actualCount": 227,
+  "coverage": "75.74%",
+  "expectCount": 301,
+  "actualCount": 228,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -275,10 +275,8 @@
     },
     "src/PaginatedResourceListing.js": {
       "expectCount": 17,
-      "actualCount": 16,
-      "undocumentLines": [
-        8
-      ]
+      "actualCount": 17,
+      "undocumentLines": []
     },
     "src/oauth/PasswordFlow.js": {
       "expectCount": 12,
@@ -377,6 +375,13 @@
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
+    },
+    "src/utils/caseConverter.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        21
+      ]
     }
   }
 }

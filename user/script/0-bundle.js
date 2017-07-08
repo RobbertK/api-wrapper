@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:33c8a81852728d3e4009, chunkhash:59ef831ae0fcc1ae4cd0, name:bundle, version:v0.4.7
+ * hash:65a9ed09bb17db125306, chunkhash:0b643c362ab322b1f30a, name:bundle, version:v0.4.9
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -1513,6 +1513,16 @@ var ResourceBase = function () {
     if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
       throw new TypeError('Expected api to be of type Maps4News');
     }
+
+    // Normalize keys to snake_case
+    Object.keys(data).map(function (key) {
+      var newKey = (0, _caseConverter.camelToSnakeCase)((0, _caseConverter.pascalToCamelCase)(key));
+
+      if (newKey !== key) {
+        data[newKey] = data[key];
+        delete data[key];
+      }
+    });
 
     this._baseProperties = data;
     this._properties = {};
@@ -6891,10 +6901,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Proxy for accessing paginated resources
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _Maps4News = __webpack_require__(57);
 
@@ -6908,6 +6915,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * Proxy for accessing paginated resources
+ */
 var PaginatedResourceListing = function () {
   /**
    * @param {Maps4News} api - Instance of the api
@@ -7507,7 +7517,7 @@ var ResourceProxy = function () {
     /**
      * Lists target resource
      * @param {Number} page - The page to be requested
-     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+     * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API
      * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
      */
 
@@ -7515,7 +7525,7 @@ var ResourceProxy = function () {
     key: 'list',
     value: function list() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var perPage = arguments[1];
 
       return this.search({}, page, perPage);
     }
@@ -9484,7 +9494,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.4.7";
+var version = exports.version = "v0.4.9";
 
 /***/ }),
 /* 165 */
@@ -9498,6 +9508,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.snakeToCamelCase = snakeToCamelCase;
 exports.camelToSnakeCase = camelToSnakeCase;
+exports.pascalToCamelCase = pascalToCamelCase;
 /**
  * Converts snake_case strings to camelCase
  * @param {String} str - a snake_case string
@@ -9519,6 +9530,12 @@ function snakeToCamelCase(str) {
 function camelToSnakeCase(str) {
   return str.replace(/([A-Z])/g, function (x) {
     return '_' + x.toLowerCase();
+  });
+}
+
+function pascalToCamelCase(str) {
+  return str.replace(/^([A-Z])/g, function (x) {
+    return x.toLowerCase();
   });
 }
 

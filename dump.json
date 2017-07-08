@@ -1432,7 +1432,7 @@
     "__docId__": 43,
     "kind": "file",
     "name": "src/PaginatedResourceListing.js",
-    "content": "/**\n * Proxy for accessing paginated resources\n */\nimport Maps4News from './Maps4News';\nimport {getTypeName, isParentOf} from './utils/reflection';\nimport {encodeQueryString} from './utils/requests';\n\nexport default class PaginatedResourceListing {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {String} route - Resource route\n   * @param {ResourceBase} Target - Wrapper target\n   * @param {Object|{}} query - Search query\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @param {Number} pageCount - Resolved page count\n   * @param {Number} rowCount - Resolved rowCount\n   * @param {Array<ResourceBase>} data - Resolved data\n   * @private\n   */\n  constructor(api, route, Target, query = {}, page = 1, perPage = 12, pageCount = null, rowCount = 0, data = []) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._api = api;\n    this._route = route;\n    this._Target = Target;\n    this._query = query;\n\n    this._data = data;\n    this._page = page;\n    this._perPage = perPage;\n    this._rows = rowCount;\n    this._pageCount = pageCount;\n  }\n\n  /**\n   * Pagination header prefix\n   * @returns {String} - Header prefix\n   */\n  static get headerPrefix() {\n    return 'X-Paginate';\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target route\n   * @returns {String} - url\n   */\n  get route() {\n    return this._route;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * Current page number\n   * @returns {Number} - Current page\n   */\n  get page() {\n    return this._page;\n  }\n\n  /**\n   * Maximum amount of items per page\n   * @returns {Number} - Amount of items\n   */\n  get perPage() {\n    return this._perPage;\n  }\n\n  /**\n   * Amount of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._pageCount;\n  }\n\n  /**\n   * Page data\n   * @returns {Array<ResourceBase>} - Wrapped data\n   */\n  get data() {\n    return this._data;\n  }\n\n  /**\n   * Row count\n   * @returns {Number} - Row count\n   */\n  get rows() {\n    return this._rows;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see ResourceProxy#search\n   */\n  set query(value) {\n    // Verify query structure\n    if (typeof value !== 'object') {\n      throw new TypeError(`Expected value to be of type \"Object\" got \"${getTypeName(value)}\"`);\n    }\n\n    for (const key of Object.keys(value)) {\n      if (typeof key !== 'string') {\n        throw new TypeError(`Expected key to be of type \"String\" got \"${getTypeName(key)}\"`);\n      }\n\n      if (Array.isArray(value[key])) {\n        if (value[key].length > 0) {\n          for (const query of value[key]) {\n            if (typeof query !== 'string') {\n              throw new TypeError(`Expected query for \"${key}\" to be of type \"String\" got \"${getTypeName(query)}\"`);\n            }\n          }\n        } else {\n          // Drop empty nodes\n          delete value[key];\n        }\n      } else if (typeof value[key] !== 'string') {\n        throw new TypeError(`Expected query value to be of type \"string\" or \"Array\" got \"${getTypeName(key)}\"`);\n      }\n    }\n\n    this._query = value;\n  }\n\n  /**\n   * Get target page\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page (max 50)\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  getPage(page, perPage = this.perPage) {\n    page = Math.max(1, page);\n\n    perPage = Math.max(1, perPage);\n    perPage = Math.min(50, perPage);\n\n    const query = {page};\n\n    if (perPage) {\n      query['per_page'] = Math.max(1, perPage);\n    }\n\n    // Add search query (if any)\n    if (Object.keys(this.query).length > 0) {\n      query['search'] = this.query;\n    }\n\n    const url = `${this.route}?${encodeQueryString(query)}`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url, 'GET', {}, {}, '', true)\n        .then(request => {\n          const response = JSON.parse(request.responseText);\n          const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`));\n          const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`));\n\n          const instance = new PaginatedResourceListing(\n            this.api, this.route, this._Target, this.query,\n            page, perPage, totalPages, rowCount,\n            response.data.map(row => new this._Target(this.api, row))\n          );\n\n          resolve(instance, request);\n        }).catch(reject);\n    });\n  }\n\n  /**\n   * Test if there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.page < this.pageCount;\n  }\n\n  /**\n   * Test if there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this.page > 1;\n  }\n\n  /**\n   * Get next page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  next() {\n    return this.getPage(this.page + 1);\n  }\n\n  /**\n   * Get previous page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  previous() {\n    return this.getPage(this.page - 1);\n  }\n}\n",
+    "content": "import Maps4News from './Maps4News';\nimport {getTypeName, isParentOf} from './utils/reflection';\nimport {encodeQueryString} from './utils/requests';\n\n/**\n * Proxy for accessing paginated resources\n */\nexport default class PaginatedResourceListing {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {String} route - Resource route\n   * @param {ResourceBase} Target - Wrapper target\n   * @param {Object|{}} query - Search query\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @param {Number} pageCount - Resolved page count\n   * @param {Number} rowCount - Resolved rowCount\n   * @param {Array<ResourceBase>} data - Resolved data\n   * @private\n   */\n  constructor(api, route, Target, query = {}, page = 1, perPage = 12, pageCount = null, rowCount = 0, data = []) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._api = api;\n    this._route = route;\n    this._Target = Target;\n    this._query = query;\n\n    this._data = data;\n    this._page = page;\n    this._perPage = perPage;\n    this._rows = rowCount;\n    this._pageCount = pageCount;\n  }\n\n  /**\n   * Pagination header prefix\n   * @returns {String} - Header prefix\n   */\n  static get headerPrefix() {\n    return 'X-Paginate';\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target route\n   * @returns {String} - url\n   */\n  get route() {\n    return this._route;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * Current page number\n   * @returns {Number} - Current page\n   */\n  get page() {\n    return this._page;\n  }\n\n  /**\n   * Maximum amount of items per page\n   * @returns {Number} - Amount of items\n   */\n  get perPage() {\n    return this._perPage;\n  }\n\n  /**\n   * Amount of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._pageCount;\n  }\n\n  /**\n   * Page data\n   * @returns {Array<ResourceBase>} - Wrapped data\n   */\n  get data() {\n    return this._data;\n  }\n\n  /**\n   * Row count\n   * @returns {Number} - Row count\n   */\n  get rows() {\n    return this._rows;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see ResourceProxy#search\n   */\n  set query(value) {\n    // Verify query structure\n    if (typeof value !== 'object') {\n      throw new TypeError(`Expected value to be of type \"Object\" got \"${getTypeName(value)}\"`);\n    }\n\n    for (const key of Object.keys(value)) {\n      if (typeof key !== 'string') {\n        throw new TypeError(`Expected key to be of type \"String\" got \"${getTypeName(key)}\"`);\n      }\n\n      if (Array.isArray(value[key])) {\n        if (value[key].length > 0) {\n          for (const query of value[key]) {\n            if (typeof query !== 'string') {\n              throw new TypeError(`Expected query for \"${key}\" to be of type \"String\" got \"${getTypeName(query)}\"`);\n            }\n          }\n        } else {\n          // Drop empty nodes\n          delete value[key];\n        }\n      } else if (typeof value[key] !== 'string') {\n        throw new TypeError(`Expected query value to be of type \"string\" or \"Array\" got \"${getTypeName(key)}\"`);\n      }\n    }\n\n    this._query = value;\n  }\n\n  /**\n   * Get target page\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page (max 50)\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  getPage(page, perPage = this.perPage) {\n    page = Math.max(1, page);\n\n    perPage = Math.max(1, perPage);\n    perPage = Math.min(50, perPage);\n\n    const query = {page};\n\n    if (perPage) {\n      query['per_page'] = Math.max(1, perPage);\n    }\n\n    // Add search query (if any)\n    if (Object.keys(this.query).length > 0) {\n      query['search'] = this.query;\n    }\n\n    const url = `${this.route}?${encodeQueryString(query)}`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url, 'GET', {}, {}, '', true)\n        .then(request => {\n          const response = JSON.parse(request.responseText);\n          const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`));\n          const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`));\n\n          const instance = new PaginatedResourceListing(\n            this.api, this.route, this._Target, this.query,\n            page, perPage, totalPages, rowCount,\n            response.data.map(row => new this._Target(this.api, row))\n          );\n\n          resolve(instance, request);\n        }).catch(reject);\n    });\n  }\n\n  /**\n   * Test if there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.page < this.pageCount;\n  }\n\n  /**\n   * Test if there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this.page > 1;\n  }\n\n  /**\n   * Get next page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  next() {\n    return this.getPage(this.page + 1);\n  }\n\n  /**\n   * Get previous page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  previous() {\n    return this.getPage(this.page - 1);\n  }\n}\n",
     "static": true,
     "longname": "src/PaginatedResourceListing.js",
     "access": null,
@@ -1450,15 +1450,8 @@
     "export": true,
     "importPath": "@mapcreator/maps4news/src/PaginatedResourceListing.js",
     "importStyle": "PaginatedResourceListing",
-    "description": null,
+    "description": "Proxy for accessing paginated resources",
     "lineNumber": 8,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
     "interface": false
   },
   {
@@ -2341,7 +2334,7 @@
     "__docId__": 72,
     "kind": "file",
     "name": "src/ResourceProxy.js",
-    "content": "import {isParentOf} from './utils/reflection';\nimport ResourceBase from './crud/base/ResourceBase';\nimport PaginatedResourceListing from './PaginatedResourceListing';\n\n/**\n * Proxy for accessing resource. This will make sure that they\n * are properly wrapped before the promise resolves.\n * @protected\n */\nexport default class ResourceProxy {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {ResourceBase} Target - Target to wrap\n   */\n  constructor(api, Target) {\n    if (!isParentOf(ResourceBase, Target)) {\n      throw new TypeError('Target is not a child of CrudBase');\n    }\n\n    if (typeof Target !== 'function') {\n      throw new TypeError('Target must to be a class not an instance');\n    }\n\n    this._api = api;\n    this._Target = Target;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * The name of the target\n   * @returns {String} - Target name\n   */\n  get accessorName() {\n    return this.Target.name.toLowerCase();\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.search(query).then(console.dir);\n   */\n  search(query, page = 1, perPage = null) {\n    const url = this.new().baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  list(page = 1, perPage = null) {\n    return this.search({}, page, perPage);\n  }\n\n  /**\n   * Get target resource\n   * @param {Number|String} id - The resource id to be requested\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  get(id) {\n    const url = this.new({id: id}).url;\n\n    return new Promise((resolve, reject) => {\n      this._api\n        .request(url)\n        .catch(reject)\n        .then(data => resolve(this.new(data)));\n    });\n  }\n\n  /**\n   * Select target resource without obtaining data\n   * @param {Number|String} id - Resource id\n   * @returns {ResourceBase} - Empty target resource\n   * @example\n   * api.users.select('me').colors().then(doSomethingCool);\n   */\n  select(id) {\n    return this.new({id: id});\n  }\n\n  /**\n   * Build a new isntance of the target\n   * @param {Object<String, *>} data - Data for the object to be populated with\n   * @returns {ResourceBase} - Resource with target data\n   */\n  new(data = {}) {\n    return new this.Target(this._api, data);\n  }\n}\n",
+    "content": "import {isParentOf} from './utils/reflection';\nimport ResourceBase from './crud/base/ResourceBase';\nimport PaginatedResourceListing from './PaginatedResourceListing';\n\n/**\n * Proxy for accessing resource. This will make sure that they\n * are properly wrapped before the promise resolves.\n * @protected\n */\nexport default class ResourceProxy {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {ResourceBase} Target - Target to wrap\n   */\n  constructor(api, Target) {\n    if (!isParentOf(ResourceBase, Target)) {\n      throw new TypeError('Target is not a child of CrudBase');\n    }\n\n    if (typeof Target !== 'function') {\n      throw new TypeError('Target must to be a class not an instance');\n    }\n\n    this._api = api;\n    this._Target = Target;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * The name of the target\n   * @returns {String} - Target name\n   */\n  get accessorName() {\n    return this.Target.name.toLowerCase();\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.search(query).then(console.dir);\n   */\n  search(query, page = 1, perPage = null) {\n    const url = this.new().baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  list(page = 1, perPage) {\n    return this.search({}, page, perPage);\n  }\n\n  /**\n   * Get target resource\n   * @param {Number|String} id - The resource id to be requested\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  get(id) {\n    const url = this.new({id: id}).url;\n\n    return new Promise((resolve, reject) => {\n      this._api\n        .request(url)\n        .catch(reject)\n        .then(data => resolve(this.new(data)));\n    });\n  }\n\n  /**\n   * Select target resource without obtaining data\n   * @param {Number|String} id - Resource id\n   * @returns {ResourceBase} - Empty target resource\n   * @example\n   * api.users.select('me').colors().then(doSomethingCool);\n   */\n  select(id) {\n    return this.new({id: id});\n  }\n\n  /**\n   * Build a new isntance of the target\n   * @param {Object<String, *>} data - Data for the object to be populated with\n   * @returns {ResourceBase} - Resource with target data\n   */\n  new(data = {}) {\n    return new this.Target(this._api, data);\n  }\n}\n",
     "static": true,
     "longname": "src/ResourceProxy.js",
     "access": null,
@@ -2638,7 +2631,8 @@
       {
         "nullable": null,
         "types": [
-          "Number"
+          "Number",
+          "undefined"
         ],
         "spread": false,
         "optional": false,
@@ -7106,7 +7100,7 @@
     "__docId__": 262,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
-    "content": "import {AbstractClassError, AbstractError} from '../../exceptions/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport {snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/\\{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    const protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];\n    const fields = Object.keys(this._baseProperties);\n\n    for (const key of fields) {\n      const desc = {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n      };\n\n      if (!protectedFields.includes(key)) {\n        // eslint-disable-next-line no-return-assign\n        desc.set = val => this._properties[key] = val;\n      }\n\n      Object.defineProperty(this, snakeToCamelCase(key), desc);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      url = url.replace(`{${key}}`, this[key]);\n    }\n\n    return url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n}\n",
+    "content": "import {AbstractClassError, AbstractError} from '../../exceptions/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    Object.keys(data).map(key => {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      if (newKey !== key) {\n        data[newKey] = data[key];\n        delete data[key];\n      }\n    });\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/\\{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    const protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];\n    const fields = Object.keys(this._baseProperties);\n\n    for (const key of fields) {\n      const desc = {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n      };\n\n      if (!protectedFields.includes(key)) {\n        // eslint-disable-next-line no-return-assign\n        desc.set = val => this._properties[key] = val;\n      }\n\n      Object.defineProperty(this, snakeToCamelCase(key), desc);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      url = url.replace(`{${key}}`, this[key]);\n    }\n\n    return url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/ResourceBase.js",
     "access": null,
@@ -7173,7 +7167,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 34,
     "undocument": true,
     "unknown": [
       {
@@ -7196,7 +7190,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 35,
     "undocument": true,
     "unknown": [
       {
@@ -7219,7 +7213,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_api",
     "access": null,
     "description": null,
-    "lineNumber": 26,
+    "lineNumber": 36,
     "undocument": true,
     "unknown": [
       {
@@ -7244,7 +7238,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 35,
+    "lineNumber": 45,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7276,7 +7270,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#resourcePath",
     "access": null,
     "description": "Resource path template",
-    "lineNumber": 43,
+    "lineNumber": 53,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7308,7 +7302,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#resourceName",
     "access": null,
     "description": "Resource name",
-    "lineNumber": 52,
+    "lineNumber": 62,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7336,7 +7330,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#refresh",
     "access": null,
     "description": "Refresh the resource by requesting it from the server again",
-    "lineNumber": 61,
+    "lineNumber": 71,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7373,7 +7367,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 77,
     "undocument": true,
     "unknown": [
       {
@@ -7396,7 +7390,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 68,
+    "lineNumber": 78,
     "undocument": true,
     "unknown": [
       {
@@ -7421,7 +7415,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_applyProperties",
     "access": "private",
     "description": "Creates proxies for the properties",
-    "lineNumber": 81,
+    "lineNumber": 91,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7449,7 +7443,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#ownable",
     "access": null,
     "description": "If the resource can be owned by an organisation",
-    "lineNumber": 124,
+    "lineNumber": 134,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7481,7 +7475,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#url",
     "access": null,
     "description": "Auto generated resource url",
-    "lineNumber": 132,
+    "lineNumber": 142,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7513,7 +7507,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#baseUrl",
     "access": null,
     "description": "Auto generated Resource base url",
-    "lineNumber": 146,
+    "lineNumber": 156,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7545,7 +7539,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
     "access": null,
     "description": "List fields that contain object data",
-    "lineNumber": 156,
+    "lineNumber": 166,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7577,7 +7571,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#toString",
     "access": null,
     "description": "String representation of the resource, similar to Python's __repr__",
-    "lineNumber": 166,
+    "lineNumber": 176,
     "unknown": [
       {
         "tagName": "@returns",
@@ -11192,7 +11186,7 @@
     "__docId__": 417,
     "kind": "file",
     "name": "src/utils/caseConverter.js",
-    "content": "/**\n * Converts snake_case strings to camelCase\n * @param {String} str - a snake_case string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function snakeToCamelCase(str) {\n  return str.replace(/(?:(_[a-z\\d]))/g, x => x[1].toUpperCase());\n}\n\n/**\n * Converts camelCase strings to snake_case\n * @param {String} str - a camelCase string\n * @returns {String} - Converted snake_case string\n * @private\n */\nexport function camelToSnakeCase(str) {\n  return str.replace(/([A-Z])/g, x => '_' + x.toLowerCase());\n}\n",
+    "content": "/**\n * Converts snake_case strings to camelCase\n * @param {String} str - a snake_case string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function snakeToCamelCase(str) {\n  return str.replace(/(?:(_[a-z\\d]))/g, x => x[1].toUpperCase());\n}\n\n/**\n * Converts camelCase strings to snake_case\n * @param {String} str - a camelCase string\n * @returns {String} - Converted snake_case string\n * @private\n */\nexport function camelToSnakeCase(str) {\n  return str.replace(/([A-Z])/g, x => '_' + x.toLowerCase());\n}\n\nexport function pascalToCamelCase(str) {\n  return str.replace(/^([A-Z])/g, x => x.toLowerCase());\n}\n",
     "static": true,
     "longname": "src/utils/caseConverter.js",
     "access": null,
@@ -11285,6 +11279,42 @@
   },
   {
     "__docId__": 420,
+    "kind": "function",
+    "name": "pascalToCamelCase",
+    "memberof": "src/utils/caseConverter.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/caseConverter.js~pascalToCamelCase",
+    "access": null,
+    "export": true,
+    "importPath": "@mapcreator/maps4news/src/utils/caseConverter.js",
+    "importStyle": "{pascalToCamelCase}",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "str",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 421,
     "kind": "file",
     "name": "src/utils/node.js",
     "content": "/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined' && typeof module !== 'undefined' && module.exports;\n}\n",
@@ -11295,7 +11325,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 421,
+    "__docId__": 422,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -11329,7 +11359,7 @@
     }
   },
   {
-    "__docId__": 422,
+    "__docId__": 423,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Constructor} baseClass - Target base class for the traits to be applied to\n * @param {Constructor} mixins - Traits to be applied\n * @returns {Constructor} - Constructor with any traits applied\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach((mixin) => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n\n/**\n * Trait interface\n * @interface\n */\nexport class Trait {}\n",
@@ -11340,7 +11370,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 423,
+    "__docId__": 424,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -11397,7 +11427,7 @@
     }
   },
   {
-    "__docId__": 424,
+    "__docId__": 425,
     "kind": "function",
     "name": "getTypeName",
     "memberof": "src/utils/reflection.js",
@@ -11439,7 +11469,7 @@
     }
   },
   {
-    "__docId__": 425,
+    "__docId__": 426,
     "kind": "function",
     "name": "mix",
     "memberof": "src/utils/reflection.js",
@@ -11491,7 +11521,7 @@
     }
   },
   {
-    "__docId__": 426,
+    "__docId__": 427,
     "kind": "function",
     "name": "copyProps",
     "memberof": "src/utils/reflection.js",
@@ -11543,7 +11573,7 @@
     }
   },
   {
-    "__docId__": 427,
+    "__docId__": 428,
     "kind": "class",
     "name": "Trait",
     "memberof": "src/utils/reflection.js",
@@ -11558,7 +11588,7 @@
     "interface": true
   },
   {
-    "__docId__": 428,
+    "__docId__": 429,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/**\n * Makes a HTTP request and returns a promise. Promise will fail/reject if the\n * status code isn't 2XX.\n * @param {string} url - Target url\n * @param {string} method - HTTP method\n * @param {string|object<string, string>} body - raw body content or object to be json encoded\n * @param {object<string, string>} headers - headers\n * @param {string} responseType - XMLHttpRequest response type\n *\n * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx\n * @protected\n */\nexport function makeRequest(url, method = 'GET', body = '', headers = {}, responseType = '') {\n  return new Promise((resolve, reject) => {\n    method = method.toUpperCase();\n\n    const request = new XMLHttpRequest();\n\n    request.responseType = responseType;\n\n    function hasHeader(h) {\n      return Object.keys(headers)\n          .filter(x => x.toLowerCase() === h.toLowerCase())\n          .length > 0;\n    }\n\n    request.open(method, url, true);\n\n    // Automatically detect possible content-type header\n    if (typeof body === 'object') {\n      body = JSON.stringify(body);\n\n      if (!hasHeader('Content-Type')) {\n        headers['Content-Type'] = 'application/json';\n      }\n    } else if (body && !hasHeader('Content-Type')) {\n      headers['Content-Type'] = 'application/x-www-form-urlencoded';\n    }\n\n    if (!hasHeader('Accept')) {\n      headers['Accept'] = 'application/json';\n    }\n\n    // Apply headers\n    for (const key of Object.keys(headers)) {\n      request.setRequestHeader(key, headers[key]);\n    }\n\n    request.onreadystatechange = () => {\n      // State 4 === Done\n      if (request.readyState === XMLHttpRequest.DONE) {\n        if (request.status >= 200 && request.status < 300) {\n          resolve(request);\n        } else {\n          reject(request);\n        }\n      }\n    };\n\n    if (body && method !== 'GET') {\n      request.send(body);\n    } else {\n      request.send();\n    }\n  });\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject);\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
@@ -11569,7 +11599,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 429,
+    "__docId__": 430,
     "kind": "function",
     "name": "makeRequest",
     "memberof": "src/utils/requests.js",
@@ -11652,7 +11682,7 @@
     }
   },
   {
-    "__docId__": 430,
+    "__docId__": 431,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -11694,7 +11724,7 @@
     }
   },
   {
-    "__docId__": 431,
+    "__docId__": 432,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -11749,7 +11779,7 @@
     }
   },
   {
-    "__docId__": 432,
+    "__docId__": 433,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "import StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    // Use the secure method if possible\n    return typeof crypto !== 'undefined' && crypto.getRandomValues ? Uuid._uuid4Safe() : Uuid._uuid4Unsafe();\n  }\n\n  /**\n   * Unsafe UUID4 generation using Math.random\n   * @returns {string} - Uuid\n   *\n   * @see http://stackoverflow.com/a/8809472\n   * @license MIT|Public Domain\n   * @private\n   */\n  static _uuid4Unsafe() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Safe UUID4 generation using the crypto api\n   * @returns {String} - Uuid\n   * @private\n   */\n  static _uuid4Safe() {\n    let data = new Uint8Array(16);\n\n    crypto.getRandomValues(data);\n\n    // cast to array so we can use pop()\n    data = [].slice.call(data);\n\n    // Replace 'xx' with a two width base 16 number\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/xx/g, () => {\n      // Prepend 00 for padding and grab the last two characters\n      return ('00' + data.pop().toString(16)).slice(-2);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -11760,7 +11790,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 433,
+    "__docId__": 434,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -11778,7 +11808,7 @@
     ]
   },
   {
-    "__docId__": 434,
+    "__docId__": 435,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -11806,7 +11836,7 @@
     }
   },
   {
-    "__docId__": 435,
+    "__docId__": 436,
     "kind": "method",
     "name": "_uuid4Unsafe",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -11841,7 +11871,7 @@
     }
   },
   {
-    "__docId__": 436,
+    "__docId__": 437,
     "kind": "method",
     "name": "_uuid4Safe",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -11869,7 +11899,7 @@
     }
   },
   {
-    "__docId__": 437,
+    "__docId__": 438,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -11897,7 +11927,7 @@
     }
   },
   {
-    "__docId__": 439,
+    "__docId__": 440,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -11909,7 +11939,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 440,
+    "__docId__": 441,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -11921,7 +11951,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 441,
+    "__docId__": 442,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -11933,7 +11963,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 442,
+    "__docId__": 443,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -11945,7 +11975,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 443,
+    "__docId__": 444,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -11957,7 +11987,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 444,
+    "__docId__": 445,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -11969,7 +11999,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 445,
+    "__docId__": 446,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -11981,7 +12011,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 446,
+    "__docId__": 447,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -11993,7 +12023,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 447,
+    "__docId__": 448,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -12005,7 +12035,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 448,
+    "__docId__": 449,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -12017,7 +12047,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 449,
+    "__docId__": 450,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -12029,7 +12059,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 450,
+    "__docId__": 451,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -12041,7 +12071,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 451,
+    "__docId__": 452,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -12053,7 +12083,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 452,
+    "__docId__": 453,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -12065,7 +12095,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 453,
+    "__docId__": 454,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -12077,7 +12107,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 454,
+    "__docId__": 455,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -12089,7 +12119,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 455,
+    "__docId__": 456,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -12101,7 +12131,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 456,
+    "__docId__": 457,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -12113,7 +12143,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 457,
+    "__docId__": 458,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -12125,7 +12155,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 458,
+    "__docId__": 459,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -12137,7 +12167,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 459,
+    "__docId__": 460,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -12149,7 +12179,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 460,
+    "__docId__": 461,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -12161,7 +12191,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 461,
+    "__docId__": 462,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -12173,7 +12203,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 462,
+    "__docId__": 463,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -12185,7 +12215,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 463,
+    "__docId__": 464,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -12197,7 +12227,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 464,
+    "__docId__": 465,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -12209,7 +12239,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 465,
+    "__docId__": 466,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -12221,7 +12251,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 466,
+    "__docId__": 467,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -12233,7 +12263,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 467,
+    "__docId__": 468,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -12245,7 +12275,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 468,
+    "__docId__": 469,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -12257,7 +12287,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 469,
+    "__docId__": 470,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -12269,7 +12299,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 470,
+    "__docId__": 471,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -12281,7 +12311,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 471,
+    "__docId__": 472,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -12293,7 +12323,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 472,
+    "__docId__": 473,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -12305,7 +12335,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 473,
+    "__docId__": 474,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -12317,7 +12347,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 474,
+    "__docId__": 475,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -12329,7 +12359,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 475,
+    "__docId__": 476,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -12341,7 +12371,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 476,
+    "__docId__": 477,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -12353,7 +12383,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 477,
+    "__docId__": 478,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -12365,7 +12395,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 478,
+    "__docId__": 479,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -12377,7 +12407,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 479,
+    "__docId__": 480,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -12389,7 +12419,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 480,
+    "__docId__": 481,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -12401,7 +12431,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 481,
+    "__docId__": 482,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -12413,7 +12443,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 482,
+    "__docId__": 483,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -12425,7 +12455,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 483,
+    "__docId__": 484,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -12437,7 +12467,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 484,
+    "__docId__": 485,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -12449,7 +12479,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 485,
+    "__docId__": 486,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -12462,7 +12492,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 487,
+    "__docId__": 488,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -12474,7 +12504,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 488,
+    "__docId__": 489,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -12486,7 +12516,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 489,
+    "__docId__": 490,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -12498,7 +12528,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 490,
+    "__docId__": 491,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -12510,7 +12540,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 491,
+    "__docId__": 492,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -12522,7 +12552,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 492,
+    "__docId__": 493,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -12534,7 +12564,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 493,
+    "__docId__": 494,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -12546,7 +12576,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 494,
+    "__docId__": 495,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
