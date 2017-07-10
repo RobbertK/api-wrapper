@@ -87,12 +87,12 @@
 <p>Building the api can be done using [yarn] and [webpack]. The result will be placed in the <code>/dist</code> folder. Both the web 
 and nodejs releases are built this way.</p>
 <pre><code class="lang-sh"><code class="source-code prettyprint">yarn install
-./node_modules/.bin/webpack --progress</code>
+yarn run build</code>
 </code></pre>
 <h2 id="building-docs">Building docs</h2>
 <p>The docs can be built using [esdoc] after which they can be found in the <code>/docs</code> folder.</p>
 <pre><code class="lang-sh"><code class="source-code prettyprint">yarn install
-./node_modules/.bin/esdoc</code>
+yarn run docs</code>
 </code></pre>
 <p>Development docs can be built by adding <code>&quot;private&quot;</code> to the <code>esdoc.access</code> variable in <code>package.json</code> before building the
 docs. </p>

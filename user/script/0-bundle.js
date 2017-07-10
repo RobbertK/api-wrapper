@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:de6a09a0651a24f915da, chunkhash:2a0a40cd7cd7d39697cb, name:bundle, version:v0.4.10
+ * hash:1b78824233442319c943, chunkhash:93cbc853a66f42647709, name:bundle, version:v0.4.11
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -9503,7 +9503,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.4.10";
+var version = exports.version = "v0.4.11";
 
 /***/ }),
 /* 165 */
