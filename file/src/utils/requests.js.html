@@ -121,8 +121,8 @@ export function makeRequest(url, method = &apos;GET&apos;, body = &apos;&apos;, 
 
     function hasHeader(h) {
       return Object.keys(headers)
-          .filter(x =&gt; x.toLowerCase() === h.toLowerCase())
-          .length &gt; 0;
+        .filter(x =&gt; x.toLowerCase() === h.toLowerCase())
+        .length &gt; 0;
     }
 
     request.open(method, url, true);

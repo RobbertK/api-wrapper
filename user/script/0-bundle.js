@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:65a9ed09bb17db125306, chunkhash:0b643c362ab322b1f30a, name:bundle, version:v0.4.9
+ * hash:de6a09a0651a24f915da, chunkhash:2a0a40cd7cd7d39697cb, name:bundle, version:v0.4.10
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -2835,7 +2835,7 @@ var OAuth = function () {
     this.clientId = String(clientId);
     this.scopes = scopes;
     this.token = _OAuthToken2.default.recover();
-    this.host = 'https://api.Maps4News.com';
+    this.host = "https://api.maps4news.com";
     this.path = '/';
   }
 
@@ -3092,12 +3092,21 @@ var Maps4News = function () {
    */
   function Maps4News() {
     var auth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new _DummyFlow2.default();
-    var host = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'https://api.maps4news.com';
+    var host = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "https://api.maps4news.com";
 
     _classCallCheck(this, Maps4News);
 
     this.auth = auth;
     this.host = host;
+
+    /**
+     * Defaults
+     * @type {{perPage: Number}}
+     */
+    this.defaults = {
+      perPage: Number("12")
+
+    };
   }
 
   /**
@@ -6934,7 +6943,7 @@ var PaginatedResourceListing = function () {
   function PaginatedResourceListing(api, route, Target) {
     var query = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
     var page = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
-    var perPage = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 12;
+    var perPage = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : api.defaults.perPage;
     var pageCount = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : null;
     var rowCount = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 0;
     var data = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : [];
@@ -9494,7 +9503,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.4.9";
+var version = exports.version = "v0.4.10";
 
 /***/ }),
 /* 165 */
@@ -14708,7 +14717,7 @@ var ImplicitFlowPopup = function (_ImplicitFlow) {
     var callbackUrl = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
     var scopes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['*'];
     var useState = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-    var windowOptions = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'width=800, height=600';
+    var windowOptions = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "width=800, height=600";
 
     _classCallCheck(this, ImplicitFlowPopup);
 
