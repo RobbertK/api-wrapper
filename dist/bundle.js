@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:1b78824233442319c943, chunkhash:93cbc853a66f42647709, name:bundle, version:v0.4.11
+ * hash:acf5d14f2887dc6cd898, chunkhash:276e08bfac6f2f8ea291, name:bundle, version:v0.4.12
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.4.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -7515,7 +7515,7 @@ var ResourceProxy = function () {
      */
     value: function search(query) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.perPage;
 
       var url = this.new().baseUrl;
       var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query);
@@ -7534,7 +7534,7 @@ var ResourceProxy = function () {
     key: 'list',
     value: function list() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var perPage = arguments[1];
+      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.perPage;
 
       return this.search({}, page, perPage);
     }
@@ -9503,7 +9503,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.4.11";
+var version = exports.version = "v0.4.12";
 
 /***/ }),
 /* 165 */
