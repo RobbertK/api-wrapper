@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:acf5d14f2887dc6cd898, chunkhash:276e08bfac6f2f8ea291, name:bundle, version:v0.4.12
+ * hash:3bab2a7f270064b1be24, chunkhash:111ef906eb538ca705f0, name:bundle, version:v0.5.1
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.4.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.5.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    └─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *       ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *       │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -362,7 +362,7 @@ var CrudBase = function (_ResourceBase) {
     value: function _listResource(Target) {
       var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-      var perPage = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+      var perPage = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.perPage;
 
       if (!url) {
         var resource = new Target(this.api).resourceName.replace(/s+$/, '');
@@ -1862,12 +1862,12 @@ var OwnableResource = function (_Trait) {
       var isValid = items.filter(filter).length === 0;
 
       if (!isValid) {
-        throw new TypeError('Array must contain either Numbers (organisationId) or Organisations.');
+        throw new TypeError('Array must contain either Numbers (organisation id) or Organisations.');
       }
 
       var keys = items.map(function (x) {
-        return typeof x === 'number' ? x : x.organisationId;
-      });
+        return typeof x === 'number' ? x : x.id;
+      }).map(Number);
 
       return this.api.request(this.url + '/organisations', method, { keys: keys });
     }
@@ -9503,7 +9503,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.4.12";
+var version = exports.version = "v0.5.1";
 
 /***/ }),
 /* 165 */
