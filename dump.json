@@ -2507,7 +2507,7 @@
     "__docId__": 77,
     "kind": "file",
     "name": "src/PaginatedResourceWrapper.js",
-    "content": "/* eslint-disable no-trailing-spaces */\nimport ResourceCache from './ResourceCache';\n\n/**\n * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly\n */\nexport default class PaginatedResourceWrapper {\n  /**\n   *\n   * @param {PaginatedResourceListing} listing - Listing result\n   * @param {Maps4News} api - Instance of the api\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   */\n  constructor(listing, api = listing.api, cacheEnabled = api.defaults.cacheEnabled, cacheTime = api.defaults.cacheSeconds, shareCache = api.defaults._shareCache) {\n\n    // Fields\n    this._api = api;\n    this.cacheEnabled = cacheEnabled;\n    this.cacheTime = cacheTime;\n    this._shareCache = shareCache;\n    this._currentPage = 1;\n\n    /**\n     * Available data assembled from the cache\n     * @type {Array<ResourceBase>} - Available data\n     */\n    this.data = [];\n\n    // Internal\n    this._localCache = new ResourceCache(api, cacheTime);\n    this._cache = this._shareCache ? this.api.cache : this._localCache;\n    this._inflight = [];\n    this._last = listing;\n\n    this._promiseCallback(listing);\n  }\n\n  get _promiseCallback() {\n    return result => {\n      const query = this.query;\n\n      this._last = result;\n      this._query = query;\n\n      this.cache.push(result);\n\n      const inflightId = this.inflight.findIndex(x => x === result.page);\n\n      if (inflightId >= 0) {\n        this._inflight.splice(inflightId, 1);\n      }\n\n      this.rebuild();\n    };\n  }\n\n  /**\n   * Manually fetch a page. This will change the current page.\n   * @param {Number|Array<Number>} pageId - Page(s) to fetch\n   * @returns {void}\n   */\n  get(pageId) {\n    if (pageId instanceof Array) {\n      pageId.map(this.get);\n    } else {\n      this._inflight.push(pageId);\n      this._last.getPage(pageId).then(this._promiseCallback);\n    }\n  }\n\n  /**\n   * Grab the next page\n   * @returns {void}\n   */\n  next() {\n    this.get(++this.currentPage);\n  }\n\n  /**\n   * Grab the previous page\n   * @returns {void}\n   */\n  previous() {\n    this.get(--this.currentPage);\n  }\n\n  /**\n   * Manually rebuild the data\n   * @returns {void}\n   */\n  rebuild() {\n    this.data = this.cache\n      .resolve(this.path, this._last.cacheToken)\n      .filter(value => typeof value !== 'undefined');\n  }\n\n  /**\n   * Updates the cached pages.\n   * @param {Boolean} flush - Clear the cached path data\n   * @returns {void}\n   */\n  refresh(flush = false) {\n    if (flush) {\n      this.cache.clear(this.path);\n    }\n\n    this.cache\n      .collectPages(this.path, this._last.cacheToken)\n      .map(page => this.get(page.page));\n  }\n\n  /**\n   * Returns the page number that is currently being used as a reference point\n   * @returns {Number} - The current page\n   * @see {@link PaginatedResourceWrapper#next}\n   * @see {@link PaginatedResourceWrapper#previous}\n   */\n  get currentPage() {\n    return this._currentPage;\n  }\n\n  /**\n   * Set the current page number\n   * @param {Number} value - page number\n   */\n  set currentPage(value) {\n    this._currentPage = Math.max(1, value);\n  }\n\n  /**\n   * Get the path of the resource\n   * @returns {String} - path\n   */\n  get path() {\n    return this._last.path;\n  }\n\n  /**\n   * Get the number of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._last.pageCount;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._last.query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    this._last.query = value;\n    this.rebuild();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Get the active cache instance\n   * @returns {ResourceCache} - Cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get if the shared cache should be used\n   * @returns {Boolean} - Should the shared cache be used\n   */\n  get shareCache() {\n    return this._shareCache;\n  }\n\n  /**\n   * Sets if the shared cache should be used\n   * @param {Boolean} value - Should the shared cache be used\n   */\n  set shareCache(value) {\n    this._shareCache = Boolean(value);\n\n    this._cache = this._shareCache ? this.api.cache : this._localCache;\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.inflight === 0 ? this._last.hasNext : this.currentPage < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this._last.hasPrevious;\n  }\n\n  /**\n   * List of page numbers that are still mid-flight\n   * @returns {Array} - Page numbers that are still mid-flight\n   */\n  get inflight() {\n    return this._inflight;\n  }\n}\n",
+    "content": "/* eslint-disable no-trailing-spaces */\nimport ResourceCache from './ResourceCache';\n\n/**\n * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly\n */\nexport default class PaginatedResourceWrapper {\n  /**\n   *\n   * @param {PaginatedResourceListing} listing - Listing result\n   * @param {Maps4News} api - Instance of the api\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   */\n  constructor(listing, api = listing.api, cacheEnabled = api.defaults.cacheEnabled, cacheTime = api.defaults.cacheSeconds, shareCache = api.defaults._shareCache) {\n\n    // Fields\n    this._api = api;\n    this.cacheEnabled = cacheEnabled;\n    this.cacheTime = cacheTime;\n    this._shareCache = shareCache;\n    this._currentPage = 1;\n\n    /**\n     * Available data assembled from the cache\n     * @type {Array<ResourceBase>} - Available data\n     */\n    this.data = [];\n\n    // Internal\n    this._localCache = new ResourceCache(api, cacheTime);\n    this._cache = this._shareCache ? this.api.cache : this._localCache;\n    this._inflight = [];\n    this._last = listing;\n\n    this._promiseCallback(listing);\n  }\n\n  get _promiseCallback() {\n    return result => {\n      const query = this.query;\n\n      this._last = result;\n      this._query = query;\n\n      this.cache.push(result);\n\n      const inflightId = this.inflight.findIndex(x => x === result.page);\n\n      if (inflightId >= 0) {\n        this._inflight.splice(inflightId, 1);\n      }\n\n      this.rebuild();\n    };\n  }\n\n  /**\n   * Manually fetch a page. This will change the current page.\n   * @param {Number|Array<Number>} pageId - Page(s) to fetch\n   * @returns {void}\n   */\n  get(pageId) {\n    if (pageId instanceof Array) {\n      pageId.map(this.get);\n    } else {\n      this._inflight.push(pageId);\n      this._last.getPage(pageId).then(this._promiseCallback);\n    }\n  }\n\n  /**\n   * Grab the next page\n   * @returns {void}\n   */\n  next() {\n    this.get(++this.currentPage);\n  }\n\n  /**\n   * Grab the previous page\n   * @returns {void}\n   */\n  previous() {\n    this.get(--this.currentPage);\n  }\n\n  /**\n   * Manually rebuild the data\n   * @returns {void}\n   */\n  rebuild() {\n    this.data = this.cache\n      .resolve(this.path, this._last.cacheToken)\n      .filter(value => typeof value !== 'undefined');\n\n    this.cache.emitter.emit('post-rebuild', {resourceUrl: this._last.url});\n  }\n\n  /**\n   * Updates the cached pages.\n   * @param {Boolean} flush - Clear the cached path data\n   * @returns {void}\n   */\n  refresh(flush = false) {\n    if (flush) {\n      this.cache.clear(this.path);\n    }\n\n    this.cache\n      .collectPages(this.path, this._last.cacheToken)\n      .map(page => this.get(page.page));\n  }\n\n  /**\n   * Returns the page number that is currently being used as a reference point\n   * @returns {Number} - The current page\n   * @see {@link PaginatedResourceWrapper#next}\n   * @see {@link PaginatedResourceWrapper#previous}\n   */\n  get currentPage() {\n    return this._currentPage;\n  }\n\n  /**\n   * Set the current page number\n   * @param {Number} value - page number\n   */\n  set currentPage(value) {\n    this._currentPage = Math.max(1, value);\n  }\n\n  /**\n   * Get the path of the resource\n   * @returns {String} - path\n   */\n  get path() {\n    return this._last.path;\n  }\n\n  /**\n   * Get the number of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._last.pageCount;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._last.query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    this._last.query = value;\n    this.rebuild();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Get the active cache instance\n   * @returns {ResourceCache} - Cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get if the shared cache should be used\n   * @returns {Boolean} - Should the shared cache be used\n   */\n  get shareCache() {\n    return this._shareCache;\n  }\n\n  /**\n   * Sets if the shared cache should be used\n   * @param {Boolean} value - Should the shared cache be used\n   */\n  set shareCache(value) {\n    this._shareCache = Boolean(value);\n\n    this._cache = this._shareCache ? this.api.cache : this._localCache;\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.inflight === 0 ? this._last.hasNext : this.currentPage < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this._last.hasPrevious;\n  }\n\n  /**\n   * List of page numbers that are still mid-flight\n   * @returns {Array} - Page numbers that are still mid-flight\n   */\n  get inflight() {\n    return this._inflight;\n  }\n}\n",
     "static": true,
     "longname": "src/PaginatedResourceWrapper.js",
     "access": null,
@@ -3049,7 +3049,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#refresh",
     "access": null,
     "description": "Updates the cached pages.",
-    "lineNumber": 104,
+    "lineNumber": 106,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3092,7 +3092,7 @@
       "{@link PaginatedResourceWrapper#next}",
       "{@link PaginatedResourceWrapper#previous}"
     ],
-    "lineNumber": 120,
+    "lineNumber": 122,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3124,7 +3124,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "access": null,
     "description": "Set the current page number",
-    "lineNumber": 128,
+    "lineNumber": 130,
     "params": [
       {
         "nullable": null,
@@ -3152,7 +3152,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_currentPage",
     "access": null,
     "description": null,
-    "lineNumber": 129,
+    "lineNumber": 131,
     "undocument": true,
     "unknown": [
       {
@@ -3177,7 +3177,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#path",
     "access": null,
     "description": "Get the path of the resource",
-    "lineNumber": 136,
+    "lineNumber": 138,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3209,7 +3209,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#pageCount",
     "access": null,
     "description": "Get the number of pages available",
-    "lineNumber": 144,
+    "lineNumber": 146,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3241,7 +3241,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "access": null,
     "description": "Optional search query",
-    "lineNumber": 153,
+    "lineNumber": 155,
     "unknown": [
       {
         "tagName": "@default",
@@ -3276,7 +3276,7 @@
     "see": [
       "{@link ResourceProxy#search}"
     ],
-    "lineNumber": 164,
+    "lineNumber": 166,
     "unknown": [
       {
         "tagName": "@default",
@@ -3320,7 +3320,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 173,
+    "lineNumber": 175,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3352,7 +3352,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cache",
     "access": null,
     "description": "Get the active cache instance",
-    "lineNumber": 181,
+    "lineNumber": 183,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3384,7 +3384,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "access": null,
     "description": "Get if the shared cache should be used",
-    "lineNumber": 189,
+    "lineNumber": 191,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3416,7 +3416,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "access": null,
     "description": "Sets if the shared cache should be used",
-    "lineNumber": 197,
+    "lineNumber": 199,
     "params": [
       {
         "nullable": null,
@@ -3444,7 +3444,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_shareCache",
     "access": null,
     "description": null,
-    "lineNumber": 198,
+    "lineNumber": 200,
     "undocument": true,
     "unknown": [
       {
@@ -3467,7 +3467,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_cache",
     "access": null,
     "description": null,
-    "lineNumber": 200,
+    "lineNumber": 202,
     "undocument": true,
     "unknown": [
       {
@@ -3492,7 +3492,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasNext",
     "access": null,
     "description": "If there is a next page",
-    "lineNumber": 207,
+    "lineNumber": 209,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3524,7 +3524,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasPrevious",
     "access": null,
     "description": "If there is a previous page",
-    "lineNumber": 215,
+    "lineNumber": 217,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3556,7 +3556,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#inflight",
     "access": null,
     "description": "List of page numbers that are still mid-flight",
-    "lineNumber": 223,
+    "lineNumber": 225,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3581,7 +3581,7 @@
     "__docId__": 115,
     "kind": "file",
     "name": "src/ResourceCache.js",
-    "content": "import mitt from 'mitt';\n\n\n/**\n * Used for caching resources\n * @see {@link PaginatedResourceWrapper}\n */\nexport default class ResourceCache {\n  constructor(api, cacheTime = api.defaults.cacheSeconds) {\n    this._api = api;\n    this.cacheTime = cacheTime;\n    this.emitter = mitt();\n\n    this._storage = {};\n  }\n\n  /**\n   * Push a page into the cache\n   * @param {PaginatedResourceListing} page - Data to be cached\n   * @returns {void}\n   */\n  push(page) {\n    const validThrough = this._timestamp() + this.cacheTime;\n    const data = {\n      page, validThrough,\n      timeout: setTimeout(\n        () => this.revalidate(page.url),\n        this.cacheTime * 1000,\n      ),\n    };\n\n    const storage = this._storage[page.url] || (this._storage[page.url] = {});\n\n    (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);\n\n    this.emitter.emit('push', {page, validThrough});\n    this.emitter.emit('invalidate', {resourceUrl: page.url});\n  }\n\n  /**\n   * Revalidate all data and delete stale data\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  revalidate(resourceUrl = null) {\n    if (!resourceUrl) {\n      Object.keys(this._storage).map(this.revalidate);\n    } else if (this._storage[resourceUrl]) {\n      const storage = this._storage[resourceUrl];\n\n      // Remove old data from the cache and stop old timeouts\n      Object.keys(storage).forEach(key => {\n        storage[key]\n          .filter(row => row.validThrough < this._timestamp())\n          .forEach(row => clearTimeout(row.timeout));\n\n        storage[key] = storage[key].filter(row => row.validThrough >= this._timestamp());\n      });\n\n      const junk = Object.keys(storage).filter(key => storage[key].length === 0);\n\n      // Delete empty\n      junk.forEach(key => delete storage[key]);\n      if (Object.keys(storage).length === 0) {\n        delete this._storage[resourceUrl];\n      }\n\n      if (junk.length > 0) {\n        this.emitter.emit('invalidate', {resourceUrl});\n      }\n    }\n  }\n\n  /**\n   * Collect relevant cached pages\n   * @param {String} resourceUrl - resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array<PaginatedResourceListing>} - Relevant cached pages\n   */\n  collectPages(resourceUrl, cacheToken = '') {\n    const storage = this._storage[resourceUrl] || {};\n\n    return [].concat(\n      ...Object\n        .keys(storage)\n        .filter(x => !cacheToken || x === cacheToken)\n        .map(key => storage[key]))\n      .sort((a, b) => a.validThrough - b.validThrough)\n      .map(x => x.page);\n  }\n\n  /**\n   * Clears the cache\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  clear(resourceUrl = '') {\n    if (!resourceUrl) {\n      Object.keys(this._storage).forEach(url => {\n        this.emitter.emit('invalidate', {resourceUrl: url});\n      });\n\n      this._storage = {};\n    } else {\n      delete this._storage[resourceUrl];\n      this.emitter.emit('invalidate', {resourceUrl});\n    }\n  }\n\n  /**\n   * Resolve cache and return indexed data\n   * @param {String} resourceUrl - Resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array} - Indexed relevant data\n   */\n  resolve(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    const data = this.collectPages(resourceUrl, cacheToken);\n    const out = [];\n\n    for (const page of data) {\n      const ids = page.data.map(row => row.id);\n      const startId = Math.min(...ids);\n      const endId = Math.max(...ids);\n\n      for (const row of page.data) {\n        out[row.id] = row;\n      }\n\n      // Grab list of applicable ids and delete offending\n      // keys that no longer exist in the newer data set\n      Object\n        .keys(out)\n        .map(Number)\n        .filter(key => startId <= key && key <= endId)\n        .filter(key => !ids.includes(key))\n        .forEach(key => delete out[key]);\n    }\n\n    return out;\n  }\n\n  /**\n   * Get a usable timestamp\n   * @returns {number} - timestamp\n   * @private\n   */\n  _timestamp() {\n    return Math.floor(Date.now() / 1000);\n  }\n}\n",
+    "content": "import mitt from 'mitt';\n\n\n/**\n * Used for caching resources\n * @see {@link PaginatedResourceWrapper}\n */\nexport default class ResourceCache {\n  constructor(api, cacheTime = api.defaults.cacheSeconds) {\n    this._api = api;\n    this.cacheTime = cacheTime;\n    this.emitter = mitt();\n\n    this._storage = {};\n  }\n\n  /**\n   * Push a page into the cache\n   * @param {PaginatedResourceListing} page - Data to be cached\n   * @returns {void}\n   */\n  push(page) {\n    const validThrough = this._timestamp() + this.cacheTime;\n    const data = {\n      page, validThrough,\n      timeout: setTimeout(\n        () => this.revalidate(page.url),\n        this.cacheTime * 1000,\n      ),\n    };\n\n    const storage = this._storage[page.url] || (this._storage[page.url] = {});\n\n    (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);\n\n    this.emitter.emit('push', {page, validThrough, resourceUrl: page.url});\n    this.emitter.emit('invalidate', {resourceUrl: page.url});\n  }\n\n  /**\n   * Revalidate all data and delete stale data\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  revalidate(resourceUrl = null) {\n    if (!resourceUrl) {\n      Object.keys(this._storage).map(this.revalidate);\n    } else if (this._storage[resourceUrl]) {\n      const storage = this._storage[resourceUrl];\n\n      // Remove old data from the cache and stop old timeouts\n      Object.keys(storage).forEach(key => {\n        storage[key]\n          .filter(row => row.validThrough < this._timestamp())\n          .forEach(row => clearTimeout(row.timeout));\n\n        storage[key] = storage[key].filter(row => row.validThrough >= this._timestamp());\n      });\n\n      const junk = Object.keys(storage).filter(key => storage[key].length === 0);\n\n      // Delete empty\n      junk.forEach(key => delete storage[key]);\n      if (Object.keys(storage).length === 0) {\n        delete this._storage[resourceUrl];\n      }\n\n      if (junk.length > 0) {\n        this.emitter.emit('invalidate', {resourceUrl});\n      }\n    }\n  }\n\n  /**\n   * Collect relevant cached pages\n   * @param {String} resourceUrl - resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array<PaginatedResourceListing>} - Relevant cached pages\n   */\n  collectPages(resourceUrl, cacheToken = '') {\n    const storage = this._storage[resourceUrl] || {};\n\n    return [].concat(\n      ...Object\n        .keys(storage)\n        .filter(x => !cacheToken || x === cacheToken)\n        .map(key => storage[key]))\n      .sort((a, b) => a.validThrough - b.validThrough)\n      .map(x => x.page);\n  }\n\n  /**\n   * Clears the cache\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  clear(resourceUrl = '') {\n    if (!resourceUrl) {\n      Object.keys(this._storage).forEach(url => {\n        this.emitter.emit('invalidate', {resourceUrl: url});\n      });\n\n      this._storage = {};\n    } else {\n      delete this._storage[resourceUrl];\n      this.emitter.emit('invalidate', {resourceUrl});\n    }\n  }\n\n  /**\n   * Resolve cache and return indexed data\n   * @param {String} resourceUrl - Resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array} - Indexed relevant data\n   */\n  resolve(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    const data = this.collectPages(resourceUrl, cacheToken);\n    const out = [];\n\n    for (const page of data) {\n      const ids = page.data.map(row => row.id);\n      const startId = Math.min(...ids);\n      const endId = Math.max(...ids);\n\n      for (const row of page.data) {\n        out[row.id] = row;\n      }\n\n      // Grab list of applicable ids and delete offending\n      // keys that no longer exist in the newer data set\n      Object\n        .keys(out)\n        .map(Number)\n        .filter(key => startId <= key && key <= endId)\n        .filter(key => !ids.includes(key))\n        .forEach(key => delete out[key]);\n    }\n\n    return out;\n  }\n\n  /**\n   * Get a usable timestamp\n   * @returns {number} - timestamp\n   * @private\n   */\n  _timestamp() {\n    return Math.floor(Date.now() / 1000);\n  }\n}\n",
     "static": true,
     "longname": "src/ResourceCache.js",
     "access": null,
