@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:9590954fb93f234179d4, chunkhash:0605a15fb89201cb6a94, name:bundle, version:v0.5.5
+ * hash:239543bbdb9c2ca3e948, chunkhash:a19e825c34fe264924cf, name:bundle, version:v0.5.6
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.5.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.5.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -7360,13 +7360,7 @@ var ResourceCache = function () {
     this.cacheTime = cacheTime;
     this.emitter = (0, _mitt2.default)();
 
-    // page.route => page.query stringified =>
-    // Array<{page: PaginatedResourceListing, timeout: revalidateTimeout}>
-    this.clear();
-
-    // cache invalidation should fire an event for rebuilding data
-    // this should only be done once after revalidate()
-    // push should send an event for rebuilding
+    this._storage = {};
   }
 
   /**
@@ -9854,7 +9848,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.5.5";
+var version = exports.version = "v0.5.6";
 
 /***/ }),
 /* 167 */
