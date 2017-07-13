@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:ec964e170b99607c6e57, chunkhash:dfbeab4d10eb708b7b5f, name:bundle, version:99a22e2
+ * hash:9590954fb93f234179d4, chunkhash:0605a15fb89201cb6a94, name:bundle, version:v0.5.5
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.5.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.5.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -6948,13 +6948,13 @@ var _Maps4News = __webpack_require__(57);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _reflection = __webpack_require__(10);
-
-var _requests = __webpack_require__(59);
-
 var _PaginatedResourceWrapper = __webpack_require__(168);
 
 var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
+
+var _reflection = __webpack_require__(10);
+
+var _requests = __webpack_require__(59);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7085,14 +7085,21 @@ var PaginatedResourceListing = function () {
     }
 
     /**
-     * Wrap {@link PaginatedResourceWrapper} around the page
+     * Wraps {@link PaginatedResourceWrapper} around the page
+     * @param {Boolean} cacheEnabled - If the pagination cache should be used
+     * @param {Number} cacheTime - Amount of seconds to store a value in cache
+     * @param {Boolean} shareCache - Share cache across instances
      * @returns {PaginatedResourceWrapper} - Wrapped resource listing
      */
 
   }, {
     key: 'wrap',
     value: function wrap() {
-      return new _PaginatedResourceWrapper2.default(this);
+      var cacheEnabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults.cacheEnabled;
+      var cacheTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.cacheSeconds;
+      var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults._shareCache;
+
+      return new _PaginatedResourceWrapper2.default(this, this.api, cacheEnabled, cacheTime, shareCache);
     }
   }, {
     key: 'api',
@@ -9847,7 +9854,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "99a22e2";
+var version = exports.version = "v0.5.5";
 
 /***/ }),
 /* 167 */
