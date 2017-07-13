@@ -1,7 +1,7 @@
 {
-  "coverage": "75.82%",
-  "expectCount": 302,
-  "actualCount": 229,
+  "coverage": "76.1%",
+  "expectCount": 339,
+  "actualCount": 258,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -202,9 +202,11 @@
       ]
     },
     "src/Maps4News.js": {
-      "expectCount": 39,
+      "expectCount": 40,
       "actualCount": 39,
-      "undocumentLines": []
+      "undocumentLines": [
+        53
+      ]
     },
     "src/crud/Mapstyle.js": {
       "expectCount": 2,
@@ -274,9 +276,17 @@
       "undocumentLines": []
     },
     "src/PaginatedResourceListing.js": {
-      "expectCount": 17,
-      "actualCount": 17,
+      "expectCount": 19,
+      "actualCount": 19,
       "undocumentLines": []
+    },
+    "src/PaginatedResourceWrapper.js": {
+      "expectCount": 23,
+      "actualCount": 21,
+      "undocumentLines": [
+        20,
+        21
+      ]
     },
     "src/oauth/PasswordFlow.js": {
       "expectCount": 12,
@@ -306,10 +316,27 @@
       "actualCount": 11,
       "undocumentLines": []
     },
+    "src/ResourceCache.js": {
+      "expectCount": 9,
+      "actualCount": 6,
+      "undocumentLines": [
+        11,
+        9,
+        12
+      ]
+    },
     "src/ResourceProxy.js": {
       "expectCount": 10,
       "actualCount": 10,
       "undocumentLines": []
+    },
+    "src/utils/Singleton.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2
+      ]
     },
     "src/utils/StaticClass.js": {
       "expectCount": 2,
@@ -348,9 +375,9 @@
         15
       ]
     },
-    "src/utils/reflection.js": {
-      "expectCount": 2,
-      "actualCount": 2,
+    "src/traits/Trait.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     },
     "src/exceptions/UnsupportedCrudError.js": {
@@ -374,6 +401,11 @@
     "src/utils/requests.js": {
       "expectCount": 2,
       "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/utils/reflection.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     },
     "src/utils/caseConverter.js": {

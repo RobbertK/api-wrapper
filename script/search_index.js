@@ -240,6 +240,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/paginatedresourcewrapper.js~paginatedresourcewrapper",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html",
+    "<span>PaginatedResourceWrapper</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/PaginatedResourceWrapper.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/oauth/passwordflow.js~passwordflow",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html",
     "<span>PasswordFlow</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/PasswordFlow.js</span>",
@@ -264,9 +270,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/resourcecache.js~resourcecache",
+    "class/src/ResourceCache.js~ResourceCache.html",
+    "<span>ResourceCache</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/ResourceCache.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/resourceproxy.js~resourceproxy",
     "class/src/ResourceProxy.js~ResourceProxy.html",
     "<span>ResourceProxy</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/ResourceProxy.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/utils/singleton.js~singleton",
+    "class/src/utils/Singleton.js~Singleton.html",
+    "<span>Singleton</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/Singleton.js</span>",
     "class"
   ],
   [
@@ -300,9 +318,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/utils/reflection.js~trait",
-    "class/src/utils/reflection.js~Trait.html",
-    "<span>Trait</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/reflection.js</span>",
+    "@mapcreator/maps4news/src/traits/trait.js~trait",
+    "class/src/traits/Trait.js~Trait.html",
+    "<span>Trait</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/traits/Trait.js</span>",
     "class"
   ],
   [
@@ -685,13 +703,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -705,6 +723,12 @@ window.esdocSearchIndex = [
     "src/maps4news.js~maps4news#authenticated",
     "class/src/Maps4News.js~Maps4News.html#instance-get-authenticated",
     "src/Maps4News.js~Maps4News#authenticated",
+    "member"
+  ],
+  [
+    "src/maps4news.js~maps4news#cache",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-cache",
+    "src/Maps4News.js~Maps4News#cache",
     "member"
   ],
   [
@@ -930,6 +954,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#cachetoken",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-cacheToken",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#cacheToken",
+    "member"
+  ],
+  [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#data",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-data",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#data",
@@ -985,13 +1015,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
@@ -1008,10 +1038,208 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#wrap",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-method-wrap",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#wrap",
+    "method"
+  ],
+  [
     "src/paginatedresourcelisting.js~paginatedresourcelisting.headerprefix",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#static-get-headerPrefix",
     "src/PaginatedResourceListing.js~PaginatedResourceListing.headerPrefix",
     "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js",
+    "file/src/PaginatedResourceWrapper.js.html",
+    "src/PaginatedResourceWrapper.js",
+    "file"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#api",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-api",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#api",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#cache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-cache",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cache",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#cacheenabled",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-member-cacheEnabled",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cacheEnabled",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#cachetime",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-member-cacheTime",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cacheTime",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#constructor",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-constructor-constructor",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#constructor",
+    "method"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#data",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-member-data",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#data",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#get",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-get",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#get",
+    "method"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#hasnext",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-hasNext",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasNext",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#hasprevious",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-hasPrevious",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasPrevious",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#inflight",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-inflight",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#inflight",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#next",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-next",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#next",
+    "method"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#pagecount",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-pageCount",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#pageCount",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#path",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-path",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#path",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#previous",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-previous",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#previous",
+    "method"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-query",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#rebuild",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-rebuild",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#rebuild",
+    "method"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#refresh",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-refresh",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#refresh",
+    "method"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
+    "member"
+  ],
+  [
+    "src/resourcecache.js",
+    "file/src/ResourceCache.js.html",
+    "src/ResourceCache.js",
+    "file"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#cachetime",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-member-cacheTime",
+    "src/ResourceCache.js~ResourceCache#cacheTime",
+    "member"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#clear",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-method-clear",
+    "src/ResourceCache.js~ResourceCache#clear",
+    "method"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#collectpages",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-method-collectPages",
+    "src/ResourceCache.js~ResourceCache#collectPages",
+    "method"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#constructor",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-constructor-constructor",
+    "src/ResourceCache.js~ResourceCache#constructor",
+    "method"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#emitter",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-member-emitter",
+    "src/ResourceCache.js~ResourceCache#emitter",
+    "member"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#push",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-method-push",
+    "src/ResourceCache.js~ResourceCache#push",
+    "method"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#resolve",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-method-resolve",
+    "src/ResourceCache.js~ResourceCache#resolve",
+    "method"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#revalidate",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-method-revalidate",
+    "src/ResourceCache.js~ResourceCache#revalidate",
+    "method"
   ],
   [
     "src/resourceproxy.js",
@@ -2359,13 +2587,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
@@ -2389,13 +2617,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
@@ -2451,6 +2679,24 @@ window.esdocSearchIndex = [
     "src/traits/ownableresource.js~ownableresource#unlinkorganisations",
     "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-unlinkOrganisations",
     "src/traits/OwnableResource.js~OwnableResource#unlinkOrganisations",
+    "method"
+  ],
+  [
+    "src/traits/trait.js",
+    "file/src/traits/Trait.js.html",
+    "src/traits/Trait.js",
+    "file"
+  ],
+  [
+    "src/utils/singleton.js",
+    "file/src/utils/Singleton.js.html",
+    "src/utils/Singleton.js",
+    "file"
+  ],
+  [
+    "src/utils/singleton.js~singleton#constructor",
+    "class/src/utils/Singleton.js~Singleton.html#instance-constructor-constructor",
+    "src/utils/Singleton.js~Singleton#constructor",
     "method"
   ],
   [

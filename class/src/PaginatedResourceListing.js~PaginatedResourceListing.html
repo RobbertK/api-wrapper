@@ -38,6 +38,8 @@
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
@@ -88,8 +90,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/utils/reflection.js~Trait.html">Trait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Singleton.js~Singleton.html">Singleton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
@@ -99,13 +102,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import PaginatedResourceListing from &apos;<span><a href="file/src/PaginatedResourceListing.js.html#lineNumber8">@mapcreator/maps4news/src/PaginatedResourceListing.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import PaginatedResourceListing from &apos;<span><a href="file/src/PaginatedResourceListing.js.html#lineNumber9">@mapcreator/maps4news/src/PaginatedResourceListing.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/PaginatedResourceListing.js.html#lineNumber8">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/PaginatedResourceListing.js.html#lineNumber9">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -248,6 +251,34 @@
         <p>
           
           
+          <span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-cacheToken">cacheToken</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Used for caching pages internally</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
           <span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-data">data</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;: <span>*</span></span>
         </p>
       </div>
@@ -282,7 +313,7 @@
       <div>
         
         
-        <div data-ice="description"><p>Test if there is a next page</p>
+        <div data-ice="description"><p>If there is a next page</p>
 </div>
       </div>
     </td>
@@ -310,7 +341,7 @@
       <div>
         
         
-        <div data-ice="description"><p>Test if there is a previous page</p>
+        <div data-ice="description"><p>If there is a previous page</p>
 </div>
       </div>
     </td>
@@ -606,6 +637,34 @@
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-method-wrap">wrap</a></span></span><span data-ice="signature">(): <span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Wrap <span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span> around the page</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -626,7 +685,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber43">source</a></span></span>
     </span>
   </h3>
 
@@ -688,7 +747,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber68">source</a></span></span>
     </span>
   </h3>
 
@@ -745,7 +804,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
@@ -791,6 +850,64 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-cacheToken">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">cacheToken</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber223">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Used for caching pages internally</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Cache token</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
+<li><span><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-data">
     <span class="access" data-ice="access">public</span>
     
@@ -802,7 +919,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber99">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber100">source</a></span></span>
     </span>
   </h3>
 
@@ -859,14 +976,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber204">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber205">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Test if there is a next page</p>
+  <div data-ice="description"><p>If there is a next page</p>
 </div>
 
   
@@ -916,14 +1033,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber212">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber213">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Test if there is a previous page</p>
+  <div data-ice="description"><p>If there is a previous page</p>
 </div>
 
   
@@ -973,7 +1090,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber76">source</a></span></span>
     </span>
   </h3>
 
@@ -1030,7 +1147,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber91">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber92">source</a></span></span>
     </span>
   </h3>
 
@@ -1087,7 +1204,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber83">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -1144,7 +1261,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber116">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber117">source</a></span></span>
     </span>
   </h3>
 
@@ -1201,7 +1318,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber127">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 
@@ -1242,7 +1359,7 @@
 
   
 
-  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="ResourceProxy#search">ResourceProxy#search</a></span></li></ul></div>
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/ResourceProxy.js~ResourceProxy.html#instance-method-search">ResourceProxy#search</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1257,7 +1374,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
@@ -1314,7 +1431,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber107">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber108">source</a></span></span>
     </span>
   </h3>
 
@@ -1374,7 +1491,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber163">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber164">source</a></span></span>
     </span>
   </h3>
 
@@ -1455,7 +1572,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber220">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber231">source</a></span></span>
     </span>
   </h3>
 
@@ -1512,7 +1629,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber228">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber239">source</a></span></span>
     </span>
   </h3>
 
@@ -1534,6 +1651,63 @@
         <tr>
           <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>Resolves with <span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span> instance and rejects with <span><a href="class/src/exceptions/ApiError.js~ApiError.html">ApiError</a></span></p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-wrap">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">wrap</span><span data-ice="signature">(): <span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceListing.js.html#lineNumber247">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Wrap <span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span> around the page</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Wrapped resource listing</p>
 </td>
         </tr>
       </tbody>

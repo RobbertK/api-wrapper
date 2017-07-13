@@ -38,6 +38,8 @@
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
@@ -88,8 +90,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/utils/reflection.js~Trait.html">Trait</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Singleton.js~Singleton.html">Singleton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
@@ -102,6 +105,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Maps4News from &apos;./Maps4News&apos;;
 import {getTypeName, isParentOf} from &apos;./utils/reflection&apos;;
 import {encodeQueryString} from &apos;./utils/requests&apos;;
+import PaginatedResourceWrapper from &apos;./PaginatedResourceWrapper&apos;;
 
 /**
  * Proxy for accessing paginated resources
@@ -223,7 +227,7 @@ export default class PaginatedResourceListing {
    * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} value - Query
    * @throws TypeError
    * @default {}
-   * @see ResourceProxy#search
+   * @see {@link ResourceProxy#search}
    */
   set query(value) {
     // Verify query structure
@@ -264,13 +268,13 @@ export default class PaginatedResourceListing {
   getPage(page, perPage = this.perPage) {
     page = Math.max(1, page);
 
-    perPage = Math.max(1, perPage);
-    perPage = Math.min(50, perPage);
-
     const query = {page};
 
     if (perPage) {
-      query[&apos;per_page&apos;] = Math.max(1, perPage);
+      perPage = Math.max(1, perPage);
+      perPage = Math.min(50, perPage);
+
+      query[&apos;per_page&apos;] = perPage;
     }
 
     // Add search query (if any)
@@ -299,7 +303,7 @@ export default class PaginatedResourceListing {
   }
 
   /**
-   * Test if there is a next page
+   * If there is a next page
    * @returns {boolean} - If there is a next page
    */
   get hasNext() {
@@ -307,11 +311,21 @@ export default class PaginatedResourceListing {
   }
 
   /**
-   * Test if there is a previous page
+   * If there is a previous page
    * @returns {boolean} - If there is a previous page
    */
   get hasPrevious() {
     return this.page &gt; 1;
+  }
+
+  /**
+   * Used for caching pages internally
+   * @returns {string} - Cache token
+   * @see {@link PaginatedResourceWrapper}
+   * @see {@link ResourceCache}
+   */
+  get cacheToken() {
+    return encodeQueryString({query: this.query}).toLowerCase();
   }
 
   /**
@@ -328,6 +342,14 @@ export default class PaginatedResourceListing {
    */
   previous() {
     return this.getPage(this.page - 1);
+  }
+
+  /**
+   * Wrap {@link PaginatedResourceWrapper} around the page
+   * @returns {PaginatedResourceWrapper} - Wrapped resource listing
+   */
+  wrap() {
+    return new PaginatedResourceWrapper(this);
   }
 }
 </code></pre>
