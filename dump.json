@@ -4061,7 +4061,7 @@
     "__docId__": 129,
     "kind": "file",
     "name": "src/ResourceProxy.js",
-    "content": "import {isParentOf} from './utils/reflection';\nimport ResourceBase from './crud/base/ResourceBase';\nimport PaginatedResourceListing from './PaginatedResourceListing';\n\n/**\n * Proxy for accessing resource. This will make sure that they\n * are properly wrapped before the promise resolves.\n * @protected\n */\nexport default class ResourceProxy {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {ResourceBase} Target - Target to wrap\n   */\n  constructor(api, Target) {\n    if (!isParentOf(ResourceBase, Target)) {\n      throw new TypeError('Target is not a child of CrudBase');\n    }\n\n    if (typeof Target !== 'function') {\n      throw new TypeError('Target must to be a class not an instance');\n    }\n\n    this._api = api;\n    this._Target = Target;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * The name of the target\n   * @returns {String} - Target name\n   */\n  get accessorName() {\n    return this.Target.name.toLowerCase();\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.search(query).then(console.dir);\n   */\n  search(query, page = 1, perPage = this.api.defaults.perPage) {\n    const url = this.new().baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  list(page = 1, perPage = this.api.defaults.perPage) {\n    return this.search({}, page, perPage);\n  }\n\n  /**\n   * Get target resource\n   * @param {Number|String} id - The resource id to be requested\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  get(id) {\n    const url = this.new({id: id}).url;\n\n    return new Promise((resolve, reject) => {\n      this._api\n        .request(url)\n        .catch(reject)\n        .then(data => resolve(this.new(data)));\n    });\n  }\n\n  /**\n   * Select target resource without obtaining data\n   * @param {Number|String} id - Resource id\n   * @returns {ResourceBase} - Empty target resource\n   * @example\n   * api.users.select('me').colors().then(doSomethingCool);\n   */\n  select(id) {\n    return this.new({id: id});\n  }\n\n  /**\n   * Build a new isntance of the target\n   * @param {Object<String, *>} data - Data for the object to be populated with\n   * @returns {ResourceBase} - Resource with target data\n   */\n  new(data = {}) {\n    return new this.Target(this._api, data);\n  }\n}\n",
+    "content": "import {isParentOf} from './utils/reflection';\nimport ResourceBase from './crud/base/ResourceBase';\nimport PaginatedResourceListing from './PaginatedResourceListing';\n\n/**\n * Proxy for accessing resource. This will make sure that they\n * are properly wrapped before the promise resolves.\n * @protected\n */\nexport default class ResourceProxy {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {ResourceBase} Target - Target to wrap\n   */\n  constructor(api, Target) {\n    if (!isParentOf(ResourceBase, Target)) {\n      throw new TypeError('Target is not a child of CrudBase');\n    }\n\n    if (typeof Target !== 'function') {\n      throw new TypeError('Target must to be a class not an instance');\n    }\n\n    this._api = api;\n    this._Target = Target;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * The name of the target\n   * @returns {String} - Target name\n   */\n  get accessorName() {\n    return this.Target.name.toLowerCase();\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.search(query).then(console.dir);\n   */\n  search(query, page = 1, perPage = this.api.defaults.perPage) {\n    const url = this.new().baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  list(page = 1, perPage = this.api.defaults.perPage) {\n    return this.search({}, page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   */\n  listAndWrap(page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    return this.searchAndWrap({}, page, perPage, cacheEnabled, cacheTime, shareCache);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.searchAndWrap(query)\n   */\n  searchAndWrap(query, page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    const url = this.new().baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query, page, perPage);\n    const wrapped = resolver.wrap(cacheEnabled, cacheTime, shareCache);\n\n    wrapped.get(page);\n\n    return wrapped;\n  }\n\n  /**\n   * Get target resource\n   * @param {Number|String} id - The resource id to be requested\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  get(id) {\n    const url = this.new({id: id}).url;\n\n    return new Promise((resolve, reject) => {\n      this._api\n        .request(url)\n        .catch(reject)\n        .then(data => resolve(this.new(data)));\n    });\n  }\n\n  /**\n   * Select target resource without obtaining data\n   * @param {Number|String} id - Resource id\n   * @returns {ResourceBase} - Empty target resource\n   * @example\n   * api.users.select('me').colors().then(doSomethingCool);\n   */\n  select(id) {\n    return this.new({id: id});\n  }\n\n  /**\n   * Build a new isntance of the target\n   * @param {Object<String, *>} data - Data for the object to be populated with\n   * @returns {ResourceBase} - Resource with target data\n   */\n  new(data = {}) {\n    return new this.Target(this._api, data);\n  }\n}\n",
     "static": true,
     "longname": "src/ResourceProxy.js",
     "access": null,
@@ -4379,6 +4379,177 @@
   {
     "__docId__": 139,
     "kind": "method",
+    "name": "listAndWrap",
+    "memberof": "src/ResourceProxy.js~ResourceProxy",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/ResourceProxy.js~ResourceProxy#listAndWrap",
+    "access": null,
+    "description": "Lists target resource",
+    "lineNumber": 97,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "page",
+        "description": "The page to be requested"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "perPage",
+        "description": "Amount of items per page. This is silently capped by the API"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "cacheEnabled",
+        "description": "If the pagination cache should be used"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "cacheTime",
+        "description": "Amount of seconds to store a value in cache"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "shareCache",
+        "description": "Share cache across instances"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "PaginatedResourceWrapper"
+      ],
+      "spread": false,
+      "description": "Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}"
+    }
+  },
+  {
+    "__docId__": 140,
+    "kind": "method",
+    "name": "searchAndWrap",
+    "memberof": "src/ResourceProxy.js~ResourceProxy",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/ResourceProxy.js~ResourceProxy#searchAndWrap",
+    "access": null,
+    "description": "Lists target resource",
+    "examples": [
+      "// Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n// See Api documentation for search query syntax\nvar query = {\n  name: '^:test',\n  scale_min: ['>:1', '<:10'],\n}\n\napi.layers.searchAndWrap(query)"
+    ],
+    "lineNumber": 121,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object<String, String|Array<String>>"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "query",
+        "description": "Query"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "page",
+        "description": "The page to be requested"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "perPage",
+        "description": "Amount of items per page. This is silently capped by the API"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "cacheEnabled",
+        "description": "If the pagination cache should be used"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "cacheTime",
+        "description": "Amount of seconds to store a value in cache"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "shareCache",
+        "description": "Share cache across instances"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "PaginatedResourceWrapper"
+      ],
+      "spread": false,
+      "description": "Wrapped {@link PaginatedResourceListing} instance"
+    }
+  },
+  {
+    "__docId__": 141,
+    "kind": "method",
     "name": "get",
     "memberof": "src/ResourceProxy.js~ResourceProxy",
     "generator": false,
@@ -4387,7 +4558,7 @@
     "longname": "src/ResourceProxy.js~ResourceProxy#get",
     "access": null,
     "description": "Get target resource",
-    "lineNumber": 92,
+    "lineNumber": 136,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4417,7 +4588,7 @@
     }
   },
   {
-    "__docId__": 140,
+    "__docId__": 142,
     "kind": "method",
     "name": "select",
     "memberof": "src/ResourceProxy.js~ResourceProxy",
@@ -4430,7 +4601,7 @@
     "examples": [
       "api.users.select('me').colors().then(doSomethingCool);"
     ],
-    "lineNumber": 110,
+    "lineNumber": 154,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4460,7 +4631,7 @@
     }
   },
   {
-    "__docId__": 141,
+    "__docId__": 143,
     "kind": "method",
     "name": "new",
     "memberof": "src/ResourceProxy.js~ResourceProxy",
@@ -4470,7 +4641,7 @@
     "longname": "src/ResourceProxy.js~ResourceProxy#new",
     "access": null,
     "description": "Build a new isntance of the target",
-    "lineNumber": 119,
+    "lineNumber": 163,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4499,7 +4670,7 @@
     }
   },
   {
-    "__docId__": 142,
+    "__docId__": 144,
     "kind": "file",
     "name": "src/crud/Choropleth.js",
     "content": "import ResourceBase from './base/ResourceBase';\n\n/**\n * Choropleth resource\n */\nexport default class Choropleth extends ResourceBase {\n  get resourceName() {\n    return 'choropleths';\n  }\n}\n",
@@ -4510,7 +4681,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 143,
+    "__docId__": 145,
     "kind": "class",
     "name": "Choropleth",
     "memberof": "src/crud/Choropleth.js",
@@ -4528,7 +4699,7 @@
     ]
   },
   {
-    "__docId__": 144,
+    "__docId__": 146,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Choropleth.js~Choropleth",
@@ -4553,7 +4724,7 @@
     }
   },
   {
-    "__docId__": 145,
+    "__docId__": 147,
     "kind": "file",
     "name": "src/crud/Color.js",
     "content": "import CrudBase from './base/CrudBase';\nimport OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\n\n/**\n * Color resource\n * @extends {CrudBase}\n * @extends {OwnableResource}\n */\nexport default class Color extends mix(CrudBase, OwnableResource) {\n  get resourceName() {\n    return 'colors';\n  }\n}\n",
@@ -4564,7 +4735,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 146,
+    "__docId__": 148,
     "kind": "class",
     "name": "Color",
     "memberof": "src/crud/Color.js",
@@ -4583,7 +4754,7 @@
     ]
   },
   {
-    "__docId__": 147,
+    "__docId__": 149,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Color.js~Color",
@@ -4608,7 +4779,7 @@
     }
   },
   {
-    "__docId__": 148,
+    "__docId__": 150,
     "kind": "file",
     "name": "src/crud/Contract.js",
     "content": "import CrudBase from './base/CrudBase';\n\n/**\n * Contract resource\n */\nexport default class Contract extends CrudBase {\n  get resourceName() {\n    return 'contracts';\n  }\n}\n",
@@ -4619,7 +4790,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 149,
+    "__docId__": 151,
     "kind": "class",
     "name": "Contract",
     "memberof": "src/crud/Contract.js",
@@ -4637,7 +4808,7 @@
     ]
   },
   {
-    "__docId__": 150,
+    "__docId__": 152,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Contract.js~Contract",
@@ -4662,7 +4833,7 @@
     }
   },
   {
-    "__docId__": 151,
+    "__docId__": 153,
     "kind": "file",
     "name": "src/crud/Dimension.js",
     "content": "import CrudBase from './base/CrudBase';\n\n/**\n * Dimension resource\n */\nexport default class Dimension extends CrudBase {\n  get resourceName() {\n    return 'dimensions';\n  }\n}\n",
@@ -4673,7 +4844,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 152,
+    "__docId__": 154,
     "kind": "class",
     "name": "Dimension",
     "memberof": "src/crud/Dimension.js",
@@ -4691,7 +4862,7 @@
     ]
   },
   {
-    "__docId__": 153,
+    "__docId__": 155,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Dimension.js~Dimension",
@@ -4716,7 +4887,7 @@
     }
   },
   {
-    "__docId__": 154,
+    "__docId__": 156,
     "kind": "file",
     "name": "src/crud/DimensionSet.js",
     "content": "import CrudSetBase from './base/CrudSetBase';\nimport Dimension from './Dimension';\nimport OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\n\n\n/**\n * Dimension sets\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class DimensionSet extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/dimensions/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'dimension-sets';\n  }\n\n  get _Child() {\n    return Dimension;\n  }\n}\n",
@@ -4727,7 +4898,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 155,
+    "__docId__": 157,
     "kind": "class",
     "name": "DimensionSet",
     "memberof": "src/crud/DimensionSet.js",
@@ -4746,7 +4917,7 @@
     ]
   },
   {
-    "__docId__": 156,
+    "__docId__": 158,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/DimensionSet.js~DimensionSet",
@@ -4771,7 +4942,7 @@
     }
   },
   {
-    "__docId__": 157,
+    "__docId__": 159,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/DimensionSet.js~DimensionSet",
@@ -4796,7 +4967,7 @@
     }
   },
   {
-    "__docId__": 158,
+    "__docId__": 160,
     "kind": "get",
     "name": "_Child",
     "memberof": "src/crud/DimensionSet.js~DimensionSet",
@@ -4821,7 +4992,7 @@
     }
   },
   {
-    "__docId__": 159,
+    "__docId__": 161,
     "kind": "file",
     "name": "src/crud/Faq.js",
     "content": "import CrudBase from './base/CrudBase';\n\n/**\n * Faq resource\n */\nexport default class Faq extends CrudBase {\n  get resourceName() {\n    return 'faqs';\n  }\n}\n",
@@ -4832,7 +5003,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 160,
+    "__docId__": 162,
     "kind": "class",
     "name": "Faq",
     "memberof": "src/crud/Faq.js",
@@ -4850,7 +5021,7 @@
     ]
   },
   {
-    "__docId__": 161,
+    "__docId__": 163,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Faq.js~Faq",
@@ -4875,7 +5046,7 @@
     }
   },
   {
-    "__docId__": 162,
+    "__docId__": 164,
     "kind": "file",
     "name": "src/crud/Feature.js",
     "content": "import CrudBase from './base/CrudBase';\nimport OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\n\n\n/**\n * Feature\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class Feature extends mix(CrudBase, OwnableResource) {\n  get resourceName() {\n    return 'features';\n  }\n}\n",
@@ -4886,7 +5057,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 163,
+    "__docId__": 165,
     "kind": "class",
     "name": "Feature",
     "memberof": "src/crud/Feature.js",
@@ -4905,7 +5076,7 @@
     ]
   },
   {
-    "__docId__": 164,
+    "__docId__": 166,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Feature.js~Feature",
@@ -4930,7 +5101,7 @@
     }
   },
   {
-    "__docId__": 165,
+    "__docId__": 167,
     "kind": "file",
     "name": "src/crud/Font.js",
     "content": "import CrudBase from './base/CrudBase';\n\nexport default class Font extends CrudBase {\n  get resourceName() {\n    return 'fonts';\n  }\n}\n",
@@ -4941,7 +5112,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 166,
+    "__docId__": 168,
     "kind": "class",
     "name": "Font",
     "memberof": "src/crud/Font.js",
@@ -4966,7 +5137,7 @@
     ]
   },
   {
-    "__docId__": 167,
+    "__docId__": 169,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Font.js~Font",
@@ -4991,7 +5162,7 @@
     }
   },
   {
-    "__docId__": 168,
+    "__docId__": 170,
     "kind": "file",
     "name": "src/crud/FontFamily.js",
     "content": "import OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\nimport CrudSetBase from './base/CrudSetBase';\nimport Font from './Font';\n\n/**\n * Font family\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class FontFamily extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/fonts/families/{id}';\n  }\n\n  get resourceName() {\n    return 'font-families';\n  }\n\n  get _Child() {\n    return Font;\n  }\n}\n",
@@ -5002,7 +5173,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 169,
+    "__docId__": 171,
     "kind": "class",
     "name": "FontFamily",
     "memberof": "src/crud/FontFamily.js",
@@ -5021,7 +5192,7 @@
     ]
   },
   {
-    "__docId__": 170,
+    "__docId__": 172,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/FontFamily.js~FontFamily",
@@ -5046,7 +5217,7 @@
     }
   },
   {
-    "__docId__": 171,
+    "__docId__": 173,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/FontFamily.js~FontFamily",
@@ -5071,7 +5242,7 @@
     }
   },
   {
-    "__docId__": 172,
+    "__docId__": 174,
     "kind": "get",
     "name": "_Child",
     "memberof": "src/crud/FontFamily.js~FontFamily",
@@ -5096,7 +5267,7 @@
     }
   },
   {
-    "__docId__": 173,
+    "__docId__": 175,
     "kind": "file",
     "name": "src/crud/Highlight.js",
     "content": "import ResourceBase from './base/ResourceBase';\n\nexport default class Highlight extends ResourceBase {\n  get resourceName() {\n    return 'highlights';\n  }\n}\n",
@@ -5107,7 +5278,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 174,
+    "__docId__": 176,
     "kind": "class",
     "name": "Highlight",
     "memberof": "src/crud/Highlight.js",
@@ -5132,7 +5303,7 @@
     ]
   },
   {
-    "__docId__": 175,
+    "__docId__": 177,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Highlight.js~Highlight",
@@ -5157,7 +5328,7 @@
     }
   },
   {
-    "__docId__": 176,
+    "__docId__": 178,
     "kind": "file",
     "name": "src/crud/InsetMap.js",
     "content": "import ResourceBase from './base/ResourceBase';\n\nexport default class InsetMap extends ResourceBase {\n  get resourceName() {\n    return 'inset-maps';\n  }\n}\n",
@@ -5168,7 +5339,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 177,
+    "__docId__": 179,
     "kind": "class",
     "name": "InsetMap",
     "memberof": "src/crud/InsetMap.js",
@@ -5193,7 +5364,7 @@
     ]
   },
   {
-    "__docId__": 178,
+    "__docId__": 180,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/InsetMap.js~InsetMap",
@@ -5218,7 +5389,7 @@
     }
   },
   {
-    "__docId__": 179,
+    "__docId__": 181,
     "kind": "file",
     "name": "src/crud/Job.js",
     "content": "import CrudBase from './base/CrudBase';\nimport JobResult from './JobResult';\nimport JobRevision from './JobRevision';\n\nexport default class Job extends CrudBase {\n  /**\n   * Get the list of associated job results\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobResult} instances and rejects with {@link ApiError}\n   */\n  results() {\n    return this._listResource(JobResult, `${this.url}/results`);\n  }\n\n  /**\n   * Get the list job revisions\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobRevision} instances and rejects with {@link ApiError}\n   */\n  revisions() {\n    return this._listResource(JobRevision, `${this.url}/revisions`);\n  }\n\n  /**\n   * Get revision by id\n   * @param {string} id - Revision id\n   * @returns {Promise} -  Resolves with {@link JobRevision} instance and rejects with {@link ApiError}\n   */\n  getRevision(id = 'last') {\n    return new Promise((resolve, reject) => {\n      this._api\n        .request(`${this.resourcePath}/revisions/${id}`)\n        .catch(reject)\n        .then(data => resolve(new JobRevision(this._api, data)));\n    });\n  }\n\n  get resourceName() {\n    return 'jobs';\n  }\n\n  /**\n   * Get the most up to date preview url\n   * @returns {string} - Last preview url\n   */\n  get lastPreviewUrl() {\n    return `${this.resourcePath}/revisions/last/result/preview`;\n  }\n\n  /**\n   * Get the most up to date archive url\n   * @returns {string} - Last archive url\n   */\n  get lastArchiveUrl() {\n    return `${this.resourcePath}/revisions/last/result/archive`;\n  }\n}\n",
@@ -5229,7 +5400,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 180,
+    "__docId__": 182,
     "kind": "class",
     "name": "Job",
     "memberof": "src/crud/Job.js",
@@ -5254,7 +5425,7 @@
     ]
   },
   {
-    "__docId__": 181,
+    "__docId__": 183,
     "kind": "method",
     "name": "results",
     "memberof": "src/crud/Job.js~Job",
@@ -5282,7 +5453,7 @@
     }
   },
   {
-    "__docId__": 182,
+    "__docId__": 184,
     "kind": "method",
     "name": "revisions",
     "memberof": "src/crud/Job.js~Job",
@@ -5310,7 +5481,7 @@
     }
   },
   {
-    "__docId__": 183,
+    "__docId__": 185,
     "kind": "method",
     "name": "getRevision",
     "memberof": "src/crud/Job.js~Job",
@@ -5349,7 +5520,7 @@
     }
   },
   {
-    "__docId__": 184,
+    "__docId__": 186,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Job.js~Job",
@@ -5374,7 +5545,7 @@
     }
   },
   {
-    "__docId__": 185,
+    "__docId__": 187,
     "kind": "get",
     "name": "lastPreviewUrl",
     "memberof": "src/crud/Job.js~Job",
@@ -5406,7 +5577,7 @@
     }
   },
   {
-    "__docId__": 186,
+    "__docId__": 188,
     "kind": "get",
     "name": "lastArchiveUrl",
     "memberof": "src/crud/Job.js~Job",
@@ -5438,7 +5609,7 @@
     }
   },
   {
-    "__docId__": 187,
+    "__docId__": 189,
     "kind": "file",
     "name": "src/crud/JobResult.js",
     "content": "import CrudBase from './base/CrudBase';\n\nexport default class JobResult extends CrudBase {\n  get resourceName() {\n    return 'job-result';\n  }\n\n  /**\n   * Job result archive url\n   * @returns {string} - Archive url\n   */\n  get archiveUrl() {\n    return `${this.url}/archive`;\n  }\n\n  /**\n   * Job result preview url, usable in an `<img>` tag\n   * @returns {string} - Preview url\n   */\n  get previewUrl() {\n    return `${this.url}/preview`;\n  }\n}\n",
@@ -5449,7 +5620,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 188,
+    "__docId__": 190,
     "kind": "class",
     "name": "JobResult",
     "memberof": "src/crud/JobResult.js",
@@ -5474,7 +5645,7 @@
     ]
   },
   {
-    "__docId__": 189,
+    "__docId__": 191,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/JobResult.js~JobResult",
@@ -5499,7 +5670,7 @@
     }
   },
   {
-    "__docId__": 190,
+    "__docId__": 192,
     "kind": "get",
     "name": "archiveUrl",
     "memberof": "src/crud/JobResult.js~JobResult",
@@ -5531,7 +5702,7 @@
     }
   },
   {
-    "__docId__": 191,
+    "__docId__": 193,
     "kind": "get",
     "name": "previewUrl",
     "memberof": "src/crud/JobResult.js~JobResult",
@@ -5563,7 +5734,7 @@
     }
   },
   {
-    "__docId__": 192,
+    "__docId__": 194,
     "kind": "file",
     "name": "src/crud/JobRevision.js",
     "content": "import CrudBase from './base/CrudBase';\nimport Layer from './Layer';\nimport JobShare from './JobShare';\nimport JobResult from './JobResult';\nimport {isParentOf} from '../utils/reflection';\n\nexport default class JobRevision extends CrudBase {\n  get baseUrl() {\n    return `/jobs/${this['job_id']}/revisions`;\n  }\n\n  get resourcePath() {\n    return '/jobs/{job_id}/revisions/{id}';\n  }\n\n  get resourceName() {\n    return 'job-revisions';\n  }\n\n  /**\n   * Save updated job revision\n   * @param {Object} object - Map object\n   * @param {Array<Layer>|Array<Number>|null} layers - Array containing all layers for this revision. If set to null the same layers will be used\n   * @returns {Promise} - Resolves with a new {@link JobRevision} instance and rejects with {@link ApiError}\n   * @throws TypeError\n   */\n  save(object = {}, layers = null) {\n    if (layers && layers.length > 0) {\n      if (isParentOf(Layer, layers[0])) {\n        layers = layers.map(layer => layer.id);\n      } else if (typeof layers[0] !== 'number') {\n        throw new TypeError('layers property is not of type Array<Layer>, Array<Number> or null');\n      }\n    }\n\n    const data = {\n      'object': JSON.stringify(object),\n      'language_code': this.languageCode,\n      'mapstyle_set_id': this.mapstyleSetId,\n    };\n\n    if (layers) {\n      data.layers = layers;\n    }\n\n    return new Promise((resolve, reject) => {\n      this.api.request(this.baseUrl, 'POST', data)\n        .catch(reject)\n        .then(data => resolve(new JobRevision(this.api, data)));\n    });\n  }\n\n  /**\n   * Get job object\n   * @returns {Promise} - Resolves with {@link Object} instance containing the map object and rejects with {@link ApiError}\n   * @todo document object format\n   */\n  object() {\n    const url = `${this.url}/object`;\n\n    return this.api.request(url);\n  }\n\n  /**\n   * Build the revision\n   * @param {String} callbackUrl - Optional callback url for when the job completes\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  build(callbackUrl) {\n    const url = `${this.url}/build`;\n    const data = {callback: callbackUrl};\n\n    return this.api.request(url, 'POST', data);\n  }\n\n  /**\n   * Cancels a running job\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  cancel() {\n    const url = `${this.url}/cancel`;\n\n    return this.api.request(url, 'POST');\n  }\n\n  /**\n   * Get layers\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   */\n  layers() {\n    return this._listResource(Layer);\n  }\n\n  /**\n   * Share the job revision\n   * @param {String} visibility - See {@link JobShareVisibility}, either `private` or `organisation`\n   * @returns {Promise} - Resolves with a {@link String} containing the share link and rejects with {@link ApiError}\n   */\n  share(visibility = JobShare.visibility.PRIVATE) {\n    visibility = visibility.toLowerCase();\n\n    if (visibility !== JobShare.visibility.ORGANISATION &&\n        visibility !== JobShare.visibility.PRIVATE) {\n      throw new Error(`Unknown visibility '${visibility}'`);\n    }\n\n    const url = `${this.url}/share`;\n\n    return this.api.request(url, 'POST', {visibility});\n  }\n\n  /**\n   * Get the job result\n   * @returns {Promise} - Resolves with a {@link JobResult} instance and rejects with {@link ApiError}\n   */\n  result() {\n    const url = `${this.url}/result`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url)\n        .catch(reject)\n        .then(data => resolve(new JobResult(this.api, data)));\n    });\n  }\n}\n",
@@ -5574,7 +5745,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 193,
+    "__docId__": 195,
     "kind": "class",
     "name": "JobRevision",
     "memberof": "src/crud/JobRevision.js",
@@ -5599,7 +5770,7 @@
     ]
   },
   {
-    "__docId__": 194,
+    "__docId__": 196,
     "kind": "get",
     "name": "baseUrl",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5624,7 +5795,7 @@
     }
   },
   {
-    "__docId__": 195,
+    "__docId__": 197,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5649,7 +5820,7 @@
     }
   },
   {
-    "__docId__": 196,
+    "__docId__": 198,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5674,7 +5845,7 @@
     }
   },
   {
-    "__docId__": 197,
+    "__docId__": 199,
     "kind": "method",
     "name": "save",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5731,7 +5902,7 @@
     ]
   },
   {
-    "__docId__": 198,
+    "__docId__": 200,
     "kind": "method",
     "name": "object",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5762,7 +5933,7 @@
     }
   },
   {
-    "__docId__": 199,
+    "__docId__": 201,
     "kind": "method",
     "name": "build",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5801,7 +5972,7 @@
     }
   },
   {
-    "__docId__": 200,
+    "__docId__": 202,
     "kind": "method",
     "name": "cancel",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5829,7 +6000,7 @@
     }
   },
   {
-    "__docId__": 201,
+    "__docId__": 203,
     "kind": "method",
     "name": "layers",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5857,7 +6028,7 @@
     }
   },
   {
-    "__docId__": 202,
+    "__docId__": 204,
     "kind": "method",
     "name": "share",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5896,7 +6067,7 @@
     }
   },
   {
-    "__docId__": 203,
+    "__docId__": 205,
     "kind": "method",
     "name": "result",
     "memberof": "src/crud/JobRevision.js~JobRevision",
@@ -5924,7 +6095,7 @@
     }
   },
   {
-    "__docId__": 204,
+    "__docId__": 206,
     "kind": "file",
     "name": "src/crud/JobShare.js",
     "content": "import CrudBase from './base/CrudBase';\n\nexport default class JobShare extends CrudBase {\n  /**\n   * Unsupported method implemented due to CrudBase abstraction\n   * @returns {void}\n   * @throws Error\n   * @private\n   */\n  save() {\n    throw new Error('Unsupported method JobShare::save');\n  }\n\n  /**\n   * Accessor for {@link JobShareVisibility} enum\n   * @returns {JobShareVisibility} - Accessor for enum\n   */\n  static get visibility() {\n    return JobShareVisibility;\n  }\n\n  get resourcePath() {\n    return '/jobs/shares/{id}';\n  }\n\n  get resourceName() {\n    return 'job-shares';\n  }\n}\n\n/**\n * Job share visibility enum\n * @enum {String}\n */\nclass JobShareVisibility {\n  static get PRIVATE() {\n    return 'private';\n  }\n\n  static get ORGANISATION() {\n    return 'organisation';\n  }\n}\n",
@@ -5935,7 +6106,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 205,
+    "__docId__": 207,
     "kind": "class",
     "name": "JobShare",
     "memberof": "src/crud/JobShare.js",
@@ -5960,7 +6131,7 @@
     ]
   },
   {
-    "__docId__": 206,
+    "__docId__": 208,
     "kind": "method",
     "name": "save",
     "memberof": "src/crud/JobShare.js~JobShare",
@@ -5996,7 +6167,7 @@
     ]
   },
   {
-    "__docId__": 207,
+    "__docId__": 209,
     "kind": "get",
     "name": "visibility",
     "memberof": "src/crud/JobShare.js~JobShare",
@@ -6028,7 +6199,7 @@
     }
   },
   {
-    "__docId__": 208,
+    "__docId__": 210,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/JobShare.js~JobShare",
@@ -6053,7 +6224,7 @@
     }
   },
   {
-    "__docId__": 209,
+    "__docId__": 211,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/JobShare.js~JobShare",
@@ -6078,7 +6249,7 @@
     }
   },
   {
-    "__docId__": 210,
+    "__docId__": 212,
     "kind": "class",
     "name": "JobShareVisibility",
     "memberof": "src/crud/JobShare.js",
@@ -6099,7 +6270,7 @@
     "interface": false
   },
   {
-    "__docId__": 211,
+    "__docId__": 213,
     "kind": "get",
     "name": "PRIVATE",
     "memberof": "src/crud/JobShare.js~JobShareVisibility",
@@ -6124,7 +6295,7 @@
     }
   },
   {
-    "__docId__": 212,
+    "__docId__": 214,
     "kind": "get",
     "name": "ORGANISATION",
     "memberof": "src/crud/JobShare.js~JobShareVisibility",
@@ -6149,7 +6320,7 @@
     }
   },
   {
-    "__docId__": 213,
+    "__docId__": 215,
     "kind": "file",
     "name": "src/crud/JobType.js",
     "content": "import CrudBase from './base/CrudBase';\nimport OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\n\n/**\n * Job type\n * @extends {CrudBase}\n * @extends {OwnableResource}\n */\nexport default class JobType extends mix(CrudBase, OwnableResource) {\n  get resourcePath() {\n    return '/jobs/types/{id}';\n  }\n\n  get resourceName() {\n    return 'job-types';\n  }\n}\n",
@@ -6160,7 +6331,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 214,
+    "__docId__": 216,
     "kind": "class",
     "name": "JobType",
     "memberof": "src/crud/JobType.js",
@@ -6179,7 +6350,7 @@
     ]
   },
   {
-    "__docId__": 215,
+    "__docId__": 217,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/JobType.js~JobType",
@@ -6204,7 +6375,7 @@
     }
   },
   {
-    "__docId__": 216,
+    "__docId__": 218,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/JobType.js~JobType",
@@ -6229,7 +6400,7 @@
     }
   },
   {
-    "__docId__": 217,
+    "__docId__": 219,
     "kind": "file",
     "name": "src/crud/Language.js",
     "content": "import CrudBase from './base/CrudBase';\n\nexport default class Language extends CrudBase {\n  get resourceName() {\n    return 'languages';\n  }\n\n  toString() {\n    return `${this.constructor.name}(${this.code})`;\n  }\n}\n",
@@ -6240,7 +6411,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 218,
+    "__docId__": 220,
     "kind": "class",
     "name": "Language",
     "memberof": "src/crud/Language.js",
@@ -6265,7 +6436,7 @@
     ]
   },
   {
-    "__docId__": 219,
+    "__docId__": 221,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Language.js~Language",
@@ -6290,7 +6461,7 @@
     }
   },
   {
-    "__docId__": 220,
+    "__docId__": 222,
     "kind": "method",
     "name": "toString",
     "memberof": "src/crud/Language.js~Language",
@@ -6316,7 +6487,7 @@
     }
   },
   {
-    "__docId__": 221,
+    "__docId__": 223,
     "kind": "file",
     "name": "src/crud/Layer.js",
     "content": "import OwnableResource from '../traits/OwnableResource';\nimport CrudBase from './base/CrudBase';\nimport ImageHandler from './base/ImageHandler';\nimport {mix} from '../utils/reflection';\n\n/**\n * Layer\n * @extends {CrudBase}\n * @extends {OwnableResource}\n */\nexport default class Layer extends mix(CrudBase, OwnableResource) {\n  /**\n   * Handler for item image management\n   * @returns {ImageHandler} - Image handler\n   */\n  get imageHandler() {\n    return new ImageHandler(this.api, this);\n  }\n\n  get resourceName() {\n    return 'layers';\n  }\n}\n",
@@ -6327,7 +6498,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 222,
+    "__docId__": 224,
     "kind": "class",
     "name": "Layer",
     "memberof": "src/crud/Layer.js",
@@ -6346,7 +6517,7 @@
     ]
   },
   {
-    "__docId__": 223,
+    "__docId__": 225,
     "kind": "get",
     "name": "imageHandler",
     "memberof": "src/crud/Layer.js~Layer",
@@ -6378,7 +6549,7 @@
     }
   },
   {
-    "__docId__": 224,
+    "__docId__": 226,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Layer.js~Layer",
@@ -6403,7 +6574,7 @@
     }
   },
   {
-    "__docId__": 225,
+    "__docId__": 227,
     "kind": "file",
     "name": "src/crud/Mapstyle.js",
     "content": "import CrudBase from './base/CrudBase';\nimport HandlesImages from '../traits/HandlesImages';\nimport {mix} from '../utils/reflection';\n\n/**\n * @extends {CrudBase}\n * @extends {HandlesImages}\n */\nexport default class Mapstyle extends mix(CrudBase, HandlesImages) {\n  get resourceName() {\n    return 'mapstyles';\n  }\n}\n",
@@ -6414,7 +6585,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 226,
+    "__docId__": 228,
     "kind": "class",
     "name": "Mapstyle",
     "memberof": "src/crud/Mapstyle.js",
@@ -6433,7 +6604,7 @@
     ]
   },
   {
-    "__docId__": 227,
+    "__docId__": 229,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Mapstyle.js~Mapstyle",
@@ -6458,7 +6629,7 @@
     }
   },
   {
-    "__docId__": 228,
+    "__docId__": 230,
     "kind": "file",
     "name": "src/crud/MapstyleSet.js",
     "content": "import OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\nimport CrudSetBase from './base/CrudSetBase';\nimport Mapstyle from './Mapstyle';\n\n/**\n * Mapstyle set\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class MapstyleSet extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/mapstyles/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'mapstyle-set';\n  }\n\n  get _Child() {\n    return Mapstyle;\n  }\n}\n",
@@ -6469,7 +6640,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 229,
+    "__docId__": 231,
     "kind": "class",
     "name": "MapstyleSet",
     "memberof": "src/crud/MapstyleSet.js",
@@ -6488,7 +6659,7 @@
     ]
   },
   {
-    "__docId__": 230,
+    "__docId__": 232,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/MapstyleSet.js~MapstyleSet",
@@ -6513,7 +6684,7 @@
     }
   },
   {
-    "__docId__": 231,
+    "__docId__": 233,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/MapstyleSet.js~MapstyleSet",
@@ -6538,7 +6709,7 @@
     }
   },
   {
-    "__docId__": 232,
+    "__docId__": 234,
     "kind": "get",
     "name": "_Child",
     "memberof": "src/crud/MapstyleSet.js~MapstyleSet",
@@ -6563,7 +6734,7 @@
     }
   },
   {
-    "__docId__": 233,
+    "__docId__": 235,
     "kind": "file",
     "name": "src/crud/Notification.js",
     "content": "import CrudBase from './base/CrudBase';\n\nexport default class Notification extends CrudBase {\n  get resourceName() {\n    return 'notifications';\n  }\n}\n",
@@ -6574,7 +6745,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 234,
+    "__docId__": 236,
     "kind": "class",
     "name": "Notification",
     "memberof": "src/crud/Notification.js",
@@ -6599,7 +6770,7 @@
     ]
   },
   {
-    "__docId__": 235,
+    "__docId__": 237,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Notification.js~Notification",
@@ -6624,7 +6795,7 @@
     }
   },
   {
-    "__docId__": 236,
+    "__docId__": 238,
     "kind": "file",
     "name": "src/crud/Organisation.js",
     "content": "import CrudBase from './base/CrudBase';\nimport Color from './Color';\nimport Contract from './Contract';\nimport DimensionSet from './DimensionSet';\nimport Feature from './Feature';\nimport FontFamily from './FontFamily';\nimport JobShare from './JobShare';\nimport JobType from './JobType';\nimport Layer from './Layer';\nimport MapstyleSet from './MapstyleSet';\nimport SvgSet from './SvgSet';\nimport User from './User';\n\n\nexport default class Organisation extends CrudBase {\n  /**\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Array<Promise>} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.\n   */\n  sync(items) {\n    return this._modifyResourceLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attach(items) {\n    return this._modifyResourceLink(items, 'POST');\n  }\n\n  /**\n   * Unlink items from the organisation\n   * @param {Array<ResourceBase>} items - List of items to unlink\n   * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  unlink(items) {\n    return this._modifyResourceLink(items, 'DELETE');\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<ResourceBase>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyResourceLink(items, method) {\n    const collections = this._reduceOwnable(items);\n    const out = [];\n\n    for (const key of Object.keys(collections)) {\n      const url = `${this.url}/${key}`;\n      const data = {keys: collections[key]};\n      const promise = this.api.request(url, method, data);\n\n      out.push(promise);\n    }\n\n    return out;\n  }\n\n  /**\n   * Reduce the items to a more usable list\n   * @param {Array<ResourceBase>} items - List of items to reduce\n   * @returns {Object<String, Array<Number>>} - Object keys are resource names and the value is an array containing ids to sync/attach\n   * @private\n   */\n  _reduceOwnable(items) {\n    const out = {};\n\n    for (const row of items) {\n      if (!row.ownable) {\n        continue;\n      }\n\n      const key = row.resourceName;\n\n      if (!out[key]) {\n        out[key] = [row.id];\n      } else {\n        out[key].push(row.id);\n      }\n    }\n\n    return out;\n  }\n\n  get resourceName() {\n    return 'organisations';\n  }\n\n  // Resource listing\n  /**\n   * Get the list font families linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   */\n  fontFamilies() {\n    return this._listResource(FontFamily);\n  }\n\n  /**\n   * Get the list dimension sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   */\n  dimensionSets() {\n    return this._listResource(DimensionSet);\n  }\n\n  /**\n   * Get the list mapstyle sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   */\n  mapstyleSets() {\n    return this._listResource(MapstyleSet);\n  }\n\n  /**\n   * Get the list svg sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   */\n  svgSets() {\n    return this._listResource(SvgSet);\n  }\n\n  /**\n   * Get the list colors linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   */\n  colors() {\n    return this._listResource(Color);\n  }\n\n  /**\n   * Get the list features linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   */\n  features() {\n    return this._listResource(Feature);\n  }\n\n  /**\n   * Get the list layers linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   */\n  layers() {\n    return this._listResource(Layer);\n  }\n\n  /**\n   * Get the list job types linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   */\n  jobTypes() {\n    return this._listResource(JobType);\n  }\n\n  /**\n   * Get the list job shares linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   */\n  jobShares() {\n    return this._listResource(JobShare);\n  }\n\n  /**\n   * Get the list users linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link User} instances and rejects with {@link ApiError}\n   */\n  users() {\n    return this._listResource(User);\n  }\n\n  /**\n   * Get the list contracts linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Contract} instances and rejects with {@link ApiError}\n   */\n  contracts() {\n    return this._listResource(Contract);\n  }\n}\n",
@@ -6635,7 +6806,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 237,
+    "__docId__": 239,
     "kind": "class",
     "name": "Organisation",
     "memberof": "src/crud/Organisation.js",
@@ -6660,7 +6831,7 @@
     ]
   },
   {
-    "__docId__": 238,
+    "__docId__": 240,
     "kind": "method",
     "name": "sync",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6699,7 +6870,7 @@
     }
   },
   {
-    "__docId__": 239,
+    "__docId__": 241,
     "kind": "method",
     "name": "attach",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6738,7 +6909,7 @@
     }
   },
   {
-    "__docId__": 240,
+    "__docId__": 242,
     "kind": "method",
     "name": "unlink",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6777,7 +6948,7 @@
     }
   },
   {
-    "__docId__": 241,
+    "__docId__": 243,
     "kind": "method",
     "name": "_modifyResourceLink",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6826,7 +6997,7 @@
     }
   },
   {
-    "__docId__": 242,
+    "__docId__": 244,
     "kind": "method",
     "name": "_reduceOwnable",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6865,7 +7036,7 @@
     }
   },
   {
-    "__docId__": 243,
+    "__docId__": 245,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6890,7 +7061,7 @@
     }
   },
   {
-    "__docId__": 244,
+    "__docId__": 246,
     "kind": "method",
     "name": "fontFamilies",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6918,7 +7089,7 @@
     }
   },
   {
-    "__docId__": 245,
+    "__docId__": 247,
     "kind": "method",
     "name": "dimensionSets",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6946,7 +7117,7 @@
     }
   },
   {
-    "__docId__": 246,
+    "__docId__": 248,
     "kind": "method",
     "name": "mapstyleSets",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -6974,7 +7145,7 @@
     }
   },
   {
-    "__docId__": 247,
+    "__docId__": 249,
     "kind": "method",
     "name": "svgSets",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7002,7 +7173,7 @@
     }
   },
   {
-    "__docId__": 248,
+    "__docId__": 250,
     "kind": "method",
     "name": "colors",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7030,7 +7201,7 @@
     }
   },
   {
-    "__docId__": 249,
+    "__docId__": 251,
     "kind": "method",
     "name": "features",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7058,7 +7229,7 @@
     }
   },
   {
-    "__docId__": 250,
+    "__docId__": 252,
     "kind": "method",
     "name": "layers",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7086,7 +7257,7 @@
     }
   },
   {
-    "__docId__": 251,
+    "__docId__": 253,
     "kind": "method",
     "name": "jobTypes",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7114,7 +7285,7 @@
     }
   },
   {
-    "__docId__": 252,
+    "__docId__": 254,
     "kind": "method",
     "name": "jobShares",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7142,7 +7313,7 @@
     }
   },
   {
-    "__docId__": 253,
+    "__docId__": 255,
     "kind": "method",
     "name": "users",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7170,7 +7341,7 @@
     }
   },
   {
-    "__docId__": 254,
+    "__docId__": 256,
     "kind": "method",
     "name": "contracts",
     "memberof": "src/crud/Organisation.js~Organisation",
@@ -7198,7 +7369,7 @@
     }
   },
   {
-    "__docId__": 255,
+    "__docId__": 257,
     "kind": "file",
     "name": "src/crud/Permission.js",
     "content": "import ResourceBase from './base/ResourceBase';\n\nexport default class Permission extends ResourceBase {\n  get resourceName() {\n    return 'permissions';\n  }\n}\n",
@@ -7209,7 +7380,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 256,
+    "__docId__": 258,
     "kind": "class",
     "name": "Permission",
     "memberof": "src/crud/Permission.js",
@@ -7234,7 +7405,7 @@
     ]
   },
   {
-    "__docId__": 257,
+    "__docId__": 259,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Permission.js~Permission",
@@ -7259,7 +7430,7 @@
     }
   },
   {
-    "__docId__": 258,
+    "__docId__": 260,
     "kind": "file",
     "name": "src/crud/PlaceName.js",
     "content": "import ResourceBase from './base/ResourceBase';\n\nexport default class PlaceName extends ResourceBase {\n  get resourceName() {\n    return 'place-names';\n  }\n}\n",
@@ -7270,7 +7441,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 259,
+    "__docId__": 261,
     "kind": "class",
     "name": "PlaceName",
     "memberof": "src/crud/PlaceName.js",
@@ -7295,7 +7466,7 @@
     ]
   },
   {
-    "__docId__": 260,
+    "__docId__": 262,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/PlaceName.js~PlaceName",
@@ -7320,7 +7491,7 @@
     }
   },
   {
-    "__docId__": 261,
+    "__docId__": 263,
     "kind": "file",
     "name": "src/crud/Svg.js",
     "content": "import CrudBase from './base/CrudBase';\n\nexport default class Svg extends CrudBase {\n  get resourceName() {\n    return 'svgs';\n  }\n}\n",
@@ -7331,7 +7502,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 262,
+    "__docId__": 264,
     "kind": "class",
     "name": "Svg",
     "memberof": "src/crud/Svg.js",
@@ -7356,7 +7527,7 @@
     ]
   },
   {
-    "__docId__": 263,
+    "__docId__": 265,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Svg.js~Svg",
@@ -7381,7 +7552,7 @@
     }
   },
   {
-    "__docId__": 264,
+    "__docId__": 266,
     "kind": "file",
     "name": "src/crud/SvgSet.js",
     "content": "import OwnableResource from '../traits/OwnableResource';\nimport CrudSetBase from './base/CrudSetBase';\nimport Svg from './Svg';\nimport {mix} from '../utils/reflection';\n\n\n/**\n * Svg set\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class SvgSet extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/svgs/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'svg-sets';\n  }\n\n  get _Child() {\n    return Svg;\n  }\n}\n",
@@ -7392,7 +7563,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 265,
+    "__docId__": 267,
     "kind": "class",
     "name": "SvgSet",
     "memberof": "src/crud/SvgSet.js",
@@ -7411,7 +7582,7 @@
     ]
   },
   {
-    "__docId__": 266,
+    "__docId__": 268,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/SvgSet.js~SvgSet",
@@ -7436,7 +7607,7 @@
     }
   },
   {
-    "__docId__": 267,
+    "__docId__": 269,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/SvgSet.js~SvgSet",
@@ -7461,7 +7632,7 @@
     }
   },
   {
-    "__docId__": 268,
+    "__docId__": 270,
     "kind": "get",
     "name": "_Child",
     "memberof": "src/crud/SvgSet.js~SvgSet",
@@ -7486,7 +7657,7 @@
     }
   },
   {
-    "__docId__": 269,
+    "__docId__": 271,
     "kind": "file",
     "name": "src/crud/SvgSetType.js",
     "content": "import CrudBase from './base/CrudBase';\nimport UnsupportedCrudError from '../exceptions/UnsupportedCrudError';\n\nexport default class SvgSetType extends CrudBase {\n  /**\n   * Disabled because svg set type does not support soft deletes\n   * @returns {void}\n   * @throws Error\n   * @private\n   */\n  restore() {\n    throw new UnsupportedCrudError('Svg set types don\\'t support soft deletes');\n  }\n\n  get resourcePath() {\n    return '/svgs/sets/types/{id}';\n  }\n\n  get resourceName() {\n    return 'svg-set-types';\n  }\n}\n",
@@ -7497,7 +7668,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 270,
+    "__docId__": 272,
     "kind": "class",
     "name": "SvgSetType",
     "memberof": "src/crud/SvgSetType.js",
@@ -7522,7 +7693,7 @@
     ]
   },
   {
-    "__docId__": 271,
+    "__docId__": 273,
     "kind": "method",
     "name": "restore",
     "memberof": "src/crud/SvgSetType.js~SvgSetType",
@@ -7558,7 +7729,7 @@
     ]
   },
   {
-    "__docId__": 272,
+    "__docId__": 274,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/SvgSetType.js~SvgSetType",
@@ -7583,7 +7754,7 @@
     }
   },
   {
-    "__docId__": 273,
+    "__docId__": 275,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/SvgSetType.js~SvgSetType",
@@ -7608,7 +7779,7 @@
     }
   },
   {
-    "__docId__": 274,
+    "__docId__": 276,
     "kind": "file",
     "name": "src/crud/User.js",
     "content": "import ResourceProxy from '../ResourceProxy';\nimport CrudBase from './base/CrudBase';\nimport Color from './Color';\nimport DimensionSet from './DimensionSet';\nimport Feature from './Feature';\nimport FontFamily from './FontFamily';\nimport Job from './Job';\nimport JobShare from './JobShare';\nimport JobType from './JobType';\nimport Language from './Language';\nimport Layer from './Layer';\nimport MapstyleSet from './MapstyleSet';\nimport Notification from './Notification';\nimport Organisation from './Organisation';\nimport Permission from './Permission';\nimport SvgSet from './SvgSet';\n\nexport default class User extends CrudBase {\n  get resourceName() {\n    return 'users';\n  }\n\n  /**\n   * Check if user is an administrator\n   * @returns {Promise} - Resolves with a {@link Boolean} and rejects with {@link ApiError}\n   */\n  isAdmin() {\n    return this.permissions().then(permissions => {\n      return Boolean(permissions.find(p => p.name === 'is:admin'));\n    });\n  }\n\n  /**\n   * Get all known ips\n   * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}\n   */\n  ips() {\n    const url = `${this.url}/ips`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url)\n        .catch(reject)\n        .then(data => resolve(\n          data.map(row => row['ip_address']),\n        ));\n    });\n  }\n\n  /**\n   * Get the user's organisation\n   * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}\n   */\n  organisation() {\n    return (new ResourceProxy(this.api, Organisation)).get(this.organisationId);\n  }\n\n  /**\n   * Get the user's language\n   * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}\n   */\n  language() {\n    return (new ResourceProxy(this.api, Language)).get(this.languageCode);\n  }\n\n  // region Resource listing\n  /**\n   * Get the list notifications linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}\n   */\n  notifications() {\n    return this._listResource(Notification);\n  }\n\n  /**\n   * Get the list mapstyle sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   */\n  mapstyleSets() {\n    return this._listResource(MapstyleSet);\n  }\n\n  /**\n   * Get the list dimension sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   */\n  dimensionSets() {\n    return this._listResource(DimensionSet);\n  }\n\n  /**\n   * Get the list font families linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   */\n  fontFamilies() {\n    return this._listResource(FontFamily);\n  }\n\n  /**\n   * Get the list svg sets linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   */\n  svgSets() {\n    return this._listResource(SvgSet);\n  }\n\n  /**\n   * Get the list colors linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   */\n  colors() {\n    return this._listResource(Color);\n  }\n\n  /**\n   * Get the list jobs linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Job} instances and rejects with {@link ApiError}\n   */\n  jobs() {\n    return this._listResource(Job);\n  }\n\n  /**\n   * Get the list features linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   */\n  features() {\n    return this._listResource(Feature);\n  }\n\n  /**\n   * Get the list layers linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   */\n  layers() {\n    return this._listResource(Layer);\n  }\n\n  /**\n   * Get the list job types linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   */\n  jobTypes() {\n    return this._listResource(JobType);\n  }\n\n  /**\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   */\n  jobShares() {\n    return this._listResource(JobShare);\n  }\n\n  /**\n   * Get the list job shares linked to the user\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Permission} instances and rejects with {@link ApiError}\n   */\n  permissions() {\n    return this._listResource(Permission);\n  }\n\n  // endregion\n}\n",
@@ -7619,7 +7790,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 275,
+    "__docId__": 277,
     "kind": "class",
     "name": "User",
     "memberof": "src/crud/User.js",
@@ -7644,7 +7815,7 @@
     ]
   },
   {
-    "__docId__": 276,
+    "__docId__": 278,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/User.js~User",
@@ -7669,7 +7840,7 @@
     }
   },
   {
-    "__docId__": 277,
+    "__docId__": 279,
     "kind": "method",
     "name": "isAdmin",
     "memberof": "src/crud/User.js~User",
@@ -7697,7 +7868,7 @@
     }
   },
   {
-    "__docId__": 278,
+    "__docId__": 280,
     "kind": "method",
     "name": "ips",
     "memberof": "src/crud/User.js~User",
@@ -7725,7 +7896,7 @@
     }
   },
   {
-    "__docId__": 279,
+    "__docId__": 281,
     "kind": "method",
     "name": "organisation",
     "memberof": "src/crud/User.js~User",
@@ -7753,7 +7924,7 @@
     }
   },
   {
-    "__docId__": 280,
+    "__docId__": 282,
     "kind": "method",
     "name": "language",
     "memberof": "src/crud/User.js~User",
@@ -7781,7 +7952,7 @@
     }
   },
   {
-    "__docId__": 281,
+    "__docId__": 283,
     "kind": "method",
     "name": "notifications",
     "memberof": "src/crud/User.js~User",
@@ -7809,7 +7980,7 @@
     }
   },
   {
-    "__docId__": 282,
+    "__docId__": 284,
     "kind": "method",
     "name": "mapstyleSets",
     "memberof": "src/crud/User.js~User",
@@ -7837,7 +8008,7 @@
     }
   },
   {
-    "__docId__": 283,
+    "__docId__": 285,
     "kind": "method",
     "name": "dimensionSets",
     "memberof": "src/crud/User.js~User",
@@ -7865,7 +8036,7 @@
     }
   },
   {
-    "__docId__": 284,
+    "__docId__": 286,
     "kind": "method",
     "name": "fontFamilies",
     "memberof": "src/crud/User.js~User",
@@ -7893,7 +8064,7 @@
     }
   },
   {
-    "__docId__": 285,
+    "__docId__": 287,
     "kind": "method",
     "name": "svgSets",
     "memberof": "src/crud/User.js~User",
@@ -7921,7 +8092,7 @@
     }
   },
   {
-    "__docId__": 286,
+    "__docId__": 288,
     "kind": "method",
     "name": "colors",
     "memberof": "src/crud/User.js~User",
@@ -7949,7 +8120,7 @@
     }
   },
   {
-    "__docId__": 287,
+    "__docId__": 289,
     "kind": "method",
     "name": "jobs",
     "memberof": "src/crud/User.js~User",
@@ -7977,7 +8148,7 @@
     }
   },
   {
-    "__docId__": 288,
+    "__docId__": 290,
     "kind": "method",
     "name": "features",
     "memberof": "src/crud/User.js~User",
@@ -8005,7 +8176,7 @@
     }
   },
   {
-    "__docId__": 289,
+    "__docId__": 291,
     "kind": "method",
     "name": "layers",
     "memberof": "src/crud/User.js~User",
@@ -8033,7 +8204,7 @@
     }
   },
   {
-    "__docId__": 290,
+    "__docId__": 292,
     "kind": "method",
     "name": "jobTypes",
     "memberof": "src/crud/User.js~User",
@@ -8061,7 +8232,7 @@
     }
   },
   {
-    "__docId__": 291,
+    "__docId__": 293,
     "kind": "method",
     "name": "jobShares",
     "memberof": "src/crud/User.js~User",
@@ -8089,7 +8260,7 @@
     }
   },
   {
-    "__docId__": 292,
+    "__docId__": 294,
     "kind": "method",
     "name": "permissions",
     "memberof": "src/crud/User.js~User",
@@ -8117,7 +8288,7 @@
     }
   },
   {
-    "__docId__": 293,
+    "__docId__": 295,
     "kind": "file",
     "name": "src/crud/base/CrudBase.js",
     "content": "import {AbstractClassError} from '../../exceptions/AbstractError';\nimport ResourceBase from './ResourceBase';\nimport PaginatedResourceListing from '../../PaginatedResourceListing';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    const out = this._properties;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      if (this[key] !== null) {\n        out[key] = this[key];\n      }\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {String} url - Target url, if not set it will guess\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   * @protected\n   */\n  _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    const resolver = new PaginatedResourceListing(this.api, url, Target);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.baseUrl, 'POST', this._buildCreateData())\n        .catch(reject)\n        .then(data => {\n          this._properties = {};\n          this._baseProperties = data;\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.url, 'PATCH', this._properties)\n        .catch(reject)\n        .then(() => resolve(this));\n    });\n  }\n\n  /**\n   * Delete item\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this.api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Restore item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore() {\n    return new Promise((resolve, reject) => {\n      this.api.request(this.url, 'PUT')\n        .catch(reject)\n        .then(data => resolve(new this(this.api, data)));\n    });\n  }\n}\n",
@@ -8128,7 +8299,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 294,
+    "__docId__": 296,
     "kind": "class",
     "name": "CrudBase",
     "memberof": "src/crud/base/CrudBase.js",
@@ -8147,7 +8318,7 @@
     ]
   },
   {
-    "__docId__": 295,
+    "__docId__": 297,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8182,7 +8353,7 @@
     ]
   },
   {
-    "__docId__": 296,
+    "__docId__": 298,
     "kind": "method",
     "name": "_buildCreateData",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8210,7 +8381,7 @@
     }
   },
   {
-    "__docId__": 297,
+    "__docId__": 299,
     "kind": "method",
     "name": "_listResource",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8279,7 +8450,7 @@
     }
   },
   {
-    "__docId__": 298,
+    "__docId__": 300,
     "kind": "method",
     "name": "save",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8307,7 +8478,7 @@
     }
   },
   {
-    "__docId__": 299,
+    "__docId__": 301,
     "kind": "method",
     "name": "_create",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8335,7 +8506,7 @@
     }
   },
   {
-    "__docId__": 300,
+    "__docId__": 302,
     "kind": "member",
     "name": "_properties",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8358,7 +8529,7 @@
     }
   },
   {
-    "__docId__": 301,
+    "__docId__": 303,
     "kind": "member",
     "name": "_baseProperties",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8381,7 +8552,7 @@
     }
   },
   {
-    "__docId__": 302,
+    "__docId__": 304,
     "kind": "method",
     "name": "_update",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8409,7 +8580,7 @@
     }
   },
   {
-    "__docId__": 303,
+    "__docId__": 305,
     "kind": "method",
     "name": "delete",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8437,7 +8608,7 @@
     }
   },
   {
-    "__docId__": 304,
+    "__docId__": 306,
     "kind": "method",
     "name": "restore",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -8465,7 +8636,7 @@
     }
   },
   {
-    "__docId__": 305,
+    "__docId__": 307,
     "kind": "file",
     "name": "src/crud/base/CrudSetBase.js",
     "content": "import CrudBase from './CrudBase';\nimport {AbstractError} from '../../exceptions/AbstractError';\n\n/**\n * Crud base for resource sets\n * @abstract\n */\nexport default class CrudSetBase extends CrudBase {\n\n  /**\n   * Get items associated with the set\n   * @returns {Promise} - Resolves with {@link Dimension} instance and rejects with {@link ApiError}\n   */\n  items() {\n    const url = `${this.url}/items`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url)\n        .catch(reject)\n        .then(data => resolve(data.map(row => {\n          return new this._Child(this.api, row);\n        })));\n    });\n  }\n\n  /**\n   * Child constructor\n   * @returns {ResourceBase} - Child constructor\n   * @constructor\n   * @abstract\n   * @protected\n   */\n  get _Child() {\n    throw new AbstractError();\n  }\n}\n",
@@ -8476,7 +8647,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 306,
+    "__docId__": 308,
     "kind": "class",
     "name": "CrudSetBase",
     "memberof": "src/crud/base/CrudSetBase.js",
@@ -8495,7 +8666,7 @@
     ]
   },
   {
-    "__docId__": 307,
+    "__docId__": 309,
     "kind": "method",
     "name": "items",
     "memberof": "src/crud/base/CrudSetBase.js~CrudSetBase",
@@ -8523,7 +8694,7 @@
     }
   },
   {
-    "__docId__": 308,
+    "__docId__": 310,
     "kind": "get",
     "name": "_Child",
     "memberof": "src/crud/base/CrudSetBase.js~CrudSetBase",
@@ -8555,7 +8726,7 @@
     "abstract": true
   },
   {
-    "__docId__": 309,
+    "__docId__": 311,
     "kind": "file",
     "name": "src/crud/base/ImageHandler.js",
     "content": "import {isParentOf} from '../../utils/reflection';\nimport Maps4News from '../../Maps4News';\nimport ResourceBase from './ResourceBase';\nimport ApiError from '../../exceptions/ApiError';\nimport ValidationError from '../../exceptions/ValidationError';\n\n/**\n * Image resource handler\n * @protected\n */\nexport default class ImageHandler {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {ResourceBase} target - Instance of target item\n   */\n  constructor(api, target) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    if (!isParentOf(ResourceBase, target)) {\n      throw new TypeError('Expected target to be of type ResourceBase');\n    }\n\n    this._api = api;\n    this._target = target;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource url, can be used in an image tag\n   * @returns {string} - Resource url\n   */\n  get url() {\n    return `${this._target.url}/image`;\n  }\n\n  /**\n   * Delete image\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this._api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Get image base64 representation\n   * @returns {Promise} - Resolves with a {@link String} containing a base64 representation of the image and rejects with {@link ApiError}\n   */\n  download() {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url, 'GET', {}, {}, 'arraybuffer')\n        .catch(reject)\n        .then(data => {\n          const blob = new Blob([data], {type: 'image'});\n\n          // noinspection JSUnresolvedFunction\n          const url = (window.URL || window.webkitURL).createObjectURL(blob);\n\n          resolve(url);\n        });\n    });\n  }\n\n  /**\n   * Upload new image\n   * @param {File} image - Image file\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   * @todo refactor\n   */\n  upload(image) {\n    if (!isParentOf(File, image)) {\n      throw new TypeError('Expected image to be of type File');\n    }\n\n    return new Promise((resolve, reject) => {\n      const formData = new FormData();\n\n      formData.append('image', image);\n\n      const request = new XMLHttpRequest();\n\n      request.open('POST', this.url, true);\n      request.setRequestHeader('Authorization', this._api.token.toString());\n      request.setRequestHeader('Accept', 'application/json');\n\n      request.onreadystatechange = () => {\n        if (request.readyState !== XMLHttpRequest.DONE) {\n          return;\n        }\n\n        try {\n          const response = JSON.parse(request.responseText);\n\n          if (!response.success) {\n            const err = response.error;\n\n            if (!err.validation_errors) {\n              reject(new ApiError(err.type, err.message, request.status));\n            } else {\n              reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));\n            }\n          } else {\n            // Return an empty object if no data has been sent\n            // instead of returning undefined.\n            resolve(response.data || {});\n          }\n        } catch (ignore) {\n          reject(new ApiError('ResponseException', 'The server returned an invalid response', request.status));\n        }\n      };\n\n      request.send(formData);\n    });\n  }\n}\n",
@@ -8566,7 +8737,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 310,
+    "__docId__": 312,
     "kind": "class",
     "name": "ImageHandler",
     "memberof": "src/crud/base/ImageHandler.js",
@@ -8581,7 +8752,7 @@
     "interface": false
   },
   {
-    "__docId__": 311,
+    "__docId__": 313,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8616,7 +8787,7 @@
     ]
   },
   {
-    "__docId__": 312,
+    "__docId__": 314,
     "kind": "member",
     "name": "_api",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8639,7 +8810,7 @@
     }
   },
   {
-    "__docId__": 313,
+    "__docId__": 315,
     "kind": "member",
     "name": "_target",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8662,7 +8833,7 @@
     }
   },
   {
-    "__docId__": 314,
+    "__docId__": 316,
     "kind": "get",
     "name": "api",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8694,7 +8865,7 @@
     }
   },
   {
-    "__docId__": 315,
+    "__docId__": 317,
     "kind": "get",
     "name": "url",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8726,7 +8897,7 @@
     }
   },
   {
-    "__docId__": 316,
+    "__docId__": 318,
     "kind": "method",
     "name": "delete",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8754,7 +8925,7 @@
     }
   },
   {
-    "__docId__": 317,
+    "__docId__": 319,
     "kind": "method",
     "name": "download",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8782,7 +8953,7 @@
     }
   },
   {
-    "__docId__": 318,
+    "__docId__": 320,
     "kind": "method",
     "name": "upload",
     "memberof": "src/crud/base/ImageHandler.js~ImageHandler",
@@ -8824,7 +8995,7 @@
     }
   },
   {
-    "__docId__": 319,
+    "__docId__": 321,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
     "content": "import {AbstractClassError, AbstractError} from '../../exceptions/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    Object.keys(data).map(key => {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      if (newKey !== key) {\n        data[newKey] = data[key];\n        delete data[key];\n      }\n    });\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    const protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];\n    const fields = Object.keys(this._baseProperties);\n\n    for (const key of fields) {\n      const desc = {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n      };\n\n      if (!protectedFields.includes(key)) {\n        // eslint-disable-next-line no-return-assign\n        desc.set = val => this._properties[key] = val;\n      }\n\n      Object.defineProperty(this, snakeToCamelCase(key), desc);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      url = url.replace(`{${key}}`, this[key]);\n    }\n\n    return url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n}\n",
@@ -8835,7 +9006,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 320,
+    "__docId__": 322,
     "kind": "class",
     "name": "ResourceBase",
     "memberof": "src/crud/base/ResourceBase.js",
@@ -8851,7 +9022,7 @@
     "interface": false
   },
   {
-    "__docId__": 321,
+    "__docId__": 323,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -8886,7 +9057,7 @@
     ]
   },
   {
-    "__docId__": 322,
+    "__docId__": 324,
     "kind": "member",
     "name": "_baseProperties",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -8909,7 +9080,7 @@
     }
   },
   {
-    "__docId__": 323,
+    "__docId__": 325,
     "kind": "member",
     "name": "_properties",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -8932,7 +9103,7 @@
     }
   },
   {
-    "__docId__": 324,
+    "__docId__": 326,
     "kind": "member",
     "name": "_api",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -8955,7 +9126,7 @@
     }
   },
   {
-    "__docId__": 325,
+    "__docId__": 327,
     "kind": "get",
     "name": "api",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -8987,7 +9158,7 @@
     }
   },
   {
-    "__docId__": 326,
+    "__docId__": 328,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9019,7 +9190,7 @@
     }
   },
   {
-    "__docId__": 327,
+    "__docId__": 329,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9047,7 +9218,7 @@
     "abstract": true
   },
   {
-    "__docId__": 328,
+    "__docId__": 330,
     "kind": "method",
     "name": "refresh",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9086,7 +9257,7 @@
     }
   },
   {
-    "__docId__": 329,
+    "__docId__": 331,
     "kind": "member",
     "name": "_properties",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9109,7 +9280,7 @@
     }
   },
   {
-    "__docId__": 330,
+    "__docId__": 332,
     "kind": "member",
     "name": "_baseProperties",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9132,7 +9303,7 @@
     }
   },
   {
-    "__docId__": 331,
+    "__docId__": 333,
     "kind": "method",
     "name": "_applyProperties",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9160,7 +9331,7 @@
     }
   },
   {
-    "__docId__": 332,
+    "__docId__": 334,
     "kind": "get",
     "name": "ownable",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9192,7 +9363,7 @@
     }
   },
   {
-    "__docId__": 333,
+    "__docId__": 335,
     "kind": "get",
     "name": "url",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9224,7 +9395,7 @@
     }
   },
   {
-    "__docId__": 334,
+    "__docId__": 336,
     "kind": "get",
     "name": "baseUrl",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9256,7 +9427,7 @@
     }
   },
   {
-    "__docId__": 335,
+    "__docId__": 337,
     "kind": "get",
     "name": "fieldNames",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9288,7 +9459,7 @@
     }
   },
   {
-    "__docId__": 336,
+    "__docId__": 338,
     "kind": "method",
     "name": "toString",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9316,7 +9487,7 @@
     }
   },
   {
-    "__docId__": 337,
+    "__docId__": 339,
     "kind": "file",
     "name": "src/crud/index.js",
     "content": "export Choropleth from './Choropleth.js';\nexport Color from './Color.js';\nexport Contract from './Contract.js';\nexport Dimension from './Dimension.js';\nexport DimensionSet from './DimensionSet.js';\nexport Faq from './Faq.js';\nexport Feature from './Feature.js';\nexport Font from './Font.js';\nexport FontFamily from './FontFamily.js';\nexport Highlight from './Highlight.js';\nexport InsetMap from './InsetMap.js';\nexport Job from './Job.js';\nexport JobResult from './JobResult.js';\nexport JobRevision from './JobRevision.js';\nexport JobShare from './JobShare.js';\nexport JobType from './JobType.js';\nexport Language from './Language.js';\nexport Layer from './Layer.js';\nexport Mapstyle from './Mapstyle.js';\nexport MapstyleSet from './MapstyleSet.js';\nexport Notification from './Notification.js';\nexport Organisation from './Organisation.js';\nexport Permission from './Permission.js';\nexport PlaceName from './PlaceName.js';\nexport Svg from './Svg.js';\nexport SvgSet from './SvgSet.js';\nexport SvgSetType from './SvgSetType.js';\nexport User from './User.js';\n",
@@ -9327,7 +9498,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 338,
+    "__docId__": 340,
     "kind": "file",
     "name": "src/exceptions/AbstractError.js",
     "content": "/**\n * Thrown by abstract methods and classes\n */\nexport class AbstractError extends Error {}\n\n/**\n * Thrown upon invocation of an abstract class\n */\nexport class AbstractClassError extends AbstractError {\n  constructor() {\n    super('Can not make an instance of an abstract class');\n  }\n}\n\n/**\n * Thrown upon invocation of an abstract method\n */\nexport class AbstractMethodError extends AbstractError {\n  constructor() {\n    super('Can not call an abstract method');\n  }\n}\n",
@@ -9338,7 +9509,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 339,
+    "__docId__": 341,
     "kind": "class",
     "name": "AbstractError",
     "memberof": "src/exceptions/AbstractError.js",
@@ -9356,7 +9527,7 @@
     ]
   },
   {
-    "__docId__": 340,
+    "__docId__": 342,
     "kind": "class",
     "name": "AbstractClassError",
     "memberof": "src/exceptions/AbstractError.js",
@@ -9374,7 +9545,7 @@
     ]
   },
   {
-    "__docId__": 341,
+    "__docId__": 343,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exceptions/AbstractError.js~AbstractClassError",
@@ -9395,7 +9566,7 @@
     "params": []
   },
   {
-    "__docId__": 342,
+    "__docId__": 344,
     "kind": "class",
     "name": "AbstractMethodError",
     "memberof": "src/exceptions/AbstractError.js",
@@ -9413,7 +9584,7 @@
     ]
   },
   {
-    "__docId__": 343,
+    "__docId__": 345,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exceptions/AbstractError.js~AbstractMethodError",
@@ -9434,7 +9605,7 @@
     "params": []
   },
   {
-    "__docId__": 344,
+    "__docId__": 346,
     "kind": "file",
     "name": "src/exceptions/ApiError.js",
     "content": "/**\n * Errors generated by the API\n */\nexport default class ApiError {\n  /**\n   * @param {String} type - Error type\n   * @param {String} message - Error message\n   * @param {Number} code - Http error code\n   */\n  constructor(type, message, code) {\n    this._type = type;\n    this._message = message;\n    this._code = code;\n  }\n\n  /**\n   * Error type\n   * @returns {String} - Error type\n   */\n  get type() {\n    return this._type;\n  }\n\n  /**\n   * Error message\n   * @returns {String} - Error message\n   */\n  get message() {\n    return this._message;\n  }\n\n  /**\n   * Http error code\n   * @returns {Number} - Http error code\n   */\n  get code() {\n    return this._code;\n  }\n\n  /**\n   * Display-able string\n   * @returns {string} - Displayable error string\n   */\n  toString() {\n    return `[${this._code}] ${this._type}: ${this._message}`;\n  }\n}\n",
@@ -9445,7 +9616,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 345,
+    "__docId__": 347,
     "kind": "class",
     "name": "ApiError",
     "memberof": "src/exceptions/ApiError.js",
@@ -9460,7 +9631,7 @@
     "interface": false
   },
   {
-    "__docId__": 346,
+    "__docId__": 348,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9505,7 +9676,7 @@
     ]
   },
   {
-    "__docId__": 347,
+    "__docId__": 349,
     "kind": "member",
     "name": "_type",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9528,7 +9699,7 @@
     }
   },
   {
-    "__docId__": 348,
+    "__docId__": 350,
     "kind": "member",
     "name": "_message",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9551,7 +9722,7 @@
     }
   },
   {
-    "__docId__": 349,
+    "__docId__": 351,
     "kind": "member",
     "name": "_code",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9574,7 +9745,7 @@
     }
   },
   {
-    "__docId__": 350,
+    "__docId__": 352,
     "kind": "get",
     "name": "type",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9606,7 +9777,7 @@
     }
   },
   {
-    "__docId__": 351,
+    "__docId__": 353,
     "kind": "get",
     "name": "message",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9638,7 +9809,7 @@
     }
   },
   {
-    "__docId__": 352,
+    "__docId__": 354,
     "kind": "get",
     "name": "code",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9670,7 +9841,7 @@
     }
   },
   {
-    "__docId__": 353,
+    "__docId__": 355,
     "kind": "method",
     "name": "toString",
     "memberof": "src/exceptions/ApiError.js~ApiError",
@@ -9698,7 +9869,7 @@
     }
   },
   {
-    "__docId__": 354,
+    "__docId__": 356,
     "kind": "file",
     "name": "src/exceptions/NodeError.js",
     "content": "/**\n * Invoked upon nodejs specific errors\n */\nexport default class NodeError extends Error { }\n",
@@ -9709,7 +9880,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 355,
+    "__docId__": 357,
     "kind": "class",
     "name": "NodeError",
     "memberof": "src/exceptions/NodeError.js",
@@ -9727,7 +9898,7 @@
     ]
   },
   {
-    "__docId__": 356,
+    "__docId__": 358,
     "kind": "file",
     "name": "src/exceptions/StaticClassError.js",
     "content": "/**\n * Thrown upon invocation of a static class\n * @see StaticClass\n */\nexport default class StaticClassError extends Error {}\n",
@@ -9738,7 +9909,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 357,
+    "__docId__": 359,
     "kind": "class",
     "name": "StaticClassError",
     "memberof": "src/exceptions/StaticClassError.js",
@@ -9759,7 +9930,7 @@
     ]
   },
   {
-    "__docId__": 358,
+    "__docId__": 360,
     "kind": "file",
     "name": "src/exceptions/UnsupportedCrudError.js",
     "content": "/**\n * Thrown upon invocation of an unsupported crud method\n */\nexport default class UnsupportedCrudError extends Error {}\n",
@@ -9770,7 +9941,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 359,
+    "__docId__": 361,
     "kind": "class",
     "name": "UnsupportedCrudError",
     "memberof": "src/exceptions/UnsupportedCrudError.js",
@@ -9788,7 +9959,7 @@
     ]
   },
   {
-    "__docId__": 360,
+    "__docId__": 362,
     "kind": "file",
     "name": "src/exceptions/ValidationError.js",
     "content": "import ApiError from './ApiError';\n\n/**\n * Extension of {@link ApiError} containing an extra field for validation errors\n */\nexport default class ValidationError extends ApiError {\n  /**\n   * @param {String} type - Error type\n   * @param {String} message - Error message\n   * @param {Number} code - Http error code\n   * @param {Object<String, Array<String>>} validationErrors - Any validation errors\n   */\n  constructor(type, message, code, validationErrors) {\n    super(type, message, code);\n    this._validationErrors = validationErrors;\n  }\n\n  /**\n   * Any validation errors\n   * @returns {Object.<String, Array.<String>>} - Object containing arrays of validation errors where the field is stored in the key\n   */\n  get validationErrors() {\n    return this._validationErrors;\n  }\n}\n",
@@ -9799,7 +9970,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 361,
+    "__docId__": 363,
     "kind": "class",
     "name": "ValidationError",
     "memberof": "src/exceptions/ValidationError.js",
@@ -9817,7 +9988,7 @@
     ]
   },
   {
-    "__docId__": 362,
+    "__docId__": 364,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exceptions/ValidationError.js~ValidationError",
@@ -9872,7 +10043,7 @@
     ]
   },
   {
-    "__docId__": 363,
+    "__docId__": 365,
     "kind": "member",
     "name": "_validationErrors",
     "memberof": "src/exceptions/ValidationError.js~ValidationError",
@@ -9895,7 +10066,7 @@
     }
   },
   {
-    "__docId__": 364,
+    "__docId__": 366,
     "kind": "get",
     "name": "validationErrors",
     "memberof": "src/exceptions/ValidationError.js~ValidationError",
@@ -9927,7 +10098,7 @@
     }
   },
   {
-    "__docId__": 365,
+    "__docId__": 367,
     "kind": "file",
     "name": "src/index.js",
     "content": "// Core\nexport Maps4News from './Maps4News';\n\n// Flows\nexport OAuth from './oauth/OAuth';\nexport ImplicitFlow from './oauth/ImplicitFlow';\nexport ImplicitFlowPopup from './oauth/ImplicitFlowPopup';\nexport PasswordFlow from './oauth/PasswordFlow';\nexport DummyFlow from './oauth/DummyFlow';\n\n// Exceptions\nexport ApiError from './exceptions/ApiError';\nexport * from './exceptions/AbstractError';\nexport ValidationError from './exceptions/ValidationError';\nexport StaticClassError from './exceptions/StaticClassError';\n\n// Resources\nexport * as resources from './crud';\n\n/**\n * Package version\n * @private\n */\nexport const version = VERSION;\n",
@@ -9938,7 +10109,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 366,
+    "__docId__": 368,
     "kind": "variable",
     "name": "version",
     "memberof": "src/index.js",
@@ -9957,7 +10128,7 @@
     }
   },
   {
-    "__docId__": 367,
+    "__docId__": 369,
     "kind": "file",
     "name": "src/oauth/DummyFlow.js",
     "content": "import OAuthError from './OAuthError';\nimport OAuth from './OAuth';\n\n/**\n * Dummy flow for when the token should be available in the\n * cache and no attempt at authentication should be made.\n */\nexport default class DummyFlow extends OAuth {\n  constructor() {\n    super('', []);\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else {\n        reject(new OAuthError('dummy_error', 'Attempted authentication using a dummy authenticator'));\n      }\n    });\n  }\n}\n",
@@ -9968,7 +10139,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 368,
+    "__docId__": 370,
     "kind": "class",
     "name": "DummyFlow",
     "memberof": "src/oauth/DummyFlow.js",
@@ -9986,7 +10157,7 @@
     ]
   },
   {
-    "__docId__": 369,
+    "__docId__": 371,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/DummyFlow.js~DummyFlow",
@@ -10007,7 +10178,7 @@
     "params": []
   },
   {
-    "__docId__": 370,
+    "__docId__": 372,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/DummyFlow.js~DummyFlow",
@@ -10035,7 +10206,7 @@
     }
   },
   {
-    "__docId__": 371,
+    "__docId__": 373,
     "kind": "file",
     "name": "src/oauth/ImplicitFlow.js",
     "content": "import OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {encodeQueryString} from '../utils/requests';\nimport OAuthError from './OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Implicit OAuth flow using redirection\n */\nexport default class ImplicitFlow extends OAuth {\n\n  /**\n   * Implicit authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = true) {\n    super(clientId, scopes);\n\n    if (isNode()) {\n      throw new Error(`${this.constructor.name} can't be used under nodejs`);\n    }\n\n    this.path = '/oauth/authorize';\n\n    this.callbackUrl = callbackUrl;\n    this.useState = useState;\n\n    if (!this.callbackUrl) {\n      // Drop the anchor (if any)\n      this.callbackUrl = window.location.toString().split('#')[0];\n    }\n\n    this._anchorParams = [\n      'access_token', 'token_type', 'expires_in',\n    ];\n\n    if (this.useState) {\n      this._anchorParams.push('state');\n    }\n\n    if (this._anchorContainsOAuthResponse()) {\n      const anchorParams = this._getOAuthAnchorParams();\n\n      this._cleanAnchorParams();\n\n      if (this.useState && !StateContainer.validate(anchorParams['state'])) {\n        throw Error('Invalid state in url');\n      } else {\n        this.token = OAuthToken.fromResponseObject(anchorParams);\n        this.token.save();\n      }\n    }\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else if (this._anchorContainsError()) {\n        const err = this._getError();\n\n        this._cleanAnchorParams();\n\n        reject(err);\n      } else {\n        window.location = this._buildRedirectUrl();\n      }\n    });\n  }\n\n  /**\n   * Builds the url for redirection\n   * @returns {String} - Redirect url\n   * @protected\n   */\n  _buildRedirectUrl() {\n    const queryParams = {\n      'client_id': this.clientId,\n      'redirect_uri': this.callbackUrl,\n      'response_type': 'token',\n      'scope': this.scopes.join(' '),\n    };\n\n    if (this.useState) {\n      queryParams['state'] = StateContainer.generate();\n    }\n\n    return `${this.host + this.path}?${encodeQueryString(queryParams)}`;\n  }\n\n  /**\n   * Builds an object containing all the anchor parameters\n   * @returns {Object<String, String>} - Anchor paramenters\n   * @protected\n   */\n  _getAnchorParams() {\n    const out = {};\n    const query = window.location.hash.replace(/^#\\/?/g, '');\n\n\n    for (const raw of query.split('&')) {\n      const pair = raw.split('=').map(decodeURIComponent);\n\n      out[pair[0]] = pair[1];\n    }\n\n    return out;\n  }\n\n  /**\n   * Fetch OAuth anchor params\n   * @param {Object<String, String>} query - Optional override for the query to analyse, defaults to {@link ImplicitFlow#_getAnchorParams}\n   * @returns {Object<String, String>} - List of OAuth anchor parameters\n   * @protected\n   */\n  _getOAuthAnchorParams(query = this._getAnchorParams()) {\n    return Object.keys(query)\n      .filter(key => this._anchorParams.includes(key))\n      .reduce((obj, key) => {\n        obj[key] = query[key];\n        return obj;\n      }, {});\n  }\n\n  /**\n   * Remove OAuth related anchor parameters\n   * @returns {void}\n   * @protected\n   */\n  _cleanAnchorParams() {\n    const anchorParams = this._getAnchorParams();\n    const targets = this._anchorParams;\n\n    // Just in case\n    targets.push('state', 'error');\n\n    for (const key of targets) {\n      // Should silently fail when key doesn't exist\n      delete anchorParams[key];\n    }\n\n    window.location.hash = encodeQueryString(anchorParams);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth response\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth response\n   * @protected\n   */\n  _anchorContainsOAuthResponse() {\n    const queryKeys = Object.keys(this._getOAuthAnchorParams());\n\n    // Check if all the params are in the anchor\n    return this._anchorParams.reduce((output, key) => {\n      return output && queryKeys.includes(key);\n    }, true);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth error\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth error\n   * @protected\n   */\n  _anchorContainsError() {\n    return Boolean(this._getAnchorParams()['error']);\n  }\n\n  /**\n   * Get and return the error in the anchor\n   * @returns {OAuthError} - OAuthError object\n   * @protected\n   */\n  _getError() {\n    if (!this._anchorContainsError()) {\n      throw Error('No OAuthError found in anchor');\n    }\n\n    const params = this._getAnchorParams();\n\n    return new OAuthError(\n      params['error'], params['message']\n    );\n  }\n}\n",
@@ -10046,7 +10217,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 372,
+    "__docId__": 374,
     "kind": "class",
     "name": "ImplicitFlow",
     "memberof": "src/oauth/ImplicitFlow.js",
@@ -10064,7 +10235,7 @@
     ]
   },
   {
-    "__docId__": 373,
+    "__docId__": 375,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10133,7 +10304,7 @@
     }
   },
   {
-    "__docId__": 374,
+    "__docId__": 376,
     "kind": "member",
     "name": "path",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10156,7 +10327,7 @@
     }
   },
   {
-    "__docId__": 375,
+    "__docId__": 377,
     "kind": "member",
     "name": "callbackUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10179,7 +10350,7 @@
     }
   },
   {
-    "__docId__": 376,
+    "__docId__": 378,
     "kind": "member",
     "name": "useState",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10202,7 +10373,7 @@
     }
   },
   {
-    "__docId__": 377,
+    "__docId__": 379,
     "kind": "member",
     "name": "callbackUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10225,7 +10396,7 @@
     }
   },
   {
-    "__docId__": 378,
+    "__docId__": 380,
     "kind": "member",
     "name": "_anchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10248,7 +10419,7 @@
     }
   },
   {
-    "__docId__": 379,
+    "__docId__": 381,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10271,7 +10442,7 @@
     }
   },
   {
-    "__docId__": 380,
+    "__docId__": 382,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10299,7 +10470,7 @@
     }
   },
   {
-    "__docId__": 381,
+    "__docId__": 383,
     "kind": "method",
     "name": "_buildRedirectUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10327,7 +10498,7 @@
     }
   },
   {
-    "__docId__": 382,
+    "__docId__": 384,
     "kind": "method",
     "name": "_getAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10355,7 +10526,7 @@
     }
   },
   {
-    "__docId__": 383,
+    "__docId__": 385,
     "kind": "method",
     "name": "_getOAuthAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10394,7 +10565,7 @@
     }
   },
   {
-    "__docId__": 384,
+    "__docId__": 386,
     "kind": "method",
     "name": "_cleanAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10422,7 +10593,7 @@
     }
   },
   {
-    "__docId__": 385,
+    "__docId__": 387,
     "kind": "method",
     "name": "_anchorContainsOAuthResponse",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10450,7 +10621,7 @@
     }
   },
   {
-    "__docId__": 386,
+    "__docId__": 388,
     "kind": "method",
     "name": "_anchorContainsError",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10478,7 +10649,7 @@
     }
   },
   {
-    "__docId__": 387,
+    "__docId__": 389,
     "kind": "method",
     "name": "_getError",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -10506,7 +10677,7 @@
     }
   },
   {
-    "__docId__": 388,
+    "__docId__": 390,
     "kind": "file",
     "name": "src/oauth/ImplicitFlowPopup.js",
     "content": "import ImplicitFlow from './ImplicitFlow';\nimport OAuthToken from './OAuthToken';\nimport OAuthError from './OAuthError';\n\n/**\n * Implicit OAuth flow using a pop-up.\n */\nexport default class ImplicitFlowPopup extends ImplicitFlow {\n  /**\n   * Implicit pop-up authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @param {String} windowOptions - optional window options for the pop-up window\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = false, windowOptions = process.env.WINDOW_OPTIONS) {\n    super(clientId, callbackUrl, scopes, useState);\n\n    this.windowOptions = windowOptions;\n\n    if (window.name === ImplicitFlowPopup.popupWindowName) {\n      const data = this.token.toResponseObject() || this._getAnchorParams();\n\n      localStorage.setItem(ImplicitFlowPopup.localStorageKey, JSON.stringify(data));\n\n      window.close();\n    }\n  }\n\n  /**\n   * Popup window name\n   * @returns {String} - window.name of the created pop-up\n   * @constant\n   */\n  static get popupWindowName() {\n    return 'm4n_api_auth';\n  }\n\n  /**\n   * localStorage key name for temporarily storing the token\n   * @returns {String} - key name\n   * @constant\n   */\n  static get localStorageKey() {\n    return 'm4n_api_auth_response';\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    if (window.name === ImplicitFlowPopup.popupWindowName) {\n      return new Promise(() => {\n      });\n    }\n\n    // Should be super.super.authenticate() :/\n    if (this.authenticated) {\n      return new Promise(resolve => {\n        resolve(this.token);\n      });\n    }\n\n    return new Promise((resolve, reject) => {\n      const popup = window.open(\n        this._buildRedirectUrl(),\n        ImplicitFlowPopup.popupWindowName,\n        this.windowOptions\n      );\n\n      const ticker = setInterval(() => {\n        if (popup.closed) {\n          clearInterval(ticker);\n\n          const data = JSON.parse(localStorage.getItem(ImplicitFlowPopup.localStorageKey));\n\n          localStorage.removeItem(ImplicitFlowPopup.localStorageKey);\n\n          if (!data) {\n            reject(new OAuthError('window_closed', 'Pop-up window was closed'));\n          } else if (data.error) {\n            reject(new OAuthError(data.error, data.message));\n          } else {\n            resolve(this.token = OAuthToken.fromResponseObject(data));\n          }\n        }\n      }, 500);\n    });\n  }\n}\n",
@@ -10517,7 +10688,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 389,
+    "__docId__": 391,
     "kind": "class",
     "name": "ImplicitFlowPopup",
     "memberof": "src/oauth/ImplicitFlowPopup.js",
@@ -10535,7 +10706,7 @@
     ]
   },
   {
-    "__docId__": 390,
+    "__docId__": 392,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -10614,7 +10785,7 @@
     }
   },
   {
-    "__docId__": 391,
+    "__docId__": 393,
     "kind": "member",
     "name": "windowOptions",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -10637,7 +10808,7 @@
     }
   },
   {
-    "__docId__": 392,
+    "__docId__": 394,
     "kind": "get",
     "name": "popupWindowName",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -10673,7 +10844,7 @@
     }
   },
   {
-    "__docId__": 393,
+    "__docId__": 395,
     "kind": "get",
     "name": "localStorageKey",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -10709,7 +10880,7 @@
     }
   },
   {
-    "__docId__": 394,
+    "__docId__": 396,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -10737,7 +10908,7 @@
     }
   },
   {
-    "__docId__": 395,
+    "__docId__": 397,
     "kind": "file",
     "name": "src/oauth/OAuth.js",
     "content": "import {AbstractClassError, AbstractMethodError} from '../exceptions/AbstractError';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {isNode} from '../utils/node';\n\n/**\n * OAuth base class\n * @abstract\n */\nexport default class OAuth {\n  /**\n   * @param {String} clientId - OAuth client id\n   * @param {Array<String>} scopes - A list of required scopes\n   * @returns {void}\n   */\n  constructor(clientId, scopes = ['*']) {\n    if (this.constructor === OAuth) {\n      throw new AbstractClassError();\n    }\n\n    this.clientId = String(clientId);\n    this.scopes = scopes;\n    this.token = OAuthToken.recover();\n    this.host = process.env.HOST;\n    this.path = '/';\n  }\n\n  /**\n   * If the current instance has a valid token\n   * @returns {Boolean} - if a valid token is availble\n   */\n  get authenticated() {\n    return this.token !== null && !this.token.expired;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with OAuthToken and rejects with OAuthError\n   * @abstract\n   */\n  authenticate() {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Forget the current session\n   * @returns {void}\n   */\n  forget() {\n    if (isNode()) {\n      // eslint-disable-next-line no-eval\n      eval('require(\"fs\")').unlink(OAuthToken.nodeTokenFilename);\n    } else {\n      StateContainer.clean();\n      localStorage.removeItem(OAuthToken.storageName);\n    }\n\n    this.token = null;\n  }\n}\n",
@@ -10748,7 +10919,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 396,
+    "__docId__": 398,
     "kind": "class",
     "name": "OAuth",
     "memberof": "src/oauth/OAuth.js",
@@ -10764,7 +10935,7 @@
     "interface": false
   },
   {
-    "__docId__": 397,
+    "__docId__": 399,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10813,7 +10984,7 @@
     }
   },
   {
-    "__docId__": 398,
+    "__docId__": 400,
     "kind": "member",
     "name": "clientId",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10836,7 +11007,7 @@
     }
   },
   {
-    "__docId__": 399,
+    "__docId__": 401,
     "kind": "member",
     "name": "scopes",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10859,7 +11030,7 @@
     }
   },
   {
-    "__docId__": 400,
+    "__docId__": 402,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10882,7 +11053,7 @@
     }
   },
   {
-    "__docId__": 401,
+    "__docId__": 403,
     "kind": "member",
     "name": "host",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10905,7 +11076,7 @@
     }
   },
   {
-    "__docId__": 402,
+    "__docId__": 404,
     "kind": "member",
     "name": "path",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10928,7 +11099,7 @@
     }
   },
   {
-    "__docId__": 403,
+    "__docId__": 405,
     "kind": "get",
     "name": "authenticated",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10960,7 +11131,7 @@
     }
   },
   {
-    "__docId__": 404,
+    "__docId__": 406,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -10989,7 +11160,7 @@
     "abstract": true
   },
   {
-    "__docId__": 405,
+    "__docId__": 407,
     "kind": "method",
     "name": "forget",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -11017,7 +11188,7 @@
     }
   },
   {
-    "__docId__": 406,
+    "__docId__": 408,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -11040,7 +11211,7 @@
     }
   },
   {
-    "__docId__": 407,
+    "__docId__": 409,
     "kind": "file",
     "name": "src/oauth/OAuthError.js",
     "content": "/**\n * OAuth error\n */\nexport default class OAuthError extends Error {\n  /**\n   * OAuth error response\n   * @param {String} error - OAuth error key\n   * @param {String} message - OAuth error message\n   */\n  constructor(error, message = '') {\n    super();\n    this._error = String(error);\n    this._message = String(message);\n  }\n\n  /**\n   * OAuth error message\n   * @returns {String} - message\n   */\n  get message() {\n    return this._message;\n  }\n\n  /**\n   * OAuth error code\n   * @returns {String} - error\n   */\n  get error() {\n    return this._error;\n  }\n\n  /**\n   * Displayable error string\n   * @returns {String} - error\n   */\n  toString() {\n    let error = this._error;\n\n    if (error.includes('_')) {\n      error = error.replace('_', ' ').replace(/^./, x => x.toUpperCase());\n    }\n\n    if (this._message) {\n      return `${error}: ${this._message}`;\n    }\n    return error;\n\n  }\n}\n",
@@ -11051,7 +11222,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 408,
+    "__docId__": 410,
     "kind": "class",
     "name": "OAuthError",
     "memberof": "src/oauth/OAuthError.js",
@@ -11069,7 +11240,7 @@
     ]
   },
   {
-    "__docId__": 409,
+    "__docId__": 411,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -11104,7 +11275,7 @@
     ]
   },
   {
-    "__docId__": 410,
+    "__docId__": 412,
     "kind": "member",
     "name": "_error",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -11127,7 +11298,7 @@
     }
   },
   {
-    "__docId__": 411,
+    "__docId__": 413,
     "kind": "member",
     "name": "_message",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -11150,7 +11321,7 @@
     }
   },
   {
-    "__docId__": 412,
+    "__docId__": 414,
     "kind": "get",
     "name": "message",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -11182,7 +11353,7 @@
     }
   },
   {
-    "__docId__": 413,
+    "__docId__": 415,
     "kind": "get",
     "name": "error",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -11214,7 +11385,7 @@
     }
   },
   {
-    "__docId__": 414,
+    "__docId__": 416,
     "kind": "method",
     "name": "toString",
     "memberof": "src/oauth/OAuthError.js~OAuthError",
@@ -11242,7 +11413,7 @@
     }
   },
   {
-    "__docId__": 415,
+    "__docId__": 417,
     "kind": "file",
     "name": "src/oauth/OAuthToken.js",
     "content": "import {isNode} from '../utils/node';\nimport NodeError from '../exceptions/NodeError';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Filename for nodejs token storage\n   * @returns {string} - filename\n   * @constant\n   */\n  static get nodeTokenFilename() {\n    return '.m4n_token';\n  }\n\n  /**\n   * Gets the default name for the name parameter on save and restore\n   * @returns {string} - name\n   * @private\n   * @static\n   */\n  static get _defaultName() {\n    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || []\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken._defaultName, forceLocalStorage = false) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (isNode()) {\n      if (forceLocalStorage) {\n        throw new NodeError('Can not force localStorage usage when running under node');\n      }\n\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const json = JSON.stringify(data, null, 2);\n\n      fs.writeFileSync(name, json);\n    } else if (window.location.protocol === 'https:' && !forceLocalStorage) {\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken._defaultName) {\n    if (isNode()) {\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const raw = fs.readFileSync(name);\n      const data = JSON.parse(raw);\n\n      return new OAuthToken(data.token, data.type, new Date(data.expires));\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
@@ -11253,7 +11424,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 416,
+    "__docId__": 418,
     "kind": "class",
     "name": "OAuthToken",
     "memberof": "src/oauth/OAuthToken.js",
@@ -11268,7 +11439,7 @@
     "interface": false
   },
   {
-    "__docId__": 417,
+    "__docId__": 419,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11324,7 +11495,7 @@
     ]
   },
   {
-    "__docId__": 418,
+    "__docId__": 420,
     "kind": "member",
     "name": "scopes",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11347,7 +11518,7 @@
     }
   },
   {
-    "__docId__": 419,
+    "__docId__": 421,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11370,7 +11541,7 @@
     }
   },
   {
-    "__docId__": 420,
+    "__docId__": 422,
     "kind": "member",
     "name": "type",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11393,7 +11564,7 @@
     }
   },
   {
-    "__docId__": 421,
+    "__docId__": 423,
     "kind": "member",
     "name": "expires",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11416,7 +11587,7 @@
     }
   },
   {
-    "__docId__": 422,
+    "__docId__": 424,
     "kind": "member",
     "name": "expires",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11439,7 +11610,7 @@
     }
   },
   {
-    "__docId__": 423,
+    "__docId__": 425,
     "kind": "method",
     "name": "toString",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11467,7 +11638,7 @@
     }
   },
   {
-    "__docId__": 424,
+    "__docId__": 426,
     "kind": "method",
     "name": "toResponseObject",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11495,7 +11666,7 @@
     }
   },
   {
-    "__docId__": 425,
+    "__docId__": 427,
     "kind": "get",
     "name": "expired",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11527,7 +11698,7 @@
     }
   },
   {
-    "__docId__": 426,
+    "__docId__": 428,
     "kind": "get",
     "name": "storageName",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11563,7 +11734,7 @@
     }
   },
   {
-    "__docId__": 427,
+    "__docId__": 429,
     "kind": "get",
     "name": "nodeTokenFilename",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11599,7 +11770,7 @@
     }
   },
   {
-    "__docId__": 428,
+    "__docId__": 430,
     "kind": "get",
     "name": "_defaultName",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11631,7 +11802,7 @@
     }
   },
   {
-    "__docId__": 429,
+    "__docId__": 431,
     "kind": "method",
     "name": "fromResponseObject",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11671,7 +11842,7 @@
     }
   },
   {
-    "__docId__": 430,
+    "__docId__": 432,
     "kind": "method",
     "name": "save",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11723,7 +11894,7 @@
     }
   },
   {
-    "__docId__": 431,
+    "__docId__": 433,
     "kind": "method",
     "name": "recover",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -11766,7 +11937,7 @@
     }
   },
   {
-    "__docId__": 432,
+    "__docId__": 434,
     "kind": "file",
     "name": "src/oauth/PasswordFlow.js",
     "content": "import OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport {encodeQueryString, makeRequest} from '../utils/requests';\nimport OAuthError from './OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Password authentication flow\n */\nexport default class PasswordFlow extends OAuth {\n  /**\n   * @param {string} clientId - OAuth client id\n   * @param {string} secret - OAuth secret\n   * @param {string} username - Valid username (email)\n   * @param {string} password - Valid password\n   * @param {Array<string>} scopes - A list of required scopes\n   */\n  constructor(clientId, secret, username, password, scopes = ['*']) {\n    super(clientId, scopes);\n\n    this._secret = secret;\n    this._username = username;\n    this._password = password;\n\n    this._path = '/oauth/token';\n\n    // Because the client requires a secret HTTPS is highly recommended\n    if (!isNode()) {\n      console.warn('Using PasswordFlow in the browser is unrecommended. More information: https://nnmm.nl/?MXF');\n\n      if (window.location.protocol !== 'https:') {\n        console.warn('Page was not loaded using https. You\\'re most likely leaking secrets right now');\n      }\n    }\n  }\n\n  /**\n   * it's a secret :o (client secret)\n   * @returns {String} - secret\n   */\n  get secret() {\n    return this._secret;\n  }\n\n  /**\n   * Set client secret\n   * @param {String} value - secret\n   */\n  set secret(value) {\n    this._secret = value;\n  }\n\n  /**\n   * Get the username for authentication\n   * @returns {String} - Username (email)\n   */\n  get username() {\n    return this._username;\n  }\n\n  /**\n   * Get the username for authentication\n   * @param {String} value - Username (email)\n   */\n  set username(value) {\n    this._username = value;\n  }\n\n  /**\n   * Get the password\n   * @returns {String} - Password\n   */\n  get password() {\n    return this._password;\n  }\n\n  /**\n   * Set the password\n   * @param {String} value - password\n   */\n  set password(value) {\n    this._password = value;\n  }\n\n  /**\n   * OAuth path\n   * @returns {String} - OAuth path\n   */\n  get path() {\n    return this._path;\n  }\n\n  /**\n   * OAuth path\n   * @param {String} value - OAuth path\n   */\n  set path(value) {\n    this._path = value;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    const url = this.host + this._path;\n    const query = {\n      'grant_type': '_password',\n      'client_id': this.clientId,\n      'client_secret': this._secret,\n      'username': this._username,\n      'password': this._password,\n      'scope': this.scopes.join(' '),\n    };\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, 'POST', encodeQueryString(query)).then(request => {\n        const data = JSON.parse(request.responseText);\n\n        this.token = OAuthToken.fromResponseObject(data);\n        this.token.scopes = this.scopes;\n        resolve(this.token);\n      }).catch(request => {\n        const data = JSON.parse(request.responseText);\n\n        reject(new OAuthError(data['error'], data['message']));\n      });\n    });\n  }\n}\n",
@@ -11777,7 +11948,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 433,
+    "__docId__": 435,
     "kind": "class",
     "name": "PasswordFlow",
     "memberof": "src/oauth/PasswordFlow.js",
@@ -11795,7 +11966,7 @@
     ]
   },
   {
-    "__docId__": 434,
+    "__docId__": 436,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -11860,7 +12031,7 @@
     ]
   },
   {
-    "__docId__": 435,
+    "__docId__": 437,
     "kind": "member",
     "name": "_secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -11883,7 +12054,7 @@
     }
   },
   {
-    "__docId__": 436,
+    "__docId__": 438,
     "kind": "member",
     "name": "_username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -11906,7 +12077,7 @@
     }
   },
   {
-    "__docId__": 437,
+    "__docId__": 439,
     "kind": "member",
     "name": "_password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -11929,7 +12100,7 @@
     }
   },
   {
-    "__docId__": 438,
+    "__docId__": 440,
     "kind": "member",
     "name": "_path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -11952,7 +12123,7 @@
     }
   },
   {
-    "__docId__": 439,
+    "__docId__": 441,
     "kind": "get",
     "name": "secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -11984,7 +12155,7 @@
     }
   },
   {
-    "__docId__": 440,
+    "__docId__": 442,
     "kind": "set",
     "name": "secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12014,7 +12185,7 @@
     }
   },
   {
-    "__docId__": 441,
+    "__docId__": 443,
     "kind": "member",
     "name": "_secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12037,7 +12208,7 @@
     }
   },
   {
-    "__docId__": 442,
+    "__docId__": 444,
     "kind": "get",
     "name": "username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12069,7 +12240,7 @@
     }
   },
   {
-    "__docId__": 443,
+    "__docId__": 445,
     "kind": "set",
     "name": "username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12099,7 +12270,7 @@
     }
   },
   {
-    "__docId__": 444,
+    "__docId__": 446,
     "kind": "member",
     "name": "_username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12122,7 +12293,7 @@
     }
   },
   {
-    "__docId__": 445,
+    "__docId__": 447,
     "kind": "get",
     "name": "password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12154,7 +12325,7 @@
     }
   },
   {
-    "__docId__": 446,
+    "__docId__": 448,
     "kind": "set",
     "name": "password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12184,7 +12355,7 @@
     }
   },
   {
-    "__docId__": 447,
+    "__docId__": 449,
     "kind": "member",
     "name": "_password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12207,7 +12378,7 @@
     }
   },
   {
-    "__docId__": 448,
+    "__docId__": 450,
     "kind": "get",
     "name": "path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12239,7 +12410,7 @@
     }
   },
   {
-    "__docId__": 449,
+    "__docId__": 451,
     "kind": "set",
     "name": "path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12269,7 +12440,7 @@
     }
   },
   {
-    "__docId__": 450,
+    "__docId__": 452,
     "kind": "member",
     "name": "_path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12292,7 +12463,7 @@
     }
   },
   {
-    "__docId__": 451,
+    "__docId__": 453,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12320,7 +12491,7 @@
     }
   },
   {
-    "__docId__": 452,
+    "__docId__": 454,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12343,7 +12514,7 @@
     }
   },
   {
-    "__docId__": 453,
+    "__docId__": 455,
     "kind": "file",
     "name": "src/oauth/StateContainer.js",
     "content": "import StaticClass from '../utils/StaticClass';\nimport Uuid from '../utils/uuid';\n\n/**\n * State container for keeping track of OAuth states (crsf tokens)\n * @static\n * @private\n */\nexport default class StateContainer extends StaticClass {\n  /**\n   * LocalStorage key prefix\n   * @returns {String} - prefix\n   * @constant\n   */\n  static get prefix() {\n    return 'm4n_api_state_';\n  }\n\n  /**\n   * Generate and store a state that can be checked at a later point\n   * @returns {string} - state\n   */\n  static generate() {\n    const key = StateContainer.prefix + Date.now();\n    const value = Uuid.uuid4();\n\n    localStorage.setItem(key, value);\n    return value;\n  }\n\n  /**\n   * Validate a state\n   * @param {String} state - state to validate\n   * @param {Boolean} purge - remove from state db after validation\n   * @returns {Boolean} - if the state is valid\n   */\n  static validate(state, purge = true) {\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n\n      if (localStorage.getItem(key) === state) {\n        if (purge) {\n          localStorage.removeItem(key);\n        }\n\n        return true;\n      }\n    }\n\n    return false;\n  }\n\n  /**\n   * Remove all states from the state db\n   * @returns {void}\n   */\n  static clean() {\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n      const prefix = key.slice(0, StateContainer.prefix.length);\n\n      if (prefix === StateContainer.prefix) {\n        localStorage.removeItem(key);\n      }\n    }\n  }\n\n  /**\n   * Get states with their corresponding state db key\n   * @returns {Object<String, String>} - List of stored states\n   */\n  static list() {\n    const out = {};\n\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n      const prefix = key.slice(0, StateContainer.prefix.length);\n\n      if (prefix === StateContainer.prefix) {\n        out[key] = localStorage.getItem(key);\n      }\n    }\n\n    return out;\n  }\n}\n",
@@ -12354,7 +12525,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 454,
+    "__docId__": 456,
     "kind": "class",
     "name": "StateContainer",
     "memberof": "src/oauth/StateContainer.js",
@@ -12372,7 +12543,7 @@
     ]
   },
   {
-    "__docId__": 455,
+    "__docId__": 457,
     "kind": "get",
     "name": "prefix",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -12408,7 +12579,7 @@
     }
   },
   {
-    "__docId__": 456,
+    "__docId__": 458,
     "kind": "method",
     "name": "generate",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -12436,7 +12607,7 @@
     }
   },
   {
-    "__docId__": 457,
+    "__docId__": 459,
     "kind": "method",
     "name": "validate",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -12485,7 +12656,7 @@
     }
   },
   {
-    "__docId__": 458,
+    "__docId__": 460,
     "kind": "method",
     "name": "clean",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -12513,7 +12684,7 @@
     }
   },
   {
-    "__docId__": 459,
+    "__docId__": 461,
     "kind": "method",
     "name": "list",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -12541,7 +12712,7 @@
     }
   },
   {
-    "__docId__": 460,
+    "__docId__": 462,
     "kind": "file",
     "name": "src/traits/HandlesImages.js",
     "content": "import {Trait} from './Trait';\nimport ImageHandler from '../crud/base/ImageHandler';\n\n\n/**\n * Adds the imageHandler to a resource\n */\nexport default class HandlesImages extends Trait {\n  /**\n   * Handler for item image management\n   * @returns {ImageHandler} - Image handler\n   */\n  get imageHandler() {\n    return new ImageHandler(this.api, this);\n  }\n}\n",
@@ -12552,7 +12723,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 461,
+    "__docId__": 463,
     "kind": "class",
     "name": "HandlesImages",
     "memberof": "src/traits/HandlesImages.js",
@@ -12570,7 +12741,7 @@
     ]
   },
   {
-    "__docId__": 462,
+    "__docId__": 464,
     "kind": "get",
     "name": "imageHandler",
     "memberof": "src/traits/HandlesImages.js~HandlesImages",
@@ -12602,7 +12773,7 @@
     }
   },
   {
-    "__docId__": 463,
+    "__docId__": 465,
     "kind": "file",
     "name": "src/traits/OwnableResource.js",
     "content": "import {isParentOf} from '../utils/reflection';\nimport {Trait} from './Trait';\n\n/**\n * Provides a {@link ResourceBase} with functions for dealing with being ownable by an organisation\n * @mixin\n */\nexport default class OwnableResource extends Trait {\n  /**\n   *\n   * @returns {Promise} - Promise will resolve with {@link Array<Organisation>} and reject with an {@link ApiError} instance.\n   */\n  organisations() {\n    // This is a hack to fix a circular dependency issue\n    const Organisation = require('../crud/Organisation').default;\n\n    return this._listResource(Organisation, `${this.url}/organisations`);\n  }\n\n  /**\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'POST');\n  }\n\n  /**\n   * Unlink items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  unlinkOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'DELETE');\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyOrganisationLink(items, method) {\n    // This is a hack to fix a circular dependency issue\n    const Organisation = require('../crud/Organisation').default;\n\n    const filter = x => !isParentOf(Organisation, x) && !isParentOf(Number, x);\n    const isValid = items.filter(filter).length === 0;\n\n    if (!isValid) {\n      throw new TypeError('Array must contain either Numbers (organisation id) or Organisations.');\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : x.id).map(Number);\n\n    return this.api.request(`${this.url}/organisations`, method, {keys});\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return true;\n  }\n}\n",
@@ -12613,7 +12784,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 464,
+    "__docId__": 466,
     "kind": "class",
     "name": "OwnableResource",
     "memberof": "src/traits/OwnableResource.js",
@@ -12637,7 +12808,7 @@
     ]
   },
   {
-    "__docId__": 465,
+    "__docId__": 467,
     "kind": "method",
     "name": "organisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -12665,7 +12836,7 @@
     }
   },
   {
-    "__docId__": 466,
+    "__docId__": 468,
     "kind": "method",
     "name": "syncOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -12704,7 +12875,7 @@
     }
   },
   {
-    "__docId__": 467,
+    "__docId__": 469,
     "kind": "method",
     "name": "attachOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -12743,7 +12914,7 @@
     }
   },
   {
-    "__docId__": 468,
+    "__docId__": 470,
     "kind": "method",
     "name": "unlinkOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -12782,7 +12953,7 @@
     }
   },
   {
-    "__docId__": 469,
+    "__docId__": 471,
     "kind": "method",
     "name": "_modifyOrganisationLink",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -12831,7 +13002,7 @@
     }
   },
   {
-    "__docId__": 470,
+    "__docId__": 472,
     "kind": "get",
     "name": "ownable",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -12863,7 +13034,7 @@
     }
   },
   {
-    "__docId__": 471,
+    "__docId__": 473,
     "kind": "file",
     "name": "src/traits/Trait.js",
     "content": "/**\n * Trait interface\n * @interface\n */\nexport class Trait {}\n",
@@ -12874,7 +13045,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 472,
+    "__docId__": 474,
     "kind": "class",
     "name": "Trait",
     "memberof": "src/traits/Trait.js",
@@ -12889,7 +13060,7 @@
     "interface": true
   },
   {
-    "__docId__": 473,
+    "__docId__": 475,
     "kind": "file",
     "name": "src/utils/Singleton.js",
     "content": "export default class Singleton {\n  constructor() {\n    if (!this.constructor.instance) {\n      this.constructor.instance = this;\n      this._instanceCount = 0;\n    }\n\n    this._instanceCount++;\n\n    return this.constructor.instance;\n  }\n}\n",
@@ -12900,7 +13071,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 474,
+    "__docId__": 476,
     "kind": "class",
     "name": "Singleton",
     "memberof": "src/utils/Singleton.js",
@@ -12922,7 +13093,7 @@
     "interface": false
   },
   {
-    "__docId__": 475,
+    "__docId__": 477,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -12943,7 +13114,7 @@
     "params": []
   },
   {
-    "__docId__": 476,
+    "__docId__": 478,
     "kind": "member",
     "name": "_instanceCount",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -12966,7 +13137,7 @@
     }
   },
   {
-    "__docId__": 477,
+    "__docId__": 479,
     "kind": "file",
     "name": "src/utils/StaticClass.js",
     "content": "import StaticClassError from '../exceptions/StaticClassError';\n\n/**\n * Disables the constructor and throws a {@link StaticClassError} when an instance is created.\n * @protected\n */\nexport default class StaticClass {\n  constructor() {\n    throw new StaticClassError();\n  }\n}\n",
@@ -12977,7 +13148,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 478,
+    "__docId__": 480,
     "kind": "class",
     "name": "StaticClass",
     "memberof": "src/utils/StaticClass.js",
@@ -12992,7 +13163,7 @@
     "interface": false
   },
   {
-    "__docId__": 479,
+    "__docId__": 481,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/StaticClass.js~StaticClass",
@@ -13013,7 +13184,7 @@
     "params": []
   },
   {
-    "__docId__": 480,
+    "__docId__": 482,
     "kind": "file",
     "name": "src/utils/caseConverter.js",
     "content": "/**\n * Converts snake_case strings to camelCase\n * @param {String} str - a snake_case string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function snakeToCamelCase(str) {\n  return str.replace(/(?:(_[a-z\\d]))/g, x => x[1].toUpperCase());\n}\n\n/**\n * Converts camelCase strings to snake_case\n * @param {String} str - a camelCase string\n * @returns {String} - Converted snake_case string\n * @private\n */\nexport function camelToSnakeCase(str) {\n  return str.replace(/([A-Z])/g, x => '_' + x.toLowerCase());\n}\n\nexport function pascalToCamelCase(str) {\n  return str.replace(/^([A-Z])/g, x => x.toLowerCase());\n}\n",
@@ -13024,7 +13195,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 481,
+    "__docId__": 483,
     "kind": "function",
     "name": "snakeToCamelCase",
     "memberof": "src/utils/caseConverter.js",
@@ -13066,7 +13237,7 @@
     }
   },
   {
-    "__docId__": 482,
+    "__docId__": 484,
     "kind": "function",
     "name": "camelToSnakeCase",
     "memberof": "src/utils/caseConverter.js",
@@ -13108,7 +13279,7 @@
     }
   },
   {
-    "__docId__": 483,
+    "__docId__": 485,
     "kind": "function",
     "name": "pascalToCamelCase",
     "memberof": "src/utils/caseConverter.js",
@@ -13144,7 +13315,7 @@
     }
   },
   {
-    "__docId__": 484,
+    "__docId__": 486,
     "kind": "file",
     "name": "src/utils/node.js",
     "content": "/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined' && typeof module !== 'undefined' && module.exports;\n}\n",
@@ -13155,7 +13326,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 485,
+    "__docId__": 487,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -13189,7 +13360,7 @@
     }
   },
   {
-    "__docId__": 486,
+    "__docId__": 488,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "import {Trait} from '../traits/Trait';\n\n/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Constructor} baseClass - Target base class for the traits to be applied to\n * @param {Constructor} mixins - Traits to be applied\n * @returns {Constructor} - Constructor with any traits applied\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach(mixin => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n",
@@ -13200,7 +13371,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 487,
+    "__docId__": 489,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -13257,7 +13428,7 @@
     }
   },
   {
-    "__docId__": 488,
+    "__docId__": 490,
     "kind": "function",
     "name": "getTypeName",
     "memberof": "src/utils/reflection.js",
@@ -13299,7 +13470,7 @@
     }
   },
   {
-    "__docId__": 489,
+    "__docId__": 491,
     "kind": "function",
     "name": "mix",
     "memberof": "src/utils/reflection.js",
@@ -13351,7 +13522,7 @@
     }
   },
   {
-    "__docId__": 490,
+    "__docId__": 492,
     "kind": "function",
     "name": "copyProps",
     "memberof": "src/utils/reflection.js",
@@ -13403,7 +13574,7 @@
     }
   },
   {
-    "__docId__": 491,
+    "__docId__": 493,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/**\n * Makes a HTTP request and returns a promise. Promise will fail/reject if the\n * status code isn't 2XX.\n * @param {string} url - Target url\n * @param {string} method - HTTP method\n * @param {string|object<string, string>} body - raw body content or object to be json encoded\n * @param {object<string, string>} headers - headers\n * @param {string} responseType - XMLHttpRequest response type\n *\n * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx\n * @protected\n */\nexport function makeRequest(url, method = 'GET', body = '', headers = {}, responseType = '') {\n  return new Promise((resolve, reject) => {\n    method = method.toUpperCase();\n\n    const request = new XMLHttpRequest();\n\n    request.responseType = responseType;\n\n    function hasHeader(h) {\n      return Object.keys(headers)\n        .filter(x => x.toLowerCase() === h.toLowerCase())\n        .length > 0;\n    }\n\n    request.open(method, url, true);\n\n    // Automatically detect possible content-type header\n    if (typeof body === 'object') {\n      body = JSON.stringify(body);\n\n      if (!hasHeader('Content-Type')) {\n        headers['Content-Type'] = 'application/json';\n      }\n    } else if (body && !hasHeader('Content-Type')) {\n      headers['Content-Type'] = 'application/x-www-form-urlencoded';\n    }\n\n    if (!hasHeader('Accept')) {\n      headers['Accept'] = 'application/json';\n    }\n\n    // Apply headers\n    for (const key of Object.keys(headers)) {\n      request.setRequestHeader(key, headers[key]);\n    }\n\n    request.onreadystatechange = () => {\n      // State 4 === Done\n      if (request.readyState === XMLHttpRequest.DONE) {\n        if (request.status >= 200 && request.status < 300) {\n          resolve(request);\n        } else {\n          reject(request);\n        }\n      }\n    };\n\n    if (body && method !== 'GET') {\n      request.send(body);\n    } else {\n      request.send();\n    }\n  });\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject);\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
@@ -13414,7 +13585,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 492,
+    "__docId__": 494,
     "kind": "function",
     "name": "makeRequest",
     "memberof": "src/utils/requests.js",
@@ -13497,7 +13668,7 @@
     }
   },
   {
-    "__docId__": 493,
+    "__docId__": 495,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -13539,7 +13710,7 @@
     }
   },
   {
-    "__docId__": 494,
+    "__docId__": 496,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -13594,7 +13765,7 @@
     }
   },
   {
-    "__docId__": 495,
+    "__docId__": 497,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "import StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    // Use the secure method if possible\n    return typeof crypto !== 'undefined' && crypto.getRandomValues ? Uuid._uuid4Safe() : Uuid._uuid4Unsafe();\n  }\n\n  /**\n   * Unsafe UUID4 generation using Math.random\n   * @returns {string} - Uuid\n   *\n   * @see http://stackoverflow.com/a/8809472\n   * @license MIT|Public Domain\n   * @private\n   */\n  static _uuid4Unsafe() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Safe UUID4 generation using the crypto api\n   * @returns {String} - Uuid\n   * @private\n   */\n  static _uuid4Safe() {\n    let data = new Uint8Array(16);\n\n    crypto.getRandomValues(data);\n\n    // cast to array so we can use pop()\n    data = [].slice.call(data);\n\n    // Replace 'xx' with a two width base 16 number\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/xx/g, () => {\n      // Prepend 00 for padding and grab the last two characters\n      return ('00' + data.pop().toString(16)).slice(-2);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -13605,7 +13776,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 496,
+    "__docId__": 498,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -13623,7 +13794,7 @@
     ]
   },
   {
-    "__docId__": 497,
+    "__docId__": 499,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -13651,7 +13822,7 @@
     }
   },
   {
-    "__docId__": 498,
+    "__docId__": 500,
     "kind": "method",
     "name": "_uuid4Unsafe",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -13686,7 +13857,7 @@
     }
   },
   {
-    "__docId__": 499,
+    "__docId__": 501,
     "kind": "method",
     "name": "_uuid4Safe",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -13714,7 +13885,7 @@
     }
   },
   {
-    "__docId__": 500,
+    "__docId__": 502,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -13742,7 +13913,7 @@
     }
   },
   {
-    "__docId__": 502,
+    "__docId__": 504,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -13754,7 +13925,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 503,
+    "__docId__": 505,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -13766,7 +13937,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 504,
+    "__docId__": 506,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -13778,7 +13949,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 505,
+    "__docId__": 507,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -13790,7 +13961,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 506,
+    "__docId__": 508,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -13802,7 +13973,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 507,
+    "__docId__": 509,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -13814,7 +13985,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 508,
+    "__docId__": 510,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -13826,7 +13997,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 509,
+    "__docId__": 511,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -13838,7 +14009,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 510,
+    "__docId__": 512,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -13850,7 +14021,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 511,
+    "__docId__": 513,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -13862,7 +14033,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 512,
+    "__docId__": 514,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -13874,7 +14045,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 513,
+    "__docId__": 515,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -13886,7 +14057,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 514,
+    "__docId__": 516,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -13898,7 +14069,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 515,
+    "__docId__": 517,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -13910,7 +14081,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 516,
+    "__docId__": 518,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -13922,7 +14093,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 517,
+    "__docId__": 519,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -13934,7 +14105,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 518,
+    "__docId__": 520,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -13946,7 +14117,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 519,
+    "__docId__": 521,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -13958,7 +14129,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 520,
+    "__docId__": 522,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -13970,7 +14141,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 521,
+    "__docId__": 523,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -13982,7 +14153,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 522,
+    "__docId__": 524,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -13994,7 +14165,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 523,
+    "__docId__": 525,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -14006,7 +14177,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 524,
+    "__docId__": 526,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -14018,7 +14189,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 525,
+    "__docId__": 527,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -14030,7 +14201,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 526,
+    "__docId__": 528,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -14042,7 +14213,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 527,
+    "__docId__": 529,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -14054,7 +14225,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 528,
+    "__docId__": 530,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -14066,7 +14237,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 529,
+    "__docId__": 531,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -14078,7 +14249,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 530,
+    "__docId__": 532,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -14090,7 +14261,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 531,
+    "__docId__": 533,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -14102,7 +14273,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 532,
+    "__docId__": 534,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -14114,7 +14285,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 533,
+    "__docId__": 535,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -14126,7 +14297,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 534,
+    "__docId__": 536,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -14138,7 +14309,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 535,
+    "__docId__": 537,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -14150,7 +14321,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 536,
+    "__docId__": 538,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -14162,7 +14333,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 537,
+    "__docId__": 539,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -14174,7 +14345,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 538,
+    "__docId__": 540,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -14186,7 +14357,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 539,
+    "__docId__": 541,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -14198,7 +14369,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 540,
+    "__docId__": 542,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -14210,7 +14381,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 541,
+    "__docId__": 543,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -14222,7 +14393,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 542,
+    "__docId__": 544,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -14234,7 +14405,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 543,
+    "__docId__": 545,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -14246,7 +14417,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 544,
+    "__docId__": 546,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -14258,7 +14429,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 545,
+    "__docId__": 547,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -14270,7 +14441,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 546,
+    "__docId__": 548,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -14282,7 +14453,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 547,
+    "__docId__": 549,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -14294,7 +14465,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 548,
+    "__docId__": 550,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -14307,7 +14478,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 550,
+    "__docId__": 552,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -14319,7 +14490,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 551,
+    "__docId__": 553,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -14331,7 +14502,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 552,
+    "__docId__": 554,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -14343,7 +14514,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 553,
+    "__docId__": 555,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -14355,7 +14526,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 554,
+    "__docId__": 556,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -14367,7 +14538,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 555,
+    "__docId__": 557,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -14379,7 +14550,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 556,
+    "__docId__": 558,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -14391,7 +14562,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 557,
+    "__docId__": 559,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

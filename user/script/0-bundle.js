@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:af9a27071f3d5432b310, chunkhash:a059deb8b20dbf780155, name:bundle, version:v0.5.8
+ * hash:5be56c365e802e96a54b, chunkhash:3d21f35fa98fd90ffc91, name:bundle, version:v0.5.9
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.5.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.5.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -7885,6 +7885,68 @@ var ResourceProxy = function () {
     }
 
     /**
+     * Lists target resource
+     * @param {Number} page - The page to be requested
+     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+     * @param {Boolean} cacheEnabled - If the pagination cache should be used
+     * @param {Number} cacheTime - Amount of seconds to store a value in cache
+     * @param {Boolean} shareCache - Share cache across instances
+     * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     *
+     */
+
+  }, {
+    key: 'listAndWrap',
+    value: function listAndWrap() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.perPage;
+      var cacheEnabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.cacheEnabled;
+      var cacheTime = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.cacheSeconds;
+      var shareCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.api.defaults._shareCache;
+
+      return this.searchAndWrap({}, page, perPage, cacheEnabled, cacheTime, shareCache);
+    }
+
+    /**
+     * Lists target resource
+     * @param {Object<String, String|Array<String>>} query - Query
+     * @param {Number} page - The page to be requested
+     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+     * @param {Boolean} cacheEnabled - If the pagination cache should be used
+     * @param {Number} cacheTime - Amount of seconds to store a value in cache
+     * @param {Boolean} shareCache - Share cache across instances
+     * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance
+     *
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * var query = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * }
+     *
+     * api.layers.searchAndWrap(query)
+     */
+
+  }, {
+    key: 'searchAndWrap',
+    value: function searchAndWrap(query) {
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.perPage;
+      var cacheEnabled = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.cacheEnabled;
+      var cacheTime = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.api.defaults.cacheSeconds;
+      var shareCache = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : this.api.defaults._shareCache;
+
+      var url = this.new().baseUrl;
+      var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query, page, perPage);
+      var wrapped = resolver.wrap(cacheEnabled, cacheTime, shareCache);
+
+      wrapped.get(page);
+
+      return wrapped;
+    }
+
+    /**
      * Get target resource
      * @param {Number|String} id - The resource id to be requested
      * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
@@ -9848,7 +9910,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.5.8";
+var version = exports.version = "v0.5.9";
 
 /***/ }),
 /* 167 */
