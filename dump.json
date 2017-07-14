@@ -2507,7 +2507,7 @@
     "__docId__": 77,
     "kind": "file",
     "name": "src/PaginatedResourceWrapper.js",
-    "content": "/* eslint-disable no-trailing-spaces */\nimport ResourceCache from './ResourceCache';\n\n/**\n * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly\n */\nexport default class PaginatedResourceWrapper {\n  /**\n   *\n   * @param {PaginatedResourceListing} listing - Listing result\n   * @param {Maps4News} api - Instance of the api\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   */\n  constructor(listing, api = listing.api, cacheEnabled = api.defaults.cacheEnabled, cacheTime = api.defaults.cacheSeconds, shareCache = api.defaults._shareCache) {\n\n    // Fields\n    this._api = api;\n    this.cacheEnabled = cacheEnabled;\n    this.cacheTime = cacheTime;\n    this._shareCache = shareCache;\n    this._currentPage = 1;\n\n    /**\n     * Available data assembled from the cache\n     * @type {Array<ResourceBase>} - Available data\n     */\n    this.data = [];\n\n    // Internal\n    this._localCache = new ResourceCache(api, cacheTime);\n    this._cache = this._shareCache ? this.api.cache : this._localCache;\n    this._inflight = [];\n    this._last = listing;\n\n    this._promiseCallback(listing);\n  }\n\n  get _promiseCallback() {\n    return result => {\n      const query = this.query;\n\n      this._last = result;\n      this._query = query;\n\n      this.cache.push(result);\n\n      const inflightId = this.inflight.findIndex(x => x === result.page);\n\n      if (inflightId >= 0) {\n        this._inflight.splice(inflightId, 1);\n      }\n\n      this.rebuild();\n    };\n  }\n\n  /**\n   * Manually fetch a page. This will change the current page.\n   * @param {Number|Array<Number>} pageId - Page(s) to fetch\n   * @returns {void}\n   */\n  get(pageId) {\n    if (pageId instanceof Array) {\n      pageId.map(this.get);\n    } else {\n      this._inflight.push(pageId);\n      this._last.getPage(pageId).then(this._promiseCallback);\n    }\n  }\n\n  /**\n   * Grab the next page\n   * @returns {void}\n   */\n  next() {\n    this.get(++this.currentPage);\n  }\n\n  /**\n   * Grab the previous page\n   * @returns {void}\n   */\n  previous() {\n    this.get(--this.currentPage);\n  }\n\n  /**\n   * Manually rebuild the data\n   * @returns {void}\n   */\n  rebuild() {\n    this.data = this.cache\n      .resolve(this.path, this._last.cacheToken)\n      .filter(value => typeof value !== 'undefined');\n\n    this.cache.emitter.emit('post-rebuild', {resourceUrl: this._last.url});\n  }\n\n  /**\n   * Updates the cached pages.\n   * @param {Boolean} flush - Clear the cached path data\n   * @returns {void}\n   */\n  refresh(flush = false) {\n    if (flush) {\n      this.cache.clear(this.path);\n    }\n\n    this.cache\n      .collectPages(this.path, this._last.cacheToken)\n      .map(page => this.get(page.page));\n  }\n\n  /**\n   * Returns the page number that is currently being used as a reference point\n   * @returns {Number} - The current page\n   * @see {@link PaginatedResourceWrapper#next}\n   * @see {@link PaginatedResourceWrapper#previous}\n   */\n  get currentPage() {\n    return this._currentPage;\n  }\n\n  /**\n   * Set the current page number\n   * @param {Number} value - page number\n   */\n  set currentPage(value) {\n    this._currentPage = Math.max(1, value);\n  }\n\n  /**\n   * Get the path of the resource\n   * @returns {String} - path\n   */\n  get path() {\n    return this._last.path;\n  }\n\n  /**\n   * Get the number of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._last.pageCount;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._last.query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    this._last.query = value;\n    this.rebuild();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Get the active cache instance\n   * @returns {ResourceCache} - Cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get if the shared cache should be used\n   * @returns {Boolean} - Should the shared cache be used\n   */\n  get shareCache() {\n    return this._shareCache;\n  }\n\n  /**\n   * Sets if the shared cache should be used\n   * @param {Boolean} value - Should the shared cache be used\n   */\n  set shareCache(value) {\n    this._shareCache = Boolean(value);\n\n    this._cache = this._shareCache ? this.api.cache : this._localCache;\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.inflight === 0 ? this._last.hasNext : this.currentPage < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this._last.hasPrevious;\n  }\n\n  /**\n   * List of page numbers that are still mid-flight\n   * @returns {Array} - Page numbers that are still mid-flight\n   */\n  get inflight() {\n    return this._inflight;\n  }\n}\n",
+    "content": "import ResourceCache from './ResourceCache';\n\n/**\n * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly\n */\nexport default class PaginatedResourceWrapper {\n  /**\n   *\n   * @param {PaginatedResourceListing} listing - Listing result\n   * @param {Maps4News} api - Instance of the api\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   */\n  constructor(listing, api = listing.api, cacheEnabled = api.defaults.cacheEnabled, cacheTime = api.defaults.cacheSeconds, shareCache = api.defaults._shareCache) {\n\n    // Fields\n    this._api = api;\n    this.cacheEnabled = cacheEnabled;\n    this.cacheTime = cacheTime;\n    this._shareCache = shareCache;\n    this._currentPage = 1;\n\n    /**\n     * Available data assembled from the cache\n     * @type {Array<ResourceBase>} - Available data\n     */\n    this.data = [];\n\n    // Internal\n    this._localCache = new ResourceCache(api, cacheTime);\n    this._inflight = [];\n    this._last = listing;\n\n    this._promiseCallback(listing);\n  }\n\n  get _promiseCallback() {\n    return result => {\n      const query = this.query;\n\n      this._last = result;\n      this._query = query;\n\n      this.cache.push(result);\n\n      const inflightId = this.inflight.findIndex(x => x === result.page);\n\n      if (inflightId >= 0) {\n        this._inflight.splice(inflightId, 1);\n      }\n\n      this.rebuild();\n    };\n  }\n\n  /**\n   * Manually fetch a page. This will change the current page.\n   * @param {Number|Array<Number>} pageId - Page(s) to fetch\n   * @returns {void}\n   */\n  get(pageId) {\n    if (pageId instanceof Array) {\n      pageId.map(this.get);\n    } else {\n      this._inflight.push(pageId);\n      this._last.getPage(pageId).then(this._promiseCallback);\n    }\n  }\n\n  /**\n   * Grab the next page\n   * @returns {void}\n   */\n  next() {\n    this.get(++this.currentPage);\n  }\n\n  /**\n   * Grab the previous page\n   * @returns {void}\n   */\n  previous() {\n    this.get(--this.currentPage);\n  }\n\n  /**\n   * Manually rebuild the data\n   * @returns {void}\n   */\n  rebuild() {\n    this.data = this.cache\n      .resolve(this.path, this._last.cacheToken)\n      .filter(value => typeof value !== 'undefined');\n\n    this.cache.emitter.emit('post-rebuild', {resourceUrl: this._last.url});\n  }\n\n  /**\n   * Updates the cached pages.\n   * @param {Boolean} flush - Clear the cached path data\n   * @returns {void}\n   */\n  refresh(flush = false) {\n    if (flush) {\n      this.cache.clear(this.path);\n    }\n\n    this.cache\n      .collectPages(this.path, this._last.cacheToken)\n      .map(page => this.get(page.page));\n  }\n\n  /**\n   * Returns the page number that is currently being used as a reference point\n   * @returns {Number} - The current page\n   * @see {@link PaginatedResourceWrapper#next}\n   * @see {@link PaginatedResourceWrapper#previous}\n   */\n  get currentPage() {\n    return this._currentPage;\n  }\n\n  /**\n   * Set the current page number\n   * @param {Number} value - page number\n   */\n  set currentPage(value) {\n    this._currentPage = Math.max(1, value);\n  }\n\n  /**\n   * Get the path of the resource\n   * @returns {String} - path\n   */\n  get path() {\n    return this._last.path;\n  }\n\n  /**\n   * Get the number of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._last.pageCount;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._last.query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    this._last.query = value;\n    this.rebuild();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Get the active cache instance\n   * @returns {ResourceCache} - Cache instance\n   */\n  get cache() {\n    return this.shareCache ? this.api.cache : this._localCache;\n  }\n\n  /**\n   * Get if the shared cache should be used\n   * @returns {Boolean} - Should the shared cache be used\n   */\n  get shareCache() {\n    return this._shareCache;\n  }\n\n  /**\n   * Sets if the shared cache should be used\n   * @param {Boolean} value - Should the shared cache be used\n   */\n  set shareCache(value) {\n    this._shareCache = Boolean(value);\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this._last.hasPrevious;\n  }\n\n  /**\n   * List of page numbers that are still mid-flight\n   * @returns {Array} - Page numbers that are still mid-flight\n   */\n  get inflight() {\n    return this._inflight;\n  }\n\n  /**\n   * Register an event handler for the given type.\n   *\n   * @param {string} type Type of event to listen for, or `\"*\"` for all events.\n   * @param {function(event: any): void} handler Function to call in response to the given event.\n   * @returns {void}\n   */\n  on(type, handler) {\n    this.cache.emitter.on(type, handler);\n  }\n\n  /**\n   * Function to call in response to the given event\n   *\n   * @param {string} type Type of event to unregister `handler` from, or `\"*\"`\n   * @param {function(event: any): void} handler Handler function to remove.\n   * @returns {void}\n   */\n  off(type, handler) {\n    this.cache.emitter.off(type, handler);\n  }\n}\n",
     "static": true,
     "longname": "src/PaginatedResourceWrapper.js",
     "access": null,
@@ -2526,7 +2526,7 @@
     "importPath": "@mapcreator/maps4news/src/PaginatedResourceWrapper.js",
     "importStyle": "PaginatedResourceWrapper",
     "description": "Used for wrapping {@link PaginatedResourceListing} to make it spa friendly",
-    "lineNumber": 7,
+    "lineNumber": 6,
     "interface": false
   },
   {
@@ -2540,7 +2540,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 16,
+    "lineNumber": 15,
     "params": [
       {
         "nullable": null,
@@ -2603,7 +2603,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_api",
     "access": null,
     "description": null,
-    "lineNumber": 19,
+    "lineNumber": 18,
     "undocument": true,
     "unknown": [
       {
@@ -2626,7 +2626,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cacheEnabled",
     "access": null,
     "description": null,
-    "lineNumber": 20,
+    "lineNumber": 19,
     "undocument": true,
     "unknown": [
       {
@@ -2649,7 +2649,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cacheTime",
     "access": null,
     "description": null,
-    "lineNumber": 21,
+    "lineNumber": 20,
     "undocument": true,
     "unknown": [
       {
@@ -2672,7 +2672,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_shareCache",
     "access": null,
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 21,
     "undocument": true,
     "unknown": [
       {
@@ -2695,7 +2695,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_currentPage",
     "access": null,
     "description": null,
-    "lineNumber": 23,
+    "lineNumber": 22,
     "undocument": true,
     "unknown": [
       {
@@ -2718,7 +2718,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#data",
     "access": null,
     "description": "Available data assembled from the cache",
-    "lineNumber": 29,
+    "lineNumber": 28,
     "type": {
       "nullable": null,
       "types": [
@@ -2737,7 +2737,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_localCache",
     "access": null,
     "description": null,
-    "lineNumber": 32,
+    "lineNumber": 31,
     "undocument": true,
     "unknown": [
       {
@@ -2754,10 +2754,33 @@
   {
     "__docId__": 87,
     "kind": "member",
-    "name": "_cache",
+    "name": "_inflight",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
     "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_cache",
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_inflight",
+    "access": null,
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 88,
+    "kind": "member",
+    "name": "_last",
+    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
+    "static": false,
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
     "access": null,
     "description": null,
     "lineNumber": 33,
@@ -2775,38 +2798,17 @@
     }
   },
   {
-    "__docId__": 88,
-    "kind": "member",
-    "name": "_inflight",
-    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
-    "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_inflight",
-    "access": null,
-    "description": null,
-    "lineNumber": 34,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*[]"
-      ]
-    }
-  },
-  {
     "__docId__": 89,
-    "kind": "member",
-    "name": "_last",
+    "kind": "get",
+    "name": "_promiseCallback",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
+    "generator": false,
+    "async": false,
     "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_promiseCallback",
     "access": null,
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 38,
     "undocument": true,
     "unknown": [
       {
@@ -2822,16 +2824,14 @@
   },
   {
     "__docId__": 90,
-    "kind": "get",
-    "name": "_promiseCallback",
+    "kind": "member",
+    "name": "_last",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
-    "generator": false,
-    "async": false,
     "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_promiseCallback",
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
     "access": null,
     "description": null,
-    "lineNumber": 40,
+    "lineNumber": 42,
     "undocument": true,
     "unknown": [
       {
@@ -2848,13 +2848,13 @@
   {
     "__docId__": 91,
     "kind": "member",
-    "name": "_last",
+    "name": "_query",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
     "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_query",
     "access": null,
     "description": null,
-    "lineNumber": 44,
+    "lineNumber": 43,
     "undocument": true,
     "unknown": [
       {
@@ -2870,29 +2870,6 @@
   },
   {
     "__docId__": 92,
-    "kind": "member",
-    "name": "_query",
-    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
-    "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_query",
-    "access": null,
-    "description": null,
-    "lineNumber": 45,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 93,
     "kind": "method",
     "name": "get",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -2902,7 +2879,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#get",
     "access": null,
     "description": "Manually fetch a page. This will change the current page.",
-    "lineNumber": 64,
+    "lineNumber": 62,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2932,7 +2909,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 93,
     "kind": "method",
     "name": "next",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -2942,7 +2919,35 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#next",
     "access": null,
     "description": "Grab the next page",
-    "lineNumber": 77,
+    "lineNumber": 75,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "name": "previous",
+    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#previous",
+    "access": null,
+    "description": "Grab the previous page",
+    "lineNumber": 83,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2962,15 +2967,15 @@
   {
     "__docId__": 95,
     "kind": "method",
-    "name": "previous",
+    "name": "rebuild",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#previous",
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#rebuild",
     "access": null,
-    "description": "Grab the previous page",
-    "lineNumber": 85,
+    "description": "Manually rebuild the data",
+    "lineNumber": 91,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2989,34 +2994,6 @@
   },
   {
     "__docId__": 96,
-    "kind": "method",
-    "name": "rebuild",
-    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#rebuild",
-    "access": null,
-    "description": "Manually rebuild the data",
-    "lineNumber": 93,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{void}"
-      }
-    ],
-    "params": [],
-    "return": {
-      "nullable": null,
-      "types": [
-        "void"
-      ],
-      "spread": false,
-      "description": ""
-    }
-  },
-  {
-    "__docId__": 97,
     "kind": "member",
     "name": "data",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3024,7 +3001,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#data",
     "access": null,
     "description": null,
-    "lineNumber": 94,
+    "lineNumber": 92,
     "undocument": true,
     "unknown": [
       {
@@ -3039,7 +3016,7 @@
     }
   },
   {
-    "__docId__": 98,
+    "__docId__": 97,
     "kind": "method",
     "name": "refresh",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3049,7 +3026,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#refresh",
     "access": null,
     "description": "Updates the cached pages.",
-    "lineNumber": 106,
+    "lineNumber": 104,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3078,7 +3055,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 98,
     "kind": "get",
     "name": "currentPage",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3092,7 +3069,7 @@
       "{@link PaginatedResourceWrapper#next}",
       "{@link PaginatedResourceWrapper#previous}"
     ],
-    "lineNumber": 122,
+    "lineNumber": 120,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3114,7 +3091,7 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 99,
     "kind": "set",
     "name": "currentPage",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3124,7 +3101,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "access": null,
     "description": "Set the current page number",
-    "lineNumber": 130,
+    "lineNumber": 128,
     "params": [
       {
         "nullable": null,
@@ -3144,7 +3121,7 @@
     }
   },
   {
-    "__docId__": 101,
+    "__docId__": 100,
     "kind": "member",
     "name": "_currentPage",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3152,7 +3129,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_currentPage",
     "access": null,
     "description": null,
-    "lineNumber": 131,
+    "lineNumber": 129,
     "undocument": true,
     "unknown": [
       {
@@ -3167,7 +3144,7 @@
     }
   },
   {
-    "__docId__": 102,
+    "__docId__": 101,
     "kind": "get",
     "name": "path",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3177,7 +3154,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#path",
     "access": null,
     "description": "Get the path of the resource",
-    "lineNumber": 138,
+    "lineNumber": 136,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3199,7 +3176,7 @@
     }
   },
   {
-    "__docId__": 103,
+    "__docId__": 102,
     "kind": "get",
     "name": "pageCount",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3209,7 +3186,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#pageCount",
     "access": null,
     "description": "Get the number of pages available",
-    "lineNumber": 146,
+    "lineNumber": 144,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3231,7 +3208,7 @@
     }
   },
   {
-    "__docId__": 104,
+    "__docId__": 103,
     "kind": "get",
     "name": "query",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3241,7 +3218,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "access": null,
     "description": "Optional search query",
-    "lineNumber": 155,
+    "lineNumber": 153,
     "unknown": [
       {
         "tagName": "@default",
@@ -3263,7 +3240,7 @@
     }
   },
   {
-    "__docId__": 105,
+    "__docId__": 104,
     "kind": "set",
     "name": "query",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3276,7 +3253,7 @@
     "see": [
       "{@link ResourceProxy#search}"
     ],
-    "lineNumber": 166,
+    "lineNumber": 164,
     "unknown": [
       {
         "tagName": "@default",
@@ -3310,7 +3287,7 @@
     ]
   },
   {
-    "__docId__": 106,
+    "__docId__": 105,
     "kind": "get",
     "name": "api",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3320,7 +3297,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 175,
+    "lineNumber": 173,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3342,7 +3319,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 106,
     "kind": "get",
     "name": "cache",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3352,7 +3329,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cache",
     "access": null,
     "description": "Get the active cache instance",
-    "lineNumber": 183,
+    "lineNumber": 181,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3374,7 +3351,7 @@
     }
   },
   {
-    "__docId__": 108,
+    "__docId__": 107,
     "kind": "get",
     "name": "shareCache",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3384,7 +3361,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "access": null,
     "description": "Get if the shared cache should be used",
-    "lineNumber": 191,
+    "lineNumber": 189,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3406,7 +3383,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 108,
     "kind": "set",
     "name": "shareCache",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3416,7 +3393,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "access": null,
     "description": "Sets if the shared cache should be used",
-    "lineNumber": 199,
+    "lineNumber": 197,
     "params": [
       {
         "nullable": null,
@@ -3436,7 +3413,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 109,
     "kind": "member",
     "name": "_shareCache",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3444,7 +3421,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_shareCache",
     "access": null,
     "description": null,
-    "lineNumber": 200,
+    "lineNumber": 198,
     "undocument": true,
     "unknown": [
       {
@@ -3459,30 +3436,7 @@
     }
   },
   {
-    "__docId__": 111,
-    "kind": "member",
-    "name": "_cache",
-    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
-    "static": false,
-    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_cache",
-    "access": null,
-    "description": null,
-    "lineNumber": 202,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 112,
+    "__docId__": 110,
     "kind": "get",
     "name": "hasNext",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3492,7 +3446,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasNext",
     "access": null,
     "description": "If there is a next page",
-    "lineNumber": 209,
+    "lineNumber": 205,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3514,7 +3468,7 @@
     }
   },
   {
-    "__docId__": 113,
+    "__docId__": 111,
     "kind": "get",
     "name": "hasPrevious",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3524,7 +3478,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasPrevious",
     "access": null,
     "description": "If there is a previous page",
-    "lineNumber": 217,
+    "lineNumber": 213,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3546,7 +3500,7 @@
     }
   },
   {
-    "__docId__": 114,
+    "__docId__": 112,
     "kind": "get",
     "name": "inflight",
     "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
@@ -3556,7 +3510,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#inflight",
     "access": null,
     "description": "List of page numbers that are still mid-flight",
-    "lineNumber": 225,
+    "lineNumber": 221,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3575,6 +3529,104 @@
       "types": [
         "*"
       ]
+    }
+  },
+  {
+    "__docId__": 113,
+    "kind": "method",
+    "name": "on",
+    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#on",
+    "access": null,
+    "description": "Register an event handler for the given type.",
+    "lineNumber": 232,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "type",
+        "description": "Type of event to listen for, or `\"*\"` for all events."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(event: any): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "handler",
+        "description": "Function to call in response to the given event."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "method",
+    "name": "off",
+    "memberof": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#off",
+    "access": null,
+    "description": "Function to call in response to the given event",
+    "lineNumber": 243,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "type",
+        "description": "Type of event to unregister `handler` from, or `\"*\"`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(event: any): void"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "handler",
+        "description": "Handler function to remove."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
     }
   },
   {

@@ -805,13 +805,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1134,6 +1134,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#off",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-off",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#off",
+    "method"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#on",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-on",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#on",
+    "method"
+  ],
+  [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#pagecount",
     "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-pageCount",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#pageCount",
@@ -1153,13 +1165,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-query",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "member"
   ],

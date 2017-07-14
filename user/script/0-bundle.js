@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:2dc752714df8a8be4ebc, chunkhash:6c086f5df6ab6b79e77c, name:bundle, version:v0.5.7
+ * hash:af9a27071f3d5432b310, chunkhash:a059deb8b20dbf780155, name:bundle, version:v0.5.8
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.5.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.5.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -9848,7 +9848,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.5.7";
+var version = exports.version = "v0.5.8";
 
 /***/ }),
 /* 167 */
@@ -9904,8 +9904,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint-disable no-trailing-spaces */
-
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _ResourceCache = __webpack_require__(124);
 
@@ -9950,7 +9949,6 @@ var PaginatedResourceWrapper = function () {
 
     // Internal
     this._localCache = new _ResourceCache2.default(api, cacheTime);
-    this._cache = this._shareCache ? this.api.cache : this._localCache;
     this._inflight = [];
     this._last = listing;
 
@@ -10041,6 +10039,34 @@ var PaginatedResourceWrapper = function () {
      * @see {@link PaginatedResourceWrapper#previous}
      */
 
+  }, {
+    key: 'on',
+
+
+    /**
+     * Register an event handler for the given type.
+     *
+     * @param {string} type Type of event to listen for, or `"*"` for all events.
+     * @param {function(event: any): void} handler Function to call in response to the given event.
+     * @returns {void}
+     */
+    value: function on(type, handler) {
+      this.cache.emitter.on(type, handler);
+    }
+
+    /**
+     * Function to call in response to the given event
+     *
+     * @param {string} type Type of event to unregister `handler` from, or `"*"`
+     * @param {function(event: any): void} handler Handler function to remove.
+     * @returns {void}
+     */
+
+  }, {
+    key: 'off',
+    value: function off(type, handler) {
+      this.cache.emitter.off(type, handler);
+    }
   }, {
     key: '_promiseCallback',
     get: function get() {
@@ -10146,7 +10172,7 @@ var PaginatedResourceWrapper = function () {
   }, {
     key: 'cache',
     get: function get() {
-      return this._cache;
+      return this.shareCache ? this.api.cache : this._localCache;
     }
 
     /**
@@ -10167,8 +10193,6 @@ var PaginatedResourceWrapper = function () {
     ,
     set: function set(value) {
       this._shareCache = Boolean(value);
-
-      this._cache = this._shareCache ? this.api.cache : this._localCache;
     }
 
     /**
@@ -10179,7 +10203,7 @@ var PaginatedResourceWrapper = function () {
   }, {
     key: 'hasNext',
     get: function get() {
-      return this.inflight === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
+      return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
     }
 
     /**

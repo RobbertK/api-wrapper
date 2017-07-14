@@ -1,7 +1,7 @@
 {
-  "coverage": "76.1%",
-  "expectCount": 339,
-  "actualCount": 258,
+  "coverage": "76.24%",
+  "expectCount": 341,
+  "actualCount": 260,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -281,11 +281,11 @@
       "undocumentLines": []
     },
     "src/PaginatedResourceWrapper.js": {
-      "expectCount": 23,
-      "actualCount": 21,
+      "expectCount": 25,
+      "actualCount": 23,
       "undocumentLines": [
-        20,
-        21
+        19,
+        20
       ]
     },
     "src/oauth/PasswordFlow.js": {
