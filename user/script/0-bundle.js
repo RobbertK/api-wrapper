@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:8bef1151734aa3b37dfd, chunkhash:6db238599ec0404154b6, name:bundle, version:v0.5.16
+ * hash:27094ef4ea2dad3c6bbc, chunkhash:e78a4b3a73a836f50311, name:bundle, version:v0.5.18
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.5.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.5.18) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -265,13 +265,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _AbstractError = __webpack_require__(49);
 
-var _ResourceBase2 = __webpack_require__(30);
-
-var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
-
 var _PaginatedResourceListing = __webpack_require__(123);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+var _ResourceBase2 = __webpack_require__(30);
+
+var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -315,19 +315,20 @@ var CrudBase = function (_ResourceBase) {
   _createClass(CrudBase, [{
     key: '_buildCreateData',
     value: function _buildCreateData() {
-      var out = this._properties;
+      var out = {};
+      var keys = [].concat(Object.keys(this._properties), Object.keys(this._baseProperties)).filter(function (item, pos, self) {
+        return self.indexOf(item) === pos;
+      });
 
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = Object.keys(this._baseProperties)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var key = _step.value;
 
-          if (this[key] !== null) {
-            out[key] = this[key];
-          }
+          out[key] = this._properties[key] || this._baseProperties[key];
         }
       } catch (err) {
         _didIteratorError = true;
@@ -1516,6 +1517,8 @@ var ResourceBase = function () {
       if (newKey !== key) {
         data[newKey] = ResourceBase._guessType(newKey, data[key]);
         delete data[key];
+      } else {
+        data[key] = ResourceBase._guessType(newKey, data[key]);
       }
     });
 
@@ -1587,9 +1590,8 @@ var ResourceBase = function () {
         };
 
         if (!protectedFields.includes(key)) {
-          // eslint-disable-next-line no-return-assign
           desc.set = function (val) {
-            return _this2._properties[key] = ResourceBase._guessType(key, val);
+            _this2._properties[key] = ResourceBase._guessType(key, val);
           };
         }
 
@@ -4540,11 +4542,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _node = __webpack_require__(70);
-
 var _NodeError = __webpack_require__(172);
 
 var _NodeError2 = _interopRequireDefault(_NodeError);
+
+var _node = __webpack_require__(70);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4699,10 +4701,15 @@ var OAuthToken = function () {
         // We're using eval to require fs to make sure that it isn't added to the bundle
         // eslint-disable-next-line no-eval
         var fs = eval('require("fs")');
-        var _raw = fs.readFileSync(name);
-        var data = JSON.parse(_raw);
 
-        return new OAuthToken(data.token, data.type, new Date(data.expires));
+        if (fs.existsSync(name)) {
+          var _raw = fs.readFileSync(name);
+          var data = JSON.parse(_raw);
+
+          return new OAuthToken(data.token, data.type, new Date(data.expires));
+        } else {
+          return null;
+        }
       }
 
       // Cookie
@@ -9943,7 +9950,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.5.16";
+var version = exports.version = "v0.5.18";
 
 /***/ }),
 /* 167 */

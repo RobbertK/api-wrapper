@@ -102,8 +102,8 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/oauth/OAuthToken.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {isNode} from &apos;../utils/node&apos;;
-import NodeError from &apos;../exceptions/NodeError&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import NodeError from &apos;../exceptions/NodeError&apos;;
+import {isNode} from &apos;../utils/node&apos;;
 
 /**
  * Oauth token container
@@ -203,7 +203,7 @@ export default class OAuthToken {
       data[&apos;access_token&apos;],
       data[&apos;token_type&apos;],
       Number(data[&apos;expires_in&apos;]),
-      data[&apos;scope&apos;] || []
+      data[&apos;scope&apos;] || [],
     );
   }
 
@@ -252,10 +252,15 @@ export default class OAuthToken {
       // We&apos;re using eval to require fs to make sure that it isn&apos;t added to the bundle
       // eslint-disable-next-line no-eval
       const fs = eval(&apos;require(&quot;fs&quot;)&apos;);
-      const raw = fs.readFileSync(name);
-      const data = JSON.parse(raw);
 
-      return new OAuthToken(data.token, data.type, new Date(data.expires));
+      if (fs.existsSync(name)) {
+        const raw = fs.readFileSync(name);
+        const data = JSON.parse(raw);
+
+        return new OAuthToken(data.token, data.type, new Date(data.expires));
+      } else {
+        return null;
+      }
     }
 
     // Cookie

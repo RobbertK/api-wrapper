@@ -8291,7 +8291,7 @@
     "__docId__": 295,
     "kind": "file",
     "name": "src/crud/base/CrudBase.js",
-    "content": "import {AbstractClassError} from '../../exceptions/AbstractError';\nimport ResourceBase from './ResourceBase';\nimport PaginatedResourceListing from '../../PaginatedResourceListing';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    const out = this._properties;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      if (this[key] !== null) {\n        out[key] = this[key];\n      }\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {String} url - Target url, if not set it will guess\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   * @protected\n   */\n  _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    const resolver = new PaginatedResourceListing(this.api, url, Target);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.baseUrl, 'POST', this._buildCreateData())\n        .catch(reject)\n        .then(data => {\n          this._properties = {};\n          this._baseProperties = data;\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.url, 'PATCH', this._properties)\n        .catch(reject)\n        .then(() => resolve(this));\n    });\n  }\n\n  /**\n   * Delete item\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this.api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Restore item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore() {\n    return new Promise((resolve, reject) => {\n      this.api.request(this.url, 'PUT')\n        .catch(reject)\n        .then(data => resolve(new this(this.api, data)));\n    });\n  }\n}\n",
+    "content": "import {AbstractClassError} from '../../exceptions/AbstractError';\nimport PaginatedResourceListing from '../../PaginatedResourceListing';\nimport ResourceBase from './ResourceBase';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    const out = {};\n    const keys = [].concat(\n      Object.keys(this._properties),\n      Object.keys(this._baseProperties),\n    ).filter((item, pos, self) => self.indexOf(item) === pos);\n\n    for (const key of keys) {\n      out[key] = this._properties[key] || this._baseProperties[key];\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {String} url - Target url, if not set it will guess\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   * @protected\n   */\n  _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    const resolver = new PaginatedResourceListing(this.api, url, Target);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.baseUrl, 'POST', this._buildCreateData())\n        .catch(reject)\n        .then(data => {\n          this._properties = {};\n          this._baseProperties = data;\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.url, 'PATCH', this._properties)\n        .catch(reject)\n        .then(() => resolve(this));\n    });\n  }\n\n  /**\n   * Delete item\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this.api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Restore item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore() {\n    return new Promise((resolve, reject) => {\n      this.api.request(this.url, 'PUT')\n        .catch(reject)\n        .then(data => resolve(new this(this.api, data)));\n    });\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/CrudBase.js",
     "access": null,
@@ -8391,7 +8391,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_listResource",
     "access": "protected",
     "description": "Macro for resource listing",
-    "lineNumber": 49,
+    "lineNumber": 51,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8460,7 +8460,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#save",
     "access": null,
     "description": "Save item. This will create a new item if `id` is unset",
-    "lineNumber": 65,
+    "lineNumber": 67,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8488,7 +8488,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_create",
     "access": "private",
     "description": "Store new item",
-    "lineNumber": 74,
+    "lineNumber": 76,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8514,7 +8514,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 80,
+    "lineNumber": 82,
     "undocument": true,
     "unknown": [
       {
@@ -8537,7 +8537,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 81,
+    "lineNumber": 83,
     "undocument": true,
     "unknown": [
       {
@@ -8562,7 +8562,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_update",
     "access": "private",
     "description": "Update existing item",
-    "lineNumber": 93,
+    "lineNumber": 95,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8590,7 +8590,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#delete",
     "access": null,
     "description": "Delete item",
-    "lineNumber": 106,
+    "lineNumber": 108,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8618,7 +8618,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#restore",
     "access": null,
     "description": "Restore item",
-    "lineNumber": 114,
+    "lineNumber": 116,
     "unknown": [
       {
         "tagName": "@returns",
@@ -8998,7 +8998,7 @@
     "__docId__": 321,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
-    "content": "import {AbstractClassError, AbstractError} from '../../exceptions/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    Object.keys(data).map(key => {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      if (newKey !== key) {\n        data[newKey] = ResourceBase._guessType(newKey, data[key]);\n        delete data[key];\n      }\n    });\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    const protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];\n    const fields = Object.keys(this._baseProperties);\n\n    for (const key of fields) {\n      const desc = {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n      };\n\n      if (!protectedFields.includes(key)) {\n        // eslint-disable-next-line no-return-assign\n        desc.set = val => this._properties[key] = ResourceBase._guessType(key, val);\n      }\n\n      Object.defineProperty(this, snakeToCamelCase(key), desc);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   * @todo find a reasonable way to cast boolean types\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value);\n      case 'id':\n        return Number(value);\n\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      url = url.replace(`{${key}}`, this[key]);\n    }\n\n    return url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n}\n",
+    "content": "import {AbstractClassError, AbstractError} from '../../exceptions/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    Object.keys(data).map(key => {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      if (newKey !== key) {\n        data[newKey] = ResourceBase._guessType(newKey, data[key]);\n        delete data[key];\n      } else {\n        data[key] = ResourceBase._guessType(newKey, data[key]);\n      }\n    });\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    const protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];\n    const fields = Object.keys(this._baseProperties);\n\n    for (const key of fields) {\n      const desc = {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n      };\n\n      if (!protectedFields.includes(key)) {\n        desc.set = (val) => {\n          this._properties[key] = ResourceBase._guessType(key, val);\n        };\n      }\n\n      Object.defineProperty(this, snakeToCamelCase(key), desc);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   * @todo find a reasonable way to cast boolean types\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value);\n      case 'id':\n        return Number(value);\n\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n    for (const key of Object.keys(this._baseProperties)) {\n      url = url.replace(`{${key}}`, this[key]);\n    }\n\n    return url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/ResourceBase.js",
     "access": null,
@@ -9065,7 +9065,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 37,
     "undocument": true,
     "unknown": [
       {
@@ -9088,7 +9088,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 36,
+    "lineNumber": 38,
     "undocument": true,
     "unknown": [
       {
@@ -9111,7 +9111,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_api",
     "access": null,
     "description": null,
-    "lineNumber": 37,
+    "lineNumber": 39,
     "undocument": true,
     "unknown": [
       {
@@ -9136,7 +9136,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 46,
+    "lineNumber": 48,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9168,7 +9168,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#resourcePath",
     "access": null,
     "description": "Resource path template",
-    "lineNumber": 54,
+    "lineNumber": 56,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9200,7 +9200,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#resourceName",
     "access": null,
     "description": "Resource name",
-    "lineNumber": 63,
+    "lineNumber": 65,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9228,7 +9228,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#refresh",
     "access": null,
     "description": "Refresh the resource by requesting it from the server again",
-    "lineNumber": 72,
+    "lineNumber": 74,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9265,7 +9265,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 78,
+    "lineNumber": 80,
     "undocument": true,
     "unknown": [
       {
@@ -9288,7 +9288,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 79,
+    "lineNumber": 81,
     "undocument": true,
     "unknown": [
       {
@@ -9313,7 +9313,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_applyProperties",
     "access": "private",
     "description": "Creates proxies for the properties",
-    "lineNumber": 92,
+    "lineNumber": 94,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9341,7 +9341,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase._guessType",
     "access": "private",
     "description": "Guess type based on property name",
-    "lineNumber": 139,
+    "lineNumber": 142,
     "todo": [
       "find a reasonable way to cast boolean types"
     ],
@@ -9393,7 +9393,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#ownable",
     "access": null,
     "description": "If the resource can be owned by an organisation",
-    "lineNumber": 164,
+    "lineNumber": 167,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9425,7 +9425,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#url",
     "access": null,
     "description": "Auto generated resource url",
-    "lineNumber": 172,
+    "lineNumber": 175,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9457,7 +9457,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#baseUrl",
     "access": null,
     "description": "Auto generated Resource base url",
-    "lineNumber": 186,
+    "lineNumber": 189,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9489,7 +9489,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
     "access": null,
     "description": "List fields that contain object data",
-    "lineNumber": 196,
+    "lineNumber": 199,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9521,7 +9521,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#toString",
     "access": null,
     "description": "String representation of the resource, similar to Python's __repr__",
-    "lineNumber": 206,
+    "lineNumber": 209,
     "unknown": [
       {
         "tagName": "@returns",
@@ -11468,7 +11468,7 @@
     "__docId__": 418,
     "kind": "file",
     "name": "src/oauth/OAuthToken.js",
-    "content": "import {isNode} from '../utils/node';\nimport NodeError from '../exceptions/NodeError';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Filename for nodejs token storage\n   * @returns {string} - filename\n   * @constant\n   */\n  static get nodeTokenFilename() {\n    return '.m4n_token';\n  }\n\n  /**\n   * Gets the default name for the name parameter on save and restore\n   * @returns {string} - name\n   * @private\n   * @static\n   */\n  static get _defaultName() {\n    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || []\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken._defaultName, forceLocalStorage = false) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (isNode()) {\n      if (forceLocalStorage) {\n        throw new NodeError('Can not force localStorage usage when running under node');\n      }\n\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const json = JSON.stringify(data, null, 2);\n\n      fs.writeFileSync(name, json);\n    } else if (window.location.protocol === 'https:' && !forceLocalStorage) {\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken._defaultName) {\n    if (isNode()) {\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const raw = fs.readFileSync(name);\n      const data = JSON.parse(raw);\n\n      return new OAuthToken(data.token, data.type, new Date(data.expires));\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
+    "content": "import NodeError from '../exceptions/NodeError';\nimport {isNode} from '../utils/node';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Filename for nodejs token storage\n   * @returns {string} - filename\n   * @constant\n   */\n  static get nodeTokenFilename() {\n    return '.m4n_token';\n  }\n\n  /**\n   * Gets the default name for the name parameter on save and restore\n   * @returns {string} - name\n   * @private\n   * @static\n   */\n  static get _defaultName() {\n    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || [],\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken._defaultName, forceLocalStorage = false) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (isNode()) {\n      if (forceLocalStorage) {\n        throw new NodeError('Can not force localStorage usage when running under node');\n      }\n\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const json = JSON.stringify(data, null, 2);\n\n      fs.writeFileSync(name, json);\n    } else if (window.location.protocol === 'https:' && !forceLocalStorage) {\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken._defaultName) {\n    if (isNode()) {\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n\n      if (fs.existsSync(name)) {\n        const raw = fs.readFileSync(name);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      } else {\n        return null;\n      }\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
     "static": true,
     "longname": "src/oauth/OAuthToken.js",
     "access": null,
