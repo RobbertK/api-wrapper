@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:6296264543af6e70c35e, chunkhash:4f17da2562498f503796, name:bundle, version:v0.8.3
+ * hash:30e221a01a89cfb5a6ef, chunkhash:6eed017b6da41afe941c, name:bundle, version:v0.8.5
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -3990,20 +3990,12 @@ var CrudSetBase = function (_CrudBase) {
 
     /**
      * Get items associated with the set
-     * @returns {Promise} - Resolves with {@link Dimension} instance and rejects with {@link ApiError}
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}
      */
     value: function items() {
-      var _this2 = this;
-
       var url = this.url + '/items';
 
-      return new Promise(function (resolve, reject) {
-        _this2.api.request(url).catch(reject).then(function (data) {
-          return resolve(data.map(function (row) {
-            return new _this2._Child(_this2.api, row);
-          }));
-        });
-      });
+      return this._listResource(this._Child, url);
     }
 
     /**
@@ -5304,6 +5296,8 @@ var _ApiError3 = _interopRequireDefault(_ApiError2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -5338,6 +5332,18 @@ var ValidationError = function (_ApiError) {
 
 
   _createClass(ValidationError, [{
+    key: 'toString',
+    value: function toString() {
+      var _ref,
+          _this2 = this;
+
+      var errors = (_ref = []).concat.apply(_ref, _toConsumableArray(Object.keys(this.validationErrors).map(function (x) {
+        return _this2.validationErrors[x];
+      })));
+
+      return 'There were some validation errors: ' + errors.join(' ');
+    }
+  }, {
     key: 'validationErrors',
     get: function get() {
       return this._validationErrors;
@@ -9955,7 +9961,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.8.3";
+var version = exports.version = "v0.8.5";
 
 /***/ }),
 /* 167 */

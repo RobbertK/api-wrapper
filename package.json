@@ -1,6 +1,6 @@
 {
   "name": "@mapcreator/maps4news",
-  "version": "0.8.3",
+  "version": "0.8.5",
   "description": "Maps4News JavaScript Api",
   "main": "dist/bundle.js",
   "repository": "git@github.com:MapCreatorEU/m4n-api.git",
@@ -33,7 +33,7 @@
   },
   "scripts": {
     "generate": "cd src/crud && rm index.js && rows=$(find . -type f -depth 1 -exec basename '{}' \\; | sed s/\\.js//) && for i in $rows; do echo \"export $i from './$i.js';\"; done > index.js",
-    "build": "$(npm bin)/webpack --progress",
+    "build": "$(npm bin)/webpack",
     "watch": "$(npm bin)/webpack --progress --watch",
     "docs": "$(npm bin)/esdoc",
     "lint": "$(yarn bin)/eslint --no-color --max-warnings 5 --format checkstyle --output-file build/checkstyle.xml src",
