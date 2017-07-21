@@ -6798,7 +6798,7 @@
     "__docId__": 238,
     "kind": "file",
     "name": "src/crud/Organisation.js",
-    "content": "import CrudBase from './base/CrudBase';\nimport Color from './Color';\nimport Contract from './Contract';\nimport DimensionSet from './DimensionSet';\nimport Feature from './Feature';\nimport FontFamily from './FontFamily';\nimport JobShare from './JobShare';\nimport JobType from './JobType';\nimport Layer from './Layer';\nimport MapstyleSet from './MapstyleSet';\nimport SvgSet from './SvgSet';\nimport User from './User';\n\n\nexport default class Organisation extends CrudBase {\n  /**\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Array<Promise>} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.\n   */\n  sync(items) {\n    return this._modifyResourceLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attach(items) {\n    return this._modifyResourceLink(items, 'POST');\n  }\n\n  /**\n   * Unlink items from the organisation\n   * @param {Array<ResourceBase>} items - List of items to unlink\n   * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  unlink(items) {\n    return this._modifyResourceLink(items, 'DELETE');\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<ResourceBase>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyResourceLink(items, method) {\n    const collections = this._reduceOwnable(items);\n    const out = [];\n\n    for (const key of Object.keys(collections)) {\n      const url = `${this.url}/${key}`;\n      const data = {keys: collections[key]};\n      const promise = this.api.request(url, method, data);\n\n      out.push(promise);\n    }\n\n    return out;\n  }\n\n  /**\n   * Reduce the items to a more usable list\n   * @param {Array<ResourceBase>} items - List of items to reduce\n   * @returns {Object<String, Array<Number>>} - Object keys are resource names and the value is an array containing ids to sync/attach\n   * @private\n   */\n  _reduceOwnable(items) {\n    const out = {};\n\n    for (const row of items) {\n      if (!row.ownable) {\n        continue;\n      }\n\n      const key = row.resourceName;\n\n      if (!out[key]) {\n        out[key] = [row.id];\n      } else {\n        out[key].push(row.id);\n      }\n    }\n\n    return out;\n  }\n\n  get resourceName() {\n    return 'organisations';\n  }\n\n  // Resource listing\n  /**\n   * Get the list font families linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   */\n  fontFamilies() {\n    return this._listResource(FontFamily);\n  }\n\n  /**\n   * Get the list dimension sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   */\n  dimensionSets() {\n    return this._listResource(DimensionSet);\n  }\n\n  /**\n   * Get the list mapstyle sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   */\n  mapstyleSets() {\n    return this._listResource(MapstyleSet);\n  }\n\n  /**\n   * Get the list svg sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   */\n  svgSets() {\n    return this._listResource(SvgSet);\n  }\n\n  /**\n   * Get the list colors linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   */\n  colors() {\n    return this._listResource(Color);\n  }\n\n  /**\n   * Get the list features linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   */\n  features() {\n    return this._listResource(Feature);\n  }\n\n  /**\n   * Get the list layers linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   */\n  layers() {\n    return this._listResource(Layer);\n  }\n\n  /**\n   * Get the list job types linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   */\n  jobTypes() {\n    return this._listResource(JobType);\n  }\n\n  /**\n   * Get the list job shares linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   */\n  jobShares() {\n    return this._listResource(JobShare);\n  }\n\n  /**\n   * Get the list users linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link User} instances and rejects with {@link ApiError}\n   */\n  users() {\n    return this._listResource(User);\n  }\n\n  /**\n   * Get the list contracts linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Contract} instances and rejects with {@link ApiError}\n   */\n  contracts() {\n    return this._listResource(Contract);\n  }\n}\n",
+    "content": "import CrudBase from './base/CrudBase';\nimport Color from './Color';\nimport Contract from './Contract';\nimport DimensionSet from './DimensionSet';\nimport Feature from './Feature';\nimport FontFamily from './FontFamily';\nimport JobShare from './JobShare';\nimport JobType from './JobType';\nimport Layer from './Layer';\nimport MapstyleSet from './MapstyleSet';\nimport SvgSet from './SvgSet';\nimport User from './User';\n\n\nexport default class Organisation extends CrudBase {\n  /**\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.\n   * @see http://es6-features.org/#PromiseCombination\n   */\n  sync(items) {\n    return this._modifyResourceLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to attach\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @see http://es6-features.org/#PromiseCombination\n   */\n  attach(items) {\n    return this._modifyResourceLink(items, 'POST');\n  }\n\n  /**\n   * Unlink items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @see http://es6-features.org/#PromiseCombination\n   */\n  unlink(items) {\n    return this._modifyResourceLink(items, 'DELETE');\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyResourceLink(items, method) {\n    const isCollection = items instanceof Array;\n    const collections = this._reduceOwnable(isCollection ? items : [items]);\n    const out = [];\n\n    for (const key of Object.keys(collections)) {\n      const url = `${this.url}/${key}`;\n      const data = {keys: collections[key]};\n      const promise = this.api.request(url, method, data);\n\n      out.push(promise);\n    }\n\n    return isCollection ? out : out[0];\n  }\n\n  /**\n   * Reduce the items to a more usable list\n   * @param {Array<ResourceBase>} items - List of items to reduce\n   * @returns {Object<String, Array<Number>>} - Object keys are resource names and the value is an array containing ids to sync/attach\n   * @private\n   */\n  _reduceOwnable(items) {\n    const out = {};\n\n    for (const row of items) {\n      if (!row.ownable) {\n        continue;\n      }\n\n      const key = row.resourceName;\n\n      if (!out[key]) {\n        out[key] = [row.id];\n      } else {\n        out[key].push(row.id);\n      }\n    }\n\n    return out;\n  }\n\n  get resourceName() {\n    return 'organisations';\n  }\n\n  // Resource listing\n  /**\n   * Get the list font families linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link FontFamily} instances and rejects with {@link ApiError}\n   */\n  fontFamilies() {\n    return this._listResource(FontFamily);\n  }\n\n  /**\n   * Get the list dimension sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link DimensionSet} instances and rejects with {@link ApiError}\n   */\n  dimensionSets() {\n    return this._listResource(DimensionSet);\n  }\n\n  /**\n   * Get the list mapstyle sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link MapstyleSet} instances and rejects with {@link ApiError}\n   */\n  mapstyleSets() {\n    return this._listResource(MapstyleSet);\n  }\n\n  /**\n   * Get the list svg sets linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link SvgSet} instances and rejects with {@link ApiError}\n   */\n  svgSets() {\n    return this._listResource(SvgSet);\n  }\n\n  /**\n   * Get the list colors linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Color} instances and rejects with {@link ApiError}\n   */\n  colors() {\n    return this._listResource(Color);\n  }\n\n  /**\n   * Get the list features linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Feature} instances and rejects with {@link ApiError}\n   */\n  features() {\n    return this._listResource(Feature);\n  }\n\n  /**\n   * Get the list layers linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}\n   */\n  layers() {\n    return this._listResource(Layer);\n  }\n\n  /**\n   * Get the list job types linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobType} instances and rejects with {@link ApiError}\n   */\n  jobTypes() {\n    return this._listResource(JobType);\n  }\n\n  /**\n   * Get the list job shares linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobShare} instances and rejects with {@link ApiError}\n   */\n  jobShares() {\n    return this._listResource(JobShare);\n  }\n\n  /**\n   * Get the list users linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link User} instances and rejects with {@link ApiError}\n   */\n  users() {\n    return this._listResource(User);\n  }\n\n  /**\n   * Get the list contracts linked to the organisation\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Contract} instances and rejects with {@link ApiError}\n   */\n  contracts() {\n    return this._listResource(Contract);\n  }\n}\n",
     "static": true,
     "longname": "src/crud/Organisation.js",
     "access": null,
@@ -6841,18 +6841,22 @@
     "longname": "src/crud/Organisation.js~Organisation#sync",
     "access": null,
     "description": "Sync items to the organisation",
-    "lineNumber": 21,
+    "see": [
+      "http://es6-features.org/#PromiseCombination"
+    ],
+    "lineNumber": 22,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Array<Promise>} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance."
+        "tagValue": "{Array<Promise>|Promise} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance."
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array<ResourceBase>"
+          "Array<ResourceBase>",
+          "ResourceBase"
         ],
         "spread": false,
         "optional": false,
@@ -6863,7 +6867,8 @@
     "return": {
       "nullable": null,
       "types": [
-        "Array<Promise>"
+        "Array<Promise>",
+        "Promise"
       ],
       "spread": false,
       "description": "Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance."
@@ -6880,18 +6885,22 @@
     "longname": "src/crud/Organisation.js~Organisation#attach",
     "access": null,
     "description": "Attach items to the organisation",
-    "lineNumber": 30,
+    "see": [
+      "http://es6-features.org/#PromiseCombination"
+    ],
+    "lineNumber": 32,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
+        "tagValue": "{Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array<ResourceBase>"
+          "Array<ResourceBase>",
+          "ResourceBase"
         ],
         "spread": false,
         "optional": false,
@@ -6902,7 +6911,8 @@
     "return": {
       "nullable": null,
       "types": [
-        "Array<Promise>"
+        "Array<Promise>",
+        "Promise"
       ],
       "spread": false,
       "description": "Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
@@ -6919,18 +6929,22 @@
     "longname": "src/crud/Organisation.js~Organisation#unlink",
     "access": null,
     "description": "Unlink items from the organisation",
-    "lineNumber": 39,
+    "see": [
+      "http://es6-features.org/#PromiseCombination"
+    ],
+    "lineNumber": 42,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
+        "tagValue": "{Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array<ResourceBase>"
+          "Array<ResourceBase>",
+          "ResourceBase"
         ],
         "spread": false,
         "optional": false,
@@ -6941,7 +6955,8 @@
     "return": {
       "nullable": null,
       "types": [
-        "Array<Promise>"
+        "Array<Promise>",
+        "Promise"
       ],
       "spread": false,
       "description": "Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
@@ -6958,18 +6973,19 @@
     "longname": "src/crud/Organisation.js~Organisation#_modifyResourceLink",
     "access": "private",
     "description": "Sync, attach or unlink resources",
-    "lineNumber": 50,
+    "lineNumber": 53,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
+        "tagValue": "{Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array<ResourceBase>"
+          "Array<ResourceBase>",
+          "ResourceBase"
         ],
         "spread": false,
         "optional": false,
@@ -6990,7 +7006,8 @@
     "return": {
       "nullable": null,
       "types": [
-        "Array<Promise>"
+        "Array<Promise>",
+        "Promise"
       ],
       "spread": false,
       "description": "Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance."
@@ -7007,7 +7024,7 @@
     "longname": "src/crud/Organisation.js~Organisation#_reduceOwnable",
     "access": "private",
     "description": "Reduce the items to a more usable list",
-    "lineNumber": 71,
+    "lineNumber": 75,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7046,7 +7063,7 @@
     "longname": "src/crud/Organisation.js~Organisation#resourceName",
     "access": null,
     "description": null,
-    "lineNumber": 91,
+    "lineNumber": 95,
     "undocument": true,
     "unknown": [
       {
@@ -7071,7 +7088,7 @@
     "longname": "src/crud/Organisation.js~Organisation#fontFamilies",
     "access": null,
     "description": "Get the list font families linked to the organisation",
-    "lineNumber": 100,
+    "lineNumber": 104,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7099,7 +7116,7 @@
     "longname": "src/crud/Organisation.js~Organisation#dimensionSets",
     "access": null,
     "description": "Get the list dimension sets linked to the organisation",
-    "lineNumber": 108,
+    "lineNumber": 112,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7127,7 +7144,7 @@
     "longname": "src/crud/Organisation.js~Organisation#mapstyleSets",
     "access": null,
     "description": "Get the list mapstyle sets linked to the organisation",
-    "lineNumber": 116,
+    "lineNumber": 120,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7155,7 +7172,7 @@
     "longname": "src/crud/Organisation.js~Organisation#svgSets",
     "access": null,
     "description": "Get the list svg sets linked to the organisation",
-    "lineNumber": 124,
+    "lineNumber": 128,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7183,7 +7200,7 @@
     "longname": "src/crud/Organisation.js~Organisation#colors",
     "access": null,
     "description": "Get the list colors linked to the organisation",
-    "lineNumber": 132,
+    "lineNumber": 136,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7211,7 +7228,7 @@
     "longname": "src/crud/Organisation.js~Organisation#features",
     "access": null,
     "description": "Get the list features linked to the organisation",
-    "lineNumber": 140,
+    "lineNumber": 144,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7239,7 +7256,7 @@
     "longname": "src/crud/Organisation.js~Organisation#layers",
     "access": null,
     "description": "Get the list layers linked to the organisation",
-    "lineNumber": 148,
+    "lineNumber": 152,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7267,7 +7284,7 @@
     "longname": "src/crud/Organisation.js~Organisation#jobTypes",
     "access": null,
     "description": "Get the list job types linked to the organisation",
-    "lineNumber": 156,
+    "lineNumber": 160,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7295,7 +7312,7 @@
     "longname": "src/crud/Organisation.js~Organisation#jobShares",
     "access": null,
     "description": "Get the list job shares linked to the organisation",
-    "lineNumber": 164,
+    "lineNumber": 168,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7323,7 +7340,7 @@
     "longname": "src/crud/Organisation.js~Organisation#users",
     "access": null,
     "description": "Get the list users linked to the organisation",
-    "lineNumber": 172,
+    "lineNumber": 176,
     "unknown": [
       {
         "tagName": "@returns",
@@ -7351,7 +7368,7 @@
     "longname": "src/crud/Organisation.js~Organisation#contracts",
     "access": null,
     "description": "Get the list contracts linked to the organisation",
-    "lineNumber": 180,
+    "lineNumber": 184,
     "unknown": [
       {
         "tagName": "@returns",
@@ -13846,7 +13863,7 @@
     "__docId__": 499,
     "kind": "file",
     "name": "src/utils/uuid.js",
-    "content": "import StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    // Use the secure method if possible\n    return typeof crypto !== 'undefined' && crypto.getRandomValues ? Uuid._uuid4Safe() : Uuid._uuid4Unsafe();\n  }\n\n  /**\n   * Unsafe UUID4 generation using Math.random\n   * @returns {string} - Uuid\n   *\n   * @see http://stackoverflow.com/a/8809472\n   * @license MIT|Public Domain\n   * @private\n   */\n  static _uuid4Unsafe() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Safe UUID4 generation using the crypto api\n   * @returns {String} - Uuid\n   * @private\n   */\n  static _uuid4Safe() {\n    let data = new Uint8Array(16);\n\n    crypto.getRandomValues(data);\n\n    // cast to array so we can use pop()\n    data = [].slice.call(data);\n\n    // Replace 'xx' with a two width base 16 number\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/xx/g, () => {\n      // Prepend 00 for padding and grab the last two characters\n      return ('00' + data.pop().toString(16)).slice(-2);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
+    "content": "import StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
     "static": true,
     "longname": "src/utils/uuid.js",
     "access": null,
@@ -13902,69 +13919,6 @@
   {
     "__docId__": 502,
     "kind": "method",
-    "name": "_uuid4Unsafe",
-    "memberof": "src/utils/uuid.js~Uuid",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/utils/uuid.js~Uuid._uuid4Unsafe",
-    "access": "private",
-    "description": "Unsafe UUID4 generation using Math.random",
-    "see": [
-      "http://stackoverflow.com/a/8809472"
-    ],
-    "lineNumber": 26,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{string} - Uuid"
-      },
-      {
-        "tagName": "@license",
-        "tagValue": "MIT|Public Domain"
-      }
-    ],
-    "params": [],
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "Uuid"
-    }
-  },
-  {
-    "__docId__": 503,
-    "kind": "method",
-    "name": "_uuid4Safe",
-    "memberof": "src/utils/uuid.js~Uuid",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/utils/uuid.js~Uuid._uuid4Safe",
-    "access": "private",
-    "description": "Safe UUID4 generation using the crypto api",
-    "lineNumber": 46,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{String} - Uuid"
-      }
-    ],
-    "params": [],
-    "return": {
-      "nullable": null,
-      "types": [
-        "String"
-      ],
-      "spread": false,
-      "description": "Uuid"
-    }
-  },
-  {
-    "__docId__": 504,
-    "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
     "generator": false,
@@ -13973,7 +13927,7 @@
     "longname": "src/utils/uuid.js~Uuid.nil",
     "access": null,
     "description": "Empty uuid as per spec",
-    "lineNumber": 65,
+    "lineNumber": 32,
     "unknown": [
       {
         "tagName": "@returns",
@@ -13991,7 +13945,7 @@
     }
   },
   {
-    "__docId__": 506,
+    "__docId__": 504,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -14003,7 +13957,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 507,
+    "__docId__": 505,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -14015,7 +13969,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 508,
+    "__docId__": 506,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -14027,7 +13981,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 509,
+    "__docId__": 507,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -14039,7 +13993,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 510,
+    "__docId__": 508,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -14051,7 +14005,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 511,
+    "__docId__": 509,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -14063,7 +14017,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 512,
+    "__docId__": 510,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -14075,7 +14029,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 513,
+    "__docId__": 511,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -14087,7 +14041,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 514,
+    "__docId__": 512,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -14099,7 +14053,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 515,
+    "__docId__": 513,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -14111,7 +14065,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 516,
+    "__docId__": 514,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -14123,7 +14077,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 517,
+    "__docId__": 515,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -14135,7 +14089,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 518,
+    "__docId__": 516,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -14147,7 +14101,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 519,
+    "__docId__": 517,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -14159,7 +14113,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 520,
+    "__docId__": 518,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -14171,7 +14125,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 521,
+    "__docId__": 519,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -14183,7 +14137,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 522,
+    "__docId__": 520,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -14195,7 +14149,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 523,
+    "__docId__": 521,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -14207,7 +14161,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 524,
+    "__docId__": 522,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -14219,7 +14173,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 525,
+    "__docId__": 523,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -14231,7 +14185,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 526,
+    "__docId__": 524,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -14243,7 +14197,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 527,
+    "__docId__": 525,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -14255,7 +14209,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 528,
+    "__docId__": 526,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -14267,7 +14221,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 529,
+    "__docId__": 527,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -14279,7 +14233,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 530,
+    "__docId__": 528,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -14291,7 +14245,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 531,
+    "__docId__": 529,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -14303,7 +14257,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 532,
+    "__docId__": 530,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -14315,7 +14269,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 533,
+    "__docId__": 531,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -14327,7 +14281,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 534,
+    "__docId__": 532,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -14339,7 +14293,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 535,
+    "__docId__": 533,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -14351,7 +14305,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 536,
+    "__docId__": 534,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -14363,7 +14317,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 537,
+    "__docId__": 535,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -14375,7 +14329,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 538,
+    "__docId__": 536,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -14387,7 +14341,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 539,
+    "__docId__": 537,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -14399,7 +14353,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 540,
+    "__docId__": 538,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -14411,7 +14365,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 541,
+    "__docId__": 539,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -14423,7 +14377,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 542,
+    "__docId__": 540,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -14435,7 +14389,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 543,
+    "__docId__": 541,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -14447,7 +14401,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 544,
+    "__docId__": 542,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -14459,7 +14413,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 545,
+    "__docId__": 543,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -14471,7 +14425,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 546,
+    "__docId__": 544,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -14483,7 +14437,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 547,
+    "__docId__": 545,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -14495,7 +14449,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 548,
+    "__docId__": 546,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -14507,7 +14461,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 549,
+    "__docId__": 547,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -14519,7 +14473,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 550,
+    "__docId__": 548,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -14531,7 +14485,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 551,
+    "__docId__": 549,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -14543,7 +14497,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 552,
+    "__docId__": 550,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -14556,7 +14510,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 554,
+    "__docId__": 552,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -14568,7 +14522,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 555,
+    "__docId__": 553,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -14580,7 +14534,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 556,
+    "__docId__": 554,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -14592,7 +14546,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 557,
+    "__docId__": 555,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -14604,7 +14558,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 558,
+    "__docId__": 556,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -14616,7 +14570,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 559,
+    "__docId__": 557,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -14628,7 +14582,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 560,
+    "__docId__": 558,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -14640,7 +14594,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 561,
+    "__docId__": 559,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

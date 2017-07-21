@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:30e221a01a89cfb5a6ef, chunkhash:6eed017b6da41afe941c, name:bundle, version:v0.8.5
+ * hash:499f011f858f5fab8863, chunkhash:c89ae80865698ac32a7e, name:bundle, version:v0.8.6
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -2389,8 +2389,9 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Sync items to the organisation
-     * @param {Array<ResourceBase>} items - List of items to sync
-     * @returns {Array<Promise>} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.
+     * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync
+     * @returns {Array<Promise>|Promise} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.
+     * @see http://es6-features.org/#PromiseCombination
      */
     value: function sync(items) {
       return this._modifyResourceLink(items, 'PATCH');
@@ -2398,8 +2399,9 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Attach items to the organisation
-     * @param {Array<ResourceBase>} items - List of items to attach
-     * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @param {Array<ResourceBase>|ResourceBase} items - List of items to attach
+     * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @see http://es6-features.org/#PromiseCombination
      */
 
   }, {
@@ -2410,8 +2412,9 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Unlink items from the organisation
-     * @param {Array<ResourceBase>} items - List of items to unlink
-     * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink
+     * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @see http://es6-features.org/#PromiseCombination
      */
 
   }, {
@@ -2422,16 +2425,17 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Sync, attach or unlink resources
-     * @param {Array<ResourceBase>} items - List of items to sync or attach
+     * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync or attach
      * @param {String} method - Http method to use
-     * @returns {Array<Promise>} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
      * @private
      */
 
   }, {
     key: '_modifyResourceLink',
     value: function _modifyResourceLink(items, method) {
-      var collections = this._reduceOwnable(items);
+      var isCollection = items instanceof Array;
+      var collections = this._reduceOwnable(isCollection ? items : [items]);
       var out = [];
 
       var _iteratorNormalCompletion = true;
@@ -2463,7 +2467,7 @@ var Organisation = function (_CrudBase) {
         }
       }
 
-      return out;
+      return isCollection ? out : out[0];
     }
 
     /**
@@ -9961,7 +9965,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.8.5";
+var version = exports.version = "v0.8.6";
 
 /***/ }),
 /* 167 */
@@ -10586,22 +10590,6 @@ var Uuid = function (_StaticClass) {
      * @returns {string} - Uuid
      */
     value: function uuid4() {
-      // Use the secure method if possible
-      return typeof crypto !== 'undefined' && crypto.getRandomValues ? Uuid._uuid4Safe() : Uuid._uuid4Unsafe();
-    }
-
-    /**
-     * Unsafe UUID4 generation using Math.random
-     * @returns {string} - Uuid
-     *
-     * @see http://stackoverflow.com/a/8809472
-     * @license MIT|Public Domain
-     * @private
-     */
-
-  }, {
-    key: '_uuid4Unsafe',
-    value: function _uuid4Unsafe() {
       var d = new Date().getTime();
 
       if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
@@ -10613,29 +10601,6 @@ var Uuid = function (_StaticClass) {
 
         d = Math.floor(d / 16);
         return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-      });
-    }
-
-    /**
-     * Safe UUID4 generation using the crypto api
-     * @returns {String} - Uuid
-     * @private
-     */
-
-  }, {
-    key: '_uuid4Safe',
-    value: function _uuid4Safe() {
-      var data = new Uint8Array(16);
-
-      crypto.getRandomValues(data);
-
-      // cast to array so we can use pop()
-      data = [].slice.call(data);
-
-      // Replace 'xx' with a two width base 16 number
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/xx/g, function () {
-        // Prepend 00 for padding and grab the last two characters
-        return ('00' + data.pop().toString(16)).slice(-2);
       });
     }
 
