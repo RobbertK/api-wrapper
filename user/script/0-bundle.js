@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:237f3c27cd143aacb829, chunkhash:9fe6064b6c9bdddd30df, name:bundle, version:v0.8.7
+ * hash:dfc131598f9c99b77010, chunkhash:efaddc9ae4e78ef52b80, name:bundle, version:v0.8.8
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -3259,7 +3259,7 @@ var Maps4News = function () {
     value: function testXhr() {
       var _this2 = this;
 
-      return new Promise(function (reject, resolve) {
+      return new Promise(function (resolve, reject) {
         (0, _requests.makeRequest)(_this2.host + '/favicon.ico').then(function (x) {
           return resolve(x.status);
         }).catch(function (x) {
@@ -9881,7 +9881,7 @@ exports.default = ImplicitFlow;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.version = exports.resources = exports.StaticClassError = exports.ValidationError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
+exports.version = exports.helpers = exports.resources = exports.StaticClassError = exports.ValidationError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
 
 var _AbstractError = __webpack_require__(49);
 
@@ -9935,6 +9935,10 @@ var _crud = __webpack_require__(359);
 
 var _resources = _interopRequireWildcard(_crud);
 
+var _helpers2 = __webpack_require__(360);
+
+var _helpers = _interopRequireWildcard(_helpers2);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -9960,12 +9964,16 @@ exports.StaticClassError = _StaticClassError3.default;
 
 exports.resources = _resources;
 
+// Helpers
+
+exports.helpers = _helpers;
+
 /**
  * Package version
  * @private
  */
 
-var version = exports.version = "v0.8.7";
+var version = exports.version = "v0.8.8";
 
 /***/ }),
 /* 167 */
@@ -15992,6 +16000,70 @@ exports.Svg = _Svg3.default;
 exports.SvgSet = _SvgSet3.default;
 exports.SvgSetType = _SvgSetType3.default;
 exports.User = _User3.default;
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getPaginatedRange = getPaginatedRange;
+/**
+ * Get all the pages from a {@link PaginatedResourceListing} or a range
+ * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}
+ * @param {?Number} [start=1] - Start page
+ * @param {?Number} [stop] - Stop page
+ * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+ * @example
+ * const first = api.users.list();
+ *
+ * getPaginatedRange(promise).then(data => {
+ *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names
+ *        .forEach(console.log) // Log the names and ids of every user
+ * })
+ */
+function getPaginatedRange(page) {
+  var start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var stop = arguments[2];
+
+  // Resolve promise if any
+  if (page instanceof Promise) {
+    return page.then(function (res) {
+      return getPaginatedRange(res, start, stop);
+    });
+  }
+
+  var out = page.data;
+  var promises = [];
+
+  // Handle defaults
+  start = start || page.page;
+  stop = stop || page.pageCount;
+
+  if (start === page.page) {
+    start++;
+  }
+
+  return new Promise(function (resolve, reject) {
+    // Get all pages
+    for (var i = start; i <= stop; i++) {
+      promises.push(page.get(i));
+    }
+
+    // Resolve
+    Promise.all(promises).then(function (rows) {
+      rows.map(function (x) {
+        return x.data;
+      }).forEach(out.push);
+
+      resolve(out);
+    }, reject);
+  });
+}
 
 /***/ })
 /******/ ]);

@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "src/Maps4News.js",
-    "content": "// Polyfill for terrible browsers (looking at you IE)\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\nimport Choropleth from './crud/Choropleth';\nimport Color from './crud/Color';\nimport Contract from './crud/Contract';\nimport Dimension from './crud/Dimension';\nimport DimensionSet from './crud/DimensionSet';\nimport Faq from './crud/Faq';\nimport Feature from './crud/Feature';\nimport Font from './crud/Font';\nimport FontFamily from './crud/FontFamily';\nimport Highlight from './crud/Highlight';\nimport InsetMap from './crud/InsetMap';\nimport Job from './crud/Job';\nimport JobShare from './crud/JobShare';\nimport JobType from './crud/JobType';\nimport Language from './crud/Language';\nimport Layer from './crud/Layer';\nimport Mapstyle from './crud/Mapstyle';\nimport MapstyleSet from './crud/MapstyleSet';\nimport Notification from './crud/Notification';\nimport Organisation from './crud/Organisation';\nimport Permission from './crud/Permission';\nimport PlaceName from './crud/PlaceName';\nimport Svg from './crud/Svg';\nimport SvgSet from './crud/SvgSet';\nimport SvgSetType from './crud/SvgSetType';\nimport User from './crud/User';\nimport ApiError from './exceptions/ApiError';\nimport ValidationError from './exceptions/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {isParentOf} from './utils/reflection';\nimport {makeRequest} from './utils/requests';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    this.defaults = {\n      perPage: Number(process.env.PER_PAGE),\n      cacheEnabled: process.env.CACHE_ENABLED.toLowerCase() === 'true',\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: process.env.CACHE_SHARED.toLowerCase() === 'true',\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this._auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this._auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      this._auth.authenticate().then(() => {\n        this._auth.token.save();\n\n        resolve(this);\n      }).catch(reject);\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {string} responseType - The XmlHttpRequest type\n   * @param {boolean} raw - When set to true the promise will resolve with the request object\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, responseType = '', raw = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    if (this.authenticated) {\n      headers.Authorization = this._auth.token.toString();\n    }\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, method, data, headers, responseType).then(request => {\n        if (request.getResponseHeader('Content-Type') !== 'application/json') {\n          resolve(raw ? request : request.response);\n        } else {\n          const response = JSON.parse(request.responseText);\n\n          if (!response.success) {\n            const err = response.error;\n\n            if (!err.validation_errors) {\n              reject(new ApiError(err.type, err.message, request.status));\n            } else {\n              reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));\n            }\n          } else {\n            // Return an empty object if no data has been sent\n            // instead of returning undefined.\n            resolve(raw ? request : response.data || {});\n          }\n        }\n      }).catch(request => {\n        const err = JSON.parse(request.responseText).error;\n\n        reject(new ApiError(err.type, err.message, request.status));\n      });\n    });\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return new ResourceProxy(this, Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return new ResourceProxy(this, Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return new ResourceProxy(this, Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return new ResourceProxy(this, Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return new ResourceProxy(this, DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return new ResourceProxy(this, Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return new ResourceProxy(this, Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return new ResourceProxy(this, Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return new ResourceProxy(this, FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return new ResourceProxy(this, Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return new ResourceProxy(this, InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return new ResourceProxy(this, Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return new ResourceProxy(this, JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return new ResourceProxy(this, JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return new ResourceProxy(this, Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return new ResourceProxy(this, Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return new ResourceProxy(this, Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return new ResourceProxy(this, MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return new ResourceProxy(this, Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return new ResourceProxy(this, Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return new ResourceProxy(this, Permission);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return new ResourceProxy(this, PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return new ResourceProxy(this, Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return new ResourceProxy(this, SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return new ResourceProxy(this, SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return new ResourceProxy(this, User);\n  }\n\n  /**\n   * Test if XHR requests can be made\n   * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx\n   */\n  testXhr() {\n    return new Promise((reject, resolve) => {\n      makeRequest(`${this.host}/favicon.ico`)\n        .then(x => resolve(x.status))\n        .catch(x => reject(x.status));\n    });\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
+    "content": "// Polyfill for terrible browsers (looking at you IE)\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\nimport Choropleth from './crud/Choropleth';\nimport Color from './crud/Color';\nimport Contract from './crud/Contract';\nimport Dimension from './crud/Dimension';\nimport DimensionSet from './crud/DimensionSet';\nimport Faq from './crud/Faq';\nimport Feature from './crud/Feature';\nimport Font from './crud/Font';\nimport FontFamily from './crud/FontFamily';\nimport Highlight from './crud/Highlight';\nimport InsetMap from './crud/InsetMap';\nimport Job from './crud/Job';\nimport JobShare from './crud/JobShare';\nimport JobType from './crud/JobType';\nimport Language from './crud/Language';\nimport Layer from './crud/Layer';\nimport Mapstyle from './crud/Mapstyle';\nimport MapstyleSet from './crud/MapstyleSet';\nimport Notification from './crud/Notification';\nimport Organisation from './crud/Organisation';\nimport Permission from './crud/Permission';\nimport PlaceName from './crud/PlaceName';\nimport Svg from './crud/Svg';\nimport SvgSet from './crud/SvgSet';\nimport SvgSetType from './crud/SvgSetType';\nimport User from './crud/User';\nimport ApiError from './exceptions/ApiError';\nimport ValidationError from './exceptions/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {isParentOf} from './utils/reflection';\nimport {makeRequest} from './utils/requests';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    this.defaults = {\n      perPage: Number(process.env.PER_PAGE),\n      cacheEnabled: process.env.CACHE_ENABLED.toLowerCase() === 'true',\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: process.env.CACHE_SHARED.toLowerCase() === 'true',\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this._auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this._auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      this._auth.authenticate().then(() => {\n        this._auth.token.save();\n\n        resolve(this);\n      }).catch(reject);\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {string} responseType - The XmlHttpRequest type\n   * @param {boolean} raw - When set to true the promise will resolve with the request object\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, responseType = '', raw = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    if (this.authenticated) {\n      headers.Authorization = this._auth.token.toString();\n    }\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, method, data, headers, responseType).then(request => {\n        if (request.getResponseHeader('Content-Type') !== 'application/json') {\n          resolve(raw ? request : request.response);\n        } else {\n          const response = JSON.parse(request.responseText);\n\n          if (!response.success) {\n            const err = response.error;\n\n            if (!err.validation_errors) {\n              reject(new ApiError(err.type, err.message, request.status));\n            } else {\n              reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));\n            }\n          } else {\n            // Return an empty object if no data has been sent\n            // instead of returning undefined.\n            resolve(raw ? request : response.data || {});\n          }\n        }\n      }).catch(request => {\n        const err = JSON.parse(request.responseText).error;\n\n        reject(new ApiError(err.type, err.message, request.status));\n      });\n    });\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return new ResourceProxy(this, Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return new ResourceProxy(this, Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return new ResourceProxy(this, Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return new ResourceProxy(this, Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return new ResourceProxy(this, DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return new ResourceProxy(this, Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return new ResourceProxy(this, Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return new ResourceProxy(this, Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return new ResourceProxy(this, FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return new ResourceProxy(this, Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return new ResourceProxy(this, InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return new ResourceProxy(this, Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return new ResourceProxy(this, JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return new ResourceProxy(this, JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return new ResourceProxy(this, Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return new ResourceProxy(this, Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return new ResourceProxy(this, Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return new ResourceProxy(this, MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return new ResourceProxy(this, Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return new ResourceProxy(this, Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return new ResourceProxy(this, Permission);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return new ResourceProxy(this, PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return new ResourceProxy(this, Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return new ResourceProxy(this, SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return new ResourceProxy(this, SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return new ResourceProxy(this, User);\n  }\n\n  /**\n   * Test if XHR requests can be made\n   * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx\n   */\n  testXhr() {\n    return new Promise((resolve, reject) => {\n      makeRequest(`${this.host}/favicon.ico`)\n        .then(x => resolve(x.status))\n        .catch(x => reject(x.status));\n    });\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
     "static": true,
     "longname": "src/Maps4News.js",
     "access": null,
@@ -10196,7 +10196,7 @@
     "__docId__": 369,
     "kind": "file",
     "name": "src/index.js",
-    "content": "// Core\nexport Maps4News from './Maps4News';\n\n// Flows\nexport OAuth from './oauth/OAuth';\nexport ImplicitFlow from './oauth/ImplicitFlow';\nexport ImplicitFlowPopup from './oauth/ImplicitFlowPopup';\nexport PasswordFlow from './oauth/PasswordFlow';\nexport DummyFlow from './oauth/DummyFlow';\n\n// Exceptions\nexport ApiError from './exceptions/ApiError';\nexport * from './exceptions/AbstractError';\nexport ValidationError from './exceptions/ValidationError';\nexport StaticClassError from './exceptions/StaticClassError';\n\n// Resources\nexport * as resources from './crud';\n\n/**\n * Package version\n * @private\n */\nexport const version = VERSION;\n",
+    "content": "// Core\nexport Maps4News from './Maps4News';\n\n// Flows\nexport OAuth from './oauth/OAuth';\nexport ImplicitFlow from './oauth/ImplicitFlow';\nexport ImplicitFlowPopup from './oauth/ImplicitFlowPopup';\nexport PasswordFlow from './oauth/PasswordFlow';\nexport DummyFlow from './oauth/DummyFlow';\n\n// Exceptions\nexport ApiError from './exceptions/ApiError';\nexport * from './exceptions/AbstractError';\nexport ValidationError from './exceptions/ValidationError';\nexport StaticClassError from './exceptions/StaticClassError';\n\n// Resources\nexport * as resources from './crud';\n\n// Helpers\nexport * as helpers from './utils/helpers';\n\n/**\n * Package version\n * @private\n */\nexport const version = VERSION;\n",
     "static": true,
     "longname": "src/index.js",
     "access": null,
@@ -10215,7 +10215,7 @@
     "importPath": "@mapcreator/maps4news/src/index.js",
     "importStyle": "{version}",
     "description": "Package version",
-    "lineNumber": 24,
+    "lineNumber": 27,
     "type": {
       "types": [
         "*"
@@ -13412,6 +13412,85 @@
   {
     "__docId__": 488,
     "kind": "file",
+    "name": "src/utils/helpers.js",
+    "content": "/**\n * Get all the pages from a {@link PaginatedResourceListing} or a range\n * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}\n * @param {?Number} [start=1] - Start page\n * @param {?Number} [stop] - Stop page\n * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * const first = api.users.list();\n *\n * getPaginatedRange(promise).then(data => {\n *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n *        .forEach(console.log) // Log the names and ids of every user\n * })\n */\nexport function getPaginatedRange(page, start = 1, stop) {\n  // Resolve promise if any\n  if (page instanceof Promise) {\n    return page.then(res => getPaginatedRange(res, start, stop));\n  }\n\n  const out = page.data;\n  const promises = [];\n\n  // Handle defaults\n  start = start || page.page;\n  stop = stop || page.pageCount;\n\n  if (start === page.page) {\n    start++;\n  }\n\n  return new Promise((resolve, reject) => {\n    // Get all pages\n    for (let i = start; i <= stop; i++) {\n      promises.push(page.get(i));\n    }\n\n    // Resolve\n    Promise.all(promises).then(rows => {\n      rows.map(x => x.data).forEach(out.push);\n\n      resolve(out);\n    }, reject);\n  });\n}\n",
+    "static": true,
+    "longname": "src/utils/helpers.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 489,
+    "kind": "function",
+    "name": "getPaginatedRange",
+    "memberof": "src/utils/helpers.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils/helpers.js~getPaginatedRange",
+    "access": null,
+    "export": true,
+    "importPath": "@mapcreator/maps4news/src/utils/helpers.js",
+    "importStyle": "{getPaginatedRange}",
+    "description": "Get all the pages from a {@link PaginatedResourceListing} or a range",
+    "examples": [
+      "const first = api.users.list();\n\ngetPaginatedRange(promise).then(data => {\n   data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n       .forEach(console.log) // Log the names and ids of every user\n})"
+    ],
+    "lineNumber": 15,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Promise<PaginatedResourceListing>",
+          "PaginatedResourceListing"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "page",
+        "description": "Promise that returns a {@link PaginatedResourceWrapper}"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "1",
+        "defaultRaw": 1,
+        "name": "start",
+        "description": "Start page"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "stop",
+        "description": "Stop page"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Array<ResourceBase>>"
+      ],
+      "spread": false,
+      "description": "Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}"
+    }
+  },
+  {
+    "__docId__": 490,
+    "kind": "file",
     "name": "src/utils/node.js",
     "content": "/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined' && typeof module !== 'undefined' && module.exports;\n}\n",
     "static": true,
@@ -13421,7 +13500,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 489,
+    "__docId__": 491,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -13455,7 +13534,7 @@
     }
   },
   {
-    "__docId__": 490,
+    "__docId__": 492,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "import {Trait} from '../traits/Trait';\n\n/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Constructor} baseClass - Target base class for the traits to be applied to\n * @param {Constructor} mixins - Traits to be applied\n * @returns {Constructor} - Constructor with any traits applied\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach(mixin => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n",
@@ -13466,7 +13545,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 491,
+    "__docId__": 493,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -13523,7 +13602,7 @@
     }
   },
   {
-    "__docId__": 492,
+    "__docId__": 494,
     "kind": "function",
     "name": "getTypeName",
     "memberof": "src/utils/reflection.js",
@@ -13565,7 +13644,7 @@
     }
   },
   {
-    "__docId__": 493,
+    "__docId__": 495,
     "kind": "function",
     "name": "mix",
     "memberof": "src/utils/reflection.js",
@@ -13617,7 +13696,7 @@
     }
   },
   {
-    "__docId__": 494,
+    "__docId__": 496,
     "kind": "function",
     "name": "copyProps",
     "memberof": "src/utils/reflection.js",
@@ -13669,7 +13748,7 @@
     }
   },
   {
-    "__docId__": 495,
+    "__docId__": 497,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/**\n * Makes a HTTP request and returns a promise. Promise will fail/reject if the\n * status code isn't 2XX.\n * @param {string} url - Target url\n * @param {string} method - HTTP method\n * @param {string|object<string, string>} body - raw body content or object to be json encoded\n * @param {object<string, string>} headers - headers\n * @param {string} responseType - XMLHttpRequest response type\n *\n * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx\n * @protected\n */\nexport function makeRequest(url, method = 'GET', body = '', headers = {}, responseType = '') {\n  return new Promise((resolve, reject) => {\n    method = method.toUpperCase();\n\n    const request = new XMLHttpRequest();\n\n    request.responseType = responseType;\n\n    function hasHeader(h) {\n      return Object.keys(headers)\n        .filter(x => x.toLowerCase() === h.toLowerCase())\n        .length > 0;\n    }\n\n    request.open(method, url, true);\n\n    // Automatically detect possible content-type header\n    if (typeof body === 'object') {\n      body = JSON.stringify(body);\n\n      if (!hasHeader('Content-Type')) {\n        headers['Content-Type'] = 'application/json';\n      }\n    } else if (body && !hasHeader('Content-Type')) {\n      headers['Content-Type'] = 'application/x-www-form-urlencoded';\n    }\n\n    if (!hasHeader('Accept')) {\n      headers['Accept'] = 'application/json';\n    }\n\n    // Apply headers\n    for (const key of Object.keys(headers)) {\n      request.setRequestHeader(key, headers[key]);\n    }\n\n    request.onreadystatechange = () => {\n      // State 4 === Done\n      if (request.readyState === XMLHttpRequest.DONE) {\n        if (request.status >= 200 && request.status < 300) {\n          resolve(request);\n        } else {\n          reject(request);\n        }\n      }\n    };\n\n    if (body && method !== 'GET') {\n      request.send(body);\n    } else {\n      request.send();\n    }\n  });\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject);\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
@@ -13680,7 +13759,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 496,
+    "__docId__": 498,
     "kind": "function",
     "name": "makeRequest",
     "memberof": "src/utils/requests.js",
@@ -13763,7 +13842,7 @@
     }
   },
   {
-    "__docId__": 497,
+    "__docId__": 499,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -13805,7 +13884,7 @@
     }
   },
   {
-    "__docId__": 498,
+    "__docId__": 500,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -13860,7 +13939,7 @@
     }
   },
   {
-    "__docId__": 499,
+    "__docId__": 501,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "import StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -13871,7 +13950,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 500,
+    "__docId__": 502,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -13889,7 +13968,7 @@
     ]
   },
   {
-    "__docId__": 501,
+    "__docId__": 503,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -13917,7 +13996,7 @@
     }
   },
   {
-    "__docId__": 502,
+    "__docId__": 504,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -13945,7 +14024,7 @@
     }
   },
   {
-    "__docId__": 504,
+    "__docId__": 506,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -13957,7 +14036,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 505,
+    "__docId__": 507,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -13969,7 +14048,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 506,
+    "__docId__": 508,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -13981,7 +14060,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 507,
+    "__docId__": 509,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -13993,7 +14072,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 508,
+    "__docId__": 510,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -14005,7 +14084,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 509,
+    "__docId__": 511,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -14017,7 +14096,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 510,
+    "__docId__": 512,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -14029,7 +14108,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 511,
+    "__docId__": 513,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -14041,7 +14120,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 512,
+    "__docId__": 514,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -14053,7 +14132,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 513,
+    "__docId__": 515,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -14065,7 +14144,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 514,
+    "__docId__": 516,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -14077,7 +14156,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 515,
+    "__docId__": 517,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -14089,7 +14168,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 516,
+    "__docId__": 518,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -14101,7 +14180,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 517,
+    "__docId__": 519,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -14113,7 +14192,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 518,
+    "__docId__": 520,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -14125,7 +14204,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 519,
+    "__docId__": 521,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -14137,7 +14216,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 520,
+    "__docId__": 522,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -14149,7 +14228,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 521,
+    "__docId__": 523,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -14161,7 +14240,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 522,
+    "__docId__": 524,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -14173,7 +14252,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 523,
+    "__docId__": 525,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -14185,7 +14264,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 524,
+    "__docId__": 526,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -14197,7 +14276,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 525,
+    "__docId__": 527,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -14209,7 +14288,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 526,
+    "__docId__": 528,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -14221,7 +14300,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 527,
+    "__docId__": 529,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -14233,7 +14312,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 528,
+    "__docId__": 530,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -14245,7 +14324,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 529,
+    "__docId__": 531,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -14257,7 +14336,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 530,
+    "__docId__": 532,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -14269,7 +14348,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 531,
+    "__docId__": 533,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -14281,7 +14360,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 532,
+    "__docId__": 534,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -14293,7 +14372,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 533,
+    "__docId__": 535,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -14305,7 +14384,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 534,
+    "__docId__": 536,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -14317,7 +14396,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 535,
+    "__docId__": 537,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -14329,7 +14408,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 536,
+    "__docId__": 538,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -14341,7 +14420,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 537,
+    "__docId__": 539,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -14353,7 +14432,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 538,
+    "__docId__": 540,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -14365,7 +14444,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 539,
+    "__docId__": 541,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -14377,7 +14456,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 540,
+    "__docId__": 542,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -14389,7 +14468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 541,
+    "__docId__": 543,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -14401,7 +14480,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 542,
+    "__docId__": 544,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -14413,7 +14492,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 543,
+    "__docId__": 545,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -14425,7 +14504,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 544,
+    "__docId__": 546,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -14437,7 +14516,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 545,
+    "__docId__": 547,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -14449,7 +14528,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 546,
+    "__docId__": 548,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -14461,7 +14540,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 547,
+    "__docId__": 549,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -14473,7 +14552,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 548,
+    "__docId__": 550,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -14485,7 +14564,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 549,
+    "__docId__": 551,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -14497,7 +14576,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 550,
+    "__docId__": 552,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -14510,7 +14589,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 552,
+    "__docId__": 554,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -14522,7 +14601,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 553,
+    "__docId__": 555,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -14534,7 +14613,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 554,
+    "__docId__": 556,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -14546,7 +14625,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 555,
+    "__docId__": 557,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -14558,7 +14637,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 556,
+    "__docId__": 558,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -14570,7 +14649,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 557,
+    "__docId__": 559,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -14582,7 +14661,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 558,
+    "__docId__": 560,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -14594,7 +14673,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 559,
+    "__docId__": 561,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

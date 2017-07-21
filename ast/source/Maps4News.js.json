@@ -14881,7 +14881,7 @@
                               {
                                 "type": "Identifier",
                                 "start": 11276,
-                                "end": 11282,
+                                "end": 11283,
                                 "loc": {
                                   "start": {
                                     "line": 430,
@@ -14889,28 +14889,28 @@
                                   },
                                   "end": {
                                     "line": 430,
-                                    "column": 30
+                                    "column": 31
                                   },
-                                  "identifierName": "reject"
+                                  "identifierName": "resolve"
                                 },
-                                "name": "reject"
+                                "name": "resolve"
                               },
                               {
                                 "type": "Identifier",
-                                "start": 11284,
+                                "start": 11285,
                                 "end": 11291,
                                 "loc": {
                                   "start": {
                                     "line": 430,
-                                    "column": 32
+                                    "column": 33
                                   },
                                   "end": {
                                     "line": 430,
                                     "column": 39
                                   },
-                                  "identifierName": "resolve"
+                                  "identifierName": "reject"
                                 },
-                                "name": "resolve"
+                                "name": "reject"
                               }
                             ],
                             "body": {
@@ -47456,9 +47456,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "reject",
+      "value": "resolve",
       "start": 11276,
-      "end": 11282,
+      "end": 11283,
       "loc": {
         "start": {
           "line": 430,
@@ -47466,7 +47466,7 @@
         },
         "end": {
           "line": 430,
-          "column": 30
+          "column": 31
         }
       }
     },
@@ -47483,16 +47483,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 11282,
-      "end": 11283,
+      "start": 11283,
+      "end": 11284,
       "loc": {
         "start": {
           "line": 430,
-          "column": 30
+          "column": 31
         },
         "end": {
           "line": 430,
-          "column": 31
+          "column": 32
         }
       }
     },
@@ -47508,13 +47508,13 @@
         "postfix": false,
         "binop": null
       },
-      "value": "resolve",
-      "start": 11284,
+      "value": "reject",
+      "start": 11285,
       "end": 11291,
       "loc": {
         "start": {
           "line": 430,
-          "column": 32
+          "column": 33
         },
         "end": {
           "line": 430,
