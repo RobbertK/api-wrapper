@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:7acc3ce59f8fe3b6c2db, chunkhash:46555bc4e7d1f7d7e5e1, name:bundle, version:v0.5.24
+ * hash:3326a3e57e84f2f55991, chunkhash:e0f5f18ac8322c954111, name:bundle, version:v0.8.1
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.5.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -1763,6 +1763,7 @@ var ResourceBase = function () {
     value: function _guessType(name, value) {
       var regexp = /(?:^|_)([^_$]+)$/g;
       var match = regexp.exec(name);
+      var idMacros = ['last', 'me'];
 
       if (match === null || typeof value !== 'string') {
         return value;
@@ -1774,8 +1775,12 @@ var ResourceBase = function () {
         case 'at':
           return new Date(value);
         case 'id':
-          return Number(value);
+          // Test if the value is in fact a macro
+          if (idMacros.includes(String(value).toLowerCase())) {
+            return value;
+          }
 
+          return Number(value);
         default:
           return value;
       }
@@ -9950,7 +9955,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.5.24";
+var version = exports.version = "v0.8.1";
 
 /***/ }),
 /* 167 */
