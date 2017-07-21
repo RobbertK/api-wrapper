@@ -6632,7 +6632,7 @@
     "__docId__": 230,
     "kind": "file",
     "name": "src/crud/MapstyleSet.js",
-    "content": "import OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\nimport CrudSetBase from './base/CrudSetBase';\nimport Mapstyle from './Mapstyle';\n\n/**\n * Mapstyle set\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class MapstyleSet extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/mapstyles/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'mapstyle-set';\n  }\n\n  get _Child() {\n    return Mapstyle;\n  }\n}\n",
+    "content": "import OwnableResource from '../traits/OwnableResource';\nimport {mix} from '../utils/reflection';\nimport CrudSetBase from './base/CrudSetBase';\nimport Mapstyle from './Mapstyle';\n\n/**\n * Mapstyle set\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class MapstyleSet extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/mapstyles/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'mapstyle-sets';\n  }\n\n  get _Child() {\n    return Mapstyle;\n  }\n}\n",
     "static": true,
     "longname": "src/crud/MapstyleSet.js",
     "access": null,

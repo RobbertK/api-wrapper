@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:499f011f858f5fab8863, chunkhash:c89ae80865698ac32a7e, name:bundle, version:v0.8.6
+ * hash:237f3c27cd143aacb829, chunkhash:9fe6064b6c9bdddd30df, name:bundle, version:v0.8.7
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -4352,7 +4352,7 @@ var MapstyleSet = function (_mix) {
   }, {
     key: 'resourceName',
     get: function get() {
-      return 'mapstyle-set';
+      return 'mapstyle-sets';
     }
   }, {
     key: '_Child',
@@ -9965,7 +9965,7 @@ exports.resources = _resources;
  * @private
  */
 
-var version = exports.version = "v0.8.6";
+var version = exports.version = "v0.8.7";
 
 /***/ }),
 /* 167 */
