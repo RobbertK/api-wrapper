@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 355,
+  "end": 1951,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 17,
+      "line": 49,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 355,
+    "end": 1951,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 17,
+        "line": 49,
         "column": 0
       }
     },
@@ -30,80 +30,82 @@
     "body": [
       {
         "type": "ImportDeclaration",
-        "start": 0,
-        "end": 30,
+        "start": 1596,
+        "end": 1626,
         "loc": {
           "start": {
-            "line": 1,
+            "line": 33,
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 33,
             "column": 30
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 8,
-            "end": 13,
+            "start": 1604,
+            "end": 1609,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 33,
                 "column": 8
               },
               "end": {
-                "line": 1,
+                "line": 33,
                 "column": 13
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 8,
-              "end": 13,
+              "start": 1604,
+              "end": 1609,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 33,
                   "column": 8
                 },
                 "end": {
-                  "line": 1,
+                  "line": 33,
+                  "column": 13
+                },
+                "identifierName": "Trait"
+              },
+              "name": "Trait",
+              "leadingComments": null
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 1604,
+              "end": 1609,
+              "loc": {
+                "start": {
+                  "line": 33,
+                  "column": 8
+                },
+                "end": {
+                  "line": 33,
                   "column": 13
                 },
                 "identifierName": "Trait"
               },
               "name": "Trait"
             },
-            "local": {
-              "type": "Identifier",
-              "start": 8,
-              "end": 13,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 8
-                },
-                "end": {
-                  "line": 1,
-                  "column": 13
-                },
-                "identifierName": "Trait"
-              },
-              "name": "Trait"
-            }
+            "leadingComments": null
           }
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 20,
-          "end": 29,
+          "start": 1616,
+          "end": 1625,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 33,
               "column": 20
             },
             "end": {
-              "line": 1,
+              "line": 33,
               "column": 29
             }
           },
@@ -112,48 +114,66 @@
             "raw": "'./Trait'"
           },
           "value": "./Trait"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+            "start": 0,
+            "end": 1594,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 31,
+                "column": 3
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
-        "start": 31,
-        "end": 84,
+        "start": 1627,
+        "end": 1680,
         "loc": {
           "start": {
-            "line": 2,
+            "line": 34,
             "column": 0
           },
           "end": {
-            "line": 2,
+            "line": 34,
             "column": 53
           }
         },
         "specifiers": [
           {
             "type": "ImportDefaultSpecifier",
-            "start": 38,
-            "end": 50,
+            "start": 1634,
+            "end": 1646,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 34,
                 "column": 7
               },
               "end": {
-                "line": 2,
+                "line": 34,
                 "column": 19
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 38,
-              "end": 50,
+              "start": 1634,
+              "end": 1646,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 34,
                   "column": 7
                 },
                 "end": {
-                  "line": 2,
+                  "line": 34,
                   "column": 19
                 },
                 "identifierName": "ImageHandler"
@@ -164,15 +184,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 56,
-          "end": 83,
+          "start": 1652,
+          "end": 1679,
           "loc": {
             "start": {
-              "line": 2,
+              "line": 34,
               "column": 25
             },
             "end": {
-              "line": 2,
+              "line": 34,
               "column": 52
             }
           },
@@ -186,15 +206,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Adds the imageHandler to a resource\n ",
-            "start": 87,
-            "end": 133,
+            "start": 1683,
+            "end": 1729,
             "loc": {
               "start": {
-                "line": 5,
+                "line": 37,
                 "column": 0
               },
               "end": {
-                "line": 7,
+                "line": 39,
                 "column": 3
               }
             }
@@ -203,43 +223,43 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 134,
-        "end": 354,
+        "start": 1730,
+        "end": 1950,
         "loc": {
           "start": {
-            "line": 8,
+            "line": 40,
             "column": 0
           },
           "end": {
-            "line": 16,
+            "line": 48,
             "column": 1
           }
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 149,
-          "end": 354,
+          "start": 1745,
+          "end": 1950,
           "loc": {
             "start": {
-              "line": 8,
+              "line": 40,
               "column": 15
             },
             "end": {
-              "line": 16,
+              "line": 48,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 155,
-            "end": 168,
+            "start": 1751,
+            "end": 1764,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 40,
                 "column": 21
               },
               "end": {
-                "line": 8,
+                "line": 40,
                 "column": 34
               },
               "identifierName": "HandlesImages"
@@ -249,15 +269,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 177,
-            "end": 182,
+            "start": 1773,
+            "end": 1778,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 40,
                 "column": 43
               },
               "end": {
-                "line": 8,
+                "line": 40,
                 "column": 48
               },
               "identifierName": "Trait"
@@ -266,45 +286,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 183,
-            "end": 354,
+            "start": 1779,
+            "end": 1950,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 40,
                 "column": 49
               },
               "end": {
-                "line": 16,
+                "line": 48,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 283,
-                "end": 352,
+                "start": 1879,
+                "end": 1948,
                 "loc": {
                   "start": {
-                    "line": 13,
+                    "line": 45,
                     "column": 2
                   },
                   "end": {
-                    "line": 15,
+                    "line": 47,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 287,
-                  "end": 299,
+                  "start": 1883,
+                  "end": 1895,
                   "loc": {
                     "start": {
-                      "line": 13,
+                      "line": 45,
                       "column": 6
                     },
                     "end": {
-                      "line": 13,
+                      "line": 45,
                       "column": 18
                     },
                     "identifierName": "imageHandler"
@@ -320,58 +340,58 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 302,
-                  "end": 352,
+                  "start": 1898,
+                  "end": 1948,
                   "loc": {
                     "start": {
-                      "line": 13,
+                      "line": 45,
                       "column": 21
                     },
                     "end": {
-                      "line": 15,
+                      "line": 47,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 308,
-                      "end": 348,
+                      "start": 1904,
+                      "end": 1944,
                       "loc": {
                         "start": {
-                          "line": 14,
+                          "line": 46,
                           "column": 4
                         },
                         "end": {
-                          "line": 14,
+                          "line": 46,
                           "column": 44
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 315,
-                        "end": 347,
+                        "start": 1911,
+                        "end": 1943,
                         "loc": {
                           "start": {
-                            "line": 14,
+                            "line": 46,
                             "column": 11
                           },
                           "end": {
-                            "line": 14,
+                            "line": 46,
                             "column": 43
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 319,
-                          "end": 331,
+                          "start": 1915,
+                          "end": 1927,
                           "loc": {
                             "start": {
-                              "line": 14,
+                              "line": 46,
                               "column": 15
                             },
                             "end": {
-                              "line": 14,
+                              "line": 46,
                               "column": 27
                             },
                             "identifierName": "ImageHandler"
@@ -381,44 +401,44 @@
                         "arguments": [
                           {
                             "type": "MemberExpression",
-                            "start": 332,
-                            "end": 340,
+                            "start": 1928,
+                            "end": 1936,
                             "loc": {
                               "start": {
-                                "line": 14,
+                                "line": 46,
                                 "column": 28
                               },
                               "end": {
-                                "line": 14,
+                                "line": 46,
                                 "column": 36
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 332,
-                              "end": 336,
+                              "start": 1928,
+                              "end": 1932,
                               "loc": {
                                 "start": {
-                                  "line": 14,
+                                  "line": 46,
                                   "column": 28
                                 },
                                 "end": {
-                                  "line": 14,
+                                  "line": 46,
                                   "column": 32
                                 }
                               }
                             },
                             "property": {
                               "type": "Identifier",
-                              "start": 337,
-                              "end": 340,
+                              "start": 1933,
+                              "end": 1936,
                               "loc": {
                                 "start": {
-                                  "line": 14,
+                                  "line": 46,
                                   "column": 33
                                 },
                                 "end": {
-                                  "line": 14,
+                                  "line": 46,
                                   "column": 36
                                 },
                                 "identifierName": "api"
@@ -429,15 +449,15 @@
                           },
                           {
                             "type": "ThisExpression",
-                            "start": 342,
-                            "end": 346,
+                            "start": 1938,
+                            "end": 1942,
                             "loc": {
                               "start": {
-                                "line": 14,
+                                "line": 46,
                                 "column": 38
                               },
                               "end": {
-                                "line": 14,
+                                "line": 46,
                                 "column": 42
                               }
                             }
@@ -452,15 +472,15 @@
                   {
                     "type": "CommentBlock",
                     "value": "*\n   * Handler for item image management\n   * @returns {ImageHandler} - Image handler\n   ",
-                    "start": 187,
-                    "end": 280,
+                    "start": 1783,
+                    "end": 1876,
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 41,
                         "column": 2
                       },
                       "end": {
-                        "line": 12,
+                        "line": 44,
                         "column": 5
                       }
                     }
@@ -473,15 +493,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Adds the imageHandler to a resource\n ",
-              "start": 87,
-              "end": 133,
+              "start": 1683,
+              "end": 1729,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 37,
                   "column": 0
                 },
                 "end": {
-                  "line": 7,
+                  "line": 39,
                   "column": 3
                 }
               }
@@ -493,15 +513,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Adds the imageHandler to a resource\n ",
-            "start": 87,
-            "end": 133,
+            "start": 1683,
+            "end": 1729,
             "loc": {
               "start": {
-                "line": 5,
+                "line": 37,
                 "column": 0
               },
               "end": {
-                "line": 7,
+                "line": 39,
                 "column": 3
               }
             }
@@ -514,16 +534,32 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Adds the imageHandler to a resource\n ",
-      "start": 87,
-      "end": 133,
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+      "start": 0,
+      "end": 1594,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 1,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Adds the imageHandler to a resource\n ",
+      "start": 1683,
+      "end": 1729,
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 0
+        },
+        "end": {
+          "line": 39,
           "column": 3
         }
       }
@@ -531,21 +567,37 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Handler for item image management\n   * @returns {ImageHandler} - Image handler\n   ",
-      "start": 187,
-      "end": 280,
+      "start": 1783,
+      "end": 1876,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 2
         },
         "end": {
-          "line": 12,
+          "line": 44,
           "column": 5
         }
       }
     }
   ],
   "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+      "start": 0,
+      "end": 1594,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
     {
       "type": {
         "label": "import",
@@ -561,15 +613,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 0,
-      "end": 6,
+      "start": 1596,
+      "end": 1602,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 0
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 6
         }
       }
@@ -586,15 +638,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 7,
-      "end": 8,
+      "start": 1603,
+      "end": 1604,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 7
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 8
         }
       }
@@ -612,15 +664,15 @@
         "binop": null
       },
       "value": "Trait",
-      "start": 8,
-      "end": 13,
+      "start": 1604,
+      "end": 1609,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 8
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 13
         }
       }
@@ -637,15 +689,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 13,
-      "end": 14,
+      "start": 1609,
+      "end": 1610,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 13
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 14
         }
       }
@@ -663,15 +715,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 15,
-      "end": 19,
+      "start": 1611,
+      "end": 1615,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 15
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 19
         }
       }
@@ -690,15 +742,15 @@
         "updateContext": null
       },
       "value": "./Trait",
-      "start": 20,
-      "end": 29,
+      "start": 1616,
+      "end": 1625,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 20
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 29
         }
       }
@@ -716,15 +768,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 29,
-      "end": 30,
+      "start": 1625,
+      "end": 1626,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 29
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 30
         }
       }
@@ -744,15 +796,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 31,
-      "end": 37,
+      "start": 1627,
+      "end": 1633,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 34,
           "column": 0
         },
         "end": {
-          "line": 2,
+          "line": 34,
           "column": 6
         }
       }
@@ -770,15 +822,15 @@
         "binop": null
       },
       "value": "ImageHandler",
-      "start": 38,
-      "end": 50,
+      "start": 1634,
+      "end": 1646,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 34,
           "column": 7
         },
         "end": {
-          "line": 2,
+          "line": 34,
           "column": 19
         }
       }
@@ -796,15 +848,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 51,
-      "end": 55,
+      "start": 1647,
+      "end": 1651,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 34,
           "column": 20
         },
         "end": {
-          "line": 2,
+          "line": 34,
           "column": 24
         }
       }
@@ -823,15 +875,15 @@
         "updateContext": null
       },
       "value": "../crud/base/ImageHandler",
-      "start": 56,
-      "end": 83,
+      "start": 1652,
+      "end": 1679,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 34,
           "column": 25
         },
         "end": {
-          "line": 2,
+          "line": 34,
           "column": 52
         }
       }
@@ -849,15 +901,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 83,
-      "end": 84,
+      "start": 1679,
+      "end": 1680,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 34,
           "column": 52
         },
         "end": {
-          "line": 2,
+          "line": 34,
           "column": 53
         }
       }
@@ -865,15 +917,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Adds the imageHandler to a resource\n ",
-      "start": 87,
-      "end": 133,
+      "start": 1683,
+      "end": 1729,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 37,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 3
         }
       }
@@ -893,15 +945,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 134,
-      "end": 140,
+      "start": 1730,
+      "end": 1736,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 6
         }
       }
@@ -921,15 +973,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 141,
-      "end": 148,
+      "start": 1737,
+      "end": 1744,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 7
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 14
         }
       }
@@ -949,15 +1001,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 149,
-      "end": 154,
+      "start": 1745,
+      "end": 1750,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 15
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 20
         }
       }
@@ -975,15 +1027,15 @@
         "binop": null
       },
       "value": "HandlesImages",
-      "start": 155,
-      "end": 168,
+      "start": 1751,
+      "end": 1764,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 21
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 34
         }
       }
@@ -1003,15 +1055,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 169,
-      "end": 176,
+      "start": 1765,
+      "end": 1772,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 35
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 42
         }
       }
@@ -1029,15 +1081,15 @@
         "binop": null
       },
       "value": "Trait",
-      "start": 177,
-      "end": 182,
+      "start": 1773,
+      "end": 1778,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 43
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 48
         }
       }
@@ -1054,15 +1106,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 183,
-      "end": 184,
+      "start": 1779,
+      "end": 1780,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 49
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 50
         }
       }
@@ -1070,15 +1122,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n   * Handler for item image management\n   * @returns {ImageHandler} - Image handler\n   ",
-      "start": 187,
-      "end": 280,
+      "start": 1783,
+      "end": 1876,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 2
         },
         "end": {
-          "line": 12,
+          "line": 44,
           "column": 5
         }
       }
@@ -1096,15 +1148,15 @@
         "binop": null
       },
       "value": "get",
-      "start": 283,
-      "end": 286,
+      "start": 1879,
+      "end": 1882,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 45,
           "column": 2
         },
         "end": {
-          "line": 13,
+          "line": 45,
           "column": 5
         }
       }
@@ -1122,15 +1174,15 @@
         "binop": null
       },
       "value": "imageHandler",
-      "start": 287,
-      "end": 299,
+      "start": 1883,
+      "end": 1895,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 45,
           "column": 6
         },
         "end": {
-          "line": 13,
+          "line": 45,
           "column": 18
         }
       }
@@ -1147,15 +1199,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 299,
-      "end": 300,
+      "start": 1895,
+      "end": 1896,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 45,
           "column": 18
         },
         "end": {
-          "line": 13,
+          "line": 45,
           "column": 19
         }
       }
@@ -1172,15 +1224,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 300,
-      "end": 301,
+      "start": 1896,
+      "end": 1897,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 45,
           "column": 19
         },
         "end": {
-          "line": 13,
+          "line": 45,
           "column": 20
         }
       }
@@ -1197,15 +1249,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 302,
-      "end": 303,
+      "start": 1898,
+      "end": 1899,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 45,
           "column": 21
         },
         "end": {
-          "line": 13,
+          "line": 45,
           "column": 22
         }
       }
@@ -1225,15 +1277,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 308,
-      "end": 314,
+      "start": 1904,
+      "end": 1910,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 4
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 10
         }
       }
@@ -1253,15 +1305,15 @@
         "updateContext": null
       },
       "value": "new",
-      "start": 315,
-      "end": 318,
+      "start": 1911,
+      "end": 1914,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 11
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 14
         }
       }
@@ -1279,15 +1331,15 @@
         "binop": null
       },
       "value": "ImageHandler",
-      "start": 319,
-      "end": 331,
+      "start": 1915,
+      "end": 1927,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 15
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 27
         }
       }
@@ -1304,15 +1356,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 331,
-      "end": 332,
+      "start": 1927,
+      "end": 1928,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 27
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 28
         }
       }
@@ -1332,15 +1384,15 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 332,
-      "end": 336,
+      "start": 1928,
+      "end": 1932,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 28
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 32
         }
       }
@@ -1358,15 +1410,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 336,
-      "end": 337,
+      "start": 1932,
+      "end": 1933,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 32
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 33
         }
       }
@@ -1384,15 +1436,15 @@
         "binop": null
       },
       "value": "api",
-      "start": 337,
-      "end": 340,
+      "start": 1933,
+      "end": 1936,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 33
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 36
         }
       }
@@ -1410,15 +1462,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 340,
-      "end": 341,
+      "start": 1936,
+      "end": 1937,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 36
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 37
         }
       }
@@ -1438,15 +1490,15 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 342,
-      "end": 346,
+      "start": 1938,
+      "end": 1942,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 38
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 42
         }
       }
@@ -1463,15 +1515,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 346,
-      "end": 347,
+      "start": 1942,
+      "end": 1943,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 42
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 43
         }
       }
@@ -1489,15 +1541,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 347,
-      "end": 348,
+      "start": 1943,
+      "end": 1944,
       "loc": {
         "start": {
-          "line": 14,
+          "line": 46,
           "column": 43
         },
         "end": {
-          "line": 14,
+          "line": 46,
           "column": 44
         }
       }
@@ -1514,15 +1566,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 351,
-      "end": 352,
+      "start": 1947,
+      "end": 1948,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 47,
           "column": 2
         },
         "end": {
-          "line": 15,
+          "line": 47,
           "column": 3
         }
       }
@@ -1539,15 +1591,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 353,
-      "end": 354,
+      "start": 1949,
+      "end": 1950,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 48,
           "column": 0
         },
         "end": {
-          "line": 16,
+          "line": 48,
           "column": 1
         }
       }
@@ -1565,15 +1617,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 355,
-      "end": 355,
+      "start": 1951,
+      "end": 1951,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 49,
           "column": 0
         },
         "end": {
-          "line": 17,
+          "line": 49,
           "column": 0
         }
       }

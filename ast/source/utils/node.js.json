@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 281,
+  "end": 1877,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 10,
+      "line": 42,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 281,
+    "end": 1877,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 10,
+        "line": 42,
         "column": 0
       }
     },
@@ -30,15 +30,15 @@
     "body": [
       {
         "type": "ExportNamedDeclaration",
-        "start": 161,
-        "end": 280,
+        "start": 1757,
+        "end": 1876,
         "loc": {
           "start": {
-            "line": 7,
+            "line": 39,
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 41,
             "column": 1
           }
         },
@@ -46,29 +46,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 168,
-          "end": 280,
+          "start": 1764,
+          "end": 1876,
           "loc": {
             "start": {
-              "line": 7,
+              "line": 39,
               "column": 7
             },
             "end": {
-              "line": 9,
+              "line": 41,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 177,
-            "end": 183,
+            "start": 1773,
+            "end": 1779,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 39,
                 "column": 16
               },
               "end": {
-                "line": 7,
+                "line": 39,
                 "column": 22
               },
               "identifierName": "isNode"
@@ -82,86 +82,86 @@
           "params": [],
           "body": {
             "type": "BlockStatement",
-            "start": 186,
-            "end": 280,
+            "start": 1782,
+            "end": 1876,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 39,
                 "column": 25
               },
               "end": {
-                "line": 9,
+                "line": 41,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 190,
-                "end": 278,
+                "start": 1786,
+                "end": 1874,
                 "loc": {
                   "start": {
-                    "line": 8,
+                    "line": 40,
                     "column": 2
                   },
                   "end": {
-                    "line": 8,
+                    "line": 40,
                     "column": 90
                   }
                 },
                 "argument": {
                   "type": "LogicalExpression",
-                  "start": 197,
-                  "end": 277,
+                  "start": 1793,
+                  "end": 1873,
                   "loc": {
                     "start": {
-                      "line": 8,
+                      "line": 40,
                       "column": 9
                     },
                     "end": {
-                      "line": 8,
+                      "line": 40,
                       "column": 89
                     }
                   },
                   "left": {
                     "type": "LogicalExpression",
-                    "start": 197,
-                    "end": 259,
+                    "start": 1793,
+                    "end": 1855,
                     "loc": {
                       "start": {
-                        "line": 8,
+                        "line": 40,
                         "column": 9
                       },
                       "end": {
-                        "line": 8,
+                        "line": 40,
                         "column": 71
                       }
                     },
                     "left": {
                       "type": "BinaryExpression",
-                      "start": 197,
-                      "end": 226,
+                      "start": 1793,
+                      "end": 1822,
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 40,
                           "column": 9
                         },
                         "end": {
-                          "line": 8,
+                          "line": 40,
                           "column": 38
                         }
                       },
                       "left": {
                         "type": "UnaryExpression",
-                        "start": 197,
-                        "end": 210,
+                        "start": 1793,
+                        "end": 1806,
                         "loc": {
                           "start": {
-                            "line": 8,
+                            "line": 40,
                             "column": 9
                           },
                           "end": {
-                            "line": 8,
+                            "line": 40,
                             "column": 22
                           }
                         },
@@ -169,15 +169,15 @@
                         "prefix": true,
                         "argument": {
                           "type": "Identifier",
-                          "start": 204,
-                          "end": 210,
+                          "start": 1800,
+                          "end": 1806,
                           "loc": {
                             "start": {
-                              "line": 8,
+                              "line": 40,
                               "column": 16
                             },
                             "end": {
-                              "line": 8,
+                              "line": 40,
                               "column": 22
                             },
                             "identifierName": "window"
@@ -191,15 +191,15 @@
                       "operator": "===",
                       "right": {
                         "type": "StringLiteral",
-                        "start": 215,
-                        "end": 226,
+                        "start": 1811,
+                        "end": 1822,
                         "loc": {
                           "start": {
-                            "line": 8,
+                            "line": 40,
                             "column": 27
                           },
                           "end": {
-                            "line": 8,
+                            "line": 40,
                             "column": 38
                           }
                         },
@@ -213,29 +213,29 @@
                     "operator": "&&",
                     "right": {
                       "type": "BinaryExpression",
-                      "start": 230,
-                      "end": 259,
+                      "start": 1826,
+                      "end": 1855,
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 40,
                           "column": 42
                         },
                         "end": {
-                          "line": 8,
+                          "line": 40,
                           "column": 71
                         }
                       },
                       "left": {
                         "type": "UnaryExpression",
-                        "start": 230,
-                        "end": 243,
+                        "start": 1826,
+                        "end": 1839,
                         "loc": {
                           "start": {
-                            "line": 8,
+                            "line": 40,
                             "column": 42
                           },
                           "end": {
-                            "line": 8,
+                            "line": 40,
                             "column": 55
                           }
                         },
@@ -243,15 +243,15 @@
                         "prefix": true,
                         "argument": {
                           "type": "Identifier",
-                          "start": 237,
-                          "end": 243,
+                          "start": 1833,
+                          "end": 1839,
                           "loc": {
                             "start": {
-                              "line": 8,
+                              "line": 40,
                               "column": 49
                             },
                             "end": {
-                              "line": 8,
+                              "line": 40,
                               "column": 55
                             },
                             "identifierName": "module"
@@ -265,15 +265,15 @@
                       "operator": "!==",
                       "right": {
                         "type": "StringLiteral",
-                        "start": 248,
-                        "end": 259,
+                        "start": 1844,
+                        "end": 1855,
                         "loc": {
                           "start": {
-                            "line": 8,
+                            "line": 40,
                             "column": 60
                           },
                           "end": {
-                            "line": 8,
+                            "line": 40,
                             "column": 71
                           }
                         },
@@ -288,29 +288,29 @@
                   "operator": "&&",
                   "right": {
                     "type": "MemberExpression",
-                    "start": 263,
-                    "end": 277,
+                    "start": 1859,
+                    "end": 1873,
                     "loc": {
                       "start": {
-                        "line": 8,
+                        "line": 40,
                         "column": 75
                       },
                       "end": {
-                        "line": 8,
+                        "line": 40,
                         "column": 89
                       }
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 263,
-                      "end": 269,
+                      "start": 1859,
+                      "end": 1865,
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 40,
                           "column": 75
                         },
                         "end": {
-                          "line": 8,
+                          "line": 40,
                           "column": 81
                         },
                         "identifierName": "module"
@@ -319,15 +319,15 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 270,
-                      "end": 277,
+                      "start": 1866,
+                      "end": 1873,
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 40,
                           "column": 82
                         },
                         "end": {
-                          "line": 8,
+                          "line": 40,
                           "column": 89
                         },
                         "identifierName": "exports"
@@ -344,16 +344,32 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+              "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
               "start": 0,
-              "end": 160,
+              "end": 1594,
               "loc": {
                 "start": {
                   "line": 1,
                   "column": 0
                 },
                 "end": {
-                  "line": 6,
+                  "line": 31,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+              "start": 1596,
+              "end": 1756,
+              "loc": {
+                "start": {
+                  "line": 33,
+                  "column": 0
+                },
+                "end": {
+                  "line": 38,
                   "column": 3
                 }
               }
@@ -364,16 +380,32 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+            "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
             "start": 0,
-            "end": 160,
+            "end": 1594,
             "loc": {
               "start": {
                 "line": 1,
                 "column": 0
               },
               "end": {
-                "line": 6,
+                "line": 31,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+            "start": 1596,
+            "end": 1756,
+            "loc": {
+              "start": {
+                "line": 33,
+                "column": 0
+              },
+              "end": {
+                "line": 38,
                 "column": 3
               }
             }
@@ -386,16 +418,32 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 160,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 6,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+      "start": 1596,
+      "end": 1756,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 38,
           "column": 3
         }
       }
@@ -404,16 +452,32 @@
   "tokens": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 160,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 6,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n ",
+      "start": 1596,
+      "end": 1756,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 38,
           "column": 3
         }
       }
@@ -433,15 +497,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 161,
-      "end": 167,
+      "start": 1757,
+      "end": 1763,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 6
         }
       }
@@ -460,15 +524,15 @@
         "binop": null
       },
       "value": "function",
-      "start": 168,
-      "end": 176,
+      "start": 1764,
+      "end": 1772,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 7
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 15
         }
       }
@@ -486,15 +550,15 @@
         "binop": null
       },
       "value": "isNode",
-      "start": 177,
-      "end": 183,
+      "start": 1773,
+      "end": 1779,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 16
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 22
         }
       }
@@ -511,15 +575,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 183,
-      "end": 184,
+      "start": 1779,
+      "end": 1780,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 22
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 23
         }
       }
@@ -536,15 +600,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 184,
-      "end": 185,
+      "start": 1780,
+      "end": 1781,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 23
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 24
         }
       }
@@ -561,15 +625,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 186,
-      "end": 187,
+      "start": 1782,
+      "end": 1783,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 25
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 26
         }
       }
@@ -589,15 +653,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 190,
-      "end": 196,
+      "start": 1786,
+      "end": 1792,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 2
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 8
         }
       }
@@ -617,15 +681,15 @@
         "updateContext": null
       },
       "value": "typeof",
-      "start": 197,
-      "end": 203,
+      "start": 1793,
+      "end": 1799,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 9
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 15
         }
       }
@@ -643,15 +707,15 @@
         "binop": null
       },
       "value": "window",
-      "start": 204,
-      "end": 210,
+      "start": 1800,
+      "end": 1806,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 16
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 22
         }
       }
@@ -670,15 +734,15 @@
         "updateContext": null
       },
       "value": "===",
-      "start": 211,
-      "end": 214,
+      "start": 1807,
+      "end": 1810,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 23
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 26
         }
       }
@@ -697,15 +761,15 @@
         "updateContext": null
       },
       "value": "undefined",
-      "start": 215,
-      "end": 226,
+      "start": 1811,
+      "end": 1822,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 27
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 38
         }
       }
@@ -724,15 +788,15 @@
         "updateContext": null
       },
       "value": "&&",
-      "start": 227,
-      "end": 229,
+      "start": 1823,
+      "end": 1825,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 39
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 41
         }
       }
@@ -752,15 +816,15 @@
         "updateContext": null
       },
       "value": "typeof",
-      "start": 230,
-      "end": 236,
+      "start": 1826,
+      "end": 1832,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 42
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 48
         }
       }
@@ -778,15 +842,15 @@
         "binop": null
       },
       "value": "module",
-      "start": 237,
-      "end": 243,
+      "start": 1833,
+      "end": 1839,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 49
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 55
         }
       }
@@ -805,15 +869,15 @@
         "updateContext": null
       },
       "value": "!==",
-      "start": 244,
-      "end": 247,
+      "start": 1840,
+      "end": 1843,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 56
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 59
         }
       }
@@ -832,15 +896,15 @@
         "updateContext": null
       },
       "value": "undefined",
-      "start": 248,
-      "end": 259,
+      "start": 1844,
+      "end": 1855,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 60
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 71
         }
       }
@@ -859,15 +923,15 @@
         "updateContext": null
       },
       "value": "&&",
-      "start": 260,
-      "end": 262,
+      "start": 1856,
+      "end": 1858,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 72
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 74
         }
       }
@@ -885,15 +949,15 @@
         "binop": null
       },
       "value": "module",
-      "start": 263,
-      "end": 269,
+      "start": 1859,
+      "end": 1865,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 75
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 81
         }
       }
@@ -911,15 +975,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 269,
-      "end": 270,
+      "start": 1865,
+      "end": 1866,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 81
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 82
         }
       }
@@ -937,15 +1001,15 @@
         "binop": null
       },
       "value": "exports",
-      "start": 270,
-      "end": 277,
+      "start": 1866,
+      "end": 1873,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 82
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 89
         }
       }
@@ -963,15 +1027,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 277,
-      "end": 278,
+      "start": 1873,
+      "end": 1874,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 89
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 90
         }
       }
@@ -988,15 +1052,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 279,
-      "end": 280,
+      "start": 1875,
+      "end": 1876,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 1
         }
       }
@@ -1014,15 +1078,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 281,
-      "end": 281,
+      "start": 1877,
+      "end": 1877,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 42,
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 42,
           "column": 0
         }
       }

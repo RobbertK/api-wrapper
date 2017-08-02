@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 123,
+  "end": 1719,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 5,
+      "line": 37,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 123,
+    "end": 1719,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 5,
+        "line": 37,
         "column": 0
       }
     },
@@ -30,43 +30,43 @@
     "body": [
       {
         "type": "ExportDefaultDeclaration",
-        "start": 64,
-        "end": 122,
+        "start": 1660,
+        "end": 1718,
         "loc": {
           "start": {
-            "line": 4,
+            "line": 36,
             "column": 0
           },
           "end": {
-            "line": 4,
+            "line": 36,
             "column": 58
           }
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 79,
-          "end": 122,
+          "start": 1675,
+          "end": 1718,
           "loc": {
             "start": {
-              "line": 4,
+              "line": 36,
               "column": 15
             },
             "end": {
-              "line": 4,
+              "line": 36,
               "column": 58
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 85,
-            "end": 105,
+            "start": 1681,
+            "end": 1701,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 21
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 41
               },
               "identifierName": "UnsupportedCrudError"
@@ -76,15 +76,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 114,
-            "end": 119,
+            "start": 1710,
+            "end": 1715,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 50
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 55
               },
               "identifierName": "Error"
@@ -93,15 +93,15 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 120,
-            "end": 122,
+            "start": 1716,
+            "end": 1718,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 56
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 58
               }
             },
@@ -110,16 +110,32 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+              "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
               "start": 0,
-              "end": 63,
+              "end": 1594,
               "loc": {
                 "start": {
                   "line": 1,
                   "column": 0
                 },
                 "end": {
-                  "line": 3,
+                  "line": 31,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+              "start": 1596,
+              "end": 1659,
+              "loc": {
+                "start": {
+                  "line": 33,
+                  "column": 0
+                },
+                "end": {
+                  "line": 35,
                   "column": 3
                 }
               }
@@ -130,16 +146,32 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+            "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
             "start": 0,
-            "end": 63,
+            "end": 1594,
             "loc": {
               "start": {
                 "line": 1,
                 "column": 0
               },
               "end": {
-                "line": 3,
+                "line": 31,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+            "start": 1596,
+            "end": 1659,
+            "loc": {
+              "start": {
+                "line": 33,
+                "column": 0
+              },
+              "end": {
+                "line": 35,
                 "column": 3
               }
             }
@@ -152,16 +184,32 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 63,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+      "start": 1596,
+      "end": 1659,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
           "column": 3
         }
       }
@@ -170,16 +218,32 @@
   "tokens": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 63,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Thrown upon invocation of an unsupported crud method\n ",
+      "start": 1596,
+      "end": 1659,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
           "column": 3
         }
       }
@@ -199,15 +263,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 64,
-      "end": 70,
+      "start": 1660,
+      "end": 1666,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 0
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 6
         }
       }
@@ -227,15 +291,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 71,
-      "end": 78,
+      "start": 1667,
+      "end": 1674,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 7
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 14
         }
       }
@@ -255,15 +319,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 79,
-      "end": 84,
+      "start": 1675,
+      "end": 1680,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 15
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 20
         }
       }
@@ -281,15 +345,15 @@
         "binop": null
       },
       "value": "UnsupportedCrudError",
-      "start": 85,
-      "end": 105,
+      "start": 1681,
+      "end": 1701,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 21
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 41
         }
       }
@@ -309,15 +373,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 106,
-      "end": 113,
+      "start": 1702,
+      "end": 1709,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 42
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 49
         }
       }
@@ -335,15 +399,15 @@
         "binop": null
       },
       "value": "Error",
-      "start": 114,
-      "end": 119,
+      "start": 1710,
+      "end": 1715,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 50
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 55
         }
       }
@@ -360,15 +424,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 120,
-      "end": 121,
+      "start": 1716,
+      "end": 1717,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 56
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 57
         }
       }
@@ -385,15 +449,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 121,
-      "end": 122,
+      "start": 1717,
+      "end": 1718,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 57
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 58
         }
       }
@@ -411,15 +475,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 123,
-      "end": 123,
+      "start": 1719,
+      "end": 1719,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 37,
           "column": 0
         },
         "end": {
-          "line": 5,
+          "line": 37,
           "column": 0
         }
       }

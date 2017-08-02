@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 96,
+  "end": 1692,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 5,
+      "line": 37,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 96,
+    "end": 1692,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 5,
+        "line": 37,
         "column": 0
       }
     },
@@ -30,43 +30,43 @@
     "body": [
       {
         "type": "ExportDefaultDeclaration",
-        "start": 47,
-        "end": 95,
+        "start": 1643,
+        "end": 1691,
         "loc": {
           "start": {
-            "line": 4,
+            "line": 36,
             "column": 0
           },
           "end": {
-            "line": 4,
+            "line": 36,
             "column": 48
           }
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 62,
-          "end": 95,
+          "start": 1658,
+          "end": 1691,
           "loc": {
             "start": {
-              "line": 4,
+              "line": 36,
               "column": 15
             },
             "end": {
-              "line": 4,
+              "line": 36,
               "column": 48
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 68,
-            "end": 77,
+            "start": 1664,
+            "end": 1673,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 21
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 30
               },
               "identifierName": "NodeError"
@@ -76,15 +76,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 86,
-            "end": 91,
+            "start": 1682,
+            "end": 1687,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 39
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 44
               },
               "identifierName": "Error"
@@ -93,15 +93,15 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 92,
-            "end": 95,
+            "start": 1688,
+            "end": 1691,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 45
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 48
               }
             },
@@ -110,16 +110,32 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Invoked upon nodejs specific errors\n ",
+              "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
               "start": 0,
-              "end": 46,
+              "end": 1594,
               "loc": {
                 "start": {
                   "line": 1,
                   "column": 0
                 },
                 "end": {
-                  "line": 3,
+                  "line": 31,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * Invoked upon nodejs specific errors\n ",
+              "start": 1596,
+              "end": 1642,
+              "loc": {
+                "start": {
+                  "line": 33,
+                  "column": 0
+                },
+                "end": {
+                  "line": 35,
                   "column": 3
                 }
               }
@@ -130,16 +146,32 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Invoked upon nodejs specific errors\n ",
+            "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
             "start": 0,
-            "end": 46,
+            "end": 1594,
             "loc": {
               "start": {
                 "line": 1,
                 "column": 0
               },
               "end": {
-                "line": 3,
+                "line": 31,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * Invoked upon nodejs specific errors\n ",
+            "start": 1596,
+            "end": 1642,
+            "loc": {
+              "start": {
+                "line": 33,
+                "column": 0
+              },
+              "end": {
+                "line": 35,
                 "column": 3
               }
             }
@@ -152,16 +184,32 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Invoked upon nodejs specific errors\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 46,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Invoked upon nodejs specific errors\n ",
+      "start": 1596,
+      "end": 1642,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
           "column": 3
         }
       }
@@ -170,16 +218,32 @@
   "tokens": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Invoked upon nodejs specific errors\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 46,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Invoked upon nodejs specific errors\n ",
+      "start": 1596,
+      "end": 1642,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
           "column": 3
         }
       }
@@ -199,15 +263,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 47,
-      "end": 53,
+      "start": 1643,
+      "end": 1649,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 0
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 6
         }
       }
@@ -227,15 +291,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 54,
-      "end": 61,
+      "start": 1650,
+      "end": 1657,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 7
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 14
         }
       }
@@ -255,15 +319,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 62,
-      "end": 67,
+      "start": 1658,
+      "end": 1663,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 15
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 20
         }
       }
@@ -281,15 +345,15 @@
         "binop": null
       },
       "value": "NodeError",
-      "start": 68,
-      "end": 77,
+      "start": 1664,
+      "end": 1673,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 21
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 30
         }
       }
@@ -309,15 +373,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 78,
-      "end": 85,
+      "start": 1674,
+      "end": 1681,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 31
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 38
         }
       }
@@ -335,15 +399,15 @@
         "binop": null
       },
       "value": "Error",
-      "start": 86,
-      "end": 91,
+      "start": 1682,
+      "end": 1687,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 39
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 44
         }
       }
@@ -360,15 +424,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 92,
-      "end": 93,
+      "start": 1688,
+      "end": 1689,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 45
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 46
         }
       }
@@ -385,15 +449,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 94,
-      "end": 95,
+      "start": 1690,
+      "end": 1691,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 47
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 48
         }
       }
@@ -411,15 +475,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 96,
-      "end": 96,
+      "start": 1692,
+      "end": 1692,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 37,
           "column": 0
         },
         "end": {
-          "line": 5,
+          "line": 37,
           "column": 0
         }
       }

@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 474,
+  "end": 2070,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 23,
+      "line": 55,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 474,
+    "end": 2070,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 23,
+        "line": 55,
         "column": 0
       }
     },
@@ -30,15 +30,15 @@
     "body": [
       {
         "type": "ExportNamedDeclaration",
-        "start": 50,
-        "end": 93,
+        "start": 1646,
+        "end": 1689,
         "loc": {
           "start": {
-            "line": 4,
+            "line": 36,
             "column": 0
           },
           "end": {
-            "line": 4,
+            "line": 36,
             "column": 43
           }
         },
@@ -46,29 +46,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 57,
-          "end": 93,
+          "start": 1653,
+          "end": 1689,
           "loc": {
             "start": {
-              "line": 4,
+              "line": 36,
               "column": 7
             },
             "end": {
-              "line": 4,
+              "line": 36,
               "column": 43
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 63,
-            "end": 76,
+            "start": 1659,
+            "end": 1672,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 13
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 26
               },
               "identifierName": "AbstractError"
@@ -78,15 +78,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 85,
-            "end": 90,
+            "start": 1681,
+            "end": 1686,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 35
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 40
               },
               "identifierName": "Error"
@@ -95,15 +95,15 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 91,
-            "end": 93,
+            "start": 1687,
+            "end": 1689,
             "loc": {
               "start": {
-                "line": 4,
+                "line": 36,
                 "column": 41
               },
               "end": {
-                "line": 4,
+                "line": 36,
                 "column": 43
               }
             },
@@ -114,16 +114,32 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Thrown by abstract methods and classes\n ",
+              "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
               "start": 0,
-              "end": 49,
+              "end": 1594,
               "loc": {
                 "start": {
                   "line": 1,
                   "column": 0
                 },
                 "end": {
-                  "line": 3,
+                  "line": 31,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * Thrown by abstract methods and classes\n ",
+              "start": 1596,
+              "end": 1645,
+              "loc": {
+                "start": {
+                  "line": 33,
+                  "column": 0
+                },
+                "end": {
+                  "line": 35,
                   "column": 3
                 }
               }
@@ -133,15 +149,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Thrown upon invocation of an abstract class\n ",
-              "start": 95,
-              "end": 149,
+              "start": 1691,
+              "end": 1745,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 38,
                   "column": 0
                 },
                 "end": {
-                  "line": 8,
+                  "line": 40,
                   "column": 3
                 }
               }
@@ -151,16 +167,32 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Thrown by abstract methods and classes\n ",
+            "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
             "start": 0,
-            "end": 49,
+            "end": 1594,
             "loc": {
               "start": {
                 "line": 1,
                 "column": 0
               },
               "end": {
-                "line": 3,
+                "line": 31,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * Thrown by abstract methods and classes\n ",
+            "start": 1596,
+            "end": 1645,
+            "loc": {
+              "start": {
+                "line": 33,
+                "column": 0
+              },
+              "end": {
+                "line": 35,
                 "column": 3
               }
             }
@@ -170,15 +202,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Thrown upon invocation of an abstract class\n ",
-            "start": 95,
-            "end": 149,
+            "start": 1691,
+            "end": 1745,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 38,
                 "column": 0
               },
               "end": {
-                "line": 8,
+                "line": 40,
                 "column": 3
               }
             }
@@ -187,15 +219,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 150,
-        "end": 289,
+        "start": 1746,
+        "end": 1885,
         "loc": {
           "start": {
-            "line": 9,
+            "line": 41,
             "column": 0
           },
           "end": {
-            "line": 13,
+            "line": 45,
             "column": 1
           }
         },
@@ -203,29 +235,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 157,
-          "end": 289,
+          "start": 1753,
+          "end": 1885,
           "loc": {
             "start": {
-              "line": 9,
+              "line": 41,
               "column": 7
             },
             "end": {
-              "line": 13,
+              "line": 45,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 163,
-            "end": 181,
+            "start": 1759,
+            "end": 1777,
             "loc": {
               "start": {
-                "line": 9,
+                "line": 41,
                 "column": 13
               },
               "end": {
-                "line": 9,
+                "line": 41,
                 "column": 31
               },
               "identifierName": "AbstractClassError"
@@ -235,15 +267,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 190,
-            "end": 203,
+            "start": 1786,
+            "end": 1799,
             "loc": {
               "start": {
-                "line": 9,
+                "line": 41,
                 "column": 40
               },
               "end": {
-                "line": 9,
+                "line": 41,
                 "column": 53
               },
               "identifierName": "AbstractError"
@@ -252,45 +284,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 204,
-            "end": 289,
+            "start": 1800,
+            "end": 1885,
             "loc": {
               "start": {
-                "line": 9,
+                "line": 41,
                 "column": 54
               },
               "end": {
-                "line": 13,
+                "line": 45,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 208,
-                "end": 287,
+                "start": 1804,
+                "end": 1883,
                 "loc": {
                   "start": {
-                    "line": 10,
+                    "line": 42,
                     "column": 2
                   },
                   "end": {
-                    "line": 12,
+                    "line": 44,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 208,
-                  "end": 219,
+                  "start": 1804,
+                  "end": 1815,
                   "loc": {
                     "start": {
-                      "line": 10,
+                      "line": 42,
                       "column": 2
                     },
                     "end": {
-                      "line": 10,
+                      "line": 42,
                       "column": 13
                     },
                     "identifierName": "constructor"
@@ -306,58 +338,58 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 222,
-                  "end": 287,
+                  "start": 1818,
+                  "end": 1883,
                   "loc": {
                     "start": {
-                      "line": 10,
+                      "line": 42,
                       "column": 16
                     },
                     "end": {
-                      "line": 12,
+                      "line": 44,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 228,
-                      "end": 283,
+                      "start": 1824,
+                      "end": 1879,
                       "loc": {
                         "start": {
-                          "line": 11,
+                          "line": 43,
                           "column": 4
                         },
                         "end": {
-                          "line": 11,
+                          "line": 43,
                           "column": 59
                         }
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 228,
-                        "end": 282,
+                        "start": 1824,
+                        "end": 1878,
                         "loc": {
                           "start": {
-                            "line": 11,
+                            "line": 43,
                             "column": 4
                           },
                           "end": {
-                            "line": 11,
+                            "line": 43,
                             "column": 58
                           }
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 228,
-                          "end": 233,
+                          "start": 1824,
+                          "end": 1829,
                           "loc": {
                             "start": {
-                              "line": 11,
+                              "line": 43,
                               "column": 4
                             },
                             "end": {
-                              "line": 11,
+                              "line": 43,
                               "column": 9
                             }
                           }
@@ -365,15 +397,15 @@
                         "arguments": [
                           {
                             "type": "StringLiteral",
-                            "start": 234,
-                            "end": 281,
+                            "start": 1830,
+                            "end": 1877,
                             "loc": {
                               "start": {
-                                "line": 11,
+                                "line": 43,
                                 "column": 10
                               },
                               "end": {
-                                "line": 11,
+                                "line": 43,
                                 "column": 57
                               }
                             },
@@ -397,15 +429,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Thrown upon invocation of an abstract class\n ",
-              "start": 95,
-              "end": 149,
+              "start": 1691,
+              "end": 1745,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 38,
                   "column": 0
                 },
                 "end": {
-                  "line": 8,
+                  "line": 40,
                   "column": 3
                 }
               }
@@ -415,15 +447,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Thrown upon invocation of an abstract method\n ",
-              "start": 291,
-              "end": 346,
+              "start": 1887,
+              "end": 1942,
               "loc": {
                 "start": {
-                  "line": 15,
+                  "line": 47,
                   "column": 0
                 },
                 "end": {
-                  "line": 17,
+                  "line": 49,
                   "column": 3
                 }
               }
@@ -434,15 +466,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Thrown upon invocation of an abstract class\n ",
-            "start": 95,
-            "end": 149,
+            "start": 1691,
+            "end": 1745,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 38,
                 "column": 0
               },
               "end": {
-                "line": 8,
+                "line": 40,
                 "column": 3
               }
             }
@@ -452,15 +484,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Thrown upon invocation of an abstract method\n ",
-            "start": 291,
-            "end": 346,
+            "start": 1887,
+            "end": 1942,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 47,
                 "column": 0
               },
               "end": {
-                "line": 17,
+                "line": 49,
                 "column": 3
               }
             }
@@ -469,15 +501,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 347,
-        "end": 473,
+        "start": 1943,
+        "end": 2069,
         "loc": {
           "start": {
-            "line": 18,
+            "line": 50,
             "column": 0
           },
           "end": {
-            "line": 22,
+            "line": 54,
             "column": 1
           }
         },
@@ -485,29 +517,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 354,
-          "end": 473,
+          "start": 1950,
+          "end": 2069,
           "loc": {
             "start": {
-              "line": 18,
+              "line": 50,
               "column": 7
             },
             "end": {
-              "line": 22,
+              "line": 54,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 360,
-            "end": 379,
+            "start": 1956,
+            "end": 1975,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 50,
                 "column": 13
               },
               "end": {
-                "line": 18,
+                "line": 50,
                 "column": 32
               },
               "identifierName": "AbstractMethodError"
@@ -517,15 +549,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 388,
-            "end": 401,
+            "start": 1984,
+            "end": 1997,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 50,
                 "column": 41
               },
               "end": {
-                "line": 18,
+                "line": 50,
                 "column": 54
               },
               "identifierName": "AbstractError"
@@ -534,45 +566,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 402,
-            "end": 473,
+            "start": 1998,
+            "end": 2069,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 50,
                 "column": 55
               },
               "end": {
-                "line": 22,
+                "line": 54,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 406,
-                "end": 471,
+                "start": 2002,
+                "end": 2067,
                 "loc": {
                   "start": {
-                    "line": 19,
+                    "line": 51,
                     "column": 2
                   },
                   "end": {
-                    "line": 21,
+                    "line": 53,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 406,
-                  "end": 417,
+                  "start": 2002,
+                  "end": 2013,
                   "loc": {
                     "start": {
-                      "line": 19,
+                      "line": 51,
                       "column": 2
                     },
                     "end": {
-                      "line": 19,
+                      "line": 51,
                       "column": 13
                     },
                     "identifierName": "constructor"
@@ -588,58 +620,58 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 420,
-                  "end": 471,
+                  "start": 2016,
+                  "end": 2067,
                   "loc": {
                     "start": {
-                      "line": 19,
+                      "line": 51,
                       "column": 16
                     },
                     "end": {
-                      "line": 21,
+                      "line": 53,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 426,
-                      "end": 467,
+                      "start": 2022,
+                      "end": 2063,
                       "loc": {
                         "start": {
-                          "line": 20,
+                          "line": 52,
                           "column": 4
                         },
                         "end": {
-                          "line": 20,
+                          "line": 52,
                           "column": 45
                         }
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 426,
-                        "end": 466,
+                        "start": 2022,
+                        "end": 2062,
                         "loc": {
                           "start": {
-                            "line": 20,
+                            "line": 52,
                             "column": 4
                           },
                           "end": {
-                            "line": 20,
+                            "line": 52,
                             "column": 44
                           }
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 426,
-                          "end": 431,
+                          "start": 2022,
+                          "end": 2027,
                           "loc": {
                             "start": {
-                              "line": 20,
+                              "line": 52,
                               "column": 4
                             },
                             "end": {
-                              "line": 20,
+                              "line": 52,
                               "column": 9
                             }
                           }
@@ -647,15 +679,15 @@
                         "arguments": [
                           {
                             "type": "StringLiteral",
-                            "start": 432,
-                            "end": 465,
+                            "start": 2028,
+                            "end": 2061,
                             "loc": {
                               "start": {
-                                "line": 20,
+                                "line": 52,
                                 "column": 10
                               },
                               "end": {
-                                "line": 20,
+                                "line": 52,
                                 "column": 43
                               }
                             },
@@ -678,15 +710,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Thrown upon invocation of an abstract method\n ",
-              "start": 291,
-              "end": 346,
+              "start": 1887,
+              "end": 1942,
               "loc": {
                 "start": {
-                  "line": 15,
+                  "line": 47,
                   "column": 0
                 },
                 "end": {
-                  "line": 17,
+                  "line": 49,
                   "column": 3
                 }
               }
@@ -698,15 +730,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Thrown upon invocation of an abstract method\n ",
-            "start": 291,
-            "end": 346,
+            "start": 1887,
+            "end": 1942,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 47,
                 "column": 0
               },
               "end": {
-                "line": 17,
+                "line": 49,
                 "column": 3
               }
             }
@@ -719,16 +751,32 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Thrown by abstract methods and classes\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 49,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Thrown by abstract methods and classes\n ",
+      "start": 1596,
+      "end": 1645,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
           "column": 3
         }
       }
@@ -736,15 +784,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Thrown upon invocation of an abstract class\n ",
-      "start": 95,
-      "end": 149,
+      "start": 1691,
+      "end": 1745,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 3
         }
       }
@@ -752,15 +800,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Thrown upon invocation of an abstract method\n ",
-      "start": 291,
-      "end": 346,
+      "start": 1887,
+      "end": 1942,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 47,
           "column": 0
         },
         "end": {
-          "line": 17,
+          "line": 49,
           "column": 3
         }
       }
@@ -769,16 +817,32 @@
   "tokens": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Thrown by abstract methods and classes\n ",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
       "start": 0,
-      "end": 49,
+      "end": 1594,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Thrown by abstract methods and classes\n ",
+      "start": 1596,
+      "end": 1645,
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
           "column": 3
         }
       }
@@ -798,15 +862,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 50,
-      "end": 56,
+      "start": 1646,
+      "end": 1652,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 0
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 6
         }
       }
@@ -826,15 +890,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 57,
-      "end": 62,
+      "start": 1653,
+      "end": 1658,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 7
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 12
         }
       }
@@ -852,15 +916,15 @@
         "binop": null
       },
       "value": "AbstractError",
-      "start": 63,
-      "end": 76,
+      "start": 1659,
+      "end": 1672,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 13
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 26
         }
       }
@@ -880,15 +944,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 77,
-      "end": 84,
+      "start": 1673,
+      "end": 1680,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 27
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 34
         }
       }
@@ -906,15 +970,15 @@
         "binop": null
       },
       "value": "Error",
-      "start": 85,
-      "end": 90,
+      "start": 1681,
+      "end": 1686,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 35
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 40
         }
       }
@@ -931,15 +995,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 91,
-      "end": 92,
+      "start": 1687,
+      "end": 1688,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 41
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 42
         }
       }
@@ -956,15 +1020,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 92,
-      "end": 93,
+      "start": 1688,
+      "end": 1689,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 42
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 43
         }
       }
@@ -972,15 +1036,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Thrown upon invocation of an abstract class\n ",
-      "start": 95,
-      "end": 149,
+      "start": 1691,
+      "end": 1745,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 3
         }
       }
@@ -1000,15 +1064,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 150,
-      "end": 156,
+      "start": 1746,
+      "end": 1752,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 6
         }
       }
@@ -1028,15 +1092,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 157,
-      "end": 162,
+      "start": 1753,
+      "end": 1758,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 7
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 12
         }
       }
@@ -1054,15 +1118,15 @@
         "binop": null
       },
       "value": "AbstractClassError",
-      "start": 163,
-      "end": 181,
+      "start": 1759,
+      "end": 1777,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 13
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 31
         }
       }
@@ -1082,15 +1146,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 182,
-      "end": 189,
+      "start": 1778,
+      "end": 1785,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 32
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 39
         }
       }
@@ -1108,15 +1172,15 @@
         "binop": null
       },
       "value": "AbstractError",
-      "start": 190,
-      "end": 203,
+      "start": 1786,
+      "end": 1799,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 40
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 53
         }
       }
@@ -1133,15 +1197,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 204,
-      "end": 205,
+      "start": 1800,
+      "end": 1801,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 54
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 55
         }
       }
@@ -1159,15 +1223,15 @@
         "binop": null
       },
       "value": "constructor",
-      "start": 208,
-      "end": 219,
+      "start": 1804,
+      "end": 1815,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 42,
           "column": 2
         },
         "end": {
-          "line": 10,
+          "line": 42,
           "column": 13
         }
       }
@@ -1184,15 +1248,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 219,
-      "end": 220,
+      "start": 1815,
+      "end": 1816,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 42,
           "column": 13
         },
         "end": {
-          "line": 10,
+          "line": 42,
           "column": 14
         }
       }
@@ -1209,15 +1273,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 220,
-      "end": 221,
+      "start": 1816,
+      "end": 1817,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 42,
           "column": 14
         },
         "end": {
-          "line": 10,
+          "line": 42,
           "column": 15
         }
       }
@@ -1234,15 +1298,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 222,
-      "end": 223,
+      "start": 1818,
+      "end": 1819,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 42,
           "column": 16
         },
         "end": {
-          "line": 10,
+          "line": 42,
           "column": 17
         }
       }
@@ -1262,15 +1326,15 @@
         "updateContext": null
       },
       "value": "super",
-      "start": 228,
-      "end": 233,
+      "start": 1824,
+      "end": 1829,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 43,
           "column": 4
         },
         "end": {
-          "line": 11,
+          "line": 43,
           "column": 9
         }
       }
@@ -1287,15 +1351,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 233,
-      "end": 234,
+      "start": 1829,
+      "end": 1830,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 43,
           "column": 9
         },
         "end": {
-          "line": 11,
+          "line": 43,
           "column": 10
         }
       }
@@ -1314,15 +1378,15 @@
         "updateContext": null
       },
       "value": "Can not make an instance of an abstract class",
-      "start": 234,
-      "end": 281,
+      "start": 1830,
+      "end": 1877,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 43,
           "column": 10
         },
         "end": {
-          "line": 11,
+          "line": 43,
           "column": 57
         }
       }
@@ -1339,15 +1403,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 281,
-      "end": 282,
+      "start": 1877,
+      "end": 1878,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 43,
           "column": 57
         },
         "end": {
-          "line": 11,
+          "line": 43,
           "column": 58
         }
       }
@@ -1365,15 +1429,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 282,
-      "end": 283,
+      "start": 1878,
+      "end": 1879,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 43,
           "column": 58
         },
         "end": {
-          "line": 11,
+          "line": 43,
           "column": 59
         }
       }
@@ -1390,15 +1454,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 286,
-      "end": 287,
+      "start": 1882,
+      "end": 1883,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 44,
           "column": 2
         },
         "end": {
-          "line": 12,
+          "line": 44,
           "column": 3
         }
       }
@@ -1415,15 +1479,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 288,
-      "end": 289,
+      "start": 1884,
+      "end": 1885,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 45,
           "column": 0
         },
         "end": {
-          "line": 13,
+          "line": 45,
           "column": 1
         }
       }
@@ -1431,15 +1495,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Thrown upon invocation of an abstract method\n ",
-      "start": 291,
-      "end": 346,
+      "start": 1887,
+      "end": 1942,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 47,
           "column": 0
         },
         "end": {
-          "line": 17,
+          "line": 49,
           "column": 3
         }
       }
@@ -1459,15 +1523,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 347,
-      "end": 353,
+      "start": 1943,
+      "end": 1949,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 50,
           "column": 0
         },
         "end": {
-          "line": 18,
+          "line": 50,
           "column": 6
         }
       }
@@ -1487,15 +1551,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 354,
-      "end": 359,
+      "start": 1950,
+      "end": 1955,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 50,
           "column": 7
         },
         "end": {
-          "line": 18,
+          "line": 50,
           "column": 12
         }
       }
@@ -1513,15 +1577,15 @@
         "binop": null
       },
       "value": "AbstractMethodError",
-      "start": 360,
-      "end": 379,
+      "start": 1956,
+      "end": 1975,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 50,
           "column": 13
         },
         "end": {
-          "line": 18,
+          "line": 50,
           "column": 32
         }
       }
@@ -1541,15 +1605,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 380,
-      "end": 387,
+      "start": 1976,
+      "end": 1983,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 50,
           "column": 33
         },
         "end": {
-          "line": 18,
+          "line": 50,
           "column": 40
         }
       }
@@ -1567,15 +1631,15 @@
         "binop": null
       },
       "value": "AbstractError",
-      "start": 388,
-      "end": 401,
+      "start": 1984,
+      "end": 1997,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 50,
           "column": 41
         },
         "end": {
-          "line": 18,
+          "line": 50,
           "column": 54
         }
       }
@@ -1592,15 +1656,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 402,
-      "end": 403,
+      "start": 1998,
+      "end": 1999,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 50,
           "column": 55
         },
         "end": {
-          "line": 18,
+          "line": 50,
           "column": 56
         }
       }
@@ -1618,15 +1682,15 @@
         "binop": null
       },
       "value": "constructor",
-      "start": 406,
-      "end": 417,
+      "start": 2002,
+      "end": 2013,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 51,
           "column": 2
         },
         "end": {
-          "line": 19,
+          "line": 51,
           "column": 13
         }
       }
@@ -1643,15 +1707,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 417,
-      "end": 418,
+      "start": 2013,
+      "end": 2014,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 51,
           "column": 13
         },
         "end": {
-          "line": 19,
+          "line": 51,
           "column": 14
         }
       }
@@ -1668,15 +1732,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 418,
-      "end": 419,
+      "start": 2014,
+      "end": 2015,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 51,
           "column": 14
         },
         "end": {
-          "line": 19,
+          "line": 51,
           "column": 15
         }
       }
@@ -1693,15 +1757,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 420,
-      "end": 421,
+      "start": 2016,
+      "end": 2017,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 51,
           "column": 16
         },
         "end": {
-          "line": 19,
+          "line": 51,
           "column": 17
         }
       }
@@ -1721,15 +1785,15 @@
         "updateContext": null
       },
       "value": "super",
-      "start": 426,
-      "end": 431,
+      "start": 2022,
+      "end": 2027,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 52,
           "column": 4
         },
         "end": {
-          "line": 20,
+          "line": 52,
           "column": 9
         }
       }
@@ -1746,15 +1810,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 431,
-      "end": 432,
+      "start": 2027,
+      "end": 2028,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 52,
           "column": 9
         },
         "end": {
-          "line": 20,
+          "line": 52,
           "column": 10
         }
       }
@@ -1773,15 +1837,15 @@
         "updateContext": null
       },
       "value": "Can not call an abstract method",
-      "start": 432,
-      "end": 465,
+      "start": 2028,
+      "end": 2061,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 52,
           "column": 10
         },
         "end": {
-          "line": 20,
+          "line": 52,
           "column": 43
         }
       }
@@ -1798,15 +1862,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 465,
-      "end": 466,
+      "start": 2061,
+      "end": 2062,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 52,
           "column": 43
         },
         "end": {
-          "line": 20,
+          "line": 52,
           "column": 44
         }
       }
@@ -1824,15 +1888,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 466,
-      "end": 467,
+      "start": 2062,
+      "end": 2063,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 52,
           "column": 44
         },
         "end": {
-          "line": 20,
+          "line": 52,
           "column": 45
         }
       }
@@ -1849,15 +1913,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 470,
-      "end": 471,
+      "start": 2066,
+      "end": 2067,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 53,
           "column": 2
         },
         "end": {
-          "line": 21,
+          "line": 53,
           "column": 3
         }
       }
@@ -1874,15 +1938,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 472,
-      "end": 473,
+      "start": 2068,
+      "end": 2069,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 54,
           "column": 0
         },
         "end": {
-          "line": 22,
+          "line": 54,
           "column": 1
         }
       }
@@ -1900,15 +1964,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 474,
-      "end": 474,
+      "start": 2070,
+      "end": 2070,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 55,
           "column": 0
         },
         "end": {
-          "line": 23,
+          "line": 55,
           "column": 0
         }
       }

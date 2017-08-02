@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 175,
+  "end": 1771,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 11,
+      "line": 43,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 175,
+    "end": 1771,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 11,
+        "line": 43,
         "column": 0
       }
     },
@@ -30,63 +30,65 @@
     "body": [
       {
         "type": "ImportDeclaration",
-        "start": 0,
-        "end": 39,
+        "start": 1596,
+        "end": 1635,
         "loc": {
           "start": {
-            "line": 1,
+            "line": 33,
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 33,
             "column": 39
           }
         },
         "specifiers": [
           {
             "type": "ImportDefaultSpecifier",
-            "start": 7,
-            "end": 15,
+            "start": 1603,
+            "end": 1611,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 33,
                 "column": 7
               },
               "end": {
-                "line": 1,
+                "line": 33,
                 "column": 15
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 7,
-              "end": 15,
+              "start": 1603,
+              "end": 1611,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 33,
                   "column": 7
                 },
                 "end": {
-                  "line": 1,
+                  "line": 33,
                   "column": 15
                 },
                 "identifierName": "CrudBase"
               },
-              "name": "CrudBase"
-            }
+              "name": "CrudBase",
+              "leadingComments": null
+            },
+            "leadingComments": null
           }
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 21,
-          "end": 38,
+          "start": 1617,
+          "end": 1634,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 33,
               "column": 21
             },
             "end": {
-              "line": 1,
+              "line": 33,
               "column": 38
             }
           },
@@ -96,19 +98,37 @@
           },
           "value": "./base/CrudBase"
         },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+            "start": 0,
+            "end": 1594,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 31,
+                "column": 3
+              }
+            }
+          }
+        ],
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * Dimension resource\n ",
-            "start": 41,
-            "end": 70,
+            "start": 1637,
+            "end": 1666,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 35,
                 "column": 0
               },
               "end": {
-                "line": 5,
+                "line": 37,
                 "column": 3
               }
             }
@@ -117,43 +137,43 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 71,
-        "end": 174,
+        "start": 1667,
+        "end": 1770,
         "loc": {
           "start": {
-            "line": 6,
+            "line": 38,
             "column": 0
           },
           "end": {
-            "line": 10,
+            "line": 42,
             "column": 1
           }
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 86,
-          "end": 174,
+          "start": 1682,
+          "end": 1770,
           "loc": {
             "start": {
-              "line": 6,
+              "line": 38,
               "column": 15
             },
             "end": {
-              "line": 10,
+              "line": 42,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 92,
-            "end": 101,
+            "start": 1688,
+            "end": 1697,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 38,
                 "column": 21
               },
               "end": {
-                "line": 6,
+                "line": 38,
                 "column": 30
               },
               "identifierName": "Dimension"
@@ -163,15 +183,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 110,
-            "end": 118,
+            "start": 1706,
+            "end": 1714,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 38,
                 "column": 39
               },
               "end": {
-                "line": 6,
+                "line": 38,
                 "column": 47
               },
               "identifierName": "CrudBase"
@@ -180,45 +200,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 119,
-            "end": 174,
+            "start": 1715,
+            "end": 1770,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 38,
                 "column": 48
               },
               "end": {
-                "line": 10,
+                "line": 42,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 123,
-                "end": 172,
+                "start": 1719,
+                "end": 1768,
                 "loc": {
                   "start": {
-                    "line": 7,
+                    "line": 39,
                     "column": 2
                   },
                   "end": {
-                    "line": 9,
+                    "line": 41,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 127,
-                  "end": 139,
+                  "start": 1723,
+                  "end": 1735,
                   "loc": {
                     "start": {
-                      "line": 7,
+                      "line": 39,
                       "column": 6
                     },
                     "end": {
-                      "line": 7,
+                      "line": 39,
                       "column": 18
                     },
                     "identifierName": "resourceName"
@@ -234,44 +254,44 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 142,
-                  "end": 172,
+                  "start": 1738,
+                  "end": 1768,
                   "loc": {
                     "start": {
-                      "line": 7,
+                      "line": 39,
                       "column": 21
                     },
                     "end": {
-                      "line": 9,
+                      "line": 41,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 148,
-                      "end": 168,
+                      "start": 1744,
+                      "end": 1764,
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 40,
                           "column": 4
                         },
                         "end": {
-                          "line": 8,
+                          "line": 40,
                           "column": 24
                         }
                       },
                       "argument": {
                         "type": "StringLiteral",
-                        "start": 155,
-                        "end": 167,
+                        "start": 1751,
+                        "end": 1763,
                         "loc": {
                           "start": {
-                            "line": 8,
+                            "line": 40,
                             "column": 11
                           },
                           "end": {
-                            "line": 8,
+                            "line": 40,
                             "column": 23
                           }
                         },
@@ -292,15 +312,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Dimension resource\n ",
-              "start": 41,
-              "end": 70,
+              "start": 1637,
+              "end": 1666,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 35,
                   "column": 0
                 },
                 "end": {
-                  "line": 5,
+                  "line": 37,
                   "column": 3
                 }
               }
@@ -312,15 +332,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Dimension resource\n ",
-            "start": 41,
-            "end": 70,
+            "start": 1637,
+            "end": 1666,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 35,
                 "column": 0
               },
               "end": {
-                "line": 5,
+                "line": 37,
                 "column": 3
               }
             }
@@ -333,22 +353,54 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Dimension resource\n ",
-      "start": 41,
-      "end": 70,
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+      "start": 0,
+      "end": 1594,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 1,
           "column": 0
         },
         "end": {
-          "line": 5,
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Dimension resource\n ",
+      "start": 1637,
+      "end": 1666,
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 0
+        },
+        "end": {
+          "line": 37,
           "column": 3
         }
       }
     }
   ],
   "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+      "start": 0,
+      "end": 1594,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
     {
       "type": {
         "label": "import",
@@ -364,15 +416,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 0,
-      "end": 6,
+      "start": 1596,
+      "end": 1602,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 0
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 6
         }
       }
@@ -390,15 +442,15 @@
         "binop": null
       },
       "value": "CrudBase",
-      "start": 7,
-      "end": 15,
+      "start": 1603,
+      "end": 1611,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 7
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 15
         }
       }
@@ -416,15 +468,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 16,
-      "end": 20,
+      "start": 1612,
+      "end": 1616,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 16
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 20
         }
       }
@@ -443,15 +495,15 @@
         "updateContext": null
       },
       "value": "./base/CrudBase",
-      "start": 21,
-      "end": 38,
+      "start": 1617,
+      "end": 1634,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 21
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 38
         }
       }
@@ -469,15 +521,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 38,
-      "end": 39,
+      "start": 1634,
+      "end": 1635,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 38
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 39
         }
       }
@@ -485,15 +537,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Dimension resource\n ",
-      "start": 41,
-      "end": 70,
+      "start": 1637,
+      "end": 1666,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 0
         },
         "end": {
-          "line": 5,
+          "line": 37,
           "column": 3
         }
       }
@@ -513,15 +565,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 71,
-      "end": 77,
+      "start": 1667,
+      "end": 1673,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 0
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 6
         }
       }
@@ -541,15 +593,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 78,
-      "end": 85,
+      "start": 1674,
+      "end": 1681,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 7
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 14
         }
       }
@@ -569,15 +621,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 86,
-      "end": 91,
+      "start": 1682,
+      "end": 1687,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 15
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 20
         }
       }
@@ -595,15 +647,15 @@
         "binop": null
       },
       "value": "Dimension",
-      "start": 92,
-      "end": 101,
+      "start": 1688,
+      "end": 1697,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 21
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 30
         }
       }
@@ -623,15 +675,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 102,
-      "end": 109,
+      "start": 1698,
+      "end": 1705,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 31
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 38
         }
       }
@@ -649,15 +701,15 @@
         "binop": null
       },
       "value": "CrudBase",
-      "start": 110,
-      "end": 118,
+      "start": 1706,
+      "end": 1714,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 39
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 47
         }
       }
@@ -674,15 +726,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 119,
-      "end": 120,
+      "start": 1715,
+      "end": 1716,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 48
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 49
         }
       }
@@ -700,15 +752,15 @@
         "binop": null
       },
       "value": "get",
-      "start": 123,
-      "end": 126,
+      "start": 1719,
+      "end": 1722,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 2
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 5
         }
       }
@@ -726,15 +778,15 @@
         "binop": null
       },
       "value": "resourceName",
-      "start": 127,
-      "end": 139,
+      "start": 1723,
+      "end": 1735,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 6
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 18
         }
       }
@@ -751,15 +803,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 139,
-      "end": 140,
+      "start": 1735,
+      "end": 1736,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 18
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 19
         }
       }
@@ -776,15 +828,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 140,
-      "end": 141,
+      "start": 1736,
+      "end": 1737,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 19
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 20
         }
       }
@@ -801,15 +853,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 142,
-      "end": 143,
+      "start": 1738,
+      "end": 1739,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 21
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 22
         }
       }
@@ -829,15 +881,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 148,
-      "end": 154,
+      "start": 1744,
+      "end": 1750,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 4
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 10
         }
       }
@@ -856,15 +908,15 @@
         "updateContext": null
       },
       "value": "dimensions",
-      "start": 155,
-      "end": 167,
+      "start": 1751,
+      "end": 1763,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 11
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 23
         }
       }
@@ -882,15 +934,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 167,
-      "end": 168,
+      "start": 1763,
+      "end": 1764,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 23
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 24
         }
       }
@@ -907,15 +959,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 171,
-      "end": 172,
+      "start": 1767,
+      "end": 1768,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 41,
           "column": 2
         },
         "end": {
-          "line": 9,
+          "line": 41,
           "column": 3
         }
       }
@@ -932,15 +984,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 173,
-      "end": 174,
+      "start": 1769,
+      "end": 1770,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 42,
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 42,
           "column": 1
         }
       }
@@ -958,15 +1010,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 175,
-      "end": 175,
+      "start": 1771,
+      "end": 1771,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 43,
           "column": 0
         },
         "end": {
-          "line": 11,
+          "line": 43,
           "column": 0
         }
       }

@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 156,
+  "end": 1752,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 8,
+      "line": 40,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 156,
+    "end": 1752,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 8,
+        "line": 40,
         "column": 0
       }
     },
@@ -30,63 +30,65 @@
     "body": [
       {
         "type": "ImportDeclaration",
-        "start": 0,
-        "end": 47,
+        "start": 1596,
+        "end": 1643,
         "loc": {
           "start": {
-            "line": 1,
+            "line": 33,
             "column": 0
           },
           "end": {
-            "line": 1,
+            "line": 33,
             "column": 47
           }
         },
         "specifiers": [
           {
             "type": "ImportDefaultSpecifier",
-            "start": 7,
-            "end": 19,
+            "start": 1603,
+            "end": 1615,
             "loc": {
               "start": {
-                "line": 1,
+                "line": 33,
                 "column": 7
               },
               "end": {
-                "line": 1,
+                "line": 33,
                 "column": 19
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 7,
-              "end": 19,
+              "start": 1603,
+              "end": 1615,
               "loc": {
                 "start": {
-                  "line": 1,
+                  "line": 33,
                   "column": 7
                 },
                 "end": {
-                  "line": 1,
+                  "line": 33,
                   "column": 19
                 },
                 "identifierName": "ResourceBase"
               },
-              "name": "ResourceBase"
-            }
+              "name": "ResourceBase",
+              "leadingComments": null
+            },
+            "leadingComments": null
           }
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 25,
-          "end": 46,
+          "start": 1621,
+          "end": 1642,
           "loc": {
             "start": {
-              "line": 1,
+              "line": 33,
               "column": 25
             },
             "end": {
-              "line": 1,
+              "line": 33,
               "column": 46
             }
           },
@@ -95,47 +97,65 @@
             "raw": "'./base/ResourceBase'"
           },
           "value": "./base/ResourceBase"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+            "start": 0,
+            "end": 1594,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 31,
+                "column": 3
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 49,
-        "end": 155,
+        "start": 1645,
+        "end": 1751,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 35,
             "column": 0
           },
           "end": {
-            "line": 7,
+            "line": 39,
             "column": 1
           }
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 64,
-          "end": 155,
+          "start": 1660,
+          "end": 1751,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 35,
               "column": 15
             },
             "end": {
-              "line": 7,
+              "line": 39,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 70,
-            "end": 78,
+            "start": 1666,
+            "end": 1674,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 35,
                 "column": 21
               },
               "end": {
-                "line": 3,
+                "line": 35,
                 "column": 29
               },
               "identifierName": "InsetMap"
@@ -144,15 +164,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 87,
-            "end": 99,
+            "start": 1683,
+            "end": 1695,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 35,
                 "column": 38
               },
               "end": {
-                "line": 3,
+                "line": 35,
                 "column": 50
               },
               "identifierName": "ResourceBase"
@@ -161,45 +181,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 100,
-            "end": 155,
+            "start": 1696,
+            "end": 1751,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 35,
                 "column": 51
               },
               "end": {
-                "line": 7,
+                "line": 39,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 104,
-                "end": 153,
+                "start": 1700,
+                "end": 1749,
                 "loc": {
                   "start": {
-                    "line": 4,
+                    "line": 36,
                     "column": 2
                   },
                   "end": {
-                    "line": 6,
+                    "line": 38,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 108,
-                  "end": 120,
+                  "start": 1704,
+                  "end": 1716,
                   "loc": {
                     "start": {
-                      "line": 4,
+                      "line": 36,
                       "column": 6
                     },
                     "end": {
-                      "line": 4,
+                      "line": 36,
                       "column": 18
                     },
                     "identifierName": "resourceName"
@@ -215,44 +235,44 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 123,
-                  "end": 153,
+                  "start": 1719,
+                  "end": 1749,
                   "loc": {
                     "start": {
-                      "line": 4,
+                      "line": 36,
                       "column": 21
                     },
                     "end": {
-                      "line": 6,
+                      "line": 38,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 129,
-                      "end": 149,
+                      "start": 1725,
+                      "end": 1745,
                       "loc": {
                         "start": {
-                          "line": 5,
+                          "line": 37,
                           "column": 4
                         },
                         "end": {
-                          "line": 5,
+                          "line": 37,
                           "column": 24
                         }
                       },
                       "argument": {
                         "type": "StringLiteral",
-                        "start": 136,
-                        "end": 148,
+                        "start": 1732,
+                        "end": 1744,
                         "loc": {
                           "start": {
-                            "line": 5,
+                            "line": 37,
                             "column": 11
                           },
                           "end": {
-                            "line": 5,
+                            "line": 37,
                             "column": 23
                           }
                         },
@@ -276,8 +296,41 @@
     ],
     "directives": []
   },
-  "comments": [],
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+      "start": 0,
+      "end": 1594,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 3
+        }
+      }
+    }
+  ],
   "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n ",
+      "start": 0,
+      "end": 1594,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 3
+        }
+      }
+    },
     {
       "type": {
         "label": "import",
@@ -293,15 +346,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 0,
-      "end": 6,
+      "start": 1596,
+      "end": 1602,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 0
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 6
         }
       }
@@ -319,15 +372,15 @@
         "binop": null
       },
       "value": "ResourceBase",
-      "start": 7,
-      "end": 19,
+      "start": 1603,
+      "end": 1615,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 7
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 19
         }
       }
@@ -345,15 +398,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 20,
-      "end": 24,
+      "start": 1616,
+      "end": 1620,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 20
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 24
         }
       }
@@ -372,15 +425,15 @@
         "updateContext": null
       },
       "value": "./base/ResourceBase",
-      "start": 25,
-      "end": 46,
+      "start": 1621,
+      "end": 1642,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 25
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 46
         }
       }
@@ -398,15 +451,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 46,
-      "end": 47,
+      "start": 1642,
+      "end": 1643,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 33,
           "column": 46
         },
         "end": {
-          "line": 1,
+          "line": 33,
           "column": 47
         }
       }
@@ -426,15 +479,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 49,
-      "end": 55,
+      "start": 1645,
+      "end": 1651,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 35,
           "column": 6
         }
       }
@@ -454,15 +507,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 56,
-      "end": 63,
+      "start": 1652,
+      "end": 1659,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 7
         },
         "end": {
-          "line": 3,
+          "line": 35,
           "column": 14
         }
       }
@@ -482,15 +535,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 64,
-      "end": 69,
+      "start": 1660,
+      "end": 1665,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 15
         },
         "end": {
-          "line": 3,
+          "line": 35,
           "column": 20
         }
       }
@@ -508,15 +561,15 @@
         "binop": null
       },
       "value": "InsetMap",
-      "start": 70,
-      "end": 78,
+      "start": 1666,
+      "end": 1674,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 21
         },
         "end": {
-          "line": 3,
+          "line": 35,
           "column": 29
         }
       }
@@ -536,15 +589,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 79,
-      "end": 86,
+      "start": 1675,
+      "end": 1682,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 30
         },
         "end": {
-          "line": 3,
+          "line": 35,
           "column": 37
         }
       }
@@ -562,15 +615,15 @@
         "binop": null
       },
       "value": "ResourceBase",
-      "start": 87,
-      "end": 99,
+      "start": 1683,
+      "end": 1695,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 38
         },
         "end": {
-          "line": 3,
+          "line": 35,
           "column": 50
         }
       }
@@ -587,15 +640,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 100,
-      "end": 101,
+      "start": 1696,
+      "end": 1697,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 35,
           "column": 51
         },
         "end": {
-          "line": 3,
+          "line": 35,
           "column": 52
         }
       }
@@ -613,15 +666,15 @@
         "binop": null
       },
       "value": "get",
-      "start": 104,
-      "end": 107,
+      "start": 1700,
+      "end": 1703,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 2
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 5
         }
       }
@@ -639,15 +692,15 @@
         "binop": null
       },
       "value": "resourceName",
-      "start": 108,
-      "end": 120,
+      "start": 1704,
+      "end": 1716,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 6
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 18
         }
       }
@@ -664,15 +717,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 120,
-      "end": 121,
+      "start": 1716,
+      "end": 1717,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 18
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 19
         }
       }
@@ -689,15 +742,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 121,
-      "end": 122,
+      "start": 1717,
+      "end": 1718,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 19
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 20
         }
       }
@@ -714,15 +767,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 123,
-      "end": 124,
+      "start": 1719,
+      "end": 1720,
       "loc": {
         "start": {
-          "line": 4,
+          "line": 36,
           "column": 21
         },
         "end": {
-          "line": 4,
+          "line": 36,
           "column": 22
         }
       }
@@ -742,15 +795,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 129,
-      "end": 135,
+      "start": 1725,
+      "end": 1731,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 37,
           "column": 4
         },
         "end": {
-          "line": 5,
+          "line": 37,
           "column": 10
         }
       }
@@ -769,15 +822,15 @@
         "updateContext": null
       },
       "value": "inset-maps",
-      "start": 136,
-      "end": 148,
+      "start": 1732,
+      "end": 1744,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 37,
           "column": 11
         },
         "end": {
-          "line": 5,
+          "line": 37,
           "column": 23
         }
       }
@@ -795,15 +848,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 148,
-      "end": 149,
+      "start": 1744,
+      "end": 1745,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 37,
           "column": 23
         },
         "end": {
-          "line": 5,
+          "line": 37,
           "column": 24
         }
       }
@@ -820,15 +873,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 152,
-      "end": 153,
+      "start": 1748,
+      "end": 1749,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 38,
           "column": 2
         },
         "end": {
-          "line": 6,
+          "line": 38,
           "column": 3
         }
       }
@@ -845,15 +898,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 154,
-      "end": 155,
+      "start": 1750,
+      "end": 1751,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 39,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 39,
           "column": 1
         }
       }
@@ -871,15 +924,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 156,
-      "end": 156,
+      "start": 1752,
+      "end": 1752,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 40,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 40,
           "column": 0
         }
       }

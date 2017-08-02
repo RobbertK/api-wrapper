@@ -7,8 +7,8 @@
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
-        19,
-        10
+        51,
+        42
       ]
     },
     "src/exceptions/ApiError.js": {
@@ -20,21 +20,21 @@
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        7
+        39
       ]
     },
     "src/crud/Color.js": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        11
+        43
       ]
     },
     "src/crud/Contract.js": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        7
+        39
       ]
     },
     "src/crud/base/CrudBase.js": {
@@ -51,52 +51,52 @@
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        7
+        39
       ]
     },
     "src/crud/DimensionSet.js": {
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        17,
-        13
+        49,
+        45
       ]
     },
     "src/oauth/DummyFlow.js": {
       "expectCount": 3,
       "actualCount": 2,
       "undocumentLines": [
-        9
+        41
       ]
     },
     "src/crud/Faq.js": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        7
+        39
       ]
     },
     "src/crud/Feature.js": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        12
+        44
       ]
     },
     "src/crud/Font.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/crud/FontFamily.js": {
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        16,
-        12
+        48,
+        44
       ]
     },
     "src/traits/HandlesImages.js": {
@@ -108,8 +108,8 @@
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/crud/base/ImageHandler.js": {
@@ -121,106 +121,106 @@
       "expectCount": 14,
       "actualCount": 10,
       "undocumentLines": [
-        32,
-        30,
-        56,
-        33
+        64,
+        62,
+        88,
+        65
       ]
     },
     "src/oauth/ImplicitFlowPopup.js": {
       "expectCount": 6,
       "actualCount": 5,
       "undocumentLines": [
-        23
+        55
       ]
     },
     "src/crud/InsetMap.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/crud/Job.js": {
       "expectCount": 7,
       "actualCount": 5,
       "undocumentLines": [
-        5,
-        36
+        37,
+        68
       ]
     },
     "src/crud/JobResult.js": {
       "expectCount": 4,
       "actualCount": 2,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/crud/JobRevision.js": {
       "expectCount": 11,
       "actualCount": 7,
       "undocumentLines": [
-        7,
-        8,
-        16,
-        12
+        39,
+        40,
+        48,
+        44
       ]
     },
     "src/crud/JobShare.js": {
       "expectCount": 4,
       "actualCount": 1,
       "undocumentLines": [
-        3,
-        26,
-        22
+        35,
+        58,
+        54
       ]
     },
     "src/crud/JobType.js": {
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        15,
-        11
+        47,
+        43
       ]
     },
     "src/crud/Language.js": {
       "expectCount": 3,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4,
-        8
+        35,
+        36,
+        40
       ]
     },
     "src/crud/Layer.js": {
       "expectCount": 3,
       "actualCount": 2,
       "undocumentLines": [
-        20
+        52
       ]
     },
     "src/Maps4News.js": {
       "expectCount": 40,
       "actualCount": 39,
       "undocumentLines": [
-        53
+        85
       ]
     },
     "src/crud/Mapstyle.js": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        10
+        42
       ]
     },
     "src/crud/MapstyleSet.js": {
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        16,
-        12
+        48,
+        44
       ]
     },
     "src/exceptions/NodeError.js": {
@@ -232,19 +232,19 @@
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/oauth/OAuth.js": {
       "expectCount": 10,
       "actualCount": 5,
       "undocumentLines": [
-        21,
-        24,
-        25,
-        22,
-        23
+        53,
+        56,
+        57,
+        54,
+        55
       ]
     },
     "src/oauth/OAuthError.js": {
@@ -256,18 +256,18 @@
       "expectCount": 14,
       "actualCount": 10,
       "undocumentLines": [
-        23,
-        15,
-        16,
-        17
+        55,
+        47,
+        48,
+        49
       ]
     },
     "src/crud/Organisation.js": {
       "expectCount": 16,
       "actualCount": 14,
       "undocumentLines": [
-        15,
-        95
+        47,
+        127
       ]
     },
     "src/traits/OwnableResource.js": {
@@ -284,31 +284,31 @@
       "expectCount": 25,
       "actualCount": 23,
       "undocumentLines": [
-        19,
-        20
+        51,
+        52
       ]
     },
     "src/oauth/PasswordFlow.js": {
       "expectCount": 12,
       "actualCount": 11,
       "undocumentLines": [
-        120
+        152
       ]
     },
     "src/crud/Permission.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/crud/PlaceName.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/crud/base/ResourceBase.js": {
@@ -320,9 +320,9 @@
       "expectCount": 9,
       "actualCount": 6,
       "undocumentLines": [
-        11,
-        9,
-        12
+        43,
+        41,
+        44
       ]
     },
     "src/ResourceProxy.js": {
@@ -334,15 +334,15 @@
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        1,
-        2
+        33,
+        34
       ]
     },
     "src/utils/StaticClass.js": {
       "expectCount": 2,
       "actualCount": 1,
       "undocumentLines": [
-        8
+        40
       ]
     },
     "src/exceptions/StaticClassError.js": {
@@ -354,25 +354,25 @@
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        35,
+        36
       ]
     },
     "src/crud/SvgSet.js": {
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        17,
-        13
+        49,
+        45
       ]
     },
     "src/crud/SvgSetType.js": {
       "expectCount": 3,
       "actualCount": 0,
       "undocumentLines": [
-        4,
-        19,
-        15
+        36,
+        51,
+        47
       ]
     },
     "src/traits/Trait.js": {
@@ -389,15 +389,15 @@
       "expectCount": 18,
       "actualCount": 16,
       "undocumentLines": [
-        18,
-        19
+        50,
+        51
       ]
     },
     "src/exceptions/ValidationError.js": {
       "expectCount": 4,
       "actualCount": 3,
       "undocumentLines": [
-        26
+        58
       ]
     },
     "src/utils/requests.js": {
@@ -419,7 +419,7 @@
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        21
+        53
       ]
     }
   }
