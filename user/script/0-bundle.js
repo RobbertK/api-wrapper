@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:dfc131598f9c99b77010, chunkhash:efaddc9ae4e78ef52b80, name:bundle, version:v0.8.8
+ * hash:8ba3413cb7bb733bdce7, chunkhash:d3641f688ac911471f03, name:bundle, version:v0.8.9
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -3172,8 +3172,8 @@ var Maps4News = function () {
       var _this = this;
 
       return new Promise(function (resolve, reject) {
-        _this._auth.authenticate().then(function () {
-          _this._auth.token.save();
+        _this.auth.authenticate().then(function () {
+          _this.auth.token.save();
 
           resolve(_this);
         }).catch(reject);
@@ -3210,7 +3210,7 @@ var Maps4News = function () {
       }
 
       if (this.authenticated) {
-        headers.Authorization = this._auth.token.toString();
+        headers.Authorization = this.auth.token.toString();
       }
 
       return new Promise(function (resolve, reject) {
@@ -3329,7 +3329,7 @@ var Maps4News = function () {
   }, {
     key: 'authenticated',
     get: function get() {
-      return this._auth.authenticated;
+      return this.auth.authenticated;
     }
 
     /**
@@ -3351,7 +3351,7 @@ var Maps4News = function () {
     set: function set(value) {
       value = value.replace(/\/+$/, '');
       this._host = value;
-      this._auth.host = value;
+      this.auth.host = value;
     }
   }, {
     key: 'choropleths',
@@ -4708,9 +4708,9 @@ var OAuthToken = function () {
           var data = JSON.parse(_raw);
 
           return new OAuthToken(data.token, data.type, new Date(data.expires));
-        } else {
-          return null;
         }
+
+        return null;
       }
 
       // Cookie
@@ -7779,7 +7779,7 @@ var ImageHandler = function () {
         var request = new XMLHttpRequest();
 
         request.open('POST', _this2.url, true);
-        request.setRequestHeader('Authorization', _this2._api.token.toString());
+        request.setRequestHeader('Authorization', _this2.api.auth.token.toString());
         request.setRequestHeader('Accept', 'application/json');
 
         request.onreadystatechange = function () {
@@ -9973,7 +9973,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.8";
+var version = exports.version = "v0.8.9";
 
 /***/ }),
 /* 167 */
