@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:c4959e998fc3b2aa18fe, chunkhash:af0233a9576034e4e8b3, name:bundle, version:v0.8.10
+ * hash:184e18b4fc4b38f8db89, chunkhash:00070d7ce142aee8cee3, name:bundle, version:v0.8.11
  * 
  * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -4420,12 +4420,17 @@ var CrudSetBase = function (_CrudBase) {
 
     /**
      * Get items associated with the set
+     * @param {Number} page - Page number
+     * @param {Number} perPage - Amount of items per page
      * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}
      */
     value: function items() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.perPage;
+
       var url = this.url + '/items';
 
-      return this._listResource(this._Child, url);
+      return this._listResource(this._Child, url, page, perPage);
     }
 
     /**
@@ -11581,7 +11586,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.10";
+var version = exports.version = "v0.8.11";
 
 /***/ }),
 /* 167 */
@@ -17939,7 +17944,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * @param {?Number} [stop] - Stop page
  * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
  * @example
- * const first = api.users.list();
+ * const promise = api.users.list(1, 50); // 50 per page is more efficient
  *
  * getPaginatedRange(promise).then(data => {
  *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names

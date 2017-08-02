@@ -8656,7 +8656,7 @@
     "__docId__": 307,
     "kind": "file",
     "name": "src/crud/base/CrudSetBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport CrudBase from './CrudBase';\nimport {AbstractError} from '../../exceptions/AbstractError';\n\n/**\n * Crud base for resource sets\n * @abstract\n */\nexport default class CrudSetBase extends CrudBase {\n\n  /**\n   * Get items associated with the set\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}\n   */\n  items() {\n    const url = `${this.url}/items`;\n\n    return this._listResource(this._Child, url);\n  }\n\n  /**\n   * Child constructor\n   * @returns {ResourceBase} - Child constructor\n   * @constructor\n   * @abstract\n   * @protected\n   */\n  get _Child() {\n    throw new AbstractError();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport CrudBase from './CrudBase';\nimport {AbstractError} from '../../exceptions/AbstractError';\n\n/**\n * Crud base for resource sets\n * @abstract\n */\nexport default class CrudSetBase extends CrudBase {\n\n  /**\n   * Get items associated with the set\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}\n   */\n  items(page = 1, perPage = this.api.defaults.perPage) {\n    const url = `${this.url}/items`;\n\n    return this._listResource(this._Child, url, page, perPage);\n  }\n\n  /**\n   * Child constructor\n   * @returns {ResourceBase} - Child constructor\n   * @constructor\n   * @abstract\n   * @protected\n   */\n  get _Child() {\n    throw new AbstractError();\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/CrudSetBase.js",
     "access": null,
@@ -8693,14 +8693,35 @@
     "longname": "src/crud/base/CrudSetBase.js~CrudSetBase#items",
     "access": null,
     "description": "Get items associated with the set",
-    "lineNumber": 46,
+    "lineNumber": 48,
     "unknown": [
       {
         "tagName": "@returns",
         "tagValue": "{Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}"
       }
     ],
-    "params": [],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "page",
+        "description": "Page number"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "perPage",
+        "description": "Amount of items per page"
+      }
+    ],
     "return": {
       "nullable": null,
       "types": [
@@ -8721,7 +8742,7 @@
     "longname": "src/crud/base/CrudSetBase.js~CrudSetBase#_Child",
     "access": "protected",
     "description": "Child constructor",
-    "lineNumber": 59,
+    "lineNumber": 61,
     "unknown": [
       {
         "tagName": "@returns",
@@ -13413,7 +13434,7 @@
     "__docId__": 488,
     "kind": "file",
     "name": "src/utils/helpers.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Get all the pages from a {@link PaginatedResourceListing} or a range\n * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}\n * @param {?Number} [start=1] - Start page\n * @param {?Number} [stop] - Stop page\n * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * const first = api.users.list();\n *\n * getPaginatedRange(promise).then(data => {\n *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n *        .forEach(console.log) // Log the names and ids of every user\n * })\n */\nexport function getPaginatedRange(page, start = 1, stop) {\n  // Resolve promise if any\n  if (page instanceof Promise) {\n    return page.then(res => getPaginatedRange(res, start, stop));\n  }\n\n  const out = page.data;\n  const promises = [];\n\n  // Handle defaults\n  start = start || page.page;\n  stop = stop || page.pageCount;\n\n  if (start === page.page) {\n    start++;\n  }\n\n  return new Promise((resolve, reject) => {\n    // Get all pages\n    for (let i = start; i <= stop; i++) {\n      promises.push(page.get(i));\n    }\n\n    // Resolve\n    Promise.all(promises).then(rows => {\n      resolve(out.concat(...rows.map(x => x.data)));\n    }, reject);\n  });\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Get all the pages from a {@link PaginatedResourceListing} or a range\n * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}\n * @param {?Number} [start=1] - Start page\n * @param {?Number} [stop] - Stop page\n * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * const promise = api.users.list(1, 50); // 50 per page is more efficient\n *\n * getPaginatedRange(promise).then(data => {\n *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n *        .forEach(console.log) // Log the names and ids of every user\n * })\n */\nexport function getPaginatedRange(page, start = 1, stop) {\n  // Resolve promise if any\n  if (page instanceof Promise) {\n    return page.then(res => getPaginatedRange(res, start, stop));\n  }\n\n  const out = page.data;\n  const promises = [];\n\n  // Handle defaults\n  start = start || page.page;\n  stop = stop || page.pageCount;\n\n  if (start === page.page) {\n    start++;\n  }\n\n  return new Promise((resolve, reject) => {\n    // Get all pages\n    for (let i = start; i <= stop; i++) {\n      promises.push(page.get(i));\n    }\n\n    // Resolve\n    Promise.all(promises).then(rows => {\n      resolve(out.concat(...rows.map(x => x.data)));\n    }, reject);\n  });\n}\n",
     "static": true,
     "longname": "src/utils/helpers.js",
     "access": null,
@@ -13435,7 +13456,7 @@
     "importStyle": "{getPaginatedRange}",
     "description": "Get all the pages from a {@link PaginatedResourceListing} or a range",
     "examples": [
-      "const first = api.users.list();\n\ngetPaginatedRange(promise).then(data => {\n   data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n       .forEach(console.log) // Log the names and ids of every user\n})"
+      "const promise = api.users.list(1, 50); // 50 per page is more efficient\n\ngetPaginatedRange(promise).then(data => {\n   data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n       .forEach(console.log) // Log the names and ids of every user\n})"
     ],
     "lineNumber": 47,
     "unknown": [

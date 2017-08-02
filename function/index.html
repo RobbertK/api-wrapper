@@ -346,7 +346,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">const first = api.users.list();
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const promise = api.users.list(1, 50); // 50 per page is more efficient
 
 getPaginatedRange(promise).then(data =&gt; {
    data.map(row =&gt; `[${row.id}] ${row.name}`) // We just want the names
