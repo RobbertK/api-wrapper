@@ -1,7 +1,7 @@
 {
-  "coverage": "76.23%",
-  "expectCount": 345,
-  "actualCount": 263,
+  "coverage": "76.16%",
+  "expectCount": 344,
+  "actualCount": 262,
   "files": {
     "src/exceptions/AbstractError.js": {
       "expectCount": 5,
@@ -267,7 +267,7 @@
       "actualCount": 14,
       "undocumentLines": [
         47,
-        127
+        132
       ]
     },
     "src/traits/OwnableResource.js": {
@@ -406,11 +406,6 @@
       "undocumentLines": []
     },
     "src/utils/helpers.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
-    "src/utils/reflection.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

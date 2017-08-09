@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2292,
+  "end": 2364,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 60,
+      "line": 66,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2292,
+    "end": 2364,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 60,
+        "line": 66,
         "column": 0
       }
     },
@@ -1130,7 +1130,24 @@
               }
             }
           ],
-          "trailingComments": []
+          "trailingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * Package license\n * @private\n ",
+              "start": 2293,
+              "end": 2331,
+              "loc": {
+                "start": {
+                  "line": 61,
+                  "column": 0
+                },
+                "end": {
+                  "line": 64,
+                  "column": 3
+                }
+              }
+            }
+          ]
         },
         "leadingComments": [
           {
@@ -1145,6 +1162,147 @@
               },
               "end": {
                 "line": 58,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * Package license\n * @private\n ",
+            "start": 2293,
+            "end": 2331,
+            "loc": {
+              "start": {
+                "line": 61,
+                "column": 0
+              },
+              "end": {
+                "line": 64,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2332,
+        "end": 2363,
+        "loc": {
+          "start": {
+            "line": 65,
+            "column": 0
+          },
+          "end": {
+            "line": 65,
+            "column": 31
+          }
+        },
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "VariableDeclaration",
+          "start": 2339,
+          "end": 2363,
+          "loc": {
+            "start": {
+              "line": 65,
+              "column": 7
+            },
+            "end": {
+              "line": 65,
+              "column": 31
+            }
+          },
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 2345,
+              "end": 2362,
+              "loc": {
+                "start": {
+                  "line": 65,
+                  "column": 13
+                },
+                "end": {
+                  "line": 65,
+                  "column": 30
+                }
+              },
+              "id": {
+                "type": "Identifier",
+                "start": 2345,
+                "end": 2352,
+                "loc": {
+                  "start": {
+                    "line": 65,
+                    "column": 13
+                  },
+                  "end": {
+                    "line": 65,
+                    "column": 20
+                  },
+                  "identifierName": "license"
+                },
+                "name": "license",
+                "leadingComments": null
+              },
+              "init": {
+                "type": "Identifier",
+                "start": 2355,
+                "end": 2362,
+                "loc": {
+                  "start": {
+                    "line": 65,
+                    "column": 23
+                  },
+                  "end": {
+                    "line": 65,
+                    "column": 30
+                  },
+                  "identifierName": "LICENSE"
+                },
+                "name": "LICENSE"
+              },
+              "leadingComments": null
+            }
+          ],
+          "kind": "const",
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * Package license\n * @private\n ",
+              "start": 2293,
+              "end": 2331,
+              "loc": {
+                "start": {
+                  "line": 61,
+                  "column": 0
+                },
+                "end": {
+                  "line": 64,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * Package license\n * @private\n ",
+            "start": 2293,
+            "end": 2331,
+            "loc": {
+              "start": {
+                "line": 61,
+                "column": 0
+              },
+              "end": {
+                "line": 64,
                 "column": 3
               }
             }
@@ -1263,6 +1421,22 @@
         },
         "end": {
           "line": 58,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Package license\n * @private\n ",
+      "start": 2293,
+      "end": 2331,
+      "loc": {
+        "start": {
+          "line": 61,
+          "column": 0
+        },
+        "end": {
+          "line": 64,
           "column": 3
         }
       }
@@ -3246,6 +3420,183 @@
       }
     },
     {
+      "type": "CommentBlock",
+      "value": "*\n * Package license\n * @private\n ",
+      "start": 2293,
+      "end": 2331,
+      "loc": {
+        "start": {
+          "line": 61,
+          "column": 0
+        },
+        "end": {
+          "line": 64,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 2332,
+      "end": 2338,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 0
+        },
+        "end": {
+          "line": 65,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 2339,
+      "end": 2344,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 7
+        },
+        "end": {
+          "line": 65,
+          "column": 12
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "license",
+      "start": 2345,
+      "end": 2352,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 13
+        },
+        "end": {
+          "line": 65,
+          "column": 20
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 2353,
+      "end": 2354,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 21
+        },
+        "end": {
+          "line": 65,
+          "column": 22
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "LICENSE",
+      "start": 2355,
+      "end": 2362,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 23
+        },
+        "end": {
+          "line": 65,
+          "column": 30
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 2362,
+      "end": 2363,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 30
+        },
+        "end": {
+          "line": 65,
+          "column": 31
+        }
+      }
+    },
+    {
       "type": {
         "label": "eof",
         "beforeExpr": false,
@@ -3258,15 +3609,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2292,
-      "end": 2292,
+      "start": 2364,
+      "end": 2364,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 66,
           "column": 0
         },
         "end": {
-          "line": 60,
+          "line": 66,
           "column": 0
         }
       }

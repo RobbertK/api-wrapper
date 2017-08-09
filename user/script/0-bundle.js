@@ -31,12 +31,12 @@
  * 
  */
 /*!
- * hash:184e18b4fc4b38f8db89, chunkhash:00070d7ce142aee8cee3, name:bundle, version:v0.8.11
+ * hash:db1de021f3d8a51e890b, chunkhash:b19b80233d57945c444f, name:bundle, version:1e5e1d3
  * 
- * This budle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * This bundle contains the following packages:
+ * └─ @mapcreator/maps4news (0.8.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
- *    │  ├─ babel-runtime (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
+ *    │  ├─ babel-runtime (6.25.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
  *    │  └─ core-js (2.4.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    └─ mitt (1.1.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/mitt/package.json
@@ -599,9 +599,10 @@ function getTypeName(value) {
 
 /**
  * Mix traits into the target class
- * @param {Constructor} baseClass - Target base class for the traits to be applied to
- * @param {Constructor} mixins - Traits to be applied
- * @returns {Constructor} - Constructor with any traits applied
+ * @param {Function} baseClass - Target base class for the traits to be applied to
+ * @param {Function} mixins - Traits to be applied
+ * @returns {Function} - Constructor with any traits applied
+ * @private
  */
 function mix(baseClass) {
   for (var _len = arguments.length, mixins = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -1682,6 +1683,7 @@ var ResourceBase = function () {
         if (!protectedFields.includes(key)) {
           desc.set = function (val) {
             _this2._properties[key] = ResourceBase._guessType(key, val);
+            delete _this2._url; // Clears url cache
           };
         }
 
@@ -1795,34 +1797,38 @@ var ResourceBase = function () {
   }, {
     key: 'url',
     get: function get() {
-      var url = this._api.host + '/' + this._api.version + this.resourcePath;
+      if (!this._url) {
+        var url = this._api.host + '/' + this._api.version + this.resourcePath;
 
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
 
-      try {
-        for (var _iterator2 = Object.keys(this._baseProperties)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var key = _step2.value;
-
-          url = url.replace('{' + key + '}', this[key]);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
         try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
+          for (var _iterator2 = Object.keys(this._baseProperties)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var key = _step2.value;
+
+            url = url.replace('{' + key + '}', this[key]);
           }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
         } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
           }
         }
+
+        this._url = url;
       }
 
-      return url;
+      return this._url;
     }
 
     /**
@@ -2573,6 +2579,7 @@ var Organisation = function (_CrudBase) {
      * Sync items to the organisation
      * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync
      * @returns {Array<Promise>|Promise} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.
+     * @throws {TypeError} If the provided items contain anything that is not ownable
      * @see http://es6-features.org/#PromiseCombination
      */
     value: function sync(items) {
@@ -2583,6 +2590,7 @@ var Organisation = function (_CrudBase) {
      * Attach items to the organisation
      * @param {Array<ResourceBase>|ResourceBase} items - List of items to attach
      * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @throws {TypeError} If the provided items contain anything that is not ownable
      * @see http://es6-features.org/#PromiseCombination
      */
 
@@ -2596,6 +2604,7 @@ var Organisation = function (_CrudBase) {
      * Unlink items from the organisation
      * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink
      * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @throws {TypeError} If the provided items contain anything that is not ownable
      * @see http://es6-features.org/#PromiseCombination
      */
 
@@ -2610,6 +2619,7 @@ var Organisation = function (_CrudBase) {
      * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync or attach
      * @param {String} method - Http method to use
      * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
+     * @throws {TypeError} If the provided items contain anything that is not ownable
      * @private
      */
 
@@ -2656,6 +2666,7 @@ var Organisation = function (_CrudBase) {
      * Reduce the items to a more usable list
      * @param {Array<ResourceBase>} items - List of items to reduce
      * @returns {Object<String, Array<Number>>} - Object keys are resource names and the value is an array containing ids to sync/attach
+     * @throws {TypeError} If the provided items contain anything that is not ownable
      * @private
      */
 
@@ -2673,7 +2684,7 @@ var Organisation = function (_CrudBase) {
           var row = _step2.value;
 
           if (!row.ownable) {
-            continue;
+            throw new TypeError(row.constructor.name + '::ownable is false. Is it ownable?\nSee: https://mapcreatoreu.github.io/m4n-api/class/src/traits/OwnableResource.js~OwnableResource.html');
           }
 
           var key = row.resourceName;
@@ -6818,7 +6829,7 @@ var Job = function (_CrudBase) {
       var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'last';
 
       return new Promise(function (resolve, reject) {
-        _this2._api.request(_this2.resourcePath + '/revisions/' + id).catch(reject).then(function (data) {
+        _this2._api.request(_this2.url + '/revisions/' + id).catch(reject).then(function (data) {
           return resolve(new _JobRevision2.default(_this2._api, data));
         });
       });
@@ -6837,7 +6848,7 @@ var Job = function (_CrudBase) {
   }, {
     key: 'lastPreviewUrl',
     get: function get() {
-      return this.resourcePath + '/revisions/last/result/preview';
+      return this.url + '/revisions/last/result/preview';
     }
 
     /**
@@ -6848,7 +6859,7 @@ var Job = function (_CrudBase) {
   }, {
     key: 'lastArchiveUrl',
     get: function get() {
-      return this.resourcePath + '/revisions/last/result/archive';
+      return this.url + '/revisions/last/result/archive';
     }
   }]);
 
@@ -9550,7 +9561,7 @@ var JobRevision = function (_CrudBase) {
   }, {
     key: 'baseUrl',
     get: function get() {
-      return '/jobs/' + this['job_id'] + '/revisions';
+      return '/jobs/' + this.jobId + '/revisions';
     }
   }, {
     key: 'resourcePath',
@@ -11462,7 +11473,7 @@ exports.default = ImplicitFlow;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.version = exports.helpers = exports.resources = exports.StaticClassError = exports.ValidationError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
+exports.license = exports.version = exports.helpers = exports.resources = exports.StaticClassError = exports.ValidationError = exports.ApiError = exports.DummyFlow = exports.PasswordFlow = exports.ImplicitFlowPopup = exports.ImplicitFlow = exports.OAuth = exports.Maps4News = undefined;
 
 var _AbstractError = __webpack_require__(49);
 
@@ -11586,7 +11597,13 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.11";
+var version = exports.version = "1e5e1d3";
+
+/**
+ * Package license
+ * @private
+ */
+var license = exports.license = "BSD 3-Clause License\n\nCopyright (c) 2017, MapCreator\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice,\n  this list of conditions and the following disclaimer in the documentation\n  and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n";
 
 /***/ }),
 /* 167 */
@@ -17944,9 +17961,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * @param {?Number} [stop] - Stop page
  * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
  * @example
+ * import { helpers } from "@mapcreator/maps4news";
+ *
  * const promise = api.users.list(1, 50); // 50 per page is more efficient
  *
- * getPaginatedRange(promise).then(data => {
+ * helpers.getPaginatedRange(promise).then(data => {
  *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names
  *        .forEach(console.log) // Log the names and ids of every user
  * })

@@ -95,7 +95,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -164,7 +163,7 @@ export default class Job extends CrudBase {
   getRevision(id = &apos;last&apos;) {
     return new Promise((resolve, reject) =&gt; {
       this._api
-        .request(`${this.resourcePath}/revisions/${id}`)
+        .request(`${this.url}/revisions/${id}`)
         .catch(reject)
         .then(data =&gt; resolve(new JobRevision(this._api, data)));
     });
@@ -179,7 +178,7 @@ export default class Job extends CrudBase {
    * @returns {string} - Last preview url
    */
   get lastPreviewUrl() {
-    return `${this.resourcePath}/revisions/last/result/preview`;
+    return `${this.url}/revisions/last/result/preview`;
   }
 
   /**
@@ -187,7 +186,7 @@ export default class Job extends CrudBase {
    * @returns {string} - Last archive url
    */
   get lastArchiveUrl() {
-    return `${this.resourcePath}/revisions/last/result/archive`;
+    return `${this.url}/revisions/last/result/archive`;
   }
 }
 </code></pre>

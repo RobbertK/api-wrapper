@@ -95,7 +95,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mix">mix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -249,6 +248,7 @@ export default class ResourceBase {
       if (!protectedFields.includes(key)) {
         desc.set = (val) =&gt; {
           this._properties[key] = ResourceBase._guessType(key, val);
+          delete this._url; // Clears url cache
         };
       }
 
@@ -315,13 +315,17 @@ export default class ResourceBase {
    * @returns {string} - Resource url
    */
   get url() {
-    let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;
+    if (!this._url) {
+      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;
 
-    for (const key of Object.keys(this._baseProperties)) {
-      url = url.replace(`{${key}}`, this[key]);
+      for (const key of Object.keys(this._baseProperties)) {
+        url = url.replace(`{${key}}`, this[key]);
+      }
+
+      this._url = url;
     }
 
-    return url;
+    return this._url;
   }
 
   /**
