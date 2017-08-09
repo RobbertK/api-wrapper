@@ -1,26 +1,26 @@
 window.esdocSearchIndex = [
   [
-    "@mapcreator/maps4news/src/exceptions/abstracterror.js~abstractclasserror",
-    "class/src/exceptions/AbstractError.js~AbstractClassError.html",
-    "<span>AbstractClassError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/AbstractError.js</span>",
+    "@mapcreator/maps4news/src/errors/abstracterror.js~abstractclasserror",
+    "class/src/errors/AbstractError.js~AbstractClassError.html",
+    "<span>AbstractClassError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/AbstractError.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/exceptions/abstracterror.js~abstracterror",
-    "class/src/exceptions/AbstractError.js~AbstractError.html",
-    "<span>AbstractError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/AbstractError.js</span>",
+    "@mapcreator/maps4news/src/errors/abstracterror.js~abstracterror",
+    "class/src/errors/AbstractError.js~AbstractError.html",
+    "<span>AbstractError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/AbstractError.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/exceptions/abstracterror.js~abstractmethoderror",
-    "class/src/exceptions/AbstractError.js~AbstractMethodError.html",
-    "<span>AbstractMethodError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/AbstractError.js</span>",
+    "@mapcreator/maps4news/src/errors/abstracterror.js~abstractmethoderror",
+    "class/src/errors/AbstractError.js~AbstractMethodError.html",
+    "<span>AbstractMethodError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/AbstractError.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/exceptions/apierror.js~apierror",
-    "class/src/exceptions/ApiError.js~ApiError.html",
-    "<span>ApiError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/ApiError.js</span>",
+    "@mapcreator/maps4news/src/errors/apierror.js~apierror",
+    "class/src/errors/ApiError.js~ApiError.html",
+    "<span>ApiError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/ApiError.js</span>",
     "class"
   ],
   [
@@ -192,9 +192,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/exceptions/nodeerror.js~nodeerror",
-    "class/src/exceptions/NodeError.js~NodeError.html",
-    "<span>NodeError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/NodeError.js</span>",
+    "@mapcreator/maps4news/src/errors/nodeerror.js~nodeerror",
+    "class/src/errors/NodeError.js~NodeError.html",
+    "<span>NodeError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/NodeError.js</span>",
     "class"
   ],
   [
@@ -210,9 +210,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/oauth/oautherror.js~oautherror",
-    "class/src/oauth/OAuthError.js~OAuthError.html",
-    "<span>OAuthError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/oauth/OAuthError.js</span>",
+    "@mapcreator/maps4news/src/errors/oautherror.js~oautherror",
+    "class/src/errors/OAuthError.js~OAuthError.html",
+    "<span>OAuthError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/OAuthError.js</span>",
     "class"
   ],
   [
@@ -294,9 +294,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/exceptions/staticclasserror.js~staticclasserror",
-    "class/src/exceptions/StaticClassError.js~StaticClassError.html",
-    "<span>StaticClassError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/StaticClassError.js</span>",
+    "@mapcreator/maps4news/src/errors/staticclasserror.js~staticclasserror",
+    "class/src/errors/StaticClassError.js~StaticClassError.html",
+    "<span>StaticClassError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/StaticClassError.js</span>",
     "class"
   ],
   [
@@ -324,9 +324,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/exceptions/unsupportedcruderror.js~unsupportedcruderror",
-    "class/src/exceptions/UnsupportedCrudError.js~UnsupportedCrudError.html",
-    "<span>UnsupportedCrudError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/UnsupportedCrudError.js</span>",
+    "@mapcreator/maps4news/src/errors/unsupportedcruderror.js~unsupportedcruderror",
+    "class/src/errors/UnsupportedCrudError.js~UnsupportedCrudError.html",
+    "<span>UnsupportedCrudError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/UnsupportedCrudError.js</span>",
     "class"
   ],
   [
@@ -336,9 +336,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/exceptions/validationerror.js~validationerror",
-    "class/src/exceptions/ValidationError.js~ValidationError.html",
-    "<span>ValidationError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/exceptions/ValidationError.js</span>",
+    "@mapcreator/maps4news/src/errors/validationerror.js~validationerror",
+    "class/src/errors/ValidationError.js~ValidationError.html",
+    "<span>ValidationError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/ValidationError.js</span>",
     "class"
   ],
   [
@@ -703,13 +703,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -1165,13 +1165,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-query",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "member"
   ],
@@ -2172,99 +2172,129 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/exceptions/abstracterror.js",
-    "file/src/exceptions/AbstractError.js.html",
-    "src/exceptions/AbstractError.js",
+    "src/errors/abstracterror.js",
+    "file/src/errors/AbstractError.js.html",
+    "src/errors/AbstractError.js",
     "file"
   ],
   [
-    "src/exceptions/abstracterror.js~abstractclasserror#constructor",
-    "class/src/exceptions/AbstractError.js~AbstractClassError.html#instance-constructor-constructor",
-    "src/exceptions/AbstractError.js~AbstractClassError#constructor",
+    "src/errors/abstracterror.js~abstractclasserror#constructor",
+    "class/src/errors/AbstractError.js~AbstractClassError.html#instance-constructor-constructor",
+    "src/errors/AbstractError.js~AbstractClassError#constructor",
     "method"
   ],
   [
-    "src/exceptions/abstracterror.js~abstractmethoderror#constructor",
-    "class/src/exceptions/AbstractError.js~AbstractMethodError.html#instance-constructor-constructor",
-    "src/exceptions/AbstractError.js~AbstractMethodError#constructor",
+    "src/errors/abstracterror.js~abstractmethoderror#constructor",
+    "class/src/errors/AbstractError.js~AbstractMethodError.html#instance-constructor-constructor",
+    "src/errors/AbstractError.js~AbstractMethodError#constructor",
     "method"
   ],
   [
-    "src/exceptions/apierror.js",
-    "file/src/exceptions/ApiError.js.html",
-    "src/exceptions/ApiError.js",
+    "src/errors/apierror.js",
+    "file/src/errors/ApiError.js.html",
+    "src/errors/ApiError.js",
     "file"
   ],
   [
-    "src/exceptions/apierror.js~apierror#code",
-    "class/src/exceptions/ApiError.js~ApiError.html#instance-get-code",
-    "src/exceptions/ApiError.js~ApiError#code",
+    "src/errors/apierror.js~apierror#code",
+    "class/src/errors/ApiError.js~ApiError.html#instance-get-code",
+    "src/errors/ApiError.js~ApiError#code",
     "member"
   ],
   [
-    "src/exceptions/apierror.js~apierror#constructor",
-    "class/src/exceptions/ApiError.js~ApiError.html#instance-constructor-constructor",
-    "src/exceptions/ApiError.js~ApiError#constructor",
+    "src/errors/apierror.js~apierror#constructor",
+    "class/src/errors/ApiError.js~ApiError.html#instance-constructor-constructor",
+    "src/errors/ApiError.js~ApiError#constructor",
     "method"
   ],
   [
-    "src/exceptions/apierror.js~apierror#message",
-    "class/src/exceptions/ApiError.js~ApiError.html#instance-get-message",
-    "src/exceptions/ApiError.js~ApiError#message",
+    "src/errors/apierror.js~apierror#message",
+    "class/src/errors/ApiError.js~ApiError.html#instance-get-message",
+    "src/errors/ApiError.js~ApiError#message",
     "member"
   ],
   [
-    "src/exceptions/apierror.js~apierror#tostring",
-    "class/src/exceptions/ApiError.js~ApiError.html#instance-method-toString",
-    "src/exceptions/ApiError.js~ApiError#toString",
+    "src/errors/apierror.js~apierror#tostring",
+    "class/src/errors/ApiError.js~ApiError.html#instance-method-toString",
+    "src/errors/ApiError.js~ApiError#toString",
     "method"
   ],
   [
-    "src/exceptions/apierror.js~apierror#type",
-    "class/src/exceptions/ApiError.js~ApiError.html#instance-get-type",
-    "src/exceptions/ApiError.js~ApiError#type",
+    "src/errors/apierror.js~apierror#type",
+    "class/src/errors/ApiError.js~ApiError.html#instance-get-type",
+    "src/errors/ApiError.js~ApiError#type",
     "member"
   ],
   [
-    "src/exceptions/nodeerror.js",
-    "file/src/exceptions/NodeError.js.html",
-    "src/exceptions/NodeError.js",
+    "src/errors/nodeerror.js",
+    "file/src/errors/NodeError.js.html",
+    "src/errors/NodeError.js",
     "file"
   ],
   [
-    "src/exceptions/staticclasserror.js",
-    "file/src/exceptions/StaticClassError.js.html",
-    "src/exceptions/StaticClassError.js",
+    "src/errors/oautherror.js",
+    "file/src/errors/OAuthError.js.html",
+    "src/errors/OAuthError.js",
     "file"
   ],
   [
-    "src/exceptions/unsupportedcruderror.js",
-    "file/src/exceptions/UnsupportedCrudError.js.html",
-    "src/exceptions/UnsupportedCrudError.js",
-    "file"
-  ],
-  [
-    "src/exceptions/validationerror.js",
-    "file/src/exceptions/ValidationError.js.html",
-    "src/exceptions/ValidationError.js",
-    "file"
-  ],
-  [
-    "src/exceptions/validationerror.js~validationerror#constructor",
-    "class/src/exceptions/ValidationError.js~ValidationError.html#instance-constructor-constructor",
-    "src/exceptions/ValidationError.js~ValidationError#constructor",
+    "src/errors/oautherror.js~oautherror#constructor",
+    "class/src/errors/OAuthError.js~OAuthError.html#instance-constructor-constructor",
+    "src/errors/OAuthError.js~OAuthError#constructor",
     "method"
   ],
   [
-    "src/exceptions/validationerror.js~validationerror#tostring",
-    "class/src/exceptions/ValidationError.js~ValidationError.html#instance-method-toString",
-    "src/exceptions/ValidationError.js~ValidationError#toString",
+    "src/errors/oautherror.js~oautherror#error",
+    "class/src/errors/OAuthError.js~OAuthError.html#instance-get-error",
+    "src/errors/OAuthError.js~OAuthError#error",
+    "member"
+  ],
+  [
+    "src/errors/oautherror.js~oautherror#message",
+    "class/src/errors/OAuthError.js~OAuthError.html#instance-get-message",
+    "src/errors/OAuthError.js~OAuthError#message",
+    "member"
+  ],
+  [
+    "src/errors/oautherror.js~oautherror#tostring",
+    "class/src/errors/OAuthError.js~OAuthError.html#instance-method-toString",
+    "src/errors/OAuthError.js~OAuthError#toString",
     "method"
   ],
   [
-    "src/exceptions/validationerror.js~validationerror#validationerrors",
-    "class/src/exceptions/ValidationError.js~ValidationError.html#instance-get-validationErrors",
-    "src/exceptions/ValidationError.js~ValidationError#validationErrors",
+    "src/errors/staticclasserror.js",
+    "file/src/errors/StaticClassError.js.html",
+    "src/errors/StaticClassError.js",
+    "file"
+  ],
+  [
+    "src/errors/unsupportedcruderror.js",
+    "file/src/errors/UnsupportedCrudError.js.html",
+    "src/errors/UnsupportedCrudError.js",
+    "file"
+  ],
+  [
+    "src/errors/validationerror.js",
+    "file/src/errors/ValidationError.js.html",
+    "src/errors/ValidationError.js",
+    "file"
+  ],
+  [
+    "src/errors/validationerror.js~validationerror#constructor",
+    "class/src/errors/ValidationError.js~ValidationError.html#instance-constructor-constructor",
+    "src/errors/ValidationError.js~ValidationError#constructor",
+    "method"
+  ],
+  [
+    "src/errors/validationerror.js~validationerror#tostring",
+    "class/src/errors/ValidationError.js~ValidationError.html#instance-method-toString",
+    "src/errors/ValidationError.js~ValidationError#toString",
+    "method"
+  ],
+  [
+    "src/errors/validationerror.js~validationerror#validationerrors",
+    "class/src/errors/ValidationError.js~ValidationError.html#instance-get-validationErrors",
+    "src/errors/ValidationError.js~ValidationError#validationErrors",
     "member"
   ],
   [
@@ -2470,36 +2500,6 @@ window.esdocSearchIndex = [
     "class/src/oauth/OAuth.js~OAuth.html#instance-member-token",
     "src/oauth/OAuth.js~OAuth#token",
     "member"
-  ],
-  [
-    "src/oauth/oautherror.js",
-    "file/src/oauth/OAuthError.js.html",
-    "src/oauth/OAuthError.js",
-    "file"
-  ],
-  [
-    "src/oauth/oautherror.js~oautherror#constructor",
-    "class/src/oauth/OAuthError.js~OAuthError.html#instance-constructor-constructor",
-    "src/oauth/OAuthError.js~OAuthError#constructor",
-    "method"
-  ],
-  [
-    "src/oauth/oautherror.js~oautherror#error",
-    "class/src/oauth/OAuthError.js~OAuthError.html#instance-get-error",
-    "src/oauth/OAuthError.js~OAuthError#error",
-    "member"
-  ],
-  [
-    "src/oauth/oautherror.js~oautherror#message",
-    "class/src/oauth/OAuthError.js~OAuthError.html#instance-get-message",
-    "src/oauth/OAuthError.js~OAuthError#message",
-    "member"
-  ],
-  [
-    "src/oauth/oautherror.js~oautherror#tostring",
-    "class/src/oauth/OAuthError.js~OAuthError.html#instance-method-toString",
-    "src/oauth/OAuthError.js~OAuthError#toString",
-    "method"
   ],
   [
     "src/oauth/oauthtoken.js",

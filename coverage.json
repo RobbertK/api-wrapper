@@ -3,7 +3,7 @@
   "expectCount": 344,
   "actualCount": 262,
   "files": {
-    "src/exceptions/AbstractError.js": {
+    "src/errors/AbstractError.js": {
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
@@ -11,7 +11,7 @@
         42
       ]
     },
-    "src/exceptions/ApiError.js": {
+    "src/errors/ApiError.js": {
       "expectCount": 6,
       "actualCount": 6,
       "undocumentLines": []
@@ -205,7 +205,7 @@
       "expectCount": 40,
       "actualCount": 39,
       "undocumentLines": [
-        85
+        88
       ]
     },
     "src/crud/Mapstyle.js": {
@@ -223,7 +223,7 @@
         44
       ]
     },
-    "src/exceptions/NodeError.js": {
+    "src/errors/NodeError.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -247,7 +247,7 @@
         55
       ]
     },
-    "src/oauth/OAuthError.js": {
+    "src/errors/OAuthError.js": {
       "expectCount": 5,
       "actualCount": 5,
       "undocumentLines": []
@@ -345,7 +345,7 @@
         40
       ]
     },
-    "src/exceptions/StaticClassError.js": {
+    "src/errors/StaticClassError.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -380,7 +380,7 @@
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/exceptions/UnsupportedCrudError.js": {
+    "src/errors/UnsupportedCrudError.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -393,7 +393,7 @@
         51
       ]
     },
-    "src/exceptions/ValidationError.js": {
+    "src/errors/ValidationError.js": {
       "expectCount": 4,
       "actualCount": 3,
       "undocumentLines": [
