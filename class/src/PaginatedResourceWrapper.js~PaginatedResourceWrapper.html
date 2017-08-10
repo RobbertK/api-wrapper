@@ -36,7 +36,8 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ImageHandler.js~ImageHandler.html">ImageHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
@@ -71,7 +72,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ImageHandler.js~ImageHandler.html">ImageHandler</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractClassError.html">AbstractClassError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractError.html">AbstractError</a></span></span></li>
@@ -93,7 +93,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Singleton.js~Singleton.html">Singleton</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-paginateResource">paginateResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
@@ -296,34 +295,6 @@
     <td>
       <span class="access" data-ice="access">public</span>
       
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage">currentPage</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Returns the page number that is currently being used as a reference point</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
       <span class="kind" data-ice="kind">set</span>
       
       <span class="override" data-ice="override"></span>
@@ -340,6 +311,34 @@
         
         
         <div data-ice="description"><p>Set the current page number</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage">currentPage</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Returns the page number that is currently being used as a reference point</p>
 </div>
       </div>
     </td>
@@ -520,6 +519,34 @@
     <td>
       <span class="access" data-ice="access">public</span>
       
+      <span class="kind" data-ice="kind">set</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query">query</a></span></span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Optional search query</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
       <span class="kind" data-ice="kind">get</span>
       
       <span class="override" data-ice="override"></span>
@@ -557,13 +584,13 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query">query</a></span></span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;): <span>*</span></span>
+          <span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache">shareCache</a></span></span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Optional search query</p>
+        <div data-ice="description"><p>Sets if the shared cache should be used</p>
 </div>
       </div>
     </td>
@@ -604,7 +631,7 @@
     <td>
       <span class="access" data-ice="access">public</span>
       
-      <span class="kind" data-ice="kind">set</span>
+      <span class="kind" data-ice="kind">get</span>
       
       <span class="override" data-ice="override"></span>
     </td>
@@ -613,13 +640,13 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache">shareCache</a></span></span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span>*</span></span>
+          <span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-waiting">waiting</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Sets if the shared cache should be used</p>
+        <div data-ice="description"><p>Returns if there are still requests mid-flight</p>
 </div>
       </div>
     </td>
@@ -944,7 +971,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber205">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber210">source</a></span></span>
     </span>
   </h3>
 
@@ -1001,7 +1028,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber213">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber218">source</a></span></span>
     </span>
   </h3>
 
@@ -1133,6 +1160,50 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-set-currentPage">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">set</span>
+    
+    
+    
+    <span data-ice="name">currentPage</span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber165">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Set the current page number</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-currentPage">
     <span class="access" data-ice="access">public</span>
     
@@ -1144,7 +1215,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber152">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber157">source</a></span></span>
     </span>
   </h3>
 
@@ -1188,50 +1259,6 @@
 
   <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-next">PaginatedResourceWrapper#next</a></span></span></li>
 <li><span><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-method-previous">PaginatedResourceWrapper#previous</a></span></span></li></ul></div>
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-set-currentPage">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">set</span>
-    
-    
-    
-    <span data-ice="name">currentPage</span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber160">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Set the current page number</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1290,7 +1317,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber237">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber242">source</a></span></span>
     </span>
   </h3>
 
@@ -1347,7 +1374,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber245">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber250">source</a></span></span>
     </span>
   </h3>
 
@@ -1404,7 +1431,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber253">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber258">source</a></span></span>
     </span>
   </h3>
 
@@ -1461,7 +1488,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber176">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber181">source</a></span></span>
     </span>
   </h3>
 
@@ -1518,7 +1545,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber168">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber173">source</a></span></span>
     </span>
   </h3>
 
@@ -1564,6 +1591,62 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-set-query">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">set</span>
+    
+    
+    
+    <span data-ice="name">query</span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber201">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Optional search query</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span>*</span></p></td>
+        <td data-ice="throwDesc"><p>TypeError</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/ResourceProxy.js~ResourceProxy.html#instance-method-search">ResourceProxy#search</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-query">
     <span class="access" data-ice="access">public</span>
     
@@ -1575,7 +1658,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber185">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber190">source</a></span></span>
     </span>
   </h3>
 
@@ -1621,25 +1704,25 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-set-query">
+  <h3 data-ice="anchor" id="instance-set-shareCache">
     <span class="access" data-ice="access">public</span>
     
     <span class="kind" data-ice="kind">set</span>
     
     
     
-    <span data-ice="name">query</span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;): <span>*</span></span>
+    <span data-ice="name">shareCache</span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber196">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber234">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Optional search query</p>
+  <div data-ice="description"><p>Sets if the shared cache should be used</p>
 </div>
 
   
@@ -1653,19 +1736,7 @@
 
   
 
-  <div data-ice="throwWrap">
-    <h4>Throw:</h4>
-    <table>
-      <tbody>
-      
-      <tr class="throw" data-ice="throw">
-        <td><p data-ice="throwName"><span>*</span></p></td>
-        <td data-ice="throwDesc"><p>TypeError</p>
-</td>
-      </tr>
-</tbody>
-    </table>
-  </div>
+  
 
   
 
@@ -1673,7 +1744,7 @@
 
   
 
-  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/ResourceProxy.js~ResourceProxy.html#instance-method-search">ResourceProxy#search</a></span></span></li></ul></div>
+  
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1688,7 +1759,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber221">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber226">source</a></span></span>
     </span>
   </h3>
 
@@ -1734,25 +1805,25 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-set-shareCache">
+  <h3 data-ice="anchor" id="instance-get-waiting">
     <span class="access" data-ice="access">public</span>
     
-    <span class="kind" data-ice="kind">set</span>
+    <span class="kind" data-ice="kind">get</span>
     
     
     
-    <span data-ice="name">shareCache</span><span data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span>*</span></span>
+    <span data-ice="name">waiting</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber229">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber266">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Sets if the shared cache should be used</p>
+  <div data-ice="description"><p>Returns if there are still requests mid-flight</p>
 </div>
 
   
@@ -1760,7 +1831,20 @@
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Returns if the wrapper is waiting for requests to finish</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1792,7 +1876,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber94">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber97">source</a></span></span>
     </span>
   </h3>
 
@@ -1865,7 +1949,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber107">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber112">source</a></span></span>
     </span>
   </h3>
 
@@ -1921,7 +2005,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber275">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber288">source</a></span></span>
     </span>
   </h3>
 
@@ -2001,7 +2085,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber264">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber277">source</a></span></span>
     </span>
   </h3>
 
@@ -2081,7 +2165,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber115">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber120">source</a></span></span>
     </span>
   </h3>
 
@@ -2137,7 +2221,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 
@@ -2193,7 +2277,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber136">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/PaginatedResourceWrapper.js.html#lineNumber141">source</a></span></span>
     </span>
   </h3>
 

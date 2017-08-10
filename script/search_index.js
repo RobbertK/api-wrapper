@@ -108,9 +108,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/base/imagehandler.js~imagehandler",
-    "class/src/crud/base/ImageHandler.js~ImageHandler.html",
-    "<span>ImageHandler</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/ImageHandler.js</span>",
+    "@mapcreator/maps4news/src/imagehandler.js~imagehandler",
+    "class/src/ImageHandler.js~ImageHandler.html",
+    "<span>ImageHandler</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/ImageHandler.js</span>",
     "class"
   ],
   [
@@ -363,12 +363,6 @@ window.esdocSearchIndex = [
     "@mapcreator/maps4news/src/utils/helpers.js~paginateresource",
     "function/index.html#static-function-paginateResource",
     "<span>paginateResource</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/helpers.js</span>",
-    "function"
-  ],
-  [
-    "@mapcreator/maps4news/src/utils/caseconverter.js~pascaltocamelcase",
-    "function/index.html#static-function-pascalToCamelCase",
-    "<span>pascalToCamelCase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/caseConverter.js</span>",
     "function"
   ],
   [
@@ -702,6 +696,48 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "src/imagehandler.js",
+    "file/src/ImageHandler.js.html",
+    "src/ImageHandler.js",
+    "file"
+  ],
+  [
+    "src/imagehandler.js~imagehandler#api",
+    "class/src/ImageHandler.js~ImageHandler.html#instance-get-api",
+    "src/ImageHandler.js~ImageHandler#api",
+    "member"
+  ],
+  [
+    "src/imagehandler.js~imagehandler#constructor",
+    "class/src/ImageHandler.js~ImageHandler.html#instance-constructor-constructor",
+    "src/ImageHandler.js~ImageHandler#constructor",
+    "method"
+  ],
+  [
+    "src/imagehandler.js~imagehandler#delete",
+    "class/src/ImageHandler.js~ImageHandler.html#instance-method-delete",
+    "src/ImageHandler.js~ImageHandler#delete",
+    "method"
+  ],
+  [
+    "src/imagehandler.js~imagehandler#download",
+    "class/src/ImageHandler.js~ImageHandler.html#instance-method-download",
+    "src/ImageHandler.js~ImageHandler#download",
+    "method"
+  ],
+  [
+    "src/imagehandler.js~imagehandler#upload",
+    "class/src/ImageHandler.js~ImageHandler.html#instance-method-upload",
+    "src/ImageHandler.js~ImageHandler#upload",
+    "method"
+  ],
+  [
+    "src/imagehandler.js~imagehandler#url",
+    "class/src/ImageHandler.js~ImageHandler.html#instance-get-url",
+    "src/ImageHandler.js~ImageHandler#url",
+    "member"
+  ],
+  [
     "src/maps4news.js",
     "file/src/Maps4News.js.html",
     "src/Maps4News.js",
@@ -811,13 +847,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1171,13 +1207,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#query",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-query",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-query",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#query",
     "member"
   ],
@@ -1203,6 +1239,12 @@ window.esdocSearchIndex = [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
     "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
+    "member"
+  ],
+  [
+    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#waiting",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-waiting",
+    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#waiting",
     "member"
   ],
   [
@@ -1674,12 +1716,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/layer.js~layer#imagehandler",
-    "class/src/crud/Layer.js~Layer.html#instance-get-imageHandler",
-    "src/crud/Layer.js~Layer#imageHandler",
-    "member"
-  ],
-  [
     "src/crud/layer.js~layer#resourcename",
     "class/src/crud/Layer.js~Layer.html#instance-get-resourceName",
     "src/crud/Layer.js~Layer#resourceName",
@@ -2062,48 +2098,6 @@ window.esdocSearchIndex = [
     "class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-method-items",
     "src/crud/base/CrudSetBase.js~CrudSetBase#items",
     "method"
-  ],
-  [
-    "src/crud/base/imagehandler.js",
-    "file/src/crud/base/ImageHandler.js.html",
-    "src/crud/base/ImageHandler.js",
-    "file"
-  ],
-  [
-    "src/crud/base/imagehandler.js~imagehandler#api",
-    "class/src/crud/base/ImageHandler.js~ImageHandler.html#instance-get-api",
-    "src/crud/base/ImageHandler.js~ImageHandler#api",
-    "member"
-  ],
-  [
-    "src/crud/base/imagehandler.js~imagehandler#constructor",
-    "class/src/crud/base/ImageHandler.js~ImageHandler.html#instance-constructor-constructor",
-    "src/crud/base/ImageHandler.js~ImageHandler#constructor",
-    "method"
-  ],
-  [
-    "src/crud/base/imagehandler.js~imagehandler#delete",
-    "class/src/crud/base/ImageHandler.js~ImageHandler.html#instance-method-delete",
-    "src/crud/base/ImageHandler.js~ImageHandler#delete",
-    "method"
-  ],
-  [
-    "src/crud/base/imagehandler.js~imagehandler#download",
-    "class/src/crud/base/ImageHandler.js~ImageHandler.html#instance-method-download",
-    "src/crud/base/ImageHandler.js~ImageHandler#download",
-    "method"
-  ],
-  [
-    "src/crud/base/imagehandler.js~imagehandler#upload",
-    "class/src/crud/base/ImageHandler.js~ImageHandler.html#instance-method-upload",
-    "src/crud/base/ImageHandler.js~ImageHandler#upload",
-    "method"
-  ],
-  [
-    "src/crud/base/imagehandler.js~imagehandler#url",
-    "class/src/crud/base/ImageHandler.js~ImageHandler.html#instance-get-url",
-    "src/crud/base/ImageHandler.js~ImageHandler#url",
-    "member"
   ],
   [
     "src/crud/base/resourcebase.js",
@@ -2611,13 +2605,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
@@ -2635,13 +2629,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
@@ -2653,13 +2647,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],

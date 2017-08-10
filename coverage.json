@@ -1,14 +1,14 @@
 {
-  "coverage": "76.23%",
-  "expectCount": 345,
+  "coverage": "76.45%",
+  "expectCount": 344,
   "actualCount": 263,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
-        51,
-        42
+        42,
+        51
       ]
     },
     "src/errors/ApiError.js": {
@@ -112,7 +112,7 @@
         36
       ]
     },
-    "src/crud/base/ImageHandler.js": {
+    "src/ImageHandler.js": {
       "expectCount": 7,
       "actualCount": 7,
       "undocumentLines": []
@@ -195,10 +195,10 @@
       ]
     },
     "src/crud/Layer.js": {
-      "expectCount": 3,
-      "actualCount": 2,
+      "expectCount": 2,
+      "actualCount": 1,
       "undocumentLines": [
-        52
+        46
       ]
     },
     "src/Maps4News.js": {
@@ -281,8 +281,8 @@
       "undocumentLines": []
     },
     "src/PaginatedResourceWrapper.js": {
-      "expectCount": 25,
-      "actualCount": 23,
+      "expectCount": 26,
+      "actualCount": 24,
       "undocumentLines": [
         51,
         52
@@ -409,13 +409,6 @@
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
-    },
-    "src/utils/caseConverter.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        53
-      ]
     }
   }
 }
