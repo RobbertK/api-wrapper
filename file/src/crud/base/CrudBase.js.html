@@ -70,6 +70,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-base">base</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
@@ -179,14 +180,22 @@ export default class CrudBase extends ResourceBase {
   /**
    * Macro for resource listing
    * @param {ResourceBase} Target - Target object
-   * @param {String} url - Target url, if not set it will guess
-   * @param {Number} page - Page number
-   * @param {Number} perPage - Amount of items per page
+   * @param {?String} url - Target url, if null it will guess
+   * @param {Number} [page=1] - Page number
+   * @param {Number} [perPage= this.api.defaults.perPage] - Amount of items per page
    * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
    * @protected
    */
   _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {
-    return paginateResource(this.api, url, page, perPage, Target);
+    if (!url) {
+      const resource = (new Target(this.api)).resourceName.replace(/s+$/, &apos;&apos;);
+
+      url = `${this.url}/${resource}s`;
+    }
+
+    const resolver = new PaginatedResourceListing(this.api, url, Target);
+
+    return resolver.getPage(page, perPage);
   }
 
   /**

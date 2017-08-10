@@ -70,6 +70,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-base">base</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
@@ -167,6 +168,7 @@ import {
   SvgSetType,
   User,
 } from &apos;./crud&apos;;
+import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
 
 import ApiError from &apos;./errors/ApiError&apos;;
 import ValidationError from &apos;./errors/ValidationError&apos;;
@@ -325,6 +327,42 @@ export default class Maps4News {
         reject(new ApiError(err.type, err.message, request.status));
       });
     });
+  }
+
+  /**
+   * Static proxy generation
+   * @param {string|function} Target - Constructor or url
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   * @example
+   * api.static(&apos;/custom/resource/path/{id}/&apos;).get(123);
+   *
+   * @example
+   * class FooBar extends ResourceBase {
+   *    get resourceName() {
+   *      return &apos;custom&apos;;
+   *    }
+   * }
+   *
+   * api.static(FooBar)
+   *   .get(1)
+   *   .then(console.log);
+   */
+  static(Target) {
+    if (isParentOf(ResourceBase, Target)) {
+      return new ResourceProxy(this, Target);
+    }
+
+    const Constructor = class extends ResourceBase {
+      get resourceName() {
+        return &apos;anonymous&apos;;
+      }
+
+      get resourcePath() {
+        return String(Target);
+      }
+    };
+
+    return this.static(Constructor);
   }
 
   /**
