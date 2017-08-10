@@ -95,6 +95,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-paginateResource">paginateResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -133,6 +134,10 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+import CrudBase from &apos;../crud/base/CrudBase&apos;;
+import Maps4News from &apos;../Maps4News&apos;;
+import PaginatedResourceListing from &apos;../PaginatedResourceListing&apos;;
 
 /**
  * Get all the pages from a {@link PaginatedResourceListing} or a range
@@ -178,6 +183,35 @@ export function getPaginatedRange(page, start = 1, stop) {
       resolve(out.concat(...rows.map(x =&gt; x.data)));
     }, reject);
   });
+}
+
+/**
+ * Manually a paginated resource
+ * @param {Maps4News} api - Api instance
+ * @param {?String} url - Target url, if null it will guess
+ * @param {Number} [page=1] - Page number
+ * @param {Number} [perPage=api.defaults.perPage] - Amount of items per page
+ * @param {ResourceBase} [Target=CrudBase] - Target class, should extend {@link ResourceBase}
+ * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+ * @example
+ * import { helpers } from &quot;@mapcreator/maps4news&quot;;
+ *
+ * helpers.paginateResource(api, &apos;/some/custom/endpoint&apos;)
+ */
+export function paginateResource(api, url, page = 1, perPage = api.defaults.perPage, Target = CrudBase) {
+  if (!(api instanceof Maps4News)) {
+    throw new TypeError(&apos;Api must be an instance of Maps4news&apos;);
+  }
+
+  if (!url) {
+    const resource = (new Target(this.api)).resourceName.replace(/s+$/, &apos;&apos;);
+
+    url = `${this.url}/${resource}s`;
+  }
+
+  const resolver = new PaginatedResourceListing(this.api, url, Target);
+
+  return resolver.getPage(page, perPage);
 }
 </code></pre>
 

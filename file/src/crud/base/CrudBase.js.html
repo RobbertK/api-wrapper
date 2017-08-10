@@ -95,6 +95,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-pascalToCamelCase">pascalToCamelCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-paginateResource">paginateResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 </ul>
@@ -137,6 +138,7 @@
 import {AbstractClassError} from &apos;../../errors/AbstractError&apos;;
 import PaginatedResourceListing from &apos;../../PaginatedResourceListing&apos;;
 import ResourceBase from &apos;./ResourceBase&apos;;
+import {paginateResource} from &apos;../../utils/helpers&apos;;
 
 /**
  * Base of all resource items that support Crud operations
@@ -185,15 +187,7 @@ export default class CrudBase extends ResourceBase {
    * @protected
    */
   _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {
-    if (!url) {
-      const resource = (new Target(this.api)).resourceName.replace(/s+$/, &apos;&apos;);
-
-      url = `${this.url}/${resource}s`;
-    }
-
-    const resolver = new PaginatedResourceListing(this.api, url, Target);
-
-    return resolver.getPage(page, perPage);
+    return paginateResource(this.api, url, page, perPage, Target);
   }
 
   /**

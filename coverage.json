@@ -1,7 +1,7 @@
 {
-  "coverage": "76.16%",
-  "expectCount": 344,
-  "actualCount": 262,
+  "coverage": "76.23%",
+  "expectCount": 345,
+  "actualCount": 263,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -406,8 +406,8 @@
       "undocumentLines": []
     },
     "src/utils/helpers.js": {
-      "expectCount": 1,
-      "actualCount": 1,
+      "expectCount": 2,
+      "actualCount": 2,
       "undocumentLines": []
     },
     "src/utils/caseConverter.js": {
