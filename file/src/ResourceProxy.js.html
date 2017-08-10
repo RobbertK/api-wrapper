@@ -70,7 +70,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-base">base</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
@@ -135,9 +134,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {isParentOf} from &apos;./utils/reflection&apos;;
 import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
 import PaginatedResourceListing from &apos;./PaginatedResourceListing&apos;;
+import {isParentOf} from &apos;./utils/reflection&apos;;
 
 /**
  * Proxy for accessing resource. This will make sure that they
@@ -267,11 +266,12 @@ export default class ResourceProxy {
 
   /**
    * Get target resource
-   * @param {Number|String} id - The resource id to be requested
+   * @param {Number|String} [id=] - The resource id to be requested
    * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
    */
   get(id) {
-    const url = this.new({id: id}).url;
+    const data = typeof id === &apos;undefined&apos; ? {} : {id};
+    const url = this.new(data).url;
 
     return new Promise((resolve, reject) =&gt; {
       this._api
@@ -283,13 +283,15 @@ export default class ResourceProxy {
 
   /**
    * Select target resource without obtaining data
-   * @param {Number|String} id - Resource id
+   * @param {Number|String} [id=] - Resource id
    * @returns {ResourceBase} - Empty target resource
    * @example
    * api.users.select(&apos;me&apos;).colors().then(doSomethingCool);
    */
   select(id) {
-    return this.new({id: id});
+    const data = typeof id === &apos;undefined&apos; ? {} : {id};
+
+    return this.new(data);
   }
 
   /**

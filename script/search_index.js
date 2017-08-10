@@ -342,12 +342,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/index.js~base",
-    "variable/index.html#static-variable-base",
-    "<span>base</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/index.js</span>",
-    "variable"
-  ],
-  [
     "@mapcreator/maps4news/src/utils/requests.js~encodequerystring",
     "function/index.html#static-function-encodeQueryString",
     "<span>encodeQueryString</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/requests.js</span>",
@@ -2617,25 +2611,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
-    "src/oauth/PasswordFlow.js~PasswordFlow#password",
-    "member"
-  ],
-  [
-    "src/oauth/passwordflow.js~passwordflow#password",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
-    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "src/oauth/passwordflow.js~passwordflow#password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
+    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "member"
+  ],
+  [
+    "src/oauth/passwordflow.js~passwordflow#path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],

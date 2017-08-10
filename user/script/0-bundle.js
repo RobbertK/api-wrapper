@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:815602f06548db68f8d3, chunkhash:54a600c61982bbcfd8eb, name:bundle, version:v0.8.17
+ * hash:2c46a15eb19c7f30810d, chunkhash:391b6ed61ce74b6a3fd9, name:bundle, version:v0.8.18
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.18) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.25.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -1185,33 +1185,15 @@ var ResourceBase = function () {
   }, {
     key: 'url',
     get: function get() {
+      var _this3 = this;
+
       if (!this._url) {
         var url = this._api.host + '/' + this._api.version + this.resourcePath;
 
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
-
-        try {
-          for (var _iterator2 = Object.keys(this._baseProperties)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var key = _step2.value;
-
-            url = url.replace('{' + key + '}', this[key]);
-          }
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-              _iterator2.return();
-            }
-          } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
-            }
-          }
-        }
+        // Find and replace any keys
+        url = url.replace(/{(\w+)}/g, function (match, key) {
+          return _this3[(0, _caseConverter.snakeToCamelCase)(key)];
+        });
 
         this._url = url;
       }
@@ -7732,6 +7714,11 @@ exports.Svg = _Svg3.default;
 exports.SvgSet = _SvgSet3.default;
 exports.SvgSetType = _SvgSetType3.default;
 exports.User = _User3.default;
+
+
+/**
+ * @private
+ */
 var base = exports.base = {
   CrudBase: _CrudBase2.default, CrudSetBase: _CrudSetBase2.default, ResourceBase: _ResourceBase2.default
 };
@@ -9253,8 +9240,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _reflection = __webpack_require__(11);
-
 var _ResourceBase = __webpack_require__(23);
 
 var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
@@ -9262,6 +9247,8 @@ var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
 var _PaginatedResourceListing = __webpack_require__(83);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+var _reflection = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9409,7 +9396,7 @@ var ResourceProxy = function () {
 
     /**
      * Get target resource
-     * @param {Number|String} id - The resource id to be requested
+     * @param {Number|String} [id=] - The resource id to be requested
      * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
      */
 
@@ -9418,7 +9405,8 @@ var ResourceProxy = function () {
     value: function get(id) {
       var _this = this;
 
-      var url = this.new({ id: id }).url;
+      var data = typeof id === 'undefined' ? {} : { id: id };
+      var url = this.new(data).url;
 
       return new Promise(function (resolve, reject) {
         _this._api.request(url).catch(reject).then(function (data) {
@@ -9429,7 +9417,7 @@ var ResourceProxy = function () {
 
     /**
      * Select target resource without obtaining data
-     * @param {Number|String} id - Resource id
+     * @param {Number|String} [id=] - Resource id
      * @returns {ResourceBase} - Empty target resource
      * @example
      * api.users.select('me').colors().then(doSomethingCool);
@@ -9438,7 +9426,9 @@ var ResourceProxy = function () {
   }, {
     key: 'select',
     value: function select(id) {
-      return this.new({ id: id });
+      var data = typeof id === 'undefined' ? {} : { id: id };
+
+      return this.new(data);
     }
 
     /**
@@ -11889,7 +11879,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.17";
+var version = exports.version = "v0.8.18";
 
 /**
  * Package license
