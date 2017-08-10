@@ -290,7 +290,7 @@ export default class ResourceBase {
       case &apos;end&apos;:
       case &apos;start&apos;:
       case &apos;at&apos;:
-        return new Date(value);
+        return new Date(value.replace(&apos; &apos;, &apos;T&apos;));
       case &apos;id&apos;:
         // Test if the value is in fact a macro
         if (idMacros.includes(String(value).toLowerCase())) {

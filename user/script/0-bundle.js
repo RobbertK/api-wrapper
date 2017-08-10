@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:0a155d8169c7fbc2c3e5, chunkhash:70aa67fe34947999f6c2, name:bundle, version:v0.8.22
+ * hash:40a4df5dfc6995b8f546, chunkhash:5c9c01f9bda0acd4d0e2, name:bundle, version:v0.8.23
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.22) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.23) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.25.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -1237,7 +1237,7 @@ var ResourceBase = function () {
         case 'end':
         case 'start':
         case 'at':
-          return new Date(value);
+          return new Date(value.replace(' ', 'T'));
         case 'id':
           // Test if the value is in fact a macro
           if (idMacros.includes(String(value).toLowerCase())) {
@@ -11583,7 +11583,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.22";
+var version = exports.version = "v0.8.23";
 
 /**
  * Package license
