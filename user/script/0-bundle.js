@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:9c689ffb9cdc2f7d847a, chunkhash:f0312ea493647796b5d7, name:bundle, version:v0.8.21
+ * hash:0a155d8169c7fbc2c3e5, chunkhash:70aa67fe34947999f6c2, name:bundle, version:v0.8.22
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.21) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.22) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.25.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -11583,7 +11583,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.21";
+var version = exports.version = "v0.8.22";
 
 /**
  * Package license
@@ -11894,7 +11894,6 @@ var PaginatedResourceWrapper = function () {
   }, {
     key: 'rebuild',
     value: function rebuild() {
-      console.log('rebuild ' + this._last.route + ' ' + this._last.cacheToken);
       this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
         return typeof value !== 'undefined';
       });
