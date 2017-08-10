@@ -1826,7 +1826,7 @@
     "__docId__": 57,
     "kind": "file",
     "name": "src/PaginatedResourceListing.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Maps4News from './Maps4News';\nimport PaginatedResourceWrapper from './PaginatedResourceWrapper';\nimport {getTypeName, isParentOf} from './utils/reflection';\nimport {encodeQueryString} from './utils/requests';\n\n/**\n * Proxy for accessing paginated resources\n */\nexport default class PaginatedResourceListing {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {String} route - Resource route\n   * @param {ResourceBase} Target - Wrapper target\n   * @param {Object|{}} query - Search query\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @param {Number} pageCount - Resolved page count\n   * @param {Number} rowCount - Resolved rowCount\n   * @param {Array<ResourceBase>} data - Resolved data\n   * @private\n   */\n  constructor(api, route, Target, query = {}, page = 1, perPage = api.defaults.perPage, pageCount = null, rowCount = 0, data = []) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._api = api;\n    this._route = route;\n    this._Target = Target;\n    this._query = query;\n\n    this._data = data;\n    this._page = page;\n    this._perPage = perPage;\n    this._rows = rowCount;\n    this._pageCount = pageCount;\n  }\n\n  /**\n   * Pagination header prefix\n   * @returns {String} - Header prefix\n   */\n  static get headerPrefix() {\n    return 'X-Paginate';\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target route\n   * @returns {String} - url\n   */\n  get route() {\n    return this._route;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * Current page number\n   * @returns {Number} - Current page\n   */\n  get page() {\n    return this._page;\n  }\n\n  /**\n   * Maximum amount of items per page\n   * @returns {Number} - Amount of items\n   */\n  get perPage() {\n    return this._perPage;\n  }\n\n  /**\n   * Amount of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._pageCount;\n  }\n\n  /**\n   * Page data\n   * @returns {Array<ResourceBase>} - Wrapped data\n   */\n  get data() {\n    return this._data;\n  }\n\n  /**\n   * Row count\n   * @returns {Number} - Row count\n   */\n  get rows() {\n    return this._rows;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    // Verify query structure\n    if (typeof value !== 'object') {\n      throw new TypeError(`Expected value to be of type \"Object\" got \"${getTypeName(value)}\"`);\n    }\n\n    for (const key of Object.keys(value)) {\n      if (typeof key !== 'string') {\n        throw new TypeError(`Expected key to be of type \"String\" got \"${getTypeName(key)}\"`);\n      }\n\n      if (Array.isArray(value[key])) {\n        if (value[key].length > 0) {\n          for (const query of value[key]) {\n            if (typeof query !== 'string') {\n              throw new TypeError(`Expected query for \"${key}\" to be of type \"String\" got \"${getTypeName(query)}\"`);\n            }\n          }\n        } else {\n          // Drop empty nodes\n          delete value[key];\n        }\n      } else if (typeof value[key] !== 'string') {\n        throw new TypeError(`Expected query value to be of type \"string\" or \"Array\" got \"${getTypeName(key)}\"`);\n      }\n    }\n\n    this._query = value;\n  }\n\n  /**\n   * Get target page\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page (max 50)\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  getPage(page, perPage = this.perPage) {\n    page = Math.max(1, page);\n\n    const query = {page};\n\n    if (perPage) {\n      perPage = Math.max(1, perPage);\n      perPage = Math.min(50, perPage);\n\n      query['per_page'] = perPage;\n    }\n\n    // Add search query (if any)\n    if (Object.keys(this.query).length > 0) {\n      query['search'] = this.query;\n    }\n\n    const url = `${this.route}?${encodeQueryString(query)}`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url, 'GET', {}, {}, '', true)\n        .then(request => {\n          const response = JSON.parse(request.responseText);\n          const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`));\n          const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`));\n\n          const instance = new PaginatedResourceListing(\n            this.api, this.route, this._Target, this.query,\n            page, perPage, totalPages, rowCount,\n            response.data.map(row => new this._Target(this.api, row)),\n          );\n\n          resolve(instance, request);\n        }).catch(reject);\n    });\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.page < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this.page > 1;\n  }\n\n  /**\n   * Used for caching pages internally\n   * @returns {string} - Cache token\n   * @see {@link PaginatedResourceWrapper}\n   * @see {@link ResourceCache}\n   */\n  get cacheToken() {\n    return encodeQueryString({query: this.query}).toLowerCase();\n  }\n\n  /**\n   * Get next page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  next() {\n    return this.getPage(this.page + 1);\n  }\n\n  /**\n   * Get previous page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  previous() {\n    return this.getPage(this.page - 1);\n  }\n\n  /**\n   * Wraps {@link PaginatedResourceWrapper} around the page\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Wrapped resource listing\n   */\n  wrap(cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    return new PaginatedResourceWrapper(this, this.api, cacheEnabled, cacheTime, shareCache);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Maps4News from './Maps4News';\nimport PaginatedResourceWrapper from './PaginatedResourceWrapper';\nimport {getTypeName, isParentOf} from './utils/reflection';\nimport {encodeQueryString} from './utils/requests';\nimport {fnv32a} from './utils/hash';\n\n/**\n * Proxy for accessing paginated resources\n */\nexport default class PaginatedResourceListing {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {String} route - Resource route\n   * @param {ResourceBase} Target - Wrapper target\n   * @param {Object|{}} query - Search query\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page\n   * @param {Number} pageCount - Resolved page count\n   * @param {Number} rowCount - Resolved rowCount\n   * @param {Array<ResourceBase>} data - Resolved data\n   * @private\n   */\n  constructor(api, route, Target, query = {}, page = 1, perPage = api.defaults.perPage, pageCount = null, rowCount = 0, data = []) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._api = api;\n    this._route = route;\n    this._Target = Target;\n    this._query = query;\n\n    this._data = data;\n    this._page = page;\n    this._perPage = perPage;\n    this._rows = rowCount;\n    this._pageCount = pageCount;\n  }\n\n  /**\n   * Pagination header prefix\n   * @returns {String} - Header prefix\n   */\n  static get headerPrefix() {\n    return 'X-Paginate';\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target route\n   * @returns {String} - url\n   */\n  get route() {\n    return this._route;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * Current page number\n   * @returns {Number} - Current page\n   */\n  get page() {\n    return this._page;\n  }\n\n  /**\n   * Maximum amount of items per page\n   * @returns {Number} - Amount of items\n   */\n  get perPage() {\n    return this._perPage;\n  }\n\n  /**\n   * Amount of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._pageCount;\n  }\n\n  /**\n   * Page data\n   * @returns {Array<ResourceBase>} - Wrapped data\n   */\n  get data() {\n    return this._data;\n  }\n\n  /**\n   * Row count\n   * @returns {Number} - Row count\n   */\n  get rows() {\n    return this._rows;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this._query;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    // Verify query structure\n    if (typeof value !== 'object') {\n      throw new TypeError(`Expected value to be of type \"Object\" got \"${getTypeName(value)}\"`);\n    }\n\n    for (const key of Object.keys(value)) {\n      if (typeof key !== 'string') {\n        throw new TypeError(`Expected key to be of type \"String\" got \"${getTypeName(key)}\"`);\n      }\n\n      if (Array.isArray(value[key])) {\n        if (value[key].length > 0) {\n          for (const query of value[key]) {\n            if (typeof query !== 'string') {\n              throw new TypeError(`Expected query for \"${key}\" to be of type \"String\" got \"${getTypeName(query)}\"`);\n            }\n          }\n        } else {\n          // Drop empty nodes\n          delete value[key];\n        }\n      } else if (typeof value[key] !== 'string') {\n        throw new TypeError(`Expected query value to be of type \"string\" or \"Array\" got \"${getTypeName(key)}\"`);\n      }\n    }\n\n    this._query = value;\n  }\n\n  /**\n   * Get target page\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page (max 50)\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  getPage(page, perPage = this.perPage) {\n    page = Math.max(1, page);\n\n    const query = {page};\n\n    if (perPage) {\n      perPage = Math.max(1, perPage);\n      perPage = Math.min(50, perPage);\n\n      query['per_page'] = perPage;\n    }\n\n    // Add search query (if any)\n    if (Object.keys(this.query).length > 0) {\n      query['search'] = this.query;\n    }\n\n    const url = `${this.route}?${encodeQueryString(query)}`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url, 'GET', {}, {}, '', true)\n        .then(request => {\n          const response = JSON.parse(request.responseText);\n          const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`));\n          const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`));\n\n          const instance = new PaginatedResourceListing(\n            this.api, this.route, this._Target, this.query,\n            page, perPage, totalPages, rowCount,\n            response.data.map(row => new this._Target(this.api, row)),\n          );\n\n          resolve(instance, request);\n        }).catch(reject);\n    });\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.page < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this.page > 1;\n  }\n\n  /**\n   * Used for caching pages internally\n   * @returns {string} - Cache token\n   * @see {@link PaginatedResourceWrapper}\n   * @see {@link ResourceCache}\n   */\n  get cacheToken() {\n    const query = encodeQueryString({query: this.query});\n\n    return fnv32a(`${this.route}?${query}`);\n  }\n\n  /**\n   * Get next page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  next() {\n    return this.getPage(this.page + 1);\n  }\n\n  /**\n   * Get previous page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  previous() {\n    return this.getPage(this.page - 1);\n  }\n\n  /**\n   * Wraps {@link PaginatedResourceWrapper} around the page\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Wrapped resource listing\n   */\n  wrap(cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    return new PaginatedResourceWrapper(this, this.api, cacheEnabled, cacheTime, shareCache);\n  }\n}\n",
     "static": true,
     "longname": "src/PaginatedResourceListing.js",
     "access": null,
@@ -1845,7 +1845,7 @@
     "importPath": "@mapcreator/maps4news/src/PaginatedResourceListing.js",
     "importStyle": "PaginatedResourceListing",
     "description": "Proxy for accessing paginated resources",
-    "lineNumber": 41,
+    "lineNumber": 42,
     "interface": false
   },
   {
@@ -1859,7 +1859,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#constructor",
     "access": "private",
     "description": "",
-    "lineNumber": 54,
+    "lineNumber": 55,
     "params": [
       {
         "nullable": null,
@@ -1963,7 +1963,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_api",
     "access": null,
     "description": null,
-    "lineNumber": 59,
+    "lineNumber": 60,
     "undocument": true,
     "unknown": [
       {
@@ -1986,7 +1986,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_route",
     "access": null,
     "description": null,
-    "lineNumber": 60,
+    "lineNumber": 61,
     "undocument": true,
     "unknown": [
       {
@@ -2009,7 +2009,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_Target",
     "access": null,
     "description": null,
-    "lineNumber": 61,
+    "lineNumber": 62,
     "undocument": true,
     "unknown": [
       {
@@ -2032,7 +2032,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_query",
     "access": null,
     "description": null,
-    "lineNumber": 62,
+    "lineNumber": 63,
     "undocument": true,
     "unknown": [
       {
@@ -2055,7 +2055,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_data",
     "access": null,
     "description": null,
-    "lineNumber": 64,
+    "lineNumber": 65,
     "undocument": true,
     "unknown": [
       {
@@ -2078,7 +2078,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_page",
     "access": null,
     "description": null,
-    "lineNumber": 65,
+    "lineNumber": 66,
     "undocument": true,
     "unknown": [
       {
@@ -2101,7 +2101,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_perPage",
     "access": null,
     "description": null,
-    "lineNumber": 66,
+    "lineNumber": 67,
     "undocument": true,
     "unknown": [
       {
@@ -2124,7 +2124,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_rows",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 68,
     "undocument": true,
     "unknown": [
       {
@@ -2147,7 +2147,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_pageCount",
     "access": null,
     "description": null,
-    "lineNumber": 68,
+    "lineNumber": 69,
     "undocument": true,
     "unknown": [
       {
@@ -2172,7 +2172,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing.headerPrefix",
     "access": null,
     "description": "Pagination header prefix",
-    "lineNumber": 75,
+    "lineNumber": 76,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2204,7 +2204,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 83,
+    "lineNumber": 84,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2236,7 +2236,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "access": null,
     "description": "Target route",
-    "lineNumber": 91,
+    "lineNumber": 92,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2268,7 +2268,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#Target",
     "access": null,
     "description": "Target to wrap results in",
-    "lineNumber": 100,
+    "lineNumber": 101,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2304,7 +2304,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#page",
     "access": null,
     "description": "Current page number",
-    "lineNumber": 108,
+    "lineNumber": 109,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2336,7 +2336,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#perPage",
     "access": null,
     "description": "Maximum amount of items per page",
-    "lineNumber": 116,
+    "lineNumber": 117,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2368,7 +2368,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#pageCount",
     "access": null,
     "description": "Amount of pages available",
-    "lineNumber": 124,
+    "lineNumber": 125,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2400,7 +2400,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#data",
     "access": null,
     "description": "Page data",
-    "lineNumber": 132,
+    "lineNumber": 133,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2432,7 +2432,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#rows",
     "access": null,
     "description": "Row count",
-    "lineNumber": 140,
+    "lineNumber": 141,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2464,7 +2464,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "access": null,
     "description": "Optional search query",
-    "lineNumber": 149,
+    "lineNumber": 150,
     "unknown": [
       {
         "tagName": "@default",
@@ -2499,7 +2499,7 @@
     "see": [
       "{@link ResourceProxy#search}"
     ],
-    "lineNumber": 160,
+    "lineNumber": 161,
     "unknown": [
       {
         "tagName": "@default",
@@ -2541,7 +2541,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_query",
     "access": null,
     "description": null,
-    "lineNumber": 187,
+    "lineNumber": 188,
     "undocument": true,
     "unknown": [
       {
@@ -2566,7 +2566,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#getPage",
     "access": null,
     "description": "Get target page",
-    "lineNumber": 196,
+    "lineNumber": 197,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2615,7 +2615,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#hasNext",
     "access": null,
     "description": "If there is a next page",
-    "lineNumber": 237,
+    "lineNumber": 238,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2647,7 +2647,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#hasPrevious",
     "access": null,
     "description": "If there is a previous page",
-    "lineNumber": 245,
+    "lineNumber": 246,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2683,7 +2683,7 @@
       "{@link PaginatedResourceWrapper}",
       "{@link ResourceCache}"
     ],
-    "lineNumber": 255,
+    "lineNumber": 256,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2715,7 +2715,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#next",
     "access": null,
     "description": "Get next page",
-    "lineNumber": 263,
+    "lineNumber": 266,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2743,7 +2743,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#previous",
     "access": null,
     "description": "Get previous page",
-    "lineNumber": 271,
+    "lineNumber": 274,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2771,7 +2771,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#wrap",
     "access": null,
     "description": "Wraps {@link PaginatedResourceWrapper} around the page",
-    "lineNumber": 282,
+    "lineNumber": 285,
     "unknown": [
       {
         "tagName": "@returns",
