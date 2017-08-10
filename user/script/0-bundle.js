@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:9a00211abb65c944c290, chunkhash:17fb75b44cd4ccb5b631, name:bundle, version:v0.8.20
+ * hash:9c689ffb9cdc2f7d847a, chunkhash:f0312ea493647796b5d7, name:bundle, version:v0.8.21
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.20) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.21) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.25.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -7811,16 +7811,16 @@ var ResourceCache = function () {
       var data = {
         page: page, validThrough: validThrough,
         timeout: setTimeout(function () {
-          return _this.revalidate(page.url);
+          return _this.revalidate(page.route);
         }, this.cacheTime * 1000)
       };
 
-      var storage = this._storage[page.url] || (this._storage[page.url] = {});
+      var storage = this._storage[page.route] || (this._storage[page.route] = {});
 
       (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);
 
-      this.emitter.emit('push', { page: page, validThrough: validThrough, resourceUrl: page.url });
-      this.emitter.emit('invalidate', { resourceUrl: page.url });
+      this.emitter.emit('push', { page: page, validThrough: validThrough, resourceUrl: page.route });
+      this.emitter.emit('invalidate', { resourceUrl: page.route });
     }
 
     /**
@@ -11583,7 +11583,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.20";
+var version = exports.version = "v0.8.21";
 
 /**
  * Package license
@@ -11894,7 +11894,8 @@ var PaginatedResourceWrapper = function () {
   }, {
     key: 'rebuild',
     value: function rebuild() {
-      this.data = this.cache.resolve(this.path, this._last.cacheToken).filter(function (value) {
+      console.log('rebuild ' + this._last.route + ' ' + this._last.cacheToken);
+      this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
         return typeof value !== 'undefined';
       });
 
@@ -11903,7 +11904,7 @@ var PaginatedResourceWrapper = function () {
 
     /**
      * Updates the cached pages.
-     * @param {Boolean} flush - Clear the cached path data
+     * @param {Boolean} flush - Clear the cached route data
      * @returns {void}
      */
 
@@ -11915,10 +11916,10 @@ var PaginatedResourceWrapper = function () {
       var flush = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
       if (flush) {
-        this.cache.clear(this.path);
+        this.cache.clear(this.route);
       }
 
-      this.cache.collectPages(this.path, this._last.cacheToken).map(function (page) {
+      this.cache.collectPages(this.route, this._last.cacheToken).map(function (page) {
         return _this.get(page.page);
       });
     }
@@ -12000,14 +12001,14 @@ var PaginatedResourceWrapper = function () {
     }
 
     /**
-     * Get the path of the resource
-     * @returns {String} - path
+     * Get the route of the resource
+     * @returns {String} - route
      */
 
   }, {
-    key: 'path',
+    key: 'route',
     get: function get() {
-      return this._last.path;
+      return this._last.route;
     }
 
     /**
