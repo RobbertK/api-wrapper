@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:40a4df5dfc6995b8f546, chunkhash:5c9c01f9bda0acd4d0e2, name:bundle, version:v0.8.23
+ * hash:f2059c5c2419eae0a439, chunkhash:3ee351eb313e0f734047, name:bundle, version:v0.8.24
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (0.8.23) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (0.8.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.25.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -2617,11 +2617,15 @@ var Maps4News = function () {
     this.auth = auth;
     this.host = host;
 
+    /**
+     * Defaults for common parameters. These are populated during the build process using the `.env` file.
+     * @type {{perPage: number, cacheEnabled: boolean, cacheSeconds: number, shareCache: boolean}}
+     */
     this.defaults = {
       perPage: Number("12"),
       cacheEnabled: "true".toLowerCase() === 'true',
       cacheSeconds: Number("1800"),
-      shareCache: "true".toLowerCase() === 'true'
+      shareCache: "false".toLowerCase() === 'true'
     };
 
     this._cache = new _ResourceCache2.default(this);
@@ -7779,7 +7783,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Used for caching resources
+ * Used for caching resources. Requires the resource to have an unique id field
  * @see {@link PaginatedResourceWrapper}
  */
 var ResourceCache = function () {
@@ -7806,6 +7810,21 @@ var ResourceCache = function () {
     key: 'push',
     value: function push(page) {
       var _this = this;
+
+      if (page.rows === 0) {
+        return; // Don't insert empty pages
+      }
+
+      // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)
+      var invalidData = page.data.map(function (row) {
+        return row.id;
+      }).filter(function (x) {
+        return typeof x !== 'number';
+      }).length > 0;
+
+      if (invalidData) {
+        throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric "id" field.');
+      }
 
       var validThrough = this._timestamp() + this.cacheTime;
       var data = {
@@ -7931,6 +7950,7 @@ var ResourceCache = function () {
      * @param {String} cacheToken - Cache token
      * @see {@link PaginatedResourceListing#cacheToken}
      * @returns {Array} - Indexed relevant data
+     * @todo Get missing keys between pages and remove them if needed. Diff last and first between pages.
      */
 
   }, {
@@ -7944,6 +7964,11 @@ var ResourceCache = function () {
       var out = [];
 
       var _loop = function _loop(page) {
+        if (page.rows === 0) {
+          // We can't do anything if we don't have any data
+          return 'continue';
+        }
+
         var ids = page.data.map(function (row) {
           return row.id;
         });
@@ -7995,7 +8020,9 @@ var ResourceCache = function () {
         for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var page = _step.value;
 
-          _loop(page);
+          var _ret = _loop(page);
+
+          if (_ret === 'continue') continue;
         }
       } catch (err) {
         _didIteratorError = true;
@@ -11583,7 +11610,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v0.8.23";
+var version = exports.version = "v0.8.24";
 
 /**
  * Package license
@@ -11818,7 +11845,7 @@ var PaginatedResourceWrapper = function () {
     var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
     var cacheEnabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.cacheEnabled;
     var cacheTime = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : api.defaults.cacheSeconds;
-    var shareCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : api.defaults._shareCache;
+    var shareCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : api.defaults.shareCache;
 
     _classCallCheck(this, PaginatedResourceWrapper);
 
