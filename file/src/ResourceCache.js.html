@@ -93,7 +93,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Singleton.js~Singleton.html">Singleton</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fnv32a">fnv32a</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-paginateResource">paginateResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
@@ -227,15 +226,13 @@ export default class ResourceCache {
    * @returns {Array&lt;PaginatedResourceListing&gt;} - Relevant cached pages
    */
   collectPages(resourceUrl, cacheToken = &apos;&apos;) {
-    const storage = this._storage[resourceUrl] || {};
+    cacheToken = cacheToken.toLowerCase();
 
-    return [].concat(
-      ...Object
-        .keys(storage)
-        .filter(x =&gt; !cacheToken || x === cacheToken)
-        .map(key =&gt; storage[key]))
-      .sort((a, b) =&gt; a.validThrough - b.validThrough)
-      .map(x =&gt; x.page);
+    // Storage array or []
+    const storage = (this._storage[resourceUrl] || {})[cacheToken] || [];
+
+    // Sort by validThrough and extract pages
+    return storage.sort((a, b) =&gt; a.validThrough - b.validThrough).map(x =&gt; x.page);
   }
 
   /**
@@ -263,6 +260,7 @@ export default class ResourceCache {
    * @see {@link PaginatedResourceListing#cacheToken}
    * @returns {Array} - Indexed relevant data
    * @todo Get missing keys between pages and remove them if needed. Diff last and first between pages.
+   * @todo add page numbers or range as optional parameter
    */
   resolve(resourceUrl, cacheToken = &apos;&apos;) {
     cacheToken = cacheToken.toLowerCase();

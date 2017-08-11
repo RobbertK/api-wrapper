@@ -93,7 +93,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Singleton.js~Singleton.html">Singleton</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fnv32a">fnv32a</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-paginateResource">paginateResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
@@ -135,7 +134,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import PaginatedResourceListing from &apos;./PaginatedResourceListing&apos;;
 import ResourceCache from &apos;./ResourceCache&apos;;
+import {hashObject} from &apos;./utils/hash&apos;;
 
 /**
  * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
@@ -157,6 +158,7 @@ export default class PaginatedResourceWrapper {
     this.cacheTime = cacheTime;
     this._shareCache = shareCache;
     this._currentPage = 1;
+    this._context = [];
 
     /**
      * Available data assembled from the cache
@@ -175,7 +177,7 @@ export default class PaginatedResourceWrapper {
 
   get _promiseCallback() {
     return result =&gt; {
-      const query = this.query;
+      const query = this.query();
 
       this._last = result;
       this._query = query;
@@ -235,7 +237,7 @@ export default class PaginatedResourceWrapper {
       .resolve(this.route, this._last.cacheToken)
       .filter(value =&gt; typeof value !== &apos;undefined&apos;);
 
-    this.cache.emitter.emit(&apos;post-rebuild&apos;, {resourceUrl: this._last.url});
+    this.cache.emitter.emit(&apos;post-rebuild&apos;, {resourceUrl: this._last.route});
   }
 
   /**
@@ -288,24 +290,33 @@ export default class PaginatedResourceWrapper {
   }
 
   /**
-   * Optional search query
-   * @default {}
-   * @return {Object&lt;String, String|Array&lt;String&gt;&gt;} - Query
-   */
-  get query() {
-    return this._last.query;
-  }
-
-  /**
-   * Optional search query
-   * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} value - Query
+   * Set the search query and search
+   * @param {?Object&lt;String, String|Array&lt;String&gt;&gt;} [value=null] - Query
    * @throws TypeError
    * @default {}
    * @see {@link ResourceProxy#search}
+   * @returns {Object&lt;String, String|Array&lt;String&gt;&gt;} - query
    */
-  set query(value) {
-    this._last.query = value;
+  query(value = null) {
+    if (!value || value === this.query()) {
+      return this._last.query;
+    }
+
+    this._context[this._last.cacheToken] = this._last;
+
+    const token = hashObject(value);
+
+    if (this._context[token]) {
+      this._last = this._context[token];
+    } else {
+      this._last = new PaginatedResourceListing(this.api, this._last.route, this._last.Target, value, 1, this._last.perPage);
+      this.get(1);
+      this.currentPage = 1;
+    }
+
     this.rebuild();
+
+    return this.query();
   }
 
   /**

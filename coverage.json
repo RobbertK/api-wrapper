@@ -1,7 +1,7 @@
 {
-  "coverage": "76.58%",
-  "expectCount": 346,
-  "actualCount": 265,
+  "coverage": "76.74%",
+  "expectCount": 344,
+  "actualCount": 264,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -279,11 +279,11 @@
       "undocumentLines": []
     },
     "src/PaginatedResourceWrapper.js": {
-      "expectCount": 26,
-      "actualCount": 24,
+      "expectCount": 25,
+      "actualCount": 23,
       "undocumentLines": [
-        51,
-        52
+        53,
+        54
       ]
     },
     "src/oauth/PasswordFlow.js": {
@@ -402,13 +402,6 @@
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
-    },
-    "src/utils/hash.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        35
-      ]
     },
     "src/utils/helpers.js": {
       "expectCount": 2,
