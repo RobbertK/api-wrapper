@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -187,6 +188,34 @@
         <p>
           
           
+          <span data-ice="name"><span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-get-layers">layers</a></span></span><span data-ice="signature">: <span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get layers</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
           <span data-ice="name"><span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-get-resourceName">resourceName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
@@ -221,6 +250,34 @@
         
         
         
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-get-resultProxy">resultProxy</a></span></span><span data-ice="signature">: <span><a href="class/src/crud/JobResult.js~JobResult.html">JobResult</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a result proxy</p>
+</div>
       </div>
     </td>
     <td>
@@ -283,34 +340,6 @@
         
         
         <div data-ice="description"><p>Cancels a running job</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-layers">layers</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get layers</p>
 </div>
       </div>
     </td>
@@ -691,6 +720,34 @@
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-_proxyResourceList">_proxyResourceList</a></span></span><span data-ice="signature">(Target: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>, url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, seedData: <span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span>): <span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Macro for resource listing</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 
@@ -892,6 +949,63 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-layers">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">layers</span><span data-ice="signature">: <span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber56">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get layers</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>A proxy for accessing the resource</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-resourceName">
     <span class="access" data-ice="access">public</span>
     
@@ -979,6 +1093,63 @@
   
   
 </div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-resultProxy">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">resultProxy</span><span data-ice="signature">: <span><a href="class/src/crud/JobResult.js~JobResult.html">JobResult</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber79">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a result proxy</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="class/src/crud/JobResult.js~JobResult.html">JobResult</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Empty job result used for</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
 </div>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
@@ -994,7 +1165,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber101">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
@@ -1068,7 +1239,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber112">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber149">source</a></span></span>
     </span>
   </h3>
 
@@ -1114,63 +1285,6 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-layers">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span data-ice="name">layers</span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber122">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get layers</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Resolves with <span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span> instance containing <span><a href="class/src/crud/Layer.js~Layer.html">Layer</a></span> instances and rejects with <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span></p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-object">
     <span class="access" data-ice="access">public</span>
     
@@ -1182,7 +1296,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber90">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber127">source</a></span></span>
     </span>
   </h3>
 
@@ -1239,7 +1353,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber148">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
@@ -1296,7 +1410,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber96">source</a></span></span>
     </span>
   </h3>
 
@@ -1389,7 +1503,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber131">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/JobRevision.js.html#lineNumber160">source</a></span></span>
     </span>
   </h3>
 

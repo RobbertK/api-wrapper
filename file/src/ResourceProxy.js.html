@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -134,134 +135,22 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
-import PaginatedResourceListing from &apos;./PaginatedResourceListing&apos;;
-import {isParentOf} from &apos;./utils/reflection&apos;;
+import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
 
 /**
  * Proxy for accessing resource. This will make sure that they
  * are properly wrapped before the promise resolves.
  * @protected
  */
-export default class ResourceProxy {
+export default class ResourceProxy extends SimpleResourceProxy {
   /**
    * @param {Maps4News} api - Instance of the api
    * @param {ResourceBase} Target - Target to wrap
+   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
+   * @param {object} seedData - Internal use, used for seeding ::new
    */
-  constructor(api, Target) {
-    if (!isParentOf(ResourceBase, Target)) {
-      throw new TypeError(&apos;Target is not a child of ResourceBase&apos;);
-    }
-
-    if (typeof Target !== &apos;function&apos;) {
-      throw new TypeError(&apos;Target must to be a class not an instance&apos;);
-    }
-
-    this._api = api;
-    this._Target = Target;
-  }
-
-  /**
-   * Get api instance
-   * @returns {Maps4News} - Api instance
-   */
-  get api() {
-    return this._api;
-  }
-
-  /**
-   * Target to wrap results in
-   * @returns {ResourceBase} - Target constructor
-   * @constructor
-   */
-  get Target() {
-    return this._Target;
-  }
-
-  /**
-   * The name of the target
-   * @returns {String} - Target name
-   */
-  get accessorName() {
-    return this.Target.name.toLowerCase();
-  }
-
-  /**
-   * Lists target resource
-   * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} query - Query
-   * @param {Number} page - The page to be requested
-   * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-   *
-   * @example
-   * // Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
-   * // See Api documentation for search query syntax
-   * var query = {
-   *   name: &apos;^:test&apos;,
-   *   scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
-   * }
-   *
-   * api.layers.search(query).then(console.dir);
-   */
-  search(query, page = 1, perPage = this.api.defaults.perPage) {
-    const url = this.new().baseUrl;
-    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);
-
-    return resolver.getPage(page, perPage);
-  }
-
-  /**
-   * Lists target resource
-   * @param {Number} page - The page to be requested
-   * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API
-   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-   */
-  list(page = 1, perPage = this.api.defaults.perPage) {
-    return this.search({}, page, perPage);
-  }
-
-  /**
-   * Lists target resource
-   * @param {Number} page - The page to be requested
-   * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-   * @param {Boolean} cacheEnabled - If the pagination cache should be used
-   * @param {Number} cacheTime - Amount of seconds to store a value in cache
-   * @param {Boolean} shareCache - Share cache across instances
-   * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-   *
-   */
-  listAndWrap(page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {
-    return this.searchAndWrap({}, page, perPage, cacheEnabled, cacheTime, shareCache);
-  }
-
-  /**
-   * Lists target resource
-   * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} query - Query
-   * @param {Number} page - The page to be requested
-   * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-   * @param {Boolean} cacheEnabled - If the pagination cache should be used
-   * @param {Number} cacheTime - Amount of seconds to store a value in cache
-   * @param {Boolean} shareCache - Share cache across instances
-   * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance
-   *
-   * @example
-   * // Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
-   * // See Api documentation for search query syntax
-   * var query = {
-   *   name: &apos;^:test&apos;,
-   *   scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
-   * }
-   *
-   * api.layers.searchAndWrap(query)
-   */
-  searchAndWrap(query, page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {
-    const url = this.new().baseUrl;
-    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query, page, perPage);
-    const wrapped = resolver.wrap(cacheEnabled, cacheTime, shareCache);
-
-    wrapped.get(page);
-
-    return wrapped;
+  constructor(api, Target, altUrl = null, seedData = {}) {
+    super(api, Target, altUrl, seedData);
   }
 
   /**
@@ -270,11 +159,13 @@ export default class ResourceProxy {
    * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
    */
   get(id) {
-    const data = {
+    let data = {
       number: {id},
       string: {id},
       object: id,
     }[typeof id] || {};
+
+    data = Object.assign(this._seedData, data);
 
     const url = this.new(data).url;
 
@@ -294,18 +185,11 @@ export default class ResourceProxy {
    * api.users.select(&apos;me&apos;).colors().then(doSomethingCool);
    */
   select(id) {
-    const data = typeof id === &apos;undefined&apos; ? {} : {id};
+    let data = typeof id === &apos;undefined&apos; ? {} : {id};
+
+    data = Object.assign(this._seedData, data);
 
     return this.new(data);
-  }
-
-  /**
-   * Build a new isntance of the target
-   * @param {Object&lt;String, *&gt;} data - Data for the object to be populated with
-   * @returns {ResourceBase} - Resource with target data
-   */
-  new(data = {}) {
-    return new this.Target(this._api, data);
   }
 }
 </code></pre>

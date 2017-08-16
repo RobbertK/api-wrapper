@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">Permission | API Document</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/SimpleResourceProxy.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -102,422 +102,200 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Permission from &apos;<span><a href="file/src/crud/Permission.js.html#lineNumber35">@mapcreator/maps4news/src/crud/Permission.js</a></span>&apos;</code></pre></div>
-  <span data-ice="access">public</span>
-  <span data-ice="kind">class</span>
-  
-  
-  
-  <span data-ice="source">| <span><a href="file/src/crud/Permission.js.html#lineNumber35">source</a></span></span>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">src/SimpleResourceProxy.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
-<div class="self-detail detail">
-  <h1 data-ice="name">Permission</h1>
+import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
+import PaginatedResourceListing from &apos;./PaginatedResourceListing&apos;;
+import {isParentOf} from &apos;./utils/reflection&apos;;
 
-  
+/**
+ * Proxy for accessing resource. This will make sure that they
+ * are properly wrapped before the promise resolves.
+ * @protected
+ */
+export default class SimpleResourceProxy {
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {ResourceBase} Target - Target to wrap
+   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
+   * @param {object} seedData - Internal use, used for seeding ::new
+   */
+  constructor(api, Target, altUrl = null, seedData = {}) {
+    if (!isParentOf(ResourceBase, Target)) {
+      throw new TypeError(&apos;Target is not a child of ResourceBase&apos;);
+    }
 
-  
-  
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span> &#x2192; Permission</div></div>
-  
-  
-  
-  
-  
-  
+    if (typeof Target !== &apos;function&apos;) {
+      throw new TypeError(&apos;Target must to be a class not an instance&apos;);
+    }
 
-  
-  
-  
-  
+    this._api = api;
+    this._Target = Target;
+    this._seedData = seedData;
 
-  
+    if (altUrl) {
+      this.__baseUrl = altUrl;
+    }
+  }
 
-  
+  get _baseUrl() {
+    if (!this.__baseUrl) {
+      this.__baseUrl = this.new().baseUrl;
+    }
 
-  
+    return this.__baseUrl;
+  }
 
-  
-</div>
+  /**
+   * Get api instance
+   * @returns {Maps4News} - Api instance
+   */
+  get api() {
+    return this._api;
+  }
 
+  /**
+   * Target to wrap results in
+   * @returns {ResourceBase} - Target constructor
+   * @constructor
+   */
+  get Target() {
+    return this._Target;
+  }
 
+  /**
+   * The name of the target
+   * @returns {String} - Target name
+   * @example
+   * api.colors.accessorName === &apos;Color&apos;
+   * api.fontFamilies.accessorName = &apos;Font Families&apos;
+   */
+  get accessorName() {
+    return this.Target.name.replace(/([A-Z])/g, x =&gt; &apos; &apos; + x).trim();
+  }
 
+  /**
+   * Lists target resource
+   * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} query - Query
+   * @param {Number} page - The page to be requested
+   * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+   *
+   * @example
+   * // Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
+   * // See Api documentation for search query syntax
+   * var query = {
+   *   name: &apos;^:test&apos;,
+   *   scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
+   * }
+   *
+   * api.layers.search(query).then(console.dir);
+   */
+  search(query, page = 1, perPage = this.api.defaults.perPage) {
+    const url = this._baseUrl;
+    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);
 
-<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/Permission.js~Permission.html#instance-get-resourceName">resourceName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+    return resolver.getPage(page, perPage);
+  }
 
+  /**
+   * Lists target resource
+   * @param {Number} page - The page to be requested
+   * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API
+   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+   */
+  list(page = 1, perPage = this.api.defaults.perPage) {
+    return this.search({}, page, perPage);
+  }
 
-<div class="inherited-summary" data-ice="inheritedSummary"><h2>Inherited Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-api">api</a></span></span><span data-ice="signature">: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get api instance</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-baseUrl">baseUrl</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Auto generated Resource base url</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-fieldNames">fieldNames</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>List fields that contain object data</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-ownable">ownable</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>If the resource can be owned by an organisation</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      <span class="abstract" data-ice="abstract">abstract</span>
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName">resourceName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Resource name</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourcePath">resourcePath</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Resource path template</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-url">url</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Auto generated resource url</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-refresh">refresh</a></span></span><span data-ice="signature">(updateSelf: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Refresh the resource by requesting it from the server again</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-toString">toString</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>String representation of the resource, similar to Python&apos;s <strong>repr</strong></p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">protected</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-_proxyResourceList">_proxyResourceList</a></span></span><span data-ice="signature">(Target: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>, url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, seedData: <span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span>): <span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Macro for resource listing</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+  /**
+   * Lists target resource
+   * @param {Number} page - The page to be requested
+   * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+   * @param {Boolean} cacheEnabled - If the pagination cache should be used
+   * @param {Number} cacheTime - Amount of seconds to store a value in cache
+   * @param {Boolean} shareCache - Share cache across instances
+   * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+   *
+   */
+  listAndWrap(page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {
+    return this.searchAndWrap({}, page, perPage, cacheEnabled, cacheTime, shareCache);
+  }
 
+  /**
+   * Lists target resource
+   * @param {Object&lt;String, String|Array&lt;String&gt;&gt;} query - Query
+   * @param {Number} page - The page to be requested
+   * @param {Number} perPage - Amount of items per page. This is silently capped by the API
+   * @param {Boolean} cacheEnabled - If the pagination cache should be used
+   * @param {Number} cacheTime - Amount of seconds to store a value in cache
+   * @param {Boolean} shareCache - Share cache across instances
+   * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance
+   *
+   * @example
+   * // Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
+   * // See Api documentation for search query syntax
+   * var query = {
+   *   name: &apos;^:test&apos;,
+   *   scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
+   * }
+   *
+   * api.layers.searchAndWrap(query)
+   */
+  searchAndWrap(query, page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {
+    const url = this._baseUrl;
+    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query, page, perPage);
+    const wrapped = resolver.wrap(cacheEnabled, cacheTime, shareCache);
 
+    wrapped.get(page);
 
+    return wrapped;
+  }
 
-<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+  /**
+   * Build a new isntance of the target
+   * @param {Object&lt;String, *&gt;} data - Data for the object to be populated with
+   * @returns {ResourceBase} - Resource with target data
+   */
+  new(data = {}) {
+    // Merge but don&apos;t overwrite using seed data
+    data = Object.assign(this._seedData, data);
 
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-resourceName">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span data-ice="name">resourceName</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/crud/Permission.js.html#lineNumber36">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Resource name</p>
-</div>
-
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName">ResourceBase#resourceName</a></span></div>
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
+    return new this.Target(this._api, data);
+  }
+}
+</code></pre>
 
 </div>
 

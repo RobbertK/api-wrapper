@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -134,11 +135,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import CrudBase from &apos;./base/CrudBase&apos;;
-import Layer from &apos;./Layer&apos;;
-import JobShare from &apos;./JobShare&apos;;
-import JobResult from &apos;./JobResult&apos;;
 import {isParentOf} from &apos;../utils/reflection&apos;;
+import CrudBase from &apos;./base/CrudBase&apos;;
+import JobResult from &apos;./JobResult&apos;;
+import JobShare from &apos;./JobShare&apos;;
+import Layer from &apos;./Layer&apos;;
 
 export default class JobRevision extends CrudBase {
   get baseUrl() {
@@ -153,6 +154,43 @@ export default class JobRevision extends CrudBase {
     return &apos;job-revisions&apos;;
   }
 
+  /**
+   * Get layers
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+   */
+  get layers() {
+    return this._proxyResourceList(Layer);
+  }
+
+  /**
+   * Get the job result
+   * @returns {Promise} - Resolves with a {@link JobResult} instance and rejects with {@link ApiError}
+   */
+  result() {
+    const url = `${this.url}/result`;
+
+    return new Promise((resolve, reject) =&gt; {
+      this.api.request(url)
+        .catch(reject)
+        .then(data =&gt; resolve(new JobResult(this.api, data)));
+    });
+  }
+
+  /**
+   * Get a result proxy
+   *
+   * @returns {JobResult} - Empty job result used for
+   */
+  get resultProxy() {
+    const data = {
+      jobId: this.jobId,
+      jobRevisionId: this.id,
+    };
+
+    return new JobResult(this.api, data);
+  }
+
+  // noinspection JSCheckFunctionSignatures
   /**
    * Save updated job revision
    * @param {Object} object - Map object
@@ -220,14 +258,6 @@ export default class JobRevision extends CrudBase {
   }
 
   /**
-   * Get layers
-   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Layer} instances and rejects with {@link ApiError}
-   */
-  layers() {
-    return this._listResource(Layer);
-  }
-
-  /**
    * Share the job revision
    * @param {String} visibility - See {@link JobShareVisibility}, either `private` or `organisation`
    * @returns {Promise} - Resolves with a {@link String} containing the share link and rejects with {@link ApiError}
@@ -236,27 +266,13 @@ export default class JobRevision extends CrudBase {
     visibility = visibility.toLowerCase();
 
     if (visibility !== JobShare.visibility.ORGANISATION &amp;&amp;
-        visibility !== JobShare.visibility.PRIVATE) {
+      visibility !== JobShare.visibility.PRIVATE) {
       throw new Error(`Unknown visibility &apos;${visibility}&apos;`);
     }
 
     const url = `${this.url}/share`;
 
     return this.api.request(url, &apos;POST&apos;, {visibility});
-  }
-
-  /**
-   * Get the job result
-   * @returns {Promise} - Resolves with a {@link JobResult} instance and rejects with {@link ApiError}
-   */
-  result() {
-    const url = `${this.url}/result`;
-
-    return new Promise((resolve, reject) =&gt; {
-      this.api.request(url)
-        .catch(reject)
-        .then(data =&gt; resolve(new JobResult(this.api, data)));
-    });
   }
 }
 </code></pre>

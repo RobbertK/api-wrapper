@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -134,8 +135,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import CrudBase from &apos;./CrudBase&apos;;
 import {AbstractError} from &apos;../../errors/AbstractError&apos;;
+import {pascalToCamelCase} from &apos;../../utils/caseConverter&apos;;
+import CrudBase from &apos;./CrudBase&apos;;
 
 /**
  * Crud base for resource sets
@@ -145,14 +147,16 @@ export default class CrudSetBase extends CrudBase {
 
   /**
    * Get items associated with the set
-   * @param {Number} page - Page number
-   * @param {Number} perPage - Amount of items per page
-   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link Notification} instances and rejects with {@link ApiError}
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
    */
-  items(page = 1, perPage = this.api.defaults.perPage) {
+  get items() {
     const url = `${this.url}/items`;
 
-    return this._listResource(this._Child, url, page, perPage);
+    const data = {};
+
+    data[this.foreignKeyName] = this.id;
+
+    return this._proxyResourceList(this._Child, url, data);
   }
 
   /**
@@ -164,6 +168,24 @@ export default class CrudSetBase extends CrudBase {
    */
   get _Child() {
     throw new AbstractError();
+  }
+
+  /**
+   * Get the foreign key name
+   * @returns {string} - Foreign key name
+   * @example
+   * api.fontFamilies.select(1).foreignKeyName === &apos;fontFamilyId&apos;
+   */
+  get foreignKeyName() {
+    if (!this._fk) {
+      let key = this.constructor.name; // ex: FontFamily
+
+      key = pascalToCamelCase(key); // ex: fontFamily
+
+      this._fk = `${key}Id`;
+    }
+
+    return this._fk;
   }
 }
 </code></pre>

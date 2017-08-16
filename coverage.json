@@ -1,7 +1,7 @@
 {
-  "coverage": "76.74%",
-  "expectCount": 344,
-  "actualCount": 264,
+  "coverage": "76.72%",
+  "expectCount": 348,
+  "actualCount": 267,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -43,8 +43,8 @@
       "undocumentLines": []
     },
     "src/crud/base/CrudSetBase.js": {
-      "expectCount": 3,
-      "actualCount": 3,
+      "expectCount": 4,
+      "actualCount": 4,
       "undocumentLines": []
     },
     "src/crud/Dimension.js": {
@@ -143,24 +143,25 @@
       ]
     },
     "src/crud/Job.js": {
-      "expectCount": 7,
-      "actualCount": 5,
+      "expectCount": 6,
+      "actualCount": 4,
       "undocumentLines": [
-        37,
-        68
+        38,
+        59
       ]
     },
     "src/crud/JobResult.js": {
-      "expectCount": 4,
+      "expectCount": 5,
       "actualCount": 2,
       "undocumentLines": [
         35,
+        40,
         36
       ]
     },
     "src/crud/JobRevision.js": {
-      "expectCount": 11,
-      "actualCount": 7,
+      "expectCount": 12,
+      "actualCount": 8,
       "undocumentLines": [
         39,
         40,
@@ -310,8 +311,8 @@
       ]
     },
     "src/crud/base/ResourceBase.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "src/ResourceCache.js": {
@@ -324,8 +325,13 @@
       ]
     },
     "src/ResourceProxy.js": {
-      "expectCount": 12,
-      "actualCount": 12,
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "src/SimpleResourceProxy.js": {
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "src/utils/Singleton.js": {
@@ -384,8 +390,8 @@
       "undocumentLines": []
     },
     "src/crud/User.js": {
-      "expectCount": 18,
-      "actualCount": 16,
+      "expectCount": 17,
+      "actualCount": 15,
       "undocumentLines": [
         50,
         51

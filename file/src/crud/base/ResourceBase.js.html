@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -138,6 +139,7 @@ import {AbstractClassError, AbstractError} from &apos;../../errors/AbstractError
 import Maps4News from &apos;../../Maps4News&apos;;
 import {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from &apos;../../utils/caseConverter&apos;;
 import {isParentOf} from &apos;../../utils/reflection&apos;;
+import SimpleResourceProxy from &apos;../../SimpleResourceProxy&apos;;
 
 /**
  * Resource base
@@ -159,16 +161,15 @@ export default class ResourceBase {
 
     // Normalize keys to snake_case
     // Fix data types
-    Object.keys(data).map(key =&gt; {
+    for (const key of Object.keys(data)) {
       const newKey = camelToSnakeCase(pascalToCamelCase(key));
 
+      data[newKey] = ResourceBase._guessType(newKey, data[key]);
+
       if (newKey !== key) {
-        data[newKey] = ResourceBase._guessType(newKey, data[key]);
         delete data[key];
-      } else {
-        data[key] = ResourceBase._guessType(newKey, data[key]);
       }
-    });
+    }
 
     this._baseProperties = data;
     this._properties = {};
@@ -279,7 +280,7 @@ export default class ResourceBase {
   static _guessType(name, value) {
     const regexp = /(?:^|_)([^_$]+)$/g;
     const match = regexp.exec(name);
-    const idMacros = [&apos;last&apos;, &apos;me&apos;];
+    const idMacros = [&apos;last&apos;, &apos;me&apos;, &apos;mine&apos;];
 
     if (match === null || typeof value !== &apos;string&apos;) {
       return value;
@@ -353,6 +354,24 @@ export default class ResourceBase {
    */
   toString() {
     return `${this.constructor.name}(${this.id})`;
+  }
+
+  /**
+   * Macro for resource listing
+   * @param {ResourceBase} Target - Target object
+   * @param {?String} url - Target url, if null it will guess
+   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+   * @protected
+   */
+  _proxyResourceList(Target, url = null, seedData = {}) {
+    if (!url) {
+      const resource = (new Target(this.api)).resourceName.replace(/s+$/, &apos;&apos;);
+
+      url = `${this.url}/${resource}s`;
+    }
+
+    return new SimpleResourceProxy(this.api, Target, url, seedData);
   }
 }
 </code></pre>

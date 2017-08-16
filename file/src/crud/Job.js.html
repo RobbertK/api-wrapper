@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -134,6 +135,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import ResourceProxy from &apos;../ResourceProxy&apos;;
 import CrudBase from &apos;./base/CrudBase&apos;;
 import JobResult from &apos;./JobResult&apos;;
 import JobRevision from &apos;./JobRevision&apos;;
@@ -141,32 +143,22 @@ import JobRevision from &apos;./JobRevision&apos;;
 export default class Job extends CrudBase {
   /**
    * Get the list of associated job results
-   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobResult} instances and rejects with {@link ApiError}
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
    */
-  results() {
-    return this._listResource(JobResult, `${this.url}/results`);
+  get results() {
+    return this._proxyResourceList(JobResult, `${this.url}/results`);
   }
 
   /**
    * Get the list job revisions
-   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance containing {@link JobRevision} instances and rejects with {@link ApiError}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
    */
-  revisions() {
-    return this._listResource(JobRevision, `${this.url}/revisions`);
-  }
+  get revisions() {
+    const data = {
+      jobId: this.id,
+    };
 
-  /**
-   * Get revision by id
-   * @param {string} id - Revision id
-   * @returns {Promise} -  Resolves with {@link JobRevision} instance and rejects with {@link ApiError}
-   */
-  getRevision(id = &apos;last&apos;) {
-    return new Promise((resolve, reject) =&gt; {
-      this._api
-        .request(`${this.url}/revisions/${id}`)
-        .catch(reject)
-        .then(data =&gt; resolve(new JobRevision(this._api, data)));
-    });
+    return new ResourceProxy(this.api, JobRevision, null, data);
   }
 
   get resourceName() {

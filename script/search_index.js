@@ -282,6 +282,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/simpleresourceproxy.js~simpleresourceproxy",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html",
+    "<span>SimpleResourceProxy</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/SimpleResourceProxy.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/utils/singleton.js~singleton",
     "class/src/utils/Singleton.js~Singleton.html",
     "<span>Singleton</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/Singleton.js</span>",
@@ -745,13 +751,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -847,13 +853,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1135,13 +1141,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
@@ -1231,13 +1237,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
@@ -1308,24 +1314,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/resourceproxy.js~resourceproxy#target",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-get-Target",
-    "src/ResourceProxy.js~ResourceProxy#Target",
-    "member"
-  ],
-  [
-    "src/resourceproxy.js~resourceproxy#accessorname",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-get-accessorName",
-    "src/ResourceProxy.js~ResourceProxy#accessorName",
-    "member"
-  ],
-  [
-    "src/resourceproxy.js~resourceproxy#api",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-get-api",
-    "src/ResourceProxy.js~ResourceProxy#api",
-    "member"
-  ],
-  [
     "src/resourceproxy.js~resourceproxy#constructor",
     "class/src/ResourceProxy.js~ResourceProxy.html#instance-constructor-constructor",
     "src/ResourceProxy.js~ResourceProxy#constructor",
@@ -1338,39 +1326,69 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/resourceproxy.js~resourceproxy#list",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-list",
-    "src/ResourceProxy.js~ResourceProxy#list",
-    "method"
-  ],
-  [
-    "src/resourceproxy.js~resourceproxy#listandwrap",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-listAndWrap",
-    "src/ResourceProxy.js~ResourceProxy#listAndWrap",
-    "method"
-  ],
-  [
-    "src/resourceproxy.js~resourceproxy#new",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-new",
-    "src/ResourceProxy.js~ResourceProxy#new",
-    "method"
-  ],
-  [
-    "src/resourceproxy.js~resourceproxy#search",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-search",
-    "src/ResourceProxy.js~ResourceProxy#search",
-    "method"
-  ],
-  [
-    "src/resourceproxy.js~resourceproxy#searchandwrap",
-    "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-searchAndWrap",
-    "src/ResourceProxy.js~ResourceProxy#searchAndWrap",
-    "method"
-  ],
-  [
     "src/resourceproxy.js~resourceproxy#select",
     "class/src/ResourceProxy.js~ResourceProxy.html#instance-method-select",
     "src/ResourceProxy.js~ResourceProxy#select",
+    "method"
+  ],
+  [
+    "src/simpleresourceproxy.js",
+    "file/src/SimpleResourceProxy.js.html",
+    "src/SimpleResourceProxy.js",
+    "file"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#target",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-Target",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#Target",
+    "member"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#accessorname",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-accessorName",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#accessorName",
+    "member"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#api",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-api",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#api",
+    "member"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#constructor",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-constructor-constructor",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#constructor",
+    "method"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#list",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-list",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#list",
+    "method"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#listandwrap",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-listAndWrap",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#listAndWrap",
+    "method"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#new",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-new",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#new",
+    "method"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#search",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-search",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#search",
+    "method"
+  ],
+  [
+    "src/simpleresourceproxy.js~simpleresourceproxy#searchandwrap",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-searchAndWrap",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#searchAndWrap",
     "method"
   ],
   [
@@ -1524,12 +1542,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/crud/job.js~job#getrevision",
-    "class/src/crud/Job.js~Job.html#instance-method-getRevision",
-    "src/crud/Job.js~Job#getRevision",
-    "method"
-  ],
-  [
     "src/crud/job.js~job#lastarchiveurl",
     "class/src/crud/Job.js~Job.html#instance-get-lastArchiveUrl",
     "src/crud/Job.js~Job#lastArchiveUrl",
@@ -1549,15 +1561,15 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/job.js~job#results",
-    "class/src/crud/Job.js~Job.html#instance-method-results",
+    "class/src/crud/Job.js~Job.html#instance-get-results",
     "src/crud/Job.js~Job#results",
-    "method"
+    "member"
   ],
   [
     "src/crud/job.js~job#revisions",
-    "class/src/crud/Job.js~Job.html#instance-method-revisions",
+    "class/src/crud/Job.js~Job.html#instance-get-revisions",
     "src/crud/Job.js~Job#revisions",
-    "method"
+    "member"
   ],
   [
     "src/crud/jobresult.js",
@@ -1581,6 +1593,12 @@ window.esdocSearchIndex = [
     "src/crud/jobresult.js~jobresult#resourcename",
     "class/src/crud/JobResult.js~JobResult.html#instance-get-resourceName",
     "src/crud/JobResult.js~JobResult#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/jobresult.js~jobresult#resourcepath",
+    "class/src/crud/JobResult.js~JobResult.html#instance-get-resourcePath",
+    "src/crud/JobResult.js~JobResult#resourcePath",
     "member"
   ],
   [
@@ -1609,9 +1627,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/jobrevision.js~jobrevision#layers",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-layers",
+    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-layers",
     "src/crud/JobRevision.js~JobRevision#layers",
-    "method"
+    "member"
   ],
   [
     "src/crud/jobrevision.js~jobrevision#object",
@@ -1636,6 +1654,12 @@ window.esdocSearchIndex = [
     "class/src/crud/JobRevision.js~JobRevision.html#instance-method-result",
     "src/crud/JobRevision.js~JobRevision#result",
     "method"
+  ],
+  [
+    "src/crud/jobrevision.js~jobrevision#resultproxy",
+    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-resultProxy",
+    "src/crud/JobRevision.js~JobRevision#resultProxy",
+    "member"
   ],
   [
     "src/crud/jobrevision.js~jobrevision#save",
@@ -1777,57 +1801,57 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/organisation.js~organisation#colors",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-colors",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-colors",
     "src/crud/Organisation.js~Organisation#colors",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#contracts",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-contracts",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-contracts",
     "src/crud/Organisation.js~Organisation#contracts",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#dimensionsets",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-dimensionSets",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-dimensionSets",
     "src/crud/Organisation.js~Organisation#dimensionSets",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#features",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-features",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-features",
     "src/crud/Organisation.js~Organisation#features",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#fontfamilies",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-fontFamilies",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-fontFamilies",
     "src/crud/Organisation.js~Organisation#fontFamilies",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#jobshares",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-jobShares",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-jobShares",
     "src/crud/Organisation.js~Organisation#jobShares",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#jobtypes",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-jobTypes",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-jobTypes",
     "src/crud/Organisation.js~Organisation#jobTypes",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#layers",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-layers",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-layers",
     "src/crud/Organisation.js~Organisation#layers",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#mapstylesets",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-mapstyleSets",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-mapstyleSets",
     "src/crud/Organisation.js~Organisation#mapstyleSets",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#resourcename",
@@ -1837,9 +1861,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/organisation.js~organisation#svgsets",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-svgSets",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-svgSets",
     "src/crud/Organisation.js~Organisation#svgSets",
-    "method"
+    "member"
   ],
   [
     "src/crud/organisation.js~organisation#sync",
@@ -1855,9 +1879,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/organisation.js~organisation#users",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-users",
+    "class/src/crud/Organisation.js~Organisation.html#instance-get-users",
     "src/crud/Organisation.js~Organisation#users",
-    "method"
+    "member"
   ],
   [
     "src/crud/permission.js",
@@ -1939,27 +1963,27 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/user.js~user#colors",
-    "class/src/crud/User.js~User.html#instance-method-colors",
+    "class/src/crud/User.js~User.html#instance-get-colors",
     "src/crud/User.js~User#colors",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#dimensionsets",
-    "class/src/crud/User.js~User.html#instance-method-dimensionSets",
+    "class/src/crud/User.js~User.html#instance-get-dimensionSets",
     "src/crud/User.js~User#dimensionSets",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#features",
-    "class/src/crud/User.js~User.html#instance-method-features",
+    "class/src/crud/User.js~User.html#instance-get-features",
     "src/crud/User.js~User#features",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#fontfamilies",
-    "class/src/crud/User.js~User.html#instance-method-fontFamilies",
+    "class/src/crud/User.js~User.html#instance-get-fontFamilies",
     "src/crud/User.js~User#fontFamilies",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#ips",
@@ -1968,28 +1992,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/crud/user.js~user#isadmin",
-    "class/src/crud/User.js~User.html#instance-method-isAdmin",
-    "src/crud/User.js~User#isAdmin",
-    "method"
-  ],
-  [
     "src/crud/user.js~user#jobshares",
-    "class/src/crud/User.js~User.html#instance-method-jobShares",
+    "class/src/crud/User.js~User.html#instance-get-jobShares",
     "src/crud/User.js~User#jobShares",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#jobtypes",
-    "class/src/crud/User.js~User.html#instance-method-jobTypes",
+    "class/src/crud/User.js~User.html#instance-get-jobTypes",
     "src/crud/User.js~User#jobTypes",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#jobs",
-    "class/src/crud/User.js~User.html#instance-method-jobs",
+    "class/src/crud/User.js~User.html#instance-get-jobs",
     "src/crud/User.js~User#jobs",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#language",
@@ -1999,21 +2017,21 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/user.js~user#layers",
-    "class/src/crud/User.js~User.html#instance-method-layers",
+    "class/src/crud/User.js~User.html#instance-get-layers",
     "src/crud/User.js~User#layers",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#mapstylesets",
-    "class/src/crud/User.js~User.html#instance-method-mapstyleSets",
+    "class/src/crud/User.js~User.html#instance-get-mapstyleSets",
     "src/crud/User.js~User#mapstyleSets",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#notifications",
-    "class/src/crud/User.js~User.html#instance-method-notifications",
+    "class/src/crud/User.js~User.html#instance-get-notifications",
     "src/crud/User.js~User#notifications",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#organisation",
@@ -2023,9 +2041,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/user.js~user#permissions",
-    "class/src/crud/User.js~User.html#instance-method-permissions",
+    "class/src/crud/User.js~User.html#instance-get-permissions",
     "src/crud/User.js~User#permissions",
-    "method"
+    "member"
   ],
   [
     "src/crud/user.js~user#resourcename",
@@ -2035,9 +2053,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/crud/user.js~user#svgsets",
-    "class/src/crud/User.js~User.html#instance-method-svgSets",
+    "class/src/crud/User.js~User.html#instance-get-svgSets",
     "src/crud/User.js~User#svgSets",
-    "method"
+    "member"
   ],
   [
     "src/crud/base/crudbase.js",
@@ -2094,16 +2112,28 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/crud/base/crudsetbase.js~crudsetbase#foreignkeyname",
+    "class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-foreignKeyName",
+    "src/crud/base/CrudSetBase.js~CrudSetBase#foreignKeyName",
+    "member"
+  ],
+  [
     "src/crud/base/crudsetbase.js~crudsetbase#items",
-    "class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-method-items",
+    "class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-items",
     "src/crud/base/CrudSetBase.js~CrudSetBase#items",
-    "method"
+    "member"
   ],
   [
     "src/crud/base/resourcebase.js",
     "file/src/crud/base/ResourceBase.js.html",
     "src/crud/base/ResourceBase.js",
     "file"
+  ],
+  [
+    "src/crud/base/resourcebase.js~resourcebase#_proxyresourcelist",
+    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-_proxyResourceList",
+    "src/crud/base/ResourceBase.js~ResourceBase#_proxyResourceList",
+    "method"
   ],
   [
     "src/crud/base/resourcebase.js~resourcebase#api",
@@ -2605,13 +2635,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
@@ -2629,13 +2659,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
@@ -2647,13 +2677,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
@@ -2689,9 +2719,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/traits/ownableresource.js~ownableresource#organisations",
-    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-organisations",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-get-organisations",
     "src/traits/OwnableResource.js~OwnableResource#organisations",
-    "method"
+    "member"
   ],
   [
     "src/traits/ownableresource.js~ownableresource#ownable",
