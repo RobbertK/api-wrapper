@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:8c505017ff09d76aa038, chunkhash:fd86e4b7e2cc42dbb24f, name:bundle, version:v1.0.1
+ * hash:029312c1836b6ade3742, chunkhash:22b8a9e1e2813c24afd4, name:bundle, version:v1.0.2
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.2) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -11977,7 +11977,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.1";
+var version = exports.version = "v1.0.2";
 
 /**
  * Package license
