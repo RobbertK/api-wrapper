@@ -31,7 +31,7 @@
  * 
  */
 /*!
- * hash:abe5d654cc5e79493e84, chunkhash:c4c8f88b017317137105, name:bundle, version:47133ee
+ * hash:71ad2dd89033ea4f25be, chunkhash:232fa8ef46fc6e3e3c68, name:bundle, version:fbaaf02
  * 
  * This bundle contains the following packages:
  * └─ @mapcreator/maps4news (1.0.0) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
@@ -323,6 +323,8 @@ var CrudBase = function (_ResourceBase) {
   _createClass(CrudBase, [{
     key: '_buildCreateData',
     value: function _buildCreateData() {
+      this._updateProperties();
+
       var out = {};
       var keys = [].concat(Object.keys(this._properties), Object.keys(this._baseProperties)).filter(function (item, pos, self) {
         return self.indexOf(item) === pos;
@@ -365,6 +367,7 @@ var CrudBase = function (_ResourceBase) {
      * @param {Number} [perPage= this.api.defaults.perPage] - Amount of items per page
      * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
      * @protected
+     * @deprecated
      */
 
   }, {
@@ -427,6 +430,8 @@ var CrudBase = function (_ResourceBase) {
     key: '_update',
     value: function _update() {
       var _this3 = this;
+
+      this._updateProperties();
 
       return new Promise(function (resolve, reject) {
         _this3.api.request(_this3.url, 'PATCH', _this3._properties).catch(reject).then(function () {
@@ -538,7 +543,7 @@ exports.isParentOf = isParentOf;
 exports.getTypeName = getTypeName;
 exports.mix = mix;
 
-var _Trait = __webpack_require__(82);
+var _Trait = __webpack_require__(83);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -903,13 +908,13 @@ var _Maps4News = __webpack_require__(51);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _caseConverter = __webpack_require__(121);
-
-var _reflection = __webpack_require__(11);
-
-var _SimpleResourceProxy = __webpack_require__(122);
+var _SimpleResourceProxy = __webpack_require__(121);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
+
+var _caseConverter = __webpack_require__(123);
+
+var _reflection = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -925,6 +930,8 @@ var ResourceBase = function () {
    * @param {Object<String, *>} data - Item data
    */
   function ResourceBase(api) {
+    var _this = this;
+
     var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     _classCallCheck(this, ResourceBase);
@@ -970,11 +977,58 @@ var ResourceBase = function () {
       }
     }
 
-    this._baseProperties = data;
+    this._baseProperties = data || {};
     this._properties = {};
     this._api = api;
 
-    this._applyProperties();
+    var fields = Object.keys(this._baseProperties);
+
+    // Apply properties
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+      for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        var _key = _step2.value;
+
+        this._applyProperty(_key);
+      }
+
+      // Add deleted field if possible
+    } catch (err) {
+      _didIteratorError2 = true;
+      _iteratorError2 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+          _iterator2.return();
+        }
+      } finally {
+        if (_didIteratorError2) {
+          throw _iteratorError2;
+        }
+      }
+    }
+
+    if (fields.includes('deleted_at')) {
+      Object.defineProperty(this, 'deleted', {
+        enumerable: true,
+        configurable: true,
+
+        get: function get() {
+          return Boolean(_this.deletedAt);
+        }
+      });
+    }
+
+    /* We keep track of any new fields by recording the
+     * keys the object currently has. We don't need no
+     * fancy-pants observers, Proxies etc.
+     */
+    this._knownFields = Object.keys(this).filter(function (x) {
+      return x[0] !== '_';
+    });
   }
 
   /**
@@ -984,106 +1038,116 @@ var ResourceBase = function () {
 
 
   _createClass(ResourceBase, [{
-    key: 'refresh',
+    key: '_updateProperties',
 
+
+    /**
+     * Moves new fields to this._properties and turns them into a getter/setter
+     * @returns {void}
+     * @protected
+     */
+    value: function _updateProperties() {
+      var _this2 = this;
+
+      // Build a list of new fields
+      var fields = Object.keys(this).filter(function (x) {
+        return x[0] !== '_';
+      }).filter(function (x) {
+        return !_this2._knownFields.includes(x);
+      });
+
+      // Move the pointer from this to the properties object
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = fields[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var key = _step3.value;
+
+          var newKey = (0, _caseConverter.camelToSnakeCase)(key);
+
+          this._properties[newKey] = this[key];
+          delete this[key];
+
+          this._knownFields.push(key);
+
+          this._applyProperty(newKey);
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+    }
 
     /**
      * Refresh the resource by requesting it from the server again
      * @param {Boolean} updateSelf - Update the current instance
      * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
      */
+
+  }, {
+    key: 'refresh',
     value: function refresh() {
-      var _this = this;
+      var _this3 = this;
 
       var updateSelf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
       return new Promise(function (resolve, reject) {
-        _this._api.request(_this.url).catch(reject).then(function (data) {
+        _this3._api.request(_this3.url).catch(reject).then(function (data) {
           if (updateSelf) {
-            _this._properties = {};
-            _this._baseProperties = data;
+            _this3._properties = {};
+            _this3._baseProperties = data;
           }
 
-          resolve(new _this(_this._api, data));
+          resolve(new _this3(_this3._api, data));
         });
       });
     }
 
     /**
-     * Creates proxies for the properties
+     * Create proxy for property
+     * @param {string} key - property key
      * @returns {void}
      * @private
      */
 
   }, {
-    key: '_applyProperties',
-    value: function _applyProperties() {
-      var _this2 = this;
+    key: '_applyProperty',
+    value: function _applyProperty(key) {
+      var _this4 = this;
 
-      var protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];
-      var fields = Object.keys(this._baseProperties);
+      var desc = {
+        enumerable: true,
+        configurable: true,
 
-      var _loop = function _loop(key) {
-        var desc = {
-          enumerable: true,
-          configurable: true,
-
-          get: function get() {
-            if (_this2._properties.hasOwnProperty(key)) {
-              return _this2._properties[key];
-            }
-
-            return _this2._baseProperties[key];
+        get: function get() {
+          if (_this4._properties.hasOwnProperty(key)) {
+            return _this4._properties[key];
           }
-        };
 
-        if (!protectedFields.includes(key)) {
-          desc.set = function (val) {
-            _this2._properties[key] = ResourceBase._guessType(key, val);
-            delete _this2._url; // Clears url cache
-          };
+          return _this4._baseProperties[key];
         }
-
-        Object.defineProperty(_this2, (0, _caseConverter.snakeToCamelCase)(key), desc);
       };
 
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var key = _step2.value;
-
-          _loop(key);
-        }
-
-        // Add deleted field if possible
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
+      if (!this._protectedFields.includes(key)) {
+        desc.set = function (val) {
+          _this4._properties[key] = ResourceBase._guessType(key, val);
+          delete _this4._url; // Clears url cache
+        };
       }
 
-      if (fields.includes('deleted_at')) {
-        Object.defineProperty(this, 'deleted', {
-          enumerable: true,
-          configurable: true,
-
-          get: function get() {
-            return Boolean(_this2.deletedAt);
-          }
-        });
-      }
+      Object.defineProperty(this, (0, _caseConverter.snakeToCamelCase)(key), desc);
     }
 
     /**
@@ -1158,6 +1222,18 @@ var ResourceBase = function () {
     get: function get() {
       throw new _AbstractError.AbstractError();
     }
+
+    /**
+     * Protected read-only fields
+     * @returns {Array<string>} - Array containing the protected fields
+     * @protected
+     */
+
+  }, {
+    key: '_protectedFields',
+    get: function get() {
+      return ['id', 'created_at', 'updated_at', 'deleted_at'];
+    }
   }, {
     key: 'ownable',
 
@@ -1178,14 +1254,14 @@ var ResourceBase = function () {
   }, {
     key: 'url',
     get: function get() {
-      var _this3 = this;
+      var _this5 = this;
 
       if (!this._url) {
         var url = this._api.host + '/' + this._api.version + this.resourcePath;
 
         // Find and replace any keys
         url = url.replace(/{(\w+)}/g, function (match, key) {
-          return _this3[(0, _caseConverter.snakeToCamelCase)(key)];
+          return _this5[(0, _caseConverter.snakeToCamelCase)(key)];
         });
 
         this._url = url;
@@ -1978,7 +2054,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _reflection = __webpack_require__(11);
 
-var _Trait2 = __webpack_require__(82);
+var _Trait2 = __webpack_require__(83);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2589,7 +2665,7 @@ var _OAuth = __webpack_require__(54);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
-var _ResourceCache = __webpack_require__(123);
+var _ResourceCache = __webpack_require__(122);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
@@ -2597,7 +2673,7 @@ var _ResourceProxy = __webpack_require__(92);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _hash = __webpack_require__(83);
+var _hash = __webpack_require__(82);
 
 var _reflection = __webpack_require__(11);
 
@@ -3449,7 +3525,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _AbstractError = __webpack_require__(50);
 
-var _caseConverter = __webpack_require__(121);
+var _caseConverter = __webpack_require__(123);
 
 var _CrudBase2 = __webpack_require__(6);
 
@@ -3800,7 +3876,7 @@ var _PaginatedResourceWrapper = __webpack_require__(176);
 
 var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
 
-var _hash = __webpack_require__(83);
+var _hash = __webpack_require__(82);
 
 var _reflection = __webpack_require__(11);
 
@@ -5776,59 +5852,6 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Trait interface
- * @interface
- */
-var Trait = exports.Trait = function Trait() {
-  _classCallCheck(this, Trait);
-};
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.fnv32a = fnv32a;
 exports.hashObject = hashObject;
 
@@ -5894,6 +5917,59 @@ function fnv32a(str) {
 function hashObject(data) {
   return fnv32a((0, _requests.encodeQueryString)(data));
 }
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Trait interface
+ * @interface
+ */
+var Trait = exports.Trait = function Trait() {
+  _classCallCheck(this, Trait);
+};
 
 /***/ }),
 /* 84 */
@@ -6688,7 +6764,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _SimpleResourceProxy2 = __webpack_require__(122);
+var _SimpleResourceProxy2 = __webpack_require__(121);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -8024,87 +8100,6 @@ var base = exports.base = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.snakeToCamelCase = snakeToCamelCase;
-exports.camelToSnakeCase = camelToSnakeCase;
-exports.pascalToCamelCase = pascalToCamelCase;
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Converts snake_case strings to camelCase
- * @param {String} str - a snake_case string
- * @returns {String} - Converted camelCase string
- * @private
- */
-function snakeToCamelCase(str) {
-  return str.replace(/(?:(_[a-z\d]))/g, function (x) {
-    return x[1].toUpperCase();
-  });
-}
-
-/**
- * Converts camelCase strings to snake_case
- * @param {String} str - a camelCase string
- * @returns {String} - Converted snake_case string
- * @private
- */
-function camelToSnakeCase(str) {
-  return str.replace(/([A-Z])/g, function (x) {
-    return '_' + x.toLowerCase();
-  });
-}
-
-/**
- * Converts PascalCase strings to camelCase
- * @param {String} str - a PascalCase string
- * @returns {String} - Converted camelCase string
- * @private
- */
-function pascalToCamelCase(str) {
-  return str.replace(/^([A-Z])/g, function (x) {
-    return x.toLowerCase();
-  });
-}
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * BSD 3-Clause License
@@ -8368,7 +8363,7 @@ var SimpleResourceProxy = function () {
 exports.default = SimpleResourceProxy;
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8698,6 +8693,87 @@ var ResourceCache = function () {
 exports.default = ResourceCache;
 
 /***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.snakeToCamelCase = snakeToCamelCase;
+exports.camelToSnakeCase = camelToSnakeCase;
+exports.pascalToCamelCase = pascalToCamelCase;
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Converts snake_case strings to camelCase
+ * @param {String} str - a snake_case string
+ * @returns {String} - Converted camelCase string
+ * @private
+ */
+function snakeToCamelCase(str) {
+  return str.replace(/(?:(_[a-z\d]))/g, function (x) {
+    return x[1].toUpperCase();
+  });
+}
+
+/**
+ * Converts camelCase strings to snake_case
+ * @param {String} str - a camelCase string
+ * @returns {String} - Converted snake_case string
+ * @private
+ */
+function camelToSnakeCase(str) {
+  return str.replace(/([A-Z])/g, function (x) {
+    return '_' + x.toLowerCase();
+  });
+}
+
+/**
+ * Converts PascalCase strings to camelCase
+ * @param {String} str - a PascalCase string
+ * @returns {String} - Converted camelCase string
+ * @private
+ */
+function pascalToCamelCase(str) {
+  return str.replace(/^([A-Z])/g, function (x) {
+    return x.toLowerCase();
+  });
+}
+
+/***/ }),
 /* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8944,7 +9020,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Trait2 = __webpack_require__(82);
+var _Trait2 = __webpack_require__(83);
 
 var _ImageHandler = __webpack_require__(178);
 
@@ -11900,7 +11976,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "47133ee";
+var version = exports.version = "fbaaf02";
 
 /**
  * Package license
@@ -12034,11 +12110,11 @@ var _PaginatedResourceListing = __webpack_require__(58);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
 
-var _ResourceCache = __webpack_require__(123);
+var _ResourceCache = __webpack_require__(122);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
-var _hash = __webpack_require__(83);
+var _hash = __webpack_require__(82);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

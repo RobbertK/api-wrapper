@@ -162,6 +162,8 @@ export default class CrudBase extends ResourceBase {
    * @protected
    */
   _buildCreateData() {
+    this._updateProperties();
+
     const out = {};
     const keys = [].concat(
       Object.keys(this._properties),
@@ -184,6 +186,7 @@ export default class CrudBase extends ResourceBase {
    * @param {Number} [perPage= this.api.defaults.perPage] - Amount of items per page
    * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
    * @protected
+   * @deprecated
    */
   _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {
     if (!url) {
@@ -230,6 +233,8 @@ export default class CrudBase extends ResourceBase {
    * @private
    */
   _update() {
+    this._updateProperties();
+
     return new Promise((resolve, reject) =&gt; {
       this.api
         .request(this.url, &apos;PATCH&apos;, this._properties)

@@ -140,7 +140,7 @@ api.colors.new(data).save().then(console.dir);</code>
   me.profession = &apos;Developer&apos;;
   me.save(); // Optional chaining to get the updated resource
 });</code>
-</code></pre><h3>Clone a resource</h3><p>Setting the id to null forces the creation of a new object upon saving. </p><pre><code class="lang-js"><code class="source-code prettyprint">api.colors(1).then(color =&gt; {
+</code></pre><h3>Clone a resource</h3><p>Setting the id to null forces the creation of a new object upon saving. </p><pre><code class="lang-js"><code class="source-code prettyprint">api.colors.get(1).then(color =&gt; {
   color.id = null;
   color.save();
 });</code>
@@ -185,7 +185,7 @@ api.colors
    .list(1, 50)
    .then(parsePages)
    .then(d =&gt; console.log(&apos;Total rows: &apos; + d.length));</code>
-</code></pre><p>Select current user but do not fetch any info to make fetching resources easier.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).colors().then(page =&gt; {
+</code></pre><p>Select current user but do not fetch any info to make fetching resources easier.</p><pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).colors.list().then(page =&gt; {
   console.dir(page.data);
 });</code>
 </code></pre><h3>Searching</h3><p>Resource lists can be queried to search for specific records as follows:</p><pre><code class="lang-js"><code class="source-code prettyprint">var query = {

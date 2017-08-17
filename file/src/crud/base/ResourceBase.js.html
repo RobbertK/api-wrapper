@@ -137,9 +137,9 @@
 
 import {AbstractClassError, AbstractError} from &apos;../../errors/AbstractError&apos;;
 import Maps4News from &apos;../../Maps4News&apos;;
+import SimpleResourceProxy from &apos;../../SimpleResourceProxy&apos;;
 import {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from &apos;../../utils/caseConverter&apos;;
 import {isParentOf} from &apos;../../utils/reflection&apos;;
-import SimpleResourceProxy from &apos;../../SimpleResourceProxy&apos;;
 
 /**
  * Resource base
@@ -171,11 +171,34 @@ export default class ResourceBase {
       }
     }
 
-    this._baseProperties = data;
+    this._baseProperties = data || {};
     this._properties = {};
     this._api = api;
 
-    this._applyProperties();
+    const fields = Object.keys(this._baseProperties);
+
+    // Apply properties
+    for (const key of fields) {
+      this._applyProperty(key);
+    }
+
+    // Add deleted field if possible
+    if (fields.includes(&apos;deleted_at&apos;)) {
+      Object.defineProperty(this, &apos;deleted&apos;, {
+        enumerable: true,
+        configurable: true,
+
+        get: () =&gt; {
+          return Boolean(this.deletedAt);
+        },
+      });
+    }
+
+    /* We keep track of any new fields by recording the
+     * keys the object currently has. We don&apos;t need no
+     * fancy-pants observers, Proxies etc.
+     */
+    this._knownFields = Object.keys(this).filter(x =&gt; x[0] !== &apos;_&apos;);
   }
 
   /**
@@ -204,6 +227,39 @@ export default class ResourceBase {
   }
 
   /**
+   * Protected read-only fields
+   * @returns {Array&lt;string&gt;} - Array containing the protected fields
+   * @protected
+   */
+  get _protectedFields() {
+    return [&apos;id&apos;, &apos;created_at&apos;, &apos;updated_at&apos;, &apos;deleted_at&apos;];
+  }
+
+  /**
+   * Moves new fields to this._properties and turns them into a getter/setter
+   * @returns {void}
+   * @protected
+   */
+  _updateProperties() {
+    // Build a list of new fields
+    const fields = Object.keys(this)
+      .filter(x =&gt; x[0] !== &apos;_&apos;)
+      .filter(x =&gt; !this._knownFields.includes(x));
+
+    // Move the pointer from this to the properties object
+    for (const key of fields) {
+      const newKey = camelToSnakeCase(key);
+
+      this._properties[newKey] = this[key];
+      delete this[key];
+
+      this._knownFields.push(key);
+
+      this._applyProperty(newKey);
+    }
+  }
+
+  /**
    * Refresh the resource by requesting it from the server again
    * @param {Boolean} updateSelf - Update the current instance
    * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
@@ -224,49 +280,33 @@ export default class ResourceBase {
   }
 
   /**
-   * Creates proxies for the properties
+   * Create proxy for property
+   * @param {string} key - property key
    * @returns {void}
    * @private
    */
-  _applyProperties() {
-    const protectedFields = [&apos;id&apos;, &apos;created_at&apos;, &apos;updated_at&apos;, &apos;deleted_at&apos;];
-    const fields = Object.keys(this._baseProperties);
+  _applyProperty(key) {
+    const desc = {
+      enumerable: true,
+      configurable: true,
 
-    for (const key of fields) {
-      const desc = {
-        enumerable: true,
-        configurable: true,
+      get: () =&gt; {
+        if (this._properties.hasOwnProperty(key)) {
+          return this._properties[key];
+        }
 
-        get: () =&gt; {
-          if (this._properties.hasOwnProperty(key)) {
-            return this._properties[key];
-          }
+        return this._baseProperties[key];
+      },
+    };
 
-          return this._baseProperties[key];
-        },
+    if (!this._protectedFields.includes(key)) {
+      desc.set = (val) =&gt; {
+        this._properties[key] = ResourceBase._guessType(key, val);
+        delete this._url; // Clears url cache
       };
-
-      if (!protectedFields.includes(key)) {
-        desc.set = (val) =&gt; {
-          this._properties[key] = ResourceBase._guessType(key, val);
-          delete this._url; // Clears url cache
-        };
-      }
-
-      Object.defineProperty(this, snakeToCamelCase(key), desc);
     }
 
-    // Add deleted field if possible
-    if (fields.includes(&apos;deleted_at&apos;)) {
-      Object.defineProperty(this, &apos;deleted&apos;, {
-        enumerable: true,
-        configurable: true,
-
-        get: () =&gt; {
-          return Boolean(this.deletedAt);
-        },
-      });
-    }
+    Object.defineProperty(this, snakeToCamelCase(key), desc);
   }
 
   /**

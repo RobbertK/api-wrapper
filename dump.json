@@ -9107,7 +9107,7 @@
     "__docId__": 319,
     "kind": "file",
     "name": "src/crud/base/CrudBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError} from '../../errors/AbstractError';\nimport PaginatedResourceListing from '../../PaginatedResourceListing';\nimport ResourceBase from './ResourceBase';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    const out = {};\n    const keys = [].concat(\n      Object.keys(this._properties),\n      Object.keys(this._baseProperties),\n    ).filter((item, pos, self) => self.indexOf(item) === pos);\n\n    for (const key of keys) {\n      out[key] = this._properties[key] || this._baseProperties[key];\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {Number} [page=1] - Page number\n   * @param {Number} [perPage= this.api.defaults.perPage] - Amount of items per page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   * @protected\n   */\n  _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    const resolver = new PaginatedResourceListing(this.api, url, Target);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.baseUrl, 'POST', this._buildCreateData())\n        .catch(reject)\n        .then(data => {\n          this._properties = {};\n          this._baseProperties = data;\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.url, 'PATCH', this._properties)\n        .catch(reject)\n        .then(() => resolve(this));\n    });\n  }\n\n  /**\n   * Delete item\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this.api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Restore item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore() {\n    return new Promise((resolve, reject) => {\n      this.api.request(this.url, 'PUT')\n        .catch(reject)\n        .then(data => resolve(new this(this.api, data)));\n    });\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError} from '../../errors/AbstractError';\nimport PaginatedResourceListing from '../../PaginatedResourceListing';\nimport ResourceBase from './ResourceBase';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    this._updateProperties();\n\n    const out = {};\n    const keys = [].concat(\n      Object.keys(this._properties),\n      Object.keys(this._baseProperties),\n    ).filter((item, pos, self) => self.indexOf(item) === pos);\n\n    for (const key of keys) {\n      out[key] = this._properties[key] || this._baseProperties[key];\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {Number} [page=1] - Page number\n   * @param {Number} [perPage= this.api.defaults.perPage] - Amount of items per page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   * @protected\n   * @deprecated\n   */\n  _listResource(Target, url = null, page = 1, perPage = this.api.defaults.perPage) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    const resolver = new PaginatedResourceListing(this.api, url, Target);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.baseUrl, 'POST', this._buildCreateData())\n        .catch(reject)\n        .then(data => {\n          this._properties = {};\n          this._baseProperties = data;\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    this._updateProperties();\n\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.url, 'PATCH', this._properties)\n        .catch(reject)\n        .then(() => resolve(this));\n    });\n  }\n\n  /**\n   * Delete item\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this.api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Restore item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore() {\n    return new Promise((resolve, reject) => {\n      this.api.request(this.url, 'PUT')\n        .catch(reject)\n        .then(data => resolve(new this(this.api, data)));\n    });\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/CrudBase.js",
     "access": null,
@@ -9207,7 +9207,8 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_listResource",
     "access": "protected",
     "description": "Macro for resource listing",
-    "lineNumber": 83,
+    "lineNumber": 86,
+    "deprecated": true,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9280,7 +9281,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#save",
     "access": null,
     "description": "Save item. This will create a new item if `id` is unset",
-    "lineNumber": 99,
+    "lineNumber": 102,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9308,7 +9309,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_create",
     "access": "private",
     "description": "Store new item",
-    "lineNumber": 108,
+    "lineNumber": 111,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9334,7 +9335,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 114,
+    "lineNumber": 117,
     "undocument": true,
     "unknown": [
       {
@@ -9357,7 +9358,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 115,
+    "lineNumber": 118,
     "undocument": true,
     "unknown": [
       {
@@ -9382,7 +9383,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_update",
     "access": "private",
     "description": "Update existing item",
-    "lineNumber": 127,
+    "lineNumber": 130,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9410,7 +9411,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#delete",
     "access": null,
     "description": "Delete item",
-    "lineNumber": 140,
+    "lineNumber": 145,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9438,7 +9439,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#restore",
     "access": null,
     "description": "Restore item",
-    "lineNumber": 148,
+    "lineNumber": 153,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9611,7 +9612,7 @@
     "__docId__": 337,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data;\n    this._properties = {};\n    this._api = api;\n\n    this._applyProperties();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Creates proxies for the properties\n   * @returns {void}\n   * @private\n   */\n  _applyProperties() {\n    const protectedFields = ['id', 'created_at', 'updated_at', 'deleted_at'];\n    const fields = Object.keys(this._baseProperties);\n\n    for (const key of fields) {\n      const desc = {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          if (this._properties.hasOwnProperty(key)) {\n            return this._properties[key];\n          }\n\n          return this._baseProperties[key];\n        },\n      };\n\n      if (!protectedFields.includes(key)) {\n        desc.set = (val) => {\n          this._properties[key] = ResourceBase._guessType(key, val);\n          delete this._url; // Clears url cache\n        };\n      }\n\n      Object.defineProperty(this, snakeToCamelCase(key), desc);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   * @todo find a reasonable way to cast boolean types\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[snakeToCamelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data || {};\n    this._properties = {};\n    this._api = api;\n\n    const fields = Object.keys(this._baseProperties);\n\n    // Apply properties\n    for (const key of fields) {\n      this._applyProperty(key);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n\n    /* We keep track of any new fields by recording the\n     * keys the object currently has. We don't need no\n     * fancy-pants observers, Proxies etc.\n     */\n    this._knownFields = Object.keys(this).filter(x => x[0] !== '_');\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Protected read-only fields\n   * @returns {Array<string>} - Array containing the protected fields\n   * @protected\n   */\n  get _protectedFields() {\n    return ['id', 'created_at', 'updated_at', 'deleted_at'];\n  }\n\n  /**\n   * Moves new fields to this._properties and turns them into a getter/setter\n   * @returns {void}\n   * @protected\n   */\n  _updateProperties() {\n    // Build a list of new fields\n    const fields = Object.keys(this)\n      .filter(x => x[0] !== '_')\n      .filter(x => !this._knownFields.includes(x));\n\n    // Move the pointer from this to the properties object\n    for (const key of fields) {\n      const newKey = camelToSnakeCase(key);\n\n      this._properties[newKey] = this[key];\n      delete this[key];\n\n      this._knownFields.push(key);\n\n      this._applyProperty(newKey);\n    }\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Create proxy for property\n   * @param {string} key - property key\n   * @returns {void}\n   * @private\n   */\n  _applyProperty(key) {\n    const desc = {\n      enumerable: true,\n      configurable: true,\n\n      get: () => {\n        if (this._properties.hasOwnProperty(key)) {\n          return this._properties[key];\n        }\n\n        return this._baseProperties[key];\n      },\n    };\n\n    if (!this._protectedFields.includes(key)) {\n      desc.set = (val) => {\n        this._properties[key] = ResourceBase._guessType(key, val);\n        delete this._url; // Clears url cache\n      };\n    }\n\n    Object.defineProperty(this, snakeToCamelCase(key), desc);\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   * @todo find a reasonable way to cast boolean types\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[snakeToCamelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/ResourceBase.js",
     "access": null,
@@ -9740,6 +9741,29 @@
   },
   {
     "__docId__": 343,
+    "kind": "member",
+    "name": "_knownFields",
+    "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
+    "static": false,
+    "longname": "src/crud/base/ResourceBase.js~ResourceBase#_knownFields",
+    "access": null,
+    "description": null,
+    "lineNumber": 96,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 344,
     "kind": "get",
     "name": "api",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9749,7 +9773,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 80,
+    "lineNumber": 103,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9771,7 +9795,7 @@
     }
   },
   {
-    "__docId__": 344,
+    "__docId__": 345,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9781,7 +9805,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#resourcePath",
     "access": null,
     "description": "Resource path template",
-    "lineNumber": 88,
+    "lineNumber": 111,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9803,7 +9827,7 @@
     }
   },
   {
-    "__docId__": 345,
+    "__docId__": 346,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9813,7 +9837,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#resourceName",
     "access": null,
     "description": "Resource name",
-    "lineNumber": 97,
+    "lineNumber": 120,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9831,7 +9855,67 @@
     "abstract": true
   },
   {
-    "__docId__": 346,
+    "__docId__": 347,
+    "kind": "get",
+    "name": "_protectedFields",
+    "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/crud/base/ResourceBase.js~ResourceBase#_protectedFields",
+    "access": "protected",
+    "description": "Protected read-only fields",
+    "lineNumber": 129,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Array<string>} - Array containing the protected fields"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array<string>"
+      ],
+      "spread": false,
+      "description": "Array containing the protected fields"
+    },
+    "type": {
+      "types": [
+        "string[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 348,
+    "kind": "method",
+    "name": "_updateProperties",
+    "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/crud/base/ResourceBase.js~ResourceBase#_updateProperties",
+    "access": "protected",
+    "description": "Moves new fields to this._properties and turns them into a getter/setter",
+    "lineNumber": 138,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 349,
     "kind": "method",
     "name": "refresh",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9841,7 +9925,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#refresh",
     "access": null,
     "description": "Refresh the resource by requesting it from the server again",
-    "lineNumber": 106,
+    "lineNumber": 162,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9870,7 +9954,7 @@
     }
   },
   {
-    "__docId__": 347,
+    "__docId__": 350,
     "kind": "member",
     "name": "_properties",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9878,7 +9962,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 112,
+    "lineNumber": 168,
     "undocument": true,
     "unknown": [
       {
@@ -9893,7 +9977,7 @@
     }
   },
   {
-    "__docId__": 348,
+    "__docId__": 351,
     "kind": "member",
     "name": "_baseProperties",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9901,7 +9985,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 113,
+    "lineNumber": 169,
     "undocument": true,
     "unknown": [
       {
@@ -9916,24 +10000,35 @@
     }
   },
   {
-    "__docId__": 349,
+    "__docId__": 352,
     "kind": "method",
-    "name": "_applyProperties",
+    "name": "_applyProperty",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/crud/base/ResourceBase.js~ResourceBase#_applyProperties",
+    "longname": "src/crud/base/ResourceBase.js~ResourceBase#_applyProperty",
     "access": "private",
-    "description": "Creates proxies for the properties",
-    "lineNumber": 126,
+    "description": "Create proxy for property",
+    "lineNumber": 183,
     "unknown": [
       {
         "tagName": "@returns",
         "tagValue": "{void}"
       }
     ],
-    "params": [],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "property key"
+      }
+    ],
     "return": {
       "nullable": null,
       "types": [
@@ -9944,7 +10039,7 @@
     }
   },
   {
-    "__docId__": 350,
+    "__docId__": 353,
     "kind": "method",
     "name": "_guessType",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -9954,7 +10049,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase._guessType",
     "access": "private",
     "description": "Guess type based on property name",
-    "lineNumber": 175,
+    "lineNumber": 215,
     "todo": [
       "find a reasonable way to cast boolean types"
     ],
@@ -9996,7 +10091,7 @@
     }
   },
   {
-    "__docId__": 351,
+    "__docId__": 354,
     "kind": "get",
     "name": "ownable",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -10006,7 +10101,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#ownable",
     "access": null,
     "description": "If the resource can be owned by an organisation",
-    "lineNumber": 205,
+    "lineNumber": 245,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10028,7 +10123,7 @@
     }
   },
   {
-    "__docId__": 352,
+    "__docId__": 355,
     "kind": "get",
     "name": "url",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -10038,7 +10133,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#url",
     "access": null,
     "description": "Auto generated resource url",
-    "lineNumber": 213,
+    "lineNumber": 253,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10060,7 +10155,7 @@
     }
   },
   {
-    "__docId__": 353,
+    "__docId__": 356,
     "kind": "member",
     "name": "_url",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -10068,7 +10163,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_url",
     "access": null,
     "description": null,
-    "lineNumber": 220,
+    "lineNumber": 260,
     "undocument": true,
     "unknown": [
       {
@@ -10083,7 +10178,7 @@
     }
   },
   {
-    "__docId__": 354,
+    "__docId__": 357,
     "kind": "get",
     "name": "baseUrl",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -10093,7 +10188,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#baseUrl",
     "access": null,
     "description": "Auto generated Resource base url",
-    "lineNumber": 230,
+    "lineNumber": 270,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10115,7 +10210,7 @@
     }
   },
   {
-    "__docId__": 355,
+    "__docId__": 358,
     "kind": "get",
     "name": "fieldNames",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -10125,7 +10220,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
     "access": null,
     "description": "List fields that contain object data",
-    "lineNumber": 240,
+    "lineNumber": 280,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10147,7 +10242,7 @@
     }
   },
   {
-    "__docId__": 356,
+    "__docId__": 359,
     "kind": "method",
     "name": "toString",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -10157,7 +10252,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#toString",
     "access": null,
     "description": "String representation of the resource, similar to Python's __repr__",
-    "lineNumber": 250,
+    "lineNumber": 290,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10175,7 +10270,7 @@
     }
   },
   {
-    "__docId__": 357,
+    "__docId__": 360,
     "kind": "method",
     "name": "_proxyResourceList",
     "memberof": "src/crud/base/ResourceBase.js~ResourceBase",
@@ -10185,7 +10280,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_proxyResourceList",
     "access": "protected",
     "description": "Macro for resource listing",
-    "lineNumber": 262,
+    "lineNumber": 302,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10234,7 +10329,7 @@
     }
   },
   {
-    "__docId__": 358,
+    "__docId__": 361,
     "kind": "file",
     "name": "src/crud/index.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nexport Choropleth from './Choropleth.js';\nexport Color from './Color.js';\nexport Contract from './Contract.js';\nexport Dimension from './Dimension.js';\nexport DimensionSet from './DimensionSet.js';\nexport Faq from './Faq.js';\nexport Feature from './Feature.js';\nexport Font from './Font.js';\nexport FontFamily from './FontFamily.js';\nexport Highlight from './Highlight.js';\nexport InsetMap from './InsetMap.js';\nexport Job from './Job.js';\nexport JobResult from './JobResult.js';\nexport JobRevision from './JobRevision.js';\nexport JobShare from './JobShare.js';\nexport JobType from './JobType.js';\nexport Language from './Language.js';\nexport Layer from './Layer.js';\nexport Mapstyle from './Mapstyle.js';\nexport MapstyleSet from './MapstyleSet.js';\nexport Notification from './Notification.js';\nexport Organisation from './Organisation.js';\nexport Permission from './Permission.js';\nexport PlaceName from './PlaceName.js';\nexport Svg from './Svg.js';\nexport SvgSet from './SvgSet.js';\nexport SvgSetType from './SvgSetType.js';\nexport User from './User.js';\n\nimport CrudBase from './base/CrudBase';\nimport CrudSetBase from './base/CrudSetBase';\nimport ResourceBase from './base/ResourceBase';\n\n/**\n * @private\n */\nexport const base = {\n  CrudBase, CrudSetBase, ResourceBase,\n};\n",
@@ -10245,7 +10340,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 359,
+    "__docId__": 362,
     "kind": "variable",
     "name": "base",
     "memberof": "src/crud/index.js",
@@ -10264,7 +10359,7 @@
     }
   },
   {
-    "__docId__": 360,
+    "__docId__": 363,
     "kind": "file",
     "name": "src/errors/AbstractError.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Thrown by abstract methods and classes\n */\nexport class AbstractError extends Error {}\n\n/**\n * Thrown upon invocation of an abstract class\n */\nexport class AbstractClassError extends AbstractError {\n  constructor() {\n    super('Can not make an instance of an abstract class');\n  }\n}\n\n/**\n * Thrown upon invocation of an abstract method\n */\nexport class AbstractMethodError extends AbstractError {\n  constructor() {\n    super('Can not call an abstract method');\n  }\n}\n",
@@ -10275,7 +10370,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 361,
+    "__docId__": 364,
     "kind": "class",
     "name": "AbstractError",
     "memberof": "src/errors/AbstractError.js",
@@ -10293,7 +10388,7 @@
     ]
   },
   {
-    "__docId__": 362,
+    "__docId__": 365,
     "kind": "class",
     "name": "AbstractClassError",
     "memberof": "src/errors/AbstractError.js",
@@ -10311,7 +10406,7 @@
     ]
   },
   {
-    "__docId__": 363,
+    "__docId__": 366,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/AbstractError.js~AbstractClassError",
@@ -10332,7 +10427,7 @@
     "params": []
   },
   {
-    "__docId__": 364,
+    "__docId__": 367,
     "kind": "class",
     "name": "AbstractMethodError",
     "memberof": "src/errors/AbstractError.js",
@@ -10350,7 +10445,7 @@
     ]
   },
   {
-    "__docId__": 365,
+    "__docId__": 368,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/AbstractError.js~AbstractMethodError",
@@ -10371,7 +10466,7 @@
     "params": []
   },
   {
-    "__docId__": 366,
+    "__docId__": 369,
     "kind": "file",
     "name": "src/errors/ApiError.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Errors generated by the API\n */\nexport default class ApiError {\n  /**\n   * @param {String} type - Error type\n   * @param {String} message - Error message\n   * @param {Number} code - Http error code\n   */\n  constructor(type, message, code) {\n    this._type = type;\n    this._message = message;\n    this._code = code;\n  }\n\n  /**\n   * Error type\n   * @returns {String} - Error type\n   */\n  get type() {\n    return this._type;\n  }\n\n  /**\n   * Error message\n   * @returns {String} - Error message\n   */\n  get message() {\n    return this._message;\n  }\n\n  /**\n   * Http error code\n   * @returns {Number} - Http error code\n   */\n  get code() {\n    return this._code;\n  }\n\n  /**\n   * Display-able string\n   * @returns {string} - Displayable error string\n   */\n  toString() {\n    return `[${this._code}] ${this._type}: ${this._message}`;\n  }\n}\n",
@@ -10382,7 +10477,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 367,
+    "__docId__": 370,
     "kind": "class",
     "name": "ApiError",
     "memberof": "src/errors/ApiError.js",
@@ -10397,7 +10492,7 @@
     "interface": false
   },
   {
-    "__docId__": 368,
+    "__docId__": 371,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10442,7 +10537,7 @@
     ]
   },
   {
-    "__docId__": 369,
+    "__docId__": 372,
     "kind": "member",
     "name": "_type",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10465,7 +10560,7 @@
     }
   },
   {
-    "__docId__": 370,
+    "__docId__": 373,
     "kind": "member",
     "name": "_message",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10488,7 +10583,7 @@
     }
   },
   {
-    "__docId__": 371,
+    "__docId__": 374,
     "kind": "member",
     "name": "_code",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10511,7 +10606,7 @@
     }
   },
   {
-    "__docId__": 372,
+    "__docId__": 375,
     "kind": "get",
     "name": "type",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10543,7 +10638,7 @@
     }
   },
   {
-    "__docId__": 373,
+    "__docId__": 376,
     "kind": "get",
     "name": "message",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10575,7 +10670,7 @@
     }
   },
   {
-    "__docId__": 374,
+    "__docId__": 377,
     "kind": "get",
     "name": "code",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10607,7 +10702,7 @@
     }
   },
   {
-    "__docId__": 375,
+    "__docId__": 378,
     "kind": "method",
     "name": "toString",
     "memberof": "src/errors/ApiError.js~ApiError",
@@ -10635,7 +10730,7 @@
     }
   },
   {
-    "__docId__": 376,
+    "__docId__": 379,
     "kind": "file",
     "name": "src/errors/NodeError.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Invoked upon nodejs specific errors\n */\nexport default class NodeError extends Error { }\n",
@@ -10646,7 +10741,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 377,
+    "__docId__": 380,
     "kind": "class",
     "name": "NodeError",
     "memberof": "src/errors/NodeError.js",
@@ -10664,7 +10759,7 @@
     ]
   },
   {
-    "__docId__": 378,
+    "__docId__": 381,
     "kind": "file",
     "name": "src/errors/OAuthError.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * OAuth error\n */\nexport default class OAuthError extends Error {\n  /**\n   * OAuth error response\n   * @param {String} error - OAuth error key\n   * @param {String} message - OAuth error message\n   */\n  constructor(error, message = '') {\n    super();\n    this._error = String(error);\n    this._message = String(message);\n  }\n\n  /**\n   * OAuth error message\n   * @returns {String} - message\n   */\n  get message() {\n    return this._message;\n  }\n\n  /**\n   * OAuth error code\n   * @returns {String} - error\n   */\n  get error() {\n    return this._error;\n  }\n\n  /**\n   * Displayable error string\n   * @returns {String} - error\n   */\n  toString() {\n    let error = this._error;\n\n    if (error.includes('_')) {\n      error = error.replace('_', ' ').replace(/^./, x => x.toUpperCase());\n    }\n\n    if (this._message) {\n      return `${error}: ${this._message}`;\n    }\n    return error;\n\n  }\n}\n",
@@ -10675,7 +10770,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 379,
+    "__docId__": 382,
     "kind": "class",
     "name": "OAuthError",
     "memberof": "src/errors/OAuthError.js",
@@ -10693,7 +10788,7 @@
     ]
   },
   {
-    "__docId__": 380,
+    "__docId__": 383,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/OAuthError.js~OAuthError",
@@ -10728,7 +10823,7 @@
     ]
   },
   {
-    "__docId__": 381,
+    "__docId__": 384,
     "kind": "member",
     "name": "_error",
     "memberof": "src/errors/OAuthError.js~OAuthError",
@@ -10751,7 +10846,7 @@
     }
   },
   {
-    "__docId__": 382,
+    "__docId__": 385,
     "kind": "member",
     "name": "_message",
     "memberof": "src/errors/OAuthError.js~OAuthError",
@@ -10774,7 +10869,7 @@
     }
   },
   {
-    "__docId__": 383,
+    "__docId__": 386,
     "kind": "get",
     "name": "message",
     "memberof": "src/errors/OAuthError.js~OAuthError",
@@ -10806,7 +10901,7 @@
     }
   },
   {
-    "__docId__": 384,
+    "__docId__": 387,
     "kind": "get",
     "name": "error",
     "memberof": "src/errors/OAuthError.js~OAuthError",
@@ -10838,7 +10933,7 @@
     }
   },
   {
-    "__docId__": 385,
+    "__docId__": 388,
     "kind": "method",
     "name": "toString",
     "memberof": "src/errors/OAuthError.js~OAuthError",
@@ -10866,7 +10961,7 @@
     }
   },
   {
-    "__docId__": 386,
+    "__docId__": 389,
     "kind": "file",
     "name": "src/errors/StaticClassError.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Thrown upon invocation of a static class\n * @see StaticClass\n */\nexport default class StaticClassError extends Error {}\n",
@@ -10877,7 +10972,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 387,
+    "__docId__": 390,
     "kind": "class",
     "name": "StaticClassError",
     "memberof": "src/errors/StaticClassError.js",
@@ -10898,7 +10993,7 @@
     ]
   },
   {
-    "__docId__": 388,
+    "__docId__": 391,
     "kind": "file",
     "name": "src/errors/UnsupportedCrudError.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Thrown upon invocation of an unsupported crud method\n */\nexport default class UnsupportedCrudError extends Error {}\n",
@@ -10909,7 +11004,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 389,
+    "__docId__": 392,
     "kind": "class",
     "name": "UnsupportedCrudError",
     "memberof": "src/errors/UnsupportedCrudError.js",
@@ -10927,7 +11022,7 @@
     ]
   },
   {
-    "__docId__": 390,
+    "__docId__": 393,
     "kind": "file",
     "name": "src/errors/ValidationError.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ApiError from './ApiError';\n\n/**\n * Extension of {@link ApiError} containing an extra field for validation errors\n */\nexport default class ValidationError extends ApiError {\n  /**\n   * @param {String} type - Error type\n   * @param {String} message - Error message\n   * @param {Number} code - Http error code\n   * @param {Object<String, Array<String>>} validationErrors - Any validation errors\n   */\n  constructor(type, message, code, validationErrors) {\n    super(type, message, code);\n    this._validationErrors = validationErrors;\n  }\n\n  /**\n   * Any validation errors\n   * @returns {Object.<String, Array.<String>>} - Object containing arrays of validation errors where the field is stored in the key\n   */\n  get validationErrors() {\n    return this._validationErrors;\n  }\n\n  toString() {\n    const errors = [].concat(\n      ...Object\n        .keys(this.validationErrors)\n        .map(x => this.validationErrors[x])\n    );\n\n    return `There were some validation errors: ${errors.join(' ')}`;\n  }\n}\n",
@@ -10938,7 +11033,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 391,
+    "__docId__": 394,
     "kind": "class",
     "name": "ValidationError",
     "memberof": "src/errors/ValidationError.js",
@@ -10956,7 +11051,7 @@
     ]
   },
   {
-    "__docId__": 392,
+    "__docId__": 395,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/ValidationError.js~ValidationError",
@@ -11011,7 +11106,7 @@
     ]
   },
   {
-    "__docId__": 393,
+    "__docId__": 396,
     "kind": "member",
     "name": "_validationErrors",
     "memberof": "src/errors/ValidationError.js~ValidationError",
@@ -11034,7 +11129,7 @@
     }
   },
   {
-    "__docId__": 394,
+    "__docId__": 397,
     "kind": "get",
     "name": "validationErrors",
     "memberof": "src/errors/ValidationError.js~ValidationError",
@@ -11066,7 +11161,7 @@
     }
   },
   {
-    "__docId__": 395,
+    "__docId__": 398,
     "kind": "method",
     "name": "toString",
     "memberof": "src/errors/ValidationError.js~ValidationError",
@@ -11092,7 +11187,7 @@
     }
   },
   {
-    "__docId__": 396,
+    "__docId__": 399,
     "kind": "file",
     "name": "src/index.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n// Core\nexport Maps4News from './Maps4News';\n\n// Flows\nexport OAuth from './oauth/OAuth';\nexport ImplicitFlow from './oauth/ImplicitFlow';\nexport ImplicitFlowPopup from './oauth/ImplicitFlowPopup';\nexport PasswordFlow from './oauth/PasswordFlow';\nexport DummyFlow from './oauth/DummyFlow';\n\n// Exceptions\nexport ApiError from './errors/ApiError';\nexport * from './errors/AbstractError';\nexport ValidationError from './errors/ValidationError';\nexport StaticClassError from './errors/StaticClassError';\n\n// Resources\nexport * as resources from './crud';\n\n// Helpers\nexport * as helpers from './utils/helpers';\n\n/**\n * Package version\n * @private\n */\nexport const version = VERSION;\n\n/**\n * Package license\n * @private\n */\nexport const license = LICENSE;\n",
@@ -11103,7 +11198,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 397,
+    "__docId__": 400,
     "kind": "variable",
     "name": "version",
     "memberof": "src/index.js",
@@ -11122,7 +11217,7 @@
     }
   },
   {
-    "__docId__": 398,
+    "__docId__": 401,
     "kind": "variable",
     "name": "license",
     "memberof": "src/index.js",
@@ -11141,7 +11236,7 @@
     }
   },
   {
-    "__docId__": 399,
+    "__docId__": 402,
     "kind": "file",
     "name": "src/oauth/DummyFlow.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OAuthError from '../errors/OAuthError';\nimport OAuth from './OAuth';\n\n/**\n * Dummy flow for when the token should be available in the\n * cache and no attempt at authentication should be made.\n */\nexport default class DummyFlow extends OAuth {\n  constructor() {\n    super('', []);\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else {\n        reject(new OAuthError('dummy_error', 'Attempted authentication using a dummy authenticator'));\n      }\n    });\n  }\n}\n",
@@ -11152,7 +11247,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 400,
+    "__docId__": 403,
     "kind": "class",
     "name": "DummyFlow",
     "memberof": "src/oauth/DummyFlow.js",
@@ -11170,7 +11265,7 @@
     ]
   },
   {
-    "__docId__": 401,
+    "__docId__": 404,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/DummyFlow.js~DummyFlow",
@@ -11191,7 +11286,7 @@
     "params": []
   },
   {
-    "__docId__": 402,
+    "__docId__": 405,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/DummyFlow.js~DummyFlow",
@@ -11219,7 +11314,7 @@
     }
   },
   {
-    "__docId__": 403,
+    "__docId__": 406,
     "kind": "file",
     "name": "src/oauth/ImplicitFlow.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {encodeQueryString} from '../utils/requests';\nimport OAuthError from '../errors/OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Implicit OAuth flow using redirection\n */\nexport default class ImplicitFlow extends OAuth {\n\n  /**\n   * Implicit authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = true) {\n    super(clientId, scopes);\n\n    if (isNode()) {\n      throw new Error(`${this.constructor.name} can't be used under nodejs`);\n    }\n\n    this.path = '/oauth/authorize';\n\n    this.callbackUrl = callbackUrl;\n    this.useState = useState;\n\n    if (!this.callbackUrl) {\n      // Drop the anchor (if any)\n      this.callbackUrl = window.location.toString().split('#')[0];\n    }\n\n    this._anchorParams = [\n      'access_token', 'token_type', 'expires_in',\n    ];\n\n    if (this.useState) {\n      this._anchorParams.push('state');\n    }\n\n    if (this._anchorContainsOAuthResponse()) {\n      const anchorParams = this._getOAuthAnchorParams();\n\n      this._cleanAnchorParams();\n\n      if (this.useState && !StateContainer.validate(anchorParams['state'])) {\n        throw Error('Invalid state in url');\n      } else {\n        this.token = OAuthToken.fromResponseObject(anchorParams);\n        this.token.save();\n      }\n    }\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return new Promise((resolve, reject) => {\n      if (this.authenticated) {\n        resolve(this.token);\n      } else if (this._anchorContainsError()) {\n        const err = this._getError();\n\n        this._cleanAnchorParams();\n\n        reject(err);\n      } else {\n        window.location = this._buildRedirectUrl();\n      }\n    });\n  }\n\n  /**\n   * Builds the url for redirection\n   * @returns {String} - Redirect url\n   * @protected\n   */\n  _buildRedirectUrl() {\n    const queryParams = {\n      'client_id': this.clientId,\n      'redirect_uri': this.callbackUrl,\n      'response_type': 'token',\n      'scope': this.scopes.join(' '),\n    };\n\n    if (this.useState) {\n      queryParams['state'] = StateContainer.generate();\n    }\n\n    return `${this.host + this.path}?${encodeQueryString(queryParams)}`;\n  }\n\n  /**\n   * Builds an object containing all the anchor parameters\n   * @returns {Object<String, String>} - Anchor paramenters\n   * @protected\n   */\n  _getAnchorParams() {\n    const out = {};\n    const query = window.location.hash.replace(/^#\\/?/g, '');\n\n\n    for (const raw of query.split('&')) {\n      const pair = raw.split('=').map(decodeURIComponent);\n\n      out[pair[0]] = pair[1];\n    }\n\n    return out;\n  }\n\n  /**\n   * Fetch OAuth anchor params\n   * @param {Object<String, String>} query - Optional override for the query to analyse, defaults to {@link ImplicitFlow#_getAnchorParams}\n   * @returns {Object<String, String>} - List of OAuth anchor parameters\n   * @protected\n   */\n  _getOAuthAnchorParams(query = this._getAnchorParams()) {\n    return Object.keys(query)\n      .filter(key => this._anchorParams.includes(key))\n      .reduce((obj, key) => {\n        obj[key] = query[key];\n        return obj;\n      }, {});\n  }\n\n  /**\n   * Remove OAuth related anchor parameters\n   * @returns {void}\n   * @protected\n   */\n  _cleanAnchorParams() {\n    const anchorParams = this._getAnchorParams();\n    const targets = this._anchorParams;\n\n    // Just in case\n    targets.push('state', 'error');\n\n    for (const key of targets) {\n      // Should silently fail when key doesn't exist\n      delete anchorParams[key];\n    }\n\n    window.location.hash = encodeQueryString(anchorParams);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth response\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth response\n   * @protected\n   */\n  _anchorContainsOAuthResponse() {\n    const queryKeys = Object.keys(this._getOAuthAnchorParams());\n\n    // Check if all the params are in the anchor\n    return this._anchorParams.reduce((output, key) => {\n      return output && queryKeys.includes(key);\n    }, true);\n  }\n\n  /**\n   * Test if the anchor contains an OAuth error\n   * @returns {Boolean} - if anchor tested positive for containing an OAuth error\n   * @protected\n   */\n  _anchorContainsError() {\n    return Boolean(this._getAnchorParams()['error']);\n  }\n\n  /**\n   * Get and return the error in the anchor\n   * @returns {OAuthError} - OAuthError object\n   * @protected\n   */\n  _getError() {\n    if (!this._anchorContainsError()) {\n      throw Error('No OAuthError found in anchor');\n    }\n\n    const params = this._getAnchorParams();\n\n    return new OAuthError(\n      params['error'], params['message']\n    );\n  }\n}\n",
@@ -11230,7 +11325,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 404,
+    "__docId__": 407,
     "kind": "class",
     "name": "ImplicitFlow",
     "memberof": "src/oauth/ImplicitFlow.js",
@@ -11248,7 +11343,7 @@
     ]
   },
   {
-    "__docId__": 405,
+    "__docId__": 408,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11317,7 +11412,7 @@
     }
   },
   {
-    "__docId__": 406,
+    "__docId__": 409,
     "kind": "member",
     "name": "path",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11340,7 +11435,7 @@
     }
   },
   {
-    "__docId__": 407,
+    "__docId__": 410,
     "kind": "member",
     "name": "callbackUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11363,7 +11458,7 @@
     }
   },
   {
-    "__docId__": 408,
+    "__docId__": 411,
     "kind": "member",
     "name": "useState",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11386,7 +11481,7 @@
     }
   },
   {
-    "__docId__": 409,
+    "__docId__": 412,
     "kind": "member",
     "name": "callbackUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11409,7 +11504,7 @@
     }
   },
   {
-    "__docId__": 410,
+    "__docId__": 413,
     "kind": "member",
     "name": "_anchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11432,7 +11527,7 @@
     }
   },
   {
-    "__docId__": 411,
+    "__docId__": 414,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11455,7 +11550,7 @@
     }
   },
   {
-    "__docId__": 412,
+    "__docId__": 415,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11483,7 +11578,7 @@
     }
   },
   {
-    "__docId__": 413,
+    "__docId__": 416,
     "kind": "method",
     "name": "_buildRedirectUrl",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11511,7 +11606,7 @@
     }
   },
   {
-    "__docId__": 414,
+    "__docId__": 417,
     "kind": "method",
     "name": "_getAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11539,7 +11634,7 @@
     }
   },
   {
-    "__docId__": 415,
+    "__docId__": 418,
     "kind": "method",
     "name": "_getOAuthAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11578,7 +11673,7 @@
     }
   },
   {
-    "__docId__": 416,
+    "__docId__": 419,
     "kind": "method",
     "name": "_cleanAnchorParams",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11606,7 +11701,7 @@
     }
   },
   {
-    "__docId__": 417,
+    "__docId__": 420,
     "kind": "method",
     "name": "_anchorContainsOAuthResponse",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11634,7 +11729,7 @@
     }
   },
   {
-    "__docId__": 418,
+    "__docId__": 421,
     "kind": "method",
     "name": "_anchorContainsError",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11662,7 +11757,7 @@
     }
   },
   {
-    "__docId__": 419,
+    "__docId__": 422,
     "kind": "method",
     "name": "_getError",
     "memberof": "src/oauth/ImplicitFlow.js~ImplicitFlow",
@@ -11690,7 +11785,7 @@
     }
   },
   {
-    "__docId__": 420,
+    "__docId__": 423,
     "kind": "file",
     "name": "src/oauth/ImplicitFlowPopup.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ImplicitFlow from './ImplicitFlow';\nimport OAuthToken from './OAuthToken';\nimport OAuthError from '../errors/OAuthError';\n\n/**\n * Implicit OAuth flow using a pop-up.\n */\nexport default class ImplicitFlowPopup extends ImplicitFlow {\n  /**\n   * Implicit pop-up authentication flow\n   * @param {String} clientId - OAuth client id\n   * @param {String} callbackUrl - callbackUrl for obtaining the token. This should be a\n   *                               page with this script on it. If left empty the current\n   *                               url will be used.\n   * @param {Array<String>} scopes - A list of required scopes\n   * @param {Boolean} useState - use state verification\n   * @param {String} windowOptions - optional window options for the pop-up window\n   * @returns {void}\n   */\n  constructor(clientId, callbackUrl = '', scopes = ['*'], useState = false, windowOptions = process.env.WINDOW_OPTIONS) {\n    super(clientId, callbackUrl, scopes, useState);\n\n    this.windowOptions = windowOptions;\n\n    if (window.name === ImplicitFlowPopup.popupWindowName) {\n      const data = this.token.toResponseObject() || this._getAnchorParams();\n\n      localStorage.setItem(ImplicitFlowPopup.localStorageKey, JSON.stringify(data));\n\n      window.close();\n    }\n  }\n\n  /**\n   * Popup window name\n   * @returns {String} - window.name of the created pop-up\n   * @constant\n   */\n  static get popupWindowName() {\n    return 'm4n_api_auth';\n  }\n\n  /**\n   * localStorage key name for temporarily storing the token\n   * @returns {String} - key name\n   * @constant\n   */\n  static get localStorageKey() {\n    return 'm4n_api_auth_response';\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    if (window.name === ImplicitFlowPopup.popupWindowName) {\n      return new Promise(() => {\n      });\n    }\n\n    // Should be super.super.authenticate() :/\n    if (this.authenticated) {\n      return new Promise(resolve => {\n        resolve(this.token);\n      });\n    }\n\n    return new Promise((resolve, reject) => {\n      const popup = window.open(\n        this._buildRedirectUrl(),\n        ImplicitFlowPopup.popupWindowName,\n        this.windowOptions\n      );\n\n      const ticker = setInterval(() => {\n        if (popup.closed) {\n          clearInterval(ticker);\n\n          const data = JSON.parse(localStorage.getItem(ImplicitFlowPopup.localStorageKey));\n\n          localStorage.removeItem(ImplicitFlowPopup.localStorageKey);\n\n          if (!data) {\n            reject(new OAuthError('window_closed', 'Pop-up window was closed'));\n          } else if (data.error) {\n            reject(new OAuthError(data.error, data.message));\n          } else {\n            resolve(this.token = OAuthToken.fromResponseObject(data));\n          }\n        }\n      }, 500);\n    });\n  }\n}\n",
@@ -11701,7 +11796,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 421,
+    "__docId__": 424,
     "kind": "class",
     "name": "ImplicitFlowPopup",
     "memberof": "src/oauth/ImplicitFlowPopup.js",
@@ -11719,7 +11814,7 @@
     ]
   },
   {
-    "__docId__": 422,
+    "__docId__": 425,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -11798,7 +11893,7 @@
     }
   },
   {
-    "__docId__": 423,
+    "__docId__": 426,
     "kind": "member",
     "name": "windowOptions",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -11821,7 +11916,7 @@
     }
   },
   {
-    "__docId__": 424,
+    "__docId__": 427,
     "kind": "get",
     "name": "popupWindowName",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -11857,7 +11952,7 @@
     }
   },
   {
-    "__docId__": 425,
+    "__docId__": 428,
     "kind": "get",
     "name": "localStorageKey",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -11893,7 +11988,7 @@
     }
   },
   {
-    "__docId__": 426,
+    "__docId__": 429,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup",
@@ -11921,7 +12016,7 @@
     }
   },
   {
-    "__docId__": 427,
+    "__docId__": 430,
     "kind": "file",
     "name": "src/oauth/OAuth.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractMethodError} from '../errors/AbstractError';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {isNode} from '../utils/node';\n\n/**\n * OAuth base class\n * @abstract\n */\nexport default class OAuth {\n  /**\n   * @param {String} clientId - OAuth client id\n   * @param {Array<String>} scopes - A list of required scopes\n   * @returns {void}\n   */\n  constructor(clientId, scopes = ['*']) {\n    if (this.constructor === OAuth) {\n      throw new AbstractClassError();\n    }\n\n    this.clientId = String(clientId);\n    this.scopes = scopes;\n    this.token = OAuthToken.recover();\n    this.host = process.env.HOST;\n    this.path = '/';\n  }\n\n  /**\n   * If the current instance has a valid token\n   * @returns {Boolean} - if a valid token is availble\n   */\n  get authenticated() {\n    return this.token !== null && !this.token.expired;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with OAuthToken and rejects with OAuthError\n   * @abstract\n   */\n  authenticate() {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Forget the current session\n   * @returns {void}\n   */\n  forget() {\n    if (isNode()) {\n      // eslint-disable-next-line no-eval\n      eval('require(\"fs\")').unlink(OAuthToken.nodeTokenFilename);\n    } else {\n      StateContainer.clean();\n      localStorage.removeItem(OAuthToken.storageName);\n    }\n\n    this.token = null;\n  }\n}\n",
@@ -11932,7 +12027,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 428,
+    "__docId__": 431,
     "kind": "class",
     "name": "OAuth",
     "memberof": "src/oauth/OAuth.js",
@@ -11948,7 +12043,7 @@
     "interface": false
   },
   {
-    "__docId__": 429,
+    "__docId__": 432,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -11997,7 +12092,7 @@
     }
   },
   {
-    "__docId__": 430,
+    "__docId__": 433,
     "kind": "member",
     "name": "clientId",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12020,7 +12115,7 @@
     }
   },
   {
-    "__docId__": 431,
+    "__docId__": 434,
     "kind": "member",
     "name": "scopes",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12043,7 +12138,7 @@
     }
   },
   {
-    "__docId__": 432,
+    "__docId__": 435,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12066,7 +12161,7 @@
     }
   },
   {
-    "__docId__": 433,
+    "__docId__": 436,
     "kind": "member",
     "name": "host",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12089,7 +12184,7 @@
     }
   },
   {
-    "__docId__": 434,
+    "__docId__": 437,
     "kind": "member",
     "name": "path",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12112,7 +12207,7 @@
     }
   },
   {
-    "__docId__": 435,
+    "__docId__": 438,
     "kind": "get",
     "name": "authenticated",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12144,7 +12239,7 @@
     }
   },
   {
-    "__docId__": 436,
+    "__docId__": 439,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12173,7 +12268,7 @@
     "abstract": true
   },
   {
-    "__docId__": 437,
+    "__docId__": 440,
     "kind": "method",
     "name": "forget",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12201,7 +12296,7 @@
     }
   },
   {
-    "__docId__": 438,
+    "__docId__": 441,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/OAuth.js~OAuth",
@@ -12224,7 +12319,7 @@
     }
   },
   {
-    "__docId__": 439,
+    "__docId__": 442,
     "kind": "file",
     "name": "src/oauth/OAuthToken.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport NodeError from '../errors/NodeError';\nimport {isNode} from '../utils/node';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'm4n_api_token';\n  }\n\n  /**\n   * Filename for nodejs token storage\n   * @returns {string} - filename\n   * @constant\n   */\n  static get nodeTokenFilename() {\n    return '.m4n_token';\n  }\n\n  /**\n   * Gets the default name for the name parameter on save and restore\n   * @returns {string} - name\n   * @private\n   * @static\n   */\n  static get _defaultName() {\n    return isNode() ? OAuthToken.nodeTokenFilename : OAuthToken.storageName;\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || [],\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @param {Boolean} forceLocalStorage - force the token to be stored in the localStorage\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken._defaultName, forceLocalStorage = false) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n    };\n\n    if (isNode()) {\n      if (forceLocalStorage) {\n        throw new NodeError('Can not force localStorage usage when running under node');\n      }\n\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n      const json = JSON.stringify(data, null, 2);\n\n      fs.writeFileSync(name, json);\n    } else if (window.location.protocol === 'https:' && !forceLocalStorage) {\n      const dataEncoded = encodeURIComponent(JSON.stringify(data));\n\n      document.cookie = `${name}=${dataEncoded}; expires=${data.expires}`;\n    } else {\n      localStorage.setItem(name, JSON.stringify(data));\n    }\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken._defaultName) {\n    if (isNode()) {\n      // We're using eval to require fs to make sure that it isn't added to the bundle\n      // eslint-disable-next-line no-eval\n      const fs = eval('require(\"fs\")');\n\n      if (fs.existsSync(name)) {\n        const raw = fs.readFileSync(name);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n\n      return null;\n    }\n\n    // Cookie\n    if (window.location.protocol === 'https:') {\n      const cookies = `; ${document.cookie}`;\n      const parts = cookies.split(`; ${name}=`);\n\n      if (parts.length === 2) {\n        const raw = decodeURIComponent(parts[1].split(';')[0]);\n        const data = JSON.parse(raw);\n\n        return new OAuthToken(data.token, data.type, new Date(data.expires));\n      }\n    }\n\n    // LocalStorage\n    const raw = localStorage.getItem(name);\n\n    if (raw) {\n      const data = JSON.parse(raw);\n\n      const instance = new OAuthToken(data.token, data.type, new Date(data.expires));\n\n      if (!instance.expired) {\n        return instance;\n      }\n    }\n\n    return null;\n  }\n}\n",
@@ -12235,7 +12330,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 440,
+    "__docId__": 443,
     "kind": "class",
     "name": "OAuthToken",
     "memberof": "src/oauth/OAuthToken.js",
@@ -12250,7 +12345,7 @@
     "interface": false
   },
   {
-    "__docId__": 441,
+    "__docId__": 444,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12306,7 +12401,7 @@
     ]
   },
   {
-    "__docId__": 442,
+    "__docId__": 445,
     "kind": "member",
     "name": "scopes",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12329,7 +12424,7 @@
     }
   },
   {
-    "__docId__": 443,
+    "__docId__": 446,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12352,7 +12447,7 @@
     }
   },
   {
-    "__docId__": 444,
+    "__docId__": 447,
     "kind": "member",
     "name": "type",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12375,7 +12470,7 @@
     }
   },
   {
-    "__docId__": 445,
+    "__docId__": 448,
     "kind": "member",
     "name": "expires",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12398,7 +12493,7 @@
     }
   },
   {
-    "__docId__": 446,
+    "__docId__": 449,
     "kind": "member",
     "name": "expires",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12421,7 +12516,7 @@
     }
   },
   {
-    "__docId__": 447,
+    "__docId__": 450,
     "kind": "method",
     "name": "toString",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12449,7 +12544,7 @@
     }
   },
   {
-    "__docId__": 448,
+    "__docId__": 451,
     "kind": "method",
     "name": "toResponseObject",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12477,7 +12572,7 @@
     }
   },
   {
-    "__docId__": 449,
+    "__docId__": 452,
     "kind": "get",
     "name": "expired",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12509,7 +12604,7 @@
     }
   },
   {
-    "__docId__": 450,
+    "__docId__": 453,
     "kind": "get",
     "name": "storageName",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12545,7 +12640,7 @@
     }
   },
   {
-    "__docId__": 451,
+    "__docId__": 454,
     "kind": "get",
     "name": "nodeTokenFilename",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12581,7 +12676,7 @@
     }
   },
   {
-    "__docId__": 452,
+    "__docId__": 455,
     "kind": "get",
     "name": "_defaultName",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12613,7 +12708,7 @@
     }
   },
   {
-    "__docId__": 453,
+    "__docId__": 456,
     "kind": "method",
     "name": "fromResponseObject",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12653,7 +12748,7 @@
     }
   },
   {
-    "__docId__": 454,
+    "__docId__": 457,
     "kind": "method",
     "name": "save",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12705,7 +12800,7 @@
     }
   },
   {
-    "__docId__": 455,
+    "__docId__": 458,
     "kind": "method",
     "name": "recover",
     "memberof": "src/oauth/OAuthToken.js~OAuthToken",
@@ -12748,7 +12843,7 @@
     }
   },
   {
-    "__docId__": 456,
+    "__docId__": 459,
     "kind": "file",
     "name": "src/oauth/PasswordFlow.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\nimport {encodeQueryString, makeRequest} from '../utils/requests';\nimport OAuthError from '../errors/OAuthError';\nimport {isNode} from '../utils/node';\n\n/**\n * Password authentication flow\n */\nexport default class PasswordFlow extends OAuth {\n  /**\n   * @param {string} clientId - OAuth client id\n   * @param {string} secret - OAuth secret\n   * @param {string} username - Valid username (email)\n   * @param {string} password - Valid password\n   * @param {Array<string>} scopes - A list of required scopes\n   */\n  constructor(clientId, secret, username, password, scopes = ['*']) {\n    super(clientId, scopes);\n\n    this._secret = secret;\n    this._username = username;\n    this._password = password;\n\n    this._path = '/oauth/token';\n\n    // Because the client requires a secret HTTPS is highly recommended\n    if (!isNode()) {\n      console.warn('Using PasswordFlow in the browser is unrecommended. More information: https://nnmm.nl/?MXF');\n\n      if (window.location.protocol !== 'https:') {\n        console.warn('Page was not loaded using https. You\\'re most likely leaking secrets right now');\n      }\n    }\n  }\n\n  /**\n   * it's a secret :o (client secret)\n   * @returns {String} - secret\n   */\n  get secret() {\n    return this._secret;\n  }\n\n  /**\n   * Set client secret\n   * @param {String} value - secret\n   */\n  set secret(value) {\n    this._secret = value;\n  }\n\n  /**\n   * Get the username for authentication\n   * @returns {String} - Username (email)\n   */\n  get username() {\n    return this._username;\n  }\n\n  /**\n   * Get the username for authentication\n   * @param {String} value - Username (email)\n   */\n  set username(value) {\n    this._username = value;\n  }\n\n  /**\n   * Get the password\n   * @returns {String} - Password\n   */\n  get password() {\n    return this._password;\n  }\n\n  /**\n   * Set the password\n   * @param {String} value - password\n   */\n  set password(value) {\n    this._password = value;\n  }\n\n  /**\n   * OAuth path\n   * @returns {String} - OAuth path\n   */\n  get path() {\n    return this._path;\n  }\n\n  /**\n   * OAuth path\n   * @param {String} value - OAuth path\n   */\n  set path(value) {\n    this._path = value;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    const url = this.host + this._path;\n    const query = {\n      'grant_type': '_password',\n      'client_id': this.clientId,\n      'client_secret': this._secret,\n      'username': this._username,\n      'password': this._password,\n      'scope': this.scopes.join(' '),\n    };\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, 'POST', encodeQueryString(query)).then(request => {\n        const data = JSON.parse(request.responseText);\n\n        this.token = OAuthToken.fromResponseObject(data);\n        this.token.scopes = this.scopes;\n        resolve(this.token);\n      }).catch(request => {\n        const data = JSON.parse(request.responseText);\n\n        reject(new OAuthError(data['error'], data['message']));\n      });\n    });\n  }\n}\n",
@@ -12759,7 +12854,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 457,
+    "__docId__": 460,
     "kind": "class",
     "name": "PasswordFlow",
     "memberof": "src/oauth/PasswordFlow.js",
@@ -12777,7 +12872,7 @@
     ]
   },
   {
-    "__docId__": 458,
+    "__docId__": 461,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12842,7 +12937,7 @@
     ]
   },
   {
-    "__docId__": 459,
+    "__docId__": 462,
     "kind": "member",
     "name": "_secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12865,7 +12960,7 @@
     }
   },
   {
-    "__docId__": 460,
+    "__docId__": 463,
     "kind": "member",
     "name": "_username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12888,7 +12983,7 @@
     }
   },
   {
-    "__docId__": 461,
+    "__docId__": 464,
     "kind": "member",
     "name": "_password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12911,7 +13006,7 @@
     }
   },
   {
-    "__docId__": 462,
+    "__docId__": 465,
     "kind": "member",
     "name": "_path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12934,7 +13029,7 @@
     }
   },
   {
-    "__docId__": 463,
+    "__docId__": 466,
     "kind": "get",
     "name": "secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12966,7 +13061,7 @@
     }
   },
   {
-    "__docId__": 464,
+    "__docId__": 467,
     "kind": "set",
     "name": "secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -12996,7 +13091,7 @@
     }
   },
   {
-    "__docId__": 465,
+    "__docId__": 468,
     "kind": "member",
     "name": "_secret",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13019,7 +13114,7 @@
     }
   },
   {
-    "__docId__": 466,
+    "__docId__": 469,
     "kind": "get",
     "name": "username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13051,7 +13146,7 @@
     }
   },
   {
-    "__docId__": 467,
+    "__docId__": 470,
     "kind": "set",
     "name": "username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13081,7 +13176,7 @@
     }
   },
   {
-    "__docId__": 468,
+    "__docId__": 471,
     "kind": "member",
     "name": "_username",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13104,7 +13199,7 @@
     }
   },
   {
-    "__docId__": 469,
+    "__docId__": 472,
     "kind": "get",
     "name": "password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13136,7 +13231,7 @@
     }
   },
   {
-    "__docId__": 470,
+    "__docId__": 473,
     "kind": "set",
     "name": "password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13166,7 +13261,7 @@
     }
   },
   {
-    "__docId__": 471,
+    "__docId__": 474,
     "kind": "member",
     "name": "_password",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13189,7 +13284,7 @@
     }
   },
   {
-    "__docId__": 472,
+    "__docId__": 475,
     "kind": "get",
     "name": "path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13221,7 +13316,7 @@
     }
   },
   {
-    "__docId__": 473,
+    "__docId__": 476,
     "kind": "set",
     "name": "path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13251,7 +13346,7 @@
     }
   },
   {
-    "__docId__": 474,
+    "__docId__": 477,
     "kind": "member",
     "name": "_path",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13274,7 +13369,7 @@
     }
   },
   {
-    "__docId__": 475,
+    "__docId__": 478,
     "kind": "method",
     "name": "authenticate",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13302,7 +13397,7 @@
     }
   },
   {
-    "__docId__": 476,
+    "__docId__": 479,
     "kind": "member",
     "name": "token",
     "memberof": "src/oauth/PasswordFlow.js~PasswordFlow",
@@ -13325,7 +13420,7 @@
     }
   },
   {
-    "__docId__": 477,
+    "__docId__": 480,
     "kind": "file",
     "name": "src/oauth/StateContainer.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from '../utils/StaticClass';\nimport Uuid from '../utils/uuid';\n\n/**\n * State container for keeping track of OAuth states (crsf tokens)\n * @static\n * @private\n */\nexport default class StateContainer extends StaticClass {\n  /**\n   * LocalStorage key prefix\n   * @returns {String} - prefix\n   * @constant\n   */\n  static get prefix() {\n    return 'm4n_api_state_';\n  }\n\n  /**\n   * Generate and store a state that can be checked at a later point\n   * @returns {string} - state\n   */\n  static generate() {\n    const key = StateContainer.prefix + Date.now();\n    const value = Uuid.uuid4();\n\n    localStorage.setItem(key, value);\n    return value;\n  }\n\n  /**\n   * Validate a state\n   * @param {String} state - state to validate\n   * @param {Boolean} purge - remove from state db after validation\n   * @returns {Boolean} - if the state is valid\n   */\n  static validate(state, purge = true) {\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n\n      if (localStorage.getItem(key) === state) {\n        if (purge) {\n          localStorage.removeItem(key);\n        }\n\n        return true;\n      }\n    }\n\n    return false;\n  }\n\n  /**\n   * Remove all states from the state db\n   * @returns {void}\n   */\n  static clean() {\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n      const prefix = key.slice(0, StateContainer.prefix.length);\n\n      if (prefix === StateContainer.prefix) {\n        localStorage.removeItem(key);\n      }\n    }\n  }\n\n  /**\n   * Get states with their corresponding state db key\n   * @returns {Object<String, String>} - List of stored states\n   */\n  static list() {\n    const out = {};\n\n    for (let i = 0; i < localStorage.length; i++) {\n      const key = localStorage.key(i);\n      const prefix = key.slice(0, StateContainer.prefix.length);\n\n      if (prefix === StateContainer.prefix) {\n        out[key] = localStorage.getItem(key);\n      }\n    }\n\n    return out;\n  }\n}\n",
@@ -13336,7 +13431,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 478,
+    "__docId__": 481,
     "kind": "class",
     "name": "StateContainer",
     "memberof": "src/oauth/StateContainer.js",
@@ -13354,7 +13449,7 @@
     ]
   },
   {
-    "__docId__": 479,
+    "__docId__": 482,
     "kind": "get",
     "name": "prefix",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -13390,7 +13485,7 @@
     }
   },
   {
-    "__docId__": 480,
+    "__docId__": 483,
     "kind": "method",
     "name": "generate",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -13418,7 +13513,7 @@
     }
   },
   {
-    "__docId__": 481,
+    "__docId__": 484,
     "kind": "method",
     "name": "validate",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -13467,7 +13562,7 @@
     }
   },
   {
-    "__docId__": 482,
+    "__docId__": 485,
     "kind": "method",
     "name": "clean",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -13495,7 +13590,7 @@
     }
   },
   {
-    "__docId__": 483,
+    "__docId__": 486,
     "kind": "method",
     "name": "list",
     "memberof": "src/oauth/StateContainer.js~StateContainer",
@@ -13523,7 +13618,7 @@
     }
   },
   {
-    "__docId__": 484,
+    "__docId__": 487,
     "kind": "file",
     "name": "src/traits/HandlesImages.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {Trait} from './Trait';\nimport ImageHandler from '../ImageHandler';\n\n\n/**\n * Adds the imageHandler to a resource\n */\nexport default class HandlesImages extends Trait {\n  /**\n   * Handler for item image management\n   * @returns {ImageHandler} - Image handler\n   */\n  get imageHandler() {\n    return new ImageHandler(this.api, this);\n  }\n}\n",
@@ -13534,7 +13629,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 485,
+    "__docId__": 488,
     "kind": "class",
     "name": "HandlesImages",
     "memberof": "src/traits/HandlesImages.js",
@@ -13552,7 +13647,7 @@
     ]
   },
   {
-    "__docId__": 486,
+    "__docId__": 489,
     "kind": "get",
     "name": "imageHandler",
     "memberof": "src/traits/HandlesImages.js~HandlesImages",
@@ -13584,7 +13679,7 @@
     }
   },
   {
-    "__docId__": 487,
+    "__docId__": 490,
     "kind": "file",
     "name": "src/traits/OwnableResource.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {isParentOf} from '../utils/reflection';\nimport {Trait} from './Trait';\n\n/**\n * Provides a {@link ResourceBase} with functions for dealing with being ownable by an organisation\n * @mixin\n */\nexport default class OwnableResource extends Trait {\n  /**\n   *\n   * @returns {Promise} - Promise will resolve with {@link Array<Organisation>} and reject with an {@link ApiError} instance.\n   */\n  get organisations() {\n    // This is a hack to fix a circular dependency issue\n    const Organisation = require('../crud/Organisation').default;\n\n    return this._proxyResourceList(Organisation, `${this.url}/organisations`);\n  }\n\n  /**\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'POST');\n  }\n\n  /**\n   * Unlink items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  unlinkOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'DELETE');\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyOrganisationLink(items, method) {\n    // This is a hack to fix a circular dependency issue\n    const Organisation = require('../crud/Organisation').default;\n\n    const filter = x => !isParentOf(Organisation, x) && !isParentOf(Number, x);\n    const isValid = items.filter(filter).length === 0;\n\n    if (!isValid) {\n      throw new TypeError('Array must contain either Numbers (organisation id) or Organisations.');\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : x.id).map(Number);\n\n    return this.api.request(`${this.url}/organisations`, method, {keys});\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return true;\n  }\n}\n",
@@ -13595,7 +13690,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 488,
+    "__docId__": 491,
     "kind": "class",
     "name": "OwnableResource",
     "memberof": "src/traits/OwnableResource.js",
@@ -13619,7 +13714,7 @@
     ]
   },
   {
-    "__docId__": 489,
+    "__docId__": 492,
     "kind": "get",
     "name": "organisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -13651,7 +13746,7 @@
     }
   },
   {
-    "__docId__": 490,
+    "__docId__": 493,
     "kind": "method",
     "name": "syncOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -13690,7 +13785,7 @@
     }
   },
   {
-    "__docId__": 491,
+    "__docId__": 494,
     "kind": "method",
     "name": "attachOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -13729,7 +13824,7 @@
     }
   },
   {
-    "__docId__": 492,
+    "__docId__": 495,
     "kind": "method",
     "name": "unlinkOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -13768,7 +13863,7 @@
     }
   },
   {
-    "__docId__": 493,
+    "__docId__": 496,
     "kind": "method",
     "name": "_modifyOrganisationLink",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -13817,7 +13912,7 @@
     }
   },
   {
-    "__docId__": 494,
+    "__docId__": 497,
     "kind": "get",
     "name": "ownable",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -13849,7 +13944,7 @@
     }
   },
   {
-    "__docId__": 495,
+    "__docId__": 498,
     "kind": "file",
     "name": "src/traits/Trait.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Trait interface\n * @interface\n */\nexport class Trait {}\n",
@@ -13860,7 +13955,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 496,
+    "__docId__": 499,
     "kind": "class",
     "name": "Trait",
     "memberof": "src/traits/Trait.js",
@@ -13875,7 +13970,7 @@
     "interface": true
   },
   {
-    "__docId__": 497,
+    "__docId__": 500,
     "kind": "file",
     "name": "src/utils/Singleton.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nexport default class Singleton {\n  constructor() {\n    if (!this.constructor.instance) {\n      this.constructor.instance = this;\n      this._instanceCount = 0;\n    }\n\n    this._instanceCount++;\n\n    return this.constructor.instance;\n  }\n}\n",
@@ -13886,7 +13981,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 498,
+    "__docId__": 501,
     "kind": "class",
     "name": "Singleton",
     "memberof": "src/utils/Singleton.js",
@@ -13908,7 +14003,7 @@
     "interface": false
   },
   {
-    "__docId__": 499,
+    "__docId__": 502,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -13929,7 +14024,7 @@
     "params": []
   },
   {
-    "__docId__": 500,
+    "__docId__": 503,
     "kind": "member",
     "name": "_instanceCount",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -13952,7 +14047,7 @@
     }
   },
   {
-    "__docId__": 501,
+    "__docId__": 504,
     "kind": "file",
     "name": "src/utils/StaticClass.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClassError from '../errors/StaticClassError';\n\n/**\n * Disables the constructor and throws a {@link StaticClassError} when an instance is created.\n * @protected\n */\nexport default class StaticClass {\n  constructor() {\n    throw new StaticClassError();\n  }\n}\n",
@@ -13963,7 +14058,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 502,
+    "__docId__": 505,
     "kind": "class",
     "name": "StaticClass",
     "memberof": "src/utils/StaticClass.js",
@@ -13978,7 +14073,7 @@
     "interface": false
   },
   {
-    "__docId__": 503,
+    "__docId__": 506,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/StaticClass.js~StaticClass",
@@ -13999,7 +14094,7 @@
     "params": []
   },
   {
-    "__docId__": 504,
+    "__docId__": 507,
     "kind": "file",
     "name": "src/utils/caseConverter.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Converts snake_case strings to camelCase\n * @param {String} str - a snake_case string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function snakeToCamelCase(str) {\n  return str.replace(/(?:(_[a-z\\d]))/g, x => x[1].toUpperCase());\n}\n\n/**\n * Converts camelCase strings to snake_case\n * @param {String} str - a camelCase string\n * @returns {String} - Converted snake_case string\n * @private\n */\nexport function camelToSnakeCase(str) {\n  return str.replace(/([A-Z])/g, x => '_' + x.toLowerCase());\n}\n\n/**\n * Converts PascalCase strings to camelCase\n * @param {String} str - a PascalCase string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function pascalToCamelCase(str) {\n  return str.replace(/^([A-Z])/g, x => x.toLowerCase());\n}\n",
@@ -14010,7 +14105,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 505,
+    "__docId__": 508,
     "kind": "function",
     "name": "snakeToCamelCase",
     "memberof": "src/utils/caseConverter.js",
@@ -14052,7 +14147,7 @@
     }
   },
   {
-    "__docId__": 506,
+    "__docId__": 509,
     "kind": "function",
     "name": "camelToSnakeCase",
     "memberof": "src/utils/caseConverter.js",
@@ -14094,7 +14189,7 @@
     }
   },
   {
-    "__docId__": 507,
+    "__docId__": 510,
     "kind": "function",
     "name": "pascalToCamelCase",
     "memberof": "src/utils/caseConverter.js",
@@ -14136,7 +14231,7 @@
     }
   },
   {
-    "__docId__": 508,
+    "__docId__": 511,
     "kind": "file",
     "name": "src/utils/hash.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {encodeQueryString} from './requests';\n\nconst FNV1_32A_INIT = 0x811c9dc5;\n\n/**\n * Fast hash function for non-cryptographic use\n * @param {string} str - Input to be hashed\n * @returns {string} - String representation of the hash\n * @private\n */\nexport function fnv32a(str) {\n  const hash = str\n    .split('')\n    .map(x => x.charCodeAt(0))\n    .reduce((sum, val) => {\n      sum ^= val;\n      return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);\n    }, FNV1_32A_INIT);\n\n  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);\n}\n\n/**\n * Fast object hashing for non-cryptographic use\n * @param {object} data - input data\n * @returns {string} - String reprisentation of the hash\n * @private\n */\nexport function hashObject(data) {\n  return fnv32a(encodeQueryString(data));\n}\n",
@@ -14147,7 +14242,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 509,
+    "__docId__": 512,
     "kind": "variable",
     "name": "FNV1_32A_INIT",
     "memberof": "src/utils/hash.js",
@@ -14173,7 +14268,7 @@
     }
   },
   {
-    "__docId__": 510,
+    "__docId__": 513,
     "kind": "function",
     "name": "fnv32a",
     "memberof": "src/utils/hash.js",
@@ -14215,7 +14310,7 @@
     }
   },
   {
-    "__docId__": 511,
+    "__docId__": 514,
     "kind": "function",
     "name": "hashObject",
     "memberof": "src/utils/hash.js",
@@ -14257,7 +14352,7 @@
     }
   },
   {
-    "__docId__": 512,
+    "__docId__": 515,
     "kind": "file",
     "name": "src/utils/helpers.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport CrudBase from '../crud/base/CrudBase';\nimport Maps4News from '../Maps4News';\nimport PaginatedResourceListing from '../PaginatedResourceListing';\n\n/**\n * Get all the pages from a {@link PaginatedResourceListing} or a range\n * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}\n * @param {?Number} [start=1] - Start page\n * @param {?Number} [stop] - Stop page\n * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * import { helpers } from \"@mapcreator/maps4news\";\n *\n * const promise = api.users.list(1, 50); // 50 per page is more efficient\n *\n * helpers.getPaginatedRange(promise).then(data => {\n *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n *        .forEach(console.log) // Log the names and ids of every user\n * })\n */\nexport function getPaginatedRange(page, start = 1, stop) {\n  // Resolve promise if any\n  if (page instanceof Promise) {\n    return page.then(res => getPaginatedRange(res, start, stop));\n  }\n\n  const out = page.data;\n  const promises = [];\n\n  // Handle defaults\n  start = start || page.page;\n  stop = stop || page.pageCount;\n\n  if (start === page.page) {\n    start++;\n  }\n\n  return new Promise((resolve, reject) => {\n    // Get all pages\n    for (let i = start; i <= stop; i++) {\n      promises.push(page.get(i));\n    }\n\n    // Resolve\n    Promise.all(promises).then(rows => {\n      resolve(out.concat(...rows.map(x => x.data)));\n    }, reject);\n  });\n}\n\n/**\n * Manually paginate a resource\n * @param {Maps4News} api - Api instance\n * @param {?String} url - Target url, if null it will guess\n * @param {Number} [page=1] - Page number\n * @param {Number} [perPage=api.defaults.perPage] - Amount of items per page\n * @param {ResourceBase} [Target=CrudBase] - Target class, should extend {@link ResourceBase}\n * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * import { helpers } from \"@mapcreator/maps4news\";\n *\n * helpers.paginateResource(api, '/some/custom/endpoint')\n */\nexport function paginateResource(api, url, page = 1, perPage = api.defaults.perPage, Target = CrudBase) {\n  if (!(api instanceof Maps4News)) {\n    throw new TypeError('Api must be an instance of Maps4news');\n  }\n\n  if (!url) {\n    const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n    url = `${this.url}/${resource}s`;\n  }\n\n  const resolver = new PaginatedResourceListing(this.api, url, Target);\n\n  return resolver.getPage(page, perPage);\n}\n",
@@ -14268,7 +14363,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 513,
+    "__docId__": 516,
     "kind": "function",
     "name": "getPaginatedRange",
     "memberof": "src/utils/helpers.js",
@@ -14336,7 +14431,7 @@
     }
   },
   {
-    "__docId__": 514,
+    "__docId__": 517,
     "kind": "function",
     "name": "paginateResource",
     "memberof": "src/utils/helpers.js",
@@ -14427,7 +14522,7 @@
     }
   },
   {
-    "__docId__": 515,
+    "__docId__": 518,
     "kind": "file",
     "name": "src/utils/node.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined' && typeof module !== 'undefined' && module.exports;\n}\n",
@@ -14438,7 +14533,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 516,
+    "__docId__": 519,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -14472,7 +14567,7 @@
     }
   },
   {
-    "__docId__": 517,
+    "__docId__": 520,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {Trait} from '../traits/Trait';\n\n/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Function} baseClass - Target base class for the traits to be applied to\n * @param {Function} mixins - Traits to be applied\n * @returns {Function} - Constructor with any traits applied\n * @private\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach(mixin => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n",
@@ -14483,7 +14578,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 518,
+    "__docId__": 521,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -14540,7 +14635,7 @@
     }
   },
   {
-    "__docId__": 519,
+    "__docId__": 522,
     "kind": "function",
     "name": "getTypeName",
     "memberof": "src/utils/reflection.js",
@@ -14582,7 +14677,7 @@
     }
   },
   {
-    "__docId__": 520,
+    "__docId__": 523,
     "kind": "function",
     "name": "mix",
     "memberof": "src/utils/reflection.js",
@@ -14634,7 +14729,7 @@
     }
   },
   {
-    "__docId__": 521,
+    "__docId__": 524,
     "kind": "function",
     "name": "copyProps",
     "memberof": "src/utils/reflection.js",
@@ -14686,7 +14781,7 @@
     }
   },
   {
-    "__docId__": 522,
+    "__docId__": 525,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Makes a HTTP request and returns a promise. Promise will fail/reject if the\n * status code isn't 2XX.\n * @param {string} url - Target url\n * @param {string} method - HTTP method\n * @param {string|object<string, string>} body - raw body content or object to be json encoded\n * @param {object<string, string>} headers - headers\n * @param {string} responseType - XMLHttpRequest response type\n *\n * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx\n * @protected\n * @todo Better nodejs compatibility, maybe a requests library\n */\nexport function makeRequest(url, method = 'GET', body = '', headers = {}, responseType = '') {\n  return new Promise((resolve, reject) => {\n    method = method.toUpperCase();\n\n    const request = new XMLHttpRequest();\n\n    request.responseType = responseType;\n\n    function hasHeader(h) {\n      return Object.keys(headers)\n        .filter(x => x.toLowerCase() === h.toLowerCase())\n        .length > 0;\n    }\n\n    request.open(method, url, true);\n\n    // Automatically detect possible content-type header\n    if (typeof body === 'object') {\n      body = JSON.stringify(body);\n\n      if (!hasHeader('Content-Type')) {\n        headers['Content-Type'] = 'application/json';\n      }\n    } else if (body && !hasHeader('Content-Type')) {\n      headers['Content-Type'] = 'application/x-www-form-urlencoded';\n    }\n\n    if (!hasHeader('Accept')) {\n      headers['Accept'] = 'application/json';\n    }\n\n    // Apply headers\n    for (const key of Object.keys(headers)) {\n      request.setRequestHeader(key, headers[key]);\n    }\n\n    request.onreadystatechange = () => {\n      // State 4 === Done\n      if (request.readyState === XMLHttpRequest.DONE) {\n        if (request.status >= 200 && request.status < 300) {\n          resolve(request);\n        } else {\n          reject(request);\n        }\n      }\n    };\n\n    if (body && method !== 'GET') {\n      request.send(body);\n    } else {\n      request.send();\n    }\n  });\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject);\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
@@ -14697,7 +14792,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 523,
+    "__docId__": 526,
     "kind": "function",
     "name": "makeRequest",
     "memberof": "src/utils/requests.js",
@@ -14783,7 +14878,7 @@
     }
   },
   {
-    "__docId__": 524,
+    "__docId__": 527,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -14825,7 +14920,7 @@
     }
   },
   {
-    "__docId__": 525,
+    "__docId__": 528,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -14880,7 +14975,7 @@
     }
   },
   {
-    "__docId__": 526,
+    "__docId__": 529,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -14891,7 +14986,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 527,
+    "__docId__": 530,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -14909,7 +15004,7 @@
     ]
   },
   {
-    "__docId__": 528,
+    "__docId__": 531,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -14937,7 +15032,7 @@
     }
   },
   {
-    "__docId__": 529,
+    "__docId__": 532,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -14965,7 +15060,7 @@
     }
   },
   {
-    "__docId__": 531,
+    "__docId__": 534,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -14977,7 +15072,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 532,
+    "__docId__": 535,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -14989,7 +15084,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 533,
+    "__docId__": 536,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -15001,7 +15096,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 534,
+    "__docId__": 537,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -15013,7 +15108,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 535,
+    "__docId__": 538,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -15025,7 +15120,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 536,
+    "__docId__": 539,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -15037,7 +15132,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 537,
+    "__docId__": 540,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -15049,7 +15144,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 538,
+    "__docId__": 541,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -15061,7 +15156,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 539,
+    "__docId__": 542,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -15073,7 +15168,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 540,
+    "__docId__": 543,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -15085,7 +15180,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 541,
+    "__docId__": 544,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -15097,7 +15192,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 542,
+    "__docId__": 545,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -15109,7 +15204,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 543,
+    "__docId__": 546,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -15121,7 +15216,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 544,
+    "__docId__": 547,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -15133,7 +15228,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 545,
+    "__docId__": 548,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -15145,7 +15240,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 546,
+    "__docId__": 549,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -15157,7 +15252,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 547,
+    "__docId__": 550,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -15169,7 +15264,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 548,
+    "__docId__": 551,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -15181,7 +15276,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 549,
+    "__docId__": 552,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -15193,7 +15288,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 550,
+    "__docId__": 553,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -15205,7 +15300,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 551,
+    "__docId__": 554,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -15217,7 +15312,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 552,
+    "__docId__": 555,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -15229,7 +15324,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 553,
+    "__docId__": 556,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -15241,7 +15336,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 554,
+    "__docId__": 557,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -15253,7 +15348,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 555,
+    "__docId__": 558,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -15265,7 +15360,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 556,
+    "__docId__": 559,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -15277,7 +15372,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 557,
+    "__docId__": 560,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -15289,7 +15384,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 558,
+    "__docId__": 561,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -15301,7 +15396,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 559,
+    "__docId__": 562,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -15313,7 +15408,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 560,
+    "__docId__": 563,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -15325,7 +15420,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 561,
+    "__docId__": 564,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -15337,7 +15432,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 562,
+    "__docId__": 565,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -15349,7 +15444,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 563,
+    "__docId__": 566,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -15361,7 +15456,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 564,
+    "__docId__": 567,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -15373,7 +15468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 565,
+    "__docId__": 568,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -15385,7 +15480,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 566,
+    "__docId__": 569,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -15397,7 +15492,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 567,
+    "__docId__": 570,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -15409,7 +15504,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 568,
+    "__docId__": 571,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -15421,7 +15516,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 569,
+    "__docId__": 572,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -15433,7 +15528,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 570,
+    "__docId__": 573,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -15445,7 +15540,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 571,
+    "__docId__": 574,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -15457,7 +15552,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 572,
+    "__docId__": 575,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -15469,7 +15564,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 573,
+    "__docId__": 576,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -15481,7 +15576,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 574,
+    "__docId__": 577,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -15493,7 +15588,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 575,
+    "__docId__": 578,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -15505,7 +15600,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 576,
+    "__docId__": 579,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -15517,7 +15612,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 577,
+    "__docId__": 580,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -15530,7 +15625,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 579,
+    "__docId__": 582,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -15542,7 +15637,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 580,
+    "__docId__": 583,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -15554,7 +15649,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 581,
+    "__docId__": 584,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -15566,7 +15661,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 582,
+    "__docId__": 585,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -15578,7 +15673,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 583,
+    "__docId__": 586,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -15590,7 +15685,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 584,
+    "__docId__": 587,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -15602,7 +15697,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 585,
+    "__docId__": 588,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -15614,7 +15709,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 586,
+    "__docId__": 589,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
