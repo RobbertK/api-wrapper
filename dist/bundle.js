@@ -31,14 +31,15 @@
  * 
  */
 /*!
- * hash:71ad2dd89033ea4f25be, chunkhash:232fa8ef46fc6e3e3c68, name:bundle, version:fbaaf02
+ * hash:8c505017ff09d76aa038, chunkhash:fd86e4b7e2cc42dbb24f, name:bundle, version:v1.0.1
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.0) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
- *    ├─ babel-polyfill (6.23.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
- *    │  ├─ babel-runtime (6.25.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
- *    │  │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
- *    │  └─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
+ * └─ @mapcreator/maps4news (1.0.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
+ *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
+ *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
+ *    │  │  └─ regenerator-runtime (0.11.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime ~ regenerator-runtime/package.json
+ *    │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
  *    └─ mitt (1.1.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/mitt/package.json
  * 
  */
@@ -11976,7 +11977,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "fbaaf02";
+var version = exports.version = "v1.0.1";
 
 /**
  * Package license
