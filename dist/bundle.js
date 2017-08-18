@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:029312c1836b6ade3742, chunkhash:22b8a9e1e2813c24afd4, name:bundle, version:v1.0.2
+ * hash:0e30c9bc96a4e8a8f250, chunkhash:8cdb758c4ea3b10a94ec, name:bundle, version:v1.0.3
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.2) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -1157,7 +1157,6 @@ var ResourceBase = function () {
      * @param {*} value - Field Value
      * @private
      * @returns {*} - Original or converted value
-     * @todo find a reasonable way to cast boolean types
      */
 
   }, {
@@ -8152,6 +8151,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * Proxy for accessing resource. This will make sure that they
  * are properly wrapped before the promise resolves.
  * @protected
+ * @todo remove ::search* in favor of an object containing function parameters
  */
 var SimpleResourceProxy = function () {
   /**
@@ -8203,6 +8203,7 @@ var SimpleResourceProxy = function () {
      * }
      *
      * api.layers.search(query).then(console.dir);
+     * @todo move page, perPage, etc. to an object and add other options
      */
     value: function search(query) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -8419,6 +8420,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * Used for caching resources. Requires the resource to have an unique id field
  * @see {@link PaginatedResourceWrapper}
+ * @todo Add periodic data refreshing while idle, most likely implemented in cache
+ * @todo Hook into api network traffic to figure out if updates are needed
  */
 var ResourceCache = function () {
   function ResourceCache(api) {
@@ -11977,7 +11980,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.2";
+var version = exports.version = "v1.0.3";
 
 /**
  * Package license
@@ -12123,6 +12126,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /**
  * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
+ * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
  */
 var PaginatedResourceWrapper = function () {
   /**
@@ -12303,7 +12307,13 @@ var PaginatedResourceWrapper = function () {
      * @returns {void}
      */
     value: function on(type, handler) {
-      this.cache.emitter.on(type, handler);
+      var _this2 = this;
+
+      this.cache.emitter.on(type, function (e) {
+        if (e.resourceUrl === _this2.route) {
+          handler(e);
+        }
+      });
     }
 
     /**
@@ -12322,27 +12332,27 @@ var PaginatedResourceWrapper = function () {
   }, {
     key: '_promiseCallback',
     get: function get() {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (result) {
-        var query = _this2.query();
+        var query = _this3.query();
 
-        _this2._last = result;
-        _this2._query = query;
+        _this3._last = result;
+        _this3._query = query;
 
-        _this2.cache.push(result);
+        _this3.cache.push(result);
 
-        var inflightId = _this2.inflight.findIndex(function (x) {
+        var inflightId = _this3.inflight.findIndex(function (x) {
           return x === result.page;
         });
 
         if (inflightId >= 0) {
-          _this2._inflight.splice(inflightId, 1);
+          _this3._inflight.splice(inflightId, 1);
         }
 
-        _this2._waiting = _this2.inflight.length > 0;
+        _this3._waiting = _this3.inflight.length > 0;
 
-        _this2.rebuild();
+        _this3.rebuild();
       };
     }
   }, {

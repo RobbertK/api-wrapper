@@ -2819,7 +2819,7 @@
     "__docId__": 88,
     "kind": "file",
     "name": "src/PaginatedResourceWrapper.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport PaginatedResourceListing from './PaginatedResourceListing';\nimport ResourceCache from './ResourceCache';\nimport {hashObject} from './utils/hash';\n\n/**\n * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly\n */\nexport default class PaginatedResourceWrapper {\n  /**\n   *\n   * @param {PaginatedResourceListing} listing - Listing result\n   * @param {Maps4News} api - Instance of the api\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   */\n  constructor(listing, api = listing.api, cacheEnabled = api.defaults.cacheEnabled, cacheTime = api.defaults.cacheSeconds, shareCache = api.defaults.shareCache) {\n\n    // Fields\n    this._api = api;\n    this.cacheEnabled = cacheEnabled;\n    this.cacheTime = cacheTime;\n    this._shareCache = shareCache;\n    this._currentPage = 1;\n    this._context = [];\n\n    /**\n     * Available data assembled from the cache\n     * @type {Array<ResourceBase>} - Available data\n     */\n    this.data = [];\n\n    // Internal\n    this._localCache = new ResourceCache(api, cacheTime);\n    this._inflight = [];\n    this._last = listing;\n    this._waiting = false;\n\n    this._promiseCallback(listing);\n  }\n\n  get _promiseCallback() {\n    return result => {\n      const query = this.query();\n\n      this._last = result;\n      this._query = query;\n\n      this.cache.push(result);\n\n      const inflightId = this.inflight.findIndex(x => x === result.page);\n\n      if (inflightId >= 0) {\n        this._inflight.splice(inflightId, 1);\n      }\n\n      this._waiting = this.inflight.length > 0;\n\n      this.rebuild();\n    };\n  }\n\n  /**\n   * Manually fetch a page. This will change the current page.\n   * @param {Number|Array<Number>} pageId - Page(s) to fetch\n   * @returns {void}\n   */\n  get(pageId) {\n    if (pageId instanceof Array) {\n      pageId.map(this.get);\n    } else {\n      this._waiting = true;\n\n      this._inflight.push(pageId);\n      this._last.getPage(pageId).then(this._promiseCallback);\n    }\n  }\n\n  /**\n   * Grab the next page\n   * @returns {void}\n   */\n  next() {\n    this.get(++this.currentPage);\n  }\n\n  /**\n   * Grab the previous page\n   * @returns {void}\n   */\n  previous() {\n    this.get(--this.currentPage);\n  }\n\n  /**\n   * Manually rebuild the data\n   * @returns {void}\n   */\n  rebuild() {\n    this.data = this.cache\n      .resolve(this.route, this._last.cacheToken)\n      .filter(value => typeof value !== 'undefined');\n\n    this.cache.emitter.emit('post-rebuild', {resourceUrl: this._last.route});\n  }\n\n  /**\n   * Updates the cached pages.\n   * @param {Boolean} flush - Clear the cached route data\n   * @returns {void}\n   */\n  refresh(flush = false) {\n    if (flush) {\n      this.cache.clear(this.route);\n    }\n\n    this.cache\n      .collectPages(this.route, this._last.cacheToken)\n      .map(page => this.get(page.page));\n  }\n\n  /**\n   * Returns the page number that is currently being used as a reference point\n   * @returns {Number} - The current page\n   * @see {@link PaginatedResourceWrapper#next}\n   * @see {@link PaginatedResourceWrapper#previous}\n   */\n  get currentPage() {\n    return this._currentPage;\n  }\n\n  /**\n   * Set the current page number\n   * @param {Number} value - page number\n   */\n  set currentPage(value) {\n    this._currentPage = Math.max(1, value);\n  }\n\n  /**\n   * Get the route of the resource\n   * @returns {String} - route\n   */\n  get route() {\n    return this._last.route;\n  }\n\n  /**\n   * Get the number of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._last.pageCount;\n  }\n\n  /**\n   * Set the search query and search\n   * @param {?Object<String, String|Array<String>>} [value=null] - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   * @returns {Object<String, String|Array<String>>} - query\n   */\n  query(value = null) {\n    if (!value || value === this.query()) {\n      return this._last.query;\n    }\n\n    this._context[this._last.cacheToken] = this._last;\n\n    const token = hashObject(value);\n\n    if (this._context[token]) {\n      this._last = this._context[token];\n    } else {\n      this._last = new PaginatedResourceListing(this.api, this._last.route, this._last.Target, value, 1, this._last.perPage);\n      this.get(1);\n      this.currentPage = 1;\n    }\n\n    this.rebuild();\n\n    return this.query();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Get the active cache instance\n   * @returns {ResourceCache} - Cache instance\n   */\n  get cache() {\n    return this.shareCache ? this.api.cache : this._localCache;\n  }\n\n  /**\n   * Get if the shared cache should be used\n   * @returns {Boolean} - Should the shared cache be used\n   */\n  get shareCache() {\n    return this._shareCache;\n  }\n\n  /**\n   * Sets if the shared cache should be used\n   * @param {Boolean} value - Should the shared cache be used\n   */\n  set shareCache(value) {\n    this._shareCache = Boolean(value);\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this._last.hasPrevious;\n  }\n\n  /**\n   * List of page numbers that are still mid-flight\n   * @returns {Array} - Page numbers that are still mid-flight\n   */\n  get inflight() {\n    return this._inflight;\n  }\n\n  /**\n   * Returns if there are still requests mid-flight\n   * @returns {boolean} - Returns if the wrapper is waiting for requests to finish\n   */\n  get waiting() {\n    return this._waiting;\n  }\n\n  /**\n   * Register an event handler for the given type.\n   *\n   * @param {string} type Type of event to listen for, or `\"*\"` for all events.\n   * @param {function(event: any): void} handler Function to call in response to the given event.\n   * @returns {void}\n   */\n  on(type, handler) {\n    this.cache.emitter.on(type, handler);\n  }\n\n  /**\n   * Function to call in response to the given event\n   *\n   * @param {string} type Type of event to unregister `handler` from, or `\"*\"`\n   * @param {function(event: any): void} handler Handler function to remove.\n   * @returns {void}\n   */\n  off(type, handler) {\n    this.cache.emitter.off(type, handler);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport PaginatedResourceListing from './PaginatedResourceListing';\nimport ResourceCache from './ResourceCache';\nimport {hashObject} from './utils/hash';\n\n/**\n * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly\n * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created\n */\nexport default class PaginatedResourceWrapper {\n  /**\n   *\n   * @param {PaginatedResourceListing} listing - Listing result\n   * @param {Maps4News} api - Instance of the api\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   */\n  constructor(listing, api = listing.api, cacheEnabled = api.defaults.cacheEnabled, cacheTime = api.defaults.cacheSeconds, shareCache = api.defaults.shareCache) {\n\n    // Fields\n    this._api = api;\n    this.cacheEnabled = cacheEnabled;\n    this.cacheTime = cacheTime;\n    this._shareCache = shareCache;\n    this._currentPage = 1;\n    this._context = [];\n\n    /**\n     * Available data assembled from the cache\n     * @type {Array<ResourceBase>} - Available data\n     */\n    this.data = [];\n\n    // Internal\n    this._localCache = new ResourceCache(api, cacheTime);\n    this._inflight = [];\n    this._last = listing;\n    this._waiting = false;\n\n    this._promiseCallback(listing);\n  }\n\n  get _promiseCallback() {\n    return result => {\n      const query = this.query();\n\n      this._last = result;\n      this._query = query;\n\n      this.cache.push(result);\n\n      const inflightId = this.inflight.findIndex(x => x === result.page);\n\n      if (inflightId >= 0) {\n        this._inflight.splice(inflightId, 1);\n      }\n\n      this._waiting = this.inflight.length > 0;\n\n      this.rebuild();\n    };\n  }\n\n  /**\n   * Manually fetch a page. This will change the current page.\n   * @param {Number|Array<Number>} pageId - Page(s) to fetch\n   * @returns {void}\n   */\n  get(pageId) {\n    if (pageId instanceof Array) {\n      pageId.map(this.get);\n    } else {\n      this._waiting = true;\n\n      this._inflight.push(pageId);\n      this._last.getPage(pageId).then(this._promiseCallback);\n    }\n  }\n\n  /**\n   * Grab the next page\n   * @returns {void}\n   */\n  next() {\n    this.get(++this.currentPage);\n  }\n\n  /**\n   * Grab the previous page\n   * @returns {void}\n   */\n  previous() {\n    this.get(--this.currentPage);\n  }\n\n  /**\n   * Manually rebuild the data\n   * @returns {void}\n   */\n  rebuild() {\n    this.data = this.cache\n      .resolve(this.route, this._last.cacheToken)\n      .filter(value => typeof value !== 'undefined');\n\n    this.cache.emitter.emit('post-rebuild', {resourceUrl: this._last.route});\n  }\n\n  /**\n   * Updates the cached pages.\n   * @param {Boolean} flush - Clear the cached route data\n   * @returns {void}\n   */\n  refresh(flush = false) {\n    if (flush) {\n      this.cache.clear(this.route);\n    }\n\n    this.cache\n      .collectPages(this.route, this._last.cacheToken)\n      .map(page => this.get(page.page));\n  }\n\n  /**\n   * Returns the page number that is currently being used as a reference point\n   * @returns {Number} - The current page\n   * @see {@link PaginatedResourceWrapper#next}\n   * @see {@link PaginatedResourceWrapper#previous}\n   */\n  get currentPage() {\n    return this._currentPage;\n  }\n\n  /**\n   * Set the current page number\n   * @param {Number} value - page number\n   */\n  set currentPage(value) {\n    this._currentPage = Math.max(1, value);\n  }\n\n  /**\n   * Get the route of the resource\n   * @returns {String} - route\n   */\n  get route() {\n    return this._last.route;\n  }\n\n  /**\n   * Get the number of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._last.pageCount;\n  }\n\n  /**\n   * Set the search query and search\n   * @param {?Object<String, String|Array<String>>} [value=null] - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   * @returns {Object<String, String|Array<String>>} - query\n   */\n  query(value = null) {\n    if (!value || value === this.query()) {\n      return this._last.query;\n    }\n\n    this._context[this._last.cacheToken] = this._last;\n\n    const token = hashObject(value);\n\n    if (this._context[token]) {\n      this._last = this._context[token];\n    } else {\n      this._last = new PaginatedResourceListing(this.api, this._last.route, this._last.Target, value, 1, this._last.perPage);\n      this.get(1);\n      this.currentPage = 1;\n    }\n\n    this.rebuild();\n\n    return this.query();\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Get the active cache instance\n   * @returns {ResourceCache} - Cache instance\n   */\n  get cache() {\n    return this.shareCache ? this.api.cache : this._localCache;\n  }\n\n  /**\n   * Get if the shared cache should be used\n   * @returns {Boolean} - Should the shared cache be used\n   */\n  get shareCache() {\n    return this._shareCache;\n  }\n\n  /**\n   * Sets if the shared cache should be used\n   * @param {Boolean} value - Should the shared cache be used\n   */\n  set shareCache(value) {\n    this._shareCache = Boolean(value);\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this._last.hasPrevious;\n  }\n\n  /**\n   * List of page numbers that are still mid-flight\n   * @returns {Array} - Page numbers that are still mid-flight\n   */\n  get inflight() {\n    return this._inflight;\n  }\n\n  /**\n   * Returns if there are still requests mid-flight\n   * @returns {boolean} - Returns if the wrapper is waiting for requests to finish\n   */\n  get waiting() {\n    return this._waiting;\n  }\n\n  /**\n   * Register an event handler for the given type.\n   *\n   * @param {string} type Type of event to listen for, or `\"*\"` for all events.\n   * @param {function(event: any): void} handler Function to call in response to the given event.\n   * @returns {void}\n   */\n  on(type, handler) {\n    this.cache.emitter.on(type, e => {\n      if (e.resourceUrl === this.route) {\n        handler(e);\n      }\n    });\n  }\n\n  /**\n   * Function to call in response to the given event\n   *\n   * @param {string} type Type of event to unregister `handler` from, or `\"*\"`\n   * @param {function(event: any): void} handler Handler function to remove.\n   * @returns {void}\n   */\n  off(type, handler) {\n    this.cache.emitter.off(type, handler);\n  }\n}\n",
     "static": true,
     "longname": "src/PaginatedResourceWrapper.js",
     "access": null,
@@ -2838,7 +2838,10 @@
     "importPath": "@mapcreator/maps4news/src/PaginatedResourceWrapper.js",
     "importStyle": "PaginatedResourceWrapper",
     "description": "Used for wrapping {@link PaginatedResourceListing} to make it spa friendly",
-    "lineNumber": 40,
+    "lineNumber": 41,
+    "todo": [
+      "Allow for manual cache updates, ex: a resource has been modified, deleted, created"
+    ],
     "interface": false
   },
   {
@@ -2852,7 +2855,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 49,
+    "lineNumber": 50,
     "params": [
       {
         "nullable": null,
@@ -2915,7 +2918,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_api",
     "access": null,
     "description": null,
-    "lineNumber": 52,
+    "lineNumber": 53,
     "undocument": true,
     "unknown": [
       {
@@ -2938,7 +2941,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cacheEnabled",
     "access": null,
     "description": null,
-    "lineNumber": 53,
+    "lineNumber": 54,
     "undocument": true,
     "unknown": [
       {
@@ -2961,7 +2964,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cacheTime",
     "access": null,
     "description": null,
-    "lineNumber": 54,
+    "lineNumber": 55,
     "undocument": true,
     "unknown": [
       {
@@ -2984,7 +2987,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_shareCache",
     "access": null,
     "description": null,
-    "lineNumber": 55,
+    "lineNumber": 56,
     "undocument": true,
     "unknown": [
       {
@@ -3007,7 +3010,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_currentPage",
     "access": null,
     "description": null,
-    "lineNumber": 56,
+    "lineNumber": 57,
     "undocument": true,
     "unknown": [
       {
@@ -3030,7 +3033,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_context",
     "access": null,
     "description": null,
-    "lineNumber": 57,
+    "lineNumber": 58,
     "undocument": true,
     "unknown": [
       {
@@ -3053,7 +3056,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#data",
     "access": null,
     "description": "Available data assembled from the cache",
-    "lineNumber": 63,
+    "lineNumber": 64,
     "type": {
       "nullable": null,
       "types": [
@@ -3072,7 +3075,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_localCache",
     "access": null,
     "description": null,
-    "lineNumber": 66,
+    "lineNumber": 67,
     "undocument": true,
     "unknown": [
       {
@@ -3095,7 +3098,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_inflight",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 68,
     "undocument": true,
     "unknown": [
       {
@@ -3118,7 +3121,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
     "access": null,
     "description": null,
-    "lineNumber": 68,
+    "lineNumber": 69,
     "undocument": true,
     "unknown": [
       {
@@ -3141,7 +3144,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_waiting",
     "access": null,
     "description": null,
-    "lineNumber": 69,
+    "lineNumber": 70,
     "undocument": true,
     "unknown": [
       {
@@ -3166,7 +3169,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_promiseCallback",
     "access": null,
     "description": null,
-    "lineNumber": 74,
+    "lineNumber": 75,
     "undocument": true,
     "unknown": [
       {
@@ -3189,7 +3192,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
     "access": null,
     "description": null,
-    "lineNumber": 78,
+    "lineNumber": 79,
     "undocument": true,
     "unknown": [
       {
@@ -3212,7 +3215,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_query",
     "access": null,
     "description": null,
-    "lineNumber": 79,
+    "lineNumber": 80,
     "undocument": true,
     "unknown": [
       {
@@ -3235,7 +3238,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_waiting",
     "access": null,
     "description": null,
-    "lineNumber": 89,
+    "lineNumber": 90,
     "undocument": true,
     "unknown": [
       {
@@ -3260,7 +3263,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#get",
     "access": null,
     "description": "Manually fetch a page. This will change the current page.",
-    "lineNumber": 100,
+    "lineNumber": 101,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3298,7 +3301,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_waiting",
     "access": null,
     "description": null,
-    "lineNumber": 104,
+    "lineNumber": 105,
     "undocument": true,
     "unknown": [
       {
@@ -3323,7 +3326,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#next",
     "access": null,
     "description": "Grab the next page",
-    "lineNumber": 115,
+    "lineNumber": 116,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3351,7 +3354,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#previous",
     "access": null,
     "description": "Grab the previous page",
-    "lineNumber": 123,
+    "lineNumber": 124,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3379,7 +3382,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#rebuild",
     "access": null,
     "description": "Manually rebuild the data",
-    "lineNumber": 131,
+    "lineNumber": 132,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3405,7 +3408,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#data",
     "access": null,
     "description": null,
-    "lineNumber": 132,
+    "lineNumber": 133,
     "undocument": true,
     "unknown": [
       {
@@ -3430,7 +3433,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#refresh",
     "access": null,
     "description": "Updates the cached pages.",
-    "lineNumber": 144,
+    "lineNumber": 145,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3473,7 +3476,7 @@
       "{@link PaginatedResourceWrapper#next}",
       "{@link PaginatedResourceWrapper#previous}"
     ],
-    "lineNumber": 160,
+    "lineNumber": 161,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3505,7 +3508,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "access": null,
     "description": "Set the current page number",
-    "lineNumber": 168,
+    "lineNumber": 169,
     "params": [
       {
         "nullable": null,
@@ -3533,7 +3536,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_currentPage",
     "access": null,
     "description": null,
-    "lineNumber": 169,
+    "lineNumber": 170,
     "undocument": true,
     "unknown": [
       {
@@ -3558,7 +3561,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "access": null,
     "description": "Get the route of the resource",
-    "lineNumber": 176,
+    "lineNumber": 177,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3590,7 +3593,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#pageCount",
     "access": null,
     "description": "Get the number of pages available",
-    "lineNumber": 184,
+    "lineNumber": 185,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3625,7 +3628,7 @@
     "see": [
       "{@link ResourceProxy#search}"
     ],
-    "lineNumber": 196,
+    "lineNumber": 197,
     "unknown": [
       {
         "tagName": "@default",
@@ -3676,7 +3679,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
     "access": null,
     "description": null,
-    "lineNumber": 206,
+    "lineNumber": 207,
     "undocument": true,
     "unknown": [
       {
@@ -3699,7 +3702,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_last",
     "access": null,
     "description": null,
-    "lineNumber": 208,
+    "lineNumber": 209,
     "undocument": true,
     "unknown": [
       {
@@ -3722,7 +3725,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "access": null,
     "description": null,
-    "lineNumber": 210,
+    "lineNumber": 211,
     "undocument": true,
     "unknown": [
       {
@@ -3747,7 +3750,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 222,
+    "lineNumber": 223,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3779,7 +3782,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cache",
     "access": null,
     "description": "Get the active cache instance",
-    "lineNumber": 230,
+    "lineNumber": 231,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3811,7 +3814,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "access": null,
     "description": "Get if the shared cache should be used",
-    "lineNumber": 238,
+    "lineNumber": 239,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3843,7 +3846,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "access": null,
     "description": "Sets if the shared cache should be used",
-    "lineNumber": 246,
+    "lineNumber": 247,
     "params": [
       {
         "nullable": null,
@@ -3871,7 +3874,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#_shareCache",
     "access": null,
     "description": null,
-    "lineNumber": 247,
+    "lineNumber": 248,
     "undocument": true,
     "unknown": [
       {
@@ -3896,7 +3899,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasNext",
     "access": null,
     "description": "If there is a next page",
-    "lineNumber": 254,
+    "lineNumber": 255,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3928,7 +3931,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#hasPrevious",
     "access": null,
     "description": "If there is a previous page",
-    "lineNumber": 262,
+    "lineNumber": 263,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3960,7 +3963,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#inflight",
     "access": null,
     "description": "List of page numbers that are still mid-flight",
-    "lineNumber": 270,
+    "lineNumber": 271,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3992,7 +3995,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#waiting",
     "access": null,
     "description": "Returns if there are still requests mid-flight",
-    "lineNumber": 278,
+    "lineNumber": 279,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4024,7 +4027,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#on",
     "access": null,
     "description": "Register an event handler for the given type.",
-    "lineNumber": 289,
+    "lineNumber": 290,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4073,7 +4076,7 @@
     "longname": "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#off",
     "access": null,
     "description": "Function to call in response to the given event",
-    "lineNumber": 300,
+    "lineNumber": 305,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4115,7 +4118,7 @@
     "__docId__": 133,
     "kind": "file",
     "name": "src/ResourceCache.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport mitt from 'mitt';\n\n\n/**\n * Used for caching resources. Requires the resource to have an unique id field\n * @see {@link PaginatedResourceWrapper}\n */\nexport default class ResourceCache {\n  constructor(api, cacheTime = api.defaults.cacheSeconds) {\n    this._api = api;\n    this.cacheTime = cacheTime;\n    this.emitter = mitt();\n\n    this._storage = {};\n  }\n\n  /**\n   * Push a page into the cache\n   * @param {PaginatedResourceListing} page - Data to be cached\n   * @returns {void}\n   */\n  push(page) {\n    if (page.rows === 0) {\n      return; // Don't insert empty pages\n    }\n\n    // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)\n    const invalidData = page.data.map(row => row.id).filter(x => typeof x !== 'number').length > 0;\n\n    if (invalidData) {\n      throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric \"id\" field.');\n    }\n\n    const validThrough = this._timestamp() + this.cacheTime;\n    const data = {\n      page, validThrough,\n      timeout: setTimeout(\n        () => this.revalidate(page.route),\n        this.cacheTime * 1000,\n      ),\n    };\n\n    const storage = this._storage[page.route] || (this._storage[page.route] = {});\n\n    (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);\n\n    this.emitter.emit('push', {page, validThrough, resourceUrl: page.route});\n    this.emitter.emit('invalidate', {resourceUrl: page.route});\n  }\n\n  /**\n   * Revalidate all data and delete stale data\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  revalidate(resourceUrl = null) {\n    if (!resourceUrl) {\n      Object.keys(this._storage).map(this.revalidate);\n    } else if (this._storage[resourceUrl]) {\n      const storage = this._storage[resourceUrl];\n\n      // Remove old data from the cache and stop old timeouts\n      Object.keys(storage).forEach(key => {\n        storage[key]\n          .filter(row => row.validThrough < this._timestamp())\n          .forEach(row => clearTimeout(row.timeout));\n\n        storage[key] = storage[key].filter(row => row.validThrough >= this._timestamp());\n      });\n\n      const junk = Object.keys(storage).filter(key => storage[key].length === 0);\n\n      // Delete empty\n      junk.forEach(key => delete storage[key]);\n      if (Object.keys(storage).length === 0) {\n        delete this._storage[resourceUrl];\n      }\n\n      if (junk.length > 0) {\n        this.emitter.emit('invalidate', {resourceUrl});\n      }\n    }\n  }\n\n  /**\n   * Collect relevant cached pages\n   * @param {String} resourceUrl - resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array<PaginatedResourceListing>} - Relevant cached pages\n   */\n  collectPages(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    // Storage array or []\n    const storage = (this._storage[resourceUrl] || {})[cacheToken] || [];\n\n    // Sort by validThrough and extract pages\n    return storage.sort((a, b) => a.validThrough - b.validThrough).map(x => x.page);\n  }\n\n  /**\n   * Clears the cache\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  clear(resourceUrl = '') {\n    if (!resourceUrl) {\n      Object.keys(this._storage).forEach(url => {\n        this.emitter.emit('invalidate', {resourceUrl: url});\n      });\n\n      this._storage = {};\n    } else {\n      delete this._storage[resourceUrl];\n      this.emitter.emit('invalidate', {resourceUrl});\n    }\n  }\n\n  /**\n   * Resolve cache and return indexed data\n   * @param {String} resourceUrl - Resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array} - Indexed relevant data\n   * @todo Get missing keys between pages and remove them if needed. Diff last and first between pages.\n   * @todo add page numbers or range as optional parameter\n   */\n  resolve(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    const data = this.collectPages(resourceUrl, cacheToken);\n    const out = [];\n\n    for (const page of data) {\n      if (page.rows === 0) {\n        // We can't do anything if we don't have any data\n        continue;\n      }\n\n      const ids = page.data.map(row => row.id);\n      const startId = Math.min(...ids);\n      const endId = Math.max(...ids);\n\n      for (const row of page.data) {\n        out[row.id] = row;\n      }\n\n      // Grab list of applicable ids and delete offending\n      // keys that no longer exist in the newer data set\n      Object\n        .keys(out)\n        .map(Number)\n        .filter(key => startId <= key && key <= endId)\n        .filter(key => !ids.includes(key))\n        .forEach(key => delete out[key]);\n    }\n\n    return out;\n  }\n\n  /**\n   * Get a usable timestamp\n   * @returns {number} - timestamp\n   * @private\n   */\n  _timestamp() {\n    return Math.floor(Date.now() / 1000);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport mitt from 'mitt';\n\n\n/**\n * Used for caching resources. Requires the resource to have an unique id field\n * @see {@link PaginatedResourceWrapper}\n * @todo Add periodic data refreshing while idle, most likely implemented in cache\n * @todo Hook into api network traffic to figure out if updates are needed\n */\nexport default class ResourceCache {\n  constructor(api, cacheTime = api.defaults.cacheSeconds) {\n    this._api = api;\n    this.cacheTime = cacheTime;\n    this.emitter = mitt();\n\n    this._storage = {};\n  }\n\n  /**\n   * Push a page into the cache\n   * @param {PaginatedResourceListing} page - Data to be cached\n   * @returns {void}\n   */\n  push(page) {\n    if (page.rows === 0) {\n      return; // Don't insert empty pages\n    }\n\n    // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)\n    const invalidData = page.data.map(row => row.id).filter(x => typeof x !== 'number').length > 0;\n\n    if (invalidData) {\n      throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric \"id\" field.');\n    }\n\n    const validThrough = this._timestamp() + this.cacheTime;\n    const data = {\n      page, validThrough,\n      timeout: setTimeout(\n        () => this.revalidate(page.route),\n        this.cacheTime * 1000,\n      ),\n    };\n\n    const storage = this._storage[page.route] || (this._storage[page.route] = {});\n\n    (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);\n\n    this.emitter.emit('push', {page, validThrough, resourceUrl: page.route});\n    this.emitter.emit('invalidate', {resourceUrl: page.route});\n  }\n\n  /**\n   * Revalidate all data and delete stale data\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  revalidate(resourceUrl = null) {\n    if (!resourceUrl) {\n      Object.keys(this._storage).map(this.revalidate);\n    } else if (this._storage[resourceUrl]) {\n      const storage = this._storage[resourceUrl];\n\n      // Remove old data from the cache and stop old timeouts\n      Object.keys(storage).forEach(key => {\n        storage[key]\n          .filter(row => row.validThrough < this._timestamp())\n          .forEach(row => clearTimeout(row.timeout));\n\n        storage[key] = storage[key].filter(row => row.validThrough >= this._timestamp());\n      });\n\n      const junk = Object.keys(storage).filter(key => storage[key].length === 0);\n\n      // Delete empty\n      junk.forEach(key => delete storage[key]);\n      if (Object.keys(storage).length === 0) {\n        delete this._storage[resourceUrl];\n      }\n\n      if (junk.length > 0) {\n        this.emitter.emit('invalidate', {resourceUrl});\n      }\n    }\n  }\n\n  /**\n   * Collect relevant cached pages\n   * @param {String} resourceUrl - resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array<PaginatedResourceListing>} - Relevant cached pages\n   */\n  collectPages(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    // Storage array or []\n    const storage = (this._storage[resourceUrl] || {})[cacheToken] || [];\n\n    // Sort by validThrough and extract pages\n    return storage.sort((a, b) => a.validThrough - b.validThrough).map(x => x.page);\n  }\n\n  /**\n   * Clears the cache\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  clear(resourceUrl = '') {\n    if (!resourceUrl) {\n      Object.keys(this._storage).forEach(url => {\n        this.emitter.emit('invalidate', {resourceUrl: url});\n      });\n\n      this._storage = {};\n    } else {\n      delete this._storage[resourceUrl];\n      this.emitter.emit('invalidate', {resourceUrl});\n    }\n  }\n\n  /**\n   * Resolve cache and return indexed data\n   * @param {String} resourceUrl - Resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array} - Indexed relevant data\n   * @todo Get missing keys between pages and remove them if needed. Diff last and first between pages.\n   * @todo add page numbers or range as optional parameter\n   */\n  resolve(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    const data = this.collectPages(resourceUrl, cacheToken);\n    const out = [];\n\n    for (const page of data) {\n      if (page.rows === 0) {\n        // We can't do anything if we don't have any data\n        continue;\n      }\n\n      const ids = page.data.map(row => row.id);\n      const startId = Math.min(...ids);\n      const endId = Math.max(...ids);\n\n      for (const row of page.data) {\n        out[row.id] = row;\n      }\n\n      // Grab list of applicable ids and delete offending\n      // keys that no longer exist in the newer data set\n      Object\n        .keys(out)\n        .map(Number)\n        .filter(key => startId <= key && key <= endId)\n        .filter(key => !ids.includes(key))\n        .forEach(key => delete out[key]);\n    }\n\n    return out;\n  }\n\n  /**\n   * Get a usable timestamp\n   * @returns {number} - timestamp\n   * @private\n   */\n  _timestamp() {\n    return Math.floor(Date.now() / 1000);\n  }\n}\n",
     "static": true,
     "longname": "src/ResourceCache.js",
     "access": null,
@@ -4137,7 +4140,11 @@
     "see": [
       "{@link PaginatedResourceWrapper}"
     ],
-    "lineNumber": 40,
+    "lineNumber": 42,
+    "todo": [
+      "Add periodic data refreshing while idle, most likely implemented in cache",
+      "Hook into api network traffic to figure out if updates are needed"
+    ],
     "interface": false
   },
   {
@@ -4151,7 +4158,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 41,
+    "lineNumber": 43,
     "undocument": true,
     "unknown": [
       {
@@ -4184,7 +4191,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#_api",
     "access": null,
     "description": null,
-    "lineNumber": 42,
+    "lineNumber": 44,
     "undocument": true,
     "unknown": [
       {
@@ -4207,7 +4214,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#cacheTime",
     "access": null,
     "description": null,
-    "lineNumber": 43,
+    "lineNumber": 45,
     "undocument": true,
     "unknown": [
       {
@@ -4230,7 +4237,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#emitter",
     "access": null,
     "description": null,
-    "lineNumber": 44,
+    "lineNumber": 46,
     "undocument": true,
     "unknown": [
       {
@@ -4253,7 +4260,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#_storage",
     "access": null,
     "description": null,
-    "lineNumber": 46,
+    "lineNumber": 48,
     "undocument": true,
     "unknown": [
       {
@@ -4278,7 +4285,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#push",
     "access": null,
     "description": "Push a page into the cache",
-    "lineNumber": 54,
+    "lineNumber": 56,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4317,7 +4324,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#revalidate",
     "access": null,
     "description": "Revalidate all data and delete stale data",
-    "lineNumber": 88,
+    "lineNumber": 90,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4359,7 +4366,7 @@
     "see": [
       "{@link PaginatedResourceListing#cacheToken}"
     ],
-    "lineNumber": 124,
+    "lineNumber": 126,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4408,7 +4415,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#clear",
     "access": null,
     "description": "Clears the cache",
-    "lineNumber": 139,
+    "lineNumber": 141,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4445,7 +4452,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#_storage",
     "access": null,
     "description": null,
-    "lineNumber": 145,
+    "lineNumber": 147,
     "undocument": true,
     "unknown": [
       {
@@ -4473,7 +4480,7 @@
     "see": [
       "{@link PaginatedResourceListing#cacheToken}"
     ],
-    "lineNumber": 161,
+    "lineNumber": 163,
     "todo": [
       "Get missing keys between pages and remove them if needed. Diff last and first between pages.",
       "add page numbers or range as optional parameter"
@@ -4526,7 +4533,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#_timestamp",
     "access": "private",
     "description": "Get a usable timestamp",
-    "lineNumber": 199,
+    "lineNumber": 201,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4721,7 +4728,7 @@
     "__docId__": 152,
     "kind": "file",
     "name": "src/SimpleResourceProxy.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ResourceBase from './crud/base/ResourceBase';\nimport PaginatedResourceListing from './PaginatedResourceListing';\nimport {isParentOf} from './utils/reflection';\n\n/**\n * Proxy for accessing resource. This will make sure that they\n * are properly wrapped before the promise resolves.\n * @protected\n */\nexport default class SimpleResourceProxy {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {ResourceBase} Target - Target to wrap\n   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing\n   * @param {object} seedData - Internal use, used for seeding ::new\n   */\n  constructor(api, Target, altUrl = null, seedData = {}) {\n    if (!isParentOf(ResourceBase, Target)) {\n      throw new TypeError('Target is not a child of ResourceBase');\n    }\n\n    if (typeof Target !== 'function') {\n      throw new TypeError('Target must to be a class not an instance');\n    }\n\n    this._api = api;\n    this._Target = Target;\n    this._seedData = seedData;\n\n    if (altUrl) {\n      this.__baseUrl = altUrl;\n    }\n  }\n\n  get _baseUrl() {\n    if (!this.__baseUrl) {\n      this.__baseUrl = this.new().baseUrl;\n    }\n\n    return this.__baseUrl;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * The name of the target\n   * @returns {String} - Target name\n   * @example\n   * api.colors.accessorName === 'Color'\n   * api.fontFamilies.accessorName = 'Font Families'\n   */\n  get accessorName() {\n    return this.Target.name.replace(/([A-Z])/g, x => ' ' + x).trim();\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.search(query).then(console.dir);\n   */\n  search(query, page = 1, perPage = this.api.defaults.perPage) {\n    const url = this._baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  list(page = 1, perPage = this.api.defaults.perPage) {\n    return this.search({}, page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   */\n  listAndWrap(page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    return this.searchAndWrap({}, page, perPage, cacheEnabled, cacheTime, shareCache);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.searchAndWrap(query)\n   */\n  searchAndWrap(query, page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    const url = this._baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query, page, perPage);\n    const wrapped = resolver.wrap(cacheEnabled, cacheTime, shareCache);\n\n    wrapped.get(page);\n\n    return wrapped;\n  }\n\n  /**\n   * Build a new isntance of the target\n   * @param {Object<String, *>} data - Data for the object to be populated with\n   * @returns {ResourceBase} - Resource with target data\n   */\n  new(data = {}) {\n    // Merge but don't overwrite using seed data\n    data = Object.assign(this._seedData, data);\n\n    return new this.Target(this._api, data);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ResourceBase from './crud/base/ResourceBase';\nimport PaginatedResourceListing from './PaginatedResourceListing';\nimport {isParentOf} from './utils/reflection';\n\n/**\n * Proxy for accessing resource. This will make sure that they\n * are properly wrapped before the promise resolves.\n * @protected\n * @todo remove ::search* in favor of an object containing function parameters\n */\nexport default class SimpleResourceProxy {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {ResourceBase} Target - Target to wrap\n   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing\n   * @param {object} seedData - Internal use, used for seeding ::new\n   */\n  constructor(api, Target, altUrl = null, seedData = {}) {\n    if (!isParentOf(ResourceBase, Target)) {\n      throw new TypeError('Target is not a child of ResourceBase');\n    }\n\n    if (typeof Target !== 'function') {\n      throw new TypeError('Target must to be a class not an instance');\n    }\n\n    this._api = api;\n    this._Target = Target;\n    this._seedData = seedData;\n\n    if (altUrl) {\n      this.__baseUrl = altUrl;\n    }\n  }\n\n  get _baseUrl() {\n    if (!this.__baseUrl) {\n      this.__baseUrl = this.new().baseUrl;\n    }\n\n    return this.__baseUrl;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * The name of the target\n   * @returns {String} - Target name\n   * @example\n   * api.colors.accessorName === 'Color'\n   * api.fontFamilies.accessorName = 'Font Families'\n   */\n  get accessorName() {\n    return this.Target.name.replace(/([A-Z])/g, x => ' ' + x).trim();\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.search(query).then(console.dir);\n   * @todo move page, perPage, etc. to an object and add other options\n   */\n  search(query, page = 1, perPage = this.api.defaults.perPage) {\n    const url = this._baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query);\n\n    return resolver.getPage(page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  list(page = 1, perPage = this.api.defaults.perPage) {\n    return this.search({}, page, perPage);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   *\n   */\n  listAndWrap(page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    return this.searchAndWrap({}, page, perPage, cacheEnabled, cacheTime, shareCache);\n  }\n\n  /**\n   * Lists target resource\n   * @param {Object<String, String|Array<String>>} query - Query\n   * @param {Number} page - The page to be requested\n   * @param {Number} perPage - Amount of items per page. This is silently capped by the API\n   * @param {Boolean} cacheEnabled - If the pagination cache should be used\n   * @param {Number} cacheTime - Amount of seconds to store a value in cache\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance\n   *\n   * @example\n   * // Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n   * // See Api documentation for search query syntax\n   * var query = {\n   *   name: '^:test',\n   *   scale_min: ['>:1', '<:10'],\n   * }\n   *\n   * api.layers.searchAndWrap(query)\n   */\n  searchAndWrap(query, page = 1, perPage = this.api.defaults.perPage, cacheEnabled = this.api.defaults.cacheEnabled, cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {\n    const url = this._baseUrl;\n    const resolver = new PaginatedResourceListing(this._api, url, this.Target, query, page, perPage);\n    const wrapped = resolver.wrap(cacheEnabled, cacheTime, shareCache);\n\n    wrapped.get(page);\n\n    return wrapped;\n  }\n\n  /**\n   * Build a new isntance of the target\n   * @param {Object<String, *>} data - Data for the object to be populated with\n   * @returns {ResourceBase} - Resource with target data\n   */\n  new(data = {}) {\n    // Merge but don't overwrite using seed data\n    data = Object.assign(this._seedData, data);\n\n    return new this.Target(this._api, data);\n  }\n}\n",
     "static": true,
     "longname": "src/SimpleResourceProxy.js",
     "access": null,
@@ -4740,7 +4747,10 @@
     "importPath": "@mapcreator/maps4news/src/SimpleResourceProxy.js",
     "importStyle": "SimpleResourceProxy",
     "description": "Proxy for accessing resource. This will make sure that they\nare properly wrapped before the promise resolves.",
-    "lineNumber": 42,
+    "lineNumber": 43,
+    "todo": [
+      "remove ::search* in favor of an object containing function parameters"
+    ],
     "interface": false
   },
   {
@@ -4754,7 +4764,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 49,
+    "lineNumber": 50,
     "params": [
       {
         "nullable": null,
@@ -4809,7 +4819,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#_api",
     "access": null,
     "description": null,
-    "lineNumber": 58,
+    "lineNumber": 59,
     "undocument": true,
     "unknown": [
       {
@@ -4832,7 +4842,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#_Target",
     "access": null,
     "description": null,
-    "lineNumber": 59,
+    "lineNumber": 60,
     "undocument": true,
     "unknown": [
       {
@@ -4855,7 +4865,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#_seedData",
     "access": null,
     "description": null,
-    "lineNumber": 60,
+    "lineNumber": 61,
     "undocument": true,
     "unknown": [
       {
@@ -4878,7 +4888,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#__baseUrl",
     "access": null,
     "description": null,
-    "lineNumber": 63,
+    "lineNumber": 64,
     "undocument": true,
     "unknown": [
       {
@@ -4903,7 +4913,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#_baseUrl",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 68,
     "undocument": true,
     "unknown": [
       {
@@ -4926,7 +4936,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#__baseUrl",
     "access": null,
     "description": null,
-    "lineNumber": 69,
+    "lineNumber": 70,
     "undocument": true,
     "unknown": [
       {
@@ -4951,7 +4961,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 79,
+    "lineNumber": 80,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4983,7 +4993,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#Target",
     "access": null,
     "description": "Target to wrap results in",
-    "lineNumber": 88,
+    "lineNumber": 89,
     "unknown": [
       {
         "tagName": "@returns",
@@ -5022,7 +5032,7 @@
     "examples": [
       "api.colors.accessorName === 'Color'\napi.fontFamilies.accessorName = 'Font Families'"
     ],
-    "lineNumber": 99,
+    "lineNumber": 100,
     "unknown": [
       {
         "tagName": "@returns",
@@ -5057,7 +5067,10 @@
     "examples": [
       "// Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n// See Api documentation for search query syntax\nvar query = {\n  name: '^:test',\n  scale_min: ['>:1', '<:10'],\n}\n\napi.layers.search(query).then(console.dir);"
     ],
-    "lineNumber": 120,
+    "lineNumber": 122,
+    "todo": [
+      "move page, perPage, etc. to an object and add other options"
+    ],
     "unknown": [
       {
         "tagName": "@returns",
@@ -5116,7 +5129,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#list",
     "access": null,
     "description": "Lists target resource",
-    "lineNumber": 133,
+    "lineNumber": 135,
     "unknown": [
       {
         "tagName": "@returns",
@@ -5166,7 +5179,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#listAndWrap",
     "access": null,
     "description": "Lists target resource",
-    "lineNumber": 147,
+    "lineNumber": 149,
     "unknown": [
       {
         "tagName": "@returns",
@@ -5248,7 +5261,7 @@
     "examples": [
       "// Find layers with a name that starts with \"test\" and a scale_min between 1 and 10\n// See Api documentation for search query syntax\nvar query = {\n  name: '^:test',\n  scale_min: ['>:1', '<:10'],\n}\n\napi.layers.searchAndWrap(query)"
     ],
-    "lineNumber": 171,
+    "lineNumber": 173,
     "unknown": [
       {
         "tagName": "@returns",
@@ -5337,7 +5350,7 @@
     "longname": "src/SimpleResourceProxy.js~SimpleResourceProxy#new",
     "access": null,
     "description": "Build a new isntance of the target",
-    "lineNumber": 186,
+    "lineNumber": 188,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9612,7 +9625,7 @@
     "__docId__": 337,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data || {};\n    this._properties = {};\n    this._api = api;\n\n    const fields = Object.keys(this._baseProperties);\n\n    // Apply properties\n    for (const key of fields) {\n      this._applyProperty(key);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n\n    /* We keep track of any new fields by recording the\n     * keys the object currently has. We don't need no\n     * fancy-pants observers, Proxies etc.\n     */\n    this._knownFields = Object.keys(this).filter(x => x[0] !== '_');\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Protected read-only fields\n   * @returns {Array<string>} - Array containing the protected fields\n   * @protected\n   */\n  get _protectedFields() {\n    return ['id', 'created_at', 'updated_at', 'deleted_at'];\n  }\n\n  /**\n   * Moves new fields to this._properties and turns them into a getter/setter\n   * @returns {void}\n   * @protected\n   */\n  _updateProperties() {\n    // Build a list of new fields\n    const fields = Object.keys(this)\n      .filter(x => x[0] !== '_')\n      .filter(x => !this._knownFields.includes(x));\n\n    // Move the pointer from this to the properties object\n    for (const key of fields) {\n      const newKey = camelToSnakeCase(key);\n\n      this._properties[newKey] = this[key];\n      delete this[key];\n\n      this._knownFields.push(key);\n\n      this._applyProperty(newKey);\n    }\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Create proxy for property\n   * @param {string} key - property key\n   * @returns {void}\n   * @private\n   */\n  _applyProperty(key) {\n    const desc = {\n      enumerable: true,\n      configurable: true,\n\n      get: () => {\n        if (this._properties.hasOwnProperty(key)) {\n          return this._properties[key];\n        }\n\n        return this._baseProperties[key];\n      },\n    };\n\n    if (!this._protectedFields.includes(key)) {\n      desc.set = (val) => {\n        this._properties[key] = ResourceBase._guessType(key, val);\n        delete this._url; // Clears url cache\n      };\n    }\n\n    Object.defineProperty(this, snakeToCamelCase(key), desc);\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   * @todo find a reasonable way to cast boolean types\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[snakeToCamelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data || {};\n    this._properties = {};\n    this._api = api;\n\n    const fields = Object.keys(this._baseProperties);\n\n    // Apply properties\n    for (const key of fields) {\n      this._applyProperty(key);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n\n    /* We keep track of any new fields by recording the\n     * keys the object currently has. We don't need no\n     * fancy-pants observers, Proxies etc.\n     */\n    this._knownFields = Object.keys(this).filter(x => x[0] !== '_');\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Protected read-only fields\n   * @returns {Array<string>} - Array containing the protected fields\n   * @protected\n   */\n  get _protectedFields() {\n    return ['id', 'created_at', 'updated_at', 'deleted_at'];\n  }\n\n  /**\n   * Moves new fields to this._properties and turns them into a getter/setter\n   * @returns {void}\n   * @protected\n   */\n  _updateProperties() {\n    // Build a list of new fields\n    const fields = Object.keys(this)\n      .filter(x => x[0] !== '_')\n      .filter(x => !this._knownFields.includes(x));\n\n    // Move the pointer from this to the properties object\n    for (const key of fields) {\n      const newKey = camelToSnakeCase(key);\n\n      this._properties[newKey] = this[key];\n      delete this[key];\n\n      this._knownFields.push(key);\n\n      this._applyProperty(newKey);\n    }\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return new Promise((resolve, reject) => {\n      this._api.request(this.url)\n        .catch(reject)\n        .then(data => {\n          if (updateSelf) {\n            this._properties = {};\n            this._baseProperties = data;\n          }\n\n          resolve(new this(this._api, data));\n        });\n    });\n  }\n\n  /**\n   * Create proxy for property\n   * @param {string} key - property key\n   * @returns {void}\n   * @private\n   */\n  _applyProperty(key) {\n    const desc = {\n      enumerable: true,\n      configurable: true,\n\n      get: () => {\n        if (this._properties.hasOwnProperty(key)) {\n          return this._properties[key];\n        }\n\n        return this._baseProperties[key];\n      },\n    };\n\n    if (!this._protectedFields.includes(key)) {\n      desc.set = (val) => {\n        this._properties[key] = ResourceBase._guessType(key, val);\n        delete this._url; // Clears url cache\n      };\n    }\n\n    Object.defineProperty(this, snakeToCamelCase(key), desc);\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[snakeToCamelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this.id})`;\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/ResourceBase.js",
     "access": null,
@@ -10049,10 +10062,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase._guessType",
     "access": "private",
     "description": "Guess type based on property name",
-    "lineNumber": 215,
-    "todo": [
-      "find a reasonable way to cast boolean types"
-    ],
+    "lineNumber": 214,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10101,7 +10111,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#ownable",
     "access": null,
     "description": "If the resource can be owned by an organisation",
-    "lineNumber": 245,
+    "lineNumber": 244,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10133,7 +10143,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#url",
     "access": null,
     "description": "Auto generated resource url",
-    "lineNumber": 253,
+    "lineNumber": 252,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10163,7 +10173,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_url",
     "access": null,
     "description": null,
-    "lineNumber": 260,
+    "lineNumber": 259,
     "undocument": true,
     "unknown": [
       {
@@ -10188,7 +10198,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#baseUrl",
     "access": null,
     "description": "Auto generated Resource base url",
-    "lineNumber": 270,
+    "lineNumber": 269,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10220,7 +10230,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
     "access": null,
     "description": "List fields that contain object data",
-    "lineNumber": 280,
+    "lineNumber": 279,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10252,7 +10262,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#toString",
     "access": null,
     "description": "String representation of the resource, similar to Python's __repr__",
-    "lineNumber": 290,
+    "lineNumber": 289,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10280,7 +10290,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_proxyResourceList",
     "access": "protected",
     "description": "Macro for resource listing",
-    "lineNumber": 302,
+    "lineNumber": 301,
     "unknown": [
       {
         "tagName": "@returns",

@@ -141,6 +141,7 @@ import {hashObject} from &apos;./utils/hash&apos;;
 
 /**
  * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
+ * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
  */
 export default class PaginatedResourceWrapper {
   /**
@@ -392,7 +393,11 @@ export default class PaginatedResourceWrapper {
    * @returns {void}
    */
   on(type, handler) {
-    this.cache.emitter.on(type, handler);
+    this.cache.emitter.on(type, e =&gt; {
+      if (e.resourceUrl === this.route) {
+        handler(e);
+      }
+    });
   }
 
   /**
