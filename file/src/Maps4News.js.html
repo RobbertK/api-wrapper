@@ -182,6 +182,7 @@ import {makeRequest} from &apos;./utils/requests&apos;;
 
 /**
  * Base API class
+ * @todo Add setting to disable console.warn
  */
 export default class Maps4News {
   /**
@@ -316,7 +317,15 @@ export default class Maps4News {
             const err = response.error;
 
             if (!err.validation_errors) {
-              reject(new ApiError(err.type, err.message, request.status));
+              const apiError = new ApiError(err.type, err.message, request.status);
+
+              if (apiError.type === &apos;AuthenticationException&apos; &amp;&amp; apiError.message === &apos;Unauthenticated&apos; &amp;&amp; apiError.code === 401) {
+                console.warn(&apos;Lost maps4news session, please re-authenticate&apos;);
+
+                this.auth.forget();
+              }
+
+              reject(apiError);
             } else {
               reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));
             }

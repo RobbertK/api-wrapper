@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:0e30c9bc96a4e8a8f250, chunkhash:8cdb758c4ea3b10a94ec, name:bundle, version:v1.0.3
+ * hash:a7cbac14b3e744d38dbf, chunkhash:b58322a0259886a12060, name:bundle, version:v1.0.4
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.4) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -2726,6 +2726,7 @@ if (!global._babelPolyfill) {
 
 /**
  * Base API class
+ * @todo Add setting to disable console.warn
  */
 var Maps4News = function () {
   /**
@@ -2800,6 +2801,9 @@ var Maps4News = function () {
       var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+      var _this2 = this;
+
       var responseType = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
       var raw = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
 
@@ -2826,7 +2830,15 @@ var Maps4News = function () {
               var err = response.error;
 
               if (!err.validation_errors) {
-                reject(new _ApiError2.default(err.type, err.message, request.status));
+                var apiError = new _ApiError2.default(err.type, err.message, request.status);
+
+                if (apiError.type === 'AuthenticationException' && apiError.message === 'Unauthenticated' && apiError.code === 401) {
+                  console.warn('Lost maps4news session, please re-authenticate');
+
+                  _this2.auth.forget();
+                }
+
+                reject(apiError);
               } else {
                 reject(new _ValidationError2.default(err.type, err.message, request.status, err.validation_errors));
               }
@@ -2914,10 +2926,10 @@ var Maps4News = function () {
      * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx
      */
     value: function testXhr() {
-      var _this3 = this;
+      var _this4 = this;
 
       return new Promise(function (resolve, reject) {
-        (0, _requests.makeRequest)(_this3.host + '/favicon.ico').then(function (x) {
+        (0, _requests.makeRequest)(_this4.host + '/favicon.ico').then(function (x) {
           return resolve(x.status);
         }).catch(function (x) {
           return reject(x.status);
@@ -3747,6 +3759,7 @@ var OAuth = function () {
 
     /**
      * Forget the current session
+     * Empty the session token store and forget the api token
      * @returns {void}
      */
 
@@ -11980,7 +11993,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.3";
+var version = exports.version = "v1.0.4";
 
 /**
  * Package license
