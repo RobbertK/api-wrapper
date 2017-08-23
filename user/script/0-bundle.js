@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:a7cbac14b3e744d38dbf, chunkhash:b58322a0259886a12060, name:bundle, version:v1.0.4
+ * hash:c149225e48a6f2a017f8, chunkhash:fd0a8c5c2a82ed1b6077, name:bundle, version:v1.0.5
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.4) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -358,35 +358,6 @@ var CrudBase = function (_ResourceBase) {
 
       delete out.id;
       return out;
-    }
-
-    /**
-     * Macro for resource listing
-     * @param {ResourceBase} Target - Target object
-     * @param {?String} url - Target url, if null it will guess
-     * @param {Number} [page=1] - Page number
-     * @param {Number} [perPage= this.api.defaults.perPage] - Amount of items per page
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     * @protected
-     * @deprecated
-     */
-
-  }, {
-    key: '_listResource',
-    value: function _listResource(Target) {
-      var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-      var perPage = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.perPage;
-
-      if (!url) {
-        var resource = new Target(this.api).resourceName.replace(/s+$/, '');
-
-        url = this.url + '/' + resource + 's';
-      }
-
-      var resolver = new _PaginatedResourceListing2.default(this.api, url, Target);
-
-      return resolver.getPage(page, perPage);
     }
 
     /**
@@ -11993,7 +11964,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.4";
+var version = exports.version = "v1.0.5";
 
 /**
  * Package license
@@ -19200,7 +19171,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getPaginatedRange = getPaginatedRange;
-exports.paginateResource = paginateResource;
 
 var _CrudBase = __webpack_require__(6);
 
@@ -19299,39 +19269,6 @@ function getPaginatedRange(page) {
       }))));
     }, reject);
   });
-}
-
-/**
- * Manually paginate a resource
- * @param {Maps4News} api - Api instance
- * @param {?String} url - Target url, if null it will guess
- * @param {Number} [page=1] - Page number
- * @param {Number} [perPage=api.defaults.perPage] - Amount of items per page
- * @param {ResourceBase} [Target=CrudBase] - Target class, should extend {@link ResourceBase}
- * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
- * @example
- * import { helpers } from "@mapcreator/maps4news";
- *
- * helpers.paginateResource(api, '/some/custom/endpoint')
- */
-function paginateResource(api, url) {
-  var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-  var perPage = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : api.defaults.perPage;
-  var Target = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _CrudBase2.default;
-
-  if (!(api instanceof _Maps4News2.default)) {
-    throw new TypeError('Api must be an instance of Maps4news');
-  }
-
-  if (!url) {
-    var resource = new Target(this.api).resourceName.replace(/s+$/, '');
-
-    url = this.url + '/' + resource + 's';
-  }
-
-  var resolver = new _PaginatedResourceListing2.default(this.api, url, Target);
-
-  return resolver.getPage(page, perPage);
 }
 
 /***/ })

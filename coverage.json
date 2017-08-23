@@ -1,7 +1,7 @@
 {
-  "coverage": "76.85%",
-  "expectCount": 350,
-  "actualCount": 269,
+  "coverage": "76.72%",
+  "expectCount": 348,
+  "actualCount": 267,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -38,8 +38,8 @@
       ]
     },
     "src/crud/base/CrudBase.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/crud/base/CrudSetBase.js": {
@@ -410,8 +410,8 @@
       "undocumentLines": []
     },
     "src/utils/helpers.js": {
-      "expectCount": 2,
-      "actualCount": 2,
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     }
   }

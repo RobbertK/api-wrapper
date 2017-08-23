@@ -366,12 +366,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "@mapcreator/maps4news/src/utils/helpers.js~paginateresource",
-    "function/index.html#static-function-paginateResource",
-    "<span>paginateResource</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/utils/helpers.js</span>",
-    "function"
-  ],
-  [
     "builtinexternal/ecmascriptexternal.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -853,13 +847,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1069,13 +1063,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
@@ -1141,13 +1135,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
@@ -2067,12 +2061,6 @@ window.esdocSearchIndex = [
     "src/crud/base/crudbase.js~crudbase#_buildcreatedata",
     "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-_buildCreateData",
     "src/crud/base/CrudBase.js~CrudBase#_buildCreateData",
-    "method"
-  ],
-  [
-    "src/crud/base/crudbase.js~crudbase#_listresource",
-    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-_listResource",
-    "src/crud/base/CrudBase.js~CrudBase#_listResource",
     "method"
   ],
   [
