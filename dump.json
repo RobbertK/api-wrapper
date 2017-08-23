@@ -4121,7 +4121,7 @@
     "__docId__": 133,
     "kind": "file",
     "name": "src/ResourceCache.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport mitt from 'mitt';\n\n\n/**\n * Used for caching resources. Requires the resource to have an unique id field\n * @see {@link PaginatedResourceWrapper}\n * @todo Add periodic data refreshing while idle, most likely implemented in cache\n * @todo Hook into api network traffic to figure out if updates are needed\n */\nexport default class ResourceCache {\n  constructor(api, cacheTime = api.defaults.cacheSeconds) {\n    this._api = api;\n    this.cacheTime = cacheTime;\n    this.emitter = mitt();\n\n    this._storage = {};\n  }\n\n  /**\n   * Push a page into the cache\n   * @param {PaginatedResourceListing} page - Data to be cached\n   * @returns {void}\n   */\n  push(page) {\n    if (page.rows === 0) {\n      return; // Don't insert empty pages\n    }\n\n    // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)\n    const invalidData = page.data.map(row => row.id).filter(x => typeof x !== 'number').length > 0;\n\n    if (invalidData) {\n      throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric \"id\" field.');\n    }\n\n    const validThrough = this._timestamp() + this.cacheTime;\n    const data = {\n      page, validThrough,\n      timeout: setTimeout(\n        () => this.revalidate(page.route),\n        this.cacheTime * 1000,\n      ),\n    };\n\n    const storage = this._storage[page.route] || (this._storage[page.route] = {});\n\n    (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);\n\n    this.emitter.emit('push', {page, validThrough, resourceUrl: page.route});\n    this.emitter.emit('invalidate', {resourceUrl: page.route});\n  }\n\n  /**\n   * Revalidate all data and delete stale data\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  revalidate(resourceUrl = null) {\n    if (!resourceUrl) {\n      Object.keys(this._storage).map(this.revalidate);\n    } else if (this._storage[resourceUrl]) {\n      const storage = this._storage[resourceUrl];\n\n      // Remove old data from the cache and stop old timeouts\n      Object.keys(storage).forEach(key => {\n        storage[key]\n          .filter(row => row.validThrough < this._timestamp())\n          .forEach(row => clearTimeout(row.timeout));\n\n        storage[key] = storage[key].filter(row => row.validThrough >= this._timestamp());\n      });\n\n      const junk = Object.keys(storage).filter(key => storage[key].length === 0);\n\n      // Delete empty\n      junk.forEach(key => delete storage[key]);\n      if (Object.keys(storage).length === 0) {\n        delete this._storage[resourceUrl];\n      }\n\n      if (junk.length > 0) {\n        this.emitter.emit('invalidate', {resourceUrl});\n      }\n    }\n  }\n\n  /**\n   * Collect relevant cached pages\n   * @param {String} resourceUrl - resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array<PaginatedResourceListing>} - Relevant cached pages\n   */\n  collectPages(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    // Storage array or []\n    const storage = (this._storage[resourceUrl] || {})[cacheToken] || [];\n\n    // Sort by validThrough and extract pages\n    return storage.sort((a, b) => a.validThrough - b.validThrough).map(x => x.page);\n  }\n\n  /**\n   * Clears the cache\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  clear(resourceUrl = '') {\n    if (!resourceUrl) {\n      Object.keys(this._storage).forEach(url => {\n        this.emitter.emit('invalidate', {resourceUrl: url});\n      });\n\n      this._storage = {};\n    } else {\n      delete this._storage[resourceUrl];\n      this.emitter.emit('invalidate', {resourceUrl});\n    }\n  }\n\n  /**\n   * Resolve cache and return indexed data\n   * @param {String} resourceUrl - Resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array} - Indexed relevant data\n   * @todo Get missing keys between pages and remove them if needed. Diff last and first between pages.\n   * @todo add page numbers or range as optional parameter\n   */\n  resolve(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    const data = this.collectPages(resourceUrl, cacheToken);\n    const out = [];\n\n    for (const page of data) {\n      if (page.rows === 0) {\n        // We can't do anything if we don't have any data\n        continue;\n      }\n\n      const ids = page.data.map(row => row.id);\n      const startId = Math.min(...ids);\n      const endId = Math.max(...ids);\n\n      for (const row of page.data) {\n        out[row.id] = row;\n      }\n\n      // Grab list of applicable ids and delete offending\n      // keys that no longer exist in the newer data set\n      Object\n        .keys(out)\n        .map(Number)\n        .filter(key => startId <= key && key <= endId)\n        .filter(key => !ids.includes(key))\n        .forEach(key => delete out[key]);\n    }\n\n    return out;\n  }\n\n  /**\n   * Get a usable timestamp\n   * @returns {number} - timestamp\n   * @private\n   */\n  _timestamp() {\n    return Math.floor(Date.now() / 1000);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport mitt from 'mitt';\n\n\n/**\n * Used for caching resources. Requires the resource to have an unique id field\n * @see {@link PaginatedResourceWrapper}\n * @todo Add periodic data refreshing while idle, most likely implemented in cache\n * @todo Hook into api network traffic to figure out if updates are needed\n */\nexport default class ResourceCache {\n  constructor(api, cacheTime = api.defaults.cacheSeconds) {\n    this._api = api;\n    this.cacheTime = cacheTime;\n    this.emitter = mitt();\n\n    this._storage = {};\n  }\n\n  /**\n   * Push a page into the cache\n   * @param {PaginatedResourceListing} page - Data to be cached\n   * @param {boolean} [diff=false] - Differential result used for updating the cache. Cache entry won't be used to for key dropping.\n   * @returns {void}\n   * @todo diff documentation\n   */\n  push(page, diff = false) {\n    if (page.rows === 0) {\n      return; // Don't insert empty pages\n    }\n\n    // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)\n    const invalidData = page.data.map(row => row.id).filter(x => typeof x !== 'number').length > 0;\n\n    if (invalidData) {\n      throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric \"id\" field.');\n    }\n\n    const validThrough = this._timestamp() + this.cacheTime;\n    const data = {\n      page, validThrough, diff,\n      timeout: setTimeout(\n        () => this.revalidate(page.route),\n        this.cacheTime * 1000,\n      ),\n    };\n\n    const storage = this._storage[page.route] || (this._storage[page.route] = {});\n\n    (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);\n\n    this.emitter.emit('push', {page, validThrough, resourceUrl: page.route});\n    this.emitter.emit('invalidate', {resourceUrl: page.route});\n  }\n\n  /**\n   * Revalidate all data and delete stale data\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  revalidate(resourceUrl = null) {\n    if (!resourceUrl) {\n      Object.keys(this._storage).map(this.revalidate);\n    } else if (this._storage[resourceUrl]) {\n      const storage = this._storage[resourceUrl];\n\n      // Remove old data from the cache and stop old timeouts\n      Object.keys(storage).forEach(key => {\n        storage[key]\n          .filter(row => row.validThrough < this._timestamp())\n          .forEach(row => clearTimeout(row.timeout));\n\n        storage[key] = storage[key].filter(row => row.validThrough >= this._timestamp());\n      });\n\n      const junk = Object.keys(storage).filter(key => storage[key].length === 0);\n\n      // Delete empty\n      junk.forEach(key => delete storage[key]);\n      if (Object.keys(storage).length === 0) {\n        delete this._storage[resourceUrl];\n      }\n\n      if (junk.length > 0) {\n        this.emitter.emit('invalidate', {resourceUrl});\n      }\n    }\n  }\n\n  /**\n   * Collect relevant cached pages\n   * @param {String} resourceUrl - resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array<PaginatedResourceListing>} - Relevant cached pages\n   */\n  collectPages(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    // Storage array or []\n    const storage = (this._storage[resourceUrl] || {})[cacheToken] || [];\n\n    // Sort by validThrough and extract pages\n    return storage.sort((a, b) => a.validThrough - b.validThrough);\n  }\n\n  /**\n   * Clears the cache\n   * @param {String} resourceUrl - Resource url\n   * @returns {void}\n   */\n  clear(resourceUrl = '') {\n    if (!resourceUrl) {\n      Object.keys(this._storage).forEach(url => {\n        this.emitter.emit('invalidate', {resourceUrl: url});\n      });\n\n      this._storage = {};\n    } else {\n      delete this._storage[resourceUrl];\n      this.emitter.emit('invalidate', {resourceUrl});\n    }\n  }\n\n  /**\n   * Resolve cache and return indexed data\n   * @param {String} resourceUrl - Resource url\n   * @param {String} cacheToken - Cache token\n   * @see {@link PaginatedResourceListing#cacheToken}\n   * @returns {Array} - Indexed relevant data\n   * @todo Get missing keys between pages and remove them if needed. Diff last and first between pages.\n   * @todo add page numbers or range as optional parameter\n   */\n  resolve(resourceUrl, cacheToken = '') {\n    cacheToken = cacheToken.toLowerCase();\n\n    const data = this.collectPages(resourceUrl, cacheToken);\n    const out = [];\n\n    for (const row of data) {\n      const page = row.page;\n\n      if (page.rows === 0) {\n        // We can't do anything if we don't have any data\n        continue;\n      }\n\n      const ids = page.data.map(row => row.id);\n      const startId = Math.min(...ids);\n      const endId = Math.max(...ids);\n\n      for (const row of page.data) {\n        out[row.id] = row;\n      }\n\n      if (!row.diff) {\n        // Grab list of applicable ids and delete offending\n        // keys that no longer exist in the newer data set\n        Object\n          .keys(out)\n          .map(Number)\n          .filter(key => startId <= key && key <= endId)\n          .filter(key => !ids.includes(key))\n          .forEach(key => delete out[key]);\n      }\n    }\n\n    return out;\n  }\n\n  /**\n   * Get a usable timestamp\n   * @returns {number} - timestamp\n   * @private\n   */\n  _timestamp() {\n    return Math.floor(Date.now() / 1000);\n  }\n}\n",
     "static": true,
     "longname": "src/ResourceCache.js",
     "access": null,
@@ -4288,7 +4288,10 @@
     "longname": "src/ResourceCache.js~ResourceCache#push",
     "access": null,
     "description": "Push a page into the cache",
-    "lineNumber": 56,
+    "lineNumber": 58,
+    "todo": [
+      "diff documentation"
+    ],
     "unknown": [
       {
         "tagName": "@returns",
@@ -4305,6 +4308,18 @@
         "optional": false,
         "name": "page",
         "description": "Data to be cached"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "diff",
+        "description": "Differential result used for updating the cache. Cache entry won't be used to for key dropping."
       }
     ],
     "return": {
@@ -4327,7 +4342,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#revalidate",
     "access": null,
     "description": "Revalidate all data and delete stale data",
-    "lineNumber": 90,
+    "lineNumber": 92,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4369,7 +4384,7 @@
     "see": [
       "{@link PaginatedResourceListing#cacheToken}"
     ],
-    "lineNumber": 126,
+    "lineNumber": 128,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4418,7 +4433,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#clear",
     "access": null,
     "description": "Clears the cache",
-    "lineNumber": 141,
+    "lineNumber": 143,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4455,7 +4470,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#_storage",
     "access": null,
     "description": null,
-    "lineNumber": 147,
+    "lineNumber": 149,
     "undocument": true,
     "unknown": [
       {
@@ -4483,7 +4498,7 @@
     "see": [
       "{@link PaginatedResourceListing#cacheToken}"
     ],
-    "lineNumber": 163,
+    "lineNumber": 165,
     "todo": [
       "Get missing keys between pages and remove them if needed. Diff last and first between pages.",
       "add page numbers or range as optional parameter"
@@ -4536,7 +4551,7 @@
     "longname": "src/ResourceCache.js~ResourceCache#_timestamp",
     "access": "private",
     "description": "Get a usable timestamp",
-    "lineNumber": 201,
+    "lineNumber": 207,
     "unknown": [
       {
         "tagName": "@returns",

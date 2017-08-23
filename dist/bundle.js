@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:618d77914e0af7533e20, chunkhash:0c4a7a59fd88af4b3a1a, name:bundle, version:v1.0.6
+ * hash:a38b9a7c7c516f5be6d1, chunkhash:1a78274a6322353fbb46, name:bundle, version:v1.0.7
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -8424,7 +8424,9 @@ var ResourceCache = function () {
   /**
    * Push a page into the cache
    * @param {PaginatedResourceListing} page - Data to be cached
+   * @param {boolean} [diff=false] - Differential result used for updating the cache. Cache entry won't be used to for key dropping.
    * @returns {void}
+   * @todo diff documentation
    */
 
 
@@ -8432,6 +8434,8 @@ var ResourceCache = function () {
     key: 'push',
     value: function push(page) {
       var _this = this;
+
+      var diff = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
       if (page.rows === 0) {
         return; // Don't insert empty pages
@@ -8450,7 +8454,7 @@ var ResourceCache = function () {
 
       var validThrough = this._timestamp() + this.cacheTime;
       var data = {
-        page: page, validThrough: validThrough,
+        page: page, validThrough: validThrough, diff: diff,
         timeout: setTimeout(function () {
           return _this.revalidate(page.route);
         }, this.cacheTime * 1000)
@@ -8534,8 +8538,6 @@ var ResourceCache = function () {
       // Sort by validThrough and extract pages
       return storage.sort(function (a, b) {
         return a.validThrough - b.validThrough;
-      }).map(function (x) {
-        return x.page;
       });
     }
 
@@ -8584,7 +8586,9 @@ var ResourceCache = function () {
       var data = this.collectPages(resourceUrl, cacheToken);
       var out = [];
 
-      var _loop = function _loop(page) {
+      var _loop = function _loop(row) {
+        var page = row.page;
+
         if (page.rows === 0) {
           // We can't do anything if we don't have any data
           return 'continue';
@@ -8602,13 +8606,10 @@ var ResourceCache = function () {
 
         try {
           for (var _iterator2 = page.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var row = _step2.value;
+            var _row = _step2.value;
 
-            out[row.id] = row;
+            out[_row.id] = _row;
           }
-
-          // Grab list of applicable ids and delete offending
-          // keys that no longer exist in the newer data set
         } catch (err) {
           _didIteratorError2 = true;
           _iteratorError2 = err;
@@ -8624,13 +8625,17 @@ var ResourceCache = function () {
           }
         }
 
-        Object.keys(out).map(Number).filter(function (key) {
-          return startId <= key && key <= endId;
-        }).filter(function (key) {
-          return !ids.includes(key);
-        }).forEach(function (key) {
-          return delete out[key];
-        });
+        if (!row.diff) {
+          // Grab list of applicable ids and delete offending
+          // keys that no longer exist in the newer data set
+          Object.keys(out).map(Number).filter(function (key) {
+            return startId <= key && key <= endId;
+          }).filter(function (key) {
+            return !ids.includes(key);
+          }).forEach(function (key) {
+            return delete out[key];
+          });
+        }
       };
 
       var _iteratorNormalCompletion = true;
@@ -8639,9 +8644,9 @@ var ResourceCache = function () {
 
       try {
         for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var page = _step.value;
+          var row = _step.value;
 
-          var _ret = _loop(page);
+          var _ret = _loop(row);
 
           if (_ret === 'continue') continue;
         }
@@ -11965,7 +11970,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.6";
+var version = exports.version = "v1.0.7";
 
 /**
  * Package license

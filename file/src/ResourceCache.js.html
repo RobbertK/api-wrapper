@@ -155,9 +155,11 @@ export default class ResourceCache {
   /**
    * Push a page into the cache
    * @param {PaginatedResourceListing} page - Data to be cached
+   * @param {boolean} [diff=false] - Differential result used for updating the cache. Cache entry won&apos;t be used to for key dropping.
    * @returns {void}
+   * @todo diff documentation
    */
-  push(page) {
+  push(page, diff = false) {
     if (page.rows === 0) {
       return; // Don&apos;t insert empty pages
     }
@@ -171,7 +173,7 @@ export default class ResourceCache {
 
     const validThrough = this._timestamp() + this.cacheTime;
     const data = {
-      page, validThrough,
+      page, validThrough, diff,
       timeout: setTimeout(
         () =&gt; this.revalidate(page.route),
         this.cacheTime * 1000,
@@ -234,7 +236,7 @@ export default class ResourceCache {
     const storage = (this._storage[resourceUrl] || {})[cacheToken] || [];
 
     // Sort by validThrough and extract pages
-    return storage.sort((a, b) =&gt; a.validThrough - b.validThrough).map(x =&gt; x.page);
+    return storage.sort((a, b) =&gt; a.validThrough - b.validThrough);
   }
 
   /**
@@ -270,7 +272,9 @@ export default class ResourceCache {
     const data = this.collectPages(resourceUrl, cacheToken);
     const out = [];
 
-    for (const page of data) {
+    for (const row of data) {
+      const page = row.page;
+
       if (page.rows === 0) {
         // We can&apos;t do anything if we don&apos;t have any data
         continue;
@@ -284,14 +288,16 @@ export default class ResourceCache {
         out[row.id] = row;
       }
 
-      // Grab list of applicable ids and delete offending
-      // keys that no longer exist in the newer data set
-      Object
-        .keys(out)
-        .map(Number)
-        .filter(key =&gt; startId &lt;= key &amp;&amp; key &lt;= endId)
-        .filter(key =&gt; !ids.includes(key))
-        .forEach(key =&gt; delete out[key]);
+      if (!row.diff) {
+        // Grab list of applicable ids and delete offending
+        // keys that no longer exist in the newer data set
+        Object
+          .keys(out)
+          .map(Number)
+          .filter(key =&gt; startId &lt;= key &amp;&amp; key &lt;= endId)
+          .filter(key =&gt; !ids.includes(key))
+          .forEach(key =&gt; delete out[key]);
+      }
     }
 
     return out;
