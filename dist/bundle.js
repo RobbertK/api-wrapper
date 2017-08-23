@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:a38b9a7c7c516f5be6d1, chunkhash:1a78274a6322353fbb46, name:bundle, version:v1.0.7
+ * hash:b63f5f068b6f1c612bbe, chunkhash:aae5d6f44f0480b4db09, name:bundle, version:v1.0.8
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -4033,6 +4033,15 @@ var PaginatedResourceListing = function () {
     key: 'route',
     get: function get() {
       return this._route;
+    }
+
+    /**
+     * Override the target route
+     * @param {String} value - route
+     */
+    ,
+    set: function set(value) {
+      this._route = value;
     }
 
     /**
@@ -11970,7 +11979,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.7";
+var version = exports.version = "v1.0.8";
 
 /**
  * Package license
@@ -12369,6 +12378,15 @@ var PaginatedResourceWrapper = function () {
     key: 'route',
     get: function get() {
       return this._last.route;
+    }
+
+    /**
+     * Override the resource route
+     * @param {String} value - route
+     */
+    ,
+    set: function set(value) {
+      this._route = value;
     }
 
     /**
