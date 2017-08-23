@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:c149225e48a6f2a017f8, chunkhash:fd0a8c5c2a82ed1b6077, name:bundle, version:v1.0.5
+ * hash:618d77914e0af7533e20, chunkhash:0c4a7a59fd88af4b3a1a, name:bundle, version:v1.0.6
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3949,7 +3949,8 @@ var PaginatedResourceListing = function () {
         query['search'] = this.query;
       }
 
-      var url = this.route + '?' + (0, _requests.encodeQueryString)(query);
+      var glue = this.route.includes('?') ? '&' : '?';
+      var url = '' + this.route + glue + (0, _requests.encodeQueryString)(query);
 
       return new Promise(function (resolve, reject) {
         _this.api.request(url, 'GET', {}, {}, '', true).then(function (request) {
@@ -11964,7 +11965,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.5";
+var version = exports.version = "v1.0.6";
 
 /**
  * Package license

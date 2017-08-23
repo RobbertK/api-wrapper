@@ -317,7 +317,8 @@ export default class PaginatedResourceListing {
       query[&apos;search&apos;] = this.query;
     }
 
-    const url = `${this.route}?${encodeQueryString(query)}`;
+    const glue = this.route.includes(&apos;?&apos;) ? &apos;&amp;&apos; : &apos;?&apos;;
+    const url = `${this.route}${glue}${encodeQueryString(query)}`;
 
     return new Promise((resolve, reject) =&gt; {
       this.api.request(url, &apos;GET&apos;, {}, {}, &apos;&apos;, true)
