@@ -136,7 +136,6 @@
 
 import mitt from &apos;mitt&apos;;
 
-
 /**
  * Used for caching resources. Requires the resource to have an unique id field
  * @see {@link PaginatedResourceWrapper}
@@ -150,6 +149,9 @@ export default class ResourceCache {
     this.emitter = mitt();
 
     this._storage = {};
+
+    // Prevent observers
+    Object.freeze(this);
   }
 
   /**
@@ -163,6 +165,9 @@ export default class ResourceCache {
     if (page.rows === 0) {
       return; // Don&apos;t insert empty pages
     }
+
+    delete page.__ob__; // Remove VueJs observer
+    Object.freeze(page);
 
     // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)
     const invalidData = page.data.map(row =&gt; row.id).filter(x =&gt; typeof x !== &apos;number&apos;).length &gt; 0;
@@ -263,7 +268,6 @@ export default class ResourceCache {
    * @param {String} cacheToken - Cache token
    * @see {@link PaginatedResourceListing#cacheToken}
    * @returns {Array} - Indexed relevant data
-   * @todo Get missing keys between pages and remove them if needed. Diff last and first between pages.
    * @todo add page numbers or range as optional parameter
    */
   resolve(resourceUrl, cacheToken = &apos;&apos;) {
@@ -271,6 +275,10 @@ export default class ResourceCache {
 
     const data = this.collectPages(resourceUrl, cacheToken);
     const out = [];
+
+    let lastStart;
+    let lastEnd;
+    let lastPage;
 
     for (const row of data) {
       const page = row.page;
@@ -284,6 +292,19 @@ export default class ResourceCache {
       const startId = Math.min(...ids);
       const endId = Math.max(...ids);
 
+      const badKeys = [];
+
+      if (page.page - 1 === lastPage || page.page === lastPage) {
+        badKeys.push(...this._diffRange(lastEnd, startId));
+      }
+
+      if (page.page + 1 === lastPage || page.page === lastPage) {
+        badKeys.push(...this._diffRange(endId, lastStart));
+      }
+
+      lastStart = startId;
+      lastEnd = endId;
+
       for (const row of page.data) {
         out[row.id] = row;
       }
@@ -296,8 +317,108 @@ export default class ResourceCache {
           .map(Number)
           .filter(key =&gt; startId &lt;= key &amp;&amp; key &lt;= endId)
           .filter(key =&gt; !ids.includes(key))
-          .forEach(key =&gt; delete out[key]);
+          .forEach(key =&gt; badKeys.push(key));
       }
+
+      badKeys.forEach(key =&gt; delete out[key]);
+    }
+
+    return out;
+  }
+
+  /**
+   * Update records in the cache manually
+   * @param {ResourceBase|Array&lt;ResourceBase&gt;} rows - Data to be updated
+   * @returns {void} - nothing
+   */
+  update(rows) {
+    if (!(rows instanceof Array)) {
+      this.update([rows]);
+      return;
+    }
+
+    // Split up data into types
+    const data = {};
+    const ids = {};
+
+    for (const row of rows) {
+      const key = row.constructor.name;
+
+      (data[key] || (data[key] = [])).push(row);
+      (ids[key] || (ids[key] = [])).push(row.id);
+    }
+
+    const models = Object.keys(data);
+
+    for (const resourceUrl of Object.keys(this._storage)) {
+      let invalidate = false;
+
+      for (const token of Object.keys(this._storage[resourceUrl])) {
+        const entries = this._storage[resourceUrl][token];
+
+        for (const entry of entries) {
+          const page = entry.page;
+
+          if (page.data.length === 0) {
+            continue;
+          }
+
+          const key = page.data[0].constructor.name;
+
+          if (!models.includes(key)) {
+            break;
+          }
+
+          for (const row of page.data) {
+            if (!ids[key].includes(row.id)) {
+              continue;
+            }
+
+            const index = ids[key].findIndex(x =&gt; x === row.id);
+            const value = data[key][index];
+
+            value.sanitize();
+
+            value.fieldNames.forEach(x =&gt; {
+              row[x] = value[x];
+            });
+
+            invalidate = true;
+          }
+        }
+      }
+
+      if (invalidate) {
+        this.emitter.emit(&apos;invalidate&apos;, {resourceUrl: resourceUrl});
+      }
+    }
+  }
+
+  /**
+   * Used for key elimination. Calculates the keys between two indexes.
+   * @param {Number} start - Start index
+   * @param {Number} end - End index
+   * @returns {Array} - keys
+   * @private
+   * @example
+   * cache._diffRange(1, 5) === [2, 3, 4]
+   */
+  _diffRange(start, end) {
+    if (start &gt; end) {
+      const _x = end;
+
+      end = start;
+      start = _x;
+    }
+
+    if (start === end || start - end === 1) {
+      return [];
+    }
+
+    const out = [];
+
+    for (let i = start + 1; i &lt; end; i++) {
+      out.push(i);
     }
 
     return out;

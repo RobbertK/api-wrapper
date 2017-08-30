@@ -173,6 +173,8 @@ export default class PaginatedResourceWrapper {
     this._last = listing;
     this._waiting = false;
 
+    this.on(&apos;invalidate&apos;, () =&gt; this.rebuild());
+
     this._promiseCallback(listing);
   }
 
