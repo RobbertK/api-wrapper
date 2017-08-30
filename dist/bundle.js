@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:1b32ffab7c7acf6f7674, chunkhash:4bed87e25cf6589bb949, name:bundle, version:v1.0.10
+ * hash:d748fb52bf2cbacbebe5, chunkhash:30275ca9cf30cd39726a, name:bundle, version:v1.0.11
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -2158,14 +2158,14 @@ var OwnableResource = function (_Trait) {
     }
 
     /**
-     * Unlink items from the organisation
+     * Detach items from the organisation
      * @param {Array<Organisation>|Array<Number>} items - List of items to unlink
      * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
      */
 
   }, {
-    key: 'unlinkOrganisations',
-    value: function unlinkOrganisations(items) {
+    key: 'detachOrganisations',
+    value: function detachOrganisations(items) {
       return this._modifyOrganisationLink(items, 'DELETE');
     }
 
@@ -4001,7 +4001,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Unlink items from the organisation
+     * Detach items from the organisation
      * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink
      * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
      * @throws {TypeError} If the provided items contain anything that is not ownable
@@ -4009,8 +4009,8 @@ var Organisation = function (_CrudBase) {
      */
 
   }, {
-    key: 'unlink',
-    value: function unlink(items) {
+    key: 'detach',
+    value: function detach(items) {
       return this._modifyResourceLink(items, 'DELETE');
     }
 
@@ -12281,7 +12281,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.10";
+var version = exports.version = "v1.0.11";
 
 /**
  * Package license

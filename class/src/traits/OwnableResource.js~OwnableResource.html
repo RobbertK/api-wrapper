@@ -251,13 +251,13 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-syncOrganisations">syncOrganisations</a></span></span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-detachOrganisations">detachOrganisations</a></span></span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span>Organisation&gt;</span>|<span>Array&lt;Number</span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Sync items to the organisation</p>
+        <div data-ice="description"><p>Detach items from the organisation</p>
 </div>
       </div>
     </td>
@@ -279,13 +279,13 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-unlinkOrganisations">unlinkOrganisations</a></span></span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span>Organisation&gt;</span>|<span>Array&lt;Number</span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-syncOrganisations">syncOrganisations</a></span></span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Unlink items from the organisation</p>
+        <div data-ice="description"><p>Sync items to the organisation</p>
 </div>
       </div>
     </td>
@@ -496,25 +496,25 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-syncOrganisations">
+  <h3 data-ice="anchor" id="instance-method-detachOrganisations">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span data-ice="name">syncOrganisations</span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span data-ice="name">detachOrganisations</span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span>Organisation&gt;</span>|<span>Array&lt;Number</span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber57">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber75">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Sync items to the organisation</p>
+  <div data-ice="description"><p>Detach items from the organisation</p>
 </div>
 
   
@@ -529,9 +529,9 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">items</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span>Organisation&gt;</span>|<span>Array&lt;Number</span>&gt;</td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>List of items to sync</p>
+      <td data-ice="description"><p>List of items to unlink</p>
 </td>
     </tr>
 </tbody>
@@ -570,25 +570,25 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-unlinkOrganisations">
+  <h3 data-ice="anchor" id="instance-method-syncOrganisations">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span data-ice="name">unlinkOrganisations</span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span>Organisation&gt;</span>|<span>Array&lt;Number</span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span data-ice="name">syncOrganisations</span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber57">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Unlink items from the organisation</p>
+  <div data-ice="description"><p>Sync items to the organisation</p>
 </div>
 
   
@@ -603,9 +603,9 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">items</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span>Organisation&gt;</span>|<span>Array&lt;Number</span>&gt;</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;</td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>List of items to unlink</p>
+      <td data-ice="description"><p>List of items to sync</p>
 </td>
     </tr>
 </tbody>

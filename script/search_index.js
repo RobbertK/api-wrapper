@@ -1075,13 +1075,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-route",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-route",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "member"
   ],
@@ -1824,6 +1824,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/crud/organisation.js~organisation#detach",
+    "class/src/crud/Organisation.js~Organisation.html#instance-method-detach",
+    "src/crud/Organisation.js~Organisation#detach",
+    "method"
+  ],
+  [
     "src/crud/organisation.js~organisation#dimensionsets",
     "class/src/crud/Organisation.js~Organisation.html#instance-get-dimensionSets",
     "src/crud/Organisation.js~Organisation#dimensionSets",
@@ -1881,12 +1887,6 @@ window.esdocSearchIndex = [
     "src/crud/organisation.js~organisation#sync",
     "class/src/crud/Organisation.js~Organisation.html#instance-method-sync",
     "src/crud/Organisation.js~Organisation#sync",
-    "method"
-  ],
-  [
-    "src/crud/organisation.js~organisation#unlink",
-    "class/src/crud/Organisation.js~Organisation.html#instance-method-unlink",
-    "src/crud/Organisation.js~Organisation#unlink",
     "method"
   ],
   [
@@ -2665,13 +2665,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
@@ -2707,13 +2707,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
@@ -2748,6 +2748,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/traits/ownableresource.js~ownableresource#detachorganisations",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-detachOrganisations",
+    "src/traits/OwnableResource.js~OwnableResource#detachOrganisations",
+    "method"
+  ],
+  [
     "src/traits/ownableresource.js~ownableresource#organisations",
     "class/src/traits/OwnableResource.js~OwnableResource.html#instance-get-organisations",
     "src/traits/OwnableResource.js~OwnableResource#organisations",
@@ -2763,12 +2769,6 @@ window.esdocSearchIndex = [
     "src/traits/ownableresource.js~ownableresource#syncorganisations",
     "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-syncOrganisations",
     "src/traits/OwnableResource.js~OwnableResource#syncOrganisations",
-    "method"
-  ],
-  [
-    "src/traits/ownableresource.js~ownableresource#unlinkorganisations",
-    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-unlinkOrganisations",
-    "src/traits/OwnableResource.js~OwnableResource#unlinkOrganisations",
     "method"
   ],
   [

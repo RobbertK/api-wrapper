@@ -1218,7 +1218,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Unlink items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
+                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
                     "start": 2849,
                     "end": 3085,
                     "loc": {
@@ -1262,9 +1262,9 @@
                       "line": 75,
                       "column": 21
                     },
-                    "identifierName": "unlinkOrganisations"
+                    "identifierName": "detachOrganisations"
                   },
-                  "name": "unlinkOrganisations",
+                  "name": "detachOrganisations",
                   "leadingComments": null
                 },
                 "static": false,
@@ -1431,7 +1431,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Unlink items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
+                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
                     "start": 2849,
                     "end": 3085,
                     "loc": {
@@ -3312,7 +3312,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Unlink items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
+      "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
       "start": 2849,
       "end": 3085,
       "loc": {
@@ -5745,7 +5745,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Unlink items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
+      "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   ",
       "start": 2849,
       "end": 3085,
       "loc": {
@@ -5771,7 +5771,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "unlinkOrganisations",
+      "value": "detachOrganisations",
       "start": 3088,
       "end": 3107,
       "loc": {

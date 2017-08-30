@@ -1399,7 +1399,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Unlink items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 3091,
                     "end": 3521,
                     "loc": {
@@ -1443,9 +1443,9 @@
                       "line": 77,
                       "column": 8
                     },
-                    "identifierName": "unlink"
+                    "identifierName": "detach"
                   },
-                  "name": "unlink",
+                  "name": "detach",
                   "leadingComments": null
                 },
                 "static": false,
@@ -1612,7 +1612,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Unlink items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 3091,
                     "end": 3521,
                     "loc": {
@@ -6490,7 +6490,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Unlink items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 3091,
       "end": 3521,
       "loc": {
@@ -9395,7 +9395,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Unlink items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink\n   * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items contain anything that is not ownable\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 3091,
       "end": 3521,
       "loc": {
@@ -9421,7 +9421,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "unlink",
+      "value": "detach",
       "start": 3524,
       "end": 3530,
       "loc": {

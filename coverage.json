@@ -7,8 +7,8 @@
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
-        42,
-        51
+        51,
+        42
       ]
     },
     "src/errors/ApiError.js": {
