@@ -215,7 +215,13 @@ export default class CrudBase extends ResourceBase {
       this.api
         .request(this.url, &apos;PATCH&apos;, this._properties)
         .catch(reject)
-        .then(() =&gt; resolve(this));
+        .then(() =&gt; {
+          if (this.api.defaults.autoUpdateSharedCache) {
+            this.api.cache.update(this);
+          }
+
+          resolve(this);
+        });
     });
   }
 

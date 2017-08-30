@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:254a5f67c5645db89765, chunkhash:f267fb291532596fccea, name:bundle, version:v1.0.9
+ * hash:1b32ffab7c7acf6f7674, chunkhash:4bed87e25cf6589bb949, name:bundle, version:v1.0.10
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -447,7 +447,11 @@ var CrudBase = function (_ResourceBase) {
 
       return new Promise(function (resolve, reject) {
         _this3.api.request(_this3.url, 'PATCH', _this3._properties).catch(reject).then(function () {
-          return resolve(_this3);
+          if (_this3.api.defaults.autoUpdateSharedCache) {
+            _this3.api.cache.update(_this3);
+          }
+
+          resolve(_this3);
         });
       });
     }
@@ -1059,9 +1063,10 @@ var ResourceBase = function () {
     }
 
     /**
-     * Clean up instance and move commit all changes locally. This means that any changed
-     * fields will be marked as unchanged whilst keeping their new values. The changes will
-     * not be saved.
+     * Clean up instance and commit all changes locally.
+     * This means that any changed fields will be marked
+     * as unchanged whilst  keeping their new values. The
+     * changes will not be saved.
      * @returns {void} - nothing
      */
 
@@ -3273,7 +3278,8 @@ var Maps4News = function () {
       perPage: Number("12"),
       cacheEnabled: "true".toLowerCase() === 'true',
       cacheSeconds: Number("1800"),
-      shareCache: "false".toLowerCase() === 'true'
+      shareCache: "false".toLowerCase() === 'true',
+      autoUpdateSharedCache: "true".toLowerCase() === 'true'
     };
 
     this._cache = new _ResourceCache2.default(this);
@@ -12275,7 +12281,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.9";
+var version = exports.version = "v1.0.10";
 
 /**
  * Package license
