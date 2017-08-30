@@ -162,7 +162,8 @@ export default class PaginatedResourceListing {
     }
 
     this._api = api;
-    this._route = route;
+
+    this.route = route;
     this._Target = Target;
     this._query = query;
 
@@ -202,6 +203,14 @@ export default class PaginatedResourceListing {
    * @param {String} value - route
    */
   set route(value) {
+    if (!value.startsWith(&apos;https://&apos;) &amp;&amp; !value.startsWith(&apos;http://&apos;)) {
+      if (!value.startsWith(&apos;/&apos;)) {
+        value = &apos;/&apos; + value;
+      }
+
+      value = `${this._api.host}/${this._api.version}${value}`;
+    }
+
     this._route = value;
   }
 
@@ -332,8 +341,8 @@ export default class PaginatedResourceListing {
       this.api.request(url, &apos;GET&apos;, {}, {}, &apos;&apos;, true)
         .then(request =&gt; {
           const response = JSON.parse(request.responseText);
-          const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`));
-          const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`));
+          const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`)) || response.data.length;
+          const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`)) || 1;
 
           const instance = new PaginatedResourceListing(
             this.api, this.route, this._Target, this.query,

@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:d748fb52bf2cbacbebe5, chunkhash:30275ca9cf30cd39726a, name:bundle, version:v1.0.11
+ * hash:c78388ec0c6d7f6aac6e, chunkhash:1dca04e2fa499bcc23cc, name:bundle, version:v1.0.12
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -7790,10 +7790,6 @@ var SimpleResourceProxy = function () {
     this._api = api;
     this._Target = Target;
     this._seedData = seedData;
-
-    if (altUrl) {
-      this.__baseUrl = altUrl;
-    }
   }
 
   _createClass(SimpleResourceProxy, [{
@@ -8071,7 +8067,8 @@ var PaginatedResourceListing = function () {
     }
 
     this._api = api;
-    this._route = route;
+
+    this.route = route;
     this._Target = Target;
     this._query = query;
 
@@ -8125,8 +8122,8 @@ var PaginatedResourceListing = function () {
       return new Promise(function (resolve, reject) {
         _this.api.request(url, 'GET', {}, {}, '', true).then(function (request) {
           var response = JSON.parse(request.responseText);
-          var rowCount = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Total'));
-          var totalPages = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Pages'));
+          var rowCount = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Total')) || response.data.length;
+          var totalPages = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Pages')) || 1;
 
           var instance = new PaginatedResourceListing(_this.api, _this.route, _this._Target, _this.query, page, perPage, totalPages, rowCount, response.data.map(function (row) {
             return new _this._Target(_this.api, row);
@@ -8211,6 +8208,14 @@ var PaginatedResourceListing = function () {
      */
     ,
     set: function set(value) {
+      if (!value.startsWith('https://') && !value.startsWith('http://')) {
+        if (!value.startsWith('/')) {
+          value = '/' + value;
+        }
+
+        value = this._api.host + '/' + this._api.version + value;
+      }
+
       this._route = value;
     }
 
@@ -12281,7 +12286,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.11";
+var version = exports.version = "v1.0.12";
 
 /**
  * Package license
