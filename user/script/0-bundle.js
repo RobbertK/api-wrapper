@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:c78388ec0c6d7f6aac6e, chunkhash:1dca04e2fa499bcc23cc, name:bundle, version:v1.0.12
+ * hash:cd72b5cc6325f18a2da8, chunkhash:77c644502ba5eb552b32, name:bundle, version:v1.0.13
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.13) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -7787,6 +7787,10 @@ var SimpleResourceProxy = function () {
       throw new TypeError('Target must to be a class not an instance');
     }
 
+    if (altUrl) {
+      this.__baseUrl = altUrl;
+    }
+
     this._api = api;
     this._Target = Target;
     this._seedData = seedData;
@@ -12286,7 +12290,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.12";
+var version = exports.version = "v1.0.13";
 
 /**
  * Package license
