@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:cd72b5cc6325f18a2da8, chunkhash:77c644502ba5eb552b32, name:bundle, version:v1.0.13
+ * hash:baf46afc675fe99b8c9d, chunkhash:f013dbc2f5a859843972, name:bundle, version:v1.0.14
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.13) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.14) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3270,16 +3270,21 @@ var Maps4News = function () {
     this.auth = auth;
     this.host = host;
 
+    var bool = function bool(str) {
+      return str.toLowerCase() === 'true';
+    };
+
     /**
      * Defaults for common parameters. These are populated during the build process using the `.env` file.
      * @type {{perPage: number, cacheEnabled: boolean, cacheSeconds: number, shareCache: boolean}}
      */
     this.defaults = {
       perPage: Number("12"),
-      cacheEnabled: "true".toLowerCase() === 'true',
+      cacheEnabled: bool("true"),
       cacheSeconds: Number("1800"),
-      shareCache: "false".toLowerCase() === 'true',
-      autoUpdateSharedCache: "true".toLowerCase() === 'true'
+      shareCache: bool("false"),
+      autoUpdateSharedCache: bool("true"),
+      dereferenceCache: bool("false")
     };
 
     this._cache = new _ResourceCache2.default(this);
@@ -8651,6 +8656,7 @@ var ResourceCache = function () {
      * Resolve cache and return indexed data
      * @param {String} resourceUrl - Resource url
      * @param {String} cacheToken - Cache token
+     * @param {Boolean} dereference - Dereference output data by cloning the instances before returning them.
      * @see {@link PaginatedResourceListing#cacheToken}
      * @returns {Array} - Indexed relevant data
      * @todo add page numbers or range as optional parameter
@@ -8662,6 +8668,7 @@ var ResourceCache = function () {
       var _this4 = this;
 
       var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var dereference = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this._api.defaults.dereferenceCache;
 
       cacheToken = cacheToken.toLowerCase();
 
@@ -8766,6 +8773,12 @@ var ResourceCache = function () {
             throw _iteratorError;
           }
         }
+      }
+
+      if (dereference) {
+        return out.map(function (x) {
+          return x.clone();
+        });
       }
 
       return out;
@@ -12290,7 +12303,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.13";
+var version = exports.version = "v1.0.14";
 
 /**
  * Package license

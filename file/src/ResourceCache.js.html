@@ -266,11 +266,12 @@ export default class ResourceCache {
    * Resolve cache and return indexed data
    * @param {String} resourceUrl - Resource url
    * @param {String} cacheToken - Cache token
+   * @param {Boolean} dereference - Dereference output data by cloning the instances before returning them.
    * @see {@link PaginatedResourceListing#cacheToken}
    * @returns {Array} - Indexed relevant data
    * @todo add page numbers or range as optional parameter
    */
-  resolve(resourceUrl, cacheToken = &apos;&apos;) {
+  resolve(resourceUrl, cacheToken = &apos;&apos;, dereference = this._api.defaults.dereferenceCache) {
     cacheToken = cacheToken.toLowerCase();
 
     const data = this.collectPages(resourceUrl, cacheToken);
@@ -321,6 +322,10 @@ export default class ResourceCache {
       }
 
       badKeys.forEach(key =&gt; delete out[key]);
+    }
+
+    if (dereference) {
+      return out.map(x =&gt; x.clone());
     }
 
     return out;

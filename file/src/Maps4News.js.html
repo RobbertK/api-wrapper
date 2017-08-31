@@ -192,16 +192,19 @@ export default class Maps4News {
     this.auth = auth;
     this.host = host;
 
+    const bool = (str) =&gt; str.toLowerCase() === &apos;true&apos;;
+
     /**
      * Defaults for common parameters. These are populated during the build process using the `.env` file.
      * @type {{perPage: number, cacheEnabled: boolean, cacheSeconds: number, shareCache: boolean}}
      */
     this.defaults = {
       perPage: Number(process.env.PER_PAGE),
-      cacheEnabled: process.env.CACHE_ENABLED.toLowerCase() === &apos;true&apos;,
+      cacheEnabled: bool(process.env.CACHE_ENABLED),
       cacheSeconds: Number(process.env.CACHE_SECONDS),
-      shareCache: process.env.CACHE_SHARED.toLowerCase() === &apos;true&apos;,
-      autoUpdateSharedCache: process.env.CACHE_SHARED_AUTO_UPDATE.toLowerCase() === &apos;true&apos;,
+      shareCache: bool(process.env.CACHE_SHARED),
+      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),
+      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),
     };
 
     this._cache = new ResourceCache(this);
