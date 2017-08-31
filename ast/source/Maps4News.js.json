@@ -9602,10 +9602,10 @@
                                                                                   }
                                                                                 },
                                                                                 "extra": {
-                                                                                  "rawValue": "Lost maps4news session, please re-authenticate",
-                                                                                  "raw": "'Lost maps4news session, please re-authenticate'"
+                                                                                  "rawValue": "Lost Maps4News session, please re-authenticate",
+                                                                                  "raw": "'Lost Maps4News session, please re-authenticate'"
                                                                                 },
-                                                                                "value": "Lost maps4news session, please re-authenticate"
+                                                                                "value": "Lost Maps4News session, please re-authenticate"
                                                                               }
                                                                             ]
                                                                           }
@@ -36281,7 +36281,7 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "Lost maps4news session, please re-authenticate",
+      "value": "Lost Maps4News session, please re-authenticate",
       "start": 6952,
       "end": 7000,
       "loc": {
