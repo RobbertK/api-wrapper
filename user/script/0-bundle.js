@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:b65c4952186636581876, chunkhash:c9a6687fec7407b453c3, name:bundle, version:v1.0.16
+ * hash:62242a64452da8e2efa5, chunkhash:859199c0779162cebecc, name:bundle, version:v1.0.17
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3284,11 +3284,10 @@ var Maps4News = function () {
 
     /**
      * Defaults for common parameters. These are populated during the build process using the `.env` file.
-     * @type {{perPage: number, cacheEnabled: boolean, cacheSeconds: number, shareCache: boolean}}
+     * @type {{perPage: number, cacheSeconds: number, shareCache: boolean}}
      */
     this.defaults = {
       perPage: Number("12"),
-      cacheEnabled: bool("true"),
       cacheSeconds: Number("1800"),
       shareCache: bool("false"),
       autoUpdateSharedCache: bool("true"),
@@ -7863,7 +7862,6 @@ var SimpleResourceProxy = function () {
      * Lists target resource
      * @param {Number} page - The page to be requested
      * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-     * @param {Boolean} cacheEnabled - If the pagination cache should be used
      * @param {Number} cacheTime - Amount of seconds to store a value in cache
      * @param {Boolean} shareCache - Share cache across instances
      * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
@@ -7875,11 +7873,10 @@ var SimpleResourceProxy = function () {
     value: function listAndWrap() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.perPage;
-      var cacheEnabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.cacheEnabled;
-      var cacheTime = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.cacheSeconds;
-      var shareCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.api.defaults._shareCache;
+      var cacheTime = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.cacheSeconds;
+      var shareCache = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults._shareCache;
 
-      return this.searchAndWrap({}, page, perPage, cacheEnabled, cacheTime, shareCache);
+      return this.searchAndWrap({}, page, perPage, cacheTime, shareCache);
     }
 
     /**
@@ -7887,7 +7884,6 @@ var SimpleResourceProxy = function () {
      * @param {Object<String, String|Array<String>>} query - Query
      * @param {Number} page - The page to be requested
      * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-     * @param {Boolean} cacheEnabled - If the pagination cache should be used
      * @param {Number} cacheTime - Amount of seconds to store a value in cache
      * @param {Boolean} shareCache - Share cache across instances
      * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance
@@ -7908,13 +7904,12 @@ var SimpleResourceProxy = function () {
     value: function searchAndWrap(query) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
       var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.perPage;
-      var cacheEnabled = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.cacheEnabled;
-      var cacheTime = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.api.defaults.cacheSeconds;
-      var shareCache = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : this.api.defaults._shareCache;
+      var cacheTime = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.cacheSeconds;
+      var shareCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.api.defaults._shareCache;
 
       var url = this._baseUrl;
       var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query, page, perPage);
-      var wrapped = resolver.wrap(cacheEnabled, cacheTime, shareCache);
+      var wrapped = resolver.wrap(cacheTime, shareCache);
 
       wrapped.get(page);
 
@@ -8183,7 +8178,6 @@ var PaginatedResourceListing = function () {
 
     /**
      * Wraps {@link PaginatedResourceWrapper} around the page
-     * @param {Boolean} cacheEnabled - If the pagination cache should be used
      * @param {Number} cacheTime - Amount of seconds to store a value in cache
      * @param {Boolean} shareCache - Share cache across instances
      * @returns {PaginatedResourceWrapper} - Wrapped resource listing
@@ -8192,11 +8186,10 @@ var PaginatedResourceListing = function () {
   }, {
     key: 'wrap',
     value: function wrap() {
-      var cacheEnabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults.cacheEnabled;
-      var cacheTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.cacheSeconds;
-      var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults._shareCache;
+      var cacheTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults.cacheSeconds;
+      var shareCache = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults._shareCache;
 
-      return new _PaginatedResourceWrapper2.default(this, this.api, cacheEnabled, cacheTime, shareCache);
+      return new _PaginatedResourceWrapper2.default(this, this.api, cacheTime, shareCache);
     }
   }, {
     key: 'api',
@@ -12504,7 +12497,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.16";
+var version = exports.version = "v1.0.17";
 
 /**
  * Package license
@@ -12657,24 +12650,21 @@ var PaginatedResourceWrapper = function () {
    *
    * @param {PaginatedResourceListing} listing - Listing result
    * @param {Maps4News} api - Instance of the api
-   * @param {Boolean} cacheEnabled - If the pagination cache should be used
    * @param {Number} cacheTime - Amount of seconds to store a value in cache
    * @param {Boolean} shareCache - Share cache across instances
    */
   function PaginatedResourceWrapper(listing) {
     var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
-    var cacheEnabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.cacheEnabled;
 
     var _this = this;
 
-    var cacheTime = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : api.defaults.cacheSeconds;
-    var shareCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : api.defaults.shareCache;
+    var cacheTime = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.cacheSeconds;
+    var shareCache = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : api.defaults.shareCache;
 
     _classCallCheck(this, PaginatedResourceWrapper);
 
     // Fields
     this._api = api;
-    this.cacheEnabled = cacheEnabled;
     this.cacheTime = cacheTime;
     this._shareCache = shareCache;
     this._currentPage = 1;
