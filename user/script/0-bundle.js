@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:ab2eca0af61a1aa28910, chunkhash:456f648475857192cf22, name:bundle, version:v1.0.15
+ * hash:b65c4952186636581876, chunkhash:c9a6687fec7407b453c3, name:bundle, version:v1.0.16
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.15) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.0.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -517,6 +517,10 @@ exports.mix = mix;
 
 var _Trait = __webpack_require__(82);
 
+var _Trait2 = _interopRequireDefault(_Trait);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -641,7 +645,7 @@ function mix(baseClass) {
     for (var _iterator = mixins[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var mixin = _step.value;
 
-      if (!isParentOf(_Trait.Trait, mixin)) {
+      if (!isParentOf(_Trait2.default, mixin)) {
         throw new TypeError('Expected mixin to implement Trait for ' + mixin.name);
       }
 
@@ -2083,6 +2087,10 @@ var _reflection = __webpack_require__(11);
 
 var _Trait2 = __webpack_require__(82);
 
+var _Trait3 = _interopRequireDefault(_Trait2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -2225,7 +2233,7 @@ var OwnableResource = function (_Trait) {
   }]);
 
   return OwnableResource;
-}(_Trait2.Trait);
+}(_Trait3.default);
 
 exports.default = OwnableResource;
 
@@ -5470,7 +5478,7 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.pfnv32a = pfnv32a;
+exports.fnv32a = fnv32a;
 exports.hashObject = hashObject;
 
 var _requests = __webpack_require__(51);
@@ -5515,7 +5523,7 @@ var FNV1_32A_INIT = 0x811c9dc5;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-function pfnv32a(str) {
+function fnv32a(str) {
   var hash = str.split('').map(function (x) {
     return x.charCodeAt(0);
   }).reduce(function (sum, val) {
@@ -5585,9 +5593,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * Trait interface
  * @interface
  */
-var Trait = exports.Trait = function Trait() {
+var Trait = function Trait() {
   _classCallCheck(this, Trait);
 };
+
+exports.default = Trait;
 
 /***/ }),
 /* 83 */
@@ -9666,6 +9676,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _Trait2 = __webpack_require__(82);
 
+var _Trait3 = _interopRequireDefault(_Trait2);
+
 var _ImageHandler = __webpack_require__(179);
 
 var _ImageHandler2 = _interopRequireDefault(_ImageHandler);
@@ -9733,7 +9745,7 @@ var HandlesImages = function (_Trait) {
   }]);
 
   return HandlesImages;
-}(_Trait2.Trait);
+}(_Trait3.default);
 
 exports.default = HandlesImages;
 
@@ -12492,7 +12504,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.15";
+var version = exports.version = "v1.0.16";
 
 /**
  * Package license
