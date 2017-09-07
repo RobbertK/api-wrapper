@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:dd90cc4e314100e41e3a, chunkhash:34c27df468b0d71c9459, name:bundle, version:v1.1.1
+ * hash:f4f27973c1e3530bf4bb, chunkhash:0b409e631d7b92f32aa4, name:bundle, version:v1.1.3
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -8224,7 +8224,7 @@ var SimpleResourceProxy = function () {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       // Merge but don't overwrite using seed data
-      data = Object.assign(this._seedData, data);
+      data = Object.assign({}, this._seedData, data);
 
       return new this.Target(this._api, data);
     }
@@ -10922,7 +10922,7 @@ var Role = function (_CrudBase) {
     }
 
     /**
-     * Sync permissions to the role
+     * Sync user to the role
      * @param {Array<ResourceBase>} items - List of items to sync
      * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
      */
@@ -10934,7 +10934,7 @@ var Role = function (_CrudBase) {
     }
 
     /**
-     * Attach permissions to the role
+     * Attach user to the role
      * @param {Array<ResourceBase>} items - List of items to attach
      * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
      */
@@ -10946,7 +10946,7 @@ var Role = function (_CrudBase) {
     }
 
     /**
-     * Detach permissions from the role
+     * Detach user from the role
      * @param {Array<Organisation>|Array<Number>} items - List of items to unlink
      * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
      */
@@ -12701,7 +12701,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.1";
+var version = exports.version = "v1.1.3";
 
 /**
  * Package license
