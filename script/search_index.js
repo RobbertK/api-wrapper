@@ -751,13 +751,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -853,13 +853,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1141,13 +1141,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
@@ -1231,13 +1231,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
@@ -2148,6 +2148,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/crud/base/crudbase.js~crudbase#_modifylink",
+    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-_modifyLink",
+    "src/crud/base/CrudBase.js~CrudBase#_modifyLink",
+    "method"
+  ],
+  [
     "src/crud/base/crudbase.js~crudbase#constructor",
     "class/src/crud/base/CrudBase.js~CrudBase.html#instance-constructor-constructor",
     "src/crud/base/CrudBase.js~CrudBase#constructor",
@@ -2743,13 +2749,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
@@ -2820,6 +2826,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/traits/ownableresource.js~ownableresource#initializer",
+    "class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-initializer",
+    "src/traits/OwnableResource.js~OwnableResource#initializer",
+    "method"
+  ],
+  [
     "src/traits/ownableresource.js~ownableresource#organisations",
     "class/src/traits/OwnableResource.js~OwnableResource.html#instance-get-organisations",
     "src/traits/OwnableResource.js~OwnableResource#organisations",
@@ -2842,6 +2854,12 @@ window.esdocSearchIndex = [
     "file/src/traits/Trait.js.html",
     "src/traits/Trait.js",
     "file"
+  ],
+  [
+    "src/traits/trait.js~trait#initializer",
+    "class/src/traits/Trait.js~Trait.html#instance-method-initializer",
+    "src/traits/Trait.js~Trait#initializer",
+    "method"
   ],
   [
     "src/utils/singleton.js",

@@ -162,13 +162,14 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-get-organisations">organisations</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>: <span>*</span></span>
+          <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-get-organisations">organisations</a></span></span><span data-ice="signature">: <span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get the list of associated organisations</p>
+</div>
       </div>
     </td>
     <td>
@@ -280,6 +281,33 @@
         <p>
           
           
+          <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-initializer">initializer</a></span></span><span data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
           <span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html#instance-method-syncOrganisations">syncOrganisations</a></span></span><span data-ice="signature">(items: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
@@ -299,7 +327,41 @@
 </table>
 </div>
 
-
+<div class="inherited-summary" data-ice="inheritedSummary"><h2>Inherited Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      <span class="abstract" data-ice="abstract">abstract</span>
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html#instance-method-initializer">initializer</a></span></span><span data-ice="signature">(): <span>void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Optional initialization method</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
 
 
@@ -314,18 +376,19 @@
     
     
     
-    <span data-ice="name">organisations</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>: <span>*</span></span>
+    <span data-ice="name">organisations</span><span data-ice="signature">: <span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span>: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber45">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber50">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get the list of associated organisations</p>
+</div>
 
   
 
@@ -337,8 +400,8 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Promise will resolve with {@link Array&lt;Organisation&gt;} and reject with an <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span> instance.</p>
+          <td class="return-type" data-ice="returnType"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>A proxy for accessing the resource</p>
 </td>
         </tr>
       </tbody>
@@ -374,7 +437,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber106">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -434,7 +497,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber68">source</a></span></span>
     </span>
   </h3>
 
@@ -508,7 +571,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
@@ -571,6 +634,50 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-initializer">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">initializer</span><span data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber41">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Optional initialization method</p>
+</div>
+
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/traits/Trait.js~Trait.html#instance-method-initializer">Trait#initializer</a></span></div>
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-syncOrganisations">
     <span class="access" data-ice="access">public</span>
     
@@ -582,7 +689,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber57">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/traits/OwnableResource.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 

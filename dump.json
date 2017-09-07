@@ -8483,7 +8483,7 @@
     "__docId__": 295,
     "kind": "file",
     "name": "src/crud/Role.js",
-    "content": "import CrudBase from './base/CrudBase';\nimport Permission from './Permission';\nimport User from './User';\nimport {isParentOf} from '../utils/reflection';\n\nexport default class Role extends CrudBase {\n  /**\n   * Get the list permissions linked to the role\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this._proxyResourceList(Permission);\n  }\n\n  /**\n   * Get the list users linked to the role\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this._proxyResourceList(User);\n  }\n\n  get resourceName() {\n    return 'roles';\n  }\n\n  /**\n   * Sync permissions to the role\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncPermissions(items) {\n    return this._modifyLink(items, 'PATCH', Permission, 'permissions');\n  }\n\n  /**\n   * Attach permissions to the role\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachPermissions(items) {\n    return this._modifyLink(items, 'POST', Permission, 'permissions');\n  }\n\n  /**\n   * Detach permissions from the role\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachPermissions(items) {\n    return this._modifyLink(items, 'DELETE', Permission, 'permissions');\n  }\n\n  /**\n   * Sync user to the role\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncUsers(items) {\n    return this._modifyLink(items, 'PATCH', User, 'users');\n  }\n\n  /**\n   * Attach user to the role\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachUsers(items) {\n    return this._modifyLink(items, 'POST', User, 'users');\n  }\n\n  /**\n   * Detach user from the role\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachUsers(items) {\n    return this._modifyLink(items, 'DELETE', User, 'users');\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @param {Constructor} Type - Resource type\n   * @param {String} path - Appended resource path\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @todo refactor to CrudBase and remove organisation specific method from trait\n   * @todo implicit path generation\n   * @private\n   */\n  _modifyLink(items, method, Type, path) {\n    const filter = x => !isParentOf(Type, x) && !isParentOf(Number, x);\n    const isValid = items.filter(filter).length === 0;\n\n    if (!isValid) {\n      throw new TypeError(`Array must contain either Numbers (resource id) or ${Type.name}.`);\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : x.id).map(Number);\n\n    return this.api.request(`${this.url}/${path}`, method, {keys});\n  }\n}\n",
+    "content": "import CrudBase from './base/CrudBase';\nimport Permission from './Permission';\nimport User from './User';\nimport {isParentOf} from '../utils/reflection';\n\nexport default class Role extends CrudBase {\n  /**\n   * Get the list permissions linked to the role\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this._proxyResourceList(Permission);\n  }\n\n  /**\n   * Get the list users linked to the role\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this._proxyResourceList(User);\n  }\n\n  get resourceName() {\n    return 'roles';\n  }\n\n  /**\n   * Sync permissions to the role\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncPermissions(items) {\n    return this._modifyLink(items, 'PATCH', Permission);\n  }\n\n  /**\n   * Attach permissions to the role\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachPermissions(items) {\n    return this._modifyLink(items, 'POST', Permission);\n  }\n\n  /**\n   * Detach permissions from the role\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachPermissions(items) {\n    return this._modifyLink(items, 'DELETE', Permission);\n  }\n\n  /**\n   * Sync user to the role\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncUsers(items) {\n    return this._modifyLink(items, 'PATCH', User);\n  }\n\n  /**\n   * Attach user to the role\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachUsers(items) {\n    return this._modifyLink(items, 'POST', User);\n  }\n\n  /**\n   * Detach user from the role\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachUsers(items) {\n    return this._modifyLink(items, 'DELETE', User);\n  }\n}\n",
     "static": true,
     "longname": "src/crud/Role.js",
     "access": null,
@@ -8840,79 +8840,6 @@
   },
   {
     "__docId__": 306,
-    "kind": "method",
-    "name": "_modifyLink",
-    "memberof": "src/crud/Role.js~Role",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/crud/Role.js~Role#_modifyLink",
-    "access": "private",
-    "description": "Sync, attach or unlink resources",
-    "lineNumber": 92,
-    "todo": [
-      "refactor to CrudBase and remove organisation specific method from trait",
-      "implicit path generation"
-    ],
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance."
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Array<Organisation>|Array<Number>"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "items",
-        "description": "List of items to sync or attach"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "method",
-        "description": "Http method to use"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Constructor"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "Type",
-        "description": "Resource type"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "path",
-        "description": "Appended resource path"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise"
-      ],
-      "spread": false,
-      "description": "Promise will resolve with no value and reject with an {@link ApiError} instance."
-    }
-  },
-  {
-    "__docId__": 307,
     "kind": "file",
     "name": "src/crud/Svg.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport CrudBase from './base/CrudBase';\n\nexport default class Svg extends CrudBase {\n  get resourceName() {\n    return 'svgs';\n  }\n}\n",
@@ -8923,7 +8850,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 308,
+    "__docId__": 307,
     "kind": "class",
     "name": "Svg",
     "memberof": "src/crud/Svg.js",
@@ -8948,7 +8875,7 @@
     ]
   },
   {
-    "__docId__": 309,
+    "__docId__": 308,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/Svg.js~Svg",
@@ -8973,7 +8900,7 @@
     }
   },
   {
-    "__docId__": 310,
+    "__docId__": 309,
     "kind": "file",
     "name": "src/crud/SvgSet.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OwnableResource from '../traits/OwnableResource';\nimport CrudSetBase from './base/CrudSetBase';\nimport Svg from './Svg';\nimport {mix} from '../utils/reflection';\n\n\n/**\n * Svg set\n * @extends {CrudSetBase}\n * @extends {OwnableResource}\n */\nexport default class SvgSet extends mix(CrudSetBase, OwnableResource) {\n  get resourcePath() {\n    return '/svgs/sets/{id}';\n  }\n\n  get resourceName() {\n    return 'svg-sets';\n  }\n\n  get _Child() {\n    return Svg;\n  }\n}\n",
@@ -8984,7 +8911,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 311,
+    "__docId__": 310,
     "kind": "class",
     "name": "SvgSet",
     "memberof": "src/crud/SvgSet.js",
@@ -9003,7 +8930,7 @@
     ]
   },
   {
-    "__docId__": 312,
+    "__docId__": 311,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/SvgSet.js~SvgSet",
@@ -9028,7 +8955,7 @@
     }
   },
   {
-    "__docId__": 313,
+    "__docId__": 312,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/SvgSet.js~SvgSet",
@@ -9053,7 +8980,7 @@
     }
   },
   {
-    "__docId__": 314,
+    "__docId__": 313,
     "kind": "get",
     "name": "_Child",
     "memberof": "src/crud/SvgSet.js~SvgSet",
@@ -9078,7 +9005,7 @@
     }
   },
   {
-    "__docId__": 315,
+    "__docId__": 314,
     "kind": "file",
     "name": "src/crud/SvgSetType.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport CrudBase from './base/CrudBase';\nimport UnsupportedCrudError from '../errors/UnsupportedCrudError';\n\nexport default class SvgSetType extends CrudBase {\n  /**\n   * Disabled because svg set type does not support soft deletes\n   * @returns {void}\n   * @throws Error\n   * @private\n   */\n  restore() {\n    throw new UnsupportedCrudError('Svg set types don\\'t support soft deletes');\n  }\n\n  get resourcePath() {\n    return '/svgs/sets/types/{id}';\n  }\n\n  get resourceName() {\n    return 'svg-set-types';\n  }\n}\n",
@@ -9089,7 +9016,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 316,
+    "__docId__": 315,
     "kind": "class",
     "name": "SvgSetType",
     "memberof": "src/crud/SvgSetType.js",
@@ -9114,7 +9041,7 @@
     ]
   },
   {
-    "__docId__": 317,
+    "__docId__": 316,
     "kind": "method",
     "name": "restore",
     "memberof": "src/crud/SvgSetType.js~SvgSetType",
@@ -9150,7 +9077,7 @@
     ]
   },
   {
-    "__docId__": 318,
+    "__docId__": 317,
     "kind": "get",
     "name": "resourcePath",
     "memberof": "src/crud/SvgSetType.js~SvgSetType",
@@ -9175,7 +9102,7 @@
     }
   },
   {
-    "__docId__": 319,
+    "__docId__": 318,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/SvgSetType.js~SvgSetType",
@@ -9200,7 +9127,7 @@
     }
   },
   {
-    "__docId__": 320,
+    "__docId__": 319,
     "kind": "file",
     "name": "src/crud/User.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ResourceProxy from '../ResourceProxy';\nimport CrudBase from './base/CrudBase';\nimport Color from './Color';\nimport DimensionSet from './DimensionSet';\nimport Feature from './Feature';\nimport FontFamily from './FontFamily';\nimport Job from './Job';\nimport JobShare from './JobShare';\nimport JobType from './JobType';\nimport Language from './Language';\nimport Layer from './Layer';\nimport MapstyleSet from './MapstyleSet';\nimport Notification from './Notification';\nimport Organisation from './Organisation';\nimport Permission from './Permission';\nimport SvgSet from './SvgSet';\nimport Role from './Role';\n\nexport default class User extends CrudBase {\n  get resourceName() {\n    return 'users';\n  }\n\n  /**\n   * Get all known ips\n   * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}\n   */\n  ips() {\n    const url = `${this.url}/ips`;\n\n    return new Promise((resolve, reject) => {\n      this.api.request(url)\n        .catch(reject)\n        .then(data => resolve(\n          data.map(row => row['ip_address']),\n        ));\n    });\n  }\n\n  /**\n   * Get the user's organisation\n   * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}\n   */\n  organisation() {\n    return (new ResourceProxy(this.api, Organisation)).get(this.organisationId);\n  }\n\n  /**\n   * Get the user's language\n   * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}\n   */\n  language() {\n    return (new ResourceProxy(this.api, Language)).get(this.languageCode);\n  }\n\n  // region Resource listing\n  /**\n   * Get the list notifications linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this._proxyResourceList(Notification);\n  }\n\n  /**\n   * Get the list mapstyle sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this._proxyResourceList(MapstyleSet);\n  }\n\n  /**\n   * Get the list dimension sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this._proxyResourceList(DimensionSet);\n  }\n\n  /**\n   * Get the list font families linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this._proxyResourceList(FontFamily);\n  }\n\n  /**\n   * Get the list svg sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this._proxyResourceList(SvgSet);\n  }\n\n  /**\n   * Get the list colors linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this._proxyResourceList(Color);\n  }\n\n  /**\n   * Get the list jobs linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this._proxyResourceList(Job);\n  }\n\n  /**\n   * Get the list features linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this._proxyResourceList(Feature);\n  }\n\n  /**\n   * Get the list layers linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this._proxyResourceList(Layer);\n  }\n\n  /**\n   * Get the list job types linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this._proxyResourceList(JobType);\n  }\n\n  /**\n   * Get the list job shares linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this._proxyResourceList(JobShare);\n  }\n\n  /**\n   * Get the list permissions linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this._proxyResourceList(Permission);\n  }\n\n  /**\n   * Get the list roles linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this._proxyResourceList(Role);\n  }\n\n  // endregion\n}\n",
@@ -9211,7 +9138,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 321,
+    "__docId__": 320,
     "kind": "class",
     "name": "User",
     "memberof": "src/crud/User.js",
@@ -9236,7 +9163,7 @@
     ]
   },
   {
-    "__docId__": 322,
+    "__docId__": 321,
     "kind": "get",
     "name": "resourceName",
     "memberof": "src/crud/User.js~User",
@@ -9261,7 +9188,7 @@
     }
   },
   {
-    "__docId__": 323,
+    "__docId__": 322,
     "kind": "method",
     "name": "ips",
     "memberof": "src/crud/User.js~User",
@@ -9289,7 +9216,7 @@
     }
   },
   {
-    "__docId__": 324,
+    "__docId__": 323,
     "kind": "method",
     "name": "organisation",
     "memberof": "src/crud/User.js~User",
@@ -9317,7 +9244,7 @@
     }
   },
   {
-    "__docId__": 325,
+    "__docId__": 324,
     "kind": "method",
     "name": "language",
     "memberof": "src/crud/User.js~User",
@@ -9345,7 +9272,7 @@
     }
   },
   {
-    "__docId__": 326,
+    "__docId__": 325,
     "kind": "get",
     "name": "notifications",
     "memberof": "src/crud/User.js~User",
@@ -9377,7 +9304,7 @@
     }
   },
   {
-    "__docId__": 327,
+    "__docId__": 326,
     "kind": "get",
     "name": "mapstyleSets",
     "memberof": "src/crud/User.js~User",
@@ -9409,7 +9336,7 @@
     }
   },
   {
-    "__docId__": 328,
+    "__docId__": 327,
     "kind": "get",
     "name": "dimensionSets",
     "memberof": "src/crud/User.js~User",
@@ -9441,7 +9368,7 @@
     }
   },
   {
-    "__docId__": 329,
+    "__docId__": 328,
     "kind": "get",
     "name": "fontFamilies",
     "memberof": "src/crud/User.js~User",
@@ -9473,7 +9400,7 @@
     }
   },
   {
-    "__docId__": 330,
+    "__docId__": 329,
     "kind": "get",
     "name": "svgSets",
     "memberof": "src/crud/User.js~User",
@@ -9505,7 +9432,7 @@
     }
   },
   {
-    "__docId__": 331,
+    "__docId__": 330,
     "kind": "get",
     "name": "colors",
     "memberof": "src/crud/User.js~User",
@@ -9537,7 +9464,7 @@
     }
   },
   {
-    "__docId__": 332,
+    "__docId__": 331,
     "kind": "get",
     "name": "jobs",
     "memberof": "src/crud/User.js~User",
@@ -9569,7 +9496,7 @@
     }
   },
   {
-    "__docId__": 333,
+    "__docId__": 332,
     "kind": "get",
     "name": "features",
     "memberof": "src/crud/User.js~User",
@@ -9601,7 +9528,7 @@
     }
   },
   {
-    "__docId__": 334,
+    "__docId__": 333,
     "kind": "get",
     "name": "layers",
     "memberof": "src/crud/User.js~User",
@@ -9633,7 +9560,7 @@
     }
   },
   {
-    "__docId__": 335,
+    "__docId__": 334,
     "kind": "get",
     "name": "jobTypes",
     "memberof": "src/crud/User.js~User",
@@ -9665,7 +9592,7 @@
     }
   },
   {
-    "__docId__": 336,
+    "__docId__": 335,
     "kind": "get",
     "name": "jobShares",
     "memberof": "src/crud/User.js~User",
@@ -9697,7 +9624,7 @@
     }
   },
   {
-    "__docId__": 337,
+    "__docId__": 336,
     "kind": "get",
     "name": "permissions",
     "memberof": "src/crud/User.js~User",
@@ -9729,7 +9656,7 @@
     }
   },
   {
-    "__docId__": 338,
+    "__docId__": 337,
     "kind": "get",
     "name": "roles",
     "memberof": "src/crud/User.js~User",
@@ -9761,10 +9688,10 @@
     }
   },
   {
-    "__docId__": 339,
+    "__docId__": 338,
     "kind": "file",
     "name": "src/crud/base/CrudBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError} from '../../errors/AbstractError';\nimport ResourceBase from './ResourceBase';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    this._updateProperties();\n\n    const out = {};\n    const keys = [].concat(\n      Object.keys(this._properties),\n      Object.keys(this._baseProperties),\n    ).filter((item, pos, self) => self.indexOf(item) === pos);\n\n    for (const key of keys) {\n      out[key] = this._properties[key] || this._baseProperties[key];\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.baseUrl, 'POST', this._buildCreateData())\n        .catch(reject)\n        .then(data => {\n          this._properties = {};\n          this._baseProperties = data;\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    this._updateProperties();\n\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.url, 'PATCH', this._properties)\n        .catch(reject)\n        .then(() => {\n          if (this.api.defaults.autoUpdateSharedCache) {\n            this.api.cache.update(this);\n          }\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Delete item\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this.api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Restore item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore() {\n    return new Promise((resolve, reject) => {\n      this.api.request(this.url, 'PUT')\n        .catch(reject)\n        .then(data => resolve(new this(this.api, data)));\n    });\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError} from '../../errors/AbstractError';\nimport ResourceBase from './ResourceBase';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    this._updateProperties();\n\n    const out = {};\n    const keys = [].concat(\n      Object.keys(this._properties),\n      Object.keys(this._baseProperties),\n    ).filter((item, pos, self) => self.indexOf(item) === pos);\n\n    for (const key of keys) {\n      out[key] = this._properties[key] || this._baseProperties[key];\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.baseUrl, 'POST', this._buildCreateData())\n        .catch(reject)\n        .then(data => {\n          this._properties = {};\n          this._baseProperties = data;\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    this._updateProperties();\n\n    return new Promise((resolve, reject) => {\n      this.api\n        .request(this.url, 'PATCH', this._properties)\n        .catch(reject)\n        .then(() => {\n          if (this.api.defaults.autoUpdateSharedCache) {\n            this.api.cache.update(this);\n          }\n\n          resolve(this);\n        });\n    });\n  }\n\n  /**\n   * Delete item\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this.api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Restore item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore() {\n    return new Promise((resolve, reject) => {\n      this.api.request(this.url, 'PUT')\n        .catch(reject)\n        .then(data => resolve(new this(this.api, data)));\n    });\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @param {ResourceBase} Type - Resource type\n   * @param {?String} path - Optional appended resource path, will guess if null\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @todo refactor to CrudBase and remove organisation specific method from trait\n   * @protected\n   */\n  _modifyLink(items, method, Type, path) {\n    if (!path) {\n      const resource = (new Type(this.api)).resourceName.replace(/s+$/, '');\n\n      path = `${resource}s`;\n    }\n\n    const filter = x => !isParentOf(Type, x) && !isParentOf(Number, x);\n    const isValid = items.filter(filter).length === 0;\n\n    if (!isValid) {\n      throw new TypeError(`Array must contain either Numbers (resource id) or \"${Type.name}\".`);\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : x.id).map(Number);\n\n    return this.api.request(`${this.url}/${path}`, method, {keys});\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/CrudBase.js",
     "access": null,
@@ -9772,7 +9699,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 340,
+    "__docId__": 339,
     "kind": "class",
     "name": "CrudBase",
     "memberof": "src/crud/base/CrudBase.js",
@@ -9783,7 +9710,7 @@
     "importPath": "@mapcreator/maps4news/src/crud/base/CrudBase.js",
     "importStyle": "CrudBase",
     "description": "Base of all resource items that support Crud operations",
-    "lineNumber": 40,
+    "lineNumber": 41,
     "abstract": true,
     "interface": false,
     "extends": [
@@ -9791,7 +9718,7 @@
     ]
   },
   {
-    "__docId__": 341,
+    "__docId__": 340,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -9801,7 +9728,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 45,
+    "lineNumber": 46,
     "params": [
       {
         "nullable": null,
@@ -9826,7 +9753,7 @@
     ]
   },
   {
-    "__docId__": 342,
+    "__docId__": 341,
     "kind": "method",
     "name": "_buildCreateData",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -9836,7 +9763,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_buildCreateData",
     "access": "protected",
     "description": "Build data for create operation",
-    "lineNumber": 58,
+    "lineNumber": 59,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9854,7 +9781,7 @@
     }
   },
   {
-    "__docId__": 343,
+    "__docId__": 342,
     "kind": "method",
     "name": "save",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -9864,7 +9791,35 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#save",
     "access": null,
     "description": "Save item. This will create a new item if `id` is unset",
-    "lineNumber": 79,
+    "lineNumber": 80,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}"
+      }
+    ],
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Resolves with {@link CrudBase} instance and rejects with {@link ApiError}"
+    }
+  },
+  {
+    "__docId__": 343,
+    "kind": "method",
+    "name": "_create",
+    "memberof": "src/crud/base/CrudBase.js~CrudBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/crud/base/CrudBase.js~CrudBase#_create",
+    "access": "private",
+    "description": "Store new item",
+    "lineNumber": 89,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9883,34 +9838,6 @@
   },
   {
     "__docId__": 344,
-    "kind": "method",
-    "name": "_create",
-    "memberof": "src/crud/base/CrudBase.js~CrudBase",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/crud/base/CrudBase.js~CrudBase#_create",
-    "access": "private",
-    "description": "Store new item",
-    "lineNumber": 88,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}"
-      }
-    ],
-    "params": [],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise"
-      ],
-      "spread": false,
-      "description": "Resolves with {@link CrudBase} instance and rejects with {@link ApiError}"
-    }
-  },
-  {
-    "__docId__": 345,
     "kind": "member",
     "name": "_properties",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -9918,7 +9845,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 94,
+    "lineNumber": 95,
     "undocument": true,
     "unknown": [
       {
@@ -9933,7 +9860,7 @@
     }
   },
   {
-    "__docId__": 346,
+    "__docId__": 345,
     "kind": "member",
     "name": "_baseProperties",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -9941,7 +9868,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 95,
+    "lineNumber": 96,
     "undocument": true,
     "unknown": [
       {
@@ -9956,7 +9883,7 @@
     }
   },
   {
-    "__docId__": 347,
+    "__docId__": 346,
     "kind": "method",
     "name": "_update",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -9966,7 +9893,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_update",
     "access": "private",
     "description": "Update existing item",
-    "lineNumber": 107,
+    "lineNumber": 108,
     "unknown": [
       {
         "tagName": "@returns",
@@ -9984,7 +9911,7 @@
     }
   },
   {
-    "__docId__": 348,
+    "__docId__": 347,
     "kind": "method",
     "name": "delete",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -9994,7 +9921,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#delete",
     "access": null,
     "description": "Delete item",
-    "lineNumber": 128,
+    "lineNumber": 129,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10012,7 +9939,7 @@
     }
   },
   {
-    "__docId__": 349,
+    "__docId__": 348,
     "kind": "method",
     "name": "restore",
     "memberof": "src/crud/base/CrudBase.js~CrudBase",
@@ -10022,7 +9949,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#restore",
     "access": null,
     "description": "Restore item",
-    "lineNumber": 136,
+    "lineNumber": 137,
     "unknown": [
       {
         "tagName": "@returns",
@@ -10037,6 +9964,78 @@
       ],
       "spread": false,
       "description": "Resolves with {@link CrudBase} instance and rejects with {@link ApiError}"
+    }
+  },
+  {
+    "__docId__": 349,
+    "kind": "method",
+    "name": "_modifyLink",
+    "memberof": "src/crud/base/CrudBase.js~CrudBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/crud/base/CrudBase.js~CrudBase#_modifyLink",
+    "access": "protected",
+    "description": "Sync, attach or unlink resources",
+    "lineNumber": 155,
+    "todo": [
+      "refactor to CrudBase and remove organisation specific method from trait"
+    ],
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance."
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array<Organisation>|Array<Number>"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "items",
+        "description": "List of items to sync or attach"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "method",
+        "description": "Http method to use"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ResourceBase"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "Type",
+        "description": "Resource type"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "path",
+        "description": "Optional appended resource path, will guess if null"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise will resolve with no value and reject with an {@link ApiError} instance."
     }
   },
   {
@@ -14341,7 +14340,7 @@
     "__docId__": 512,
     "kind": "file",
     "name": "src/traits/OwnableResource.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {isParentOf} from '../utils/reflection';\nimport Trait from './Trait';\n\n/**\n * Provides a {@link ResourceBase} with functions for dealing with being ownable by an organisation\n * @mixin\n */\nexport default class OwnableResource extends Trait {\n  /**\n   *\n   * @returns {Promise} - Promise will resolve with {@link Array<Organisation>} and reject with an {@link ApiError} instance.\n   */\n  get organisations() {\n    // This is a hack to fix a circular dependency issue\n    const Organisation = require('../crud/Organisation').default;\n\n    return this._proxyResourceList(Organisation, `${this.url}/organisations`);\n  }\n\n  /**\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'POST');\n  }\n\n  /**\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachOrganisations(items) {\n    return this._modifyOrganisationLink(items, 'DELETE');\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyOrganisationLink(items, method) {\n    // This is a hack to fix a circular dependency issue\n    const Organisation = require('../crud/Organisation').default;\n\n    const filter = x => !isParentOf(Organisation, x) && !isParentOf(Number, x);\n    const isValid = items.filter(filter).length === 0;\n\n    if (!isValid) {\n      throw new TypeError('Array must contain either Numbers (organisation id) or Organisations.');\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : x.id).map(Number);\n\n    return this.api.request(`${this.url}/organisations`, method, {keys});\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return true;\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {isParentOf} from '../utils/reflection';\nimport Trait from './Trait';\n\n/**\n * Provides a {@link ResourceBase} with functions for dealing with being ownable by an organisation\n * @mixin\n */\nexport default class OwnableResource extends Trait {\n  initializer() {\n    // This is a hack to fix a circular dependency issue\n    this.__Organisation = require('../crud/Organisation').default;\n  }\n\n  /**\n   * Get the list of associated organisations\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this._proxyResourceList(this.__Organisation, `${this.url}/organisations`);\n  }\n\n  /**\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to sync\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  syncOrganisations(items) {\n    return this._modifyLink(items, 'PATCH', this.__Organisation);\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>} items - List of items to attach\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachOrganisations(items) {\n    return this._modifyLink(items, 'POST', this.__Organisation);\n  }\n\n  /**\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<Number>} items - List of items to unlink\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachOrganisations(items) {\n    return this._modifyLink(items, 'DELETE', this.__Organisation);\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return true;\n  }\n}\n",
     "static": true,
     "longname": "src/traits/OwnableResource.js",
     "access": null,
@@ -14374,6 +14373,50 @@
   },
   {
     "__docId__": 514,
+    "kind": "method",
+    "name": "initializer",
+    "memberof": "src/traits/OwnableResource.js~OwnableResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/traits/OwnableResource.js~OwnableResource#initializer",
+    "access": null,
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 515,
+    "kind": "member",
+    "name": "__Organisation",
+    "memberof": "src/traits/OwnableResource.js~OwnableResource",
+    "static": false,
+    "longname": "src/traits/OwnableResource.js~OwnableResource#__Organisation",
+    "access": null,
+    "description": null,
+    "lineNumber": 43,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 516,
     "kind": "get",
     "name": "organisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -14382,21 +14425,21 @@
     "static": false,
     "longname": "src/traits/OwnableResource.js~OwnableResource#organisations",
     "access": null,
-    "description": "",
-    "lineNumber": 45,
+    "description": "Get the list of associated organisations",
+    "lineNumber": 50,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Promise will resolve with {@link Array<Organisation>} and reject with an {@link ApiError} instance."
+        "tagValue": "{SimpleResourceProxy} - A proxy for accessing the resource"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "Promise"
+        "SimpleResourceProxy"
       ],
       "spread": false,
-      "description": "Promise will resolve with {@link Array<Organisation>} and reject with an {@link ApiError} instance."
+      "description": "A proxy for accessing the resource"
     },
     "type": {
       "types": [
@@ -14405,7 +14448,7 @@
     }
   },
   {
-    "__docId__": 515,
+    "__docId__": 517,
     "kind": "method",
     "name": "syncOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -14415,7 +14458,7 @@
     "longname": "src/traits/OwnableResource.js~OwnableResource#syncOrganisations",
     "access": null,
     "description": "Sync items to the organisation",
-    "lineNumber": 57,
+    "lineNumber": 59,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14444,7 +14487,7 @@
     }
   },
   {
-    "__docId__": 516,
+    "__docId__": 518,
     "kind": "method",
     "name": "attachOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -14454,7 +14497,7 @@
     "longname": "src/traits/OwnableResource.js~OwnableResource#attachOrganisations",
     "access": null,
     "description": "Attach items to the organisation",
-    "lineNumber": 66,
+    "lineNumber": 68,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14483,7 +14526,7 @@
     }
   },
   {
-    "__docId__": 517,
+    "__docId__": 519,
     "kind": "method",
     "name": "detachOrganisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -14493,7 +14536,7 @@
     "longname": "src/traits/OwnableResource.js~OwnableResource#detachOrganisations",
     "access": null,
     "description": "Detach items from the organisation",
-    "lineNumber": 75,
+    "lineNumber": 77,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14522,56 +14565,7 @@
     }
   },
   {
-    "__docId__": 518,
-    "kind": "method",
-    "name": "_modifyOrganisationLink",
-    "memberof": "src/traits/OwnableResource.js~OwnableResource",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/traits/OwnableResource.js~OwnableResource#_modifyOrganisationLink",
-    "access": "private",
-    "description": "Sync, attach or unlink resources",
-    "lineNumber": 86,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance."
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Array<Organisation>|Array<Number>"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "items",
-        "description": "List of items to sync or attach"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "method",
-        "description": "Http method to use"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise"
-      ],
-      "spread": false,
-      "description": "Promise will resolve with no value and reject with an {@link ApiError} instance."
-    }
-  },
-  {
-    "__docId__": 519,
+    "__docId__": 520,
     "kind": "get",
     "name": "ownable",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -14581,7 +14575,7 @@
     "longname": "src/traits/OwnableResource.js~OwnableResource#ownable",
     "access": null,
     "description": "If the resource can be owned by an organisation",
-    "lineNumber": 106,
+    "lineNumber": 85,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14603,10 +14597,10 @@
     }
   },
   {
-    "__docId__": 520,
+    "__docId__": 521,
     "kind": "file",
     "name": "src/traits/Trait.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Trait interface\n * @interface\n */\nexport default class Trait {}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Trait interface\n * @interface\n */\nexport default class Trait {\n  /**\n   * Optional initialization method\n   * @returns {void}\n   * @abstract\n   */\n  initializer() {\n\n  }\n}\n",
     "static": true,
     "longname": "src/traits/Trait.js",
     "access": null,
@@ -14614,7 +14608,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 521,
+    "__docId__": 522,
     "kind": "class",
     "name": "Trait",
     "memberof": "src/traits/Trait.js",
@@ -14629,7 +14623,36 @@
     "interface": true
   },
   {
-    "__docId__": 522,
+    "__docId__": 523,
+    "kind": "method",
+    "name": "initializer",
+    "memberof": "src/traits/Trait.js~Trait",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/traits/Trait.js~Trait#initializer",
+    "access": null,
+    "description": "Optional initialization method",
+    "lineNumber": 43,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "abstract": true
+  },
+  {
+    "__docId__": 524,
     "kind": "file",
     "name": "src/utils/Singleton.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nexport default class Singleton {\n  constructor() {\n    if (!this.constructor.instance) {\n      this.constructor.instance = this;\n      this._instanceCount = 0;\n    }\n\n    this._instanceCount++;\n\n    return this.constructor.instance;\n  }\n}\n",
@@ -14640,7 +14663,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 523,
+    "__docId__": 525,
     "kind": "class",
     "name": "Singleton",
     "memberof": "src/utils/Singleton.js",
@@ -14662,7 +14685,7 @@
     "interface": false
   },
   {
-    "__docId__": 524,
+    "__docId__": 526,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -14683,7 +14706,7 @@
     "params": []
   },
   {
-    "__docId__": 525,
+    "__docId__": 527,
     "kind": "member",
     "name": "_instanceCount",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -14706,7 +14729,7 @@
     }
   },
   {
-    "__docId__": 526,
+    "__docId__": 528,
     "kind": "file",
     "name": "src/utils/StaticClass.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClassError from '../errors/StaticClassError';\n\n/**\n * Disables the constructor and throws a {@link StaticClassError} when an instance is created.\n * @protected\n */\nexport default class StaticClass {\n  constructor() {\n    throw new StaticClassError();\n  }\n}\n",
@@ -14717,7 +14740,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 527,
+    "__docId__": 529,
     "kind": "class",
     "name": "StaticClass",
     "memberof": "src/utils/StaticClass.js",
@@ -14732,7 +14755,7 @@
     "interface": false
   },
   {
-    "__docId__": 528,
+    "__docId__": 530,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/StaticClass.js~StaticClass",
@@ -14753,7 +14776,7 @@
     "params": []
   },
   {
-    "__docId__": 529,
+    "__docId__": 531,
     "kind": "file",
     "name": "src/utils/caseConverter.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Converts snake_case strings to camelCase\n * @param {String} str - a snake_case string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function snakeToCamelCase(str) {\n  return str.replace(/(?:(_[a-z\\d]))/g, x => x[1].toUpperCase());\n}\n\n/**\n * Converts camelCase strings to snake_case\n * @param {String} str - a camelCase string\n * @returns {String} - Converted snake_case string\n * @private\n */\nexport function camelToSnakeCase(str) {\n  return str.replace(/([A-Z])/g, x => '_' + x.toLowerCase());\n}\n\n/**\n * Converts PascalCase strings to camelCase\n * @param {String} str - a PascalCase string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function pascalToCamelCase(str) {\n  return str.replace(/^([A-Z])/g, x => x.toLowerCase());\n}\n",
@@ -14764,7 +14787,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 530,
+    "__docId__": 532,
     "kind": "function",
     "name": "snakeToCamelCase",
     "memberof": "src/utils/caseConverter.js",
@@ -14806,7 +14829,7 @@
     }
   },
   {
-    "__docId__": 531,
+    "__docId__": 533,
     "kind": "function",
     "name": "camelToSnakeCase",
     "memberof": "src/utils/caseConverter.js",
@@ -14848,7 +14871,7 @@
     }
   },
   {
-    "__docId__": 532,
+    "__docId__": 534,
     "kind": "function",
     "name": "pascalToCamelCase",
     "memberof": "src/utils/caseConverter.js",
@@ -14890,7 +14913,7 @@
     }
   },
   {
-    "__docId__": 533,
+    "__docId__": 535,
     "kind": "file",
     "name": "src/utils/hash.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {encodeQueryString} from './requests';\n\nconst FNV1_32A_INIT = 0x811c9dc5;\n\n/**\n * Fast hash function for non-cryptographic use\n * @param {string} str - Input to be hashed\n * @returns {string} - String representation of the hash\n * @private\n */\nexport function fnv32a(str) {\n  const hash = str\n    .split('')\n    .map(x => x.charCodeAt(0))\n    .reduce((sum, val) => {\n      sum ^= val;\n      return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);\n    }, FNV1_32A_INIT);\n\n  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);\n}\n\n/**\n * Fast object hashing for non-cryptographic use\n * @param {object} data - input data\n * @returns {string} - String reprisentation of the hash\n * @private\n */\nexport function hashObject(data) {\n  return fnv32a(encodeQueryString(data));\n}\n",
@@ -14901,7 +14924,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 534,
+    "__docId__": 536,
     "kind": "variable",
     "name": "FNV1_32A_INIT",
     "memberof": "src/utils/hash.js",
@@ -14927,7 +14950,7 @@
     }
   },
   {
-    "__docId__": 535,
+    "__docId__": 537,
     "kind": "function",
     "name": "fnv32a",
     "memberof": "src/utils/hash.js",
@@ -14969,7 +14992,7 @@
     }
   },
   {
-    "__docId__": 536,
+    "__docId__": 538,
     "kind": "function",
     "name": "hashObject",
     "memberof": "src/utils/hash.js",
@@ -15011,7 +15034,7 @@
     }
   },
   {
-    "__docId__": 537,
+    "__docId__": 539,
     "kind": "file",
     "name": "src/utils/helpers.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Get all the pages from a {@link PaginatedResourceListing} or a range\n * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}\n * @param {?Number} [start=1] - Start page\n * @param {?Number} [stop] - Stop page\n * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * import { helpers } from \"@mapcreator/maps4news\";\n *\n * const promise = api.users.list(1, 50); // 50 per page is more efficient\n *\n * helpers.getPaginatedRange(promise).then(data => {\n *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n *        .forEach(console.log) // Log the names and ids of every user\n * })\n */\nexport function getPaginatedRange(page, start = 1, stop) {\n  // Resolve promise if any\n  if (page instanceof Promise) {\n    return page.then(res => getPaginatedRange(res, start, stop));\n  }\n\n  const out = page.data;\n  const promises = [];\n\n  // Handle defaults\n  start = start || page.page;\n  stop = stop || page.pageCount;\n\n  if (start === page.page) {\n    start++;\n  }\n\n  return new Promise((resolve, reject) => {\n    // Get all pages\n    for (let i = start; i <= stop; i++) {\n      promises.push(page.get(i));\n    }\n\n    // Resolve\n    Promise.all(promises).then(rows => {\n      resolve(out.concat(...rows.map(x => x.data)));\n    }, reject);\n  });\n}\n",
@@ -15022,7 +15045,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 538,
+    "__docId__": 540,
     "kind": "function",
     "name": "getPaginatedRange",
     "memberof": "src/utils/helpers.js",
@@ -15090,7 +15113,7 @@
     }
   },
   {
-    "__docId__": 539,
+    "__docId__": 541,
     "kind": "file",
     "name": "src/utils/node.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined' && typeof module !== 'undefined' && module.exports;\n}\n",
@@ -15101,7 +15124,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 540,
+    "__docId__": 542,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -15135,7 +15158,7 @@
     }
   },
   {
-    "__docId__": 541,
+    "__docId__": 543,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Trait from '../traits/Trait';\n\n/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Function} baseClass - Target base class for the traits to be applied to\n * @param {Function} mixins - Traits to be applied\n * @returns {Function} - Constructor with any traits applied\n * @private\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach(mixin => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n",
@@ -15146,7 +15169,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 542,
+    "__docId__": 544,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -15203,7 +15226,7 @@
     }
   },
   {
-    "__docId__": 543,
+    "__docId__": 545,
     "kind": "function",
     "name": "getTypeName",
     "memberof": "src/utils/reflection.js",
@@ -15245,7 +15268,7 @@
     }
   },
   {
-    "__docId__": 544,
+    "__docId__": 546,
     "kind": "function",
     "name": "mix",
     "memberof": "src/utils/reflection.js",
@@ -15297,7 +15320,7 @@
     }
   },
   {
-    "__docId__": 545,
+    "__docId__": 547,
     "kind": "function",
     "name": "copyProps",
     "memberof": "src/utils/reflection.js",
@@ -15349,7 +15372,7 @@
     }
   },
   {
-    "__docId__": 546,
+    "__docId__": 548,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Makes a HTTP request and returns a promise. Promise will fail/reject if the\n * status code isn't 2XX.\n * @param {string} url - Target url\n * @param {string} method - HTTP method\n * @param {string|object<string, string>} body - raw body content or object to be json encoded\n * @param {object<string, string>} headers - headers\n * @param {string} responseType - XMLHttpRequest response type\n *\n * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx\n * @protected\n * @todo Better nodejs compatibility, maybe a requests library\n */\nexport function makeRequest(url, method = 'GET', body = '', headers = {}, responseType = '') {\n  return new Promise((resolve, reject) => {\n    method = method.toUpperCase();\n\n    const request = new XMLHttpRequest();\n\n    request.responseType = responseType;\n\n    function hasHeader(h) {\n      return Object.keys(headers)\n        .filter(x => x.toLowerCase() === h.toLowerCase())\n        .length > 0;\n    }\n\n    request.open(method, url, true);\n\n    // Automatically detect possible content-type header\n    if (typeof body === 'object') {\n      body = JSON.stringify(body);\n\n      if (!hasHeader('Content-Type')) {\n        headers['Content-Type'] = 'application/json';\n      }\n    } else if (body && !hasHeader('Content-Type')) {\n      headers['Content-Type'] = 'application/x-www-form-urlencoded';\n    }\n\n    if (!hasHeader('Accept')) {\n      headers['Accept'] = 'application/json';\n    }\n\n    // Apply headers\n    for (const key of Object.keys(headers)) {\n      request.setRequestHeader(key, headers[key]);\n    }\n\n    request.onreadystatechange = () => {\n      // State 4 === Done\n      if (request.readyState === XMLHttpRequest.DONE) {\n        if (request.status >= 200 && request.status < 300) {\n          resolve(request);\n        } else {\n          reject(request);\n        }\n      }\n    };\n\n    if (body && method !== 'GET') {\n      request.send(body);\n    } else {\n      request.send();\n    }\n  });\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject);\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
@@ -15360,7 +15383,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 547,
+    "__docId__": 549,
     "kind": "function",
     "name": "makeRequest",
     "memberof": "src/utils/requests.js",
@@ -15446,7 +15469,7 @@
     }
   },
   {
-    "__docId__": 548,
+    "__docId__": 550,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -15488,7 +15511,7 @@
     }
   },
   {
-    "__docId__": 549,
+    "__docId__": 551,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -15543,7 +15566,7 @@
     }
   },
   {
-    "__docId__": 550,
+    "__docId__": 552,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -15554,7 +15577,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 551,
+    "__docId__": 553,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -15572,7 +15595,7 @@
     ]
   },
   {
-    "__docId__": 552,
+    "__docId__": 554,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -15600,7 +15623,7 @@
     }
   },
   {
-    "__docId__": 553,
+    "__docId__": 555,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -15628,7 +15651,7 @@
     }
   },
   {
-    "__docId__": 555,
+    "__docId__": 557,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -15640,7 +15663,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 556,
+    "__docId__": 558,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -15652,7 +15675,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 557,
+    "__docId__": 559,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -15664,7 +15687,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 558,
+    "__docId__": 560,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -15676,7 +15699,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 559,
+    "__docId__": 561,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -15688,7 +15711,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 560,
+    "__docId__": 562,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -15700,7 +15723,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 561,
+    "__docId__": 563,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -15712,7 +15735,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 562,
+    "__docId__": 564,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -15724,7 +15747,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 563,
+    "__docId__": 565,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -15736,7 +15759,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 564,
+    "__docId__": 566,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -15748,7 +15771,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 565,
+    "__docId__": 567,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -15760,7 +15783,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 566,
+    "__docId__": 568,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -15772,7 +15795,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 567,
+    "__docId__": 569,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -15784,7 +15807,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 568,
+    "__docId__": 570,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -15796,7 +15819,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 569,
+    "__docId__": 571,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -15808,7 +15831,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 570,
+    "__docId__": 572,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -15820,7 +15843,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 571,
+    "__docId__": 573,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -15832,7 +15855,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 572,
+    "__docId__": 574,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -15844,7 +15867,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 573,
+    "__docId__": 575,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -15856,7 +15879,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 574,
+    "__docId__": 576,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -15868,7 +15891,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 575,
+    "__docId__": 577,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -15880,7 +15903,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 576,
+    "__docId__": 578,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -15892,7 +15915,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 577,
+    "__docId__": 579,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -15904,7 +15927,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 578,
+    "__docId__": 580,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -15916,7 +15939,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 579,
+    "__docId__": 581,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -15928,7 +15951,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 580,
+    "__docId__": 582,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -15940,7 +15963,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 581,
+    "__docId__": 583,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -15952,7 +15975,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 582,
+    "__docId__": 584,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -15964,7 +15987,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 583,
+    "__docId__": 585,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -15976,7 +15999,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 584,
+    "__docId__": 586,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -15988,7 +16011,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 585,
+    "__docId__": 587,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -16000,7 +16023,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 586,
+    "__docId__": 588,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -16012,7 +16035,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 587,
+    "__docId__": 589,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -16024,7 +16047,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 588,
+    "__docId__": 590,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -16036,7 +16059,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 589,
+    "__docId__": 591,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -16048,7 +16071,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 590,
+    "__docId__": 592,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -16060,7 +16083,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 591,
+    "__docId__": 593,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -16072,7 +16095,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 592,
+    "__docId__": 594,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -16084,7 +16107,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 593,
+    "__docId__": 595,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -16096,7 +16119,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 594,
+    "__docId__": 596,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -16108,7 +16131,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 595,
+    "__docId__": 597,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -16120,7 +16143,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 596,
+    "__docId__": 598,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -16132,7 +16155,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 597,
+    "__docId__": 599,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -16144,7 +16167,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 598,
+    "__docId__": 600,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -16156,7 +16179,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 599,
+    "__docId__": 601,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -16168,7 +16191,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 600,
+    "__docId__": 602,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -16180,7 +16203,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 601,
+    "__docId__": 603,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -16193,7 +16216,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 603,
+    "__docId__": 605,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -16205,7 +16228,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 604,
+    "__docId__": 606,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -16217,7 +16240,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 605,
+    "__docId__": 607,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -16229,7 +16252,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 606,
+    "__docId__": 608,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -16241,7 +16264,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 607,
+    "__docId__": 609,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -16253,7 +16276,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 608,
+    "__docId__": 610,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -16265,7 +16288,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 609,
+    "__docId__": 611,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -16277,7 +16300,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 610,
+    "__docId__": 612,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

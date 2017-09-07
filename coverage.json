@@ -1,7 +1,7 @@
 {
-  "coverage": "77.41%",
-  "expectCount": 363,
-  "actualCount": 281,
+  "coverage": "77.32%",
+  "expectCount": 366,
+  "actualCount": 283,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -38,8 +38,8 @@
       ]
     },
     "src/crud/base/CrudBase.js": {
-      "expectCount": 6,
-      "actualCount": 6,
+      "expectCount": 7,
+      "actualCount": 7,
       "undocumentLines": []
     },
     "src/crud/base/CrudSetBase.js": {
@@ -270,9 +270,11 @@
       ]
     },
     "src/traits/OwnableResource.js": {
-      "expectCount": 6,
+      "expectCount": 7,
       "actualCount": 6,
-      "undocumentLines": []
+      "undocumentLines": [
+        41
+      ]
     },
     "src/PaginatedResourceListing.js": {
       "expectCount": 20,
@@ -386,8 +388,8 @@
       ]
     },
     "src/traits/Trait.js": {
-      "expectCount": 1,
-      "actualCount": 1,
+      "expectCount": 2,
+      "actualCount": 2,
       "undocumentLines": []
     },
     "src/errors/UnsupportedCrudError.js": {
