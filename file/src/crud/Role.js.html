@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/crud/index.js | API Document</title>
+  <title data-ice="title">src/crud/Role.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -102,79 +102,111 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/crud/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+<div class="content" data-ice="content"><h1 data-ice="title">src/crud/Role.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CrudBase from &apos;./base/CrudBase&apos;;
+import Permission from &apos;./Permission&apos;;
+import User from &apos;./User&apos;;
+import {isParentOf} from &apos;../utils/reflection&apos;;
 
-export Choropleth from &apos;./Choropleth.js&apos;;
-export Color from &apos;./Color.js&apos;;
-export Contract from &apos;./Contract.js&apos;;
-export Dimension from &apos;./Dimension.js&apos;;
-export DimensionSet from &apos;./DimensionSet.js&apos;;
-export Faq from &apos;./Faq.js&apos;;
-export Feature from &apos;./Feature.js&apos;;
-export Font from &apos;./Font.js&apos;;
-export FontFamily from &apos;./FontFamily.js&apos;;
-export Highlight from &apos;./Highlight.js&apos;;
-export InsetMap from &apos;./InsetMap.js&apos;;
-export Job from &apos;./Job.js&apos;;
-export JobResult from &apos;./JobResult.js&apos;;
-export JobRevision from &apos;./JobRevision.js&apos;;
-export JobShare from &apos;./JobShare.js&apos;;
-export JobType from &apos;./JobType.js&apos;;
-export Language from &apos;./Language.js&apos;;
-export Layer from &apos;./Layer.js&apos;;
-export Mapstyle from &apos;./Mapstyle.js&apos;;
-export MapstyleSet from &apos;./MapstyleSet.js&apos;;
-export Notification from &apos;./Notification.js&apos;;
-export Organisation from &apos;./Organisation.js&apos;;
-export Permission from &apos;./Permission.js&apos;;
-export PlaceName from &apos;./PlaceName.js&apos;;
-export Role from &apos;./Role.js&apos;;
-export Svg from &apos;./Svg.js&apos;;
-export SvgSet from &apos;./SvgSet.js&apos;;
-export SvgSetType from &apos;./SvgSetType.js&apos;;
-export User from &apos;./User.js&apos;;
+export default class Role extends CrudBase {
+  /**
+   * Get the list permissions linked to the role
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+   */
+  get permissions() {
+    return this._proxyResourceList(Permission);
+  }
 
-import CrudBase from &apos;./base/CrudBase&apos;;
-import CrudSetBase from &apos;./base/CrudSetBase&apos;;
-import ResourceBase from &apos;./base/ResourceBase&apos;;
+  /**
+   * Get the list users linked to the role
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+   */
+  get users() {
+    return this._proxyResourceList(User);
+  }
 
-/**
- * @private
- */
-export const base = {
-  CrudBase, CrudSetBase, ResourceBase,
-};
+  get resourceName() {
+    return &apos;roles&apos;;
+  }
+
+  /**
+   * Sync permissions to the role
+   * @param {Array&lt;ResourceBase&gt;} items - List of items to sync
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  syncPermissions(items) {
+    return this._modifyLink(items, &apos;PATCH&apos;, Permission, &apos;permissions&apos;);
+  }
+
+  /**
+   * Attach permissions to the role
+   * @param {Array&lt;ResourceBase&gt;} items - List of items to attach
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  attachPermissions(items) {
+    return this._modifyLink(items, &apos;POST&apos;, Permission, &apos;permissions&apos;);
+  }
+
+  /**
+   * Detach permissions from the role
+   * @param {Array&lt;Organisation&gt;|Array&lt;Number&gt;} items - List of items to unlink
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  detachPermissions(items) {
+    return this._modifyLink(items, &apos;DELETE&apos;, Permission, &apos;permissions&apos;);
+  }
+
+  /**
+   * Sync permissions to the role
+   * @param {Array&lt;ResourceBase&gt;} items - List of items to sync
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  syncUsers(items) {
+    return this._modifyLink(items, &apos;PATCH&apos;, User, &apos;users&apos;);
+  }
+
+  /**
+   * Attach permissions to the role
+   * @param {Array&lt;ResourceBase&gt;} items - List of items to attach
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  attachUsers(items) {
+    return this._modifyLink(items, &apos;POST&apos;, User, &apos;users&apos;);
+  }
+
+  /**
+   * Detach permissions from the role
+   * @param {Array&lt;Organisation&gt;|Array&lt;Number&gt;} items - List of items to unlink
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  detachUsers(items) {
+    return this._modifyLink(items, &apos;DELETE&apos;, User, &apos;users&apos;);
+  }
+
+  /**
+   * Sync, attach or unlink resources
+   * @param {Array&lt;Organisation&gt;|Array&lt;Number&gt;} items - List of items to sync or attach
+   * @param {String} method - Http method to use
+   * @param {Constructor} Type - Resource type
+   * @param {String} path - Appended resource path
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   * @todo refactor to CrudBase and remove organisation specific method from trait
+   * @todo implicit path generation
+   * @private
+   */
+  _modifyLink(items, method, Type, path) {
+    const filter = x =&gt; !isParentOf(Type, x) &amp;&amp; !isParentOf(Number, x);
+    const isValid = items.filter(filter).length === 0;
+
+    if (!isValid) {
+      throw new TypeError(`Array must contain either Numbers (resource id) or ${Type.name}.`);
+    }
+
+    const keys = items.map(x =&gt; typeof x === &apos;number&apos; ? x : x.id).map(Number);
+
+    return this.api.request(`${this.url}/${path}`, method, {keys});
+  }
+}
 </code></pre>
 
 </div>

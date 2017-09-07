@@ -1,14 +1,14 @@
 {
-  "coverage": "77.27%",
-  "expectCount": 352,
-  "actualCount": 272,
+  "coverage": "77.41%",
+  "expectCount": 363,
+  "actualCount": 281,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
-        51,
-        42
+        42,
+        51
       ]
     },
     "src/errors/ApiError.js": {
@@ -203,8 +203,8 @@
       ]
     },
     "src/Maps4News.js": {
-      "expectCount": 41,
-      "actualCount": 41,
+      "expectCount": 42,
+      "actualCount": 42,
       "undocumentLines": []
     },
     "src/crud/Mapstyle.js": {
@@ -280,11 +280,9 @@
       "undocumentLines": []
     },
     "src/PaginatedResourceWrapper.js": {
-      "expectCount": 25,
+      "expectCount": 24,
       "actualCount": 24,
-      "undocumentLines": [
-        53
-      ]
+      "undocumentLines": []
     },
     "src/oauth/PasswordFlow.js": {
       "expectCount": 12,
@@ -315,12 +313,13 @@
       "undocumentLines": []
     },
     "src/ResourceCache.js": {
-      "expectCount": 10,
+      "expectCount": 11,
       "actualCount": 7,
       "undocumentLines": [
         44,
         42,
-        45
+        45,
+        46
       ]
     },
     "src/ResourceProxy.js": {
@@ -328,9 +327,17 @@
       "actualCount": 4,
       "undocumentLines": []
     },
-    "src/SimpleResourceProxy.js": {
+    "src/crud/Role.js": {
       "expectCount": 10,
-      "actualCount": 10,
+      "actualCount": 8,
+      "undocumentLines": [
+        6,
+        23
+      ]
+    },
+    "src/SimpleResourceProxy.js": {
+      "expectCount": 9,
+      "actualCount": 9,
       "undocumentLines": []
     },
     "src/utils/Singleton.js": {
@@ -389,11 +396,11 @@
       "undocumentLines": []
     },
     "src/crud/User.js": {
-      "expectCount": 17,
-      "actualCount": 15,
+      "expectCount": 18,
+      "actualCount": 16,
       "undocumentLines": [
-        50,
-        51
+        51,
+        52
       ]
     },
     "src/errors/ValidationError.js": {

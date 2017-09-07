@@ -67,6 +67,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Permission.js~Permission.html">Permission</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/PlaceName.js~PlaceName.html">PlaceName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Role.js~Role.html">Role</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
@@ -161,6 +162,7 @@ import {
   Notification,
   Organisation,
   Permission,
+  Role,
   PlaceName,
   Svg,
   SvgSet,
@@ -181,7 +183,6 @@ import {makeRequest} from &apos;./utils/requests&apos;;
 
 /**
  * Base API class
- * @todo Add setting to disable console.warn
  */
 export default class Maps4News {
   /**
@@ -192,7 +193,7 @@ export default class Maps4News {
     this.auth = auth;
     this.host = host;
 
-    const bool = (str) =&gt; str.toLowerCase() === &apos;true&apos;;
+    const bool = str =&gt; str.toLowerCase() === &apos;true&apos;;
 
     /**
      * Defaults for common parameters. These are populated during the build process using the `.env` file.
@@ -570,6 +571,15 @@ export default class Maps4News {
    */
   get permissions() {
     return this.static(Permission);
+  }
+
+  /**
+   * Role accessor
+   * @see {@link Role}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get roles() {
+    return this.static(Role);
   }
 
   /**

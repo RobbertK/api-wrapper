@@ -67,6 +67,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Permission.js~Permission.html">Permission</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/PlaceName.js~PlaceName.html">PlaceName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Role.js~Role.html">Role</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
@@ -147,14 +148,12 @@ export default class PaginatedResourceWrapper {
    *
    * @param {PaginatedResourceListing} listing - Listing result
    * @param {Maps4News} api - Instance of the api
-   * @param {Number} cacheTime - Amount of seconds to store a value in cache
    * @param {Boolean} shareCache - Share cache across instances
    */
-  constructor(listing, api = listing.api, cacheTime = api.defaults.cacheSeconds, shareCache = api.defaults.shareCache) {
+  constructor(listing, api = listing.api, shareCache = api.defaults.shareCache) {
 
     // Fields
     this._api = api;
-    this.cacheTime = cacheTime;
     this._shareCache = shareCache;
     this._currentPage = 1;
     this._context = [];
@@ -166,7 +165,7 @@ export default class PaginatedResourceWrapper {
     this.data = [];
 
     // Internal
-    this._localCache = new ResourceCache(api, cacheTime);
+    this._localCache = new ResourceCache(api, this.api.defaults.cacheSeconds);
     this._inflight = [];
     this._last = listing;
     this._waiting = false;
@@ -395,14 +394,16 @@ export default class PaginatedResourceWrapper {
   /**
    * Register an event handler for the given type.
    *
-   * @param {string} type Type of event to listen for, or `&quot;*&quot;` for all events.
-   * @param {function(event: any): void} handler Function to call in response to the given event.
+   * @param {string} type - Type of event to listen for, or `&quot;*&quot;` for all events.
+   * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
    * @returns {void}
    */
   on(type, handler) {
-    this.cache.emitter.on(type, e =&gt; {
-      if (e.resourceUrl === this.route) {
-        handler(e);
+    this.cache.emitter.on(type, (t, e) =&gt; {
+      if (type === &apos;*&apos; &amp;&amp; e.resourceUrl === this.route) {
+        handler(t, e);
+      } else if (type !== &apos;*&apos; &amp;&amp; t.resourceUrl === this.route) {
+        handler(t);
       }
     });
   }
@@ -410,8 +411,8 @@ export default class PaginatedResourceWrapper {
   /**
    * Function to call in response to the given event
    *
-   * @param {string} type Type of event to unregister `handler` from, or `&quot;*&quot;`
-   * @param {function(event: any): void} handler Handler function to remove.
+   * @param {string} type - Type of event to unregister `handler` from, or `&quot;*&quot;`
+   * @param {function(event: any): void} handler - Handler function to remove.
    * @returns {void}
    */
   off(type, handler) {

@@ -67,6 +67,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Permission.js~Permission.html">Permission</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/PlaceName.js~PlaceName.html">PlaceName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Role.js~Role.html">Role</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
@@ -399,12 +400,11 @@ export default class PaginatedResourceListing {
 
   /**
    * Wraps {@link PaginatedResourceWrapper} around the page
-   * @param {Number} cacheTime - Amount of seconds to store a value in cache
    * @param {Boolean} shareCache - Share cache across instances
    * @returns {PaginatedResourceWrapper} - Wrapped resource listing
    */
-  wrap(cacheTime = this.api.defaults.cacheSeconds, shareCache = this.api.defaults._shareCache) {
-    return new PaginatedResourceWrapper(this, this.api, cacheTime, shareCache);
+  wrap(shareCache = this.api.defaults._shareCache) {
+    return new PaginatedResourceWrapper(this, this.api, shareCache);
   }
 }
 </code></pre>

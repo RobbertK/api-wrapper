@@ -282,6 +282,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/crud/role.js~role",
+    "class/src/crud/Role.js~Role.html",
+    "<span>Role</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Role.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/simpleresourceproxy.js~simpleresourceproxy",
     "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html",
     "<span>SimpleResourceProxy</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/SimpleResourceProxy.js</span>",
@@ -745,13 +751,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -942,6 +948,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/maps4news.js~maps4news#roles",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-roles",
+    "src/Maps4News.js~Maps4News#roles",
+    "member"
+  ],
+  [
     "src/maps4news.js~maps4news#static",
     "class/src/Maps4News.js~Maps4News.html#instance-method-static",
     "src/Maps4News.js~Maps4News#static",
@@ -1063,13 +1075,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
@@ -1122,12 +1134,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/paginatedresourcewrapper.js~paginatedresourcewrapper#cachetime",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-member-cacheTime",
-    "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#cacheTime",
-    "member"
-  ],
-  [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#constructor",
     "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-constructor-constructor",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#constructor",
@@ -1135,13 +1141,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
@@ -1225,13 +1231,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
@@ -1282,6 +1288,12 @@ window.esdocSearchIndex = [
     "class/src/ResourceCache.js~ResourceCache.html#instance-constructor-constructor",
     "src/ResourceCache.js~ResourceCache#constructor",
     "method"
+  ],
+  [
+    "src/resourcecache.js~resourcecache#dereference",
+    "class/src/ResourceCache.js~ResourceCache.html#instance-member-dereference",
+    "src/ResourceCache.js~ResourceCache#dereference",
+    "member"
   ],
   [
     "src/resourcecache.js~resourcecache#emitter",
@@ -1368,6 +1380,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/simpleresourceproxy.js~simpleresourceproxy#defaultparams",
+    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-defaultParams",
+    "src/SimpleResourceProxy.js~SimpleResourceProxy#defaultParams",
+    "member"
+  ],
+  [
     "src/simpleresourceproxy.js~simpleresourceproxy#list",
     "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-list",
     "src/SimpleResourceProxy.js~SimpleResourceProxy#list",
@@ -1383,18 +1401,6 @@ window.esdocSearchIndex = [
     "src/simpleresourceproxy.js~simpleresourceproxy#new",
     "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-new",
     "src/SimpleResourceProxy.js~SimpleResourceProxy#new",
-    "method"
-  ],
-  [
-    "src/simpleresourceproxy.js~simpleresourceproxy#search",
-    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-search",
-    "src/SimpleResourceProxy.js~SimpleResourceProxy#search",
-    "method"
-  ],
-  [
-    "src/simpleresourceproxy.js~simpleresourceproxy#searchandwrap",
-    "class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-searchAndWrap",
-    "src/SimpleResourceProxy.js~SimpleResourceProxy#searchAndWrap",
     "method"
   ],
   [
@@ -1914,6 +1920,66 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/crud/role.js",
+    "file/src/crud/Role.js.html",
+    "src/crud/Role.js",
+    "file"
+  ],
+  [
+    "src/crud/role.js~role#attachpermissions",
+    "class/src/crud/Role.js~Role.html#instance-method-attachPermissions",
+    "src/crud/Role.js~Role#attachPermissions",
+    "method"
+  ],
+  [
+    "src/crud/role.js~role#attachusers",
+    "class/src/crud/Role.js~Role.html#instance-method-attachUsers",
+    "src/crud/Role.js~Role#attachUsers",
+    "method"
+  ],
+  [
+    "src/crud/role.js~role#detachpermissions",
+    "class/src/crud/Role.js~Role.html#instance-method-detachPermissions",
+    "src/crud/Role.js~Role#detachPermissions",
+    "method"
+  ],
+  [
+    "src/crud/role.js~role#detachusers",
+    "class/src/crud/Role.js~Role.html#instance-method-detachUsers",
+    "src/crud/Role.js~Role#detachUsers",
+    "method"
+  ],
+  [
+    "src/crud/role.js~role#permissions",
+    "class/src/crud/Role.js~Role.html#instance-get-permissions",
+    "src/crud/Role.js~Role#permissions",
+    "member"
+  ],
+  [
+    "src/crud/role.js~role#resourcename",
+    "class/src/crud/Role.js~Role.html#instance-get-resourceName",
+    "src/crud/Role.js~Role#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/role.js~role#syncpermissions",
+    "class/src/crud/Role.js~Role.html#instance-method-syncPermissions",
+    "src/crud/Role.js~Role#syncPermissions",
+    "method"
+  ],
+  [
+    "src/crud/role.js~role#syncusers",
+    "class/src/crud/Role.js~Role.html#instance-method-syncUsers",
+    "src/crud/Role.js~Role#syncUsers",
+    "method"
+  ],
+  [
+    "src/crud/role.js~role#users",
+    "class/src/crud/Role.js~Role.html#instance-get-users",
+    "src/crud/Role.js~Role#users",
+    "member"
+  ],
+  [
     "src/crud/svg.js",
     "file/src/crud/Svg.js.html",
     "src/crud/Svg.js",
@@ -2055,6 +2121,12 @@ window.esdocSearchIndex = [
     "src/crud/user.js~user#resourcename",
     "class/src/crud/User.js~User.html#instance-get-resourceName",
     "src/crud/User.js~User#resourceName",
+    "member"
+  ],
+  [
+    "src/crud/user.js~user#roles",
+    "class/src/crud/User.js~User.html#instance-get-roles",
+    "src/crud/User.js~User#roles",
     "member"
   ],
   [
@@ -2659,25 +2731,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
-    "src/oauth/PasswordFlow.js~PasswordFlow#password",
-    "member"
-  ],
-  [
-    "src/oauth/passwordflow.js~passwordflow#password",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
-    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "src/oauth/passwordflow.js~passwordflow#password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
+    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "member"
+  ],
+  [
+    "src/oauth/passwordflow.js~passwordflow#path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
@@ -2701,13 +2773,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],

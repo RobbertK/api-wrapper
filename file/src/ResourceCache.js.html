@@ -67,6 +67,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Permission.js~Permission.html">Permission</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/PlaceName.js~PlaceName.html">PlaceName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Role.js~Role.html">Role</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
@@ -143,9 +144,10 @@ import Uuid from &apos;./utils/uuid&apos;;
  * @todo Add periodic data refreshing while idle, most likely implemented in cache
  */
 export default class ResourceCache {
-  constructor(api, cacheTime = api.defaults.cacheSeconds) {
+  constructor(api, cacheTime = api.defaults.cacheSeconds, dereference = api.defaults.dereferenceCache) {
     this._api = api;
     this.cacheTime = cacheTime;
+    this.dereference = dereference;
     this.emitter = mitt();
 
     this._storage = {};
@@ -176,7 +178,7 @@ export default class ResourceCache {
       throw new TypeError(&apos;Missing or invalid row.id for page.data. Data rows must to contain a numeric &quot;id&quot; field.&apos;);
     }
 
-    const validThrough = this._timestamp() + this.cacheTime;
+    const validThrough = this._timestamp + this.cacheTime;
     const cacheId = Uuid.uuid4();
     const data = {
       page, validThrough, diff,
@@ -241,10 +243,10 @@ export default class ResourceCache {
       // Remove old data from the cache and stop old timeouts
       Object.keys(storage).forEach(key =&gt; {
         storage[key]
-          .filter(row =&gt; row.validThrough &lt; this._timestamp())
+          .filter(row =&gt; row.validThrough &lt; this._timestamp)
           .forEach(row =&gt; clearTimeout(row.timeout));
 
-        storage[key] = storage[key].filter(row =&gt; row.validThrough &gt;= this._timestamp());
+        storage[key] = storage[key].filter(row =&gt; row.validThrough &gt;= this._timestamp);
       });
 
       const junk = Object.keys(storage).filter(key =&gt; storage[key].length === 0);
@@ -300,12 +302,11 @@ export default class ResourceCache {
    * Resolve cache and return indexed data
    * @param {String} resourceUrl - Resource url
    * @param {String} cacheToken - Cache token
-   * @param {Boolean} dereference - Dereference output data by cloning the instances before returning them.
    * @see {@link PaginatedResourceListing#cacheToken}
    * @returns {Array} - Indexed relevant data
    * @todo add page numbers or range as optional parameter
    */
-  resolve(resourceUrl, cacheToken = &apos;&apos;, dereference = this._api.defaults.dereferenceCache) {
+  resolve(resourceUrl, cacheToken = &apos;&apos;) {
     cacheToken = cacheToken.toLowerCase();
 
     const data = this.collectPages(resourceUrl, cacheToken);
@@ -358,7 +359,7 @@ export default class ResourceCache {
       badKeys.forEach(key =&gt; delete out[key]);
     }
 
-    if (dereference) {
+    if (this.dereference) {
       return out.map(x =&gt; x.clone());
     }
 
@@ -366,7 +367,7 @@ export default class ResourceCache {
   }
 
   /**
-   * Update records in the cache manually
+   * Update records in the cache manually lazily. Any matching instance found will be updated.
    * @param {ResourceBase|Array&lt;ResourceBase&gt;} rows - Data to be updated
    * @returns {void} - nothing
    */
@@ -468,7 +469,7 @@ export default class ResourceCache {
    * @returns {number} - timestamp
    * @private
    */
-  _timestamp() {
+  get _timestamp() {
     return Math.floor(Date.now() / 1000);
   }
 }

@@ -31,13 +31,13 @@
  * 
  */
 /*!
- * hash:62242a64452da8e2efa5, chunkhash:859199c0779162cebecc, name:bundle, version:v1.0.17
+ * hash:dd90cc4e314100e41e3a, chunkhash:34c27df468b0d71c9459, name:bundle, version:v1.1.1
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.0.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
- *    │  │  ├─ core-js (2.5.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
+ *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  │  └─ regenerator-runtime (0.11.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime ~ regenerator-runtime/package.json
  *    │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
  *    └─ mitt (1.1.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/mitt/package.json
@@ -115,7 +115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 175);
+/******/ 	return __webpack_require__(__webpack_require__.s = 176);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -217,7 +217,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(65)('wks');
-var uid = __webpack_require__(37);
+var uid = __webpack_require__(36);
 var Symbol = __webpack_require__(2).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -231,50 +231,6 @@ $exports.store = store;
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(3)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(1);
-var IE8_DOM_DEFINE = __webpack_require__(141);
-var toPrimitive = __webpack_require__(25);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(6) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.15 ToLength
-var toInteger = __webpack_require__(27);
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -491,6 +447,50 @@ var CrudBase = function (_ResourceBase) {
 exports.default = CrudBase;
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(3)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(1);
+var IE8_DOM_DEFINE = __webpack_require__(141);
+var toPrimitive = __webpack_require__(25);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(7) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.15 ToLength
+var toInteger = __webpack_require__(27);
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -515,7 +515,7 @@ exports.isParentOf = isParentOf;
 exports.getTypeName = getTypeName;
 exports.mix = mix;
 
-var _Trait = __webpack_require__(82);
+var _Trait = __webpack_require__(81);
 
 var _Trait2 = _interopRequireDefault(_Trait);
 
@@ -710,9 +710,9 @@ module.exports = function (it, key) {
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(7);
-var createDesc = __webpack_require__(36);
-module.exports = __webpack_require__(6) ? function (object, key, value) {
+var dP = __webpack_require__(8);
+var createDesc = __webpack_require__(35);
+module.exports = __webpack_require__(7) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -727,7 +727,7 @@ module.exports = __webpack_require__(6) ? function (object, key, value) {
 var global = __webpack_require__(2);
 var hide = __webpack_require__(14);
 var has = __webpack_require__(13);
-var SRC = __webpack_require__(37)('src');
+var SRC = __webpack_require__(36)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
@@ -761,18 +761,6 @@ __webpack_require__(24).inspectSource = function (it) {
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(54);
-var defined = __webpack_require__(26);
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var $export = __webpack_require__(0);
 var fails = __webpack_require__(3);
 var defined = __webpack_require__(26);
@@ -795,18 +783,30 @@ module.exports = function (NAME, exec) {
 
 
 /***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(54);
+var defined = __webpack_require__(26);
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+
+/***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(55);
-var createDesc = __webpack_require__(36);
-var toIObject = __webpack_require__(16);
+var createDesc = __webpack_require__(35);
+var toIObject = __webpack_require__(17);
 var toPrimitive = __webpack_require__(25);
 var has = __webpack_require__(13);
 var IE8_DOM_DEFINE = __webpack_require__(141);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(6) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(7) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -823,7 +823,7 @@ exports.f = __webpack_require__(6) ? gOPD : function getOwnPropertyDescriptor(O,
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(13);
 var toObject = __webpack_require__(10);
-var IE_PROTO = __webpack_require__(95)('IE_PROTO');
+var IE_PROTO = __webpack_require__(96)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -884,11 +884,11 @@ var _Maps4News = __webpack_require__(57);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _SimpleResourceProxy = __webpack_require__(120);
+var _SimpleResourceProxy = __webpack_require__(121);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
-var _caseConverter = __webpack_require__(126);
+var _caseConverter = __webpack_require__(127);
 
 var _reflection = __webpack_require__(11);
 
@@ -1415,7 +1415,7 @@ module.exports = function (method, arg) {
 /* 24 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.0' };
+var core = module.exports = { version: '2.5.1' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -1490,8 +1490,8 @@ module.exports = function (KEY, exec) {
 var ctx = __webpack_require__(21);
 var IObject = __webpack_require__(54);
 var toObject = __webpack_require__(10);
-var toLength = __webpack_require__(8);
-var asc = __webpack_require__(112);
+var toLength = __webpack_require__(9);
+var asc = __webpack_require__(113);
 module.exports = function (TYPE, $create) {
   var IS_MAP = TYPE == 1;
   var IS_FILTER = TYPE == 2;
@@ -1532,44 +1532,44 @@ module.exports = function (TYPE, $create) {
 
 "use strict";
 
-if (__webpack_require__(6)) {
-  var LIBRARY = __webpack_require__(38);
+if (__webpack_require__(7)) {
+  var LIBRARY = __webpack_require__(37);
   var global = __webpack_require__(2);
   var fails = __webpack_require__(3);
   var $export = __webpack_require__(0);
-  var $typed = __webpack_require__(76);
-  var $buffer = __webpack_require__(118);
+  var $typed = __webpack_require__(75);
+  var $buffer = __webpack_require__(119);
   var ctx = __webpack_require__(21);
   var anInstance = __webpack_require__(43);
-  var propertyDesc = __webpack_require__(36);
+  var propertyDesc = __webpack_require__(35);
   var hide = __webpack_require__(14);
   var redefineAll = __webpack_require__(45);
   var toInteger = __webpack_require__(27);
-  var toLength = __webpack_require__(8);
-  var toIndex = __webpack_require__(166);
+  var toLength = __webpack_require__(9);
+  var toIndex = __webpack_require__(167);
   var toAbsoluteIndex = __webpack_require__(39);
   var toPrimitive = __webpack_require__(25);
   var has = __webpack_require__(13);
   var classof = __webpack_require__(56);
   var isObject = __webpack_require__(4);
   var toObject = __webpack_require__(10);
-  var isArrayIter = __webpack_require__(109);
+  var isArrayIter = __webpack_require__(110);
   var create = __webpack_require__(40);
   var getPrototypeOf = __webpack_require__(19);
   var gOPN = __webpack_require__(41).f;
-  var getIterFn = __webpack_require__(111);
-  var uid = __webpack_require__(37);
+  var getIterFn = __webpack_require__(112);
+  var uid = __webpack_require__(36);
   var wks = __webpack_require__(5);
   var createArrayMethod = __webpack_require__(29);
   var createArrayIncludes = __webpack_require__(66);
-  var speciesConstructor = __webpack_require__(74);
-  var ArrayIterators = __webpack_require__(114);
+  var speciesConstructor = __webpack_require__(73);
+  var ArrayIterators = __webpack_require__(115);
   var Iterators = __webpack_require__(48);
-  var $iterDetect = __webpack_require__(71);
+  var $iterDetect = __webpack_require__(70);
   var setSpecies = __webpack_require__(42);
-  var arrayFill = __webpack_require__(113);
-  var arrayCopyWithin = __webpack_require__(156);
-  var $DP = __webpack_require__(7);
+  var arrayFill = __webpack_require__(114);
+  var arrayCopyWithin = __webpack_require__(157);
+  var $DP = __webpack_require__(8);
   var $GOPD = __webpack_require__(18);
   var dP = $DP.f;
   var gOPD = $GOPD.f;
@@ -2017,10 +2017,10 @@ if (__webpack_require__(6)) {
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Map = __webpack_require__(161);
+var Map = __webpack_require__(162);
 var $export = __webpack_require__(0);
 var shared = __webpack_require__(65)('metadata');
-var store = shared.store || (shared.store = new (__webpack_require__(164))());
+var store = shared.store || (shared.store = new (__webpack_require__(165))());
 
 var getOrCreateMetadataMap = function (target, targetKey, create) {
   var targetMetadata = store.get(target);
@@ -2085,7 +2085,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _reflection = __webpack_require__(11);
 
-var _Trait2 = __webpack_require__(82);
+var _Trait2 = __webpack_require__(81);
 
 var _Trait3 = _interopRequireDefault(_Trait2);
 
@@ -2241,10 +2241,10 @@ exports.default = OwnableResource;
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(37)('meta');
+var META = __webpack_require__(36)('meta');
 var isObject = __webpack_require__(4);
 var has = __webpack_require__(13);
-var setDesc = __webpack_require__(7).f;
+var setDesc = __webpack_require__(8).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
@@ -2300,19 +2300,6 @@ var meta = module.exports = {
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(143);
-var enumBugKeys = __webpack_require__(96);
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
 // 22.1.3.31 Array.prototype[@@unscopables]
 var UNSCOPABLES = __webpack_require__(5)('unscopables');
 var ArrayProto = Array.prototype;
@@ -2323,7 +2310,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -2337,7 +2324,7 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -2348,10 +2335,23 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = false;
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = __webpack_require__(143);
+var enumBugKeys = __webpack_require__(97);
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
 
 
 /***/ }),
@@ -2374,21 +2374,21 @@ module.exports = function (index, length) {
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(1);
 var dPs = __webpack_require__(144);
-var enumBugKeys = __webpack_require__(96);
-var IE_PROTO = __webpack_require__(95)('IE_PROTO');
+var enumBugKeys = __webpack_require__(97);
+var IE_PROTO = __webpack_require__(96)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(93)('iframe');
+  var iframe = __webpack_require__(94)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(97).appendChild(iframe);
+  __webpack_require__(98).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -2420,7 +2420,7 @@ module.exports = Object.create || function create(O, Properties) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = __webpack_require__(143);
-var hiddenKeys = __webpack_require__(96).concat('length', 'prototype');
+var hiddenKeys = __webpack_require__(97).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -2434,8 +2434,8 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 "use strict";
 
 var global = __webpack_require__(2);
-var dP = __webpack_require__(7);
-var DESCRIPTORS = __webpack_require__(6);
+var dP = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(7);
 var SPECIES = __webpack_require__(5)('species');
 
 module.exports = function (KEY) {
@@ -2463,11 +2463,11 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(21);
-var call = __webpack_require__(154);
-var isArrayIter = __webpack_require__(109);
+var call = __webpack_require__(155);
+var isArrayIter = __webpack_require__(110);
 var anObject = __webpack_require__(1);
-var toLength = __webpack_require__(8);
-var getIterFn = __webpack_require__(111);
+var toLength = __webpack_require__(9);
+var getIterFn = __webpack_require__(112);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -2504,7 +2504,7 @@ module.exports = function (target, src, safe) {
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(7).f;
+var def = __webpack_require__(8).f;
 var has = __webpack_require__(13);
 var TAG = __webpack_require__(5)('toStringTag');
 
@@ -2520,7 +2520,7 @@ module.exports = function (it, tag, stat) {
 var $export = __webpack_require__(0);
 var defined = __webpack_require__(26);
 var fails = __webpack_require__(3);
-var spaces = __webpack_require__(99);
+var spaces = __webpack_require__(100);
 var space = '[' + spaces + ']';
 var non = '\u200b\u0085';
 var ltrim = RegExp('^' + space + space + '*');
@@ -2867,9 +2867,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _AbstractError = __webpack_require__(50);
 
-var _caseConverter = __webpack_require__(126);
+var _caseConverter = __webpack_require__(127);
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -3179,7 +3179,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _crud = __webpack_require__(119);
+var _crud = __webpack_require__(120);
 
 var _ResourceBase2 = __webpack_require__(20);
 
@@ -3189,7 +3189,7 @@ var _ApiError = __webpack_require__(61);
 
 var _ApiError2 = _interopRequireDefault(_ApiError);
 
-var _ValidationError = __webpack_require__(88);
+var _ValidationError = __webpack_require__(87);
 
 var _ValidationError2 = _interopRequireDefault(_ValidationError);
 
@@ -3201,7 +3201,7 @@ var _OAuth = __webpack_require__(53);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
-var _ResourceCache = __webpack_require__(122);
+var _ResourceCache = __webpack_require__(123);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
@@ -3209,7 +3209,7 @@ var _ResourceProxy = __webpack_require__(91);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _hash = __webpack_require__(81);
+var _hash = __webpack_require__(80);
 
 var _reflection = __webpack_require__(11);
 
@@ -3257,12 +3257,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 // Polyfill for terrible browsers (looking at you IE)
 if (!global._babelPolyfill) {
-  __webpack_require__(187);
+  __webpack_require__(188);
 }
 
 /**
  * Base API class
- * @todo Add setting to disable console.warn
  */
 var Maps4News = function () {
   /**
@@ -3810,6 +3809,18 @@ var Maps4News = function () {
     }
 
     /**
+     * Role accessor
+     * @see {@link Role}
+     * @returns {ResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'roles',
+    get: function get() {
+      return this.static(_crud.Role);
+    }
+
+    /**
      * PlaceName accessor
      * @see {@link PlaceName}
      * @returns {ResourceProxy} - A proxy for accessing the resource
@@ -3874,7 +3885,7 @@ var Maps4News = function () {
 }();
 
 exports.default = Maps4News;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(80)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(79)))
 
 /***/ }),
 /* 58 */
@@ -3889,27 +3900,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _Color = __webpack_require__(83);
+var _Color = __webpack_require__(82);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _Contract = __webpack_require__(127);
+var _Contract = __webpack_require__(128);
 
 var _Contract2 = _interopRequireDefault(_Contract);
 
-var _DimensionSet = __webpack_require__(84);
+var _DimensionSet = __webpack_require__(83);
 
 var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
 
-var _Feature = __webpack_require__(85);
+var _Feature = __webpack_require__(84);
 
 var _Feature2 = _interopRequireDefault(_Feature);
 
-var _FontFamily = __webpack_require__(86);
+var _FontFamily = __webpack_require__(85);
 
 var _FontFamily2 = _interopRequireDefault(_FontFamily);
 
@@ -3917,7 +3928,7 @@ var _JobShare = __webpack_require__(59);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _JobType = __webpack_require__(87);
+var _JobType = __webpack_require__(86);
 
 var _JobType2 = _interopRequireDefault(_JobType);
 
@@ -3925,15 +3936,15 @@ var _Layer = __webpack_require__(60);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _MapstyleSet = __webpack_require__(89);
+var _MapstyleSet = __webpack_require__(88);
 
 var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
 
-var _SvgSet = __webpack_require__(90);
+var _SvgSet = __webpack_require__(89);
 
 var _SvgSet2 = _interopRequireDefault(_SvgSet);
 
-var _User = __webpack_require__(133);
+var _User = __webpack_require__(90);
 
 var _User2 = _interopRequireDefault(_User);
 
@@ -4271,7 +4282,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -4401,7 +4412,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _HandlesImages = __webpack_require__(130);
+var _HandlesImages = __webpack_require__(131);
 
 var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
 
@@ -4411,7 +4422,7 @@ var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
 
 var _reflection = __webpack_require__(11);
 
-var _CrudBase = __webpack_require__(9);
+var _CrudBase = __webpack_require__(6);
 
 var _CrudBase2 = _interopRequireDefault(_CrudBase);
 
@@ -4763,7 +4774,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _NodeError = __webpack_require__(186);
+var _NodeError = __webpack_require__(187);
 
 var _NodeError2 = _interopRequireDefault(_NodeError);
 
@@ -5069,8 +5080,8 @@ module.exports = function (key) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(16);
-var toLength = __webpack_require__(8);
+var toIObject = __webpack_require__(17);
+var toLength = __webpack_require__(9);
 var toAbsoluteIndex = __webpack_require__(39);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
@@ -5112,28 +5123,6 @@ module.exports = Array.isArray || function isArray(arg) {
 
 /***/ }),
 /* 69 */
-/***/ (function(module, exports) {
-
-// fast apply, http://jsperf.lnkit.com/fast-apply/5
-module.exports = function (fn, args, that) {
-  var un = that === undefined;
-  switch (args.length) {
-    case 0: return un ? fn()
-                      : fn.call(that);
-    case 1: return un ? fn(args[0])
-                      : fn.call(that, args[0]);
-    case 2: return un ? fn(args[0], args[1])
-                      : fn.call(that, args[0], args[1]);
-    case 3: return un ? fn(args[0], args[1], args[2])
-                      : fn.call(that, args[0], args[1], args[2]);
-    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-                      : fn.call(that, args[0], args[1], args[2], args[3]);
-  } return fn.apply(that, args);
-};
-
-
-/***/ }),
-/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.2.8 IsRegExp(argument)
@@ -5147,7 +5136,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR = __webpack_require__(5)('iterator');
@@ -5175,7 +5164,7 @@ module.exports = function (exec, skipClosing) {
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5195,7 +5184,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5230,7 +5219,7 @@ module.exports = function (KEY, length, exec) {
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
@@ -5245,7 +5234,7 @@ module.exports = function (O, D) {
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5259,9 +5248,9 @@ var forOf = __webpack_require__(44);
 var anInstance = __webpack_require__(43);
 var isObject = __webpack_require__(4);
 var fails = __webpack_require__(3);
-var $iterDetect = __webpack_require__(71);
+var $iterDetect = __webpack_require__(70);
 var setToStringTag = __webpack_require__(46);
-var inheritIfRequired = __webpack_require__(100);
+var inheritIfRequired = __webpack_require__(101);
 
 module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
   var Base = global[NAME];
@@ -5337,12 +5326,12 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(2);
 var hide = __webpack_require__(14);
-var uid = __webpack_require__(37);
+var uid = __webpack_require__(36);
 var TYPED = uid('typed_array');
 var VIEW = uid('view');
 var ABV = !!(global.ArrayBuffer && global.DataView);
@@ -5371,13 +5360,13 @@ module.exports = {
 
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // Forced replacement prototype accessors methods
-module.exports = __webpack_require__(38) || !__webpack_require__(3)(function () {
+module.exports = __webpack_require__(37) || !__webpack_require__(3)(function () {
   var K = Math.random();
   // In FF throws only define methods
   // eslint-disable-next-line no-undef, no-useless-call
@@ -5387,7 +5376,7 @@ module.exports = __webpack_require__(38) || !__webpack_require__(3)(function () 
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5406,7 +5395,7 @@ module.exports = function (COLLECTION) {
 
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5441,7 +5430,7 @@ module.exports = function (COLLECTION) {
 
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports) {
 
 var g;
@@ -5468,7 +5457,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5544,7 +5533,7 @@ function hashObject(data) {
 }
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5599,7 +5588,7 @@ var Trait = function Trait() {
 exports.default = Trait;
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5611,7 +5600,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase = __webpack_require__(9);
+var _CrudBase = __webpack_require__(6);
 
 var _CrudBase2 = _interopRequireDefault(_CrudBase);
 
@@ -5686,7 +5675,7 @@ var Color = function (_mix) {
 exports.default = Color;
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5702,7 +5691,7 @@ var _CrudSetBase = __webpack_require__(52);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Dimension = __webpack_require__(128);
+var _Dimension = __webpack_require__(129);
 
 var _Dimension2 = _interopRequireDefault(_Dimension);
 
@@ -5787,7 +5776,7 @@ var DimensionSet = function (_mix) {
 exports.default = DimensionSet;
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5799,7 +5788,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase = __webpack_require__(9);
+var _CrudBase = __webpack_require__(6);
 
 var _CrudBase2 = _interopRequireDefault(_CrudBase);
 
@@ -5874,7 +5863,7 @@ var Feature = function (_mix) {
 exports.default = Feature;
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5896,7 +5885,7 @@ var _CrudSetBase = __webpack_require__(52);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Font = __webpack_require__(129);
+var _Font = __webpack_require__(130);
 
 var _Font2 = _interopRequireDefault(_Font);
 
@@ -5975,7 +5964,7 @@ var FontFamily = function (_mix) {
 exports.default = FontFamily;
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5987,7 +5976,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase = __webpack_require__(9);
+var _CrudBase = __webpack_require__(6);
 
 var _CrudBase2 = _interopRequireDefault(_CrudBase);
 
@@ -6067,7 +6056,7 @@ var JobType = function (_mix) {
 exports.default = JobType;
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6175,7 +6164,7 @@ var ValidationError = function (_ApiError) {
 exports.default = ValidationError;
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6197,7 +6186,7 @@ var _CrudSetBase = __webpack_require__(52);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Mapstyle = __webpack_require__(131);
+var _Mapstyle = __webpack_require__(132);
 
 var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
@@ -6276,7 +6265,7 @@ var MapstyleSet = function (_mix) {
 exports.default = MapstyleSet;
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6296,7 +6285,7 @@ var _CrudSetBase = __webpack_require__(52);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Svg = __webpack_require__(132);
+var _Svg = __webpack_require__(133);
 
 var _Svg2 = _interopRequireDefault(_Svg);
 
@@ -6377,6 +6366,336 @@ var SvgSet = function (_mix) {
 exports.default = SvgSet;
 
 /***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ResourceProxy = __webpack_require__(91);
+
+var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
+
+var _CrudBase2 = __webpack_require__(6);
+
+var _CrudBase3 = _interopRequireDefault(_CrudBase2);
+
+var _Color = __webpack_require__(82);
+
+var _Color2 = _interopRequireDefault(_Color);
+
+var _DimensionSet = __webpack_require__(83);
+
+var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
+
+var _Feature = __webpack_require__(84);
+
+var _Feature2 = _interopRequireDefault(_Feature);
+
+var _FontFamily = __webpack_require__(85);
+
+var _FontFamily2 = _interopRequireDefault(_FontFamily);
+
+var _Job = __webpack_require__(134);
+
+var _Job2 = _interopRequireDefault(_Job);
+
+var _JobShare = __webpack_require__(59);
+
+var _JobShare2 = _interopRequireDefault(_JobShare);
+
+var _JobType = __webpack_require__(86);
+
+var _JobType2 = _interopRequireDefault(_JobType);
+
+var _Language = __webpack_require__(136);
+
+var _Language2 = _interopRequireDefault(_Language);
+
+var _Layer = __webpack_require__(60);
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _MapstyleSet = __webpack_require__(88);
+
+var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
+
+var _Notification = __webpack_require__(137);
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
+var _Organisation = __webpack_require__(58);
+
+var _Organisation2 = _interopRequireDefault(_Organisation);
+
+var _Permission = __webpack_require__(93);
+
+var _Permission2 = _interopRequireDefault(_Permission);
+
+var _SvgSet = __webpack_require__(89);
+
+var _SvgSet2 = _interopRequireDefault(_SvgSet);
+
+var _Role = __webpack_require__(138);
+
+var _Role2 = _interopRequireDefault(_Role);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+var User = function (_CrudBase) {
+  _inherits(User, _CrudBase);
+
+  function User() {
+    _classCallCheck(this, User);
+
+    return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
+  }
+
+  _createClass(User, [{
+    key: 'ips',
+
+
+    /**
+     * Get all known ips
+     * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}
+     */
+    value: function ips() {
+      var _this2 = this;
+
+      var url = this.url + '/ips';
+
+      return new Promise(function (resolve, reject) {
+        _this2.api.request(url).catch(reject).then(function (data) {
+          return resolve(data.map(function (row) {
+            return row['ip_address'];
+          }));
+        });
+      });
+    }
+
+    /**
+     * Get the user's organisation
+     * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'organisation',
+    value: function organisation() {
+      return new _ResourceProxy2.default(this.api, _Organisation2.default).get(this.organisationId);
+    }
+
+    /**
+     * Get the user's language
+     * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'language',
+    value: function language() {
+      return new _ResourceProxy2.default(this.api, _Language2.default).get(this.languageCode);
+    }
+
+    // region Resource listing
+    /**
+     * Get the list notifications linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      return 'users';
+    }
+  }, {
+    key: 'notifications',
+    get: function get() {
+      return this._proxyResourceList(_Notification2.default);
+    }
+
+    /**
+     * Get the list mapstyle sets linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'mapstyleSets',
+    get: function get() {
+      return this._proxyResourceList(_MapstyleSet2.default);
+    }
+
+    /**
+     * Get the list dimension sets linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'dimensionSets',
+    get: function get() {
+      return this._proxyResourceList(_DimensionSet2.default);
+    }
+
+    /**
+     * Get the list font families linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'fontFamilies',
+    get: function get() {
+      return this._proxyResourceList(_FontFamily2.default);
+    }
+
+    /**
+     * Get the list svg sets linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'svgSets',
+    get: function get() {
+      return this._proxyResourceList(_SvgSet2.default);
+    }
+
+    /**
+     * Get the list colors linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'colors',
+    get: function get() {
+      return this._proxyResourceList(_Color2.default);
+    }
+
+    /**
+     * Get the list jobs linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'jobs',
+    get: function get() {
+      return this._proxyResourceList(_Job2.default);
+    }
+
+    /**
+     * Get the list features linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'features',
+    get: function get() {
+      return this._proxyResourceList(_Feature2.default);
+    }
+
+    /**
+     * Get the list layers linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'layers',
+    get: function get() {
+      return this._proxyResourceList(_Layer2.default);
+    }
+
+    /**
+     * Get the list job types linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'jobTypes',
+    get: function get() {
+      return this._proxyResourceList(_JobType2.default);
+    }
+
+    /**
+     * Get the list job shares linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'jobShares',
+    get: function get() {
+      return this._proxyResourceList(_JobShare2.default);
+    }
+
+    /**
+     * Get the list permissions linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'permissions',
+    get: function get() {
+      return this._proxyResourceList(_Permission2.default);
+    }
+
+    /**
+     * Get the list roles linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'roles',
+    get: function get() {
+      return this._proxyResourceList(_Role2.default);
+    }
+
+    // endregion
+
+  }]);
+
+  return User;
+}(_CrudBase3.default);
+
+exports.default = User;
+
+/***/ }),
 /* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6391,7 +6710,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _SimpleResourceProxy2 = __webpack_require__(120);
+var _SimpleResourceProxy2 = __webpack_require__(121);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -6616,6 +6935,82 @@ exports.default = JobResult;
 /* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ResourceBase2 = __webpack_require__(20);
+
+var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+var Permission = function (_ResourceBase) {
+  _inherits(Permission, _ResourceBase);
+
+  function Permission() {
+    _classCallCheck(this, Permission);
+
+    return _possibleConstructorReturn(this, (Permission.__proto__ || Object.getPrototypeOf(Permission)).apply(this, arguments));
+  }
+
+  _createClass(Permission, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'permissions';
+    }
+  }]);
+
+  return Permission;
+}(_ResourceBase3.default);
+
+exports.default = Permission;
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var isObject = __webpack_require__(4);
 var document = __webpack_require__(2).document;
 // typeof document.createElement is 'object' in old IE
@@ -6626,14 +7021,14 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(2);
 var core = __webpack_require__(24);
-var LIBRARY = __webpack_require__(38);
+var LIBRARY = __webpack_require__(37);
 var wksExt = __webpack_require__(142);
-var defineProperty = __webpack_require__(7).f;
+var defineProperty = __webpack_require__(8).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
@@ -6641,18 +7036,18 @@ module.exports = function (name) {
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(65)('keys');
-var uid = __webpack_require__(37);
+var uid = __webpack_require__(36);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -6662,7 +7057,7 @@ module.exports = (
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var document = __webpack_require__(2).document;
@@ -6670,7 +7065,7 @@ module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Works with __proto__ only. Old v8 can't work with null proto objects.
@@ -6701,7 +7096,7 @@ module.exports = {
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports) {
 
 module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
@@ -6709,11 +7104,11 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(4);
-var setPrototypeOf = __webpack_require__(98).set;
+var setPrototypeOf = __webpack_require__(99).set;
 module.exports = function (that, target, C) {
   var S = target.constructor;
   var P;
@@ -6724,7 +7119,7 @@ module.exports = function (that, target, C) {
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6743,7 +7138,7 @@ module.exports = function repeat(count) {
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports) {
 
 // 20.2.2.28 Math.sign(x)
@@ -6754,7 +7149,7 @@ module.exports = Math.sign || function sign(x) {
 
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports) {
 
 // 20.2.2.14 Math.expm1(x)
@@ -6770,7 +7165,7 @@ module.exports = (!$expm1
 
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(27);
@@ -6793,18 +7188,18 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(38);
+var LIBRARY = __webpack_require__(37);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(15);
 var hide = __webpack_require__(14);
 var has = __webpack_require__(13);
 var Iterators = __webpack_require__(48);
-var $iterCreate = __webpack_require__(106);
+var $iterCreate = __webpack_require__(107);
 var setToStringTag = __webpack_require__(46);
 var getPrototypeOf = __webpack_require__(19);
 var ITERATOR = __webpack_require__(5)('iterator');
@@ -6870,13 +7265,13 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var create = __webpack_require__(40);
-var descriptor = __webpack_require__(36);
+var descriptor = __webpack_require__(35);
 var setToStringTag = __webpack_require__(46);
 var IteratorPrototype = {};
 
@@ -6890,11 +7285,11 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // helper for String#{startsWith, endsWith, includes}
-var isRegExp = __webpack_require__(70);
+var isRegExp = __webpack_require__(69);
 var defined = __webpack_require__(26);
 
 module.exports = function (that, searchString, NAME) {
@@ -6904,7 +7299,7 @@ module.exports = function (that, searchString, NAME) {
 
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var MATCH = __webpack_require__(5)('match');
@@ -6922,7 +7317,7 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
@@ -6936,13 +7331,13 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $defineProperty = __webpack_require__(7);
-var createDesc = __webpack_require__(36);
+var $defineProperty = __webpack_require__(8);
+var createDesc = __webpack_require__(35);
 
 module.exports = function (object, index, value) {
   if (index in object) $defineProperty.f(object, index, createDesc(0, value));
@@ -6951,7 +7346,7 @@ module.exports = function (object, index, value) {
 
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(56);
@@ -6965,7 +7360,7 @@ module.exports = __webpack_require__(24).getIteratorMethod = function (it) {
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 9.4.2.3 ArraySpeciesCreate(originalArray, length)
@@ -6977,7 +7372,7 @@ module.exports = function (original, length) {
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6985,7 +7380,7 @@ module.exports = function (original, length) {
 
 var toObject = __webpack_require__(10);
 var toAbsoluteIndex = __webpack_require__(39);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 module.exports = function fill(value /* , start = 0, end = @length */) {
   var O = toObject(this);
   var length = toLength(O.length);
@@ -6999,21 +7394,21 @@ module.exports = function fill(value /* , start = 0, end = @length */) {
 
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(35);
-var step = __webpack_require__(157);
+var addToUnscopables = __webpack_require__(34);
+var step = __webpack_require__(158);
 var Iterators = __webpack_require__(48);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(105)(Array, 'Array', function (iterated, kind) {
+module.exports = __webpack_require__(106)(Array, 'Array', function (iterated, kind) {
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -7040,13 +7435,13 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(21);
-var invoke = __webpack_require__(69);
-var html = __webpack_require__(97);
-var cel = __webpack_require__(93);
+var invoke = __webpack_require__(148);
+var html = __webpack_require__(98);
+var cel = __webpack_require__(94);
 var global = __webpack_require__(2);
 var process = global.process;
 var setTask = global.setImmediate;
@@ -7130,11 +7525,11 @@ module.exports = {
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(2);
-var macrotask = __webpack_require__(115).set;
+var macrotask = __webpack_require__(116).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
@@ -7204,7 +7599,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7229,25 +7624,25 @@ module.exports.f = function (C) {
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var global = __webpack_require__(2);
-var DESCRIPTORS = __webpack_require__(6);
-var LIBRARY = __webpack_require__(38);
-var $typed = __webpack_require__(76);
+var DESCRIPTORS = __webpack_require__(7);
+var LIBRARY = __webpack_require__(37);
+var $typed = __webpack_require__(75);
 var hide = __webpack_require__(14);
 var redefineAll = __webpack_require__(45);
 var fails = __webpack_require__(3);
 var anInstance = __webpack_require__(43);
 var toInteger = __webpack_require__(27);
-var toLength = __webpack_require__(8);
-var toIndex = __webpack_require__(166);
+var toLength = __webpack_require__(9);
+var toIndex = __webpack_require__(167);
 var gOPN = __webpack_require__(41).f;
-var dP = __webpack_require__(7).f;
-var arrayFill = __webpack_require__(113);
+var dP = __webpack_require__(8).f;
+var arrayFill = __webpack_require__(114);
 var setToStringTag = __webpack_require__(46);
 var ARRAY_BUFFER = 'ArrayBuffer';
 var DATA_VIEW = 'DataView';
@@ -7512,7 +7907,7 @@ exports[DATA_VIEW] = $DataView;
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7521,49 +7916,49 @@ exports[DATA_VIEW] = $DataView;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.base = exports.User = exports.SvgSetType = exports.SvgSet = exports.Svg = exports.PlaceName = exports.Permission = exports.Organisation = exports.Notification = exports.MapstyleSet = exports.Mapstyle = exports.Layer = exports.Language = exports.JobType = exports.JobShare = exports.JobRevision = exports.JobResult = exports.Job = exports.InsetMap = exports.Highlight = exports.FontFamily = exports.Font = exports.Feature = exports.Faq = exports.DimensionSet = exports.Dimension = exports.Contract = exports.Color = exports.Choropleth = undefined;
+exports.base = exports.User = exports.SvgSetType = exports.SvgSet = exports.Svg = exports.Role = exports.PlaceName = exports.Permission = exports.Organisation = exports.Notification = exports.MapstyleSet = exports.Mapstyle = exports.Layer = exports.Language = exports.JobType = exports.JobShare = exports.JobRevision = exports.JobResult = exports.Job = exports.InsetMap = exports.Highlight = exports.FontFamily = exports.Font = exports.Feature = exports.Faq = exports.DimensionSet = exports.Dimension = exports.Contract = exports.Color = exports.Choropleth = undefined;
 
-var _Choropleth2 = __webpack_require__(176);
+var _Choropleth2 = __webpack_require__(177);
 
 var _Choropleth3 = _interopRequireDefault(_Choropleth2);
 
-var _Color2 = __webpack_require__(83);
+var _Color2 = __webpack_require__(82);
 
 var _Color3 = _interopRequireDefault(_Color2);
 
-var _Contract2 = __webpack_require__(127);
+var _Contract2 = __webpack_require__(128);
 
 var _Contract3 = _interopRequireDefault(_Contract2);
 
-var _Dimension2 = __webpack_require__(128);
+var _Dimension2 = __webpack_require__(129);
 
 var _Dimension3 = _interopRequireDefault(_Dimension2);
 
-var _DimensionSet2 = __webpack_require__(84);
+var _DimensionSet2 = __webpack_require__(83);
 
 var _DimensionSet3 = _interopRequireDefault(_DimensionSet2);
 
-var _Faq2 = __webpack_require__(180);
+var _Faq2 = __webpack_require__(181);
 
 var _Faq3 = _interopRequireDefault(_Faq2);
 
-var _Feature2 = __webpack_require__(85);
+var _Feature2 = __webpack_require__(84);
 
 var _Feature3 = _interopRequireDefault(_Feature2);
 
-var _Font2 = __webpack_require__(129);
+var _Font2 = __webpack_require__(130);
 
 var _Font3 = _interopRequireDefault(_Font2);
 
-var _FontFamily2 = __webpack_require__(86);
+var _FontFamily2 = __webpack_require__(85);
 
 var _FontFamily3 = _interopRequireDefault(_FontFamily2);
 
-var _Highlight2 = __webpack_require__(181);
+var _Highlight2 = __webpack_require__(182);
 
 var _Highlight3 = _interopRequireDefault(_Highlight2);
 
-var _InsetMap2 = __webpack_require__(182);
+var _InsetMap2 = __webpack_require__(183);
 
 var _InsetMap3 = _interopRequireDefault(_InsetMap2);
 
@@ -7583,7 +7978,7 @@ var _JobShare2 = __webpack_require__(59);
 
 var _JobShare3 = _interopRequireDefault(_JobShare2);
 
-var _JobType2 = __webpack_require__(87);
+var _JobType2 = __webpack_require__(86);
 
 var _JobType3 = _interopRequireDefault(_JobType2);
 
@@ -7595,11 +7990,11 @@ var _Layer2 = __webpack_require__(60);
 
 var _Layer3 = _interopRequireDefault(_Layer2);
 
-var _Mapstyle2 = __webpack_require__(131);
+var _Mapstyle2 = __webpack_require__(132);
 
 var _Mapstyle3 = _interopRequireDefault(_Mapstyle2);
 
-var _MapstyleSet2 = __webpack_require__(89);
+var _MapstyleSet2 = __webpack_require__(88);
 
 var _MapstyleSet3 = _interopRequireDefault(_MapstyleSet2);
 
@@ -7611,31 +8006,35 @@ var _Organisation2 = __webpack_require__(58);
 
 var _Organisation3 = _interopRequireDefault(_Organisation2);
 
-var _Permission2 = __webpack_require__(138);
+var _Permission2 = __webpack_require__(93);
 
 var _Permission3 = _interopRequireDefault(_Permission2);
 
-var _PlaceName2 = __webpack_require__(183);
+var _PlaceName2 = __webpack_require__(184);
 
 var _PlaceName3 = _interopRequireDefault(_PlaceName2);
 
-var _Svg2 = __webpack_require__(132);
+var _Role2 = __webpack_require__(138);
+
+var _Role3 = _interopRequireDefault(_Role2);
+
+var _Svg2 = __webpack_require__(133);
 
 var _Svg3 = _interopRequireDefault(_Svg2);
 
-var _SvgSet2 = __webpack_require__(90);
+var _SvgSet2 = __webpack_require__(89);
 
 var _SvgSet3 = _interopRequireDefault(_SvgSet2);
 
-var _SvgSetType2 = __webpack_require__(184);
+var _SvgSetType2 = __webpack_require__(185);
 
 var _SvgSetType3 = _interopRequireDefault(_SvgSetType2);
 
-var _User2 = __webpack_require__(133);
+var _User2 = __webpack_require__(90);
 
 var _User3 = _interopRequireDefault(_User2);
 
-var _CrudBase = __webpack_require__(9);
+var _CrudBase = __webpack_require__(6);
 
 var _CrudBase2 = _interopRequireDefault(_CrudBase);
 
@@ -7704,6 +8103,7 @@ exports.Notification = _Notification3.default;
 exports.Organisation = _Organisation3.default;
 exports.Permission = _Permission3.default;
 exports.PlaceName = _PlaceName3.default;
+exports.Role = _Role3.default;
 exports.Svg = _Svg3.default;
 exports.SvgSet = _SvgSet3.default;
 exports.SvgSetType = _SvgSetType3.default;
@@ -7718,7 +8118,7 @@ var base = exports.base = {
 };
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7727,6 +8127,8 @@ var base = exports.base = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * BSD 3-Clause License
@@ -7764,7 +8166,7 @@ var _ResourceBase = __webpack_require__(20);
 
 var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
 
-var _PaginatedResourceListing = __webpack_require__(121);
+var _PaginatedResourceListing = __webpack_require__(122);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
 
@@ -7778,7 +8180,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * Proxy for accessing resource. This will make sure that they
  * are properly wrapped before the promise resolves.
  * @protected
- * @todo remove ::search* in favor of an object containing function parameters
  */
 var SimpleResourceProxy = function () {
   /**
@@ -7811,119 +8212,14 @@ var SimpleResourceProxy = function () {
   }
 
   _createClass(SimpleResourceProxy, [{
-    key: 'search',
+    key: 'new',
 
 
     /**
-     * Lists target resource
-     * @param {Object<String, String|Array<String>>} query - Query
-     * @param {Number} page - The page to be requested
-     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     *
-     * @example
-     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
-     * // See Api documentation for search query syntax
-     * var query = {
-     *   name: '^:test',
-     *   scale_min: ['>:1', '<:10'],
-     * }
-     *
-     * api.layers.search(query).then(console.dir);
-     * @todo move page, perPage, etc. to an object and add other options
-     */
-    value: function search(query) {
-      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.perPage;
-
-      var url = this._baseUrl;
-      var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query);
-
-      return resolver.getPage(page, perPage);
-    }
-
-    /**
-     * Lists target resource
-     * @param {Number} page - The page to be requested
-     * @param {Number|undefined} perPage - Amount of items per page. This is silently capped by the API
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'list',
-    value: function list() {
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.perPage;
-
-      return this.search({}, page, perPage);
-    }
-
-    /**
-     * Lists target resource
-     * @param {Number} page - The page to be requested
-     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-     * @param {Number} cacheTime - Amount of seconds to store a value in cache
-     * @param {Boolean} shareCache - Share cache across instances
-     * @returns {PaginatedResourceWrapper} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     *
-     */
-
-  }, {
-    key: 'listAndWrap',
-    value: function listAndWrap() {
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults.perPage;
-      var cacheTime = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.cacheSeconds;
-      var shareCache = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults._shareCache;
-
-      return this.searchAndWrap({}, page, perPage, cacheTime, shareCache);
-    }
-
-    /**
-     * Lists target resource
-     * @param {Object<String, String|Array<String>>} query - Query
-     * @param {Number} page - The page to be requested
-     * @param {Number} perPage - Amount of items per page. This is silently capped by the API
-     * @param {Number} cacheTime - Amount of seconds to store a value in cache
-     * @param {Boolean} shareCache - Share cache across instances
-     * @returns {PaginatedResourceWrapper} - Wrapped {@link PaginatedResourceListing} instance
-     *
-     * @example
-     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
-     * // See Api documentation for search query syntax
-     * var query = {
-     *   name: '^:test',
-     *   scale_min: ['>:1', '<:10'],
-     * }
-     *
-     * api.layers.searchAndWrap(query)
-     */
-
-  }, {
-    key: 'searchAndWrap',
-    value: function searchAndWrap(query) {
-      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      var perPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.api.defaults.perPage;
-      var cacheTime = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.api.defaults.cacheSeconds;
-      var shareCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.api.defaults._shareCache;
-
-      var url = this._baseUrl;
-      var resolver = new _PaginatedResourceListing2.default(this._api, url, this.Target, query, page, perPage);
-      var wrapped = resolver.wrap(cacheTime, shareCache);
-
-      wrapped.get(page);
-
-      return wrapped;
-    }
-
-    /**
-     * Build a new isntance of the target
+     * Build a new instance of the target
      * @param {Object<String, *>} data - Data for the object to be populated with
      * @returns {ResourceBase} - Resource with target data
      */
-
-  }, {
-    key: 'new',
     value: function _new() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -7932,6 +8228,89 @@ var SimpleResourceProxy = function () {
 
       return new this.Target(this._api, data);
     }
+
+    /**
+     * List target resource
+     * @param {Number|Object} [params] - Parameters or the page number to be requested
+     * @param {Number} [params.page=1] - The page to be requested
+     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * const search = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * };
+     *
+     * api.layers.list({perPage: 10, search});
+     */
+
+  }, {
+    key: 'list',
+    value: function list() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var resolver = this._buildResolver(params);
+
+      return resolver.getPage(resolver.page);
+    }
+
+    /**
+     * List target resource
+     * @param {Number|Object} [params] - Parameters or the page to be requested
+     * @param {Number} [params.page=1] - The page to be requested
+     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
+     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
+     * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * const search = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * };
+     *
+     * api.layers.listandWrap({perPage: 10, search});
+     */
+
+  }, {
+    key: 'listAndWrap',
+    value: function listAndWrap() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var resolver = this._buildResolver(params);
+      var wrapped = resolver.wrap(resolver.page);
+
+      wrapped.get(resolver.page);
+      return wrapped;
+    }
+  }, {
+    key: '_buildResolver',
+    value: function _buildResolver() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var paramType = typeof params === 'undefined' ? 'undefined' : _typeof(params);
+      var url = this._baseUrl;
+
+      if (!['number', 'object'].includes(paramType)) {
+        throw new TypeError('Expected params to be of type number or object. Got "' + paramType + '"');
+      }
+
+      if (paramType === 'number') {
+        return this._buildResolver({ page: params });
+      }
+
+      return new _PaginatedResourceListing2.default(this._api, url, this.Target, params.search, params.page, params.perPage);
+    }
+
+    /**
+     * Get the defaults parameters.
+     * @returns {{page: number, perPage: number, shareCache: boolean, search: {}}} - Defaults
+     */
+
   }, {
     key: '_baseUrl',
     get: function get() {
@@ -7980,6 +8359,18 @@ var SimpleResourceProxy = function () {
         return ' ' + x;
       }).trim();
     }
+  }, {
+    key: 'defaultParams',
+    get: function get() {
+      var defaults = this.api.defaults;
+
+      return {
+        page: 1,
+        perPage: defaults.perPage,
+        shareCache: defaults.shareCache,
+        search: {}
+      };
+    }
   }]);
 
   return SimpleResourceProxy;
@@ -7988,7 +8379,7 @@ var SimpleResourceProxy = function () {
 exports.default = SimpleResourceProxy;
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8036,11 +8427,11 @@ var _Maps4News = __webpack_require__(57);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _PaginatedResourceWrapper = __webpack_require__(177);
+var _PaginatedResourceWrapper = __webpack_require__(178);
 
 var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
 
-var _hash = __webpack_require__(81);
+var _hash = __webpack_require__(80);
 
 var _reflection = __webpack_require__(11);
 
@@ -8178,7 +8569,6 @@ var PaginatedResourceListing = function () {
 
     /**
      * Wraps {@link PaginatedResourceWrapper} around the page
-     * @param {Number} cacheTime - Amount of seconds to store a value in cache
      * @param {Boolean} shareCache - Share cache across instances
      * @returns {PaginatedResourceWrapper} - Wrapped resource listing
      */
@@ -8186,10 +8576,9 @@ var PaginatedResourceListing = function () {
   }, {
     key: 'wrap',
     value: function wrap() {
-      var cacheTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults.cacheSeconds;
-      var shareCache = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.api.defaults._shareCache;
+      var shareCache = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults._shareCache;
 
-      return new _PaginatedResourceWrapper2.default(this, this.api, cacheTime, shareCache);
+      return new _PaginatedResourceWrapper2.default(this, this.api, shareCache);
     }
   }, {
     key: 'api',
@@ -8433,7 +8822,7 @@ var PaginatedResourceListing = function () {
 exports.default = PaginatedResourceListing;
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8475,11 +8864,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _mitt = __webpack_require__(178);
+var _mitt = __webpack_require__(179);
 
 var _mitt2 = _interopRequireDefault(_mitt);
 
-var _uuid = __webpack_require__(123);
+var _uuid = __webpack_require__(124);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -8497,11 +8886,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var ResourceCache = function () {
   function ResourceCache(api) {
     var cacheTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : api.defaults.cacheSeconds;
+    var dereference = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.dereferenceCache;
 
     _classCallCheck(this, ResourceCache);
 
     this._api = api;
     this.cacheTime = cacheTime;
+    this.dereference = dereference;
     this.emitter = (0, _mitt2.default)();
 
     this._storage = {};
@@ -8544,7 +8935,7 @@ var ResourceCache = function () {
         throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric "id" field.');
       }
 
-      var validThrough = this._timestamp() + this.cacheTime;
+      var validThrough = this._timestamp + this.cacheTime;
       var cacheId = _uuid2.default.uuid4();
       var data = {
         page: page, validThrough: validThrough, diff: diff,
@@ -8659,13 +9050,13 @@ var ResourceCache = function () {
         // Remove old data from the cache and stop old timeouts
         Object.keys(storage).forEach(function (key) {
           storage[key].filter(function (row) {
-            return row.validThrough < _this2._timestamp();
+            return row.validThrough < _this2._timestamp;
           }).forEach(function (row) {
             return clearTimeout(row.timeout);
           });
 
           storage[key] = storage[key].filter(function (row) {
-            return row.validThrough >= _this2._timestamp();
+            return row.validThrough >= _this2._timestamp;
           });
         });
 
@@ -8740,7 +9131,6 @@ var ResourceCache = function () {
      * Resolve cache and return indexed data
      * @param {String} resourceUrl - Resource url
      * @param {String} cacheToken - Cache token
-     * @param {Boolean} dereference - Dereference output data by cloning the instances before returning them.
      * @see {@link PaginatedResourceListing#cacheToken}
      * @returns {Array} - Indexed relevant data
      * @todo add page numbers or range as optional parameter
@@ -8752,7 +9142,6 @@ var ResourceCache = function () {
       var _this4 = this;
 
       var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var dereference = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this._api.defaults.dereferenceCache;
 
       cacheToken = cacheToken.toLowerCase();
 
@@ -8859,7 +9248,7 @@ var ResourceCache = function () {
         }
       }
 
-      if (dereference) {
+      if (this.dereference) {
         return out.map(function (x) {
           return x.clone();
         });
@@ -8869,7 +9258,7 @@ var ResourceCache = function () {
     }
 
     /**
-     * Update records in the cache manually
+     * Update records in the cache manually lazily. Any matching instance found will be updated.
      * @param {ResourceBase|Array<ResourceBase>} rows - Data to be updated
      * @returns {void} - nothing
      */
@@ -9093,7 +9482,7 @@ var ResourceCache = function () {
 
   }, {
     key: '_timestamp',
-    value: function _timestamp() {
+    get: function get() {
       return Math.floor(Date.now() / 1000);
     }
   }]);
@@ -9104,7 +9493,7 @@ var ResourceCache = function () {
 exports.default = ResourceCache;
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9116,7 +9505,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _StaticClass2 = __webpack_require__(124);
+var _StaticClass2 = __webpack_require__(125);
 
 var _StaticClass3 = _interopRequireDefault(_StaticClass2);
 
@@ -9212,7 +9601,7 @@ var Uuid = function (_StaticClass) {
 exports.default = Uuid;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9222,7 +9611,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _StaticClassError = __webpack_require__(125);
+var _StaticClassError = __webpack_require__(126);
 
 var _StaticClassError2 = _interopRequireDefault(_StaticClassError);
 
@@ -9273,7 +9662,7 @@ var StaticClass = function StaticClass() {
 exports.default = StaticClass;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9340,7 +9729,7 @@ var StaticClassError = function (_Error) {
 exports.default = StaticClassError;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9421,7 +9810,7 @@ function pascalToCamelCase(str) {
 }
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9433,7 +9822,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -9500,7 +9889,7 @@ var Contract = function (_CrudBase) {
 exports.default = Contract;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9512,7 +9901,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -9579,7 +9968,7 @@ var Dimension = function (_CrudBase) {
 exports.default = Dimension;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9591,7 +9980,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -9655,7 +10044,7 @@ var Font = function (_CrudBase) {
 exports.default = Font;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9667,11 +10056,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Trait2 = __webpack_require__(82);
+var _Trait2 = __webpack_require__(81);
 
 var _Trait3 = _interopRequireDefault(_Trait2);
 
-var _ImageHandler = __webpack_require__(179);
+var _ImageHandler = __webpack_require__(180);
 
 var _ImageHandler2 = _interopRequireDefault(_ImageHandler);
 
@@ -9743,7 +10132,7 @@ var HandlesImages = function (_Trait) {
 exports.default = HandlesImages;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9755,11 +10144,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase = __webpack_require__(9);
+var _CrudBase = __webpack_require__(6);
 
 var _CrudBase2 = _interopRequireDefault(_CrudBase);
 
-var _HandlesImages = __webpack_require__(130);
+var _HandlesImages = __webpack_require__(131);
 
 var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
 
@@ -9829,7 +10218,7 @@ var Mapstyle = function (_mix) {
 exports.default = Mapstyle;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9841,7 +10230,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -9905,321 +10294,6 @@ var Svg = function (_CrudBase) {
 exports.default = Svg;
 
 /***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ResourceProxy = __webpack_require__(91);
-
-var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
-
-var _CrudBase2 = __webpack_require__(9);
-
-var _CrudBase3 = _interopRequireDefault(_CrudBase2);
-
-var _Color = __webpack_require__(83);
-
-var _Color2 = _interopRequireDefault(_Color);
-
-var _DimensionSet = __webpack_require__(84);
-
-var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
-
-var _Feature = __webpack_require__(85);
-
-var _Feature2 = _interopRequireDefault(_Feature);
-
-var _FontFamily = __webpack_require__(86);
-
-var _FontFamily2 = _interopRequireDefault(_FontFamily);
-
-var _Job = __webpack_require__(134);
-
-var _Job2 = _interopRequireDefault(_Job);
-
-var _JobShare = __webpack_require__(59);
-
-var _JobShare2 = _interopRequireDefault(_JobShare);
-
-var _JobType = __webpack_require__(87);
-
-var _JobType2 = _interopRequireDefault(_JobType);
-
-var _Language = __webpack_require__(136);
-
-var _Language2 = _interopRequireDefault(_Language);
-
-var _Layer = __webpack_require__(60);
-
-var _Layer2 = _interopRequireDefault(_Layer);
-
-var _MapstyleSet = __webpack_require__(89);
-
-var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
-
-var _Notification = __webpack_require__(137);
-
-var _Notification2 = _interopRequireDefault(_Notification);
-
-var _Organisation = __webpack_require__(58);
-
-var _Organisation2 = _interopRequireDefault(_Organisation);
-
-var _Permission = __webpack_require__(138);
-
-var _Permission2 = _interopRequireDefault(_Permission);
-
-var _SvgSet = __webpack_require__(90);
-
-var _SvgSet2 = _interopRequireDefault(_SvgSet);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-var User = function (_CrudBase) {
-  _inherits(User, _CrudBase);
-
-  function User() {
-    _classCallCheck(this, User);
-
-    return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
-  }
-
-  _createClass(User, [{
-    key: 'ips',
-
-
-    /**
-     * Get all known ips
-     * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}
-     */
-    value: function ips() {
-      var _this2 = this;
-
-      var url = this.url + '/ips';
-
-      return new Promise(function (resolve, reject) {
-        _this2.api.request(url).catch(reject).then(function (data) {
-          return resolve(data.map(function (row) {
-            return row['ip_address'];
-          }));
-        });
-      });
-    }
-
-    /**
-     * Get the user's organisation
-     * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'organisation',
-    value: function organisation() {
-      return new _ResourceProxy2.default(this.api, _Organisation2.default).get(this.organisationId);
-    }
-
-    /**
-     * Get the user's language
-     * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'language',
-    value: function language() {
-      return new _ResourceProxy2.default(this.api, _Language2.default).get(this.languageCode);
-    }
-
-    // region Resource listing
-    /**
-     * Get the list notifications linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'users';
-    }
-  }, {
-    key: 'notifications',
-    get: function get() {
-      return this._proxyResourceList(_Notification2.default);
-    }
-
-    /**
-     * Get the list mapstyle sets linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'mapstyleSets',
-    get: function get() {
-      return this._proxyResourceList(_MapstyleSet2.default);
-    }
-
-    /**
-     * Get the list dimension sets linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'dimensionSets',
-    get: function get() {
-      return this._proxyResourceList(_DimensionSet2.default);
-    }
-
-    /**
-     * Get the list font families linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'fontFamilies',
-    get: function get() {
-      return this._proxyResourceList(_FontFamily2.default);
-    }
-
-    /**
-     * Get the list svg sets linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'svgSets',
-    get: function get() {
-      return this._proxyResourceList(_SvgSet2.default);
-    }
-
-    /**
-     * Get the list colors linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'colors',
-    get: function get() {
-      return this._proxyResourceList(_Color2.default);
-    }
-
-    /**
-     * Get the list jobs linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'jobs',
-    get: function get() {
-      return this._proxyResourceList(_Job2.default);
-    }
-
-    /**
-     * Get the list features linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'features',
-    get: function get() {
-      return this._proxyResourceList(_Feature2.default);
-    }
-
-    /**
-     * Get the list layers linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'layers',
-    get: function get() {
-      return this._proxyResourceList(_Layer2.default);
-    }
-
-    /**
-     * Get the list job types linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'jobTypes',
-    get: function get() {
-      return this._proxyResourceList(_JobType2.default);
-    }
-
-    /**
-     * Get the list job shares linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'jobShares',
-    get: function get() {
-      return this._proxyResourceList(_JobShare2.default);
-    }
-
-    /**
-     * Get the list job shares linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'permissions',
-    get: function get() {
-      return this._proxyResourceList(_Permission2.default);
-    }
-
-    // endregion
-
-  }]);
-
-  return User;
-}(_CrudBase3.default);
-
-exports.default = User;
-
-/***/ }),
 /* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10236,7 +10310,7 @@ var _ResourceProxy = __webpack_require__(91);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -10369,7 +10443,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _reflection = __webpack_require__(11);
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -10622,7 +10696,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -10703,7 +10777,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -10779,9 +10853,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ResourceBase2 = __webpack_require__(20);
+var _CrudBase2 = __webpack_require__(6);
 
-var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
+var _CrudBase3 = _interopRequireDefault(_CrudBase2);
+
+var _Permission = __webpack_require__(93);
+
+var _Permission2 = _interopRequireDefault(_Permission);
+
+var _User = __webpack_require__(90);
+
+var _User2 = _interopRequireDefault(_User);
+
+var _reflection = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10789,58 +10873,152 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Permission = function (_ResourceBase) {
-  _inherits(Permission, _ResourceBase);
+var Role = function (_CrudBase) {
+  _inherits(Role, _CrudBase);
 
-  function Permission() {
-    _classCallCheck(this, Permission);
+  function Role() {
+    _classCallCheck(this, Role);
 
-    return _possibleConstructorReturn(this, (Permission.__proto__ || Object.getPrototypeOf(Permission)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Role.__proto__ || Object.getPrototypeOf(Role)).apply(this, arguments));
   }
 
-  _createClass(Permission, [{
+  _createClass(Role, [{
+    key: 'syncPermissions',
+
+
+    /**
+     * Sync permissions to the role
+     * @param {Array<ResourceBase>} items - List of items to sync
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+    value: function syncPermissions(items) {
+      return this._modifyLink(items, 'PATCH', _Permission2.default, 'permissions');
+    }
+
+    /**
+     * Attach permissions to the role
+     * @param {Array<ResourceBase>} items - List of items to attach
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+
+  }, {
+    key: 'attachPermissions',
+    value: function attachPermissions(items) {
+      return this._modifyLink(items, 'POST', _Permission2.default, 'permissions');
+    }
+
+    /**
+     * Detach permissions from the role
+     * @param {Array<Organisation>|Array<Number>} items - List of items to unlink
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+
+  }, {
+    key: 'detachPermissions',
+    value: function detachPermissions(items) {
+      return this._modifyLink(items, 'DELETE', _Permission2.default, 'permissions');
+    }
+
+    /**
+     * Sync permissions to the role
+     * @param {Array<ResourceBase>} items - List of items to sync
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+
+  }, {
+    key: 'syncUsers',
+    value: function syncUsers(items) {
+      return this._modifyLink(items, 'PATCH', _User2.default, 'users');
+    }
+
+    /**
+     * Attach permissions to the role
+     * @param {Array<ResourceBase>} items - List of items to attach
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+
+  }, {
+    key: 'attachUsers',
+    value: function attachUsers(items) {
+      return this._modifyLink(items, 'POST', _User2.default, 'users');
+    }
+
+    /**
+     * Detach permissions from the role
+     * @param {Array<Organisation>|Array<Number>} items - List of items to unlink
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+
+  }, {
+    key: 'detachUsers',
+    value: function detachUsers(items) {
+      return this._modifyLink(items, 'DELETE', _User2.default, 'users');
+    }
+
+    /**
+     * Sync, attach or unlink resources
+     * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach
+     * @param {String} method - Http method to use
+     * @param {Constructor} Type - Resource type
+     * @param {String} path - Appended resource path
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     * @todo refactor to CrudBase and remove organisation specific method from trait
+     * @todo implicit path generation
+     * @private
+     */
+
+  }, {
+    key: '_modifyLink',
+    value: function _modifyLink(items, method, Type, path) {
+      var filter = function filter(x) {
+        return !(0, _reflection.isParentOf)(Type, x) && !(0, _reflection.isParentOf)(Number, x);
+      };
+      var isValid = items.filter(filter).length === 0;
+
+      if (!isValid) {
+        throw new TypeError('Array must contain either Numbers (resource id) or ' + Type.name + '.');
+      }
+
+      var keys = items.map(function (x) {
+        return typeof x === 'number' ? x : x.id;
+      }).map(Number);
+
+      return this.api.request(this.url + '/' + path, method, { keys: keys });
+    }
+  }, {
+    key: 'permissions',
+
+    /**
+     * Get the list permissions linked to the role
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+    get: function get() {
+      return this._proxyResourceList(_Permission2.default);
+    }
+
+    /**
+     * Get the list users linked to the role
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'users',
+    get: function get() {
+      return this._proxyResourceList(_User2.default);
+    }
+  }, {
     key: 'resourceName',
     get: function get() {
-      return 'permissions';
+      return 'roles';
     }
   }]);
 
-  return Permission;
-}(_ResourceBase3.default);
+  return Role;
+}(_CrudBase3.default);
 
-exports.default = Permission;
+exports.default = Role;
 
 /***/ }),
 /* 139 */
@@ -10953,11 +11131,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _StaticClass2 = __webpack_require__(124);
+var _StaticClass2 = __webpack_require__(125);
 
 var _StaticClass3 = _interopRequireDefault(_StaticClass2);
 
-var _uuid = __webpack_require__(123);
+var _uuid = __webpack_require__(124);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -11117,8 +11295,8 @@ exports.default = StateContainer;
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(6) && !__webpack_require__(3)(function () {
-  return Object.defineProperty(__webpack_require__(93)('div'), 'a', { get: function () { return 7; } }).a != 7;
+module.exports = !__webpack_require__(7) && !__webpack_require__(3)(function () {
+  return Object.defineProperty(__webpack_require__(94)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
@@ -11134,9 +11312,9 @@ exports.f = __webpack_require__(5);
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(13);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var arrayIndexOf = __webpack_require__(66)(false);
-var IE_PROTO = __webpack_require__(95)('IE_PROTO');
+var IE_PROTO = __webpack_require__(96)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -11156,11 +11334,11 @@ module.exports = function (object, names) {
 /* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(7);
+var dP = __webpack_require__(8);
 var anObject = __webpack_require__(1);
-var getKeys = __webpack_require__(34);
+var getKeys = __webpack_require__(38);
 
-module.exports = __webpack_require__(6) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(7) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -11176,7 +11354,7 @@ module.exports = __webpack_require__(6) ? Object.defineProperties : function def
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var gOPN = __webpack_require__(41).f;
 var toString = {}.toString;
 
@@ -11203,7 +11381,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(34);
+var getKeys = __webpack_require__(38);
 var gOPS = __webpack_require__(67);
 var pIE = __webpack_require__(55);
 var toObject = __webpack_require__(10);
@@ -11245,7 +11423,7 @@ module.exports = !$assign || __webpack_require__(3)(function () {
 
 var aFunction = __webpack_require__(12);
 var isObject = __webpack_require__(4);
-var invoke = __webpack_require__(69);
+var invoke = __webpack_require__(148);
 var arraySlice = [].slice;
 var factories = {};
 
@@ -11271,11 +11449,33 @@ module.exports = Function.bind || function bind(that /* , ...args */) {
 
 /***/ }),
 /* 148 */
+/***/ (function(module, exports) {
+
+// fast apply, http://jsperf.lnkit.com/fast-apply/5
+module.exports = function (fn, args, that) {
+  var un = that === undefined;
+  switch (args.length) {
+    case 0: return un ? fn()
+                      : fn.call(that);
+    case 1: return un ? fn(args[0])
+                      : fn.call(that, args[0]);
+    case 2: return un ? fn(args[0], args[1])
+                      : fn.call(that, args[0], args[1]);
+    case 3: return un ? fn(args[0], args[1], args[2])
+                      : fn.call(that, args[0], args[1], args[2]);
+    case 4: return un ? fn(args[0], args[1], args[2], args[3])
+                      : fn.call(that, args[0], args[1], args[2], args[3]);
+  } return fn.apply(that, args);
+};
+
+
+/***/ }),
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseInt = __webpack_require__(2).parseInt;
 var $trim = __webpack_require__(47).trim;
-var ws = __webpack_require__(99);
+var ws = __webpack_require__(100);
 var hex = /^[-+]?0[xX]/;
 
 module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? function parseInt(str, radix) {
@@ -11285,13 +11485,13 @@ module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? f
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseFloat = __webpack_require__(2).parseFloat;
 var $trim = __webpack_require__(47).trim;
 
-module.exports = 1 / $parseFloat(__webpack_require__(99) + '-0') !== -Infinity ? function parseFloat(str) {
+module.exports = 1 / $parseFloat(__webpack_require__(100) + '-0') !== -Infinity ? function parseFloat(str) {
   var string = $trim(String(str), 3);
   var result = $parseFloat(string);
   return result === 0 && string.charAt(0) == '-' ? -0 : result;
@@ -11299,7 +11499,7 @@ module.exports = 1 / $parseFloat(__webpack_require__(99) + '-0') !== -Infinity ?
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var cof = __webpack_require__(22);
@@ -11310,7 +11510,7 @@ module.exports = function (it, msg) {
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.1.2.3 Number.isInteger(number)
@@ -11322,7 +11522,7 @@ module.exports = function isInteger(it) {
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports) {
 
 // 20.2.2.20 Math.log1p(x)
@@ -11332,11 +11532,11 @@ module.exports = Math.log1p || function log1p(x) {
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.2.2.16 Math.fround(x)
-var sign = __webpack_require__(102);
+var sign = __webpack_require__(103);
 var pow = Math.pow;
 var EPSILON = pow(2, -52);
 var EPSILON32 = pow(2, -23);
@@ -11361,7 +11561,7 @@ module.exports = Math.fround || function fround(x) {
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -11379,13 +11579,13 @@ module.exports = function (iterator, fn, value, entries) {
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var aFunction = __webpack_require__(12);
 var toObject = __webpack_require__(10);
 var IObject = __webpack_require__(54);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 
 module.exports = function (that, callbackfn, aLen, memo, isRight) {
   aFunction(callbackfn);
@@ -11413,7 +11613,7 @@ module.exports = function (that, callbackfn, aLen, memo, isRight) {
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11421,7 +11621,7 @@ module.exports = function (that, callbackfn, aLen, memo, isRight) {
 
 var toObject = __webpack_require__(10);
 var toAbsoluteIndex = __webpack_require__(39);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 
 module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /* = 0, end = @length */) {
   var O = toObject(this);
@@ -11446,7 +11646,7 @@ module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /*
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -11455,18 +11655,18 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 21.2.5.3 get RegExp.prototype.flags()
-if (__webpack_require__(6) && /./g.flags != 'g') __webpack_require__(7).f(RegExp.prototype, 'flags', {
+if (__webpack_require__(7) && /./g.flags != 'g') __webpack_require__(8).f(RegExp.prototype, 'flags', {
   configurable: true,
-  get: __webpack_require__(72)
+  get: __webpack_require__(71)
 });
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -11479,12 +11679,16 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var newPromiseCapability = __webpack_require__(117);
+var anObject = __webpack_require__(1);
+var isObject = __webpack_require__(4);
+var newPromiseCapability = __webpack_require__(118);
 
 module.exports = function (C, x) {
+  anObject(C);
+  if (isObject(x) && x.constructor === C) return x;
   var promiseCapability = newPromiseCapability.f(C);
   var resolve = promiseCapability.resolve;
   resolve(x);
@@ -11493,17 +11697,17 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var strong = __webpack_require__(162);
+var strong = __webpack_require__(163);
 var validate = __webpack_require__(49);
 var MAP = 'Map';
 
 // 23.1 Map Objects
-module.exports = __webpack_require__(75)(MAP, function (get) {
+module.exports = __webpack_require__(74)(MAP, function (get) {
   return function Map() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
 }, {
   // 23.1.3.6 Map.prototype.get(key)
@@ -11519,21 +11723,21 @@ module.exports = __webpack_require__(75)(MAP, function (get) {
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var dP = __webpack_require__(7).f;
+var dP = __webpack_require__(8).f;
 var create = __webpack_require__(40);
 var redefineAll = __webpack_require__(45);
 var ctx = __webpack_require__(21);
 var anInstance = __webpack_require__(43);
 var forOf = __webpack_require__(44);
-var $iterDefine = __webpack_require__(105);
-var step = __webpack_require__(157);
+var $iterDefine = __webpack_require__(106);
+var step = __webpack_require__(158);
 var setSpecies = __webpack_require__(42);
-var DESCRIPTORS = __webpack_require__(6);
+var DESCRIPTORS = __webpack_require__(7);
 var fastKey = __webpack_require__(33).fastKey;
 var validate = __webpack_require__(49);
 var SIZE = DESCRIPTORS ? '_s' : 'size';
@@ -11670,17 +11874,17 @@ module.exports = {
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var strong = __webpack_require__(162);
+var strong = __webpack_require__(163);
 var validate = __webpack_require__(49);
 var SET = 'Set';
 
 // 23.2 Set Objects
-module.exports = __webpack_require__(75)(SET, function (get) {
+module.exports = __webpack_require__(74)(SET, function (get) {
   return function Set() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
 }, {
   // 23.2.3.1 Set.prototype.add(value)
@@ -11691,7 +11895,7 @@ module.exports = __webpack_require__(75)(SET, function (get) {
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11700,7 +11904,7 @@ var each = __webpack_require__(29)(0);
 var redefine = __webpack_require__(15);
 var meta = __webpack_require__(33);
 var assign = __webpack_require__(146);
-var weak = __webpack_require__(165);
+var weak = __webpack_require__(166);
 var isObject = __webpack_require__(4);
 var fails = __webpack_require__(3);
 var validate = __webpack_require__(49);
@@ -11733,7 +11937,7 @@ var methods = {
 };
 
 // 23.3 WeakMap Objects
-var $WeakMap = module.exports = __webpack_require__(75)(WEAK_MAP, wrapper, methods, weak, true, true);
+var $WeakMap = module.exports = __webpack_require__(74)(WEAK_MAP, wrapper, methods, weak, true, true);
 
 // IE11 WeakMap frozen keys fix
 if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp), 7).get(tmp) != 7; })) {
@@ -11757,7 +11961,7 @@ if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp)
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11849,12 +12053,12 @@ module.exports = {
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/ecma262/#sec-toindex
 var toInteger = __webpack_require__(27);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 module.exports = function (it) {
   if (it === undefined) return 0;
   var number = toInteger(it);
@@ -11865,7 +12069,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // all object keys, includes non-enumerable and symbols
@@ -11881,7 +12085,7 @@ module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11889,7 +12093,7 @@ module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
 // https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
 var isArray = __webpack_require__(68);
 var isObject = __webpack_require__(4);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 var ctx = __webpack_require__(21);
 var IS_CONCAT_SPREADABLE = __webpack_require__(5)('isConcatSpreadable');
 
@@ -11927,12 +12131,12 @@ module.exports = flattenIntoArray;
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/tc39/proposal-string-pad-start-end
-var toLength = __webpack_require__(8);
-var repeat = __webpack_require__(101);
+var toLength = __webpack_require__(9);
+var repeat = __webpack_require__(102);
 var defined = __webpack_require__(26);
 
 module.exports = function (that, maxLength, fillString, left) {
@@ -11949,11 +12153,11 @@ module.exports = function (that, maxLength, fillString, left) {
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getKeys = __webpack_require__(34);
-var toIObject = __webpack_require__(16);
+var getKeys = __webpack_require__(38);
+var toIObject = __webpack_require__(17);
 var isEnum = __webpack_require__(55).f;
 module.exports = function (isEntries) {
   return function (it) {
@@ -11971,12 +12175,12 @@ module.exports = function (isEntries) {
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var classof = __webpack_require__(56);
-var from = __webpack_require__(172);
+var from = __webpack_require__(173);
 module.exports = function (NAME) {
   return function toJSON() {
     if (classof(this) != NAME) throw TypeError(NAME + "#toJSON isn't generic");
@@ -11986,7 +12190,7 @@ module.exports = function (NAME) {
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var forOf = __webpack_require__(44);
@@ -11999,7 +12203,7 @@ module.exports = function (iter, ITERATOR) {
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports) {
 
 // https://rwaldron.github.io/proposal-math-extensions/
@@ -12023,7 +12227,7 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12364,7 +12568,7 @@ var ImplicitFlow = function (_OAuth) {
 exports.default = ImplicitFlow;
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12395,15 +12599,15 @@ var _OAuth2 = __webpack_require__(53);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
-var _ImplicitFlow2 = __webpack_require__(174);
+var _ImplicitFlow2 = __webpack_require__(175);
 
 var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
 
-var _ImplicitFlowPopup2 = __webpack_require__(392);
+var _ImplicitFlowPopup2 = __webpack_require__(390);
 
 var _ImplicitFlowPopup3 = _interopRequireDefault(_ImplicitFlowPopup2);
 
-var _PasswordFlow2 = __webpack_require__(393);
+var _PasswordFlow2 = __webpack_require__(391);
 
 var _PasswordFlow3 = _interopRequireDefault(_PasswordFlow2);
 
@@ -12415,19 +12619,19 @@ var _ApiError2 = __webpack_require__(61);
 
 var _ApiError3 = _interopRequireDefault(_ApiError2);
 
-var _ValidationError2 = __webpack_require__(88);
+var _ValidationError2 = __webpack_require__(87);
 
 var _ValidationError3 = _interopRequireDefault(_ValidationError2);
 
-var _StaticClassError2 = __webpack_require__(125);
+var _StaticClassError2 = __webpack_require__(126);
 
 var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 
-var _crud = __webpack_require__(119);
+var _crud = __webpack_require__(120);
 
 var _resources = _interopRequireWildcard(_crud);
 
-var _helpers2 = __webpack_require__(394);
+var _helpers2 = __webpack_require__(392);
 
 var _helpers = _interopRequireWildcard(_helpers2);
 
@@ -12497,7 +12701,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.0.17";
+var version = exports.version = "v1.1.1";
 
 /**
  * Package license
@@ -12506,7 +12710,7 @@ var version = exports.version = "v1.0.17";
 var license = exports.license = "BSD 3-Clause License\n\nCopyright (c) 2017, MapCreator\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice,\n  this list of conditions and the following disclaimer in the documentation\n  and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n";
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12585,7 +12789,7 @@ var Choropleth = function (_ResourceBase) {
 exports.default = Choropleth;
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12627,15 +12831,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _PaginatedResourceListing = __webpack_require__(121);
+var _PaginatedResourceListing = __webpack_require__(122);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
 
-var _ResourceCache = __webpack_require__(122);
+var _ResourceCache = __webpack_require__(123);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
-var _hash = __webpack_require__(81);
+var _hash = __webpack_require__(80);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12650,22 +12854,18 @@ var PaginatedResourceWrapper = function () {
    *
    * @param {PaginatedResourceListing} listing - Listing result
    * @param {Maps4News} api - Instance of the api
-   * @param {Number} cacheTime - Amount of seconds to store a value in cache
    * @param {Boolean} shareCache - Share cache across instances
    */
   function PaginatedResourceWrapper(listing) {
-    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
-
     var _this = this;
 
-    var cacheTime = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.cacheSeconds;
-    var shareCache = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : api.defaults.shareCache;
+    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
+    var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.shareCache;
 
     _classCallCheck(this, PaginatedResourceWrapper);
 
     // Fields
     this._api = api;
-    this.cacheTime = cacheTime;
     this._shareCache = shareCache;
     this._currentPage = 1;
     this._context = [];
@@ -12677,7 +12877,7 @@ var PaginatedResourceWrapper = function () {
     this.data = [];
 
     // Internal
-    this._localCache = new _ResourceCache2.default(api, cacheTime);
+    this._localCache = new _ResourceCache2.default(api, this.api.defaults.cacheSeconds);
     this._inflight = [];
     this._last = listing;
     this._waiting = false;
@@ -12823,16 +13023,18 @@ var PaginatedResourceWrapper = function () {
     /**
      * Register an event handler for the given type.
      *
-     * @param {string} type Type of event to listen for, or `"*"` for all events.
-     * @param {function(event: any): void} handler Function to call in response to the given event.
+     * @param {string} type - Type of event to listen for, or `"*"` for all events.
+     * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
      * @returns {void}
      */
     value: function on(type, handler) {
       var _this3 = this;
 
-      this.cache.emitter.on(type, function (e) {
-        if (e.resourceUrl === _this3.route) {
-          handler(e);
+      this.cache.emitter.on(type, function (t, e) {
+        if (type === '*' && e.resourceUrl === _this3.route) {
+          handler(t, e);
+        } else if (type !== '*' && t.resourceUrl === _this3.route) {
+          handler(t);
         }
       });
     }
@@ -12840,8 +13042,8 @@ var PaginatedResourceWrapper = function () {
     /**
      * Function to call in response to the given event
      *
-     * @param {string} type Type of event to unregister `handler` from, or `"*"`
-     * @param {function(event: any): void} handler Handler function to remove.
+     * @param {string} type - Type of event to unregister `handler` from, or `"*"`
+     * @param {function(event: any): void} handler - Handler function to remove.
      * @returns {void}
      */
 
@@ -13009,7 +13211,7 @@ var PaginatedResourceWrapper = function () {
 exports.default = PaginatedResourceWrapper;
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13077,7 +13279,7 @@ function mitt(all                 ) {
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13133,7 +13335,7 @@ var _ApiError = __webpack_require__(61);
 
 var _ApiError2 = _interopRequireDefault(_ApiError);
 
-var _ValidationError = __webpack_require__(88);
+var _ValidationError = __webpack_require__(87);
 
 var _ValidationError2 = _interopRequireDefault(_ValidationError);
 
@@ -13286,7 +13488,7 @@ var ImageHandler = function () {
 exports.default = ImageHandler;
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13298,7 +13500,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
@@ -13365,7 +13567,7 @@ var Faq = function (_CrudBase) {
 exports.default = Faq;
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13441,7 +13643,7 @@ var Highlight = function (_ResourceBase) {
 exports.default = Highlight;
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13517,7 +13719,7 @@ var InsetMap = function (_ResourceBase) {
 exports.default = InsetMap;
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13593,7 +13795,7 @@ var PlaceName = function (_ResourceBase) {
 exports.default = PlaceName;
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13605,11 +13807,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudBase2 = __webpack_require__(9);
+var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _UnsupportedCrudError = __webpack_require__(185);
+var _UnsupportedCrudError = __webpack_require__(186);
 
 var _UnsupportedCrudError2 = _interopRequireDefault(_UnsupportedCrudError);
 
@@ -13690,7 +13892,7 @@ var SvgSetType = function (_CrudBase) {
 exports.default = SvgSetType;
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13756,7 +13958,7 @@ var UnsupportedCrudError = function (_Error) {
 exports.default = UnsupportedCrudError;
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13822,17 +14024,17 @@ var NodeError = function (_Error) {
 exports.default = NodeError;
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-__webpack_require__(188);
+__webpack_require__(189);
 
-__webpack_require__(388);
+__webpack_require__(386);
 
-__webpack_require__(389);
+__webpack_require__(387);
 
 if (global._babelPolyfill) {
   throw new Error("only one instance of babel-polyfill is allowed");
@@ -13854,13 +14056,13 @@ define(String.prototype, "padRight", "".padEnd);
 "pop,reverse,shift,keys,values,entries,indexOf,every,some,forEach,map,filter,find,findIndex,includes,join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill".split(",").forEach(function (key) {
   [][key] && define(Array, key, Function.call.bind([][key]));
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(80)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(79)))
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(189);
+__webpack_require__(190);
 __webpack_require__(192);
 __webpack_require__(193);
 __webpack_require__(194);
@@ -13959,18 +14161,18 @@ __webpack_require__(290);
 __webpack_require__(291);
 __webpack_require__(292);
 __webpack_require__(293);
-__webpack_require__(114);
+__webpack_require__(115);
 __webpack_require__(294);
 __webpack_require__(295);
-__webpack_require__(158);
+__webpack_require__(159);
 __webpack_require__(296);
 __webpack_require__(297);
 __webpack_require__(298);
 __webpack_require__(299);
 __webpack_require__(300);
-__webpack_require__(161);
-__webpack_require__(163);
+__webpack_require__(162);
 __webpack_require__(164);
+__webpack_require__(165);
 __webpack_require__(301);
 __webpack_require__(302);
 __webpack_require__(303);
@@ -14054,13 +14256,13 @@ __webpack_require__(380);
 __webpack_require__(381);
 __webpack_require__(382);
 __webpack_require__(383);
-__webpack_require__(386);
-__webpack_require__(387);
+__webpack_require__(384);
+__webpack_require__(385);
 module.exports = __webpack_require__(24);
 
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14068,29 +14270,28 @@ module.exports = __webpack_require__(24);
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(2);
 var has = __webpack_require__(13);
-var DESCRIPTORS = __webpack_require__(6);
+var DESCRIPTORS = __webpack_require__(7);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(15);
 var META = __webpack_require__(33).KEY;
 var $fails = __webpack_require__(3);
 var shared = __webpack_require__(65);
 var setToStringTag = __webpack_require__(46);
-var uid = __webpack_require__(37);
+var uid = __webpack_require__(36);
 var wks = __webpack_require__(5);
 var wksExt = __webpack_require__(142);
-var wksDefine = __webpack_require__(94);
-var keyOf = __webpack_require__(190);
+var wksDefine = __webpack_require__(95);
 var enumKeys = __webpack_require__(191);
 var isArray = __webpack_require__(68);
 var anObject = __webpack_require__(1);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var toPrimitive = __webpack_require__(25);
-var createDesc = __webpack_require__(36);
+var createDesc = __webpack_require__(35);
 var _create = __webpack_require__(40);
 var gOPNExt = __webpack_require__(145);
 var $GOPD = __webpack_require__(18);
-var $DP = __webpack_require__(7);
-var $keys = __webpack_require__(34);
+var $DP = __webpack_require__(8);
+var $keys = __webpack_require__(38);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
 var gOPN = gOPNExt.f;
@@ -14217,7 +14418,7 @@ if (!USE_NATIVE) {
   __webpack_require__(55).f = $propertyIsEnumerable;
   __webpack_require__(67).f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(38)) {
+  if (DESCRIPTORS && !__webpack_require__(37)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -14243,9 +14444,9 @@ $export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
       : SymbolRegistry[key] = $Symbol(key);
   },
   // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(key) {
-    if (isSymbol(key)) return keyOf(SymbolRegistry, key);
-    throw TypeError(key + ' is not a symbol!');
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
   },
   useSetter: function () { setter = true; },
   useSimple: function () { setter = false; }
@@ -14302,27 +14503,11 @@ setToStringTag(global.JSON, 'JSON', true);
 
 
 /***/ }),
-/* 190 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getKeys = __webpack_require__(34);
-var toIObject = __webpack_require__(16);
-module.exports = function (object, el) {
-  var O = toIObject(object);
-  var keys = getKeys(O);
-  var length = keys.length;
-  var index = 0;
-  var key;
-  while (length > index) if (O[key = keys[index++]] === el) return key;
-};
-
-
-/***/ }),
 /* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(34);
+var getKeys = __webpack_require__(38);
 var gOPS = __webpack_require__(67);
 var pIE = __webpack_require__(55);
 module.exports = function (it) {
@@ -14353,7 +14538,7 @@ $export($export.S, 'Object', { create: __webpack_require__(40) });
 
 var $export = __webpack_require__(0);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperty: __webpack_require__(7).f });
+$export($export.S + $export.F * !__webpack_require__(7), 'Object', { defineProperty: __webpack_require__(8).f });
 
 
 /***/ }),
@@ -14362,7 +14547,7 @@ $export($export.S + $export.F * !__webpack_require__(6), 'Object', { definePrope
 
 var $export = __webpack_require__(0);
 // 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
-$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperties: __webpack_require__(144) });
+$export($export.S + $export.F * !__webpack_require__(7), 'Object', { defineProperties: __webpack_require__(144) });
 
 
 /***/ }),
@@ -14370,7 +14555,7 @@ $export($export.S + $export.F * !__webpack_require__(6), 'Object', { definePrope
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var $getOwnPropertyDescriptor = __webpack_require__(18).f;
 
 __webpack_require__(28)('getOwnPropertyDescriptor', function () {
@@ -14401,7 +14586,7 @@ __webpack_require__(28)('getPrototypeOf', function () {
 
 // 19.1.2.14 Object.keys(O)
 var toObject = __webpack_require__(10);
-var $keys = __webpack_require__(34);
+var $keys = __webpack_require__(38);
 
 __webpack_require__(28)('keys', function () {
   return function keys(it) {
@@ -14543,7 +14728,7 @@ module.exports = Object.is || function is(x, y) {
 
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
 var $export = __webpack_require__(0);
-$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(98).set });
+$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(99).set });
 
 
 /***/ }),
@@ -14577,13 +14762,13 @@ $export($export.P, 'Function', { bind: __webpack_require__(147) });
 /* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(7).f;
+var dP = __webpack_require__(8).f;
 var FProto = Function.prototype;
 var nameRE = /^\s*function ([^ (]*)/;
 var NAME = 'name';
 
 // 19.2.4.2 name
-NAME in FProto || __webpack_require__(6) && dP(FProto, NAME, {
+NAME in FProto || __webpack_require__(7) && dP(FProto, NAME, {
   configurable: true,
   get: function () {
     try {
@@ -14606,7 +14791,7 @@ var getPrototypeOf = __webpack_require__(19);
 var HAS_INSTANCE = __webpack_require__(5)('hasInstance');
 var FunctionProto = Function.prototype;
 // 19.2.3.6 Function.prototype[@@hasInstance](V)
-if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(7).f(FunctionProto, HAS_INSTANCE, { value: function (O) {
+if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(8).f(FunctionProto, HAS_INSTANCE, { value: function (O) {
   if (typeof this != 'function' || !isObject(O)) return false;
   if (!isObject(this.prototype)) return O instanceof this;
   // for environment w/o native `@@hasInstance` logic enough `instanceof`, but add this:
@@ -14620,7 +14805,7 @@ if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(7).f(FunctionProto, HA
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseInt = __webpack_require__(148);
+var $parseInt = __webpack_require__(149);
 // 18.2.5 parseInt(string, radix)
 $export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt });
 
@@ -14630,7 +14815,7 @@ $export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt }
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseFloat = __webpack_require__(149);
+var $parseFloat = __webpack_require__(150);
 // 18.2.4 parseFloat(string)
 $export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $parseFloat });
 
@@ -14644,12 +14829,12 @@ $export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $pars
 var global = __webpack_require__(2);
 var has = __webpack_require__(13);
 var cof = __webpack_require__(22);
-var inheritIfRequired = __webpack_require__(100);
+var inheritIfRequired = __webpack_require__(101);
 var toPrimitive = __webpack_require__(25);
 var fails = __webpack_require__(3);
 var gOPN = __webpack_require__(41).f;
 var gOPD = __webpack_require__(18).f;
-var dP = __webpack_require__(7).f;
+var dP = __webpack_require__(8).f;
 var $trim = __webpack_require__(47).trim;
 var NUMBER = 'Number';
 var $Number = global[NUMBER];
@@ -14694,7 +14879,7 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
       && (BROKEN_COF ? fails(function () { proto.valueOf.call(that); }) : cof(that) != NUMBER)
         ? inheritIfRequired(new Base(toNumber(it)), that, $Number) : toNumber(it);
   };
-  for (var keys = __webpack_require__(6) ? gOPN(Base) : (
+  for (var keys = __webpack_require__(7) ? gOPN(Base) : (
     // ES3:
     'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
     // ES6 (in case, if modules with ES6 Number statics required before):
@@ -14719,8 +14904,8 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
 
 var $export = __webpack_require__(0);
 var toInteger = __webpack_require__(27);
-var aNumberValue = __webpack_require__(150);
-var repeat = __webpack_require__(101);
+var aNumberValue = __webpack_require__(151);
+var repeat = __webpack_require__(102);
 var $toFixed = 1.0.toFixed;
 var floor = Math.floor;
 var data = [0, 0, 0, 0, 0, 0];
@@ -14840,7 +15025,7 @@ $export($export.P + $export.F * (!!$toFixed && (
 
 var $export = __webpack_require__(0);
 var $fails = __webpack_require__(3);
-var aNumberValue = __webpack_require__(150);
+var aNumberValue = __webpack_require__(151);
 var $toPrecision = 1.0.toPrecision;
 
 $export($export.P + $export.F * ($fails(function () {
@@ -14889,7 +15074,7 @@ $export($export.S, 'Number', {
 // 20.1.2.3 Number.isInteger(number)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Number', { isInteger: __webpack_require__(151) });
+$export($export.S, 'Number', { isInteger: __webpack_require__(152) });
 
 
 /***/ }),
@@ -14913,7 +15098,7 @@ $export($export.S, 'Number', {
 
 // 20.1.2.5 Number.isSafeInteger(number)
 var $export = __webpack_require__(0);
-var isInteger = __webpack_require__(151);
+var isInteger = __webpack_require__(152);
 var abs = Math.abs;
 
 $export($export.S, 'Number', {
@@ -14948,7 +15133,7 @@ $export($export.S, 'Number', { MIN_SAFE_INTEGER: -0x1fffffffffffff });
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseFloat = __webpack_require__(149);
+var $parseFloat = __webpack_require__(150);
 // 20.1.2.12 Number.parseFloat(string)
 $export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', { parseFloat: $parseFloat });
 
@@ -14958,7 +15143,7 @@ $export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', { 
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var $parseInt = __webpack_require__(148);
+var $parseInt = __webpack_require__(149);
 // 20.1.2.13 Number.parseInt(string, radix)
 $export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { parseInt: $parseInt });
 
@@ -14969,7 +15154,7 @@ $export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { pars
 
 // 20.2.2.3 Math.acosh(x)
 var $export = __webpack_require__(0);
-var log1p = __webpack_require__(152);
+var log1p = __webpack_require__(153);
 var sqrt = Math.sqrt;
 var $acosh = Math.acosh;
 
@@ -15025,7 +15210,7 @@ $export($export.S + $export.F * !($atanh && 1 / $atanh(-0) < 0), 'Math', {
 
 // 20.2.2.9 Math.cbrt(x)
 var $export = __webpack_require__(0);
-var sign = __webpack_require__(102);
+var sign = __webpack_require__(103);
 
 $export($export.S, 'Math', {
   cbrt: function cbrt(x) {
@@ -15069,7 +15254,7 @@ $export($export.S, 'Math', {
 
 // 20.2.2.14 Math.expm1(x)
 var $export = __webpack_require__(0);
-var $expm1 = __webpack_require__(103);
+var $expm1 = __webpack_require__(104);
 
 $export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', { expm1: $expm1 });
 
@@ -15081,7 +15266,7 @@ $export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', { expm1: $expm1 
 // 20.2.2.16 Math.fround(x)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { fround: __webpack_require__(153) });
+$export($export.S, 'Math', { fround: __webpack_require__(154) });
 
 
 /***/ }),
@@ -15159,7 +15344,7 @@ $export($export.S, 'Math', {
 // 20.2.2.20 Math.log1p(x)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { log1p: __webpack_require__(152) });
+$export($export.S, 'Math', { log1p: __webpack_require__(153) });
 
 
 /***/ }),
@@ -15183,7 +15368,7 @@ $export($export.S, 'Math', {
 // 20.2.2.28 Math.sign(x)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { sign: __webpack_require__(102) });
+$export($export.S, 'Math', { sign: __webpack_require__(103) });
 
 
 /***/ }),
@@ -15192,7 +15377,7 @@ $export($export.S, 'Math', { sign: __webpack_require__(102) });
 
 // 20.2.2.30 Math.sinh(x)
 var $export = __webpack_require__(0);
-var expm1 = __webpack_require__(103);
+var expm1 = __webpack_require__(104);
 var exp = Math.exp;
 
 // V8 near Chromium 38 has a problem with very small numbers
@@ -15213,7 +15398,7 @@ $export($export.S + $export.F * __webpack_require__(3)(function () {
 
 // 20.2.2.33 Math.tanh(x)
 var $export = __webpack_require__(0);
-var expm1 = __webpack_require__(103);
+var expm1 = __webpack_require__(104);
 var exp = Math.exp;
 
 $export($export.S, 'Math', {
@@ -15273,8 +15458,8 @@ $export($export.S + $export.F * (!!$fromCodePoint && $fromCodePoint.length != 1)
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-var toIObject = __webpack_require__(16);
-var toLength = __webpack_require__(8);
+var toIObject = __webpack_require__(17);
+var toLength = __webpack_require__(9);
 
 $export($export.S, 'String', {
   // 21.1.2.4 String.raw(callSite, ...substitutions)
@@ -15312,10 +15497,10 @@ __webpack_require__(47)('trim', function ($trim) {
 
 "use strict";
 
-var $at = __webpack_require__(104)(true);
+var $at = __webpack_require__(105)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(105)(String, 'String', function (iterated) {
+__webpack_require__(106)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -15337,7 +15522,7 @@ __webpack_require__(105)(String, 'String', function (iterated) {
 "use strict";
 
 var $export = __webpack_require__(0);
-var $at = __webpack_require__(104)(false);
+var $at = __webpack_require__(105)(false);
 $export($export.P, 'String', {
   // 21.1.3.3 String.prototype.codePointAt(pos)
   codePointAt: function codePointAt(pos) {
@@ -15354,12 +15539,12 @@ $export($export.P, 'String', {
 // 21.1.3.6 String.prototype.endsWith(searchString [, endPosition])
 
 var $export = __webpack_require__(0);
-var toLength = __webpack_require__(8);
-var context = __webpack_require__(107);
+var toLength = __webpack_require__(9);
+var context = __webpack_require__(108);
 var ENDS_WITH = 'endsWith';
 var $endsWith = ''[ENDS_WITH];
 
-$export($export.P + $export.F * __webpack_require__(108)(ENDS_WITH), 'String', {
+$export($export.P + $export.F * __webpack_require__(109)(ENDS_WITH), 'String', {
   endsWith: function endsWith(searchString /* , endPosition = @length */) {
     var that = context(this, searchString, ENDS_WITH);
     var endPosition = arguments.length > 1 ? arguments[1] : undefined;
@@ -15381,10 +15566,10 @@ $export($export.P + $export.F * __webpack_require__(108)(ENDS_WITH), 'String', {
 // 21.1.3.7 String.prototype.includes(searchString, position = 0)
 
 var $export = __webpack_require__(0);
-var context = __webpack_require__(107);
+var context = __webpack_require__(108);
 var INCLUDES = 'includes';
 
-$export($export.P + $export.F * __webpack_require__(108)(INCLUDES), 'String', {
+$export($export.P + $export.F * __webpack_require__(109)(INCLUDES), 'String', {
   includes: function includes(searchString /* , position = 0 */) {
     return !!~context(this, searchString, INCLUDES)
       .indexOf(searchString, arguments.length > 1 ? arguments[1] : undefined);
@@ -15400,7 +15585,7 @@ var $export = __webpack_require__(0);
 
 $export($export.P, 'String', {
   // 21.1.3.13 String.prototype.repeat(count)
-  repeat: __webpack_require__(101)
+  repeat: __webpack_require__(102)
 });
 
 
@@ -15412,12 +15597,12 @@ $export($export.P, 'String', {
 // 21.1.3.18 String.prototype.startsWith(searchString [, position ])
 
 var $export = __webpack_require__(0);
-var toLength = __webpack_require__(8);
-var context = __webpack_require__(107);
+var toLength = __webpack_require__(9);
+var context = __webpack_require__(108);
 var STARTS_WITH = 'startsWith';
 var $startsWith = ''[STARTS_WITH];
 
-$export($export.P + $export.F * __webpack_require__(108)(STARTS_WITH), 'String', {
+$export($export.P + $export.F * __webpack_require__(109)(STARTS_WITH), 'String', {
   startsWith: function startsWith(searchString /* , position = 0 */) {
     var that = context(this, searchString, STARTS_WITH);
     var index = toLength(Math.min(arguments.length > 1 ? arguments[1] : undefined, that.length));
@@ -15436,7 +15621,7 @@ $export($export.P + $export.F * __webpack_require__(108)(STARTS_WITH), 'String',
 "use strict";
 
 // B.2.3.2 String.prototype.anchor(name)
-__webpack_require__(17)('anchor', function (createHTML) {
+__webpack_require__(16)('anchor', function (createHTML) {
   return function anchor(name) {
     return createHTML(this, 'a', 'name', name);
   };
@@ -15450,7 +15635,7 @@ __webpack_require__(17)('anchor', function (createHTML) {
 "use strict";
 
 // B.2.3.3 String.prototype.big()
-__webpack_require__(17)('big', function (createHTML) {
+__webpack_require__(16)('big', function (createHTML) {
   return function big() {
     return createHTML(this, 'big', '', '');
   };
@@ -15464,7 +15649,7 @@ __webpack_require__(17)('big', function (createHTML) {
 "use strict";
 
 // B.2.3.4 String.prototype.blink()
-__webpack_require__(17)('blink', function (createHTML) {
+__webpack_require__(16)('blink', function (createHTML) {
   return function blink() {
     return createHTML(this, 'blink', '', '');
   };
@@ -15478,7 +15663,7 @@ __webpack_require__(17)('blink', function (createHTML) {
 "use strict";
 
 // B.2.3.5 String.prototype.bold()
-__webpack_require__(17)('bold', function (createHTML) {
+__webpack_require__(16)('bold', function (createHTML) {
   return function bold() {
     return createHTML(this, 'b', '', '');
   };
@@ -15492,7 +15677,7 @@ __webpack_require__(17)('bold', function (createHTML) {
 "use strict";
 
 // B.2.3.6 String.prototype.fixed()
-__webpack_require__(17)('fixed', function (createHTML) {
+__webpack_require__(16)('fixed', function (createHTML) {
   return function fixed() {
     return createHTML(this, 'tt', '', '');
   };
@@ -15506,7 +15691,7 @@ __webpack_require__(17)('fixed', function (createHTML) {
 "use strict";
 
 // B.2.3.7 String.prototype.fontcolor(color)
-__webpack_require__(17)('fontcolor', function (createHTML) {
+__webpack_require__(16)('fontcolor', function (createHTML) {
   return function fontcolor(color) {
     return createHTML(this, 'font', 'color', color);
   };
@@ -15520,7 +15705,7 @@ __webpack_require__(17)('fontcolor', function (createHTML) {
 "use strict";
 
 // B.2.3.8 String.prototype.fontsize(size)
-__webpack_require__(17)('fontsize', function (createHTML) {
+__webpack_require__(16)('fontsize', function (createHTML) {
   return function fontsize(size) {
     return createHTML(this, 'font', 'size', size);
   };
@@ -15534,7 +15719,7 @@ __webpack_require__(17)('fontsize', function (createHTML) {
 "use strict";
 
 // B.2.3.9 String.prototype.italics()
-__webpack_require__(17)('italics', function (createHTML) {
+__webpack_require__(16)('italics', function (createHTML) {
   return function italics() {
     return createHTML(this, 'i', '', '');
   };
@@ -15548,7 +15733,7 @@ __webpack_require__(17)('italics', function (createHTML) {
 "use strict";
 
 // B.2.3.10 String.prototype.link(url)
-__webpack_require__(17)('link', function (createHTML) {
+__webpack_require__(16)('link', function (createHTML) {
   return function link(url) {
     return createHTML(this, 'a', 'href', url);
   };
@@ -15562,7 +15747,7 @@ __webpack_require__(17)('link', function (createHTML) {
 "use strict";
 
 // B.2.3.11 String.prototype.small()
-__webpack_require__(17)('small', function (createHTML) {
+__webpack_require__(16)('small', function (createHTML) {
   return function small() {
     return createHTML(this, 'small', '', '');
   };
@@ -15576,7 +15761,7 @@ __webpack_require__(17)('small', function (createHTML) {
 "use strict";
 
 // B.2.3.12 String.prototype.strike()
-__webpack_require__(17)('strike', function (createHTML) {
+__webpack_require__(16)('strike', function (createHTML) {
   return function strike() {
     return createHTML(this, 'strike', '', '');
   };
@@ -15590,7 +15775,7 @@ __webpack_require__(17)('strike', function (createHTML) {
 "use strict";
 
 // B.2.3.13 String.prototype.sub()
-__webpack_require__(17)('sub', function (createHTML) {
+__webpack_require__(16)('sub', function (createHTML) {
   return function sub() {
     return createHTML(this, 'sub', '', '');
   };
@@ -15604,7 +15789,7 @@ __webpack_require__(17)('sub', function (createHTML) {
 "use strict";
 
 // B.2.3.14 String.prototype.sup()
-__webpack_require__(17)('sup', function (createHTML) {
+__webpack_require__(16)('sup', function (createHTML) {
   return function sup() {
     return createHTML(this, 'sup', '', '');
   };
@@ -15754,13 +15939,13 @@ $export($export.S, 'Array', { isArray: __webpack_require__(68) });
 var ctx = __webpack_require__(21);
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(10);
-var call = __webpack_require__(154);
-var isArrayIter = __webpack_require__(109);
-var toLength = __webpack_require__(8);
-var createProperty = __webpack_require__(110);
-var getIterFn = __webpack_require__(111);
+var call = __webpack_require__(155);
+var isArrayIter = __webpack_require__(110);
+var toLength = __webpack_require__(9);
+var createProperty = __webpack_require__(111);
+var getIterFn = __webpack_require__(112);
 
-$export($export.S + $export.F * !__webpack_require__(71)(function (iter) { Array.from(iter); }), 'Array', {
+$export($export.S + $export.F * !__webpack_require__(70)(function (iter) { Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
   from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
     var O = toObject(arrayLike);
@@ -15796,7 +15981,7 @@ $export($export.S + $export.F * !__webpack_require__(71)(function (iter) { Array
 "use strict";
 
 var $export = __webpack_require__(0);
-var createProperty = __webpack_require__(110);
+var createProperty = __webpack_require__(111);
 
 // WebKit Array.of isn't generic
 $export($export.S + $export.F * __webpack_require__(3)(function () {
@@ -15823,7 +16008,7 @@ $export($export.S + $export.F * __webpack_require__(3)(function () {
 
 // 22.1.3.13 Array.prototype.join(separator)
 var $export = __webpack_require__(0);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var arrayJoin = [].join;
 
 // fallback for not array-like strings
@@ -15841,10 +16026,10 @@ $export($export.P + $export.F * (__webpack_require__(54) != Object || !__webpack
 "use strict";
 
 var $export = __webpack_require__(0);
-var html = __webpack_require__(97);
+var html = __webpack_require__(98);
 var cof = __webpack_require__(22);
 var toAbsoluteIndex = __webpack_require__(39);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 var arraySlice = [].slice;
 
 // fallback for not array-like ES3 strings and DOM objects
@@ -16014,7 +16199,7 @@ $export($export.P + $export.F * !__webpack_require__(23)([].every, true), 'Array
 "use strict";
 
 var $export = __webpack_require__(0);
-var $reduce = __webpack_require__(155);
+var $reduce = __webpack_require__(156);
 
 $export($export.P + $export.F * !__webpack_require__(23)([].reduce, true), 'Array', {
   // 22.1.3.18 / 15.4.4.21 Array.prototype.reduce(callbackfn [, initialValue])
@@ -16031,7 +16216,7 @@ $export($export.P + $export.F * !__webpack_require__(23)([].reduce, true), 'Arra
 "use strict";
 
 var $export = __webpack_require__(0);
-var $reduce = __webpack_require__(155);
+var $reduce = __webpack_require__(156);
 
 $export($export.P + $export.F * !__webpack_require__(23)([].reduceRight, true), 'Array', {
   // 22.1.3.19 / 15.4.4.22 Array.prototype.reduceRight(callbackfn [, initialValue])
@@ -16070,9 +16255,9 @@ $export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(23)($nati
 "use strict";
 
 var $export = __webpack_require__(0);
-var toIObject = __webpack_require__(16);
+var toIObject = __webpack_require__(17);
 var toInteger = __webpack_require__(27);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 var $native = [].lastIndexOf;
 var NEGATIVE_ZERO = !!$native && 1 / [1].lastIndexOf(1, -0) < 0;
 
@@ -16099,9 +16284,9 @@ $export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(23)($nati
 // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 var $export = __webpack_require__(0);
 
-$export($export.P, 'Array', { copyWithin: __webpack_require__(156) });
+$export($export.P, 'Array', { copyWithin: __webpack_require__(157) });
 
-__webpack_require__(35)('copyWithin');
+__webpack_require__(34)('copyWithin');
 
 
 /***/ }),
@@ -16111,9 +16296,9 @@ __webpack_require__(35)('copyWithin');
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 var $export = __webpack_require__(0);
 
-$export($export.P, 'Array', { fill: __webpack_require__(113) });
+$export($export.P, 'Array', { fill: __webpack_require__(114) });
 
-__webpack_require__(35)('fill');
+__webpack_require__(34)('fill');
 
 
 /***/ }),
@@ -16134,7 +16319,7 @@ $export($export.P + $export.F * forced, 'Array', {
     return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
-__webpack_require__(35)(KEY);
+__webpack_require__(34)(KEY);
 
 
 /***/ }),
@@ -16155,7 +16340,7 @@ $export($export.P + $export.F * forced, 'Array', {
     return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
-__webpack_require__(35)(KEY);
+__webpack_require__(34)(KEY);
 
 
 /***/ }),
@@ -16170,11 +16355,11 @@ __webpack_require__(42)('Array');
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(2);
-var inheritIfRequired = __webpack_require__(100);
-var dP = __webpack_require__(7).f;
+var inheritIfRequired = __webpack_require__(101);
+var dP = __webpack_require__(8).f;
 var gOPN = __webpack_require__(41).f;
-var isRegExp = __webpack_require__(70);
-var $flags = __webpack_require__(72);
+var isRegExp = __webpack_require__(69);
+var $flags = __webpack_require__(71);
 var $RegExp = global.RegExp;
 var Base = $RegExp;
 var proto = $RegExp.prototype;
@@ -16183,7 +16368,7 @@ var re2 = /a/g;
 // "new" creates a new object, old webkit buggy here
 var CORRECT_NEW = new $RegExp(re1) !== re1;
 
-if (__webpack_require__(6) && (!CORRECT_NEW || __webpack_require__(3)(function () {
+if (__webpack_require__(7) && (!CORRECT_NEW || __webpack_require__(3)(function () {
   re2[__webpack_require__(5)('match')] = false;
   // RegExp constructor can alter flags and IsRegExp works correct with @@match
   return $RegExp(re1) != re1 || $RegExp(re2) == re2 || $RegExp(re1, 'i') != '/a/i';
@@ -16220,10 +16405,10 @@ __webpack_require__(42)('RegExp');
 
 "use strict";
 
-__webpack_require__(158);
+__webpack_require__(159);
 var anObject = __webpack_require__(1);
-var $flags = __webpack_require__(72);
-var DESCRIPTORS = __webpack_require__(6);
+var $flags = __webpack_require__(71);
+var DESCRIPTORS = __webpack_require__(7);
 var TO_STRING = 'toString';
 var $toString = /./[TO_STRING];
 
@@ -16251,7 +16436,7 @@ if (__webpack_require__(3)(function () { return $toString.call({ source: 'a', fl
 /***/ (function(module, exports, __webpack_require__) {
 
 // @@match logic
-__webpack_require__(73)('match', 1, function (defined, MATCH, $match) {
+__webpack_require__(72)('match', 1, function (defined, MATCH, $match) {
   // 21.1.3.11 String.prototype.match(regexp)
   return [function match(regexp) {
     'use strict';
@@ -16267,7 +16452,7 @@ __webpack_require__(73)('match', 1, function (defined, MATCH, $match) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // @@replace logic
-__webpack_require__(73)('replace', 2, function (defined, REPLACE, $replace) {
+__webpack_require__(72)('replace', 2, function (defined, REPLACE, $replace) {
   // 21.1.3.14 String.prototype.replace(searchValue, replaceValue)
   return [function replace(searchValue, replaceValue) {
     'use strict';
@@ -16285,7 +16470,7 @@ __webpack_require__(73)('replace', 2, function (defined, REPLACE, $replace) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // @@search logic
-__webpack_require__(73)('search', 1, function (defined, SEARCH, $search) {
+__webpack_require__(72)('search', 1, function (defined, SEARCH, $search) {
   // 21.1.3.15 String.prototype.search(regexp)
   return [function search(regexp) {
     'use strict';
@@ -16301,9 +16486,9 @@ __webpack_require__(73)('search', 1, function (defined, SEARCH, $search) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // @@split logic
-__webpack_require__(73)('split', 2, function (defined, SPLIT, $split) {
+__webpack_require__(72)('split', 2, function (defined, SPLIT, $split) {
   'use strict';
-  var isRegExp = __webpack_require__(70);
+  var isRegExp = __webpack_require__(69);
   var _split = $split;
   var $push = [].push;
   var $SPLIT = 'split';
@@ -16379,7 +16564,7 @@ __webpack_require__(73)('split', 2, function (defined, SPLIT, $split) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(38);
+var LIBRARY = __webpack_require__(37);
 var global = __webpack_require__(2);
 var ctx = __webpack_require__(21);
 var classof = __webpack_require__(56);
@@ -16388,12 +16573,12 @@ var isObject = __webpack_require__(4);
 var aFunction = __webpack_require__(12);
 var anInstance = __webpack_require__(43);
 var forOf = __webpack_require__(44);
-var speciesConstructor = __webpack_require__(74);
-var task = __webpack_require__(115).set;
-var microtask = __webpack_require__(116)();
-var newPromiseCapabilityModule = __webpack_require__(117);
-var perform = __webpack_require__(159);
-var promiseResolve = __webpack_require__(160);
+var speciesConstructor = __webpack_require__(73);
+var task = __webpack_require__(116).set;
+var microtask = __webpack_require__(117)();
+var newPromiseCapabilityModule = __webpack_require__(118);
+var perform = __webpack_require__(160);
+var promiseResolve = __webpack_require__(161);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -16416,12 +16601,6 @@ var USE_NATIVE = !!function () {
 }();
 
 // helpers
-var sameConstructor = LIBRARY ? function (a, b) {
-  // with library wrapper special case
-  return a === b || a === $Promise && b === Wrapper;
-} : function (a, b) {
-  return a === b;
-};
 var isThenable = function (it) {
   var then;
   return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
@@ -16593,7 +16772,7 @@ if (!USE_NATIVE) {
     this.reject = ctx($reject, promise, 1);
   };
   newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
-    return sameConstructor($Promise, C)
+    return C === $Promise || C === Wrapper
       ? new OwnPromiseCapability(C)
       : newGenericPromiseCapability(C);
   };
@@ -16617,12 +16796,10 @@ $export($export.S + $export.F * !USE_NATIVE, PROMISE, {
 $export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
   // 25.4.4.6 Promise.resolve(x)
   resolve: function resolve(x) {
-    // instanceof instead of internal slot check because we should fix it without replacement native Promise core
-    if (x instanceof $Promise && sameConstructor(x.constructor, this)) return x;
-    return promiseResolve(this, x);
+    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
   }
 });
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(71)(function (iter) {
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(70)(function (iter) {
   $Promise.all(iter)['catch'](empty);
 })), PROMISE, {
   // 25.4.4.1 Promise.all(iterable)
@@ -16674,12 +16851,12 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(71)(function
 
 "use strict";
 
-var weak = __webpack_require__(165);
+var weak = __webpack_require__(166);
 var validate = __webpack_require__(49);
 var WEAK_SET = 'WeakSet';
 
 // 23.4 WeakSet Objects
-__webpack_require__(75)(WEAK_SET, function (get) {
+__webpack_require__(74)(WEAK_SET, function (get) {
   return function WeakSet() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
 }, {
   // 23.4.3.1 WeakSet.prototype.add(value)
@@ -16696,14 +16873,14 @@ __webpack_require__(75)(WEAK_SET, function (get) {
 "use strict";
 
 var $export = __webpack_require__(0);
-var $typed = __webpack_require__(76);
-var buffer = __webpack_require__(118);
+var $typed = __webpack_require__(75);
+var buffer = __webpack_require__(119);
 var anObject = __webpack_require__(1);
 var toAbsoluteIndex = __webpack_require__(39);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 var isObject = __webpack_require__(4);
 var ArrayBuffer = __webpack_require__(2).ArrayBuffer;
-var speciesConstructor = __webpack_require__(74);
+var speciesConstructor = __webpack_require__(73);
 var $ArrayBuffer = buffer.ArrayBuffer;
 var $DataView = buffer.DataView;
 var $isView = $typed.ABV && ArrayBuffer.isView;
@@ -16747,8 +16924,8 @@ __webpack_require__(42)(ARRAY_BUFFER);
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(0);
-$export($export.G + $export.W + $export.F * !__webpack_require__(76).ABV, {
-  DataView: __webpack_require__(118).DataView
+$export($export.G + $export.W + $export.F * !__webpack_require__(75).ABV, {
+  DataView: __webpack_require__(119).DataView
 });
 
 
@@ -16931,7 +17108,7 @@ $export($export.S + $export.F * (NEW_TARGET_BUG || ARGS_BUG), 'Reflect', {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 26.1.3 Reflect.defineProperty(target, propertyKey, attributes)
-var dP = __webpack_require__(7);
+var dP = __webpack_require__(8);
 var $export = __webpack_require__(0);
 var anObject = __webpack_require__(1);
 var toPrimitive = __webpack_require__(25);
@@ -16988,7 +17165,7 @@ var Enumerate = function (iterated) {
   var key;
   for (key in iterated) keys.push(key);
 };
-__webpack_require__(106)(Enumerate, 'Object', function () {
+__webpack_require__(107)(Enumerate, 'Object', function () {
   var that = this;
   var keys = that._k;
   var key;
@@ -17102,7 +17279,7 @@ $export($export.S, 'Reflect', {
 // 26.1.11 Reflect.ownKeys(target)
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Reflect', { ownKeys: __webpack_require__(167) });
+$export($export.S, 'Reflect', { ownKeys: __webpack_require__(168) });
 
 
 /***/ }),
@@ -17132,12 +17309,12 @@ $export($export.S, 'Reflect', {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 26.1.13 Reflect.set(target, propertyKey, V [, receiver])
-var dP = __webpack_require__(7);
+var dP = __webpack_require__(8);
 var gOPD = __webpack_require__(18);
 var getPrototypeOf = __webpack_require__(19);
 var has = __webpack_require__(13);
 var $export = __webpack_require__(0);
-var createDesc = __webpack_require__(36);
+var createDesc = __webpack_require__(35);
 var anObject = __webpack_require__(1);
 var isObject = __webpack_require__(4);
 
@@ -17170,7 +17347,7 @@ $export($export.S, 'Reflect', { set: set });
 
 // 26.1.14 Reflect.setPrototypeOf(target, proto)
 var $export = __webpack_require__(0);
-var setProto = __webpack_require__(98);
+var setProto = __webpack_require__(99);
 
 if (setProto) $export($export.S, 'Reflect', {
   setPrototypeOf: function setPrototypeOf(target, proto) {
@@ -17201,7 +17378,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(35)('includes');
+__webpack_require__(34)('includes');
 
 
 /***/ }),
@@ -17212,11 +17389,11 @@ __webpack_require__(35)('includes');
 
 // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
 var $export = __webpack_require__(0);
-var flattenIntoArray = __webpack_require__(168);
+var flattenIntoArray = __webpack_require__(169);
 var toObject = __webpack_require__(10);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 var aFunction = __webpack_require__(12);
-var arraySpeciesCreate = __webpack_require__(112);
+var arraySpeciesCreate = __webpack_require__(113);
 
 $export($export.P, 'Array', {
   flatMap: function flatMap(callbackfn /* , thisArg */) {
@@ -17230,7 +17407,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(35)('flatMap');
+__webpack_require__(34)('flatMap');
 
 
 /***/ }),
@@ -17241,11 +17418,11 @@ __webpack_require__(35)('flatMap');
 
 // https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatten
 var $export = __webpack_require__(0);
-var flattenIntoArray = __webpack_require__(168);
+var flattenIntoArray = __webpack_require__(169);
 var toObject = __webpack_require__(10);
-var toLength = __webpack_require__(8);
+var toLength = __webpack_require__(9);
 var toInteger = __webpack_require__(27);
-var arraySpeciesCreate = __webpack_require__(112);
+var arraySpeciesCreate = __webpack_require__(113);
 
 $export($export.P, 'Array', {
   flatten: function flatten(/* depthArg = 1 */) {
@@ -17258,7 +17435,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(35)('flatten');
+__webpack_require__(34)('flatten');
 
 
 /***/ }),
@@ -17269,7 +17446,7 @@ __webpack_require__(35)('flatten');
 
 // https://github.com/mathiasbynens/String.prototype.at
 var $export = __webpack_require__(0);
-var $at = __webpack_require__(104)(true);
+var $at = __webpack_require__(105)(true);
 
 $export($export.P, 'String', {
   at: function at(pos) {
@@ -17286,7 +17463,7 @@ $export($export.P, 'String', {
 
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = __webpack_require__(0);
-var $pad = __webpack_require__(169);
+var $pad = __webpack_require__(170);
 
 $export($export.P, 'String', {
   padStart: function padStart(maxLength /* , fillString = ' ' */) {
@@ -17303,7 +17480,7 @@ $export($export.P, 'String', {
 
 // https://github.com/tc39/proposal-string-pad-start-end
 var $export = __webpack_require__(0);
-var $pad = __webpack_require__(169);
+var $pad = __webpack_require__(170);
 
 $export($export.P, 'String', {
   padEnd: function padEnd(maxLength /* , fillString = ' ' */) {
@@ -17349,9 +17526,9 @@ __webpack_require__(47)('trimRight', function ($trim) {
 // https://tc39.github.io/String.prototype.matchAll/
 var $export = __webpack_require__(0);
 var defined = __webpack_require__(26);
-var toLength = __webpack_require__(8);
-var isRegExp = __webpack_require__(70);
-var getFlags = __webpack_require__(72);
+var toLength = __webpack_require__(9);
+var isRegExp = __webpack_require__(69);
+var getFlags = __webpack_require__(71);
 var RegExpProto = RegExp.prototype;
 
 var $RegExpStringIterator = function (regexp, string) {
@@ -17359,7 +17536,7 @@ var $RegExpStringIterator = function (regexp, string) {
   this._s = string;
 };
 
-__webpack_require__(106)($RegExpStringIterator, 'RegExp String', function next() {
+__webpack_require__(107)($RegExpStringIterator, 'RegExp String', function next() {
   var match = this._r.exec(this._s);
   return { value: match, done: match === null };
 });
@@ -17381,14 +17558,14 @@ $export($export.P, 'String', {
 /* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(94)('asyncIterator');
+__webpack_require__(95)('asyncIterator');
 
 
 /***/ }),
 /* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(94)('observable');
+__webpack_require__(95)('observable');
 
 
 /***/ }),
@@ -17397,10 +17574,10 @@ __webpack_require__(94)('observable');
 
 // https://github.com/tc39/proposal-object-getownpropertydescriptors
 var $export = __webpack_require__(0);
-var ownKeys = __webpack_require__(167);
-var toIObject = __webpack_require__(16);
+var ownKeys = __webpack_require__(168);
+var toIObject = __webpack_require__(17);
 var gOPD = __webpack_require__(18);
-var createProperty = __webpack_require__(110);
+var createProperty = __webpack_require__(111);
 
 $export($export.S, 'Object', {
   getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
@@ -17425,7 +17602,7 @@ $export($export.S, 'Object', {
 
 // https://github.com/tc39/proposal-object-values-entries
 var $export = __webpack_require__(0);
-var $values = __webpack_require__(170)(false);
+var $values = __webpack_require__(171)(false);
 
 $export($export.S, 'Object', {
   values: function values(it) {
@@ -17440,7 +17617,7 @@ $export($export.S, 'Object', {
 
 // https://github.com/tc39/proposal-object-values-entries
 var $export = __webpack_require__(0);
-var $entries = __webpack_require__(170)(true);
+var $entries = __webpack_require__(171)(true);
 
 $export($export.S, 'Object', {
   entries: function entries(it) {
@@ -17458,10 +17635,10 @@ $export($export.S, 'Object', {
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(10);
 var aFunction = __webpack_require__(12);
-var $defineProperty = __webpack_require__(7);
+var $defineProperty = __webpack_require__(8);
 
 // B.2.2.2 Object.prototype.__defineGetter__(P, getter)
-__webpack_require__(6) && $export($export.P + __webpack_require__(77), 'Object', {
+__webpack_require__(7) && $export($export.P + __webpack_require__(76), 'Object', {
   __defineGetter__: function __defineGetter__(P, getter) {
     $defineProperty.f(toObject(this), P, { get: aFunction(getter), enumerable: true, configurable: true });
   }
@@ -17477,10 +17654,10 @@ __webpack_require__(6) && $export($export.P + __webpack_require__(77), 'Object',
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(10);
 var aFunction = __webpack_require__(12);
-var $defineProperty = __webpack_require__(7);
+var $defineProperty = __webpack_require__(8);
 
 // B.2.2.3 Object.prototype.__defineSetter__(P, setter)
-__webpack_require__(6) && $export($export.P + __webpack_require__(77), 'Object', {
+__webpack_require__(7) && $export($export.P + __webpack_require__(76), 'Object', {
   __defineSetter__: function __defineSetter__(P, setter) {
     $defineProperty.f(toObject(this), P, { set: aFunction(setter), enumerable: true, configurable: true });
   }
@@ -17500,7 +17677,7 @@ var getPrototypeOf = __webpack_require__(19);
 var getOwnPropertyDescriptor = __webpack_require__(18).f;
 
 // B.2.2.4 Object.prototype.__lookupGetter__(P)
-__webpack_require__(6) && $export($export.P + __webpack_require__(77), 'Object', {
+__webpack_require__(7) && $export($export.P + __webpack_require__(76), 'Object', {
   __lookupGetter__: function __lookupGetter__(P) {
     var O = toObject(this);
     var K = toPrimitive(P, true);
@@ -17525,7 +17702,7 @@ var getPrototypeOf = __webpack_require__(19);
 var getOwnPropertyDescriptor = __webpack_require__(18).f;
 
 // B.2.2.5 Object.prototype.__lookupSetter__(P)
-__webpack_require__(6) && $export($export.P + __webpack_require__(77), 'Object', {
+__webpack_require__(7) && $export($export.P + __webpack_require__(76), 'Object', {
   __lookupSetter__: function __lookupSetter__(P) {
     var O = toObject(this);
     var K = toPrimitive(P, true);
@@ -17544,7 +17721,7 @@ __webpack_require__(6) && $export($export.P + __webpack_require__(77), 'Object',
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var $export = __webpack_require__(0);
 
-$export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(171)('Map') });
+$export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(172)('Map') });
 
 
 /***/ }),
@@ -17554,7 +17731,7 @@ $export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(171)('Map') 
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
 var $export = __webpack_require__(0);
 
-$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(171)('Set') });
+$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(172)('Set') });
 
 
 /***/ }),
@@ -17562,7 +17739,7 @@ $export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(171)('Set') 
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-map.of
-__webpack_require__(78)('Map');
+__webpack_require__(77)('Map');
 
 
 /***/ }),
@@ -17570,7 +17747,7 @@ __webpack_require__(78)('Map');
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-set.of
-__webpack_require__(78)('Set');
+__webpack_require__(77)('Set');
 
 
 /***/ }),
@@ -17578,7 +17755,7 @@ __webpack_require__(78)('Set');
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.of
-__webpack_require__(78)('WeakMap');
+__webpack_require__(77)('WeakMap');
 
 
 /***/ }),
@@ -17586,7 +17763,7 @@ __webpack_require__(78)('WeakMap');
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.of
-__webpack_require__(78)('WeakSet');
+__webpack_require__(77)('WeakSet');
 
 
 /***/ }),
@@ -17594,7 +17771,7 @@ __webpack_require__(78)('WeakSet');
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-map.from
-__webpack_require__(79)('Map');
+__webpack_require__(78)('Map');
 
 
 /***/ }),
@@ -17602,7 +17779,7 @@ __webpack_require__(79)('Map');
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-set.from
-__webpack_require__(79)('Set');
+__webpack_require__(78)('Set');
 
 
 /***/ }),
@@ -17610,7 +17787,7 @@ __webpack_require__(79)('Set');
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.from
-__webpack_require__(79)('WeakMap');
+__webpack_require__(78)('WeakMap');
 
 
 /***/ }),
@@ -17618,7 +17795,7 @@ __webpack_require__(79)('WeakMap');
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.from
-__webpack_require__(79)('WeakSet');
+__webpack_require__(78)('WeakSet');
 
 
 /***/ }),
@@ -17701,8 +17878,8 @@ $export($export.S, 'Math', {
 
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = __webpack_require__(0);
-var scale = __webpack_require__(173);
-var fround = __webpack_require__(153);
+var scale = __webpack_require__(174);
+var fround = __webpack_require__(154);
 
 $export($export.S, 'Math', {
   fscale: function fscale(x, inLow, inHigh, outLow, outHigh) {
@@ -17799,7 +17976,7 @@ $export($export.S, 'Math', {
 // https://rwaldron.github.io/proposal-math-extensions/
 var $export = __webpack_require__(0);
 
-$export($export.S, 'Math', { scale: __webpack_require__(173) });
+$export($export.S, 'Math', { scale: __webpack_require__(174) });
 
 
 /***/ }),
@@ -17847,8 +18024,8 @@ $export($export.S, 'Math', { signbit: function signbit(x) {
 var $export = __webpack_require__(0);
 var core = __webpack_require__(24);
 var global = __webpack_require__(2);
-var speciesConstructor = __webpack_require__(74);
-var promiseResolve = __webpack_require__(160);
+var speciesConstructor = __webpack_require__(73);
+var promiseResolve = __webpack_require__(161);
 
 $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   var C = speciesConstructor(this, core.Promise || global.Promise);
@@ -17872,8 +18049,8 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 
 // https://github.com/tc39/proposal-promise-try
 var $export = __webpack_require__(0);
-var newPromiseCapability = __webpack_require__(117);
-var perform = __webpack_require__(159);
+var newPromiseCapability = __webpack_require__(118);
+var perform = __webpack_require__(160);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
   var promiseCapability = newPromiseCapability.f(this);
@@ -17945,8 +18122,8 @@ metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , target
 /* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Set = __webpack_require__(163);
-var from = __webpack_require__(172);
+var Set = __webpack_require__(164);
+var from = __webpack_require__(173);
 var metadata = __webpack_require__(31);
 var anObject = __webpack_require__(1);
 var getPrototypeOf = __webpack_require__(19);
@@ -18059,7 +18236,7 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
 
 // https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#510-globalasap-for-enqueuing-a-microtask
 var $export = __webpack_require__(0);
-var microtask = __webpack_require__(116)();
+var microtask = __webpack_require__(117)();
 var process = __webpack_require__(2).process;
 var isNode = __webpack_require__(22)(process) == 'process';
 
@@ -18081,7 +18258,7 @@ $export($export.G, {
 var $export = __webpack_require__(0);
 var global = __webpack_require__(2);
 var core = __webpack_require__(24);
-var microtask = __webpack_require__(116)();
+var microtask = __webpack_require__(117)();
 var OBSERVABLE = __webpack_require__(5)('observable');
 var aFunction = __webpack_require__(12);
 var anObject = __webpack_require__(1);
@@ -18284,19 +18461,18 @@ __webpack_require__(42)('Observable');
 // ie9- setTimeout & setInterval additional parameters fix
 var global = __webpack_require__(2);
 var $export = __webpack_require__(0);
-var invoke = __webpack_require__(69);
-var partial = __webpack_require__(384);
 var navigator = global.navigator;
+var slice = [].slice;
 var MSIE = !!navigator && /MSIE .\./.test(navigator.userAgent); // <- dirty ie9- check
 var wrap = function (set) {
-  return MSIE ? function (fn, time /* , ...args */) {
-    return set(invoke(
-      partial,
-      [].slice.call(arguments, 2),
+  return function (fn, time /* , ...args */) {
+    var boundArgs = arguments.length > 2;
+    var args = boundArgs ? slice.call(arguments, 2) : false;
+    return set(boundArgs ? function () {
       // eslint-disable-next-line no-new-func
-      typeof fn == 'function' ? fn : Function(fn)
-    ), time);
-  } : set;
+      (typeof fn == 'function' ? fn : Function(fn)).apply(this, args);
+    } : fn, time);
+  };
 };
 $export($export.G + $export.B + $export.F * MSIE, {
   setTimeout: wrap(global.setTimeout),
@@ -18308,47 +18484,8 @@ $export($export.G + $export.B + $export.F * MSIE, {
 /* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-var path = __webpack_require__(385);
-var invoke = __webpack_require__(69);
-var aFunction = __webpack_require__(12);
-module.exports = function (/* ...pargs */) {
-  var fn = aFunction(this);
-  var length = arguments.length;
-  var pargs = Array(length);
-  var i = 0;
-  var _ = path._;
-  var holder = false;
-  while (length > i) if ((pargs[i] = arguments[i++]) === _) holder = true;
-  return function (/* ...args */) {
-    var that = this;
-    var aLen = arguments.length;
-    var j = 0;
-    var k = 0;
-    var args;
-    if (!holder && !aLen) return invoke(fn, pargs, that);
-    args = pargs.slice();
-    if (holder) for (;length > j; j++) if (args[j] === _) args[j] = arguments[k++];
-    while (aLen > k) args.push(arguments[k++]);
-    return invoke(fn, args, that);
-  };
-};
-
-
-/***/ }),
-/* 385 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(2);
-
-
-/***/ }),
-/* 386 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var $export = __webpack_require__(0);
-var $task = __webpack_require__(115);
+var $task = __webpack_require__(116);
 $export($export.G + $export.B, {
   setImmediate: $task.set,
   clearImmediate: $task.clear
@@ -18356,11 +18493,11 @@ $export($export.G + $export.B, {
 
 
 /***/ }),
-/* 387 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $iterators = __webpack_require__(114);
-var getKeys = __webpack_require__(34);
+var $iterators = __webpack_require__(115);
+var getKeys = __webpack_require__(38);
 var redefine = __webpack_require__(15);
 var global = __webpack_require__(2);
 var hide = __webpack_require__(14);
@@ -18420,7 +18557,7 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 
 
 /***/ }),
-/* 388 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -19160,29 +19297,29 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
   typeof self === "object" ? self : this
 );
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(80)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(79)))
 
 /***/ }),
-/* 389 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(390);
+__webpack_require__(388);
 module.exports = __webpack_require__(24).RegExp.escape;
 
 
 /***/ }),
-/* 390 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/benjamingr/RexExp.escape
 var $export = __webpack_require__(0);
-var $re = __webpack_require__(391)(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+var $re = __webpack_require__(389)(/[\\^$*+?.()|[\]{}]/g, '\\$&');
 
 $export($export.S, 'RegExp', { escape: function escape(it) { return $re(it); } });
 
 
 /***/ }),
-/* 391 */
+/* 389 */
 /***/ (function(module, exports) {
 
 module.exports = function (regExp, replace) {
@@ -19196,7 +19333,7 @@ module.exports = function (regExp, replace) {
 
 
 /***/ }),
-/* 392 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19208,7 +19345,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ImplicitFlow2 = __webpack_require__(174);
+var _ImplicitFlow2 = __webpack_require__(175);
 
 var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
 
@@ -19373,7 +19510,7 @@ var ImplicitFlowPopup = function (_ImplicitFlow) {
 exports.default = ImplicitFlowPopup;
 
 /***/ }),
-/* 393 */
+/* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19599,7 +19736,7 @@ var PasswordFlow = function (_OAuth) {
 exports.default = PasswordFlow;
 
 /***/ }),
-/* 394 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
