@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:3cf56448e4f94136bf29, chunkhash:14cf8f9e24b6b4e0ea8b, name:bundle, version:v1.1.4
+ * hash:4ec2fb84f96b9094f3d6, chunkhash:29dd5ee9d3ee5748f680, name:bundle, version:v1.1.5
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.4) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3379,21 +3379,7 @@ var Maps4News = function () {
             var response = JSON.parse(request.responseText);
 
             if (!response.success) {
-              var err = response.error;
-
-              if (!err.validation_errors) {
-                var apiError = new _ApiError2.default(err.type, err.message, request.status);
-
-                if (apiError.type === 'AuthenticationException' && apiError.message === 'Unauthenticated' && apiError.code === 401) {
-                  console.warn('Lost Maps4News session, please re-authenticate');
-
-                  _this2.auth.forget();
-                }
-
-                reject(apiError);
-              } else {
-                reject(new _ValidationError2.default(err.type, err.message, request.status, err.validation_errors));
-              }
+              reject(_this2._parseErrorResponse(request, response));
             } else {
               // Return an empty object if no data has been sent
               // instead of returning undefined.
@@ -3401,11 +3387,30 @@ var Maps4News = function () {
             }
           }
         }).catch(function (request) {
-          var err = JSON.parse(request.responseText).error;
+          var response = JSON.parse(request.responseText);
 
-          reject(new _ApiError2.default(err.type, err.message, request.status));
+          reject(_this2._parseErrorResponse(request, response));
         });
       });
+    }
+  }, {
+    key: '_parseErrorResponse',
+    value: function _parseErrorResponse(request, response) {
+      var err = response.error;
+
+      if (!err['validation_errors']) {
+        var apiError = new _ApiError2.default(err.type, err.message, request.status);
+
+        if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {
+          console.warn('Lost Maps4News session, please re-authenticate');
+
+          this.logout();
+        }
+
+        return apiError;
+      } else {
+        return new _ValidationError2.default(err.type, err.message, request.status, err['validation_errors']);
+      }
     }
 
     /**
@@ -12699,7 +12704,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.4";
+var version = exports.version = "v1.1.5";
 
 /**
  * Package license
