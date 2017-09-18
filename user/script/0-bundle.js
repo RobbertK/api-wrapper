@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:4ec2fb84f96b9094f3d6, chunkhash:29dd5ee9d3ee5748f680, name:bundle, version:v1.1.5
+ * hash:6b3d1eca41469d3f8293, chunkhash:327a5e797243f0e862f3, name:bundle, version:v1.1.6
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -385,6 +385,7 @@ var CrudBase = function (_ResourceBase) {
           _this2._properties = {};
           _this2._baseProperties = data;
 
+          _this2._updateProperties();
           resolve(_this2);
         });
       });
@@ -1178,6 +1179,8 @@ var ResourceBase = function () {
           if (updateSelf) {
             _this3._properties = {};
             _this3._baseProperties = data;
+
+            _this3._updateProperties();
           }
 
           resolve(new _this3(_this3._api, data));
@@ -1293,13 +1296,19 @@ var ResourceBase = function () {
     }
 
     /**
-     * Protected read-only fields
-     * @returns {Array<string>} - Array containing the protected fields
-     * @protected
+     * Returns the url key of the resource
+     * @returns {String} - Resource key
      */
 
   }, {
     key: '_protectedFields',
+
+
+    /**
+     * Protected read-only fields
+     * @returns {Array<string>} - Array containing the protected fields
+     * @protected
+     */
     get: function get() {
       return ['id', 'created_at', 'updated_at', 'deleted_at'];
     }
@@ -1388,6 +1397,11 @@ var ResourceBase = function () {
         default:
           return value;
       }
+    }
+  }, {
+    key: 'resourceUrlKey',
+    get: function get() {
+      return 'id';
     }
   }]);
 
@@ -6810,25 +6824,39 @@ var ResourceProxy = function (_SimpleResourceProxy) {
   }
 
   /**
-   * Get target resource
+   * Parse selector
    * @param {Number|String|Object} [id=] - The resource id to be requested
-   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
+   * @returns {Object} - Parsed selector
+   * @private
    */
 
 
   _createClass(ResourceProxy, [{
+    key: '_parseSelector',
+    value: function _parseSelector(id) {
+      var defaults = {};
+
+      defaults[this.Target.resourceUrlKey] = id;
+
+      return {
+        number: defaults,
+        string: defaults,
+        object: id
+      }[typeof id === 'undefined' ? 'undefined' : _typeof(id)] || {};
+    }
+
+    /**
+     * Get target resource
+     * @param {Number|String|Object} [id=] - The resource id to be requested
+     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
+     */
+
+  }, {
     key: 'get',
     value: function get(id) {
       var _this2 = this;
 
-      var data = {
-        number: { id: id },
-        string: { id: id },
-        object: id
-      }[typeof id === 'undefined' ? 'undefined' : _typeof(id)] || {};
-
-      data = Object.assign(this._seedData, data);
-
+      var data = Object.assign({}, this._seedData, this._parseSelector(id));
       var url = this.new(data).url;
 
       return new Promise(function (resolve, reject) {
@@ -6851,7 +6879,7 @@ var ResourceProxy = function (_SimpleResourceProxy) {
     value: function select(id) {
       var data = typeof id === 'undefined' ? {} : { id: id };
 
-      data = Object.assign(this._seedData, data);
+      data = Object.assign({}, this._seedData, this._parseSelector(id));
 
       return this.new(data);
     }
@@ -10682,21 +10710,21 @@ var JobRevision = function (_CrudBase) {
   }, {
     key: 'resourcePath',
     get: function get() {
-      return '/jobs/{job_id}/revisions/{id}';
+      return '/jobs/{job_id}/revisions/{revision}';
     }
   }, {
     key: 'resourceName',
     get: function get() {
       return 'job-revisions';
     }
+  }, {
+    key: 'layers',
+
 
     /**
      * Get layers
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
-
-  }, {
-    key: 'layers',
     get: function get() {
       return this._proxyResourceList(_Layer2.default);
     }
@@ -10709,6 +10737,11 @@ var JobRevision = function (_CrudBase) {
       };
 
       return new _JobResult2.default(this.api, data);
+    }
+  }], [{
+    key: 'resourceUrlKey',
+    get: function get() {
+      return 'revision';
     }
   }]);
 
@@ -12704,7 +12737,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.5";
+var version = exports.version = "v1.1.6";
 
 /**
  * Package license

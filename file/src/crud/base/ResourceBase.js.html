@@ -227,6 +227,14 @@ export default class ResourceBase {
   }
 
   /**
+   * Returns the url key of the resource
+   * @returns {String} - Resource key
+   */
+  static get resourceUrlKey() {
+    return &apos;id&apos;;
+  }
+
+  /**
    * Protected read-only fields
    * @returns {Array&lt;string&gt;} - Array containing the protected fields
    * @protected
@@ -301,6 +309,8 @@ export default class ResourceBase {
           if (updateSelf) {
             this._properties = {};
             this._baseProperties = data;
+
+            this._updateProperties();
           }
 
           resolve(new this(this._api, data));

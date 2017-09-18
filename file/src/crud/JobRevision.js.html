@@ -147,11 +147,15 @@ export default class JobRevision extends CrudBase {
   }
 
   get resourcePath() {
-    return &apos;/jobs/{job_id}/revisions/{id}&apos;;
+    return &apos;/jobs/{job_id}/revisions/{revision}&apos;;
   }
 
   get resourceName() {
     return &apos;job-revisions&apos;;
+  }
+
+  static get resourceUrlKey() {
+    return &apos;revision&apos;;
   }
 
   /**

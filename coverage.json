@@ -1,7 +1,7 @@
 {
-  "coverage": "77.32%",
-  "expectCount": 366,
-  "actualCount": 283,
+  "coverage": "77.17%",
+  "expectCount": 368,
+  "actualCount": 284,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -160,13 +160,14 @@
       ]
     },
     "src/crud/JobRevision.js": {
-      "expectCount": 12,
+      "expectCount": 13,
       "actualCount": 8,
       "undocumentLines": [
         39,
         40,
         48,
-        44
+        44,
+        52
       ]
     },
     "src/crud/JobShare.js": {
@@ -310,8 +311,8 @@
       ]
     },
     "src/crud/base/ResourceBase.js": {
-      "expectCount": 16,
-      "actualCount": 16,
+      "expectCount": 17,
+      "actualCount": 17,
       "undocumentLines": []
     },
     "src/ResourceCache.js": {
