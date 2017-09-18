@@ -162,13 +162,17 @@ export default class ResourceProxy extends SimpleResourceProxy {
   _parseSelector(id) {
     const defaults = {};
 
-    defaults[this.Target.resourceUrlKey] = id;
+    switch (typeof id) {
+      case &apos;number&apos;:
+      case &apos;string&apos;:
+        defaults[this.Target.resourceUrlKey] = id;
 
-    return {
-      number: defaults,
-      string: defaults,
-      object: id,
-    }[typeof id] || {};
+        return defaults;
+      case &apos;object&apos;:
+        return id;
+      default:
+        return {};
+    }
   }
 
   /**
@@ -196,9 +200,7 @@ export default class ResourceProxy extends SimpleResourceProxy {
    * api.users.select(&apos;me&apos;).colors().then(doSomethingCool);
    */
   select(id) {
-    let data = typeof id === &apos;undefined&apos; ? {} : {id};
-
-    data = Object.assign({}, this._seedData, this._parseSelector(id));
+    const data = Object.assign({}, this._seedData, this._parseSelector(id));
 
     return this.new(data);
   }

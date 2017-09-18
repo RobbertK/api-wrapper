@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:6b3d1eca41469d3f8293, chunkhash:327a5e797243f0e862f3, name:bundle, version:v1.1.6
+ * hash:85808c84f84f1fa8a735, chunkhash:ae99148663851bb39f1b, name:bundle, version:v1.1.7
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6836,13 +6836,17 @@ var ResourceProxy = function (_SimpleResourceProxy) {
     value: function _parseSelector(id) {
       var defaults = {};
 
-      defaults[this.Target.resourceUrlKey] = id;
+      switch (typeof id === 'undefined' ? 'undefined' : _typeof(id)) {
+        case 'number':
+        case 'string':
+          defaults[this.Target.resourceUrlKey] = id;
 
-      return {
-        number: defaults,
-        string: defaults,
-        object: id
-      }[typeof id === 'undefined' ? 'undefined' : _typeof(id)] || {};
+          return defaults;
+        case 'object':
+          return id;
+        default:
+          return {};
+      }
     }
 
     /**
@@ -6877,9 +6881,7 @@ var ResourceProxy = function (_SimpleResourceProxy) {
   }, {
     key: 'select',
     value: function select(id) {
-      var data = typeof id === 'undefined' ? {} : { id: id };
-
-      data = Object.assign({}, this._seedData, this._parseSelector(id));
+      var data = Object.assign({}, this._seedData, this._parseSelector(id));
 
       return this.new(data);
     }
@@ -12737,7 +12739,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.6";
+var version = exports.version = "v1.1.7";
 
 /**
  * Package license
