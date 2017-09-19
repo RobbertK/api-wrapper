@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:5a4bbe355fa7d2f708b5, chunkhash:84b9315ea3105b971654, name:bundle, version:v1.1.8
+ * hash:9f0b0a62fce5c437fef4, chunkhash:87655ee0a8b3992a9361, name:bundle, version:v1.1.9
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3309,14 +3309,16 @@ var Maps4News = function () {
 
     /**
      * Defaults for common parameters. These are populated during the build process using the `.env` file.
-     * @type {{perPage: number, cacheSeconds: number, shareCache: boolean}}
+     * @type {{perPage: number, cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean, showDeleted: string}}
+     * @todo add default popup window options
      */
     this.defaults = {
       perPage: Number("12"),
       cacheSeconds: Number("1800"),
       shareCache: bool("false"),
       autoUpdateSharedCache: bool("true"),
-      dereferenceCache: bool("false")
+      dereferenceCache: bool("false"),
+      showDeleted: "none".toLowerCase()
     };
 
     this._cache = new _ResourceCache2.default(this);
@@ -8298,6 +8300,8 @@ var SimpleResourceProxy = function () {
      * @param {Number|Object} [params] - Parameters or the page number to be requested
      * @param {Number} [params.page=1] - The page to be requested
      * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.sort=''] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
      * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
      * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
      * @example
@@ -8326,6 +8330,8 @@ var SimpleResourceProxy = function () {
      * @param {Number|Object} [params] - Parameters or the page to be requested
      * @param {Number} [params.page=1] - The page to be requested
      * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.sort=''] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
      * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
      * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
      * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
@@ -8367,7 +8373,7 @@ var SimpleResourceProxy = function () {
         return this._buildResolver({ page: params });
       }
 
-      return new _PaginatedResourceListing2.default(this._api, url, this.Target, params.search, params.page, params.perPage);
+      return new _PaginatedResourceListing2.default(this._api, url, this.Target, params.search, params.page, params.perPage, params.sort, params.deleted);
     }
 
     /**
@@ -8432,7 +8438,9 @@ var SimpleResourceProxy = function () {
         page: 1,
         perPage: defaults.perPage,
         shareCache: defaults.shareCache,
-        search: {}
+        search: {},
+        sort: '',
+        deleted: this.api.defaults.showDeleted
       };
     }
   }]);
@@ -8516,18 +8524,23 @@ var PaginatedResourceListing = function () {
    * @param {Object|{}} query - Search query
    * @param {Number} page - Page number
    * @param {Number} perPage - Amount of items per page
+   * @param {String} sort - sorting rules
+   * @param {String} deleted - Show deleted resources, none, only, all
    * @param {Number} pageCount - Resolved page count
    * @param {Number} rowCount - Resolved rowCount
    * @param {Array<ResourceBase>} data - Resolved data
+   * @todo change constructor to only accept a RequestParameters object
    * @private
    */
   function PaginatedResourceListing(api, route, Target) {
     var query = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
     var page = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
     var perPage = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : api.defaults.perPage;
-    var pageCount = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : null;
-    var rowCount = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 0;
-    var data = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : [];
+    var sort = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : '';
+    var deleted = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : api.defaults.showDeleted;
+    var pageCount = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : null;
+    var rowCount = arguments.length > 9 && arguments[9] !== undefined ? arguments[9] : 0;
+    var data = arguments.length > 10 && arguments[10] !== undefined ? arguments[10] : [];
 
     _classCallCheck(this, PaginatedResourceListing);
 
@@ -8546,6 +8559,8 @@ var PaginatedResourceListing = function () {
     this._perPage = perPage;
     this._rows = rowCount;
     this._pageCount = pageCount;
+    this._sort = sort;
+    this._deleted = deleted;
   }
 
   /**
@@ -8585,6 +8600,14 @@ var PaginatedResourceListing = function () {
         query['search'] = this.query;
       }
 
+      if (this.sort) {
+        query.sort = this.sort;
+      }
+
+      if (this.deleted && this.deleted !== 'none') {
+        query.deleted = this.deleted.toLowerCase();
+      }
+
       var glue = this.route.includes('?') ? '&' : '?';
       var url = '' + this.route + glue + (0, _requests.encodeQueryString)(query);
 
@@ -8594,7 +8617,7 @@ var PaginatedResourceListing = function () {
           var rowCount = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Total')) || response.data.length;
           var totalPages = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Pages')) || 1;
 
-          var instance = new PaginatedResourceListing(_this.api, _this.route, _this._Target, _this.query, page, perPage, totalPages, rowCount, response.data.map(function (row) {
+          var instance = new PaginatedResourceListing(_this.api, _this.route, _this._Target, _this.query, page, perPage, _this.sort, _this.deleted, totalPages, rowCount, response.data.map(function (row) {
             return new _this._Target(_this.api, row);
           }));
 
@@ -8716,6 +8739,36 @@ var PaginatedResourceListing = function () {
     key: 'perPage',
     get: function get() {
       return this._perPage;
+    }
+
+    /**
+     * Set sort direction
+     * @returns {String} - Sort
+     * @example
+     * const sort = 'name,id'
+     */
+
+  }, {
+    key: 'sort',
+    get: function get() {
+      return this._sort;
+    }
+
+    /**
+     * Current sorting value
+     * @param {String} value - Sort
+     */
+    ,
+    set: function set(value) {
+      this._sort = value;
+    }
+  }, {
+    key: 'deleted',
+    get: function get() {
+      return this._deleted;
+    },
+    set: function set(value) {
+      this._deleted = value;
     }
 
     /**
@@ -12739,7 +12792,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.8";
+var version = exports.version = "v1.1.9";
 
 /**
  * Package license
@@ -13039,7 +13092,7 @@ var PaginatedResourceWrapper = function () {
       if (this._context[token]) {
         this._last = this._context[token];
       } else {
-        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, value, 1, this._last.perPage);
+        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, value, 1, this._last.perPage, this._last.sort, this._last.deleted);
         this.get(1);
         this.currentPage = 1;
       }
