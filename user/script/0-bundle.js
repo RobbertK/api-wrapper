@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:85808c84f84f1fa8a735, chunkhash:ae99148663851bb39f1b, name:bundle, version:v1.1.7
+ * hash:5a4bbe355fa7d2f708b5, chunkhash:84b9315ea3105b971654, name:bundle, version:v1.1.8
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -438,7 +438,7 @@ var CrudBase = function (_ResourceBase) {
 
       return new Promise(function (resolve, reject) {
         _this4.api.request(_this4.url, 'PUT').catch(reject).then(function (data) {
-          return resolve(new _this4(_this4.api, data));
+          return resolve(new _this4.constructor(_this4.api, data));
         });
       });
     }
@@ -12739,7 +12739,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.7";
+var version = exports.version = "v1.1.8";
 
 /**
  * Package license
