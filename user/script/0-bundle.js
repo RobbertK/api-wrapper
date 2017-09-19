@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:e3f9ff954b01597d6777, chunkhash:2652e09958a674f9b6a4, name:bundle, version:v1.1.10
+ * hash:7b29e7933941a82896c8, chunkhash:64ca1f6547e47ae5fb63, name:bundle, version:v1.1.11
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6868,7 +6868,7 @@ var ResourceProxy = function (_SimpleResourceProxy) {
       var url = this.new(data).url;
       var glue = url.includes('?') ? '&' : '?';
 
-      url = '' + this.route + glue + (0, _requests.encodeQueryString)({ deleted: deleted });
+      url = '' + url + glue + (0, _requests.encodeQueryString)({ deleted: deleted });
 
       return new Promise(function (resolve, reject) {
         _this2._api.request(url).catch(reject).then(function (result) {
@@ -12795,7 +12795,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.10";
+var version = exports.version = "v1.1.11";
 
 /**
  * Package license
