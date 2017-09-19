@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:5de15a5b5da3f6580db2, chunkhash:acce10ed2af82bfa29a9, name:bundle, version:v1.1.13
+ * hash:22249612fa3eb8ba0c91, chunkhash:28c1d2b36a82db6fbb07, name:bundle, version:v1.1.14
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.13) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.14) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -244,11 +244,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _AbstractError = __webpack_require__(51);
 
+var _reflection = __webpack_require__(11);
+
 var _ResourceBase2 = __webpack_require__(20);
 
 var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
-
-var _reflection = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -371,6 +371,7 @@ var CrudBase = function (_ResourceBase) {
 
     /**
      * Store new item
+     * @param {Boolean} updateSelf - Update the current instance
      * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}
      * @private
      */
@@ -393,6 +394,7 @@ var CrudBase = function (_ResourceBase) {
 
     /**
      * Update existing item
+     * @param {Boolean} updateSelf - Update the current instance
      * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}
      * @private
      */
@@ -423,7 +425,17 @@ var CrudBase = function (_ResourceBase) {
   }, {
     key: 'delete',
     value: function _delete() {
-      return this.api.request(this.url, 'DELETE');
+      var _this4 = this;
+
+      var updateSelf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      return this.api.request(this.url, 'DELETE').then(function (data) {
+        if (updateSelf) {
+          _this4._baseProperties['deleted_at'] = new Date();
+        }
+
+        return data;
+      });
     }
 
     /**
@@ -434,12 +446,21 @@ var CrudBase = function (_ResourceBase) {
   }, {
     key: 'restore',
     value: function restore() {
-      var _this4 = this;
+      var _this5 = this;
 
-      return new Promise(function (resolve, reject) {
-        _this4.api.request(_this4.url, 'PUT').catch(reject).then(function (data) {
-          return resolve(new _this4.constructor(_this4.api, data));
-        });
+      var updateSelf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      return this.api.request(this.url, 'PUT').then(function (data) {
+        var instance = new _this5.constructor(_this5.api, data);
+
+        if (updateSelf) {
+          _this5._properties = {};
+          _this5._baseProperties = data;
+
+          _this5._updateProperties();
+        }
+
+        return instance;
       });
     }
 
@@ -12795,7 +12816,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.13";
+var version = exports.version = "v1.1.14";
 
 /**
  * Package license
@@ -13044,6 +13065,19 @@ var PaginatedResourceWrapper = function () {
      * Updates the cached pages.
      * @param {Boolean} flush - Clear the cached route data
      * @returns {void}
+     * @example
+     * function onRefresh() {
+     *   if(wrapper.waiting) {
+     *     return; // not done yet
+     *   }
+     *
+     *   wrapper.off('post-rebuild', onRefresh);
+     *
+     *   // Do stuff here
+     * }
+     *
+     * wrapper.on('post-rebuild', onRefresh);
+     * wrapper.refresh();
      */
 
   }, {

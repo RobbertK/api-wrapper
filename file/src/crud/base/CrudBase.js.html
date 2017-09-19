@@ -136,8 +136,8 @@
  */
 
 import {AbstractClassError} from &apos;../../errors/AbstractError&apos;;
-import ResourceBase from &apos;./ResourceBase&apos;;
 import {isParentOf} from &apos;../../utils/reflection&apos;;
+import ResourceBase from &apos;./ResourceBase&apos;;
 
 /**
  * Base of all resource items that support Crud operations
@@ -188,6 +188,7 @@ export default class CrudBase extends ResourceBase {
 
   /**
    * Store new item
+   * @param {Boolean} updateSelf - Update the current instance
    * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}
    * @private
    */
@@ -208,6 +209,7 @@ export default class CrudBase extends ResourceBase {
 
   /**
    * Update existing item
+   * @param {Boolean} updateSelf - Update the current instance
    * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}
    * @private
    */
@@ -232,20 +234,38 @@ export default class CrudBase extends ResourceBase {
    * Delete item
    * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
    */
-  delete() {
-    return this.api.request(this.url, &apos;DELETE&apos;);
+  delete(updateSelf = true) {
+    return this.api
+      .request(this.url, &apos;DELETE&apos;)
+      .then(data =&gt; {
+        if (updateSelf) {
+          this._baseProperties[&apos;deleted_at&apos;] = new Date();
+        }
+
+        return data;
+      });
   }
 
   /**
    * Restore item
    * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}
    */
-  restore() {
-    return new Promise((resolve, reject) =&gt; {
-      this.api.request(this.url, &apos;PUT&apos;)
-        .catch(reject)
-        .then(data =&gt; resolve(new this.constructor(this.api, data)));
-    });
+  restore(updateSelf = true) {
+    return this.api
+      .request(this.url, &apos;PUT&apos;)
+      .then(data =&gt; {
+        const instance = new this.constructor(this.api, data);
+
+        if (updateSelf) {
+          this._properties = {};
+          this._baseProperties = data;
+
+          this._updateProperties();
+        }
+
+        return instance;
+      });
+
   }
 
   /**
