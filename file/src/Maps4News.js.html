@@ -347,9 +347,9 @@ export default class Maps4News {
       }
 
       return apiError;
-    } else {
-      return new ValidationError(err.type, err.message, request.status, err[&apos;validation_errors&apos;]);
     }
+    return new ValidationError(err.type, err.message, request.status, err[&apos;validation_errors&apos;]);
+
   }
 
   /**
