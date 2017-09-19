@@ -595,7 +595,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/ImageHandler.js.html#lineNumber90">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ImageHandler.js.html#lineNumber94">source</a></span></span>
     </span>
   </h3>
 
@@ -616,7 +616,7 @@
       <tbody>
         <tr>
           <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Resolves with a <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> containing a base64 representation of the image and rejects with <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span></p>
+          <td class="return-desc" data-ice="returnDescription"><p>Resolves with a <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> containing a blob reference to the image and rejects with <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span></p>
 </td>
         </tr>
       </tbody>
@@ -633,7 +633,16 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">layer.imageHandler.download().then(url =&gt; {
+  $(&apos;img&apos;).src = url;
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -652,7 +661,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/ImageHandler.js.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ImageHandler.js.html#lineNumber115">source</a></span></span>
     </span>
   </h3>
 

@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:7b29e7933941a82896c8, chunkhash:64ca1f6547e47ae5fb63, name:bundle, version:v1.1.11
+ * hash:fabf2254d854b2010635, chunkhash:e7ea1d4fadeff26ad8f4, name:bundle, version:v1.1.12
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -12795,7 +12795,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.11";
+var version = exports.version = "v1.1.12";
 
 /**
  * Package license
@@ -13481,8 +13481,12 @@ var ImageHandler = function () {
 
     /**
      * Get image base64 representation
-     * @returns {Promise} - Resolves with a {@link String} containing a base64 representation of the image and rejects with {@link ApiError}
+     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
      * @todo nodejs compatibility
+     * @example
+     * layer.imageHandler.download().then(url => {
+     *   $('img').src = url;
+     * });
      */
 
   }, {
