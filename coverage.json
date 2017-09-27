@@ -1,7 +1,7 @@
 {
-  "coverage": "76.88%",
-  "expectCount": 372,
-  "actualCount": 286,
+  "coverage": "78.46%",
+  "expectCount": 404,
+  "actualCount": 317,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -67,6 +67,15 @@
       "actualCount": 2,
       "undocumentLines": [
         41
+      ]
+    },
+    "src/enums/Enum.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        45,
+        67,
+        71
       ]
     },
     "src/crud/Faq.js": {
@@ -278,12 +287,9 @@
       ]
     },
     "src/PaginatedResourceListing.js": {
-      "expectCount": 24,
-      "actualCount": 22,
-      "undocumentLines": [
-        165,
-        161
-      ]
+      "expectCount": 26,
+      "actualCount": 26,
+      "undocumentLines": []
     },
     "src/PaginatedResourceWrapper.js": {
       "expectCount": 24,
@@ -312,6 +318,11 @@
         35,
         36
       ]
+    },
+    "src/RequestParameters.js": {
+      "expectCount": 27,
+      "actualCount": 27,
+      "undocumentLines": []
     },
     "src/crud/base/ResourceBase.js": {
       "expectCount": 17,
@@ -342,8 +353,8 @@
       ]
     },
     "src/SimpleResourceProxy.js": {
-      "expectCount": 9,
-      "actualCount": 9,
+      "expectCount": 8,
+      "actualCount": 8,
       "undocumentLines": []
     },
     "src/utils/Singleton.js": {
