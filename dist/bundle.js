@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:473cbd8e53a18baf61b2, chunkhash:b2e3d90bfee8747b139a, name:bundle, version:v1.1.15
+ * hash:5de7436397fe637b8d1f, chunkhash:70725eeb54e574d98515, name:bundle, version:v1.1.16
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.15) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -12817,7 +12817,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.15";
+var version = exports.version = "v1.1.16";
 
 /**
  * Package license
@@ -13450,12 +13450,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _reflection = __webpack_require__(11);
-
-var _Maps4News = __webpack_require__(57);
-
-var _Maps4News2 = _interopRequireDefault(_Maps4News);
-
 var _ResourceBase = __webpack_require__(20);
 
 var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
@@ -13467,6 +13461,12 @@ var _ApiError2 = _interopRequireDefault(_ApiError);
 var _ValidationError = __webpack_require__(87);
 
 var _ValidationError2 = _interopRequireDefault(_ValidationError);
+
+var _Maps4News = __webpack_require__(57);
+
+var _Maps4News2 = _interopRequireDefault(_Maps4News);
+
+var _reflection = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13527,17 +13527,11 @@ var ImageHandler = function () {
   }, {
     key: 'download',
     value: function download() {
-      var _this = this;
+      this._api.request(this.url, 'GET', {}, {}, 'arraybuffer').then(function (data) {
+        var blob = new Blob([data], { type: 'image' });
 
-      return new Promise(function (resolve, reject) {
-        _this._api.request(_this.url, 'GET', {}, {}, 'arraybuffer').catch(reject).then(function (data) {
-          var blob = new Blob([data], { type: 'image' });
-
-          // noinspection JSUnresolvedFunction
-          var url = (window.URL || window.webkitURL).createObjectURL(blob);
-
-          resolve(url);
-        });
+        // noinspection JSUnresolvedFunction
+        return (window.URL || window.webkitURL).createObjectURL(blob);
       });
     }
 
@@ -13551,7 +13545,7 @@ var ImageHandler = function () {
   }, {
     key: 'upload',
     value: function upload(image) {
-      var _this2 = this;
+      var _this = this;
 
       if (!(0, _reflection.isParentOf)(File, image)) {
         throw new TypeError('Expected image to be of type File');
@@ -13564,8 +13558,8 @@ var ImageHandler = function () {
 
         var request = new XMLHttpRequest();
 
-        request.open('POST', _this2.url, true);
-        request.setRequestHeader('Authorization', _this2.api.auth.token.toString());
+        request.open('POST', _this.url, true);
+        request.setRequestHeader('Authorization', _this.api.auth.token.toString());
         request.setRequestHeader('Accept', 'application/json');
 
         request.onreadystatechange = function () {

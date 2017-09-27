@@ -135,11 +135,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {isParentOf} from &apos;./utils/reflection&apos;;
-import Maps4News from &apos;./Maps4News&apos;;
 import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
 import ApiError from &apos;./errors/ApiError&apos;;
 import ValidationError from &apos;./errors/ValidationError&apos;;
+import Maps4News from &apos;./Maps4News&apos;;
+import {isParentOf} from &apos;./utils/reflection&apos;;
 
 /**
  * Image resource handler
@@ -197,18 +197,13 @@ export default class ImageHandler {
    * });
    */
   download() {
-    return new Promise((resolve, reject) =&gt; {
-      this._api.request(this.url, &apos;GET&apos;, {}, {}, &apos;arraybuffer&apos;)
-        .catch(reject)
-        .then(data =&gt; {
-          const blob = new Blob([data], {type: &apos;image&apos;});
+    this._api.request(this.url, &apos;GET&apos;, {}, {}, &apos;arraybuffer&apos;)
+      .then(data =&gt; {
+        const blob = new Blob([data], {type: &apos;image&apos;});
 
-          // noinspection JSUnresolvedFunction
-          const url = (window.URL || window.webkitURL).createObjectURL(blob);
-
-          resolve(url);
-        });
-    });
+        // noinspection JSUnresolvedFunction
+        return (window.URL || window.webkitURL).createObjectURL(blob);
+      });
   }
 
   /**
