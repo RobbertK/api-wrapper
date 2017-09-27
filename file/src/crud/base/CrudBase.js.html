@@ -181,6 +181,14 @@ export default class CrudBase extends ResourceBase {
   /**
    * Save item. This will create a new item if `id` is unset
    * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}
+   .catch(reject)
+   .then(data =&gt; {
+          this._properties = {};
+          this._baseProperties = data;
+
+          this._updateProperties();
+          resolve(this);
+        });
    */
   save() {
     return !this.id ? this._create() : this._update();
@@ -195,15 +203,7 @@ export default class CrudBase extends ResourceBase {
   _create() {
     return new Promise((resolve, reject) =&gt; {
       this.api
-        .request(this.baseUrl, &apos;POST&apos;, this._buildCreateData())
-        .catch(reject)
-        .then(data =&gt; {
-          this._properties = {};
-          this._baseProperties = data;
-
-          this._updateProperties();
-          resolve(this);
-        });
+        .request(this.baseUrl, &apos;POST&apos;, this._buildCreateData());
     });
   }
 

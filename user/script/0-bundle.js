@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:22249612fa3eb8ba0c91, chunkhash:28c1d2b36a82db6fbb07, name:bundle, version:v1.1.14
+ * hash:473cbd8e53a18baf61b2, chunkhash:b2e3d90bfee8747b139a, name:bundle, version:v1.1.15
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.14) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.15) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -361,6 +361,13 @@ var CrudBase = function (_ResourceBase) {
     /**
      * Save item. This will create a new item if `id` is unset
      * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}
+     .catch(reject)
+     .then(data => {
+            this._properties = {};
+            this._baseProperties = data;
+             this._updateProperties();
+            resolve(this);
+          });
      */
 
   }, {
@@ -382,13 +389,7 @@ var CrudBase = function (_ResourceBase) {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-        _this2.api.request(_this2.baseUrl, 'POST', _this2._buildCreateData()).catch(reject).then(function (data) {
-          _this2._properties = {};
-          _this2._baseProperties = data;
-
-          _this2._updateProperties();
-          resolve(_this2);
-        });
+        _this2.api.request(_this2.baseUrl, 'POST', _this2._buildCreateData());
       });
     }
 
@@ -12816,7 +12817,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.14";
+var version = exports.version = "v1.1.15";
 
 /**
  * Package license
