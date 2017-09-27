@@ -152,8 +152,8 @@ import MapstyleSet from &apos;./MapstyleSet&apos;;
 import Notification from &apos;./Notification&apos;;
 import Organisation from &apos;./Organisation&apos;;
 import Permission from &apos;./Permission&apos;;
-import SvgSet from &apos;./SvgSet&apos;;
 import Role from &apos;./Role&apos;;
+import SvgSet from &apos;./SvgSet&apos;;
 
 export default class User extends CrudBase {
   get resourceName() {
@@ -167,13 +167,9 @@ export default class User extends CrudBase {
   ips() {
     const url = `${this.url}/ips`;
 
-    return new Promise((resolve, reject) =&gt; {
-      this.api.request(url)
-        .catch(reject)
-        .then(data =&gt; resolve(
-          data.map(row =&gt; row[&apos;ip_address&apos;]),
-        ));
-    });
+    return this.api
+      .request(url)
+      .then(data =&gt; data.map(row =&gt; row[&apos;ip_address&apos;]));
   }
 
   /**

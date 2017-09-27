@@ -175,11 +175,9 @@ export default class JobRevision extends CrudBase {
   result() {
     const url = `${this.url}/result`;
 
-    return new Promise((resolve, reject) =&gt; {
-      this.api.request(url)
-        .catch(reject)
-        .then(data =&gt; resolve(new JobResult(this.api, data)));
-    });
+    return this.api
+      .request(url)
+      .then(data =&gt; new JobResult(this.api, data));
   }
 
   /**
@@ -223,11 +221,9 @@ export default class JobRevision extends CrudBase {
       data.layers = layers;
     }
 
-    return new Promise((resolve, reject) =&gt; {
-      this.api.request(this.baseUrl, &apos;POST&apos;, data)
-        .catch(reject)
-        .then(data =&gt; resolve(new JobRevision(this.api, data)));
-    });
+    return this.api
+      .request(this.baseUrl, &apos;POST&apos;, data)
+      .then(data =&gt; new JobRevision(this.api, data));
   }
 
   /**

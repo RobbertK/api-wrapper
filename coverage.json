@@ -1,14 +1,14 @@
 {
-  "coverage": "78.46%",
-  "expectCount": 404,
+  "coverage": "78.27%",
+  "expectCount": 405,
   "actualCount": 317,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
-        42,
-        51
+        51,
+        42
       ]
     },
     "src/errors/ApiError.js": {
@@ -320,9 +320,11 @@
       ]
     },
     "src/RequestParameters.js": {
-      "expectCount": 27,
+      "expectCount": 28,
       "actualCount": 27,
-      "undocumentLines": []
+      "undocumentLines": [
+        429
+      ]
     },
     "src/crud/base/ResourceBase.js": {
       "expectCount": 17,

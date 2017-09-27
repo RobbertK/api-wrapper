@@ -191,12 +191,9 @@ export default class ResourceProxy extends SimpleResourceProxy {
 
     url = `${url}${glue}${encodeQueryString({deleted})}`;
 
-    return new Promise((resolve, reject) =&gt; {
-      this._api
-        .request(url)
-        .catch(reject)
-        .then(result =&gt; resolve(this.new(result)));
-    });
+    return this._api
+      .request(url)
+      .then(result =&gt; this.new(result));
   }
 
   /**

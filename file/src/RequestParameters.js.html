@@ -142,6 +142,7 @@ import DeletedState from &apos;./enums/DeletedState&apos;;
 import {camelToPascalCase, camelToSnakeCase, snakeToCamelCase} from &apos;./utils/caseConverter&apos;;
 import {getTypeName} from &apos;./utils/reflection&apos;;
 import {encodeQueryString} from &apos;./utils/requests&apos;;
+import {fnv32a, hashObject} from &apos;./utils/hash&apos;;
 
 /**
  * Used for keeping track of the request parameters
@@ -532,6 +533,9 @@ export default class RequestParameters {
     this._watch.push(method);
   }
 
+  token() {
+    return hashObject(this.toObject());
+  }
   // endregion utils
 }
 </code></pre>
