@@ -278,7 +278,7 @@
     "__docId__": 10,
     "kind": "file",
     "name": "src/Maps4News.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n// Polyfill for terrible browsers (looking at you IE)\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\nimport {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  SvgSetType,\n  User,\n} from './crud';\nimport ResourceBase from './crud/base/ResourceBase';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {fnv32a} from './utils/hash';\nimport {isParentOf} from './utils/reflection';\nimport {makeRequest} from './utils/requests';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => str.toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     * @todo add default popup window options\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => {\n      this.auth.token.save();\n\n      return this;\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {string} responseType - The XmlHttpRequest type\n   * @param {boolean} raw - When set to true the promise will resolve with the request object\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, responseType = '', raw = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    if (this.authenticated) {\n      headers.Authorization = this.auth.token.toString();\n    }\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, method, data, headers, responseType).then(request => {\n        if (request.getResponseHeader('Content-Type') !== 'application/json') {\n          resolve(raw ? request : request.response);\n        } else {\n          const response = JSON.parse(request.responseText);\n\n          if (!response.success) {\n            reject(this._parseErrorResponse(request, response));\n          } else {\n            // Return an empty object if no data has been sent\n            // instead of returning undefined.\n            resolve(raw ? request : response.data || {});\n          }\n        }\n      }).catch(request => {\n        const response = JSON.parse(request.responseText);\n\n        reject(this._parseErrorResponse(request, response));\n      });\n    });\n  }\n\n  _parseErrorResponse(request, response) {\n    const err = response.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, request.status);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        console.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n    return new ValidationError(err.type, err.message, request.status, err['validation_errors']);\n\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32a(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return this.static(SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Test if XHR requests can be made\n   * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx\n   */\n  testXhr() {\n    return new Promise((resolve, reject) => {\n      makeRequest(`${this.host}/favicon.ico`)\n        .then(x => resolve(x.status))\n        .catch(x => reject(x.status));\n    });\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n// Polyfill for terrible browsers (looking at you IE)\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\nimport {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  SvgSetType,\n  User,\n} from './crud';\nimport ResourceBase from './crud/base/ResourceBase';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {fnv32a} from './utils/hash';\nimport {isParentOf} from './utils/reflection';\nimport {makeRequest} from './utils/requests';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => str.toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => {\n      this.auth.token.save();\n\n      return this;\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {string} responseType - The XmlHttpRequest type\n   * @param {boolean} raw - When set to true the promise will resolve with the request object\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, responseType = '', raw = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    if (this.authenticated) {\n      headers.Authorization = this.auth.token.toString();\n    }\n\n    return new Promise((resolve, reject) => {\n      makeRequest(url, method, data, headers, responseType).then(request => {\n        if (request.getResponseHeader('Content-Type') !== 'application/json') {\n          resolve(raw ? request : request.response);\n        } else {\n          const response = JSON.parse(request.responseText);\n\n          if (!response.success) {\n            reject(this._parseErrorResponse(request, response));\n          } else {\n            // Return an empty object if no data has been sent\n            // instead of returning undefined.\n            resolve(raw ? request : response.data || {});\n          }\n        }\n      }).catch(request => {\n        const response = JSON.parse(request.responseText);\n\n        reject(this._parseErrorResponse(request, response));\n      });\n    });\n  }\n\n  _parseErrorResponse(request, response) {\n    const err = response.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, request.status);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        console.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n    return new ValidationError(err.type, err.message, request.status, err['validation_errors']);\n\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32a(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return this.static(SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Test if XHR requests can be made\n   * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx\n   */\n  testXhr() {\n    return new Promise((resolve, reject) => {\n      makeRequest(`${this.host}/favicon.ico`)\n        .then(x => resolve(x.status))\n        .catch(x => reject(x.status));\n    });\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
     "static": true,
     "longname": "src/Maps4News.js",
     "access": null,
@@ -390,10 +390,7 @@
     "longname": "src/Maps4News.js~Maps4News#defaults",
     "access": null,
     "description": "Defaults for common parameters. These are populated during the build process using the `.env` file.",
-    "lineNumber": 98,
-    "todo": [
-      "add default popup window options"
-    ],
+    "lineNumber": 97,
     "type": {
       "nullable": null,
       "types": [
@@ -412,7 +409,7 @@
     "longname": "src/Maps4News.js~Maps4News#_cache",
     "access": null,
     "description": null,
-    "lineNumber": 105,
+    "lineNumber": 104,
     "undocument": true,
     "unknown": [
       {
@@ -437,7 +434,7 @@
     "longname": "src/Maps4News.js~Maps4News#version",
     "access": null,
     "description": "Get api version",
-    "lineNumber": 113,
+    "lineNumber": 112,
     "unknown": [
       {
         "tagName": "@returns",
@@ -473,7 +470,7 @@
     "longname": "src/Maps4News.js~Maps4News#cache",
     "access": null,
     "description": "Get the shared cache instance",
-    "lineNumber": 121,
+    "lineNumber": 120,
     "unknown": [
       {
         "tagName": "@returns",
@@ -505,7 +502,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": "Get authentication provider instance",
-    "lineNumber": 129,
+    "lineNumber": 128,
     "unknown": [
       {
         "tagName": "@returns",
@@ -537,7 +534,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": "Set authentication provider instance",
-    "lineNumber": 137,
+    "lineNumber": 136,
     "params": [
       {
         "nullable": null,
@@ -565,7 +562,7 @@
     "longname": "src/Maps4News.js~Maps4News#_auth",
     "access": null,
     "description": null,
-    "lineNumber": 142,
+    "lineNumber": 141,
     "undocument": true,
     "unknown": [
       {
@@ -590,7 +587,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticated",
     "access": null,
     "description": "Test if the client is authenticated with the api and has a valid token",
-    "lineNumber": 149,
+    "lineNumber": 148,
     "unknown": [
       {
         "tagName": "@returns",
@@ -622,7 +619,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": "The current host",
-    "lineNumber": 157,
+    "lineNumber": 156,
     "unknown": [
       {
         "tagName": "@returns",
@@ -654,7 +651,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": "The remote host",
-    "lineNumber": 165,
+    "lineNumber": 164,
     "params": [
       {
         "nullable": null,
@@ -682,7 +679,7 @@
     "longname": "src/Maps4News.js~Maps4News#_host",
     "access": null,
     "description": null,
-    "lineNumber": 167,
+    "lineNumber": 166,
     "undocument": true,
     "unknown": [
       {
@@ -707,7 +704,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticate",
     "access": null,
     "description": "Authenticate with the api using the authentication method provided.",
-    "lineNumber": 175,
+    "lineNumber": 174,
     "unknown": [
       {
         "tagName": "@returns",
@@ -735,7 +732,7 @@
     "longname": "src/Maps4News.js~Maps4News#request",
     "access": null,
     "description": "Request an url using the API token (if available)",
-    "lineNumber": 194,
+    "lineNumber": 193,
     "unknown": [
       {
         "tagName": "@returns",
@@ -825,7 +822,7 @@
     "longname": "src/Maps4News.js~Maps4News#_parseErrorResponse",
     "access": null,
     "description": null,
-    "lineNumber": 228,
+    "lineNumber": 227,
     "undocument": true,
     "unknown": [
       {
@@ -868,7 +865,7 @@
       "api.static('/custom/resource/path/{id}/').get(123);",
       "class FooBar extends ResourceBase {\n   get resourceName() {\n     return 'custom';\n   }\n}\n\napi.static(FooBar)\n  .get(1)\n  .then(console.log);"
     ],
-    "lineNumber": 264,
+    "lineNumber": 263,
     "unknown": [
       {
         "tagName": "@returns",
@@ -911,7 +908,7 @@
     "see": [
       "{@link Choropleth}"
     ],
-    "lineNumber": 289,
+    "lineNumber": 288,
     "unknown": [
       {
         "tagName": "@returns",
@@ -946,7 +943,7 @@
     "see": [
       "{@link Color}"
     ],
-    "lineNumber": 298,
+    "lineNumber": 297,
     "unknown": [
       {
         "tagName": "@returns",
@@ -981,7 +978,7 @@
     "see": [
       "{@link Contract}"
     ],
-    "lineNumber": 307,
+    "lineNumber": 306,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1016,7 +1013,7 @@
     "see": [
       "{@link Dimension}"
     ],
-    "lineNumber": 316,
+    "lineNumber": 315,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1051,7 +1048,7 @@
     "see": [
       "{@link DimensionSet}"
     ],
-    "lineNumber": 325,
+    "lineNumber": 324,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1086,7 +1083,7 @@
     "see": [
       "{@link Faq}"
     ],
-    "lineNumber": 334,
+    "lineNumber": 333,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1121,7 +1118,7 @@
     "see": [
       "{@link Feature}"
     ],
-    "lineNumber": 343,
+    "lineNumber": 342,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1156,7 +1153,7 @@
     "see": [
       "{@link Font}"
     ],
-    "lineNumber": 352,
+    "lineNumber": 351,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1191,7 +1188,7 @@
     "see": [
       "{@link FontFamily}"
     ],
-    "lineNumber": 361,
+    "lineNumber": 360,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1226,7 +1223,7 @@
     "see": [
       "{@link Highlight}"
     ],
-    "lineNumber": 370,
+    "lineNumber": 369,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1261,7 +1258,7 @@
     "see": [
       "{@link InsetMap}"
     ],
-    "lineNumber": 379,
+    "lineNumber": 378,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1296,7 +1293,7 @@
     "see": [
       "{@link Job}"
     ],
-    "lineNumber": 388,
+    "lineNumber": 387,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1331,7 +1328,7 @@
     "see": [
       "{@link JobShare}"
     ],
-    "lineNumber": 397,
+    "lineNumber": 396,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1366,7 +1363,7 @@
     "see": [
       "{@link JobType}"
     ],
-    "lineNumber": 406,
+    "lineNumber": 405,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1401,7 +1398,7 @@
     "see": [
       "{@link Language}"
     ],
-    "lineNumber": 415,
+    "lineNumber": 414,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1436,7 +1433,7 @@
     "see": [
       "{@link Layer}"
     ],
-    "lineNumber": 424,
+    "lineNumber": 423,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1471,7 +1468,7 @@
     "see": [
       "{@link Mapstyle}"
     ],
-    "lineNumber": 433,
+    "lineNumber": 432,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1506,7 +1503,7 @@
     "see": [
       "{@link MapstyleSet}"
     ],
-    "lineNumber": 442,
+    "lineNumber": 441,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1541,7 +1538,7 @@
     "see": [
       "{@link Notification}"
     ],
-    "lineNumber": 451,
+    "lineNumber": 450,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1576,7 +1573,7 @@
     "see": [
       "{@link Organisation}"
     ],
-    "lineNumber": 460,
+    "lineNumber": 459,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1611,7 +1608,7 @@
     "see": [
       "{@link Permission}"
     ],
-    "lineNumber": 469,
+    "lineNumber": 468,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1646,7 +1643,7 @@
     "see": [
       "{@link Role}"
     ],
-    "lineNumber": 478,
+    "lineNumber": 477,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1681,7 +1678,7 @@
     "see": [
       "{@link PlaceName}"
     ],
-    "lineNumber": 487,
+    "lineNumber": 486,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1716,7 +1713,7 @@
     "see": [
       "{@link Svg}"
     ],
-    "lineNumber": 496,
+    "lineNumber": 495,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1751,7 +1748,7 @@
     "see": [
       "{@link SvgSet}"
     ],
-    "lineNumber": 505,
+    "lineNumber": 504,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1786,7 +1783,7 @@
     "see": [
       "{@link SvgSetType}"
     ],
-    "lineNumber": 514,
+    "lineNumber": 513,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1821,7 +1818,7 @@
     "see": [
       "{@link User}"
     ],
-    "lineNumber": 523,
+    "lineNumber": 522,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1853,7 +1850,7 @@
     "longname": "src/Maps4News.js~Maps4News#testXhr",
     "access": null,
     "description": "Test if XHR requests can be made",
-    "lineNumber": 531,
+    "lineNumber": 530,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1881,7 +1878,7 @@
     "longname": "src/Maps4News.js~Maps4News#logout",
     "access": null,
     "description": "Forget the current session\nThis will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\ncookies or localStorage.",
-    "lineNumber": 545,
+    "lineNumber": 544,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1902,7 +1899,7 @@
     "__docId__": 59,
     "kind": "file",
     "name": "src/PaginatedResourceListing.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Maps4News from './Maps4News';\nimport PaginatedResourceWrapper from './PaginatedResourceWrapper';\nimport {hashObject} from './utils/hash';\nimport {isParentOf} from './utils/reflection';\n\n/**\n * Proxy for accessing paginated resources\n */\nexport default class PaginatedResourceListing {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {String} route - Resource route\n   * @param {ResourceBase} Target - Wrapper target\n   * @param {RequestParameters} parameters - Request parameters\n   * @param {Number} pageCount - Resolved page count\n   * @param {Number} rowCount - Resolved rowCount\n   * @param {Array<ResourceBase>} data - Resolved data\n   * @todo change constructor to only accept a RequestParameters object\n   * @private\n   */\n  constructor(api, route, Target, parameters, pageCount = null, rowCount = 0, data = []) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    this._api = api;\n\n    this.route = route;\n    this._Target = Target;\n    this._parameters = parameters;\n    this._pageCount = pageCount;\n    this._rows = rowCount;\n    this._data = data;\n  }\n\n  /**\n   * Pagination header prefix\n   * @returns {String} - Header prefix\n   */\n  static get headerPrefix() {\n    return 'X-Paginate';\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target route\n   * @returns {String} - url\n   */\n  get route() {\n    return this._route;\n  }\n\n  /**\n   * Override the target route\n   * @param {String} value - route\n   */\n  set route(value) {\n    if (!value.startsWith('https://') && !value.startsWith('http://')) {\n      if (!value.startsWith('/')) {\n        value = '/' + value;\n      }\n\n      value = `${this._api.host}/${this._api.version}${value}`;\n    }\n\n    this._route = value;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * Request parameters\n   * @returns {RequestParameters} - Request parameters\n   */\n  get parameters() {\n    return this._parameters;\n  }\n\n  /**\n   * Request parameters\n   * @param {RequestParameters} value - Request parameters\n   */\n  set parameters(value) {\n    this._parameters = value;\n  }\n\n  /**\n   * Current page number\n   * @returns {Number} - Current page\n   */\n  get page() {\n    return this.parameters.page;\n  }\n\n  /**\n   * Maximum amount of items per page\n   * @returns {Number} - Amount of items\n   */\n  get perPage() {\n    return this.parameters.perPage;\n  }\n\n  /**\n   * Set sort direction\n   * @returns {String} - Sort\n   * @example\n   * const sort = ['-name', 'id']\n   */\n  get sort() {\n    return this.parameters.sort;\n  }\n\n  /**\n   * Current sorting value\n   * @param {String} value - Sort\n   */\n  set sort(value) {\n    this.parameters.sort = value;\n  }\n\n  /**\n   * Deleted items filter state\n   * @returns {String} value - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  get deleted() {\n    return this.parameters.deleted;\n  }\n\n  /**\n   * Deleted items filter state\n   * @param {String} value - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  set deleted(value) {\n    this.parameters.deleted = value;\n  }\n\n  /**\n   * Amount of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._pageCount;\n  }\n\n  /**\n   * Page data\n   * @returns {Array<ResourceBase>} - Wrapped data\n   */\n  get data() {\n    return this._data;\n  }\n\n  /**\n   * Row count\n   * @returns {Number} - Row count\n   */\n  get rows() {\n    return this._rows;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this.parameters.search;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    this.parameters.search = value;\n  }\n\n  /**\n   * Get target page\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page (max 50)\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  getPage(page = this.page, perPage = this.perPage) {\n    const query = this.parameters.copy();\n\n    query.page = page;\n    query.perPage = perPage;\n\n    const glue = this.route.includes('?') ? '&' : '?';\n    const url = this.route + glue + query.encode();\n\n    return this.api.request(url, 'GET', {}, {}, '', true)\n      .then(request => {\n        const response = JSON.parse(request.responseText);\n        const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`)) || response.data.length;\n        const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`)) || 1;\n\n        return new PaginatedResourceListing(\n          this.api, this.route, this._Target,\n          this.parameters, totalPages, rowCount,\n          response.data.map(row => new this._Target(this.api, row)),\n        );\n      });\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.page < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this.page > 1;\n  }\n\n  /**\n   * Used for caching pages internally\n   * @returns {string} - Cache token\n   * @see {@link PaginatedResourceWrapper}\n   * @see {@link ResourceCache}\n   */\n  get cacheToken() {\n    return this.parameters.token();\n  }\n\n  /**\n   * Get next page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  next() {\n    return this.getPage(this.page + 1);\n  }\n\n  /**\n   * Get previous page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  previous() {\n    return this.getPage(this.page - 1);\n  }\n\n  /**\n   * Wraps {@link PaginatedResourceWrapper} around the page\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Wrapped resource listing\n   */\n  wrap(shareCache = this.api.defaults._shareCache) {\n    return new PaginatedResourceWrapper(this, this.api, shareCache);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Maps4News from './Maps4News';\nimport PaginatedResourceWrapper from './PaginatedResourceWrapper';\nimport RequestParameters from './RequestParameters';\nimport {isParentOf} from './utils/reflection';\n\n/**\n * Proxy for accessing paginated resources\n */\nexport default class PaginatedResourceListing {\n  /**\n   * @param {Maps4News} api - Instance of the api\n   * @param {String} route - Resource route\n   * @param {ResourceBase} Target - Wrapper target\n   * @param {RequestParameters} parameters - Request parameters\n   * @param {Number} pageCount - Resolved page count\n   * @param {Number} rowCount - Resolved rowCount\n   * @param {Array<ResourceBase>} data - Resolved data\n   * @private\n   */\n  constructor(api, route, Target, parameters, pageCount = null, rowCount = 0, data = []) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    if (!isParentOf(RequestParameters, parameters)) {\n      parameters = new RequestParameters(parameters);\n    }\n\n    this._api = api;\n\n    this.route = route;\n    this._Target = Target;\n    this._parameters = parameters;\n    this._pageCount = pageCount;\n    this._rows = rowCount;\n    this._data = data;\n  }\n\n  /**\n   * Pagination header prefix\n   * @returns {String} - Header prefix\n   */\n  static get headerPrefix() {\n    return 'X-Paginate';\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Target route\n   * @returns {String} - url\n   */\n  get route() {\n    return this._route;\n  }\n\n  /**\n   * Override the target route\n   * @param {String} value - route\n   */\n  set route(value) {\n    if (!value.startsWith('https://') && !value.startsWith('http://')) {\n      if (!value.startsWith('/')) {\n        value = '/' + value;\n      }\n\n      value = `${this._api.host}/${this._api.version}${value}`;\n    }\n\n    this._route = value;\n  }\n\n  /**\n   * Target to wrap results in\n   * @returns {ResourceBase} - Target constructor\n   * @constructor\n   */\n  get Target() {\n    return this._Target;\n  }\n\n  /**\n   * Request parameters\n   * @returns {RequestParameters} - Request parameters\n   */\n  get parameters() {\n    return this._parameters;\n  }\n\n  /**\n   * Request parameters\n   * @param {RequestParameters} value - Request parameters\n   */\n  set parameters(value) {\n    this._parameters = value;\n  }\n\n  /**\n   * Current page number\n   * @returns {Number} - Current page\n   */\n  get page() {\n    return this.parameters.page;\n  }\n\n  /**\n   * Maximum amount of items per page\n   * @returns {Number} - Amount of items\n   */\n  get perPage() {\n    return this.parameters.perPage;\n  }\n\n  /**\n   * Set sort direction\n   * @returns {String} - Sort\n   * @example\n   * const sort = ['-name', 'id']\n   */\n  get sort() {\n    return this.parameters.sort;\n  }\n\n  /**\n   * Current sorting value\n   * @param {String} value - Sort\n   */\n  set sort(value) {\n    this.parameters.sort = value;\n  }\n\n  /**\n   * Deleted items filter state\n   * @returns {String} value - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  get deleted() {\n    return this.parameters.deleted;\n  }\n\n  /**\n   * Deleted items filter state\n   * @param {String} value - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  set deleted(value) {\n    this.parameters.deleted = value;\n  }\n\n  /**\n   * Amount of pages available\n   * @returns {Number} - Page count\n   */\n  get pageCount() {\n    return this._pageCount;\n  }\n\n  /**\n   * Page data\n   * @returns {Array<ResourceBase>} - Wrapped data\n   */\n  get data() {\n    return this._data;\n  }\n\n  /**\n   * Row count\n   * @returns {Number} - Row count\n   */\n  get rows() {\n    return this._rows;\n  }\n\n  /**\n   * Optional search query\n   * @default {}\n   * @return {Object<String, String|Array<String>>} - Query\n   */\n  get query() {\n    return this.parameters.search;\n  }\n\n  /**\n   * Optional search query\n   * @param {Object<String, String|Array<String>>} value - Query\n   * @throws TypeError\n   * @default {}\n   * @see {@link ResourceProxy#search}\n   */\n  set query(value) {\n    this.parameters.search = value;\n  }\n\n  /**\n   * Get target page\n   * @param {Number} page - Page number\n   * @param {Number} perPage - Amount of items per page (max 50)\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  getPage(page = this.page, perPage = this.perPage) {\n    const query = this.parameters.copy();\n\n    query.page = page;\n    query.perPage = perPage;\n\n    const glue = this.route.includes('?') ? '&' : '?';\n    const url = this.route + glue + query.encode();\n\n    return this.api.request(url, 'GET', {}, {}, '', true)\n      .then(request => {\n        const response = JSON.parse(request.responseText);\n        const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`)) || response.data.length;\n        const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`)) || 1;\n\n        return new PaginatedResourceListing(\n          this.api, this.route, this._Target,\n          this.parameters, totalPages, rowCount,\n          response.data.map(row => new this._Target(this.api, row)),\n        );\n      });\n  }\n\n  /**\n   * If there is a next page\n   * @returns {boolean} - If there is a next page\n   */\n  get hasNext() {\n    return this.page < this.pageCount;\n  }\n\n  /**\n   * If there is a previous page\n   * @returns {boolean} - If there is a previous page\n   */\n  get hasPrevious() {\n    return this.page > 1;\n  }\n\n  /**\n   * Used for caching pages internally\n   * @returns {string} - Cache token\n   * @see {@link PaginatedResourceWrapper}\n   * @see {@link ResourceCache}\n   */\n  get cacheToken() {\n    return this.parameters.token();\n  }\n\n  /**\n   * Get next page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  next() {\n    return this.getPage(this.page + 1);\n  }\n\n  /**\n   * Get previous page\n   * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n   */\n  previous() {\n    return this.getPage(this.page - 1);\n  }\n\n  /**\n   * Wraps {@link PaginatedResourceWrapper} around the page\n   * @param {Boolean} shareCache - Share cache across instances\n   * @returns {PaginatedResourceWrapper} - Wrapped resource listing\n   */\n  wrap(shareCache = this.api.defaults._shareCache) {\n    return new PaginatedResourceWrapper(this, this.api, shareCache);\n  }\n}\n",
     "static": true,
     "longname": "src/PaginatedResourceListing.js",
     "access": null,
@@ -1935,10 +1932,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#constructor",
     "access": "private",
     "description": "",
-    "lineNumber": 53,
-    "todo": [
-      "change constructor to only accept a RequestParameters object"
-    ],
+    "lineNumber": 52,
     "params": [
       {
         "nullable": null,
@@ -2021,7 +2015,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_api",
     "access": null,
     "description": null,
-    "lineNumber": 58,
+    "lineNumber": 61,
     "undocument": true,
     "unknown": [
       {
@@ -2044,7 +2038,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "access": null,
     "description": null,
-    "lineNumber": 60,
+    "lineNumber": 63,
     "undocument": true,
     "unknown": [
       {
@@ -2067,7 +2061,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_Target",
     "access": null,
     "description": null,
-    "lineNumber": 61,
+    "lineNumber": 64,
     "undocument": true,
     "unknown": [
       {
@@ -2090,7 +2084,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_parameters",
     "access": null,
     "description": null,
-    "lineNumber": 62,
+    "lineNumber": 65,
     "undocument": true,
     "unknown": [
       {
@@ -2113,7 +2107,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_pageCount",
     "access": null,
     "description": null,
-    "lineNumber": 63,
+    "lineNumber": 66,
     "undocument": true,
     "unknown": [
       {
@@ -2136,7 +2130,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_rows",
     "access": null,
     "description": null,
-    "lineNumber": 64,
+    "lineNumber": 67,
     "undocument": true,
     "unknown": [
       {
@@ -2159,7 +2153,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_data",
     "access": null,
     "description": null,
-    "lineNumber": 65,
+    "lineNumber": 68,
     "undocument": true,
     "unknown": [
       {
@@ -2184,7 +2178,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing.headerPrefix",
     "access": null,
     "description": "Pagination header prefix",
-    "lineNumber": 72,
+    "lineNumber": 75,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2216,7 +2210,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 80,
+    "lineNumber": 83,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2248,7 +2242,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "access": null,
     "description": "Target route",
-    "lineNumber": 88,
+    "lineNumber": 91,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2280,7 +2274,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "access": null,
     "description": "Override the target route",
-    "lineNumber": 96,
+    "lineNumber": 99,
     "params": [
       {
         "nullable": null,
@@ -2308,7 +2302,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_route",
     "access": null,
     "description": null,
-    "lineNumber": 105,
+    "lineNumber": 108,
     "undocument": true,
     "unknown": [
       {
@@ -2333,7 +2327,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#Target",
     "access": null,
     "description": "Target to wrap results in",
-    "lineNumber": 113,
+    "lineNumber": 116,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2369,7 +2363,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "access": null,
     "description": "Request parameters",
-    "lineNumber": 121,
+    "lineNumber": 124,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2401,7 +2395,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "access": null,
     "description": "Request parameters",
-    "lineNumber": 129,
+    "lineNumber": 132,
     "params": [
       {
         "nullable": null,
@@ -2429,7 +2423,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#_parameters",
     "access": null,
     "description": null,
-    "lineNumber": 130,
+    "lineNumber": 133,
     "undocument": true,
     "unknown": [
       {
@@ -2454,7 +2448,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#page",
     "access": null,
     "description": "Current page number",
-    "lineNumber": 137,
+    "lineNumber": 140,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2486,7 +2480,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#perPage",
     "access": null,
     "description": "Maximum amount of items per page",
-    "lineNumber": 145,
+    "lineNumber": 148,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2521,7 +2515,7 @@
     "examples": [
       "const sort = ['-name', 'id']"
     ],
-    "lineNumber": 155,
+    "lineNumber": 158,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2553,7 +2547,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#sort",
     "access": null,
     "description": "Current sorting value",
-    "lineNumber": 163,
+    "lineNumber": 166,
     "params": [
       {
         "nullable": null,
@@ -2586,7 +2580,7 @@
     "see": [
       "{@link DeletedState}"
     ],
-    "lineNumber": 172,
+    "lineNumber": 175,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2621,7 +2615,7 @@
     "see": [
       "{@link DeletedState}"
     ],
-    "lineNumber": 181,
+    "lineNumber": 184,
     "params": [
       {
         "nullable": null,
@@ -2651,7 +2645,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#pageCount",
     "access": null,
     "description": "Amount of pages available",
-    "lineNumber": 189,
+    "lineNumber": 192,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2683,7 +2677,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#data",
     "access": null,
     "description": "Page data",
-    "lineNumber": 197,
+    "lineNumber": 200,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2715,7 +2709,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#rows",
     "access": null,
     "description": "Row count",
-    "lineNumber": 205,
+    "lineNumber": 208,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2747,7 +2741,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "access": null,
     "description": "Optional search query",
-    "lineNumber": 214,
+    "lineNumber": 217,
     "unknown": [
       {
         "tagName": "@default",
@@ -2782,7 +2776,7 @@
     "see": [
       "{@link ResourceProxy#search}"
     ],
-    "lineNumber": 225,
+    "lineNumber": 228,
     "unknown": [
       {
         "tagName": "@default",
@@ -2826,7 +2820,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#getPage",
     "access": null,
     "description": "Get target page",
-    "lineNumber": 235,
+    "lineNumber": 238,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2875,7 +2869,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#hasNext",
     "access": null,
     "description": "If there is a next page",
-    "lineNumber": 262,
+    "lineNumber": 265,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2907,7 +2901,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#hasPrevious",
     "access": null,
     "description": "If there is a previous page",
-    "lineNumber": 270,
+    "lineNumber": 273,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2943,7 +2937,7 @@
       "{@link PaginatedResourceWrapper}",
       "{@link ResourceCache}"
     ],
-    "lineNumber": 280,
+    "lineNumber": 283,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2975,7 +2969,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#next",
     "access": null,
     "description": "Get next page",
-    "lineNumber": 288,
+    "lineNumber": 291,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3003,7 +2997,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#previous",
     "access": null,
     "description": "Get previous page",
-    "lineNumber": 296,
+    "lineNumber": 299,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3031,7 +3025,7 @@
     "longname": "src/PaginatedResourceListing.js~PaginatedResourceListing#wrap",
     "access": null,
     "description": "Wraps {@link PaginatedResourceWrapper} around the page",
-    "lineNumber": 305,
+    "lineNumber": 308,
     "unknown": [
       {
         "tagName": "@returns",
@@ -11112,7 +11106,7 @@
     "__docId__": 381,
     "kind": "file",
     "name": "src/crud/base/CrudBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError} from '../../errors/AbstractError';\nimport {isParentOf} from '../../utils/reflection';\nimport ResourceBase from './ResourceBase';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    this._updateProperties();\n\n    const out = {};\n    const keys = [].concat(\n      Object.keys(this._properties),\n      Object.keys(this._baseProperties),\n    ).filter((item, pos, self) => self.indexOf(item) === pos);\n\n    for (const key of keys) {\n      out[key] = this._properties[key] || this._baseProperties[key];\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * .catch(reject)\n   * .then(data => {\n   *        this._properties = {};\n   *        this._baseProperties = data;\n   *\n   *        this._updateProperties();\n   *        resolve(this);\n   *      });\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    this.api\n      .request(this.baseUrl, 'POST', this._buildCreateData())\n      .then(data => {\n        this._properties = {};\n        this._baseProperties = data;\n\n        this._updateProperties();\n        return this;\n      });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    this._updateProperties();\n\n    return this.api\n      .request(this.url, 'PATCH', this._properties)\n      .then(() => {\n        if (this.api.defaults.autoUpdateSharedCache) {\n          this.api.cache.update(this);\n        }\n\n        return this;\n      });\n  }\n\n  /**\n   * Delete item\n   * @param {Boolean} [updateSelf=true] - Update current instance\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete(updateSelf = true) {\n    return this.api\n      .request(this.url, 'DELETE')\n      .then(data => {\n        if (updateSelf) {\n          this._baseProperties['deleted_at'] = new Date();\n        }\n\n        return data;\n      });\n  }\n\n  /**\n   * Restore item\n   * @param {Boolean} [updateSelf=true] - Update current instance\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore(updateSelf = true) {\n    return this.api\n      .request(this.url, 'PUT')\n      .then(data => {\n        const instance = new this.constructor(this.api, data);\n\n        if (updateSelf) {\n          this._properties = {};\n          this._baseProperties = data;\n\n          this._updateProperties();\n        }\n\n        return instance;\n      });\n\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @param {ResourceBase} Type - Resource type\n   * @param {?String} path - Optional appended resource path, will guess if null\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @todo refactor to CrudBase and remove organisation specific method from trait\n   * @protected\n   */\n  _modifyLink(items, method, Type, path) {\n    if (!path) {\n      const resource = (new Type(this.api)).resourceName.replace(/s+$/, '');\n\n      path = `${resource}s`;\n    }\n\n    const filter = x => !isParentOf(Type, x) && !isParentOf(Number, x);\n    const isValid = items.filter(filter).length === 0;\n\n    if (!isValid) {\n      throw new TypeError(`Array must contain either Numbers (resource id) or \"${Type.name}\".`);\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : x.id).map(Number);\n\n    return this.api.request(`${this.url}/${path}`, method, {keys});\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError} from '../../errors/AbstractError';\nimport {isParentOf} from '../../utils/reflection';\nimport ResourceBase from './ResourceBase';\n\n/**\n * Base of all resource items that support Crud operations\n * @abstract\n */\nexport default class CrudBase extends ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    super(api, data);\n\n    if (this.constructor === CrudBase) {\n      throw new AbstractClassError();\n    }\n  }\n\n  /**\n   * Build data for create operation\n   * @returns {Object<String, *>} - Create data\n   * @protected\n   */\n  _buildCreateData() {\n    this._updateProperties();\n\n    const out = {};\n    const keys = [].concat(\n      Object.keys(this._properties),\n      Object.keys(this._baseProperties),\n    ).filter((item, pos, self) => self.indexOf(item) === pos);\n\n    for (const key of keys) {\n      out[key] = this._properties[key] || this._baseProperties[key];\n    }\n\n    delete out.id;\n    return out;\n  }\n\n  /**\n   * Save item. This will create a new item if `id` is unset\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * .catch(reject)\n   * .then(data => {\n   *        this._properties = {};\n   *        this._baseProperties = data;\n   *\n   *        this._updateProperties();\n   *        resolve(this);\n   *      });\n   */\n  save() {\n    return !this.id ? this._create() : this._update();\n  }\n\n  /**\n   * Store new item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _create() {\n    this.api\n      .request(this.baseUrl, 'POST', this._buildCreateData())\n      .then(data => {\n        this._properties = {};\n        this._baseProperties = data;\n\n        this._updateProperties();\n        return this;\n      });\n  }\n\n  /**\n   * Update existing item\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   * @private\n   */\n  _update() {\n    this._updateProperties();\n\n    return this.api\n      .request(this.url, 'PATCH', this._properties)\n      .then(() => {\n        if (this.api.defaults.autoUpdateSharedCache) {\n          this.api.cache.update(this);\n        }\n\n        return this;\n      });\n  }\n\n  /**\n   * Delete item\n   * @param {Boolean} [updateSelf=true] - Update current instance\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete(updateSelf = true) {\n    return this.api\n      .request(this.url, 'DELETE')\n      .then(data => {\n        if (updateSelf) {\n          this._baseProperties['deleted_at'] = new Date();\n        }\n\n        return data;\n      });\n  }\n\n  /**\n   * Restore item\n   * @param {Boolean} [updateSelf=true] - Update current instance\n   * @returns {Promise} - Resolves with {@link CrudBase} instance and rejects with {@link ApiError}\n   */\n  restore(updateSelf = true) {\n    return this.api\n      .request(this.url, 'PUT')\n      .then(data => {\n        const instance = new this.constructor(this.api, data);\n\n        if (updateSelf) {\n          this._properties = {};\n          this._baseProperties = data;\n\n          this._updateProperties();\n        }\n\n        return instance;\n      });\n\n  }\n\n  /**\n   * Sync, attach or unlink resources\n   * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach\n   * @param {String} method - Http method to use\n   * @param {ResourceBase} Type - Resource type\n   * @param {?String} path - Optional appended resource path, will guess if null\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @protected\n   */\n  _modifyLink(items, method, Type, path) {\n    if (!path) {\n      const resource = (new Type(this.api)).resourceName.replace(/s+$/, '');\n\n      path = `${resource}s`;\n    }\n\n    const filter = x => !isParentOf(Type, x) && !isParentOf(Number, x);\n    const isValid = items.filter(filter).length === 0;\n\n    if (!isValid) {\n      throw new TypeError(`Array must contain either Numbers (resource id) or \"${Type.name}\".`);\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : x.id).map(Number);\n\n    return this.api.request(`${this.url}/${path}`, method, {keys});\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/CrudBase.js",
     "access": null,
@@ -11470,10 +11464,7 @@
     "longname": "src/crud/base/CrudBase.js~CrudBase#_modifyLink",
     "access": "protected",
     "description": "Sync, attach or unlink resources",
-    "lineNumber": 178,
-    "todo": [
-      "refactor to CrudBase and remove organisation specific method from trait"
-    ],
+    "lineNumber": 177,
     "unknown": [
       {
         "tagName": "@returns",

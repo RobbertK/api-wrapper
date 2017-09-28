@@ -139,7 +139,7 @@
 
 import Maps4News from &apos;./Maps4News&apos;;
 import PaginatedResourceWrapper from &apos;./PaginatedResourceWrapper&apos;;
-import {hashObject} from &apos;./utils/hash&apos;;
+import RequestParameters from &apos;./RequestParameters&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
 
 /**
@@ -154,12 +154,15 @@ export default class PaginatedResourceListing {
    * @param {Number} pageCount - Resolved page count
    * @param {Number} rowCount - Resolved rowCount
    * @param {Array&lt;ResourceBase&gt;} data - Resolved data
-   * @todo change constructor to only accept a RequestParameters object
    * @private
    */
   constructor(api, route, Target, parameters, pageCount = null, rowCount = 0, data = []) {
     if (!isParentOf(Maps4News, api)) {
       throw new TypeError(&apos;Expected api to be of type Maps4News&apos;);
+    }
+
+    if (!isParentOf(RequestParameters, parameters)) {
+      parameters = new RequestParameters(parameters);
     }
 
     this._api = api;
