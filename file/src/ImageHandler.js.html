@@ -199,7 +199,7 @@ export default class ImageHandler {
    * });
    */
   download() {
-    this._api.request(this.url, &apos;GET&apos;, {}, {}, &apos;arraybuffer&apos;)
+    return this._api.request(this.url, &apos;GET&apos;, {}, {}, &apos;arraybuffer&apos;)
       .then(data =&gt; {
         const blob = new Blob([data], {type: &apos;image&apos;});
 

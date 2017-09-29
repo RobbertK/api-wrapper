@@ -1,14 +1,14 @@
 {
-  "coverage": "78.27%",
-  "expectCount": 405,
+  "coverage": "77.88%",
+  "expectCount": 407,
   "actualCount": 317,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
-        51,
-        42
+        42,
+        51
       ]
     },
     "src/errors/ApiError.js": {
@@ -197,12 +197,14 @@
       ]
     },
     "src/crud/Language.js": {
-      "expectCount": 3,
+      "expectCount": 5,
       "actualCount": 0,
       "undocumentLines": [
         35,
         36,
-        40
+        40,
+        48,
+        44
       ]
     },
     "src/crud/Layer.js": {

@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:a532a36cf3464bb6f67c, chunkhash:d9dc2161ed5d0a12e065, name:bundle, version:v1.1.19
+ * hash:4064b2e2a148d4f921f0, chunkhash:cea204f39249f5b2674a, name:bundle, version:v1.1.20
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.19) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.20) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -11486,6 +11486,16 @@ var Language = function (_CrudBase) {
     get: function get() {
       return 'languages';
     }
+  }, {
+    key: 'resourcePath',
+    get: function get() {
+      return '/' + this.resourceName + '/{code}';
+    }
+  }], [{
+    key: 'resourceUrlKey',
+    get: function get() {
+      return 'code';
+    }
   }]);
 
   return Language;
@@ -13410,7 +13420,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.19";
+var version = exports.version = "v1.1.20";
 
 /**
  * Package license
@@ -14273,7 +14283,7 @@ var ImageHandler = function () {
   }, {
     key: 'download',
     value: function download() {
-      this._api.request(this.url, 'GET', {}, {}, 'arraybuffer').then(function (data) {
+      return this._api.request(this.url, 'GET', {}, {}, 'arraybuffer').then(function (data) {
         var blob = new Blob([data], { type: 'image' });
 
         // noinspection JSUnresolvedFunction

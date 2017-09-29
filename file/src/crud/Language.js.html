@@ -144,8 +144,16 @@ export default class Language extends CrudBase {
     return &apos;languages&apos;;
   }
 
+  get resourcePath() {
+    return `/${this.resourceName}/{code}`;
+  }
+
   toString() {
     return `${this.constructor.name}(${this.code})`;
+  }
+
+  static get resourceUrlKey() {
+    return &apos;code&apos;;
   }
 }
 </code></pre>
