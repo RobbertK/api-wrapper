@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:9c43899c0a992d82064d, chunkhash:8f1b9e707edcc582e624, name:bundle, version:v1.1.23
+ * hash:0b875946c16f0d49aa35, chunkhash:aa26e3758edb8f6ee812, name:bundle, version:v1.1.24
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.23) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3471,7 +3471,7 @@ var Maps4News = function () {
      */
     this.defaults = {
       cacheSeconds: Number("1800"),
-      shareCache: bool("false"),
+      shareCache: bool("true"),
       autoUpdateSharedCache: bool("true"),
       dereferenceCache: bool("false")
     };
@@ -13485,7 +13485,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.23";
+var version = exports.version = "v1.1.24";
 
 /**
  * Package license
