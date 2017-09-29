@@ -139,6 +139,8 @@
  */
 
 import ResourceBase from &apos;./base/ResourceBase&apos;;
+import ApiError from &apos;../errors/ApiError&apos;;
+import {fetch} from &apos;../utils/requests&apos;;
 
 export default class JobResult extends ResourceBase {
   get resourcePath() {
@@ -163,6 +165,31 @@ export default class JobResult extends ResourceBase {
    */
   get previewUrl() {
     return `${this.url}/preview`;
+  }
+
+  /**
+   * Get image base64 representation
+   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
+   */
+  downloadPreview() {
+    const headers = {
+      Accept: &apos;application/json&apos;,
+      Authorization: this.api.auth.token.toString(),
+    };
+
+    return fetch(this.previewUrl, {headers})
+      .then(res =&gt; {
+        if (res.ok) {
+          return res.blob();
+        } else {
+          return res.json().then(data =&gt; {
+            const err = data.error;
+
+            throw new ApiError(err.type, err.message, res.status);
+          });
+        }
+      })
+      .then(blob =&gt; (window.URL || window.webkitURL).createObjectURL(blob));
   }
 }
 </code></pre>

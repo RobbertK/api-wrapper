@@ -384,7 +384,13 @@ export default class RequestParameters {
       throw new TypeError(`Expected value to be of type &quot;Object&quot; got &quot;${getTypeName(value)}&quot;`);
     }
 
-    for (const key of Object.keys(value)) {
+    // Normalization macro
+    const normalize = x =&gt; typeof x === &apos;number&apos; ? x.toString() : x;
+
+    for (let key of Object.keys(value)) {
+      key = normalize(key);
+      value[key] = normalize(value[key]);
+
       if (typeof key !== &apos;string&apos;) {
         throw new TypeError(`Expected key to be of type &quot;String&quot; got &quot;${getTypeName(key)}&quot;`);
       }
@@ -403,7 +409,7 @@ export default class RequestParameters {
       } else if (value[key] === null) {
         delete value[key];
       } else if (typeof value[key] !== &apos;string&apos;) {
-        throw new TypeError(`Expected query value to be of type &quot;String&quot; or &quot;Array&quot; got &quot;${getTypeName(key)}&quot;`);
+        throw new TypeError(`Expected query value to be of type &quot;String&quot; or &quot;Array&quot; got &quot;${getTypeName(value[key])}&quot;`);
       }
     }
 
