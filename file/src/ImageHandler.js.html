@@ -100,6 +100,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -142,6 +143,7 @@ import ApiError from &apos;./errors/ApiError&apos;;
 import ValidationError from &apos;./errors/ValidationError&apos;;
 import Maps4News from &apos;./Maps4News&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
+import {fetch} from &apos;./utils/requests&apos;;
 
 /**
  * Image resource handler
@@ -199,13 +201,24 @@ export default class ImageHandler {
    * });
    */
   download() {
-    return this._api.request(this.url, &apos;GET&apos;, {}, {}, &apos;arraybuffer&apos;)
-      .then(data =&gt; {
-        const blob = new Blob([data], {type: &apos;image&apos;});
+    const headers = {
+      Accept: &apos;application/json&apos;,
+      Authorization: this.api.auth.token.toString(),
+    };
 
-        // noinspection JSUnresolvedFunction
-        return (window.URL || window.webkitURL).createObjectURL(blob);
-      });
+    return fetch(this.url, {headers})
+      .then(res =&gt; {
+        if (res.ok) {
+          return res.blob();
+        } else {
+          return res.json().then(data =&gt; {
+            const err = data.error;
+
+            throw new ApiError(err.type, err.message, res.status);
+          });
+        }
+      })
+      .then(blob =&gt; (window.URL || window.webkitURL).createObjectURL(blob));
   }
 
   /**
