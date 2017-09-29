@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:0b875946c16f0d49aa35, chunkhash:aa26e3758edb8f6ee812, name:bundle, version:v1.1.24
+ * hash:a7aaf8b7f95e21400439, chunkhash:97d8d93187263a05f6d3, name:bundle, version:v1.1.26
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.26) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -5271,11 +5271,11 @@ var _DeletedState2 = _interopRequireDefault(_DeletedState);
 
 var _caseConverter = __webpack_require__(81);
 
+var _hash = __webpack_require__(79);
+
 var _reflection = __webpack_require__(11);
 
 var _requests = __webpack_require__(32);
-
-var _hash = __webpack_require__(79);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5455,6 +5455,7 @@ var RequestParameters = function () {
     value: function token() {
       return (0, _hash.hashObject)(this.toObject());
     }
+
     // endregion utils
 
   }, {
@@ -7647,15 +7648,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ResourceBase2 = __webpack_require__(20);
-
-var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
-
 var _ApiError = __webpack_require__(53);
 
 var _ApiError2 = _interopRequireDefault(_ApiError);
 
 var _requests = __webpack_require__(32);
+
+var _ResourceBase2 = __webpack_require__(20);
+
+var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7705,29 +7706,67 @@ var JobResult = function (_ResourceBase) {
   }
 
   _createClass(JobResult, [{
+    key: 'downloadArchive',
+
+
+    /**
+     * Get archive blob url
+     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
+     */
+    value: function downloadArchive() {
+      return this._download(this.archiveUrl);
+    }
+
+    /**
+     * Job result log url
+     * @returns {string} - log url
+     */
+
+  }, {
+    key: 'downloadLog',
+
+
+    /**
+     * Get log blob url
+     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
+     */
+    value: function downloadLog() {
+      return this._download(this.logUrl);
+    }
+
+    /**
+     * Job result preview url, usable in an `<img>` tag
+     * @returns {string} - Preview url
+     */
+
+  }, {
     key: 'downloadPreview',
 
 
     /**
-     * Get image base64 representation
+     * Get image blob url representation
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
      */
     value: function downloadPreview() {
+      return this._download(this.previewUrl);
+    }
+  }, {
+    key: '_download',
+    value: function _download(url) {
       var headers = {
         Accept: 'application/json',
         Authorization: this.api.auth.token.toString()
       };
 
-      return (0, _requests.fetch)(this.previewUrl, { headers: headers }).then(function (res) {
+      return (0, _requests.fetch)(url, { headers: headers }).then(function (res) {
         if (res.ok) {
           return res.blob();
-        } else {
-          return res.json().then(function (data) {
-            var err = data.error;
-
-            throw new _ApiError2.default(err.type, err.message, res.status);
-          });
         }
+        return res.json().then(function (data) {
+          var err = data.error;
+
+          throw new _ApiError2.default(err.type, err.message, res.status);
+        });
       }).then(function (blob) {
         return (window.URL || window.webkitURL).createObjectURL(blob);
       });
@@ -7735,7 +7774,7 @@ var JobResult = function (_ResourceBase) {
   }, {
     key: 'resourcePath',
     get: function get() {
-      return '/jobs/{job_id}/revisions/{job_revision_id}/result';
+      return '/jobs/{job_id}/revisions/{revision}/result';
     }
   }, {
     key: 'resourceName',
@@ -7753,12 +7792,11 @@ var JobResult = function (_ResourceBase) {
     get: function get() {
       return this.url + '/archive';
     }
-
-    /**
-     * Job result preview url, usable in an `<img>` tag
-     * @returns {string} - Preview url
-     */
-
+  }, {
+    key: 'logUrl',
+    get: function get() {
+      return this.url + '/log';
+    }
   }, {
     key: 'previewUrl',
     get: function get() {
@@ -11460,7 +11498,7 @@ var JobRevision = function (_CrudBase) {
     get: function get() {
       var data = {
         jobId: this.jobId,
-        jobRevisionId: this.id
+        revision: this.revision
       };
 
       return new _JobResult2.default(this.api, data);
@@ -13485,7 +13523,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.24";
+var version = exports.version = "v1.1.26";
 
 /**
  * Package license
@@ -14864,13 +14902,12 @@ var ImageHandler = function () {
       return (0, _requests.fetch)(this.url, { headers: headers }).then(function (res) {
         if (res.ok) {
           return res.blob();
-        } else {
-          return res.json().then(function (data) {
-            var err = data.error;
-
-            throw new _ApiError2.default(err.type, err.message, res.status);
-          });
         }
+        return res.json().then(function (data) {
+          var err = data.error;
+
+          throw new _ApiError2.default(err.type, err.message, res.status);
+        });
       }).then(function (blob) {
         return (window.URL || window.webkitURL).createObjectURL(blob);
       });

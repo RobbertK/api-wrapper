@@ -210,13 +210,13 @@ export default class ImageHandler {
       .then(res =&gt; {
         if (res.ok) {
           return res.blob();
-        } else {
-          return res.json().then(data =&gt; {
-            const err = data.error;
-
-            throw new ApiError(err.type, err.message, res.status);
-          });
         }
+        return res.json().then(data =&gt; {
+          const err = data.error;
+
+          throw new ApiError(err.type, err.message, res.status);
+        });
+
       })
       .then(blob =&gt; (window.URL || window.webkitURL).createObjectURL(blob));
   }

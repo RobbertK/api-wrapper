@@ -138,13 +138,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import ResourceBase from &apos;./base/ResourceBase&apos;;
 import ApiError from &apos;../errors/ApiError&apos;;
 import {fetch} from &apos;../utils/requests&apos;;
+import ResourceBase from &apos;./base/ResourceBase&apos;;
 
 export default class JobResult extends ResourceBase {
   get resourcePath() {
-    return &apos;/jobs/{job_id}/revisions/{job_revision_id}/result&apos;;
+    return &apos;/jobs/{job_id}/revisions/{revision}/result&apos;;
   }
 
   get resourceName() {
@@ -160,6 +160,30 @@ export default class JobResult extends ResourceBase {
   }
 
   /**
+   * Get archive blob url
+   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
+   */
+  downloadArchive() {
+    return this._download(this.archiveUrl);
+  }
+
+  /**
+   * Job result log url
+   * @returns {string} - log url
+   */
+  get logUrl() {
+    return `${this.url}/log`;
+  }
+
+  /**
+   * Get log blob url
+   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
+   */
+  downloadLog() {
+    return this._download(this.logUrl);
+  }
+
+  /**
    * Job result preview url, usable in an `&lt;img&gt;` tag
    * @returns {string} - Preview url
    */
@@ -168,26 +192,30 @@ export default class JobResult extends ResourceBase {
   }
 
   /**
-   * Get image base64 representation
+   * Get image blob url representation
    * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
    */
   downloadPreview() {
+    return this._download(this.previewUrl);
+  }
+
+  _download(url) {
     const headers = {
       Accept: &apos;application/json&apos;,
       Authorization: this.api.auth.token.toString(),
     };
 
-    return fetch(this.previewUrl, {headers})
+    return fetch(url, {headers})
       .then(res =&gt; {
         if (res.ok) {
           return res.blob();
-        } else {
-          return res.json().then(data =&gt; {
-            const err = data.error;
-
-            throw new ApiError(err.type, err.message, res.status);
-          });
         }
+        return res.json().then(data =&gt; {
+          const err = data.error;
+
+          throw new ApiError(err.type, err.message, res.status);
+        });
+
       })
       .then(blob =&gt; (window.URL || window.webkitURL).createObjectURL(blob));
   }
