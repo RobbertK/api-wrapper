@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:50c9cbd201b4bfa59a11, chunkhash:e5b2e2bea0c229164e70, name:bundle, version:v1.1.27
+ * hash:02a0995443be7a79348e, chunkhash:65cff615742c3a894f4d, name:bundle, version:v1.1.28
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.27) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.28) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -5453,7 +5453,12 @@ var RequestParameters = function () {
   }, {
     key: 'token',
     value: function token() {
-      return (0, _hash.hashObject)(this.toObject());
+      var data = this.toObject();
+
+      delete data['page'];
+      delete data['per_page'];
+
+      return (0, _hash.hashObject)(data);
     }
 
     // endregion utils
@@ -13526,7 +13531,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.27";
+var version = exports.version = "v1.1.28";
 
 /**
  * Package license

@@ -541,7 +541,12 @@ export default class RequestParameters {
   }
 
   token() {
-    return hashObject(this.toObject());
+    const data = this.toObject();
+
+    delete data[&apos;page&apos;];
+    delete data[&apos;per_page&apos;];
+
+    return hashObject(data);
   }
 
   // endregion utils
