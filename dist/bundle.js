@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:02a0995443be7a79348e, chunkhash:65cff615742c3a894f4d, name:bundle, version:v1.1.28
+ * hash:102f3e72e45c37d49dbc, chunkhash:fbb5e7c8f1e1906d50ac, name:bundle, version:v1.1.29
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.28) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.29) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -414,6 +414,14 @@ var CrudBase = function (_ResourceBase) {
       var _this3 = this;
 
       this._updateProperties();
+
+      // We'll just fake it, no need to bother the server
+      // with an empty request.
+      if (Object.keys(this._properties).length === 0) {
+        return new Promise(function (resolve) {
+          resolve(_this3);
+        });
+      }
 
       return this.api.request(this.url, 'PATCH', this._properties).then(function () {
         if (_this3.api.defaults.autoUpdateSharedCache) {
@@ -2193,7 +2201,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                */
 
-exports.makeRequest = makeRequest;
 exports.encodeQueryString = encodeQueryString;
 
 var _fetchPonyfill2 = __webpack_require__(182);
@@ -2209,17 +2216,11 @@ var _fetchPonyfill = (0, _fetchPonyfill3.default)({ Promise: Promise }),
     Headers = _fetchPonyfill.Headers;
 
 /**
- * Makes a HTTP request and returns a promise. Promise will fail/reject if the
- * status code isn't 2XX.
- * @param {string} url - Target url
- * @param {string} method - HTTP method
- * @param {string|object<string, string>} body - raw body content or object to be json encoded
- * @param {object<string, string>} headers - headers
- * @param {string} responseType - XMLHttpRequest response type
+ * Encodes an object to a http query string with support for recursion
+ * @param {object<string, *>} paramsObject - data to be encoded
+ * @returns {string} - encoded http query string
  *
- * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx
  * @protected
- * @todo Better nodejs compatibility, maybe a requests library
  */
 
 
@@ -2227,94 +2228,6 @@ exports.fetch = fetch;
 exports.Request = Request;
 exports.Response = Response;
 exports.Headers = Headers;
-function makeRequest(url) {
-  var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
-  var body = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-  var responseType = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
-
-  return new Promise(function (resolve, reject) {
-    method = method.toUpperCase();
-
-    var request = new XMLHttpRequest();
-
-    request.responseType = responseType;
-
-    function hasHeader(h) {
-      return Object.keys(headers).filter(function (x) {
-        return x.toLowerCase() === h.toLowerCase();
-      }).length > 0;
-    }
-
-    request.open(method, url, true);
-
-    // Automatically detect possible content-type header
-    if ((typeof body === 'undefined' ? 'undefined' : _typeof(body)) === 'object') {
-      body = JSON.stringify(body);
-
-      if (!hasHeader('Content-Type')) {
-        headers['Content-Type'] = 'application/json';
-      }
-    } else if (body && !hasHeader('Content-Type')) {
-      headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    }
-
-    if (!hasHeader('Accept')) {
-      headers['Accept'] = 'application/json';
-    }
-
-    // Apply headers
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = Object.keys(headers)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var key = _step.value;
-
-        request.setRequestHeader(key, headers[key]);
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-
-    request.onreadystatechange = function () {
-      // State 4 === Done
-      if (request.readyState === XMLHttpRequest.DONE) {
-        if (request.status >= 200 && request.status < 300) {
-          resolve(request);
-        } else {
-          reject(request);
-        }
-      }
-    };
-
-    if (body && method !== 'GET') {
-      request.send(body);
-    } else {
-      request.send();
-    }
-  });
-}
-
-/**
- * Encodes an object to a http query string with support for recursion
- * @param {object<string, *>} paramsObject - data to be encoded
- * @returns {string} - encoded http query string
- *
- * @protected
- */
 function encodeQueryString(paramsObject) {
   return _encodeQueryString(paramsObject).replace('&&', '&');
 }
@@ -3361,6 +3274,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _crud = __webpack_require__(122);
@@ -3511,8 +3426,7 @@ var Maps4News = function () {
      * @param {string|object} data - Raw string or object. If an object is passed it will be encoded
      *                               and the content-type will be set to `application/json`
      * @param {object} headers - Any headers that should be set for the request
-     * @param {string} responseType - The XmlHttpRequest type
-     * @param {boolean} raw - When set to true the promise will resolve with the request object
+     * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}
      * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}
      */
 
@@ -3521,12 +3435,11 @@ var Maps4News = function () {
     value: function request(url) {
       var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
       var _this2 = this;
 
-      var responseType = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
-      var raw = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+      var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+      var bundleResponse = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
 
       if (!url.startsWith('http')) {
         // Removes '/' at the start of the string (if any)
@@ -3536,39 +3449,85 @@ var Maps4News = function () {
         url = this._host + '/' + this.version + '/' + url;
       }
 
-      if (this.authenticated) {
-        headers.Authorization = this.auth.token.toString();
+      method = method.toUpperCase();
+
+      if (!(headers instanceof _requests.Headers)) {
+        headers = new _requests.Headers(headers);
       }
 
-      return new Promise(function (resolve, reject) {
-        (0, _requests.makeRequest)(url, method, data, headers, responseType).then(function (request) {
-          if (request.getResponseHeader('Content-Type') !== 'application/json') {
-            resolve(raw ? request : request.response);
-          } else {
-            var response = JSON.parse(request.responseText);
+      if (this.authenticated) {
+        headers.set('Authorization', this.auth.token.toString());
+      }
 
-            if (!response.success) {
-              reject(_this2._parseErrorResponse(request, response));
-            } else {
-              // Return an empty object if no data has been sent
-              // instead of returning undefined.
-              resolve(raw ? request : response.data || {});
-            }
+      // Automatically detect possible content-type header
+      if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object' && !(data instanceof FormData)) {
+        data = JSON.stringify(data);
+
+        if (!headers.has('Content-Type')) {
+          headers.set('Content-Type', 'application/json');
+        }
+      } else if (data && !headers.has('Content-Type')) {
+        headers.set('Content-Type', 'application/x-www-form-urlencoded');
+      }
+
+      if (!headers.has('Accept')) {
+        headers.set('Accept', 'application/json');
+      }
+
+      if (['GET', 'HEAD'].includes(method)) {
+        data = undefined;
+      }
+
+      return (0, _requests.fetch)(url, {
+        headers: headers, method: method,
+        body: data,
+        redirect: 'follow',
+        mode: 'cors'
+      }).then(function (response) {
+        var respond = function respond(data) {
+          return !bundleResponse ? data : { response: response, data: data };
+        };
+
+        // Check if there is an error response and parse it
+        if (!response.ok) {
+          return response.json().then(function (data) {
+            throw _this2._parseErrorResponse(data, response.status);
+          });
+        }
+
+        if (response.headers.has('Content-Type')) {
+          var contentType = response.headers.get('Content-Type').toLowerCase();
+
+          // Any type of text
+          if (contentType.startsWith('text/')) {
+            return response.text().then(respond);
           }
-        }).catch(function (request) {
-          var response = JSON.parse(request.responseText);
 
-          reject(_this2._parseErrorResponse(request, response));
-        });
+          // Response data
+          if (contentType === 'application/json') {
+            return response.json().then(function (x) {
+              // Just in case, code path should in theory never be reached
+              if (typeof x.success === 'boolean' && !x.success) {
+                _this2._parseErrorResponse(data, response.status);
+              }
+
+              return x;
+            }).then(function (x) {
+              return x.data ? x.data : {};
+            }).then(respond);
+          }
+        }
+
+        return response.blob().then(respond);
       });
     }
   }, {
     key: '_parseErrorResponse',
-    value: function _parseErrorResponse(request, response) {
-      var err = response.error;
+    value: function _parseErrorResponse(data, status) {
+      var err = data.error;
 
       if (!err['validation_errors']) {
-        var apiError = new _ApiError2.default(err.type, err.message, request.status);
+        var apiError = new _ApiError2.default(err.type, err.message, status);
 
         if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {
           console.warn('Lost Maps4News session, please re-authenticate');
@@ -3578,7 +3537,8 @@ var Maps4News = function () {
 
         return apiError;
       }
-      return new _ValidationError2.default(err.type, err.message, request.status, err['validation_errors']);
+
+      return new _ValidationError2.default(err.type, err.message, status, err['validation_errors']);
     }
 
     /**
@@ -3643,24 +3603,8 @@ var Maps4News = function () {
      */
 
   }, {
-    key: 'testXhr',
+    key: 'logout',
 
-
-    /**
-     * Test if XHR requests can be made
-     * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx
-     */
-    value: function testXhr() {
-      var _this4 = this;
-
-      return new Promise(function (resolve, reject) {
-        (0, _requests.makeRequest)(_this4.host + '/favicon.ico').then(function (x) {
-          return resolve(x.status);
-        }).catch(function (x) {
-          return reject(x.status);
-        });
-      });
-    }
 
     /**
      * Forget the current session
@@ -3668,9 +3612,6 @@ var Maps4News = function () {
      * cookies or localStorage.
      * @returns {void}
      */
-
-  }, {
-    key: 'logout',
     value: function logout() {
       this.auth.forget();
     }
@@ -9356,8 +9297,8 @@ var PaginatedResourceListing = function () {
   }
 
   /**
-   * Pagination header prefix
-   * @returns {String} - Header prefix
+   * Get api instance
+   * @returns {Maps4News} - Api instance
    */
 
 
@@ -9385,15 +9326,20 @@ var PaginatedResourceListing = function () {
       var glue = this.route.includes('?') ? '&' : '?';
       var url = this.route + glue + query.encode();
 
-      return this.api.request(url, 'GET', {}, {}, '', true).then(function (request) {
-        var response = JSON.parse(request.responseText);
-        var rowCount = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Total')) || response.data.length;
-        var totalPages = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Pages')) || 1;
+      return this.api.request(url, 'GET', {}, {}, true).then(function (output) {
+        var headers = output.response.headers;
+
+        var getOrDefault = function getOrDefault(x, y) {
+          return headers.has(x) ? headers.get(x) : y;
+        };
+
+        var rowCount = Number(getOrDefault('X-Paginate-Total', output.data.length));
+        var totalPages = Number(getOrDefault('X-Paginate-Pages', 1));
         var parameters = _this.parameters.copy();
 
         parameters.page = page;
 
-        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, parameters, totalPages, rowCount, response.data.map(function (row) {
+        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, parameters, totalPages, rowCount, output.data.map(function (row) {
           return new _this._Target(_this.api, row);
         }));
       });
@@ -9442,12 +9388,6 @@ var PaginatedResourceListing = function () {
     }
   }, {
     key: 'api',
-
-
-    /**
-     * Get api instance
-     * @returns {Maps4News} - Api instance
-     */
     get: function get() {
       return this._api;
     }
@@ -9662,11 +9602,6 @@ var PaginatedResourceListing = function () {
     key: 'cacheToken',
     get: function get() {
       return this.parameters.token();
-    }
-  }], [{
-    key: 'headerPrefix',
-    get: function get() {
-      return 'X-Paginate';
     }
   }]);
 
@@ -13531,7 +13466,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.28";
+var version = exports.version = "v1.1.29";
 
 /**
  * Package license
@@ -14892,7 +14827,6 @@ var ImageHandler = function () {
     /**
      * Get image base64 representation
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
-     * @todo nodejs compatibility
      * @example
      * layer.imageHandler.download().then(url => {
      *   $('img').src = url;
@@ -14902,21 +14836,7 @@ var ImageHandler = function () {
   }, {
     key: 'download',
     value: function download() {
-      var headers = {
-        Accept: 'application/json',
-        Authorization: this.api.auth.token.toString()
-      };
-
-      return (0, _requests.fetch)(this.url, { headers: headers }).then(function (res) {
-        if (res.ok) {
-          return res.blob();
-        }
-        return res.json().then(function (data) {
-          var err = data.error;
-
-          throw new _ApiError2.default(err.type, err.message, res.status);
-        });
-      }).then(function (blob) {
+      return this.api.request(this.url).then(function (blob) {
         return (window.URL || window.webkitURL).createObjectURL(blob);
       });
     }
@@ -14925,57 +14845,20 @@ var ImageHandler = function () {
      * Upload new image
      * @param {File} image - Image file
      * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
-     * @todo refactor
      */
 
   }, {
     key: 'upload',
     value: function upload(image) {
-      var _this = this;
-
       if (!(0, _reflection.isParentOf)(File, image)) {
         throw new TypeError('Expected image to be of type File');
       }
 
-      return new Promise(function (resolve, reject) {
-        var formData = new FormData();
+      var formData = new FormData();
 
-        formData.append('image', image);
+      formData.append('image', image);
 
-        var request = new XMLHttpRequest();
-
-        request.open('POST', _this.url, true);
-        request.setRequestHeader('Authorization', _this.api.auth.token.toString());
-        request.setRequestHeader('Accept', 'application/json');
-
-        request.onreadystatechange = function () {
-          if (request.readyState !== XMLHttpRequest.DONE) {
-            return;
-          }
-
-          try {
-            var response = JSON.parse(request.responseText);
-
-            if (!response.success) {
-              var err = response.error;
-
-              if (!err.validation_errors) {
-                reject(new _ApiError2.default(err.type, err.message, request.status));
-              } else {
-                reject(new _ValidationError2.default(err.type, err.message, request.status, err.validation_errors));
-              }
-            } else {
-              // Return an empty object if no data has been sent
-              // instead of returning undefined.
-              resolve(response.data || {});
-            }
-          } catch (ignore) {
-            reject(new _ApiError2.default('ResponseException', 'The server returned an invalid response', request.status));
-          }
-        };
-
-        request.send(formData);
-      });
+      return this.api.request(this.url, 'POST', formData);
     }
   }, {
     key: 'api',
@@ -21035,6 +20918,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _OAuthError = __webpack_require__(61);
+
+var _OAuthError2 = _interopRequireDefault(_OAuthError);
+
+var _node = __webpack_require__(63);
+
+var _requests = __webpack_require__(32);
+
 var _OAuth2 = __webpack_require__(54);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
@@ -21042,14 +20933,6 @@ var _OAuth3 = _interopRequireDefault(_OAuth2);
 var _OAuthToken = __webpack_require__(62);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
-
-var _requests = __webpack_require__(32);
-
-var _OAuthError = __webpack_require__(61);
-
-var _OAuthError2 = _interopRequireDefault(_OAuthError);
-
-var _node = __webpack_require__(63);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21153,18 +21036,23 @@ var PasswordFlow = function (_OAuth) {
         'scope': this.scopes.join(' ')
       };
 
-      return new Promise(function (resolve, reject) {
-        (0, _requests.makeRequest)(url, 'POST', (0, _requests.encodeQueryString)(query)).then(function (request) {
-          var data = JSON.parse(request.responseText);
+      var init = {
+        method: 'POST',
+        body: (0, _requests.encodeQueryString)(query),
+        mode: 'cors'
+      };
 
+      (0, _requests.fetch)(url, init).then(function (response) {
+        var data = response.json();
+
+        if (data.success) {
           _this2.token = _OAuthToken2.default.fromResponseObject(data);
           _this2.token.scopes = _this2.scopes;
-          resolve(_this2.token);
-        }).catch(function (request) {
-          var data = JSON.parse(request.responseText);
 
-          reject(new _OAuthError2.default(data['error'], data['message']));
-        });
+          return _this2.token;
+        } else {
+          throw new _OAuthError2.default(data.error, data.message);
+        }
       });
     }
   }, {

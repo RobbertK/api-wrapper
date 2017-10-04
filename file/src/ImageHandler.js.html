@@ -99,7 +99,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
 </ul>
 </div>
@@ -194,30 +193,14 @@ export default class ImageHandler {
   /**
    * Get image base64 representation
    * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
-   * @todo nodejs compatibility
    * @example
    * layer.imageHandler.download().then(url =&gt; {
    *   $(&apos;img&apos;).src = url;
    * });
    */
   download() {
-    const headers = {
-      Accept: &apos;application/json&apos;,
-      Authorization: this.api.auth.token.toString(),
-    };
-
-    return fetch(this.url, {headers})
-      .then(res =&gt; {
-        if (res.ok) {
-          return res.blob();
-        }
-        return res.json().then(data =&gt; {
-          const err = data.error;
-
-          throw new ApiError(err.type, err.message, res.status);
-        });
-
-      })
+    return this.api
+      .request(this.url)
       .then(blob =&gt; (window.URL || window.webkitURL).createObjectURL(blob));
   }
 
@@ -225,52 +208,17 @@ export default class ImageHandler {
    * Upload new image
    * @param {File} image - Image file
    * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
-   * @todo refactor
    */
   upload(image) {
     if (!isParentOf(File, image)) {
       throw new TypeError(&apos;Expected image to be of type File&apos;);
     }
 
-    return new Promise((resolve, reject) =&gt; {
-      const formData = new FormData();
+    const formData = new FormData();
 
-      formData.append(&apos;image&apos;, image);
+    formData.append(&apos;image&apos;, image);
 
-      const request = new XMLHttpRequest();
-
-      request.open(&apos;POST&apos;, this.url, true);
-      request.setRequestHeader(&apos;Authorization&apos;, this.api.auth.token.toString());
-      request.setRequestHeader(&apos;Accept&apos;, &apos;application/json&apos;);
-
-      request.onreadystatechange = () =&gt; {
-        if (request.readyState !== XMLHttpRequest.DONE) {
-          return;
-        }
-
-        try {
-          const response = JSON.parse(request.responseText);
-
-          if (!response.success) {
-            const err = response.error;
-
-            if (!err.validation_errors) {
-              reject(new ApiError(err.type, err.message, request.status));
-            } else {
-              reject(new ValidationError(err.type, err.message, request.status, err.validation_errors));
-            }
-          } else {
-            // Return an empty object if no data has been sent
-            // instead of returning undefined.
-            resolve(response.data || {});
-          }
-        } catch (ignore) {
-          reject(new ApiError(&apos;ResponseException&apos;, &apos;The server returned an invalid response&apos;, request.status));
-        }
-      };
-
-      request.send(formData);
-    });
+    return this.api.request(this.url, &apos;POST&apos;, formData);
   }
 }
 </code></pre>

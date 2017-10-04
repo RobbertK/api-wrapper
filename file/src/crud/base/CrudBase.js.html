@@ -99,7 +99,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
 </ul>
 </div>
@@ -221,6 +220,14 @@ export default class CrudBase extends ResourceBase {
    */
   _update() {
     this._updateProperties();
+
+    // We&apos;ll just fake it, no need to bother the server
+    // with an empty request.
+    if (Object.keys(this._properties).length === 0) {
+      return new Promise(resolve =&gt; {
+        resolve(this);
+      });
+    }
 
     return this.api
       .request(this.url, &apos;PATCH&apos;, this._properties)

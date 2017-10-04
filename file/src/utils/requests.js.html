@@ -99,7 +99,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
 </ul>
 </div>
@@ -140,74 +139,6 @@
 
 import fetchPonyfill from &apos;fetch-ponyfill&apos;;
 export const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});
-
-/**
- * Makes a HTTP request and returns a promise. Promise will fail/reject if the
- * status code isn&apos;t 2XX.
- * @param {string} url - Target url
- * @param {string} method - HTTP method
- * @param {string|object&lt;string, string&gt;} body - raw body content or object to be json encoded
- * @param {object&lt;string, string&gt;} headers - headers
- * @param {string} responseType - XMLHttpRequest response type
- *
- * @returns {Promise} - resolves/rejects with {@link XMLHttpRequest} object. Rejects if status code != 2xx
- * @protected
- * @todo Better nodejs compatibility, maybe a requests library
- */
-export function makeRequest(url, method = &apos;GET&apos;, body = &apos;&apos;, headers = {}, responseType = &apos;&apos;) {
-  return new Promise((resolve, reject) =&gt; {
-    method = method.toUpperCase();
-
-    const request = new XMLHttpRequest();
-
-    request.responseType = responseType;
-
-    function hasHeader(h) {
-      return Object.keys(headers)
-        .filter(x =&gt; x.toLowerCase() === h.toLowerCase())
-        .length &gt; 0;
-    }
-
-    request.open(method, url, true);
-
-    // Automatically detect possible content-type header
-    if (typeof body === &apos;object&apos;) {
-      body = JSON.stringify(body);
-
-      if (!hasHeader(&apos;Content-Type&apos;)) {
-        headers[&apos;Content-Type&apos;] = &apos;application/json&apos;;
-      }
-    } else if (body &amp;&amp; !hasHeader(&apos;Content-Type&apos;)) {
-      headers[&apos;Content-Type&apos;] = &apos;application/x-www-form-urlencoded&apos;;
-    }
-
-    if (!hasHeader(&apos;Accept&apos;)) {
-      headers[&apos;Accept&apos;] = &apos;application/json&apos;;
-    }
-
-    // Apply headers
-    for (const key of Object.keys(headers)) {
-      request.setRequestHeader(key, headers[key]);
-    }
-
-    request.onreadystatechange = () =&gt; {
-      // State 4 === Done
-      if (request.readyState === XMLHttpRequest.DONE) {
-        if (request.status &gt;= 200 &amp;&amp; request.status &lt; 300) {
-          resolve(request);
-        } else {
-          reject(request);
-        }
-      }
-    };
-
-    if (body &amp;&amp; method !== &apos;GET&apos;) {
-      request.send(body);
-    } else {
-      request.send();
-    }
-  });
-}
 
 /**
  * Encodes an object to a http query string with support for recursion

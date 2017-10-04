@@ -1,7 +1,7 @@
 {
-  "coverage": "77.91%",
-  "expectCount": 412,
-  "actualCount": 321,
+  "coverage": "77.75%",
+  "expectCount": 409,
+  "actualCount": 318,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 5,
@@ -215,8 +215,8 @@
       ]
     },
     "src/Maps4News.js": {
-      "expectCount": 42,
-      "actualCount": 42,
+      "expectCount": 41,
+      "actualCount": 41,
       "undocumentLines": []
     },
     "src/crud/Mapstyle.js": {
@@ -289,8 +289,8 @@
       ]
     },
     "src/PaginatedResourceListing.js": {
-      "expectCount": 26,
-      "actualCount": 26,
+      "expectCount": 25,
+      "actualCount": 25,
       "undocumentLines": []
     },
     "src/PaginatedResourceWrapper.js": {
@@ -302,7 +302,7 @@
       "expectCount": 12,
       "actualCount": 11,
       "undocumentLines": [
-        152
+        158
       ]
     },
     "src/crud/Permission.js": {
@@ -432,8 +432,8 @@
       ]
     },
     "src/utils/requests.js": {
-      "expectCount": 3,
-      "actualCount": 2,
+      "expectCount": 2,
+      "actualCount": 1,
       "undocumentLines": [
         34
       ]

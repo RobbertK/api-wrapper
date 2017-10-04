@@ -99,7 +99,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
 </ul>
 </div>
@@ -182,7 +181,7 @@ import ResourceCache from &apos;./ResourceCache&apos;;
 import ResourceProxy from &apos;./ResourceProxy&apos;;
 import {fnv32a} from &apos;./utils/hash&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
-import {makeRequest} from &apos;./utils/requests&apos;;
+import {fetch, Headers} from &apos;./utils/requests&apos;;
 
 /**
  * Base API class
@@ -294,49 +293,93 @@ export default class Maps4News {
    * @param {string|object} data - Raw string or object. If an object is passed it will be encoded
    *                               and the content-type will be set to `application/json`
    * @param {object} headers - Any headers that should be set for the request
-   * @param {string} responseType - The XmlHttpRequest type
-   * @param {boolean} raw - When set to true the promise will resolve with the request object
+   * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}
    * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}
    */
-  request(url, method = &apos;GET&apos;, data = {}, headers = {}, responseType = &apos;&apos;, raw = false) {
+  request(url, method = &apos;GET&apos;, data = {}, headers = {}, bundleResponse = false) {
     if (!url.startsWith(&apos;http&apos;)) {
       // Removes &apos;/&apos; at the start of the string (if any)
       url = url.replace(/(^\/+)/, () =&gt; &apos;&apos;);
       url = `${this._host}/${this.version}/${url}`;
     }
 
-    if (this.authenticated) {
-      headers.Authorization = this.auth.token.toString();
+    method = method.toUpperCase();
+
+    if (!(headers instanceof Headers)) {
+      headers = new Headers(headers);
     }
 
-    return new Promise((resolve, reject) =&gt; {
-      makeRequest(url, method, data, headers, responseType).then(request =&gt; {
-        if (request.getResponseHeader(&apos;Content-Type&apos;) !== &apos;application/json&apos;) {
-          resolve(raw ? request : request.response);
-        } else {
-          const response = JSON.parse(request.responseText);
+    if (this.authenticated) {
+      headers.set(&apos;Authorization&apos;, this.auth.token.toString());
+    }
 
-          if (!response.success) {
-            reject(this._parseErrorResponse(request, response));
-          } else {
-            // Return an empty object if no data has been sent
-            // instead of returning undefined.
-            resolve(raw ? request : response.data || {});
-          }
+    // Automatically detect possible content-type header
+    if (typeof data === &apos;object&apos; &amp;&amp; !(data instanceof FormData)) {
+      data = JSON.stringify(data);
+
+      if (!headers.has(&apos;Content-Type&apos;)) {
+        headers.set(&apos;Content-Type&apos;, &apos;application/json&apos;);
+      }
+    } else if (data &amp;&amp; !headers.has(&apos;Content-Type&apos;)) {
+      headers.set(&apos;Content-Type&apos;, &apos;application/x-www-form-urlencoded&apos;);
+    }
+
+    if (!headers.has(&apos;Accept&apos;)) {
+      headers.set(&apos;Accept&apos;, &apos;application/json&apos;);
+    }
+
+    if ([&apos;GET&apos;, &apos;HEAD&apos;].includes(method)) {
+      data = undefined;
+    }
+
+    return fetch(url, {
+      headers, method,
+      body: data,
+      redirect: &apos;follow&apos;,
+      mode: &apos;cors&apos;,
+    }).then(response =&gt; {
+      const respond = data =&gt; !bundleResponse ? data : {response, data};
+
+      // Check if there is an error response and parse it
+      if (!response.ok) {
+        return response.json().then(data =&gt; {
+          throw this._parseErrorResponse(data, response.status);
+        });
+      }
+
+      if (response.headers.has(&apos;Content-Type&apos;)) {
+        const contentType = response.headers.get(&apos;Content-Type&apos;).toLowerCase();
+
+        // Any type of text
+        if (contentType.startsWith(&apos;text/&apos;)) {
+          return response.text().then(respond);
         }
-      }).catch(request =&gt; {
-        const response = JSON.parse(request.responseText);
 
-        reject(this._parseErrorResponse(request, response));
-      });
+        // Response data
+        if (contentType === &apos;application/json&apos;) {
+          return response.json()
+            .then(x =&gt; {
+              // Just in case, code path should in theory never be reached
+              if (typeof x.success === &apos;boolean&apos; &amp;&amp; !x.success) {
+                this._parseErrorResponse(data, response.status);
+              }
+
+              return x;
+            })
+            .then(x =&gt; x.data ? x.data : {})
+            .then(respond);
+        }
+      }
+
+      return response.blob().then(respond);
     });
   }
 
-  _parseErrorResponse(request, response) {
-    const err = response.error;
+  _parseErrorResponse(data, status) {
+    const err = data.error;
 
     if (!err[&apos;validation_errors&apos;]) {
-      const apiError = new ApiError(err.type, err.message, request.status);
+      const apiError = new ApiError(err.type, err.message, status);
 
       if (apiError.type === &apos;AuthenticationException&apos; &amp;&amp; apiError.message.startsWith(&apos;Unauthenticated&apos;) &amp;&amp; apiError.code === 401) {
         console.warn(&apos;Lost Maps4News session, please re-authenticate&apos;);
@@ -346,8 +389,8 @@ export default class Maps4News {
 
       return apiError;
     }
-    return new ValidationError(err.type, err.message, request.status, err[&apos;validation_errors&apos;]);
 
+    return new ValidationError(err.type, err.message, status, err[&apos;validation_errors&apos;]);
   }
 
   /**
@@ -629,18 +672,6 @@ export default class Maps4News {
    */
   get users() {
     return this.static(User);
-  }
-
-  /**
-   * Test if XHR requests can be made
-   * @returns {Promise} - resolves/rejects with the HTTP response status code. Rejects if status code != 2xx
-   */
-  testXhr() {
-    return new Promise((resolve, reject) =&gt; {
-      makeRequest(`${this.host}/favicon.ico`)
-        .then(x =&gt; resolve(x.status))
-        .catch(x =&gt; reject(x.status));
-    });
   }
 
   /**

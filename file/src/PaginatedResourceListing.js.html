@@ -99,7 +99,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeRequest">makeRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
 </ul>
 </div>
@@ -174,14 +173,6 @@ export default class PaginatedResourceListing {
     this._pageCount = pageCount;
     this._rows = rowCount;
     this._data = data;
-  }
-
-  /**
-   * Pagination header prefix
-   * @returns {String} - Header prefix
-   */
-  static get headerPrefix() {
-    return &apos;X-Paginate&apos;;
   }
 
   /**
@@ -352,11 +343,14 @@ export default class PaginatedResourceListing {
     const glue = this.route.includes(&apos;?&apos;) ? &apos;&amp;&apos; : &apos;?&apos;;
     const url = this.route + glue + query.encode();
 
-    return this.api.request(url, &apos;GET&apos;, {}, {}, &apos;&apos;, true)
-      .then(request =&gt; {
-        const response = JSON.parse(request.responseText);
-        const rowCount = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Total`)) || response.data.length;
-        const totalPages = Number(request.getResponseHeader(`${PaginatedResourceListing.headerPrefix}-Pages`)) || 1;
+    return this.api.request(url, &apos;GET&apos;, {}, {}, true)
+      .then(output =&gt; {
+        const headers = output.response.headers;
+
+        const getOrDefault = (x, y) =&gt; headers.has(x) ? headers.get(x) : y;
+
+        const rowCount = Number(getOrDefault(&apos;X-Paginate-Total&apos;, output.data.length));
+        const totalPages = Number(getOrDefault(&apos;X-Paginate-Pages&apos;, 1));
         const parameters = this.parameters.copy();
 
         parameters.page = page;
@@ -364,7 +358,7 @@ export default class PaginatedResourceListing {
         return new PaginatedResourceListing(
           this.api, this.route, this._Target,
           parameters, totalPages, rowCount,
-          response.data.map(row =&gt; new this._Target(this.api, row)),
+          output.data.map(row =&gt; new this._Target(this.api, row)),
         );
       });
   }
