@@ -99,6 +99,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormData">FormData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
 </ul>
 </div>
@@ -138,6 +139,10 @@
  */
 
 import fetchPonyfill from &apos;fetch-ponyfill&apos;;
+import {isNode} from &apos;./node&apos;;
+
+// eslint-disable-next-line no-eval
+export const FormData = !isNode() ? window.FormData : require(&apos;form-data&apos;);
 export const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});
 
 /**
@@ -163,6 +168,7 @@ export function encodeQueryString(paramsObject) {
 function _encodeQueryString(paramsObject, _basePrefix = []) {
   return Object
     .keys(paramsObject)
+    .filter(key =&gt; paramsObject[key] !== null)
     .sort()
     .map(key =&gt; {
       const prefix = _basePrefix.slice(0);

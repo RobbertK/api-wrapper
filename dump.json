@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "src/ImageHandler.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ResourceBase from './crud/base/ResourceBase';\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport Maps4News from './Maps4News';\nimport {isParentOf} from './utils/reflection';\nimport {fetch} from './utils/requests';\n\n/**\n * Image resource handler\n * @protected\n */\nexport default class ImageHandler {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {ResourceBase} target - Instance of target item\n   */\n  constructor(api, target) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    if (!isParentOf(ResourceBase, target)) {\n      throw new TypeError('Expected target to be of type ResourceBase');\n    }\n\n    this._api = api;\n    this._target = target;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource url, can be used in an image tag\n   * @returns {string} - Resource url\n   */\n  get url() {\n    return `${this._target.url}/image`;\n  }\n\n  /**\n   * Delete image\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this._api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Get image base64 representation\n   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}\n   * @example\n   * layer.imageHandler.download().then(url => {\n   *   $('img').src = url;\n   * });\n   */\n  download() {\n    return this.api\n      .request(this.url)\n      .then(blob => (window.URL || window.webkitURL).createObjectURL(blob));\n  }\n\n  /**\n   * Upload new image\n   * @param {File} image - Image file\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  upload(image) {\n    if (!isParentOf(File, image)) {\n      throw new TypeError('Expected image to be of type File');\n    }\n\n    const formData = new FormData();\n\n    formData.append('image', image);\n\n    return this.api.request(this.url, 'POST', formData);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ResourceBase from './crud/base/ResourceBase';\nimport Maps4News from './Maps4News';\nimport {isParentOf} from './utils/reflection';\nimport {FormData} from './utils/requests';\n\n/**\n * Image resource handler\n * @protected\n */\nexport default class ImageHandler {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {ResourceBase} target - Instance of target item\n   */\n  constructor(api, target) {\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    if (!isParentOf(ResourceBase, target)) {\n      throw new TypeError('Expected target to be of type ResourceBase');\n    }\n\n    this._api = api;\n    this._target = target;\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource url, can be used in an image tag\n   * @returns {string} - Resource url\n   */\n  get url() {\n    return `${this._target.url}/image`;\n  }\n\n  /**\n   * Delete image\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  delete() {\n    return this._api.request(this.url, 'DELETE');\n  }\n\n  /**\n   * Get image base64 representation\n   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}\n   * @example\n   * layer.imageHandler.download().then(url => {\n   *   $('img').src = url;\n   * });\n   */\n  download() {\n    return this.api\n      .request(this.url)\n      .then(blob => (window.URL || window.webkitURL).createObjectURL(blob));\n  }\n\n  /**\n   * Upload new image\n   * @param {File} image - Image file\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}\n   */\n  upload(image) {\n    if (!isParentOf(File, image)) {\n      throw new TypeError('Expected image to be of type File');\n    }\n\n    const formData = new FormData();\n\n    formData.append('image', image);\n\n    return this.api.request(this.url, 'POST', formData);\n  }\n}\n",
     "static": true,
     "longname": "src/ImageHandler.js",
     "access": null,
@@ -22,7 +22,7 @@
     "importPath": "@mapcreator/maps4news/src/ImageHandler.js",
     "importStyle": "ImageHandler",
     "description": "Image resource handler",
-    "lineNumber": 44,
+    "lineNumber": 42,
     "interface": false
   },
   {
@@ -36,7 +36,7 @@
     "longname": "src/ImageHandler.js~ImageHandler#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 49,
+    "lineNumber": 47,
     "params": [
       {
         "nullable": null,
@@ -69,7 +69,7 @@
     "longname": "src/ImageHandler.js~ImageHandler#_api",
     "access": null,
     "description": null,
-    "lineNumber": 58,
+    "lineNumber": 56,
     "undocument": true,
     "unknown": [
       {
@@ -92,7 +92,7 @@
     "longname": "src/ImageHandler.js~ImageHandler#_target",
     "access": null,
     "description": null,
-    "lineNumber": 59,
+    "lineNumber": 57,
     "undocument": true,
     "unknown": [
       {
@@ -117,7 +117,7 @@
     "longname": "src/ImageHandler.js~ImageHandler#api",
     "access": null,
     "description": "Get api instance",
-    "lineNumber": 66,
+    "lineNumber": 64,
     "unknown": [
       {
         "tagName": "@returns",
@@ -149,7 +149,7 @@
     "longname": "src/ImageHandler.js~ImageHandler#url",
     "access": null,
     "description": "Resource url, can be used in an image tag",
-    "lineNumber": 74,
+    "lineNumber": 72,
     "unknown": [
       {
         "tagName": "@returns",
@@ -181,7 +181,7 @@
     "longname": "src/ImageHandler.js~ImageHandler#delete",
     "access": null,
     "description": "Delete image",
-    "lineNumber": 82,
+    "lineNumber": 80,
     "unknown": [
       {
         "tagName": "@returns",
@@ -212,7 +212,7 @@
     "examples": [
       "layer.imageHandler.download().then(url => {\n  $('img').src = url;\n});"
     ],
-    "lineNumber": 94,
+    "lineNumber": 92,
     "unknown": [
       {
         "tagName": "@returns",
@@ -240,7 +240,7 @@
     "longname": "src/ImageHandler.js~ImageHandler#upload",
     "access": null,
     "description": "Upload new image",
-    "lineNumber": 105,
+    "lineNumber": 103,
     "unknown": [
       {
         "tagName": "@returns",
@@ -272,7 +272,7 @@
     "__docId__": 10,
     "kind": "file",
     "name": "src/Maps4News.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n// Polyfill for terrible browsers (looking at you IE)\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\nimport {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  SvgSetType,\n  User,\n} from './crud';\nimport ResourceBase from './crud/base/ResourceBase';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {fnv32a} from './utils/hash';\nimport {isParentOf} from './utils/reflection';\nimport {fetch, Headers} from './utils/requests';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => str.toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => {\n      this.auth.token.save();\n\n      return this;\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, bundleResponse = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    method = method.toUpperCase();\n\n    if (!(headers instanceof Headers)) {\n      headers = new Headers(headers);\n    }\n\n    if (this.authenticated) {\n      headers.set('Authorization', this.auth.token.toString());\n    }\n\n    // Automatically detect possible content-type header\n    if (typeof data === 'object' && !(data instanceof FormData)) {\n      data = JSON.stringify(data);\n\n      if (!headers.has('Content-Type')) {\n        headers.set('Content-Type', 'application/json');\n      }\n    } else if (data && !headers.has('Content-Type')) {\n      headers.set('Content-Type', 'application/x-www-form-urlencoded');\n    }\n\n    if (!headers.has('Accept')) {\n      headers.set('Accept', 'application/json');\n    }\n\n    if (['GET', 'HEAD'].includes(method)) {\n      data = undefined;\n    }\n\n    return fetch(url, {\n      headers, method,\n      body: data,\n      redirect: 'follow',\n      mode: 'cors',\n    }).then(response => {\n      const respond = data => !bundleResponse ? data : {response, data};\n\n      // Check if there is an error response and parse it\n      if (!response.ok) {\n        return response.json().then(data => {\n          throw this._parseErrorResponse(data, response.status);\n        });\n      }\n\n      if (response.headers.has('Content-Type')) {\n        const contentType = response.headers.get('Content-Type').toLowerCase();\n\n        // Any type of text\n        if (contentType.startsWith('text/')) {\n          return response.text().then(respond);\n        }\n\n        // Response data\n        if (contentType === 'application/json') {\n          return response.json()\n            .then(x => {\n              // Just in case, code path should in theory never be reached\n              if (typeof x.success === 'boolean' && !x.success) {\n                this._parseErrorResponse(data, response.status);\n              }\n\n              return x;\n            })\n            .then(x => x.data ? x.data : {})\n            .then(respond);\n        }\n      }\n\n      return response.blob().then(respond);\n    });\n  }\n\n  _parseErrorResponse(data, status) {\n    const err = data.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, status);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        console.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n\n    return new ValidationError(err.type, err.message, status, err['validation_errors']);\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32a(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return this.static(SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n// Polyfill for terrible browsers (looking at you IE)\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\nimport {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  SvgSetType,\n  User,\n} from './crud';\nimport ResourceBase from './crud/base/ResourceBase';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {fnv32a} from './utils/hash';\nimport {isParentOf} from './utils/reflection';\nimport {FormData, fetch, Headers} from './utils/requests';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => str.toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => {\n      this.auth.token.save();\n\n      return this;\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}\n   * @returns {Promise} - Resolves with either an object or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, bundleResponse = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    method = method.toUpperCase();\n\n    if (!(headers instanceof Headers)) {\n      headers = new Headers(headers);\n    }\n\n    if (this.authenticated) {\n      headers.set('Authorization', this.auth.token.toString());\n    }\n\n    // Automatically detect possible content-type header\n    if (typeof data === 'object' && !(data instanceof FormData)) {\n      data = JSON.stringify(data);\n\n      if (!headers.has('Content-Type')) {\n        headers.set('Content-Type', 'application/json');\n      }\n    } else if (data && !headers.has('Content-Type')) {\n      headers.set('Content-Type', 'application/x-www-form-urlencoded');\n    }\n\n    if (!headers.has('Accept')) {\n      headers.set('Accept', 'application/json');\n    }\n\n    if (['GET', 'HEAD'].includes(method)) {\n      // eslint-disable-next-line no-undefined\n      data = undefined;\n    }\n\n    return fetch(url, {\n      headers, method,\n      body: data,\n      redirect: 'follow',\n      mode: 'cors',\n    }).then(response => {\n      const respond = data => !bundleResponse ? data : {response, data};\n\n      // Check if there is an error response and parse it\n      if (!response.ok) {\n        return response.json().then(data => {\n          throw this._parseErrorResponse(data, response.status);\n        });\n      }\n\n      if (response.headers.has('Content-Type')) {\n        const contentType = response.headers.get('Content-Type').toLowerCase();\n\n        // Any type of text\n        if (contentType.startsWith('text/')) {\n          return response.text().then(respond);\n        }\n\n        // Response data\n        if (contentType === 'application/json') {\n          return response.json()\n            .then(x => {\n              // Just in case, code path should in theory never be reached\n              if (typeof x.success === 'boolean' && !x.success) {\n                this._parseErrorResponse(data, response.status);\n              }\n\n              return x;\n            })\n            .then(x => x.data ? x.data : {})\n            .then(respond);\n        }\n      }\n\n      return response.blob().then(respond);\n    });\n  }\n\n  _parseErrorResponse(data, status) {\n    const err = data.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, status);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        console.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n\n    return new ValidationError(err.type, err.message, status, err['validation_errors']);\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32a(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * SvgSetType accessor\n   * @see {@link SvgSetType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSetTypes() {\n    return this.static(SvgSetType);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
     "static": true,
     "longname": "src/Maps4News.js",
     "access": null,
@@ -806,7 +806,7 @@
     "longname": "src/Maps4News.js~Maps4News#_parseErrorResponse",
     "access": null,
     "description": null,
-    "lineNumber": 271,
+    "lineNumber": 272,
     "undocument": true,
     "unknown": [
       {
@@ -849,7 +849,7 @@
       "api.static('/custom/resource/path/{id}/').get(123);",
       "class FooBar extends ResourceBase {\n   get resourceName() {\n     return 'custom';\n   }\n}\n\napi.static(FooBar)\n  .get(1)\n  .then(console.log);"
     ],
-    "lineNumber": 307,
+    "lineNumber": 308,
     "unknown": [
       {
         "tagName": "@returns",
@@ -892,7 +892,7 @@
     "see": [
       "{@link Choropleth}"
     ],
-    "lineNumber": 332,
+    "lineNumber": 333,
     "unknown": [
       {
         "tagName": "@returns",
@@ -927,7 +927,7 @@
     "see": [
       "{@link Color}"
     ],
-    "lineNumber": 341,
+    "lineNumber": 342,
     "unknown": [
       {
         "tagName": "@returns",
@@ -962,7 +962,7 @@
     "see": [
       "{@link Contract}"
     ],
-    "lineNumber": 350,
+    "lineNumber": 351,
     "unknown": [
       {
         "tagName": "@returns",
@@ -997,7 +997,7 @@
     "see": [
       "{@link Dimension}"
     ],
-    "lineNumber": 359,
+    "lineNumber": 360,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1032,7 +1032,7 @@
     "see": [
       "{@link DimensionSet}"
     ],
-    "lineNumber": 368,
+    "lineNumber": 369,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1067,7 +1067,7 @@
     "see": [
       "{@link Faq}"
     ],
-    "lineNumber": 377,
+    "lineNumber": 378,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1102,7 +1102,7 @@
     "see": [
       "{@link Feature}"
     ],
-    "lineNumber": 386,
+    "lineNumber": 387,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1137,7 +1137,7 @@
     "see": [
       "{@link Font}"
     ],
-    "lineNumber": 395,
+    "lineNumber": 396,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1172,7 +1172,7 @@
     "see": [
       "{@link FontFamily}"
     ],
-    "lineNumber": 404,
+    "lineNumber": 405,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1207,7 +1207,7 @@
     "see": [
       "{@link Highlight}"
     ],
-    "lineNumber": 413,
+    "lineNumber": 414,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1242,7 +1242,7 @@
     "see": [
       "{@link InsetMap}"
     ],
-    "lineNumber": 422,
+    "lineNumber": 423,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1277,7 +1277,7 @@
     "see": [
       "{@link Job}"
     ],
-    "lineNumber": 431,
+    "lineNumber": 432,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1312,7 +1312,7 @@
     "see": [
       "{@link JobShare}"
     ],
-    "lineNumber": 440,
+    "lineNumber": 441,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1347,7 +1347,7 @@
     "see": [
       "{@link JobType}"
     ],
-    "lineNumber": 449,
+    "lineNumber": 450,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1382,7 +1382,7 @@
     "see": [
       "{@link Language}"
     ],
-    "lineNumber": 458,
+    "lineNumber": 459,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1417,7 +1417,7 @@
     "see": [
       "{@link Layer}"
     ],
-    "lineNumber": 467,
+    "lineNumber": 468,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1452,7 +1452,7 @@
     "see": [
       "{@link Mapstyle}"
     ],
-    "lineNumber": 476,
+    "lineNumber": 477,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1487,7 +1487,7 @@
     "see": [
       "{@link MapstyleSet}"
     ],
-    "lineNumber": 485,
+    "lineNumber": 486,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1522,7 +1522,7 @@
     "see": [
       "{@link Notification}"
     ],
-    "lineNumber": 494,
+    "lineNumber": 495,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1557,7 +1557,7 @@
     "see": [
       "{@link Organisation}"
     ],
-    "lineNumber": 503,
+    "lineNumber": 504,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1592,7 +1592,7 @@
     "see": [
       "{@link Permission}"
     ],
-    "lineNumber": 512,
+    "lineNumber": 513,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1627,7 +1627,7 @@
     "see": [
       "{@link Role}"
     ],
-    "lineNumber": 521,
+    "lineNumber": 522,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1662,7 +1662,7 @@
     "see": [
       "{@link PlaceName}"
     ],
-    "lineNumber": 530,
+    "lineNumber": 531,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1697,7 +1697,7 @@
     "see": [
       "{@link Svg}"
     ],
-    "lineNumber": 539,
+    "lineNumber": 540,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1732,7 +1732,7 @@
     "see": [
       "{@link SvgSet}"
     ],
-    "lineNumber": 548,
+    "lineNumber": 549,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1767,7 +1767,7 @@
     "see": [
       "{@link SvgSetType}"
     ],
-    "lineNumber": 557,
+    "lineNumber": 558,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1802,7 +1802,7 @@
     "see": [
       "{@link User}"
     ],
-    "lineNumber": 566,
+    "lineNumber": 567,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1834,7 +1834,7 @@
     "longname": "src/Maps4News.js~Maps4News#logout",
     "access": null,
     "description": "Forget the current session\nThis will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\ncookies or localStorage.",
-    "lineNumber": 576,
+    "lineNumber": 577,
     "unknown": [
       {
         "tagName": "@returns",
@@ -15263,7 +15263,7 @@
     "__docId__": 538,
     "kind": "file",
     "name": "src/oauth/PasswordFlow.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OAuthError from '../errors/OAuthError';\nimport {isNode} from '../utils/node';\nimport {encodeQueryString, fetch} from '../utils/requests';\nimport OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\n\n/**\n * Password authentication flow\n */\nexport default class PasswordFlow extends OAuth {\n  /**\n   * @param {string} clientId - OAuth client id\n   * @param {string} secret - OAuth secret\n   * @param {string} username - Valid username (email)\n   * @param {string} password - Valid password\n   * @param {Array<string>} scopes - A list of required scopes\n   */\n  constructor(clientId, secret, username, password, scopes = ['*']) {\n    super(clientId, scopes);\n\n    this._secret = secret;\n    this._username = username;\n    this._password = password;\n\n    this._path = '/oauth/token';\n\n    // Because the client requires a secret HTTPS is highly recommended\n    if (!isNode()) {\n      console.warn('Using PasswordFlow in the browser is unrecommended. More information: https://nnmm.nl/?MXF');\n\n      if (window.location.protocol !== 'https:') {\n        console.warn('Page was not loaded using https. You\\'re most likely leaking secrets right now');\n      }\n    }\n  }\n\n  /**\n   * it's a secret :o (client secret)\n   * @returns {String} - secret\n   */\n  get secret() {\n    return this._secret;\n  }\n\n  /**\n   * Set client secret\n   * @param {String} value - secret\n   */\n  set secret(value) {\n    this._secret = value;\n  }\n\n  /**\n   * Get the username for authentication\n   * @returns {String} - Username (email)\n   */\n  get username() {\n    return this._username;\n  }\n\n  /**\n   * Get the username for authentication\n   * @param {String} value - Username (email)\n   */\n  set username(value) {\n    this._username = value;\n  }\n\n  /**\n   * Get the password\n   * @returns {String} - Password\n   */\n  get password() {\n    return this._password;\n  }\n\n  /**\n   * Set the password\n   * @param {String} value - password\n   */\n  set password(value) {\n    this._password = value;\n  }\n\n  /**\n   * OAuth path\n   * @returns {String} - OAuth path\n   */\n  get path() {\n    return this._path;\n  }\n\n  /**\n   * OAuth path\n   * @param {String} value - OAuth path\n   */\n  set path(value) {\n    this._path = value;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    const url = this.host + this._path;\n    const query = {\n      'grant_type': '_password',\n      'client_id': this.clientId,\n      'client_secret': this._secret,\n      'username': this._username,\n      'password': this._password,\n      'scope': this.scopes.join(' '),\n    };\n\n    const init = {\n      method: 'POST',\n      body: encodeQueryString(query),\n      mode: 'cors',\n    };\n\n    fetch(url, init).then(response => {\n      const data = response.json();\n\n      if (data.success) {\n        this.token = OAuthToken.fromResponseObject(data);\n        this.token.scopes = this.scopes;\n\n        return this.token;\n      } else {\n        throw new OAuthError(data.error, data.message);\n      }\n    });\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OAuthError from '../errors/OAuthError';\nimport {isNode} from '../utils/node';\nimport {encodeQueryString, fetch} from '../utils/requests';\nimport OAuth from './OAuth';\nimport OAuthToken from './OAuthToken';\n\n/**\n * Password authentication flow\n */\nexport default class PasswordFlow extends OAuth {\n  /**\n   * @param {string} clientId - OAuth client id\n   * @param {string} secret - OAuth secret\n   * @param {string} username - Valid username (email)\n   * @param {string} password - Valid password\n   * @param {Array<string>} scopes - A list of required scopes\n   */\n  constructor(clientId, secret, username, password, scopes = ['*']) {\n    super(clientId, scopes);\n\n    this._secret = secret;\n    this._username = username;\n    this._password = password;\n\n    this._path = '/oauth/token';\n\n    // Because the client requires a secret HTTPS is highly recommended\n    if (!isNode()) {\n      console.warn('Using PasswordFlow in the browser is unrecommended. More information: https://nnmm.nl/?MXF');\n\n      if (window.location.protocol !== 'https:') {\n        console.warn('Page was not loaded using https. You\\'re most likely leaking secrets right now');\n      }\n    }\n  }\n\n  /**\n   * it's a secret :o (client secret)\n   * @returns {String} - secret\n   */\n  get secret() {\n    return this._secret;\n  }\n\n  /**\n   * Set client secret\n   * @param {String} value - secret\n   */\n  set secret(value) {\n    this._secret = value;\n  }\n\n  /**\n   * Get the username for authentication\n   * @returns {String} - Username (email)\n   */\n  get username() {\n    return this._username;\n  }\n\n  /**\n   * Get the username for authentication\n   * @param {String} value - Username (email)\n   */\n  set username(value) {\n    this._username = value;\n  }\n\n  /**\n   * Get the password\n   * @returns {String} - Password\n   */\n  get password() {\n    return this._password;\n  }\n\n  /**\n   * Set the password\n   * @param {String} value - password\n   */\n  set password(value) {\n    this._password = value;\n  }\n\n  /**\n   * OAuth path\n   * @returns {String} - OAuth path\n   */\n  get path() {\n    return this._path;\n  }\n\n  /**\n   * OAuth path\n   * @param {String} value - OAuth path\n   */\n  set path(value) {\n    this._path = value;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    const url = this.host + this._path;\n    const query = {\n      'grant_type': '_password',\n      'client_id': this.clientId,\n      'client_secret': this._secret,\n      'username': this._username,\n      'password': this._password,\n      'scope': this.scopes.join(' '),\n    };\n\n    const init = {\n      method: 'POST',\n      body: encodeQueryString(query),\n      mode: 'cors',\n    };\n\n    fetch(url, init).then(response => {\n      const data = response.json();\n\n      if (!data.success) {\n        throw new OAuthError(data.error, data.message);\n      }\n\n      this.token = OAuthToken.fromResponseObject(data);\n      this.token.scopes = this.scopes;\n\n      return this.token;\n    });\n  }\n}\n",
     "static": true,
     "longname": "src/oauth/PasswordFlow.js",
     "access": null,
@@ -15822,7 +15822,7 @@
     "longname": "src/oauth/PasswordFlow.js~PasswordFlow#token",
     "access": null,
     "description": null,
-    "lineNumber": 158,
+    "lineNumber": 161,
     "undocument": true,
     "unknown": [
       {
@@ -16717,7 +16717,7 @@
     "__docId__": 593,
     "kind": "file",
     "name": "src/utils/hash.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {encodeQueryString} from './requests';\n\nconst FNV1_32A_INIT = 0x811c9dc5;\n\n/**\n * Fast hash function for non-cryptographic use\n * @param {string} str - Input to be hashed\n * @returns {string} - String representation of the hash\n * @private\n */\nexport function fnv32a(str) {\n  const hash = str\n    .split('')\n    .map(x => x.charCodeAt(0))\n    .reduce((sum, val) => {\n      sum ^= val;\n      return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);\n    }, FNV1_32A_INIT);\n\n  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);\n}\n\n/**\n * Fast object hashing for non-cryptographic use\n * @param {object} data - input data\n * @returns {string} - String reprisentation of the hash\n * @private\n */\nexport function hashObject(data) {\n  return fnv32a(encodeQueryString(data));\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nconst FNV1_32A_INIT = 0x811c9dc5;\n\n/**\n * Fast hash function for non-cryptographic use\n * @param {string} str - Input to be hashed\n * @returns {string} - String representation of the hash\n * @private\n */\nexport function fnv32a(str) {\n  const hash = str\n    .split('')\n    .map(x => x.charCodeAt(0))\n    .reduce((sum, val) => {\n      sum ^= val;\n      return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);\n    }, FNV1_32A_INIT);\n\n  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);\n}\n\n/**\n * Fast object hashing for non-cryptographic use\n * @param {object} data - input data\n * @returns {string} - String reprisentation of the hash\n * @private\n */\nexport function hashObject(data) {\n  return fnv32a(JSON.stringify(data));\n}\n",
     "static": true,
     "longname": "src/utils/hash.js",
     "access": null,
@@ -16736,7 +16736,7 @@
     "importPath": "@mapcreator/maps4news/src/utils/hash.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 33,
     "undocument": true,
     "unknown": [
       {
@@ -16764,7 +16764,7 @@
     "importPath": "@mapcreator/maps4news/src/utils/hash.js",
     "importStyle": "{fnv32a}",
     "description": "Fast hash function for non-cryptographic use",
-    "lineNumber": 43,
+    "lineNumber": 41,
     "unknown": [
       {
         "tagName": "@returns",
@@ -16806,7 +16806,7 @@
     "importPath": "@mapcreator/maps4news/src/utils/hash.js",
     "importStyle": "{hashObject}",
     "description": "Fast object hashing for non-cryptographic use",
-    "lineNumber": 61,
+    "lineNumber": 59,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17176,7 +17176,7 @@
     "__docId__": 606,
     "kind": "file",
     "name": "src/utils/requests.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport fetchPonyfill from 'fetch-ponyfill';\nexport const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject).replace('&&', '&');\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport fetchPonyfill from 'fetch-ponyfill';\nimport {isNode} from './node';\n\n// eslint-disable-next-line no-eval\nexport const FormData = !isNode() ? window.FormData : require('form-data');\nexport const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject).replace('&&', '&');\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .filter(key => paramsObject[key] !== null)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
     "static": true,
     "longname": "src/utils/requests.js",
     "access": null,
@@ -17186,16 +17186,16 @@
   {
     "__docId__": 607,
     "kind": "variable",
-    "name": "fetch",
+    "name": "FormData",
     "memberof": "src/utils/requests.js",
     "static": true,
-    "longname": "src/utils/requests.js~fetch",
+    "longname": "src/utils/requests.js~FormData",
     "access": null,
     "export": true,
     "importPath": "@mapcreator/maps4news/src/utils/requests.js",
-    "importStyle": "{fetch}",
+    "importStyle": "{FormData}",
     "description": null,
-    "lineNumber": 34,
+    "lineNumber": 37,
     "undocument": true,
     "unknown": [
       {
@@ -17211,6 +17211,32 @@
   },
   {
     "__docId__": 608,
+    "kind": "variable",
+    "name": "fetch",
+    "memberof": "src/utils/requests.js",
+    "static": true,
+    "longname": "src/utils/requests.js~fetch",
+    "access": null,
+    "export": true,
+    "importPath": "@mapcreator/maps4news/src/utils/requests.js",
+    "importStyle": "{fetch}",
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 609,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -17223,7 +17249,7 @@
     "importPath": "@mapcreator/maps4news/src/utils/requests.js",
     "importStyle": "{encodeQueryString}",
     "description": "Encodes an object to a http query string with support for recursion",
-    "lineNumber": 43,
+    "lineNumber": 47,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17252,7 +17278,7 @@
     }
   },
   {
-    "__docId__": 609,
+    "__docId__": 610,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -17268,7 +17294,7 @@
     "see": [
       "http://stackoverflow.com/a/39828481"
     ],
-    "lineNumber": 56,
+    "lineNumber": 60,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17307,7 +17333,7 @@
     }
   },
   {
-    "__docId__": 610,
+    "__docId__": 611,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -17318,7 +17344,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 611,
+    "__docId__": 612,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -17336,7 +17362,7 @@
     ]
   },
   {
-    "__docId__": 612,
+    "__docId__": 613,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -17364,7 +17390,7 @@
     }
   },
   {
-    "__docId__": 613,
+    "__docId__": 614,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -17392,7 +17418,7 @@
     }
   },
   {
-    "__docId__": 615,
+    "__docId__": 616,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -17404,7 +17430,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 616,
+    "__docId__": 617,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -17416,7 +17442,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 617,
+    "__docId__": 618,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -17428,7 +17454,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 618,
+    "__docId__": 619,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -17440,7 +17466,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 619,
+    "__docId__": 620,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -17452,7 +17478,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 620,
+    "__docId__": 621,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -17464,7 +17490,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 621,
+    "__docId__": 622,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -17476,7 +17502,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 622,
+    "__docId__": 623,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -17488,7 +17514,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 623,
+    "__docId__": 624,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -17500,7 +17526,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 624,
+    "__docId__": 625,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -17512,7 +17538,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 625,
+    "__docId__": 626,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -17524,7 +17550,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 626,
+    "__docId__": 627,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -17536,7 +17562,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 627,
+    "__docId__": 628,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -17548,7 +17574,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 628,
+    "__docId__": 629,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -17560,7 +17586,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 629,
+    "__docId__": 630,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -17572,7 +17598,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 630,
+    "__docId__": 631,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -17584,7 +17610,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 631,
+    "__docId__": 632,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -17596,7 +17622,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 632,
+    "__docId__": 633,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -17608,7 +17634,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 633,
+    "__docId__": 634,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -17620,7 +17646,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 634,
+    "__docId__": 635,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -17632,7 +17658,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 635,
+    "__docId__": 636,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -17644,7 +17670,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 636,
+    "__docId__": 637,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -17656,7 +17682,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 637,
+    "__docId__": 638,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -17668,7 +17694,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 638,
+    "__docId__": 639,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -17680,7 +17706,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 639,
+    "__docId__": 640,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -17692,7 +17718,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 640,
+    "__docId__": 641,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -17704,7 +17730,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 641,
+    "__docId__": 642,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -17716,7 +17742,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 642,
+    "__docId__": 643,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -17728,7 +17754,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 643,
+    "__docId__": 644,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -17740,7 +17766,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 644,
+    "__docId__": 645,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -17752,7 +17778,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 645,
+    "__docId__": 646,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -17764,7 +17790,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 646,
+    "__docId__": 647,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -17776,7 +17802,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 647,
+    "__docId__": 648,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -17788,7 +17814,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 648,
+    "__docId__": 649,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -17800,7 +17826,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 649,
+    "__docId__": 650,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -17812,7 +17838,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 650,
+    "__docId__": 651,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -17824,7 +17850,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 651,
+    "__docId__": 652,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -17836,7 +17862,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 652,
+    "__docId__": 653,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -17848,7 +17874,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 653,
+    "__docId__": 654,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -17860,7 +17886,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 654,
+    "__docId__": 655,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -17872,7 +17898,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 655,
+    "__docId__": 656,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -17884,7 +17910,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 656,
+    "__docId__": 657,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -17896,7 +17922,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 657,
+    "__docId__": 658,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -17908,7 +17934,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 658,
+    "__docId__": 659,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -17920,7 +17946,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 659,
+    "__docId__": 660,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -17932,7 +17958,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 660,
+    "__docId__": 661,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -17944,7 +17970,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 661,
+    "__docId__": 662,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -17957,7 +17983,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 663,
+    "__docId__": 664,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -17969,7 +17995,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 664,
+    "__docId__": 665,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -17981,7 +18007,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 665,
+    "__docId__": 666,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -17993,7 +18019,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 666,
+    "__docId__": 667,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -18005,7 +18031,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 667,
+    "__docId__": 668,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -18017,7 +18043,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 668,
+    "__docId__": 669,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -18029,7 +18055,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 669,
+    "__docId__": 670,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -18041,7 +18067,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 670,
+    "__docId__": 671,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
