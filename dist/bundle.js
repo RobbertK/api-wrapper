@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:a7aaf8b7f95e21400439, chunkhash:97d8d93187263a05f6d3, name:bundle, version:v1.1.26
+ * hash:50c9cbd201b4bfa59a11, chunkhash:e5b2e2bea0c229164e70, name:bundle, version:v1.1.27
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.26) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.27) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -9384,8 +9384,11 @@ var PaginatedResourceListing = function () {
         var response = JSON.parse(request.responseText);
         var rowCount = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Total')) || response.data.length;
         var totalPages = Number(request.getResponseHeader(PaginatedResourceListing.headerPrefix + '-Pages')) || 1;
+        var parameters = _this.parameters.copy();
 
-        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, _this.parameters, totalPages, rowCount, response.data.map(function (row) {
+        parameters.page = page;
+
+        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, parameters, totalPages, rowCount, response.data.map(function (row) {
           return new _this._Target(_this.api, row);
         }));
       });
@@ -13523,7 +13526,7 @@ exports.helpers = _helpers;
  * @private
  */
 
-var version = exports.version = "v1.1.26";
+var version = exports.version = "v1.1.27";
 
 /**
  * Package license
