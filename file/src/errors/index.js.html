@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/errors/AbstractError.js | API Document</title>
+  <title data-ice="title">src/errors/index.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -105,7 +105,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/errors/AbstractError.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/errors/index.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
@@ -138,36 +138,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- * Thrown by abstract methods and classes
- */
-export class AbstractError extends Error {
-  /**
-   * AbstractError constructor
-   * @param {String} message - Error message
-   */
-  constructor(message) {
-    super(message);
-  }
-}
-
-/**
- * Thrown upon invocation of an abstract class
- */
-export class AbstractClassError extends AbstractError {
-  constructor() {
-    super(&apos;Can not make an instance of an abstract class&apos;);
-  }
-}
-
-/**
- * Thrown upon invocation of an abstract method
- */
-export class AbstractMethodError extends AbstractError {
-  constructor() {
-    super(&apos;Can not call an abstract method&apos;);
-  }
-}
+export * from &apos;./AbstractError&apos;;
+export ApiError from &apos;./ApiError&apos;;
+export NodeError from &apos;./NodeError&apos;;
+export OAuthError from &apos;./OAuthError&apos;;
+export StaticClassError from &apos;./StaticClassError&apos;;
+export UnsupportedCrudError from &apos;./UnsupportedCrudError&apos;;
+export ValidationError from &apos;./ValidationError&apos;;
 </code></pre>
 
 </div>

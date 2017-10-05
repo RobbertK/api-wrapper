@@ -1,14 +1,14 @@
 {
-  "coverage": "77.56%",
-  "expectCount": 410,
-  "actualCount": 318,
+  "coverage": "77.85%",
+  "expectCount": 411,
+  "actualCount": 320,
   "files": {
     "src/errors/AbstractError.js": {
-      "expectCount": 5,
-      "actualCount": 3,
+      "expectCount": 6,
+      "actualCount": 4,
       "undocumentLines": [
-        51,
-        42
+        59,
+        50
       ]
     },
     "src/errors/ApiError.js": {
@@ -112,8 +112,8 @@
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        37,
-        38
+        36,
+        37
       ]
     },
     "src/traits/HandlesImages.js": {
@@ -434,10 +434,8 @@
     },
     "src/errors/ValidationError.js": {
       "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        58
-      ]
+      "actualCount": 4,
+      "undocumentLines": []
     },
     "src/utils/helpers.js": {
       "expectCount": 1,

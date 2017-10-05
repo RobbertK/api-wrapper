@@ -139,10 +139,9 @@
  */
 
 import fetchPonyfill from &apos;fetch-ponyfill&apos;;
-import {isNode} from &apos;./node&apos;;
 
 // eslint-disable-next-line no-eval
-export const FormData = !isNode() ? window.FormData : require(&apos;form-data&apos;);
+export const FormData = require(&apos;form-data&apos;);
 export const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});
 
 /**
