@@ -1,7 +1,7 @@
 {
-  "coverage": "77.85%",
-  "expectCount": 411,
-  "actualCount": 320,
+  "coverage": "78.45%",
+  "expectCount": 413,
+  "actualCount": 324,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -47,6 +47,13 @@
       "actualCount": 4,
       "undocumentLines": []
     },
+    "src/enums.js": {
+      "expectCount": 5,
+      "actualCount": 4,
+      "undocumentLines": [
+        47
+      ]
+    },
     "src/crud/Dimension.js": {
       "expectCount": 2,
       "actualCount": 1,
@@ -67,15 +74,6 @@
       "actualCount": 2,
       "undocumentLines": [
         41
-      ]
-    },
-    "src/enums/Enum.js": {
-      "expectCount": 4,
-      "actualCount": 1,
-      "undocumentLines": [
-        45,
-        67,
-        71
       ]
     },
     "src/crud/Faq.js": {
@@ -177,8 +175,8 @@
       ]
     },
     "src/crud/JobRevision.js": {
-      "expectCount": 13,
-      "actualCount": 8,
+      "expectCount": 14,
+      "actualCount": 9,
       "undocumentLines": [
         39,
         40,

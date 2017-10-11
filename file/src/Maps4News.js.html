@@ -44,6 +44,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums.js~Enum.html">Enum</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -76,7 +78,6 @@
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">enums</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums/Enum.js~Enum.html">Enum</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractClassError.html">AbstractClassError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractError.html">AbstractError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractMethodError.html">AbstractMethodError</a></span></span></li>
@@ -182,7 +183,7 @@ import ResourceCache from &apos;./ResourceCache&apos;;
 import ResourceProxy from &apos;./ResourceProxy&apos;;
 import {fnv32a} from &apos;./utils/hash&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
-import {FormData, fetch, Headers} from &apos;./utils/requests&apos;;
+import {fetch, FormData, Headers} from &apos;./utils/requests&apos;;
 
 /**
  * Base API class
@@ -315,14 +316,16 @@ export default class Maps4News {
     }
 
     // Automatically detect possible content-type header
-    if (typeof data === &apos;object&apos; &amp;&amp; !(data instanceof FormData)) {
+    const isFormData = data instanceof FormData;
+
+    if (typeof data === &apos;object&apos; &amp;&amp; !isFormData) {
       data = JSON.stringify(data);
 
       if (!headers.has(&apos;Content-Type&apos;)) {
         headers.set(&apos;Content-Type&apos;, &apos;application/json&apos;);
       }
-    } else if (data &amp;&amp; !headers.has(&apos;Content-Type&apos;)) {
-      headers.set(&apos;Content-Type&apos;, &apos;application/x-www-form-urlencoded&apos;);
+    } else if (data &amp;&amp; !headers.has(&apos;Content-Type&apos;) &amp;&amp; !isFormData) {
+      // headers.set(&apos;Content-Type&apos;, &apos;application/x-www-form-urlencoded&apos;);
     }
 
     if (!headers.has(&apos;Accept&apos;)) {
