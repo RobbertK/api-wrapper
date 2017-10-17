@@ -1,7 +1,7 @@
 {
-  "coverage": "78.45%",
-  "expectCount": 413,
-  "actualCount": 324,
+  "coverage": "78.5%",
+  "expectCount": 414,
+  "actualCount": 325,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -335,8 +335,8 @@
       ]
     },
     "src/crud/base/ResourceBase.js": {
-      "expectCount": 17,
-      "actualCount": 17,
+      "expectCount": 18,
+      "actualCount": 18,
       "undocumentLines": []
     },
     "src/ResourceCache.js": {

@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:529a59f14941f577bc79, chunkhash:88c4509cd677d7365499, name:bundle, version:v1.1.32
+ * hash:52c95b0382b6037d9a06, chunkhash:8f8ef3e27062206ca26e, name:bundle, version:v1.1.33
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.32) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.33) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -1281,7 +1281,20 @@ var ResourceBase = function () {
      * @returns {string} - Resource name and id
      */
     value: function toString() {
-      return this.constructor.name + '(' + this.id + ')';
+      return this.constructor.name + '(' + this[this.resourceUrlKey] + ')';
+    }
+
+    /**
+     * Transform instance to object
+     * @returns {{}} - object
+     */
+
+  }, {
+    key: 'toObject',
+    value: function toObject() {
+      this._updateProperties();
+
+      return Object.assign({}, this._baseProperties, this._properties);
     }
 
     /**
@@ -13749,7 +13762,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.32";
+var version = exports.version = "v1.1.33";
 
 /**
  * Package license
