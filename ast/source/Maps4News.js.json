@@ -2123,9 +2123,9 @@
                   "line": 75,
                   "column": 14
                 },
-                "identifierName": "fnv32a"
+                "identifierName": "fnv32b"
               },
-              "name": "fnv32a"
+              "name": "fnv32b"
             },
             "local": {
               "type": "Identifier",
@@ -2140,9 +2140,9 @@
                   "line": 75,
                   "column": 14
                 },
-                "identifierName": "fnv32a"
+                "identifierName": "fnv32b"
               },
-              "name": "fnv32a"
+              "name": "fnv32b"
             }
           }
         ],
@@ -14356,9 +14356,9 @@
                                             "line": 325,
                                             "column": 82
                                           },
-                                          "identifierName": "fnv32a"
+                                          "identifierName": "fnv32b"
                                         },
-                                        "name": "fnv32a"
+                                        "name": "fnv32b"
                                       },
                                       "arguments": [
                                         {
@@ -23789,7 +23789,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "fnv32a",
+      "value": "fnv32b",
       "start": 2379,
       "end": 2385,
       "loc": {
@@ -47916,7 +47916,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "fnv32a",
+      "value": "fnv32b",
       "start": 9453,
       "end": 9459,
       "loc": {

@@ -139,6 +139,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import stringify from &apos;json-stable-stringify&apos;;
+
 const FNV1_32A_INIT = 0x811c9dc5;
 
 /**
@@ -147,14 +149,22 @@ const FNV1_32A_INIT = 0x811c9dc5;
  * @returns {string} - String representation of the hash
  * @private
  */
-export function fnv32a(str) {
-  const hash = str
+export function fnv32b(str) {
+  let hash = str
     .split(&apos;&apos;)
     .map(x =&gt; x.charCodeAt(0))
     .reduce((sum, val) =&gt; {
       sum ^= val;
       return sum + (sum &lt;&lt; 1) + (sum &lt;&lt; 4) + (sum &lt;&lt; 7) + (sum &lt;&lt; 8) + (sum &lt;&lt; 24);
     }, FNV1_32A_INIT);
+
+  // Avalanche
+  hash ^= hash &lt;&lt; 3;
+  hash += hash &gt;&gt; 5;
+  hash ^= hash &lt;&lt; 4;
+  hash += hash &gt;&gt; 17;
+  hash ^= hash &lt;&lt; 25;
+  hash += hash &gt;&gt; 6;
 
   return (&apos;0000000&apos; + (hash &gt;&gt;&gt; 0).toString(16)).substr(-8);
 }
@@ -166,7 +176,7 @@ export function fnv32a(str) {
  * @private
  */
 export function hashObject(data) {
-  return fnv32a(JSON.stringify(data));
+  return fnv32b(stringify(data));
 }
 </code></pre>
 

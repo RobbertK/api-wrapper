@@ -146,7 +146,9 @@
  * @private
  */
 export function isNode() {
-  return typeof window === &apos;undefined&apos; &amp;&amp; typeof module !== &apos;undefined&apos; &amp;&amp; module.exports;
+  return typeof window === &apos;undefined&apos;
+    &amp;&amp; typeof module !== &apos;undefined&apos;
+    &amp;&amp; typeof module.exports !== &apos;undefined&apos;;
 }
 </code></pre>
 

@@ -1,7 +1,7 @@
 {
-  "coverage": "78.5%",
+  "coverage": "78.26%",
   "expectCount": 414,
-  "actualCount": 325,
+  "actualCount": 324,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -49,9 +49,10 @@
     },
     "src/enums.js": {
       "expectCount": 5,
-      "actualCount": 4,
+      "actualCount": 3,
       "undocumentLines": [
-        47
+        48,
+        49
       ]
     },
     "src/crud/Dimension.js": {
