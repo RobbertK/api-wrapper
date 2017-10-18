@@ -1,6 +1,6 @@
 {
   "name": "@mapcreator/maps4news",
-  "version": "1.1.34",
+  "version": "1.1.35",
   "description": "Maps4News JavaScript Api",
   "main": "dist/bundle.js",
   "repository": "git@github.com:MapCreatorEU/m4n-api.git",
@@ -48,7 +48,8 @@
     "authors": "npx contributors | grep -v -e '^- [A-Za-z]' | tail -n +4 > AUTHORS.md",
     "clean": "rm -r dist docs .nyc_output build || true",
     "all": "npm run clean && npm run lint && npm run build && npm run docs",
-    "test": "npx ava"
+    "test": "npx ava",
+    "test-ci": "npx nyc --all --report-dir build/coverage --clean -n 'src/**.js' -r html -r cobertura npx ava -t"
   },
   "contributors": [
     "Bas Bieling <b.bieling@mapcreator.eu> (https://GitHub.com/Mechazawa)"
