@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:45a0c1a5442bb872905e, chunkhash:6036a7a730fc09375961, name:bundle, version:v1.1.42
+ * hash:bc888fd09843751631f6, chunkhash:ba64f73aca84fa0c706d, name:bundle, version:v1.1.43
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.42) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.43) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -600,7 +600,7 @@ exports.isParentOf = isParentOf;
 exports.getTypeName = getTypeName;
 exports.mix = mix;
 
-var _Trait = __webpack_require__(83);
+var _Trait = __webpack_require__(82);
 
 var _Trait2 = _interopRequireDefault(_Trait);
 
@@ -973,7 +973,7 @@ var _SimpleResourceProxy = __webpack_require__(124);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
-var _caseConverter = __webpack_require__(82);
+var _case = __webpack_require__(83);
 
 var _reflection = __webpack_require__(11);
 
@@ -1015,7 +1015,7 @@ var ResourceBase = function () {
       for (var _iterator = Object.keys(data)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var key = _step.value;
 
-        var newKey = (0, _caseConverter.camelToSnakeCase)((0, _caseConverter.pascalToCamelCase)(key));
+        var newKey = (0, _case.snake)(key);
 
         data[newKey] = ResourceBase._guessType(newKey, data[key]);
 
@@ -1126,7 +1126,7 @@ var ResourceBase = function () {
         for (var _iterator3 = fields[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
           var key = _step3.value;
 
-          var newKey = (0, _caseConverter.camelToSnakeCase)(key);
+          var newKey = (0, _case.snake)(key);
 
           this._properties[newKey] = this[key];
           delete this[key];
@@ -1264,7 +1264,7 @@ var ResourceBase = function () {
         };
       }
 
-      Object.defineProperty(this, (0, _caseConverter.snakeToCamelCase)(key), desc);
+      Object.defineProperty(this, (0, _case.camel)(key), desc);
     }
 
     /**
@@ -1396,7 +1396,7 @@ var ResourceBase = function () {
 
         // Find and replace any keys
         url = url.replace(/{(\w+)}/g, function (match, key) {
-          return _this5[(0, _caseConverter.snakeToCamelCase)(key)];
+          return _this5[(0, _case.camel)(key)];
         });
 
         this._url = url;
@@ -1426,7 +1426,7 @@ var ResourceBase = function () {
   }, {
     key: 'fieldNames',
     get: function get() {
-      return Object.keys(this._baseProperties).map(_caseConverter.snakeToCamelCase);
+      return Object.keys(this._baseProperties).map(_case.camel);
     }
   }], [{
     key: '_guessType',
@@ -2192,7 +2192,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Trait2 = __webpack_require__(83);
+var _Trait2 = __webpack_require__(82);
 
 var _Trait3 = _interopRequireDefault(_Trait2);
 
@@ -2880,11 +2880,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _AbstractError = __webpack_require__(47);
 
-var _caseConverter = __webpack_require__(82);
-
 var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
+
+var _case = __webpack_require__(83);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2982,7 +2982,7 @@ var CrudSetBase = function (_CrudBase) {
       if (!this._fk) {
         var key = this.constructor.name; // ex: FontFamily
 
-        key = (0, _caseConverter.pascalToCamelCase)(key); // ex: fontFamily
+        key = (0, _case.camel)(key); // ex: fontFamily
 
         this._fk = key + 'Id';
       }
@@ -5322,13 +5322,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _enums = __webpack_require__(129);
 
-var _caseConverter = __webpack_require__(82);
-
 var _hash = __webpack_require__(80);
 
 var _reflection = __webpack_require__(11);
 
 var _requests = __webpack_require__(35);
+
+var _case = __webpack_require__(83);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5363,7 +5363,7 @@ var RequestParameters = function () {
       for (var _iterator = Object.keys(object)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var key = _step.value;
 
-        var Key = (0, _caseConverter.snakeToCamelCase)(key);
+        var Key = (0, _case.camel)(key);
 
         if (key[0] === '_' || !RequestParameters.keys().includes(Key)) {
           continue;
@@ -5417,7 +5417,7 @@ var RequestParameters = function () {
     value: function _update(name, value) {
       var _name = '_' + name;
 
-      value = RequestParameters['_validate' + (0, _caseConverter.camelToPascalCase)(name)](value);
+      value = RequestParameters['_validate' + (0, _case.pascal)(name)](value);
       (this || {})[_name] = value; // Weird syntax confuses esdoc
 
       this._watch.forEach(function (m) {
@@ -5456,7 +5456,7 @@ var RequestParameters = function () {
       var data = {};
 
       RequestParameters.keys().forEach(function (key) {
-        data[(0, _caseConverter.camelToSnakeCase)(key)] = _this2._resolve(key);
+        data[(0, _case.snake)(key)] = _this2._resolve(key);
       });
 
       return data;
@@ -5894,100 +5894,6 @@ exports.default = RequestParameters;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.snakeToCamelCase = snakeToCamelCase;
-exports.camelToSnakeCase = camelToSnakeCase;
-exports.pascalToCamelCase = pascalToCamelCase;
-exports.camelToPascalCase = camelToPascalCase;
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Converts snake_case strings to camelCase
- * @param {String} str - a snake_case string
- * @returns {String} - Converted camelCase string
- * @private
- */
-function snakeToCamelCase(str) {
-  return str.replace(/(?:(_[a-z\d]))/g, function (x) {
-    return x[1].toUpperCase();
-  });
-}
-
-/**
- * Converts camelCase strings to snake_case
- * @param {String} str - a camelCase string
- * @returns {String} - Converted snake_case string
- * @private
- */
-function camelToSnakeCase(str) {
-  return str.replace(/([A-Z])/g, function (x) {
-    return '_' + x.toLowerCase();
-  });
-}
-
-/**
- * Converts PascalCase strings to camelCase
- * @param {String} str - a PascalCase string
- * @returns {String} - Converted camelCase string
- * @private
- */
-function pascalToCamelCase(str) {
-  return str.replace(/^([A-Z])/g, function (x) {
-    return x.toLowerCase();
-  });
-}
-
-/**
- * Converts camelCase strings to PascalCase
- * @param {String} str - a camelCase string
- * @returns {String} - Converted PascalCase string
- * @private
- */
-function camelToPascalCase(str) {
-  return str.replace(/^([a-z])/g, function (x) {
-    return x.toUpperCase();
-  });
-}
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -6049,6 +5955,173 @@ var Trait = function () {
 }();
 
 exports.default = Trait;
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports) {
+
+/*! Case - v1.5.3 - 2017-07-11
+* Copyright (c) 2017 Nathan Bubna; Licensed MIT, GPL */
+(function() {
+    "use strict";
+    var unicodes = function(s, prefix) {
+        prefix = prefix || '';
+        return s.replace(/(^|-)/g, '$1\\u'+prefix).replace(/,/g, '\\u'+prefix);
+    },
+    basicSymbols = unicodes('20-26,28-2F,3A-40,5B-60,7B-7E,A0-BF,D7,F7', '00'),
+    baseLowerCase = 'a-z'+unicodes('DF-F6,F8-FF', '00'),
+    baseUpperCase = 'A-Z'+unicodes('C0-D6,D8-DE', '00'),
+    improperInTitle = 'A|An|And|As|At|But|By|En|For|If|In|Of|On|Or|The|To|Vs?\\.?|Via',
+    regexps = function(symbols, lowers, uppers, impropers) {
+        symbols = symbols || basicSymbols;
+        lowers = lowers || baseLowerCase;
+        uppers = uppers || baseUpperCase;
+        impropers = impropers || improperInTitle;
+        return {
+            capitalize: new RegExp('(^|['+symbols+'])(['+lowers+'])', 'g'),
+            pascal: new RegExp('(^|['+symbols+'])+(['+lowers+uppers+'])', 'g'),
+            fill: new RegExp('['+symbols+']+(.|$)','g'),
+            sentence: new RegExp('(^\\s*|[\\?\\!\\.]+"?\\s+"?|,\\s+")(['+lowers+'])', 'g'),
+            improper: new RegExp('\\b('+impropers+')\\b', 'g'),
+            relax: new RegExp('([^'+uppers+'])(['+uppers+']*)(['+uppers+'])(?=['+lowers+']|$)', 'g'),
+            upper: new RegExp('^[^'+lowers+']+$'),
+            hole: /[^\s]\s[^\s]/,
+            apostrophe: /'/g,
+            room: new RegExp('['+symbols+']')
+        };
+    },
+    re = regexps(),
+    _ = {
+        re: re,
+        unicodes: unicodes,
+        regexps: regexps,
+        types: [],
+        up: String.prototype.toUpperCase,
+        low: String.prototype.toLowerCase,
+        cap: function(s) {
+            return _.up.call(s.charAt(0))+s.slice(1);
+        },
+        decap: function(s) {
+            return _.low.call(s.charAt(0))+s.slice(1);
+        },
+        deapostrophe: function(s) {
+            return s.replace(re.apostrophe, '');
+        },
+        fill: function(s, fill, deapostrophe) {
+            if (fill != null) {
+                s = s.replace(re.fill, function(m, next) {
+                    return next ? fill + next : '';
+                });
+            }
+            if (deapostrophe) {
+                s = _.deapostrophe(s);
+            }
+            return s;
+        },
+        prep: function(s, fill, pascal, upper) {
+            s = s == null ? '' : s + '';// force to string
+            if (!upper && re.upper.test(s)) {
+                s = _.low.call(s);
+            }
+            if (!fill && !re.hole.test(s)) {
+                var holey = _.fill(s, ' ');
+                if (re.hole.test(holey)) {
+                    s = holey;
+                }
+            }
+            if (!pascal && !re.room.test(s)) {
+                s = s.replace(re.relax, _.relax);
+            }
+            return s;
+        },
+        relax: function(m, before, acronym, caps) {
+            return before + ' ' + (acronym ? acronym+' ' : '') + caps;
+        }
+    },
+    Case = {
+        _: _,
+        of: function(s) {
+            for (var i=0,m=_.types.length; i<m; i++) {
+                if (Case[_.types[i]].apply(Case, arguments) === s){ return _.types[i]; }
+            }
+        },
+        flip: function(s) {
+            return s.replace(/\w/g, function(l) {
+                return (l == _.up.call(l) ? _.low : _.up).call(l);
+            });
+        },
+        random: function(s) {
+            return s.replace(/\w/g, function(l) {
+                return (Math.round(Math.random()) ? _.up : _.low).call(l);
+            });
+        },
+        type: function(type, fn) {
+            Case[type] = fn;
+            _.types.push(type);
+        }
+    },
+    types = {
+        lower: function(s, fill, deapostrophe) {
+            return _.fill(_.low.call(_.prep(s, fill)), fill, deapostrophe);
+        },
+        snake: function(s) {
+            return Case.lower(s, '_', true);
+        },
+        constant: function(s) {
+            return Case.upper(s, '_', true);
+        },
+        camel: function(s) {
+            return _.decap(Case.pascal(s));
+        },
+        kebab: function(s) {
+            return Case.lower(s, '-', true);
+        },
+        header: function(s) {
+            return Case.capital(s, '-', true);
+        },
+        upper: function(s, fill, deapostrophe) {
+            return _.fill(_.up.call(_.prep(s, fill, false, true)), fill, deapostrophe);
+        },
+        capital: function(s, fill, deapostrophe) {
+            return _.fill(_.prep(s).replace(re.capitalize, function(m, border, letter) {
+                return border+_.up.call(letter);
+            }), fill, deapostrophe);
+        },
+        pascal: function(s) {
+            return _.fill(_.prep(s, false, true).replace(re.pascal, function(m, border, letter) {
+                return _.up.call(letter);
+            }), '', true);
+        },
+        title: function(s) {
+            return Case.capital(s).replace(re.improper, function(small, p, i, s) {
+                return i > 0 && i < s.lastIndexOf(' ') ? _.low.call(small) : small;
+            });
+        },
+        sentence: function(s, names) {
+            s = Case.lower(s).replace(re.sentence, function(m, prelude, letter) {
+                return prelude + _.up.call(letter);
+            });
+            if (names) {
+                names.forEach(function(name) {
+                    s = s.replace(new RegExp('\\b'+Case.lower(name)+'\\b', "g"), _.cap);
+                });
+            }
+            return s;
+        }
+    };
+
+    // TODO: Remove "squish" in a future breaking release.
+    types.squish = types.pascal;
+
+    for (var type in types) {
+        Case.type(type, types[type]);
+    }
+    // export Case (AMD, commonjs, or global)
+    var define = typeof define === "function" ? define : function(){};
+    define(typeof module === "object" && module.exports ? module.exports = Case : this.Case = Case);
+
+}).call(this);
+
 
 /***/ }),
 /* 84 */
@@ -10992,7 +11065,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Trait2 = __webpack_require__(83);
+var _Trait2 = __webpack_require__(82);
 
 var _Trait3 = _interopRequireDefault(_Trait2);
 
@@ -13781,7 +13854,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.42";
+var version = exports.version = "v1.1.43";
 
 /**
  * Package license

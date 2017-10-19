@@ -141,10 +141,10 @@
 
 
 import {DeletedState} from &apos;./enums&apos;;
-import {camelToPascalCase, camelToSnakeCase, snakeToCamelCase} from &apos;./utils/caseConverter&apos;;
 import {hashObject} from &apos;./utils/hash&apos;;
 import {getTypeName} from &apos;./utils/reflection&apos;;
 import {encodeQueryString} from &apos;./utils/requests&apos;;
+import {camel as camelCase, pascal as pascalCase, snake as snakeCase} from &apos;case&apos;;
 
 /**
  * Used for keeping track of the request parameters
@@ -162,7 +162,7 @@ export default class RequestParameters {
 
     // Apply properties
     for (const key of Object.keys(object)) {
-      const Key = snakeToCamelCase(key);
+      const Key = camelCase(key);
 
       if (key[0] === &apos;_&apos; || !RequestParameters.keys().includes(Key)) {
         continue;
@@ -463,7 +463,7 @@ export default class RequestParameters {
   _update(name, value) {
     const _name = &apos;_&apos; + name;
 
-    value = RequestParameters[&apos;_validate&apos; + camelToPascalCase(name)](value);
+    value = RequestParameters[&apos;_validate&apos; + pascalCase(name)](value);
     (this || {})[_name] = value; // Weird syntax confuses esdoc
 
     this._watch.forEach(m =&gt; m(name, value));
@@ -494,7 +494,7 @@ export default class RequestParameters {
     RequestParameters
       .keys()
       .forEach(key =&gt; {
-        data[camelToSnakeCase(key)] = this._resolve(key);
+        data[snakeCase(key)] = this._resolve(key);
       });
 
     return data;

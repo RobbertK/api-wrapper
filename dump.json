@@ -4271,7 +4271,7 @@
     "__docId__": 139,
     "kind": "file",
     "name": "src/RequestParameters.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n\nimport {DeletedState} from './enums';\nimport {camelToPascalCase, camelToSnakeCase, snakeToCamelCase} from './utils/caseConverter';\nimport {hashObject} from './utils/hash';\nimport {getTypeName} from './utils/reflection';\nimport {encodeQueryString} from './utils/requests';\n\n/**\n * Used for keeping track of the request parameters\n */\nexport default class RequestParameters {\n  /**\n   * RequestParameters constructor\n   * @param {Object} object - properties\n   */\n  constructor(object = {}) {\n    this._watch = [];\n\n    // Apply defaults\n    RequestParameters.keys().forEach(x => this._resolve(x));\n\n    // Apply properties\n    for (const key of Object.keys(object)) {\n      const Key = snakeToCamelCase(key);\n\n      if (key[0] === '_' || !RequestParameters.keys().includes(Key)) {\n        continue;\n      }\n\n      this._update(Key, object[key]);\n    }\n  }\n\n  // region instance\n  // region instance getters\n  /**\n   * Get page number\n   * @returns {Number} - Page number\n   * @throws TypeError\n   */\n  get page() {\n    return this._resolve('page');\n  }\n\n  /**\n   * Get rows per page\n   * @returns {Number} - Per page\n   * @throws TypeError\n   */\n  get perPage() {\n    return this._resolve('perPage');\n  }\n\n  /**\n   * Search query\n   * @returns {Object<String, String|Array<String>>} - Query\n   * @throws TypeError\n   */\n  get search() {\n    return this._resolve('search');\n  }\n\n  /**\n   * Get sort options\n   * @returns {Array<String>} - Per page\n   * @throws TypeError\n   */\n  get sort() {\n    return this._resolve('sort');\n  }\n\n  /**\n   * If deleted items should be shown\n   * @returns {String} - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  get deleted() {\n    return this._resolve('deleted');\n  }\n\n  // endregion instance getters\n\n  // region instance setters\n  /**\n   * Page number\n   * @param {Number} value - Page number\n   */\n  set page(value) {\n    this._update('page', value);\n  }\n\n  /**\n   * Rows per page number\n   * @param {Number} value - Per page\n   */\n  set perPage(value) {\n    this._update('perPage', value);\n  }\n\n  /**\n   * Search query\n   * @param {Object<String, String|Array<String>>} value - Search query\n   */\n  set search(value) {\n    this._update('search', value);\n  }\n\n  /**\n   * Sort query\n   * @param {Array<String>} value - Sort query\n   */\n  set sort(value) {\n    this._update('sort', value);\n  }\n\n  /**\n   * Deleted items filter state\n   * @param {String} value - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  set deleted(value) {\n    this._update('deleted', value);\n  }\n\n  // endregion instance setters\n  // endregion instance\n\n  // region static\n  // region getters\n  /**\n   * Default page number\n   * @returns {Number} - Page number\n   */\n  static get page() {\n    return RequestParameters._page || 1;\n  }\n\n  /**\n   * Default per page\n   * @returns {Number} - Per page\n   */\n  static get perPage() {\n    return RequestParameters._perPage || Number(process.env.PER_PAGE);\n  }\n\n  /**\n   * Default search query\n   * @returns {Object<String, String|Array<String>>} - Search query\n   */\n  static get search() {\n    return RequestParameters._search || {};\n  }\n\n  /**\n   * Default sort query\n   * @returns {Array<String>} - Sort query\n   */\n  static get sort() {\n    return RequestParameters._sort || [];\n  }\n\n  /**\n   * Default deleted items filter state\n   * @returns {String} -  Deleted items filter state\n   */\n  static get deleted() {\n    return RequestParameters._deleted || process.env.SHOW_DELETED.toLowerCase();\n  }\n\n  // endregion getters\n\n  // region setters\n  /**\n   * Default page number\n   * @param {Number} value - Page number\n   */\n  static set page(value) {\n    RequestParameters._page = RequestParameters._validatePage(value);\n  }\n\n  /**\n   * Default per page\n   * @param {Number} value - Per page\n   */\n  static set perPage(value) {\n    RequestParameters._perPage = RequestParameters._validatePerPage(value);\n  }\n\n  /**\n   * Default search query\n   * @param {Object<String, String|Array<String>>} value - Search query\n   */\n  static set search(value) {\n    RequestParameters._search = RequestParameters._validateSearch(value);\n  }\n\n  /**\n   * Default sort query\n   * @param {Array<String>} value - Sort query\n   */\n  static set sort(value) {\n    RequestParameters._sort = RequestParameters._validateSort(value);\n  }\n\n  /**\n   * Default deleted items filter state\n   * @param {String} value -  Deleted items filter state\n   */\n  static set deleted(value) {\n    RequestParameters._deleted = RequestParameters._validateDeleted(value);\n  }\n\n  // endregion setters\n  // endregion static\n\n  // region validators\n  /**\n   * Validators should work the same as laravel's ::validate method. This means\n   * this means that they will throw a TypeError or return a normalized result.\n   */\n\n  static _validatePage(value) {\n    if (typeof value !== 'number') {\n      throw new TypeError(`Expected page to be of type 'number' instead got '${typeof value}'`);\n    }\n\n    return Math.round(value);\n  }\n\n  static _validatePerPage(value) {\n    if (typeof value !== 'number') {\n      throw new TypeError(`Expected page to be of type 'Number' instead got '${getTypeName(value)}'`);\n    }\n\n    value = Math.round(value);\n    value = Math.min(50, value); // Upper limit is 50\n    value = Math.max(1, value); // Lower limit is 1\n\n    return value;\n  }\n\n  static _validateSearch(value) {\n    if (typeof value !== 'object') {\n      throw new TypeError(`Expected value to be of type \"Object\" got \"${getTypeName(value)}\"`);\n    }\n\n    // Normalization macro\n    const normalize = x => typeof x === 'number' ? x.toString() : x;\n\n    for (let key of Object.keys(value)) {\n      key = normalize(key);\n      value[key] = normalize(value[key]);\n\n      if (typeof key !== 'string') {\n        throw new TypeError(`Expected key to be of type \"String\" got \"${getTypeName(key)}\"`);\n      }\n\n      if (Array.isArray(value[key])) {\n        if (value[key].length > 0) {\n          for (const query of value[key]) {\n            if (typeof query !== 'string') {\n              throw new TypeError(`Expected query for \"${key}\" to be of type \"String\" got \"${getTypeName(query)}\"`);\n            }\n          }\n        } else {\n          // Drop empty nodes\n          delete value[key];\n        }\n      } else if (value[key] === null) {\n        delete value[key];\n      } else if (typeof value[key] !== 'string') {\n        throw new TypeError(`Expected query value to be of type \"String\" or \"Array\" got \"${getTypeName(value[key])}\"`);\n      }\n    }\n\n    return value;\n  }\n\n  static _validateSort(value) {\n    if (!(value instanceof Array)) {\n      throw new TypeError(`Expected sort value to be of type \"Array\" got \"${getTypeName(value)}\"`);\n    }\n\n    // Array keys type checking\n    value\n      .filter(x => typeof x !== 'string')\n      .forEach(x => {\n        throw new TypeError(`Expected sort array values to be of type \"String\" got \"${getTypeName(x)}\"`);\n      });\n\n    // Don't do regex matching because it's something\n    // we can just let the server do for us.\n\n    return value;\n  }\n\n  static _validateDeleted(value) {\n    value = value.toLowerCase();\n\n    const possible = DeletedState.values();\n\n    if (!possible.includes(value)) {\n      throw new TypeError(`Expected deleted to be on of ${possible.join(', ')}`);\n    }\n\n    return value;\n  }\n\n  // endregion validators\n\n  _resolve(name) {\n    const _name = '_' + name;\n\n    if (!this[_name]) {\n      // Confuse esdoc\n      (this || {})[_name] = RequestParameters[name];\n    }\n\n    return this[_name];\n  }\n\n  _update(name, value) {\n    const _name = '_' + name;\n\n    value = RequestParameters['_validate' + camelToPascalCase(name)](value);\n    (this || {})[_name] = value; // Weird syntax confuses esdoc\n\n    this._watch.forEach(m => m(name, value));\n  }\n\n  // region utils\n  /**\n   * Urlencode parameters\n   * @returns {string} - HTTP query\n   */\n  encode() {\n    const data = this.toObject();\n\n    if (Array.isArray(data.sort)) {\n      data.sort = data.sort.join(',');\n    }\n\n    return encodeQueryString(data);\n  }\n\n  /**\n   * Convert to object\n   * @returns {Object} - Object\n   */\n  toObject() {\n    const data = {};\n\n    RequestParameters\n      .keys()\n      .forEach(key => {\n        data[camelToSnakeCase(key)] = this._resolve(key);\n      });\n\n    return data;\n  }\n\n  /**\n   * Copy object\n   * @returns {RequestParameters} - Copy\n   */\n  copy() {\n    return new RequestParameters(this.toObject());\n  }\n\n  /**\n   * Different parameters\n   * @returns {Array<String>} - keys\n   */\n  static keys() {\n    // enumeration is disabled for properties\n    return [\n      'page',\n      'perPage',\n      'search',\n      'sort',\n      'deleted',\n    ];\n  }\n\n  /**\n   * Watch for changes\n   * @param {Function} method - Callback method\n   * @param {?String} [name=null] - Property name\n   * @returns {void}\n   */\n  watch(method, name = null) {\n    if (name) {\n      method = (n, v) => {\n        if (n === name.toLowerCase()) {\n          method(v);\n        }\n      };\n    }\n\n    this._watch.push(method);\n  }\n\n  token() {\n    const data = this.toObject();\n\n    delete data['page'];\n    delete data['per_page'];\n\n    return hashObject(data);\n  }\n\n  // endregion utils\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n\nimport {DeletedState} from './enums';\nimport {hashObject} from './utils/hash';\nimport {getTypeName} from './utils/reflection';\nimport {encodeQueryString} from './utils/requests';\nimport {camel as camelCase, pascal as pascalCase, snake as snakeCase} from 'case';\n\n/**\n * Used for keeping track of the request parameters\n */\nexport default class RequestParameters {\n  /**\n   * RequestParameters constructor\n   * @param {Object} object - properties\n   */\n  constructor(object = {}) {\n    this._watch = [];\n\n    // Apply defaults\n    RequestParameters.keys().forEach(x => this._resolve(x));\n\n    // Apply properties\n    for (const key of Object.keys(object)) {\n      const Key = camelCase(key);\n\n      if (key[0] === '_' || !RequestParameters.keys().includes(Key)) {\n        continue;\n      }\n\n      this._update(Key, object[key]);\n    }\n  }\n\n  // region instance\n  // region instance getters\n  /**\n   * Get page number\n   * @returns {Number} - Page number\n   * @throws TypeError\n   */\n  get page() {\n    return this._resolve('page');\n  }\n\n  /**\n   * Get rows per page\n   * @returns {Number} - Per page\n   * @throws TypeError\n   */\n  get perPage() {\n    return this._resolve('perPage');\n  }\n\n  /**\n   * Search query\n   * @returns {Object<String, String|Array<String>>} - Query\n   * @throws TypeError\n   */\n  get search() {\n    return this._resolve('search');\n  }\n\n  /**\n   * Get sort options\n   * @returns {Array<String>} - Per page\n   * @throws TypeError\n   */\n  get sort() {\n    return this._resolve('sort');\n  }\n\n  /**\n   * If deleted items should be shown\n   * @returns {String} - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  get deleted() {\n    return this._resolve('deleted');\n  }\n\n  // endregion instance getters\n\n  // region instance setters\n  /**\n   * Page number\n   * @param {Number} value - Page number\n   */\n  set page(value) {\n    this._update('page', value);\n  }\n\n  /**\n   * Rows per page number\n   * @param {Number} value - Per page\n   */\n  set perPage(value) {\n    this._update('perPage', value);\n  }\n\n  /**\n   * Search query\n   * @param {Object<String, String|Array<String>>} value - Search query\n   */\n  set search(value) {\n    this._update('search', value);\n  }\n\n  /**\n   * Sort query\n   * @param {Array<String>} value - Sort query\n   */\n  set sort(value) {\n    this._update('sort', value);\n  }\n\n  /**\n   * Deleted items filter state\n   * @param {String} value - Deleted items filter state\n   * @see {@link DeletedState}\n   */\n  set deleted(value) {\n    this._update('deleted', value);\n  }\n\n  // endregion instance setters\n  // endregion instance\n\n  // region static\n  // region getters\n  /**\n   * Default page number\n   * @returns {Number} - Page number\n   */\n  static get page() {\n    return RequestParameters._page || 1;\n  }\n\n  /**\n   * Default per page\n   * @returns {Number} - Per page\n   */\n  static get perPage() {\n    return RequestParameters._perPage || Number(process.env.PER_PAGE);\n  }\n\n  /**\n   * Default search query\n   * @returns {Object<String, String|Array<String>>} - Search query\n   */\n  static get search() {\n    return RequestParameters._search || {};\n  }\n\n  /**\n   * Default sort query\n   * @returns {Array<String>} - Sort query\n   */\n  static get sort() {\n    return RequestParameters._sort || [];\n  }\n\n  /**\n   * Default deleted items filter state\n   * @returns {String} -  Deleted items filter state\n   */\n  static get deleted() {\n    return RequestParameters._deleted || process.env.SHOW_DELETED.toLowerCase();\n  }\n\n  // endregion getters\n\n  // region setters\n  /**\n   * Default page number\n   * @param {Number} value - Page number\n   */\n  static set page(value) {\n    RequestParameters._page = RequestParameters._validatePage(value);\n  }\n\n  /**\n   * Default per page\n   * @param {Number} value - Per page\n   */\n  static set perPage(value) {\n    RequestParameters._perPage = RequestParameters._validatePerPage(value);\n  }\n\n  /**\n   * Default search query\n   * @param {Object<String, String|Array<String>>} value - Search query\n   */\n  static set search(value) {\n    RequestParameters._search = RequestParameters._validateSearch(value);\n  }\n\n  /**\n   * Default sort query\n   * @param {Array<String>} value - Sort query\n   */\n  static set sort(value) {\n    RequestParameters._sort = RequestParameters._validateSort(value);\n  }\n\n  /**\n   * Default deleted items filter state\n   * @param {String} value -  Deleted items filter state\n   */\n  static set deleted(value) {\n    RequestParameters._deleted = RequestParameters._validateDeleted(value);\n  }\n\n  // endregion setters\n  // endregion static\n\n  // region validators\n  /**\n   * Validators should work the same as laravel's ::validate method. This means\n   * this means that they will throw a TypeError or return a normalized result.\n   */\n\n  static _validatePage(value) {\n    if (typeof value !== 'number') {\n      throw new TypeError(`Expected page to be of type 'number' instead got '${typeof value}'`);\n    }\n\n    return Math.round(value);\n  }\n\n  static _validatePerPage(value) {\n    if (typeof value !== 'number') {\n      throw new TypeError(`Expected page to be of type 'Number' instead got '${getTypeName(value)}'`);\n    }\n\n    value = Math.round(value);\n    value = Math.min(50, value); // Upper limit is 50\n    value = Math.max(1, value); // Lower limit is 1\n\n    return value;\n  }\n\n  static _validateSearch(value) {\n    if (typeof value !== 'object') {\n      throw new TypeError(`Expected value to be of type \"Object\" got \"${getTypeName(value)}\"`);\n    }\n\n    // Normalization macro\n    const normalize = x => typeof x === 'number' ? x.toString() : x;\n\n    for (let key of Object.keys(value)) {\n      key = normalize(key);\n      value[key] = normalize(value[key]);\n\n      if (typeof key !== 'string') {\n        throw new TypeError(`Expected key to be of type \"String\" got \"${getTypeName(key)}\"`);\n      }\n\n      if (Array.isArray(value[key])) {\n        if (value[key].length > 0) {\n          for (const query of value[key]) {\n            if (typeof query !== 'string') {\n              throw new TypeError(`Expected query for \"${key}\" to be of type \"String\" got \"${getTypeName(query)}\"`);\n            }\n          }\n        } else {\n          // Drop empty nodes\n          delete value[key];\n        }\n      } else if (value[key] === null) {\n        delete value[key];\n      } else if (typeof value[key] !== 'string') {\n        throw new TypeError(`Expected query value to be of type \"String\" or \"Array\" got \"${getTypeName(value[key])}\"`);\n      }\n    }\n\n    return value;\n  }\n\n  static _validateSort(value) {\n    if (!(value instanceof Array)) {\n      throw new TypeError(`Expected sort value to be of type \"Array\" got \"${getTypeName(value)}\"`);\n    }\n\n    // Array keys type checking\n    value\n      .filter(x => typeof x !== 'string')\n      .forEach(x => {\n        throw new TypeError(`Expected sort array values to be of type \"String\" got \"${getTypeName(x)}\"`);\n      });\n\n    // Don't do regex matching because it's something\n    // we can just let the server do for us.\n\n    return value;\n  }\n\n  static _validateDeleted(value) {\n    value = value.toLowerCase();\n\n    const possible = DeletedState.values();\n\n    if (!possible.includes(value)) {\n      throw new TypeError(`Expected deleted to be on of ${possible.join(', ')}`);\n    }\n\n    return value;\n  }\n\n  // endregion validators\n\n  _resolve(name) {\n    const _name = '_' + name;\n\n    if (!this[_name]) {\n      // Confuse esdoc\n      (this || {})[_name] = RequestParameters[name];\n    }\n\n    return this[_name];\n  }\n\n  _update(name, value) {\n    const _name = '_' + name;\n\n    value = RequestParameters['_validate' + pascalCase(name)](value);\n    (this || {})[_name] = value; // Weird syntax confuses esdoc\n\n    this._watch.forEach(m => m(name, value));\n  }\n\n  // region utils\n  /**\n   * Urlencode parameters\n   * @returns {string} - HTTP query\n   */\n  encode() {\n    const data = this.toObject();\n\n    if (Array.isArray(data.sort)) {\n      data.sort = data.sort.join(',');\n    }\n\n    return encodeQueryString(data);\n  }\n\n  /**\n   * Convert to object\n   * @returns {Object} - Object\n   */\n  toObject() {\n    const data = {};\n\n    RequestParameters\n      .keys()\n      .forEach(key => {\n        data[snakeCase(key)] = this._resolve(key);\n      });\n\n    return data;\n  }\n\n  /**\n   * Copy object\n   * @returns {RequestParameters} - Copy\n   */\n  copy() {\n    return new RequestParameters(this.toObject());\n  }\n\n  /**\n   * Different parameters\n   * @returns {Array<String>} - keys\n   */\n  static keys() {\n    // enumeration is disabled for properties\n    return [\n      'page',\n      'perPage',\n      'search',\n      'sort',\n      'deleted',\n    ];\n  }\n\n  /**\n   * Watch for changes\n   * @param {Function} method - Callback method\n   * @param {?String} [name=null] - Property name\n   * @returns {void}\n   */\n  watch(method, name = null) {\n    if (name) {\n      method = (n, v) => {\n        if (n === name.toLowerCase()) {\n          method(v);\n        }\n      };\n    }\n\n    this._watch.push(method);\n  }\n\n  token() {\n    const data = this.toObject();\n\n    delete data['page'];\n    delete data['per_page'];\n\n    return hashObject(data);\n  }\n\n  // endregion utils\n}\n",
     "static": true,
     "longname": "src/RequestParameters.js",
     "access": null,
@@ -11677,7 +11677,7 @@
     "__docId__": 401,
     "kind": "file",
     "name": "src/crud/base/CrudSetBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractError} from '../../errors/AbstractError';\nimport {pascalToCamelCase} from '../../utils/caseConverter';\nimport CrudBase from './CrudBase';\n\n/**\n * Crud base for resource sets\n * @abstract\n */\nexport default class CrudSetBase extends CrudBase {\n\n  /**\n   * Get items associated with the set\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get items() {\n    const url = `${this.url}/items`;\n\n    const data = {};\n\n    data[this.foreignKeyName] = this.id;\n\n    return this._proxyResourceList(this._Child, url, data);\n  }\n\n  /**\n   * Child constructor\n   * @returns {ResourceBase} - Child constructor\n   * @constructor\n   * @abstract\n   * @protected\n   */\n  get _Child() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Get the foreign key name\n   * @returns {string} - Foreign key name\n   * @example\n   * api.fontFamilies.select(1).foreignKeyName === 'fontFamilyId'\n   */\n  get foreignKeyName() {\n    if (!this._fk) {\n      let key = this.constructor.name; // ex: FontFamily\n\n      key = pascalToCamelCase(key); // ex: fontFamily\n\n      this._fk = `${key}Id`;\n    }\n\n    return this._fk;\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractError} from '../../errors/AbstractError';\nimport CrudBase from './CrudBase';\nimport {camel as camelCase} from 'case';\n\n/**\n * Crud base for resource sets\n * @abstract\n */\nexport default class CrudSetBase extends CrudBase {\n\n  /**\n   * Get items associated with the set\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get items() {\n    const url = `${this.url}/items`;\n\n    const data = {};\n\n    data[this.foreignKeyName] = this.id;\n\n    return this._proxyResourceList(this._Child, url, data);\n  }\n\n  /**\n   * Child constructor\n   * @returns {ResourceBase} - Child constructor\n   * @constructor\n   * @abstract\n   * @protected\n   */\n  get _Child() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Get the foreign key name\n   * @returns {string} - Foreign key name\n   * @example\n   * api.fontFamilies.select(1).foreignKeyName === 'fontFamilyId'\n   */\n  get foreignKeyName() {\n    if (!this._fk) {\n      let key = this.constructor.name; // ex: FontFamily\n\n      key = camelCase(key); // ex: fontFamily\n\n      this._fk = `${key}Id`;\n    }\n\n    return this._fk;\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/CrudSetBase.js",
     "access": null,
@@ -11829,7 +11829,7 @@
     "__docId__": 407,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\nimport {camelToSnakeCase, pascalToCamelCase, snakeToCamelCase} from '../../utils/caseConverter';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = camelToSnakeCase(pascalToCamelCase(key));\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data || {};\n    this._properties = {};\n    this._api = api;\n\n    const fields = Object.keys(this._baseProperties);\n\n    // Apply properties\n    for (const key of fields) {\n      this._applyProperty(key);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n\n    /* We keep track of any new fields by recording the\n     * keys the object currently has. We don't need no\n     * fancy-pants observers, Proxies etc.\n     */\n    this._knownFields = Object.keys(this).filter(x => x[0] !== '_');\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Returns the url key of the resource\n   * @returns {String} - Resource key\n   */\n  static get resourceUrlKey() {\n    return 'id';\n  }\n\n  /**\n   * Protected read-only fields\n   * @returns {Array<string>} - Array containing the protected fields\n   * @protected\n   */\n  get _protectedFields() {\n    return ['id', 'created_at', 'updated_at', 'deleted_at'];\n  }\n\n  /**\n   * Moves new fields to this._properties and turns them into a getter/setter\n   * @returns {void}\n   * @protected\n   */\n  _updateProperties() {\n    // Build a list of new fields\n    const fields = Object.keys(this)\n      .filter(x => x[0] !== '_')\n      .filter(x => !this._knownFields.includes(x));\n\n    // Move the pointer from this to the properties object\n    for (const key of fields) {\n      const newKey = camelToSnakeCase(key);\n\n      this._properties[newKey] = this[key];\n      delete this[key];\n\n      this._knownFields.push(key);\n\n      this._applyProperty(newKey);\n    }\n  }\n\n  /**\n   * Clean up instance and commit all changes locally.\n   * This means that any changed fields will be marked\n   * as unchanged whilst  keeping their new values. The\n   * changes will not be saved.\n   * @returns {void} - nothing\n   */\n  sanitize() {\n    this._updateProperties();\n    Object.assign(this._baseProperties, this._properties);\n    this._properties = {};\n  }\n\n  /**\n   * Clone the object\n   * @returns {ResourceBase} - Exact clone of the object\n   */\n  clone() {\n    this._updateProperties();\n\n    const out = new this.constructor(this.api, this._baseProperties);\n\n    for (const key of Object.keys(this._properties)) {\n      out[key] = this._properties[key];\n    }\n\n    return out;\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return this._api\n      .request(this.url)\n      .then(data => {\n        if (updateSelf) {\n          this._properties = {};\n          this._baseProperties = data;\n\n          this._updateProperties();\n        }\n\n        return new this.constructor(this._api, data);\n      });\n  }\n\n  /**\n   * Create proxy for property\n   * @param {string} key - property key\n   * @returns {void}\n   * @private\n   */\n  _applyProperty(key) {\n    const desc = {\n      enumerable: true,\n      configurable: true,\n\n      get: () => {\n        if (this._properties.hasOwnProperty(key)) {\n          return this._properties[key];\n        }\n\n        return this._baseProperties[key];\n      },\n    };\n\n    if (!this._protectedFields.includes(key)) {\n      desc.set = (val) => {\n        this._properties[key] = ResourceBase._guessType(key, val);\n        delete this._url; // Clears url cache\n      };\n    }\n\n    Object.defineProperty(this, snakeToCamelCase(key), desc);\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[snakeToCamelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(snakeToCamelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this[this.resourceUrlKey]})`;\n  }\n\n  /**\n   * Transform instance to object\n   * @returns {{}} - object\n   */\n  toObject() {\n    this._updateProperties();\n\n    return Object.assign({}, this._baseProperties, this._properties);\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\nimport {camel as camelCase, snake as snakeCase} from 'case';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = snakeCase(key);\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data || {};\n    this._properties = {};\n    this._api = api;\n\n    const fields = Object.keys(this._baseProperties);\n\n    // Apply properties\n    for (const key of fields) {\n      this._applyProperty(key);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n\n    /* We keep track of any new fields by recording the\n     * keys the object currently has. We don't need no\n     * fancy-pants observers, Proxies etc.\n     */\n    this._knownFields = Object.keys(this).filter(x => x[0] !== '_');\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Returns the url key of the resource\n   * @returns {String} - Resource key\n   */\n  static get resourceUrlKey() {\n    return 'id';\n  }\n\n  /**\n   * Protected read-only fields\n   * @returns {Array<string>} - Array containing the protected fields\n   * @protected\n   */\n  get _protectedFields() {\n    return ['id', 'created_at', 'updated_at', 'deleted_at'];\n  }\n\n  /**\n   * Moves new fields to this._properties and turns them into a getter/setter\n   * @returns {void}\n   * @protected\n   */\n  _updateProperties() {\n    // Build a list of new fields\n    const fields = Object.keys(this)\n      .filter(x => x[0] !== '_')\n      .filter(x => !this._knownFields.includes(x));\n\n    // Move the pointer from this to the properties object\n    for (const key of fields) {\n      const newKey = snakeCase(key);\n\n      this._properties[newKey] = this[key];\n      delete this[key];\n\n      this._knownFields.push(key);\n\n      this._applyProperty(newKey);\n    }\n  }\n\n  /**\n   * Clean up instance and commit all changes locally.\n   * This means that any changed fields will be marked\n   * as unchanged whilst  keeping their new values. The\n   * changes will not be saved.\n   * @returns {void} - nothing\n   */\n  sanitize() {\n    this._updateProperties();\n    Object.assign(this._baseProperties, this._properties);\n    this._properties = {};\n  }\n\n  /**\n   * Clone the object\n   * @returns {ResourceBase} - Exact clone of the object\n   */\n  clone() {\n    this._updateProperties();\n\n    const out = new this.constructor(this.api, this._baseProperties);\n\n    for (const key of Object.keys(this._properties)) {\n      out[key] = this._properties[key];\n    }\n\n    return out;\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return this._api\n      .request(this.url)\n      .then(data => {\n        if (updateSelf) {\n          this._properties = {};\n          this._baseProperties = data;\n\n          this._updateProperties();\n        }\n\n        return new this.constructor(this._api, data);\n      });\n  }\n\n  /**\n   * Create proxy for property\n   * @param {string} key - property key\n   * @returns {void}\n   * @private\n   */\n  _applyProperty(key) {\n    const desc = {\n      enumerable: true,\n      configurable: true,\n\n      get: () => {\n        if (this._properties.hasOwnProperty(key)) {\n          return this._properties[key];\n        }\n\n        return this._baseProperties[key];\n      },\n    };\n\n    if (!this._protectedFields.includes(key)) {\n      desc.set = (val) => {\n        this._properties[key] = ResourceBase._guessType(key, val);\n        delete this._url; // Clears url cache\n      };\n    }\n\n    Object.defineProperty(this, camelCase(key), desc);\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[camelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(camelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this[this.resourceUrlKey]})`;\n  }\n\n  /**\n   * Transform instance to object\n   * @returns {{}} - object\n   */\n  toObject() {\n    this._updateProperties();\n\n    return Object.assign({}, this._baseProperties, this._properties);\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/ResourceBase.js",
     "access": null,
@@ -16718,185 +16718,6 @@
   {
     "__docId__": 593,
     "kind": "file",
-    "name": "src/utils/caseConverter.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Converts snake_case strings to camelCase\n * @param {String} str - a snake_case string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function snakeToCamelCase(str) {\n  return str.replace(/(?:(_[a-z\\d]))/g, x => x[1].toUpperCase());\n}\n\n/**\n * Converts camelCase strings to snake_case\n * @param {String} str - a camelCase string\n * @returns {String} - Converted snake_case string\n * @private\n */\nexport function camelToSnakeCase(str) {\n  return str.replace(/([A-Z])/g, x => '_' + x.toLowerCase());\n}\n\n/**\n * Converts PascalCase strings to camelCase\n * @param {String} str - a PascalCase string\n * @returns {String} - Converted camelCase string\n * @private\n */\nexport function pascalToCamelCase(str) {\n  return str.replace(/^([A-Z])/g, x => x.toLowerCase());\n}\n\n/**\n * Converts camelCase strings to PascalCase\n * @param {String} str - a camelCase string\n * @returns {String} - Converted PascalCase string\n * @private\n */\nexport function camelToPascalCase(str) {\n  return str.replace(/^([a-z])/g, x => x.toUpperCase());\n}\n",
-    "static": true,
-    "longname": "src/utils/caseConverter.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 594,
-    "kind": "function",
-    "name": "snakeToCamelCase",
-    "memberof": "src/utils/caseConverter.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/utils/caseConverter.js~snakeToCamelCase",
-    "access": "private",
-    "export": true,
-    "importPath": "@mapcreator/maps4news/src/utils/caseConverter.js",
-    "importStyle": "{snakeToCamelCase}",
-    "description": "Converts snake_case strings to camelCase",
-    "lineNumber": 39,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{String} - Converted camelCase string"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "str",
-        "description": "a snake_case string"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "String"
-      ],
-      "spread": false,
-      "description": "Converted camelCase string"
-    }
-  },
-  {
-    "__docId__": 595,
-    "kind": "function",
-    "name": "camelToSnakeCase",
-    "memberof": "src/utils/caseConverter.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/utils/caseConverter.js~camelToSnakeCase",
-    "access": "private",
-    "export": true,
-    "importPath": "@mapcreator/maps4news/src/utils/caseConverter.js",
-    "importStyle": "{camelToSnakeCase}",
-    "description": "Converts camelCase strings to snake_case",
-    "lineNumber": 49,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{String} - Converted snake_case string"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "str",
-        "description": "a camelCase string"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "String"
-      ],
-      "spread": false,
-      "description": "Converted snake_case string"
-    }
-  },
-  {
-    "__docId__": 596,
-    "kind": "function",
-    "name": "pascalToCamelCase",
-    "memberof": "src/utils/caseConverter.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/utils/caseConverter.js~pascalToCamelCase",
-    "access": "private",
-    "export": true,
-    "importPath": "@mapcreator/maps4news/src/utils/caseConverter.js",
-    "importStyle": "{pascalToCamelCase}",
-    "description": "Converts PascalCase strings to camelCase",
-    "lineNumber": 59,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{String} - Converted camelCase string"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "str",
-        "description": "a PascalCase string"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "String"
-      ],
-      "spread": false,
-      "description": "Converted camelCase string"
-    }
-  },
-  {
-    "__docId__": 597,
-    "kind": "function",
-    "name": "camelToPascalCase",
-    "memberof": "src/utils/caseConverter.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/utils/caseConverter.js~camelToPascalCase",
-    "access": "private",
-    "export": true,
-    "importPath": "@mapcreator/maps4news/src/utils/caseConverter.js",
-    "importStyle": "{camelToPascalCase}",
-    "description": "Converts camelCase strings to PascalCase",
-    "lineNumber": 69,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{String} - Converted PascalCase string"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "str",
-        "description": "a camelCase string"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "String"
-      ],
-      "spread": false,
-      "description": "Converted PascalCase string"
-    }
-  },
-  {
-    "__docId__": 598,
-    "kind": "file",
     "name": "src/utils/hash.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport stringify from 'json-stable-stringify';\n\nconst FNV1_32A_INIT = 0x811c9dc5;\n\n/**\n * Fast hash function for non-cryptographic use\n * @param {string} str - Input to be hashed\n * @returns {string} - String representation of the hash\n * @private\n */\nexport function fnv32b(str) {\n  let hash = str\n    .split('')\n    .map(x => x.charCodeAt(0))\n    .reduce((sum, val) => {\n      sum ^= val;\n      return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);\n    }, FNV1_32A_INIT);\n\n  // Avalanche\n  hash ^= hash << 3;\n  hash += hash >> 5;\n  hash ^= hash << 4;\n  hash += hash >> 17;\n  hash ^= hash << 25;\n  hash += hash >> 6;\n\n  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);\n}\n\n/**\n * Fast object hashing for non-cryptographic use\n * @param {object} data - input data\n * @returns {string} - String reprisentation of the hash\n * @private\n */\nexport function hashObject(data) {\n  return fnv32b(stringify(data));\n}\n",
     "static": true,
@@ -16906,7 +16727,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 599,
+    "__docId__": 594,
     "kind": "variable",
     "name": "FNV1_32A_INIT",
     "memberof": "src/utils/hash.js",
@@ -16932,7 +16753,7 @@
     }
   },
   {
-    "__docId__": 600,
+    "__docId__": 595,
     "kind": "function",
     "name": "fnv32b",
     "memberof": "src/utils/hash.js",
@@ -16974,7 +16795,7 @@
     }
   },
   {
-    "__docId__": 601,
+    "__docId__": 596,
     "kind": "function",
     "name": "hashObject",
     "memberof": "src/utils/hash.js",
@@ -17016,7 +16837,7 @@
     }
   },
   {
-    "__docId__": 602,
+    "__docId__": 597,
     "kind": "file",
     "name": "src/utils/helpers.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Get all the pages from a {@link PaginatedResourceListing} or a range\n * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}\n * @param {?Number} [start=1] - Start page\n * @param {?Number} [stop] - Stop page\n * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * import { helpers } from \"@mapcreator/maps4news\";\n *\n * const promise = api.users.list(1, 50); // 50 per page is more efficient\n *\n * helpers.getPaginatedRange(promise).then(data => {\n *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n *        .forEach(console.log) // Log the names and ids of every user\n * })\n */\nexport function getPaginatedRange(page, start = 1, stop) {\n  // Resolve promise if any\n  if (page instanceof Promise) {\n    return page.then(res => getPaginatedRange(res, start, stop));\n  }\n\n  const out = page.data;\n  const promises = [];\n\n  // Handle defaults\n  start = start || page.page;\n  stop = stop || page.pageCount;\n\n  if (start === page.page) {\n    start++;\n  }\n\n  return new Promise((resolve, reject) => {\n    // Get all pages\n    for (let i = start; i <= stop; i++) {\n      promises.push(page.get(i));\n    }\n\n    // Resolve\n    Promise.all(promises).then(rows => {\n      resolve(out.concat(...rows.map(x => x.data)));\n    }, reject);\n  });\n}\n",
@@ -17027,7 +16848,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 603,
+    "__docId__": 598,
     "kind": "function",
     "name": "getPaginatedRange",
     "memberof": "src/utils/helpers.js",
@@ -17095,7 +16916,7 @@
     }
   },
   {
-    "__docId__": 604,
+    "__docId__": 599,
     "kind": "file",
     "name": "src/utils/node.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined'\n    && typeof module !== 'undefined'\n    && typeof module.exports !== 'undefined';\n}\n",
@@ -17106,7 +16927,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 605,
+    "__docId__": 600,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -17140,7 +16961,7 @@
     }
   },
   {
-    "__docId__": 606,
+    "__docId__": 601,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Trait from '../traits/Trait';\n\n/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Function} baseClass - Target base class for the traits to be applied to\n * @param {Function} mixins - Traits to be applied\n * @returns {Function} - Constructor with any traits applied\n * @private\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins.forEach(mixin => {\n        if (mixin.prototype.initializer) {\n          mixin.prototype.initializer.call(this);\n        }\n      });\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n",
@@ -17151,7 +16972,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 607,
+    "__docId__": 602,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -17208,7 +17029,7 @@
     }
   },
   {
-    "__docId__": 608,
+    "__docId__": 603,
     "kind": "function",
     "name": "getTypeName",
     "memberof": "src/utils/reflection.js",
@@ -17250,7 +17071,7 @@
     }
   },
   {
-    "__docId__": 609,
+    "__docId__": 604,
     "kind": "function",
     "name": "mix",
     "memberof": "src/utils/reflection.js",
@@ -17302,7 +17123,7 @@
     }
   },
   {
-    "__docId__": 610,
+    "__docId__": 605,
     "kind": "function",
     "name": "copyProps",
     "memberof": "src/utils/reflection.js",
@@ -17354,7 +17175,7 @@
     }
   },
   {
-    "__docId__": 611,
+    "__docId__": 606,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport fetchPonyfill from 'fetch-ponyfill';\n\n// eslint-disable-next-line no-eval\nexport const FormData = require('form-data');\nexport const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject).replace('&&', '&');\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .filter(key => paramsObject[key] !== null)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
@@ -17365,7 +17186,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 612,
+    "__docId__": 607,
     "kind": "variable",
     "name": "FormData",
     "memberof": "src/utils/requests.js",
@@ -17391,7 +17212,7 @@
     }
   },
   {
-    "__docId__": 613,
+    "__docId__": 608,
     "kind": "variable",
     "name": "fetch",
     "memberof": "src/utils/requests.js",
@@ -17417,7 +17238,7 @@
     }
   },
   {
-    "__docId__": 614,
+    "__docId__": 609,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -17459,7 +17280,7 @@
     }
   },
   {
-    "__docId__": 615,
+    "__docId__": 610,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -17514,7 +17335,7 @@
     }
   },
   {
-    "__docId__": 616,
+    "__docId__": 611,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -17525,7 +17346,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 617,
+    "__docId__": 612,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -17543,7 +17364,7 @@
     ]
   },
   {
-    "__docId__": 618,
+    "__docId__": 613,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -17571,7 +17392,7 @@
     }
   },
   {
-    "__docId__": 619,
+    "__docId__": 614,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -17599,7 +17420,7 @@
     }
   },
   {
-    "__docId__": 621,
+    "__docId__": 616,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -17611,7 +17432,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 622,
+    "__docId__": 617,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -17623,7 +17444,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 623,
+    "__docId__": 618,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -17635,7 +17456,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 624,
+    "__docId__": 619,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -17647,7 +17468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 625,
+    "__docId__": 620,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -17659,7 +17480,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 626,
+    "__docId__": 621,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -17671,7 +17492,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 627,
+    "__docId__": 622,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -17683,7 +17504,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 628,
+    "__docId__": 623,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -17695,7 +17516,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 629,
+    "__docId__": 624,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -17707,7 +17528,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 630,
+    "__docId__": 625,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -17719,7 +17540,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 631,
+    "__docId__": 626,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -17731,7 +17552,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 632,
+    "__docId__": 627,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -17743,7 +17564,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 633,
+    "__docId__": 628,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -17755,7 +17576,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 634,
+    "__docId__": 629,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -17767,7 +17588,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 635,
+    "__docId__": 630,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -17779,7 +17600,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 636,
+    "__docId__": 631,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -17791,7 +17612,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 637,
+    "__docId__": 632,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -17803,7 +17624,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 638,
+    "__docId__": 633,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -17815,7 +17636,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 639,
+    "__docId__": 634,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -17827,7 +17648,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 640,
+    "__docId__": 635,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -17839,7 +17660,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 641,
+    "__docId__": 636,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -17851,7 +17672,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 642,
+    "__docId__": 637,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -17863,7 +17684,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 643,
+    "__docId__": 638,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -17875,7 +17696,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 644,
+    "__docId__": 639,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -17887,7 +17708,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 645,
+    "__docId__": 640,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -17899,7 +17720,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 646,
+    "__docId__": 641,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -17911,7 +17732,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 647,
+    "__docId__": 642,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -17923,7 +17744,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 648,
+    "__docId__": 643,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -17935,7 +17756,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 649,
+    "__docId__": 644,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -17947,7 +17768,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 650,
+    "__docId__": 645,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -17959,7 +17780,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 651,
+    "__docId__": 646,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -17971,7 +17792,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 652,
+    "__docId__": 647,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -17983,7 +17804,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 653,
+    "__docId__": 648,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -17995,7 +17816,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 654,
+    "__docId__": 649,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -18007,7 +17828,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 655,
+    "__docId__": 650,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -18019,7 +17840,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 656,
+    "__docId__": 651,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -18031,7 +17852,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 657,
+    "__docId__": 652,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -18043,7 +17864,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 658,
+    "__docId__": 653,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -18055,7 +17876,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 659,
+    "__docId__": 654,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -18067,7 +17888,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 660,
+    "__docId__": 655,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -18079,7 +17900,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 661,
+    "__docId__": 656,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -18091,7 +17912,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 662,
+    "__docId__": 657,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -18103,7 +17924,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 663,
+    "__docId__": 658,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -18115,7 +17936,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 664,
+    "__docId__": 659,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -18127,7 +17948,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 665,
+    "__docId__": 660,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -18139,7 +17960,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 666,
+    "__docId__": 661,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -18151,7 +17972,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 667,
+    "__docId__": 662,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -18164,7 +17985,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 669,
+    "__docId__": 664,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -18176,7 +17997,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 670,
+    "__docId__": 665,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -18188,7 +18009,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 671,
+    "__docId__": 666,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -18200,7 +18021,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 672,
+    "__docId__": 667,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -18212,7 +18033,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 673,
+    "__docId__": 668,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -18224,7 +18045,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 674,
+    "__docId__": 669,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -18236,7 +18057,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 675,
+    "__docId__": 670,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -18248,7 +18069,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 676,
+    "__docId__": 671,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

@@ -140,8 +140,8 @@
  */
 
 import {AbstractError} from &apos;../../errors/AbstractError&apos;;
-import {pascalToCamelCase} from &apos;../../utils/caseConverter&apos;;
 import CrudBase from &apos;./CrudBase&apos;;
+import {camel as camelCase} from &apos;case&apos;;
 
 /**
  * Crud base for resource sets
@@ -184,7 +184,7 @@ export default class CrudSetBase extends CrudBase {
     if (!this._fk) {
       let key = this.constructor.name; // ex: FontFamily
 
-      key = pascalToCamelCase(key); // ex: fontFamily
+      key = camelCase(key); // ex: fontFamily
 
       this._fk = `${key}Id`;
     }
