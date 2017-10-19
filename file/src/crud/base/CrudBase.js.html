@@ -204,7 +204,7 @@ export default class CrudBase extends ResourceBase {
    * @private
    */
   _create() {
-    this.api
+    return this.api
       .request(this.baseUrl, &apos;POST&apos;, this._buildCreateData())
       .then(data =&gt; {
         this._properties = {};

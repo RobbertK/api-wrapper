@@ -31,15 +31,16 @@
  * 
  */
 /*!
- * hash:c4a37a892d18a5303eff, chunkhash:b7d650226eb12e227899, name:bundle, version:v1.1.41
+ * hash:45a0c1a5442bb872905e, chunkhash:6036a7a730fc09375961, name:bundle, version:v1.1.42
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.41) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.42) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  │  └─ regenerator-runtime (0.11.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime ~ regenerator-runtime/package.json
  *    │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
+ *    ├─ case (1.5.3) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
  *    ├─ fetch-ponyfill (4.1.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/fetch-ponyfill/package.json
  *    │  └─ node-fetch (1.7.3) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/node-fetch/package.json
  *    │     ├─ encoding (0.1.12) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/encoding/package.json
@@ -401,7 +402,7 @@ var CrudBase = function (_ResourceBase) {
     value: function _create() {
       var _this2 = this;
 
-      this.api.request(this.baseUrl, 'POST', this._buildCreateData()).then(function (data) {
+      return this.api.request(this.baseUrl, 'POST', this._buildCreateData()).then(function (data) {
         _this2._properties = {};
         _this2._baseProperties = data;
 
@@ -13780,7 +13781,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.41";
+var version = exports.version = "v1.1.42";
 
 /**
  * Package license
