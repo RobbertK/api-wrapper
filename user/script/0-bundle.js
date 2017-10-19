@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:bc888fd09843751631f6, chunkhash:ba64f73aca84fa0c706d, name:bundle, version:v1.1.43
+ * hash:cd09b9bf8dd380dff5cf, chunkhash:da37577485fc604babb6, name:bundle, version:v1.1.44
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.43) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.44) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -600,7 +600,7 @@ exports.isParentOf = isParentOf;
 exports.getTypeName = getTypeName;
 exports.mix = mix;
 
-var _Trait = __webpack_require__(82);
+var _Trait = __webpack_require__(83);
 
 var _Trait2 = _interopRequireDefault(_Trait);
 
@@ -711,10 +711,12 @@ function mix(baseClass) {
 
       var _this = _possibleConstructorReturn(this, (_ref = _Cocktail.__proto__ || Object.getPrototypeOf(_Cocktail)).call.apply(_ref, [this].concat(args)));
 
-      mixins.forEach(function (mixin) {
-        if (mixin.prototype.initializer) {
-          mixin.prototype.initializer.call(_this);
-        }
+      mixins.map(function (mixin) {
+        return mixin.prototype.initializer;
+      }).filter(function (_) {
+        return _;
+      }).forEach(function (initializer) {
+        return initializer.call(_this);
       });
       return _this;
     }
@@ -973,7 +975,7 @@ var _SimpleResourceProxy = __webpack_require__(124);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
-var _case = __webpack_require__(83);
+var _case = __webpack_require__(82);
 
 var _reflection = __webpack_require__(11);
 
@@ -2192,7 +2194,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Trait2 = __webpack_require__(82);
+var _Trait2 = __webpack_require__(83);
 
 var _Trait3 = _interopRequireDefault(_Trait2);
 
@@ -2884,7 +2886,7 @@ var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _case = __webpack_require__(83);
+var _case = __webpack_require__(82);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5320,6 +5322,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
+var _case = __webpack_require__(82);
+
 var _enums = __webpack_require__(129);
 
 var _hash = __webpack_require__(80);
@@ -5328,12 +5332,11 @@ var _reflection = __webpack_require__(11);
 
 var _requests = __webpack_require__(35);
 
-var _case = __webpack_require__(83);
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * Used for keeping track of the request parameters
+ * @todo transform CamelCase to snake_case in search keys and sort vars
  */
 var RequestParameters = function () {
   /**
@@ -5436,8 +5439,38 @@ var RequestParameters = function () {
     value: function encode() {
       var data = this.toObject();
 
-      if (Array.isArray(data.sort)) {
-        data.sort = data.sort.join(',');
+      // Fix column names for sort
+      data.sort = data.sort.map(_case.snake).join(',');
+
+      // Fix column names for search
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = Object.keys(data.search)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var key = _step2.value;
+
+          var snakeKey = (0, _case.snake)(key);
+
+          if (key !== snakeKey) {
+            data.search[snakeKey] = data.search[key];
+            delete data.search[key];
+          }
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
       }
 
       return (0, _requests.encodeQueryString)(data);
@@ -5487,19 +5520,22 @@ var RequestParameters = function () {
      * @param {Function} method - Callback method
      * @param {?String} [name=null] - Property name
      * @returns {void}
+     * @deprecated
      */
-    value: function watch(_method) {
+    value: function watch(method) {
       var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       if (name) {
-        _method = function method(n, v) {
+        var wrapped = function wrapped(n, v) {
           if (n === name.toLowerCase()) {
-            _method(v);
+            method(v);
           }
         };
-      }
 
-      this._watch.push(_method);
+        this._watch.push(wrapped);
+      } else {
+        this._watch.push(method);
+      }
     }
   }, {
     key: 'token',
@@ -5511,9 +5547,6 @@ var RequestParameters = function () {
 
       return (0, _hash.hashObject)(data);
     }
-
-    // endregion utils
-
   }, {
     key: 'page',
     get: function get() {
@@ -5663,7 +5696,7 @@ var RequestParameters = function () {
   }, {
     key: '_validateSearch',
     value: function _validateSearch(value) {
-      if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== 'object') {
+      if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== 'object' || Array.isArray(value)) {
         throw new TypeError('Expected value to be of type "Object" got "' + (0, _reflection.getTypeName)(value) + '"');
       }
 
@@ -5672,13 +5705,13 @@ var RequestParameters = function () {
         return typeof x === 'number' ? x.toString() : x;
       };
 
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
 
       try {
-        for (var _iterator2 = Object.keys(value)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var key = _step2.value;
+        for (var _iterator3 = Object.keys(value)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var key = _step3.value;
 
           key = normalize(key);
           value[key] = normalize(value[key]);
@@ -5689,29 +5722,29 @@ var RequestParameters = function () {
 
           if (Array.isArray(value[key])) {
             if (value[key].length > 0) {
-              var _iteratorNormalCompletion3 = true;
-              var _didIteratorError3 = false;
-              var _iteratorError3 = undefined;
+              var _iteratorNormalCompletion4 = true;
+              var _didIteratorError4 = false;
+              var _iteratorError4 = undefined;
 
               try {
-                for (var _iterator3 = value[key][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                  var query = _step3.value;
+                for (var _iterator4 = value[key][Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                  var query = _step4.value;
 
                   if (typeof query !== 'string') {
                     throw new TypeError('Expected query for "' + key + '" to be of type "String" got "' + (0, _reflection.getTypeName)(query) + '"');
                   }
                 }
               } catch (err) {
-                _didIteratorError3 = true;
-                _iteratorError3 = err;
+                _didIteratorError4 = true;
+                _iteratorError4 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                    _iterator3.return();
+                  if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                    _iterator4.return();
                   }
                 } finally {
-                  if (_didIteratorError3) {
-                    throw _iteratorError3;
+                  if (_didIteratorError4) {
+                    throw _iteratorError4;
                   }
                 }
               }
@@ -5726,16 +5759,16 @@ var RequestParameters = function () {
           }
         }
       } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
           }
         } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
+          if (_didIteratorError3) {
+            throw _iteratorError3;
           }
         }
       }
@@ -5745,6 +5778,10 @@ var RequestParameters = function () {
   }, {
     key: '_validateSort',
     value: function _validateSort(value) {
+      if (typeof value === 'string') {
+        return this._validateSort(value.split(','));
+      }
+
       if (!(value instanceof Array)) {
         throw new TypeError('Expected sort value to be of type "Array" got "' + (0, _reflection.getTypeName)(value) + '"');
       }
@@ -5764,6 +5801,10 @@ var RequestParameters = function () {
   }, {
     key: '_validateDeleted',
     value: function _validateDeleted(value) {
+      if (typeof value !== 'string') {
+        throw new TypeError('Expected deleted to be of type "string" got "' + (0, _reflection.getTypeName)(value) + '". See: DeletedState');
+      }
+
       value = value.toLowerCase();
 
       var possible = _enums.DeletedState.values();
@@ -5780,6 +5821,37 @@ var RequestParameters = function () {
       // enumeration is disabled for properties
       return ['page', 'perPage', 'search', 'sort', 'deleted'];
     }
+  }, {
+    key: 'resetDefaults',
+    value: function resetDefaults() {
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = RequestParameters.keys()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var key = _step5.value;
+
+          delete RequestParameters['_' + key];
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
+          }
+        }
+      }
+    }
+
+    // endregion utils
+
   }, {
     key: 'page',
     get: function get() {
@@ -5872,7 +5944,7 @@ var RequestParameters = function () {
   }, {
     key: 'deleted',
     get: function get() {
-      return RequestParameters._deleted || "none".toLowerCase();
+      return RequestParameters._deleted || _enums.DeletedState.NONE;
     },
     set: function set(value) {
       RequestParameters._deleted = RequestParameters._validateDeleted(value);
@@ -5886,78 +5958,6 @@ exports.default = RequestParameters;
 
 /***/ }),
 /* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Trait interface
- * @interface
- */
-var Trait = function () {
-  function Trait() {
-    _classCallCheck(this, Trait);
-  }
-
-  _createClass(Trait, [{
-    key: "initializer",
-
-    /**
-     * Optional initialization method
-     * @returns {void}
-     * @abstract
-     */
-    value: function initializer() {}
-  }]);
-
-  return Trait;
-}();
-
-exports.default = Trait;
-
-/***/ }),
-/* 83 */
 /***/ (function(module, exports) {
 
 /*! Case - v1.5.3 - 2017-07-11
@@ -6122,6 +6122,78 @@ exports.default = Trait;
 
 }).call(this);
 
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Trait interface
+ * @interface
+ */
+var Trait = function () {
+  function Trait() {
+    _classCallCheck(this, Trait);
+  }
+
+  _createClass(Trait, [{
+    key: "initializer",
+
+    /**
+     * Optional initialization method
+     * @returns {void}
+     * @abstract
+     */
+    value: function initializer() {}
+  }]);
+
+  return Trait;
+}();
+
+exports.default = Trait;
 
 /***/ }),
 /* 84 */
@@ -11065,7 +11137,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Trait2 = __webpack_require__(82);
+var _Trait2 = __webpack_require__(83);
 
 var _Trait3 = _interopRequireDefault(_Trait2);
 
@@ -13854,7 +13926,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.43";
+var version = exports.version = "v1.1.44";
 
 /**
  * Package license
