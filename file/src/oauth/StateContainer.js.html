@@ -93,6 +93,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">storage</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/CookiesDriver.js~CookiesDriver.html">CookiesDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/DataStoreDriver.js~DataStoreDriver.html">DataStoreDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/FileDriver.js~FileDriver.html">FileDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html">LocalStorageDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/StorageManager.js~StorageManager.html">StorageManager</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
@@ -139,6 +144,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import StorageManager from &apos;../storage/StorageManager&apos;;
 import StaticClass from &apos;../utils/StaticClass&apos;;
 import Uuid from &apos;../utils/uuid&apos;;
 
@@ -165,7 +171,7 @@ export default class StateContainer extends StaticClass {
     const key = StateContainer.prefix + Date.now();
     const value = Uuid.uuid4();
 
-    localStorage.setItem(key, value);
+    StorageManager.best.setItem(key, value);
     return value;
   }
 
@@ -176,12 +182,14 @@ export default class StateContainer extends StaticClass {
    * @returns {Boolean} - if the state is valid
    */
   static validate(state, purge = true) {
-    for (let i = 0; i &lt; localStorage.length; i++) {
-      const key = localStorage.key(i);
+    const storage = StorageManager.best;
 
-      if (localStorage.getItem(key) === state) {
+    for (let i = 0; i &lt; storage.length; i++) {
+      const key = storage.key(i);
+
+      if (storage.getItem(key) === state) {
         if (purge) {
-          localStorage.removeItem(key);
+          storage.removeItem(key);
         }
 
         return true;
@@ -196,12 +204,14 @@ export default class StateContainer extends StaticClass {
    * @returns {void}
    */
   static clean() {
-    for (let i = 0; i &lt; localStorage.length; i++) {
-      const key = localStorage.key(i);
+    const storage = StorageManager.best;
+
+    for (let i = 0; i &lt; storage.length; i++) {
+      const key = storage.key(i);
       const prefix = key.slice(0, StateContainer.prefix.length);
 
       if (prefix === StateContainer.prefix) {
-        localStorage.removeItem(key);
+        storage.removeItem(key);
       }
     }
   }
@@ -211,14 +221,15 @@ export default class StateContainer extends StaticClass {
    * @returns {Object&lt;String, String&gt;} - List of stored states
    */
   static list() {
+    const storage = StorageManager.best;
     const out = {};
 
-    for (let i = 0; i &lt; localStorage.length; i++) {
-      const key = localStorage.key(i);
+    for (let i = 0; i &lt; storage.length; i++) {
+      const key = storage.key(i);
       const prefix = key.slice(0, StateContainer.prefix.length);
 
       if (prefix === StateContainer.prefix) {
-        out[key] = localStorage.getItem(key);
+        out[key] = storage.getItem(key);
       }
     }
 

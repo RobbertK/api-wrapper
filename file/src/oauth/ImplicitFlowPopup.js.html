@@ -93,6 +93,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">storage</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/CookiesDriver.js~CookiesDriver.html">CookiesDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/DataStoreDriver.js~DataStoreDriver.html">DataStoreDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/FileDriver.js~FileDriver.html">FileDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html">LocalStorageDriver</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/StorageManager.js~StorageManager.html">StorageManager</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
@@ -142,6 +147,7 @@
 import ImplicitFlow from &apos;./ImplicitFlow&apos;;
 import OAuthToken from &apos;./OAuthToken&apos;;
 import OAuthError from &apos;../errors/OAuthError&apos;;
+import StorageManager from &apos;../storage/StorageManager&apos;;
 
 /**
  * Implicit OAuth flow using a pop-up.
@@ -162,11 +168,12 @@ export default class ImplicitFlowPopup extends ImplicitFlow {
     super(clientId, callbackUrl, scopes, useState);
 
     this.windowOptions = windowOptions;
+    this._storage = StorageManager.best;
 
     if (window.name === ImplicitFlowPopup.popupWindowName) {
       const data = this.token.toResponseObject() || this._getAnchorParams();
 
-      localStorage.setItem(ImplicitFlowPopup.localStorageKey, JSON.stringify(data));
+      this._storage.set(ImplicitFlowPopup.storageKey, JSON.stringify(data));
 
       window.close();
     }
@@ -182,12 +189,12 @@ export default class ImplicitFlowPopup extends ImplicitFlow {
   }
 
   /**
-   * localStorage key name for temporarily storing the token
+   * Storage key name for temporarily storing the token
    * @returns {String} - key name
    * @constant
    */
-  static get localStorageKey() {
-    return &apos;m4n_api_auth_response&apos;;
+  static get storageKey() {
+    return &apos;api_auth_response&apos;;
   }
 
   /**
@@ -218,9 +225,9 @@ export default class ImplicitFlowPopup extends ImplicitFlow {
         if (popup.closed) {
           clearInterval(ticker);
 
-          const data = JSON.parse(localStorage.getItem(ImplicitFlowPopup.localStorageKey));
+          const data = JSON.parse(this._storage.getItem(ImplicitFlowPopup.storageKey));
 
-          localStorage.removeItem(ImplicitFlowPopup.localStorageKey);
+          this._storage.removeItem(ImplicitFlowPopup.storageKey);
 
           if (!data) {
             reject(new OAuthError(&apos;window_closed&apos;, &apos;Pop-up window was closed&apos;));

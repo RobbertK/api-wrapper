@@ -1,14 +1,14 @@
 {
-  "coverage": "78.07%",
-  "expectCount": 415,
-  "actualCount": 324,
+  "coverage": "77.14%",
+  "expectCount": 455,
+  "actualCount": 351,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        50,
-        59
+        67,
+        58
       ]
     },
     "src/errors/ApiError.js": {
@@ -37,6 +37,14 @@
         39
       ]
     },
+    "src/storage/CookiesDriver.js": {
+      "expectCount": 8,
+      "actualCount": 6,
+      "undocumentLines": [
+        36,
+        37
+      ]
+    },
     "src/crud/base/CrudBase.js": {
       "expectCount": 7,
       "actualCount": 7,
@@ -46,6 +54,14 @@
       "expectCount": 4,
       "actualCount": 4,
       "undocumentLines": []
+    },
+    "src/storage/DataStoreDriver.js": {
+      "expectCount": 9,
+      "actualCount": 7,
+      "undocumentLines": [
+        37,
+        38
+      ]
     },
     "src/enums.js": {
       "expectCount": 5,
@@ -89,6 +105,13 @@
       "actualCount": 1,
       "undocumentLines": [
         44
+      ]
+    },
+    "src/storage/FileDriver.js": {
+      "expectCount": 11,
+      "actualCount": 10,
+      "undocumentLines": [
+        37
       ]
     },
     "src/crud/Font.js": {
@@ -147,7 +170,7 @@
       "expectCount": 6,
       "actualCount": 5,
       "undocumentLines": [
-        55
+        56
       ]
     },
     "src/crud/InsetMap.js": {
@@ -221,6 +244,13 @@
         45
       ]
     },
+    "src/storage/LocalStorageDriver.js": {
+      "expectCount": 6,
+      "actualCount": 5,
+      "undocumentLines": [
+        36
+      ]
+    },
     "src/Maps4News.js": {
       "expectCount": 41,
       "actualCount": 41,
@@ -258,11 +288,11 @@
       "expectCount": 10,
       "actualCount": 5,
       "undocumentLines": [
-        53,
-        56,
-        57,
         54,
-        55
+        57,
+        58,
+        55,
+        56
       ]
     },
     "src/errors/OAuthError.js": {
@@ -271,13 +301,13 @@
       "undocumentLines": []
     },
     "src/oauth/OAuthToken.js": {
-      "expectCount": 14,
-      "actualCount": 10,
+      "expectCount": 13,
+      "actualCount": 9,
       "undocumentLines": [
-        55,
+        54,
+        46,
         47,
-        48,
-        49
+        48
       ]
     },
     "src/crud/Organisation.js": {
@@ -388,6 +418,19 @@
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
+    },
+    "src/storage/StorageManager.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        38,
+        39,
+        59,
+        51,
+        55,
+        47,
+        63
+      ]
     },
     "src/crud/Svg.js": {
       "expectCount": 2,

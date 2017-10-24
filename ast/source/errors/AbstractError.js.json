@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2208,
+  "end": 2364,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 63,
+      "line": 71,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2208,
+    "end": 2364,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 63,
+        "line": 71,
         "column": 0
       }
     },
@@ -31,7 +31,7 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 1646,
-        "end": 1827,
+        "end": 1828,
         "loc": {
           "start": {
             "line": 36,
@@ -47,7 +47,7 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 1653,
-          "end": 1827,
+          "end": 1828,
           "loc": {
             "start": {
               "line": 36,
@@ -96,7 +96,7 @@
           "body": {
             "type": "ClassBody",
             "start": 1687,
-            "end": 1827,
+            "end": 1828,
             "loc": {
               "start": {
                 "line": 36,
@@ -110,8 +110,8 @@
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 1779,
-                "end": 1825,
+                "start": 1780,
+                "end": 1826,
                 "loc": {
                   "start": {
                     "line": 41,
@@ -125,8 +125,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1779,
-                  "end": 1790,
+                  "start": 1780,
+                  "end": 1791,
                   "loc": {
                     "start": {
                       "line": 41,
@@ -150,8 +150,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 1791,
-                    "end": 1798,
+                    "start": 1792,
+                    "end": 1799,
                     "loc": {
                       "start": {
                         "line": 41,
@@ -168,8 +168,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1800,
-                  "end": 1825,
+                  "start": 1801,
+                  "end": 1826,
                   "loc": {
                     "start": {
                       "line": 41,
@@ -183,8 +183,8 @@
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 1806,
-                      "end": 1821,
+                      "start": 1807,
+                      "end": 1822,
                       "loc": {
                         "start": {
                           "line": 42,
@@ -197,8 +197,8 @@
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 1806,
-                        "end": 1820,
+                        "start": 1807,
+                        "end": 1821,
                         "loc": {
                           "start": {
                             "line": 42,
@@ -211,8 +211,8 @@
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 1806,
-                          "end": 1811,
+                          "start": 1807,
+                          "end": 1812,
                           "loc": {
                             "start": {
                               "line": 42,
@@ -227,8 +227,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 1812,
-                            "end": 1819,
+                            "start": 1813,
+                            "end": 1820,
                             "loc": {
                               "start": {
                                 "line": 42,
@@ -251,9 +251,9 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * AbstractError constructor\n   * @param {String} message - Error message\n   ",
+                    "value": "*\n   * AbstractError constructor\n   * @param {?String} message - Error message\n   ",
                     "start": 1691,
-                    "end": 1776,
+                    "end": 1777,
                     "loc": {
                       "start": {
                         "line": 37,
@@ -307,16 +307,16 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Thrown upon invocation of an abstract class\n ",
-              "start": 1829,
-              "end": 1883,
+              "value": "*\n * Thrown upon invocation of an abstract class\n * @example\n * class FooBar {\n *   constructor() {\n *     if (this.constructor === FooBar) {\n *       throw new AbstractClassError();\n *     }\n *   }\n * }\n ",
+              "start": 1830,
+              "end": 2039,
               "loc": {
                 "start": {
                   "line": 46,
                   "column": 0
                 },
                 "end": {
-                  "line": 48,
+                  "line": 56,
                   "column": 3
                 }
               }
@@ -360,16 +360,16 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Thrown upon invocation of an abstract class\n ",
-            "start": 1829,
-            "end": 1883,
+            "value": "*\n * Thrown upon invocation of an abstract class\n * @example\n * class FooBar {\n *   constructor() {\n *     if (this.constructor === FooBar) {\n *       throw new AbstractClassError();\n *     }\n *   }\n * }\n ",
+            "start": 1830,
+            "end": 2039,
             "loc": {
               "start": {
                 "line": 46,
                 "column": 0
               },
               "end": {
-                "line": 48,
+                "line": 56,
                 "column": 3
               }
             }
@@ -378,15 +378,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 1884,
-        "end": 2023,
+        "start": 2040,
+        "end": 2179,
         "loc": {
           "start": {
-            "line": 49,
+            "line": 57,
             "column": 0
           },
           "end": {
-            "line": 53,
+            "line": 61,
             "column": 1
           }
         },
@@ -394,29 +394,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 1891,
-          "end": 2023,
+          "start": 2047,
+          "end": 2179,
           "loc": {
             "start": {
-              "line": 49,
+              "line": 57,
               "column": 7
             },
             "end": {
-              "line": 53,
+              "line": 61,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 1897,
-            "end": 1915,
+            "start": 2053,
+            "end": 2071,
             "loc": {
               "start": {
-                "line": 49,
+                "line": 57,
                 "column": 13
               },
               "end": {
-                "line": 49,
+                "line": 57,
                 "column": 31
               },
               "identifierName": "AbstractClassError"
@@ -426,15 +426,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 1924,
-            "end": 1937,
+            "start": 2080,
+            "end": 2093,
             "loc": {
               "start": {
-                "line": 49,
+                "line": 57,
                 "column": 40
               },
               "end": {
-                "line": 49,
+                "line": 57,
                 "column": 53
               },
               "identifierName": "AbstractError"
@@ -443,45 +443,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 1938,
-            "end": 2023,
+            "start": 2094,
+            "end": 2179,
             "loc": {
               "start": {
-                "line": 49,
+                "line": 57,
                 "column": 54
               },
               "end": {
-                "line": 53,
+                "line": 61,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 1942,
-                "end": 2021,
+                "start": 2098,
+                "end": 2177,
                 "loc": {
                   "start": {
-                    "line": 50,
+                    "line": 58,
                     "column": 2
                   },
                   "end": {
-                    "line": 52,
+                    "line": 60,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1942,
-                  "end": 1953,
+                  "start": 2098,
+                  "end": 2109,
                   "loc": {
                     "start": {
-                      "line": 50,
+                      "line": 58,
                       "column": 2
                     },
                     "end": {
-                      "line": 50,
+                      "line": 58,
                       "column": 13
                     },
                     "identifierName": "constructor"
@@ -497,58 +497,58 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1956,
-                  "end": 2021,
+                  "start": 2112,
+                  "end": 2177,
                   "loc": {
                     "start": {
-                      "line": 50,
+                      "line": 58,
                       "column": 16
                     },
                     "end": {
-                      "line": 52,
+                      "line": 60,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 1962,
-                      "end": 2017,
+                      "start": 2118,
+                      "end": 2173,
                       "loc": {
                         "start": {
-                          "line": 51,
+                          "line": 59,
                           "column": 4
                         },
                         "end": {
-                          "line": 51,
+                          "line": 59,
                           "column": 59
                         }
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 1962,
-                        "end": 2016,
+                        "start": 2118,
+                        "end": 2172,
                         "loc": {
                           "start": {
-                            "line": 51,
+                            "line": 59,
                             "column": 4
                           },
                           "end": {
-                            "line": 51,
+                            "line": 59,
                             "column": 58
                           }
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 1962,
-                          "end": 1967,
+                          "start": 2118,
+                          "end": 2123,
                           "loc": {
                             "start": {
-                              "line": 51,
+                              "line": 59,
                               "column": 4
                             },
                             "end": {
-                              "line": 51,
+                              "line": 59,
                               "column": 9
                             }
                           }
@@ -556,15 +556,15 @@
                         "arguments": [
                           {
                             "type": "StringLiteral",
-                            "start": 1968,
-                            "end": 2015,
+                            "start": 2124,
+                            "end": 2171,
                             "loc": {
                               "start": {
-                                "line": 51,
+                                "line": 59,
                                 "column": 10
                               },
                               "end": {
-                                "line": 51,
+                                "line": 59,
                                 "column": 57
                               }
                             },
@@ -587,16 +587,16 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Thrown upon invocation of an abstract class\n ",
-              "start": 1829,
-              "end": 1883,
+              "value": "*\n * Thrown upon invocation of an abstract class\n * @example\n * class FooBar {\n *   constructor() {\n *     if (this.constructor === FooBar) {\n *       throw new AbstractClassError();\n *     }\n *   }\n * }\n ",
+              "start": 1830,
+              "end": 2039,
               "loc": {
                 "start": {
                   "line": 46,
                   "column": 0
                 },
                 "end": {
-                  "line": 48,
+                  "line": 56,
                   "column": 3
                 }
               }
@@ -606,15 +606,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Thrown upon invocation of an abstract method\n ",
-              "start": 2025,
-              "end": 2080,
+              "start": 2181,
+              "end": 2236,
               "loc": {
                 "start": {
-                  "line": 55,
+                  "line": 63,
                   "column": 0
                 },
                 "end": {
-                  "line": 57,
+                  "line": 65,
                   "column": 3
                 }
               }
@@ -624,16 +624,16 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Thrown upon invocation of an abstract class\n ",
-            "start": 1829,
-            "end": 1883,
+            "value": "*\n * Thrown upon invocation of an abstract class\n * @example\n * class FooBar {\n *   constructor() {\n *     if (this.constructor === FooBar) {\n *       throw new AbstractClassError();\n *     }\n *   }\n * }\n ",
+            "start": 1830,
+            "end": 2039,
             "loc": {
               "start": {
                 "line": 46,
                 "column": 0
               },
               "end": {
-                "line": 48,
+                "line": 56,
                 "column": 3
               }
             }
@@ -643,15 +643,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Thrown upon invocation of an abstract method\n ",
-            "start": 2025,
-            "end": 2080,
+            "start": 2181,
+            "end": 2236,
             "loc": {
               "start": {
-                "line": 55,
+                "line": 63,
                 "column": 0
               },
               "end": {
-                "line": 57,
+                "line": 65,
                 "column": 3
               }
             }
@@ -660,15 +660,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 2081,
-        "end": 2207,
+        "start": 2237,
+        "end": 2363,
         "loc": {
           "start": {
-            "line": 58,
+            "line": 66,
             "column": 0
           },
           "end": {
-            "line": 62,
+            "line": 70,
             "column": 1
           }
         },
@@ -676,29 +676,29 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 2088,
-          "end": 2207,
+          "start": 2244,
+          "end": 2363,
           "loc": {
             "start": {
-              "line": 58,
+              "line": 66,
               "column": 7
             },
             "end": {
-              "line": 62,
+              "line": 70,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 2094,
-            "end": 2113,
+            "start": 2250,
+            "end": 2269,
             "loc": {
               "start": {
-                "line": 58,
+                "line": 66,
                 "column": 13
               },
               "end": {
-                "line": 58,
+                "line": 66,
                 "column": 32
               },
               "identifierName": "AbstractMethodError"
@@ -708,15 +708,15 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 2122,
-            "end": 2135,
+            "start": 2278,
+            "end": 2291,
             "loc": {
               "start": {
-                "line": 58,
+                "line": 66,
                 "column": 41
               },
               "end": {
-                "line": 58,
+                "line": 66,
                 "column": 54
               },
               "identifierName": "AbstractError"
@@ -725,45 +725,45 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 2136,
-            "end": 2207,
+            "start": 2292,
+            "end": 2363,
             "loc": {
               "start": {
-                "line": 58,
+                "line": 66,
                 "column": 55
               },
               "end": {
-                "line": 62,
+                "line": 70,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 2140,
-                "end": 2205,
+                "start": 2296,
+                "end": 2361,
                 "loc": {
                   "start": {
-                    "line": 59,
+                    "line": 67,
                     "column": 2
                   },
                   "end": {
-                    "line": 61,
+                    "line": 69,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2140,
-                  "end": 2151,
+                  "start": 2296,
+                  "end": 2307,
                   "loc": {
                     "start": {
-                      "line": 59,
+                      "line": 67,
                       "column": 2
                     },
                     "end": {
-                      "line": 59,
+                      "line": 67,
                       "column": 13
                     },
                     "identifierName": "constructor"
@@ -779,58 +779,58 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2154,
-                  "end": 2205,
+                  "start": 2310,
+                  "end": 2361,
                   "loc": {
                     "start": {
-                      "line": 59,
+                      "line": 67,
                       "column": 16
                     },
                     "end": {
-                      "line": 61,
+                      "line": 69,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 2160,
-                      "end": 2201,
+                      "start": 2316,
+                      "end": 2357,
                       "loc": {
                         "start": {
-                          "line": 60,
+                          "line": 68,
                           "column": 4
                         },
                         "end": {
-                          "line": 60,
+                          "line": 68,
                           "column": 45
                         }
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 2160,
-                        "end": 2200,
+                        "start": 2316,
+                        "end": 2356,
                         "loc": {
                           "start": {
-                            "line": 60,
+                            "line": 68,
                             "column": 4
                           },
                           "end": {
-                            "line": 60,
+                            "line": 68,
                             "column": 44
                           }
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 2160,
-                          "end": 2165,
+                          "start": 2316,
+                          "end": 2321,
                           "loc": {
                             "start": {
-                              "line": 60,
+                              "line": 68,
                               "column": 4
                             },
                             "end": {
-                              "line": 60,
+                              "line": 68,
                               "column": 9
                             }
                           }
@@ -838,15 +838,15 @@
                         "arguments": [
                           {
                             "type": "StringLiteral",
-                            "start": 2166,
-                            "end": 2199,
+                            "start": 2322,
+                            "end": 2355,
                             "loc": {
                               "start": {
-                                "line": 60,
+                                "line": 68,
                                 "column": 10
                               },
                               "end": {
-                                "line": 60,
+                                "line": 68,
                                 "column": 43
                               }
                             },
@@ -869,15 +869,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Thrown upon invocation of an abstract method\n ",
-              "start": 2025,
-              "end": 2080,
+              "start": 2181,
+              "end": 2236,
               "loc": {
                 "start": {
-                  "line": 55,
+                  "line": 63,
                   "column": 0
                 },
                 "end": {
-                  "line": 57,
+                  "line": 65,
                   "column": 3
                 }
               }
@@ -889,15 +889,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Thrown upon invocation of an abstract method\n ",
-            "start": 2025,
-            "end": 2080,
+            "start": 2181,
+            "end": 2236,
             "loc": {
               "start": {
-                "line": 55,
+                "line": 63,
                 "column": 0
               },
               "end": {
-                "line": 57,
+                "line": 65,
                 "column": 3
               }
             }
@@ -942,9 +942,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * AbstractError constructor\n   * @param {String} message - Error message\n   ",
+      "value": "*\n   * AbstractError constructor\n   * @param {?String} message - Error message\n   ",
       "start": 1691,
-      "end": 1776,
+      "end": 1777,
       "loc": {
         "start": {
           "line": 37,
@@ -958,16 +958,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Thrown upon invocation of an abstract class\n ",
-      "start": 1829,
-      "end": 1883,
+      "value": "*\n * Thrown upon invocation of an abstract class\n * @example\n * class FooBar {\n *   constructor() {\n *     if (this.constructor === FooBar) {\n *       throw new AbstractClassError();\n *     }\n *   }\n * }\n ",
+      "start": 1830,
+      "end": 2039,
       "loc": {
         "start": {
           "line": 46,
           "column": 0
         },
         "end": {
-          "line": 48,
+          "line": 56,
           "column": 3
         }
       }
@@ -975,15 +975,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Thrown upon invocation of an abstract method\n ",
-      "start": 2025,
-      "end": 2080,
+      "start": 2181,
+      "end": 2236,
       "loc": {
         "start": {
-          "line": 55,
+          "line": 63,
           "column": 0
         },
         "end": {
-          "line": 57,
+          "line": 65,
           "column": 3
         }
       }
@@ -1185,9 +1185,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * AbstractError constructor\n   * @param {String} message - Error message\n   ",
+      "value": "*\n   * AbstractError constructor\n   * @param {?String} message - Error message\n   ",
       "start": 1691,
-      "end": 1776,
+      "end": 1777,
       "loc": {
         "start": {
           "line": 37,
@@ -1212,8 +1212,8 @@
         "binop": null
       },
       "value": "constructor",
-      "start": 1779,
-      "end": 1790,
+      "start": 1780,
+      "end": 1791,
       "loc": {
         "start": {
           "line": 41,
@@ -1237,8 +1237,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1790,
-      "end": 1791,
+      "start": 1791,
+      "end": 1792,
       "loc": {
         "start": {
           "line": 41,
@@ -1263,8 +1263,8 @@
         "binop": null
       },
       "value": "message",
-      "start": 1791,
-      "end": 1798,
+      "start": 1792,
+      "end": 1799,
       "loc": {
         "start": {
           "line": 41,
@@ -1288,8 +1288,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1798,
-      "end": 1799,
+      "start": 1799,
+      "end": 1800,
       "loc": {
         "start": {
           "line": 41,
@@ -1313,8 +1313,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1800,
-      "end": 1801,
+      "start": 1801,
+      "end": 1802,
       "loc": {
         "start": {
           "line": 41,
@@ -1341,8 +1341,8 @@
         "updateContext": null
       },
       "value": "super",
-      "start": 1806,
-      "end": 1811,
+      "start": 1807,
+      "end": 1812,
       "loc": {
         "start": {
           "line": 42,
@@ -1366,8 +1366,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1811,
-      "end": 1812,
+      "start": 1812,
+      "end": 1813,
       "loc": {
         "start": {
           "line": 42,
@@ -1392,8 +1392,8 @@
         "binop": null
       },
       "value": "message",
-      "start": 1812,
-      "end": 1819,
+      "start": 1813,
+      "end": 1820,
       "loc": {
         "start": {
           "line": 42,
@@ -1417,8 +1417,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1819,
-      "end": 1820,
+      "start": 1820,
+      "end": 1821,
       "loc": {
         "start": {
           "line": 42,
@@ -1443,8 +1443,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1820,
-      "end": 1821,
+      "start": 1821,
+      "end": 1822,
       "loc": {
         "start": {
           "line": 42,
@@ -1468,8 +1468,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1824,
-      "end": 1825,
+      "start": 1825,
+      "end": 1826,
       "loc": {
         "start": {
           "line": 43,
@@ -1493,8 +1493,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1826,
-      "end": 1827,
+      "start": 1827,
+      "end": 1828,
       "loc": {
         "start": {
           "line": 44,
@@ -1508,16 +1508,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Thrown upon invocation of an abstract class\n ",
-      "start": 1829,
-      "end": 1883,
+      "value": "*\n * Thrown upon invocation of an abstract class\n * @example\n * class FooBar {\n *   constructor() {\n *     if (this.constructor === FooBar) {\n *       throw new AbstractClassError();\n *     }\n *   }\n * }\n ",
+      "start": 1830,
+      "end": 2039,
       "loc": {
         "start": {
           "line": 46,
           "column": 0
         },
         "end": {
-          "line": 48,
+          "line": 56,
           "column": 3
         }
       }
@@ -1537,15 +1537,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 1884,
-      "end": 1890,
+      "start": 2040,
+      "end": 2046,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 57,
           "column": 0
         },
         "end": {
-          "line": 49,
+          "line": 57,
           "column": 6
         }
       }
@@ -1565,15 +1565,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 1891,
-      "end": 1896,
+      "start": 2047,
+      "end": 2052,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 57,
           "column": 7
         },
         "end": {
-          "line": 49,
+          "line": 57,
           "column": 12
         }
       }
@@ -1591,15 +1591,15 @@
         "binop": null
       },
       "value": "AbstractClassError",
-      "start": 1897,
-      "end": 1915,
+      "start": 2053,
+      "end": 2071,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 57,
           "column": 13
         },
         "end": {
-          "line": 49,
+          "line": 57,
           "column": 31
         }
       }
@@ -1619,15 +1619,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 1916,
-      "end": 1923,
+      "start": 2072,
+      "end": 2079,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 57,
           "column": 32
         },
         "end": {
-          "line": 49,
+          "line": 57,
           "column": 39
         }
       }
@@ -1645,15 +1645,15 @@
         "binop": null
       },
       "value": "AbstractError",
-      "start": 1924,
-      "end": 1937,
+      "start": 2080,
+      "end": 2093,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 57,
           "column": 40
         },
         "end": {
-          "line": 49,
+          "line": 57,
           "column": 53
         }
       }
@@ -1670,15 +1670,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1938,
-      "end": 1939,
+      "start": 2094,
+      "end": 2095,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 57,
           "column": 54
         },
         "end": {
-          "line": 49,
+          "line": 57,
           "column": 55
         }
       }
@@ -1696,15 +1696,15 @@
         "binop": null
       },
       "value": "constructor",
-      "start": 1942,
-      "end": 1953,
+      "start": 2098,
+      "end": 2109,
       "loc": {
         "start": {
-          "line": 50,
+          "line": 58,
           "column": 2
         },
         "end": {
-          "line": 50,
+          "line": 58,
           "column": 13
         }
       }
@@ -1721,15 +1721,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1953,
-      "end": 1954,
+      "start": 2109,
+      "end": 2110,
       "loc": {
         "start": {
-          "line": 50,
+          "line": 58,
           "column": 13
         },
         "end": {
-          "line": 50,
+          "line": 58,
           "column": 14
         }
       }
@@ -1746,15 +1746,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1954,
-      "end": 1955,
+      "start": 2110,
+      "end": 2111,
       "loc": {
         "start": {
-          "line": 50,
+          "line": 58,
           "column": 14
         },
         "end": {
-          "line": 50,
+          "line": 58,
           "column": 15
         }
       }
@@ -1771,15 +1771,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1956,
-      "end": 1957,
+      "start": 2112,
+      "end": 2113,
       "loc": {
         "start": {
-          "line": 50,
+          "line": 58,
           "column": 16
         },
         "end": {
-          "line": 50,
+          "line": 58,
           "column": 17
         }
       }
@@ -1799,15 +1799,15 @@
         "updateContext": null
       },
       "value": "super",
-      "start": 1962,
-      "end": 1967,
+      "start": 2118,
+      "end": 2123,
       "loc": {
         "start": {
-          "line": 51,
+          "line": 59,
           "column": 4
         },
         "end": {
-          "line": 51,
+          "line": 59,
           "column": 9
         }
       }
@@ -1824,15 +1824,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1967,
-      "end": 1968,
+      "start": 2123,
+      "end": 2124,
       "loc": {
         "start": {
-          "line": 51,
+          "line": 59,
           "column": 9
         },
         "end": {
-          "line": 51,
+          "line": 59,
           "column": 10
         }
       }
@@ -1851,15 +1851,15 @@
         "updateContext": null
       },
       "value": "Can not make an instance of an abstract class",
-      "start": 1968,
-      "end": 2015,
+      "start": 2124,
+      "end": 2171,
       "loc": {
         "start": {
-          "line": 51,
+          "line": 59,
           "column": 10
         },
         "end": {
-          "line": 51,
+          "line": 59,
           "column": 57
         }
       }
@@ -1876,15 +1876,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2015,
-      "end": 2016,
+      "start": 2171,
+      "end": 2172,
       "loc": {
         "start": {
-          "line": 51,
+          "line": 59,
           "column": 57
         },
         "end": {
-          "line": 51,
+          "line": 59,
           "column": 58
         }
       }
@@ -1902,15 +1902,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2016,
-      "end": 2017,
+      "start": 2172,
+      "end": 2173,
       "loc": {
         "start": {
-          "line": 51,
+          "line": 59,
           "column": 58
         },
         "end": {
-          "line": 51,
+          "line": 59,
           "column": 59
         }
       }
@@ -1927,15 +1927,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2020,
-      "end": 2021,
+      "start": 2176,
+      "end": 2177,
       "loc": {
         "start": {
-          "line": 52,
+          "line": 60,
           "column": 2
         },
         "end": {
-          "line": 52,
+          "line": 60,
           "column": 3
         }
       }
@@ -1952,15 +1952,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2022,
-      "end": 2023,
+      "start": 2178,
+      "end": 2179,
       "loc": {
         "start": {
-          "line": 53,
+          "line": 61,
           "column": 0
         },
         "end": {
-          "line": 53,
+          "line": 61,
           "column": 1
         }
       }
@@ -1968,15 +1968,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Thrown upon invocation of an abstract method\n ",
-      "start": 2025,
-      "end": 2080,
+      "start": 2181,
+      "end": 2236,
       "loc": {
         "start": {
-          "line": 55,
+          "line": 63,
           "column": 0
         },
         "end": {
-          "line": 57,
+          "line": 65,
           "column": 3
         }
       }
@@ -1996,15 +1996,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 2081,
-      "end": 2087,
+      "start": 2237,
+      "end": 2243,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 66,
           "column": 0
         },
         "end": {
-          "line": 58,
+          "line": 66,
           "column": 6
         }
       }
@@ -2024,15 +2024,15 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 2088,
-      "end": 2093,
+      "start": 2244,
+      "end": 2249,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 66,
           "column": 7
         },
         "end": {
-          "line": 58,
+          "line": 66,
           "column": 12
         }
       }
@@ -2050,15 +2050,15 @@
         "binop": null
       },
       "value": "AbstractMethodError",
-      "start": 2094,
-      "end": 2113,
+      "start": 2250,
+      "end": 2269,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 66,
           "column": 13
         },
         "end": {
-          "line": 58,
+          "line": 66,
           "column": 32
         }
       }
@@ -2078,15 +2078,15 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 2114,
-      "end": 2121,
+      "start": 2270,
+      "end": 2277,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 66,
           "column": 33
         },
         "end": {
-          "line": 58,
+          "line": 66,
           "column": 40
         }
       }
@@ -2104,15 +2104,15 @@
         "binop": null
       },
       "value": "AbstractError",
-      "start": 2122,
-      "end": 2135,
+      "start": 2278,
+      "end": 2291,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 66,
           "column": 41
         },
         "end": {
-          "line": 58,
+          "line": 66,
           "column": 54
         }
       }
@@ -2129,15 +2129,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2136,
-      "end": 2137,
+      "start": 2292,
+      "end": 2293,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 66,
           "column": 55
         },
         "end": {
-          "line": 58,
+          "line": 66,
           "column": 56
         }
       }
@@ -2155,15 +2155,15 @@
         "binop": null
       },
       "value": "constructor",
-      "start": 2140,
-      "end": 2151,
+      "start": 2296,
+      "end": 2307,
       "loc": {
         "start": {
-          "line": 59,
+          "line": 67,
           "column": 2
         },
         "end": {
-          "line": 59,
+          "line": 67,
           "column": 13
         }
       }
@@ -2180,15 +2180,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2151,
-      "end": 2152,
+      "start": 2307,
+      "end": 2308,
       "loc": {
         "start": {
-          "line": 59,
+          "line": 67,
           "column": 13
         },
         "end": {
-          "line": 59,
+          "line": 67,
           "column": 14
         }
       }
@@ -2205,15 +2205,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2152,
-      "end": 2153,
+      "start": 2308,
+      "end": 2309,
       "loc": {
         "start": {
-          "line": 59,
+          "line": 67,
           "column": 14
         },
         "end": {
-          "line": 59,
+          "line": 67,
           "column": 15
         }
       }
@@ -2230,15 +2230,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2154,
-      "end": 2155,
+      "start": 2310,
+      "end": 2311,
       "loc": {
         "start": {
-          "line": 59,
+          "line": 67,
           "column": 16
         },
         "end": {
-          "line": 59,
+          "line": 67,
           "column": 17
         }
       }
@@ -2258,15 +2258,15 @@
         "updateContext": null
       },
       "value": "super",
-      "start": 2160,
-      "end": 2165,
+      "start": 2316,
+      "end": 2321,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 68,
           "column": 4
         },
         "end": {
-          "line": 60,
+          "line": 68,
           "column": 9
         }
       }
@@ -2283,15 +2283,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2165,
-      "end": 2166,
+      "start": 2321,
+      "end": 2322,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 68,
           "column": 9
         },
         "end": {
-          "line": 60,
+          "line": 68,
           "column": 10
         }
       }
@@ -2310,15 +2310,15 @@
         "updateContext": null
       },
       "value": "Can not call an abstract method",
-      "start": 2166,
-      "end": 2199,
+      "start": 2322,
+      "end": 2355,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 68,
           "column": 10
         },
         "end": {
-          "line": 60,
+          "line": 68,
           "column": 43
         }
       }
@@ -2335,15 +2335,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2199,
-      "end": 2200,
+      "start": 2355,
+      "end": 2356,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 68,
           "column": 43
         },
         "end": {
-          "line": 60,
+          "line": 68,
           "column": 44
         }
       }
@@ -2361,15 +2361,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2200,
-      "end": 2201,
+      "start": 2356,
+      "end": 2357,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 68,
           "column": 44
         },
         "end": {
-          "line": 60,
+          "line": 68,
           "column": 45
         }
       }
@@ -2386,15 +2386,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2204,
-      "end": 2205,
+      "start": 2360,
+      "end": 2361,
       "loc": {
         "start": {
-          "line": 61,
+          "line": 69,
           "column": 2
         },
         "end": {
-          "line": 61,
+          "line": 69,
           "column": 3
         }
       }
@@ -2411,15 +2411,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2206,
-      "end": 2207,
+      "start": 2362,
+      "end": 2363,
       "loc": {
         "start": {
-          "line": 62,
+          "line": 70,
           "column": 0
         },
         "end": {
-          "line": 62,
+          "line": 70,
           "column": 1
         }
       }
@@ -2437,15 +2437,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2208,
-      "end": 2208,
+      "start": 2364,
+      "end": 2364,
       "loc": {
         "start": {
-          "line": 63,
+          "line": 71,
           "column": 0
         },
         "end": {
-          "line": 63,
+          "line": 71,
           "column": 0
         }
       }

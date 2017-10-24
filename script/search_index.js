@@ -42,6 +42,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/storage/cookiesdriver.js~cookiesdriver",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html",
+    "<span>CookiesDriver</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/storage/CookiesDriver.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/crud/base/crudbase.js~crudbase",
     "class/src/crud/base/CrudBase.js~CrudBase.html",
     "<span>CrudBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/CrudBase.js</span>",
@@ -51,6 +57,12 @@ window.esdocSearchIndex = [
     "@mapcreator/maps4news/src/crud/base/crudsetbase.js~crudsetbase",
     "class/src/crud/base/CrudSetBase.js~CrudSetBase.html",
     "<span>CrudSetBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/CrudSetBase.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/storage/datastoredriver.js~datastoredriver",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html",
+    "<span>DataStoreDriver</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/storage/DataStoreDriver.js</span>",
     "class"
   ],
   [
@@ -93,6 +105,12 @@ window.esdocSearchIndex = [
     "@mapcreator/maps4news/src/crud/feature.js~feature",
     "class/src/crud/Feature.js~Feature.html",
     "<span>Feature</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Feature.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/storage/filedriver.js~filedriver",
+    "class/src/storage/FileDriver.js~FileDriver.html",
+    "<span>FileDriver</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/storage/FileDriver.js</span>",
     "class"
   ],
   [
@@ -189,6 +207,12 @@ window.esdocSearchIndex = [
     "@mapcreator/maps4news/src/crud/layer.js~layer",
     "class/src/crud/Layer.js~Layer.html",
     "<span>Layer</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Layer.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/storage/localstoragedriver.js~localstoragedriver",
+    "class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html",
+    "<span>LocalStorageDriver</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/storage/LocalStorageDriver.js</span>",
     "class"
   ],
   [
@@ -333,6 +357,12 @@ window.esdocSearchIndex = [
     "@mapcreator/maps4news/src/errors/staticclasserror.js~staticclasserror",
     "class/src/errors/StaticClassError.js~StaticClassError.html",
     "<span>StaticClassError</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/errors/StaticClassError.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/storage/storagemanager.js~storagemanager",
+    "class/src/storage/StorageManager.js~StorageManager.html",
+    "<span>StorageManager</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/storage/StorageManager.js</span>",
     "class"
   ],
   [
@@ -775,13 +805,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -877,13 +907,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1093,13 +1123,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
@@ -1147,13 +1177,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#sort",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-sort",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-sort",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#sort",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#sort",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-sort",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-sort",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#sort",
     "member"
   ],
@@ -1189,13 +1219,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
@@ -1279,13 +1309,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
@@ -1381,13 +1411,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#sort",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-sort",
     "src/RequestParameters.js~RequestParameters#sort",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#sort",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
     "src/RequestParameters.js~RequestParameters#sort",
     "member"
   ],
@@ -1411,13 +1441,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-deleted",
     "src/RequestParameters.js~RequestParameters.deleted",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-deleted",
     "src/RequestParameters.js~RequestParameters.deleted",
     "member"
   ],
@@ -1429,25 +1459,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.page",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-page",
-    "src/RequestParameters.js~RequestParameters.page",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters.page",
     "class/src/RequestParameters.js~RequestParameters.html#static-get-page",
     "src/RequestParameters.js~RequestParameters.page",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters.perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-perPage",
-    "src/RequestParameters.js~RequestParameters.perPage",
+    "src/requestparameters.js~requestparameters.page",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-page",
+    "src/RequestParameters.js~RequestParameters.page",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.perpage",
     "class/src/RequestParameters.js~RequestParameters.html#static-set-perPage",
+    "src/RequestParameters.js~RequestParameters.perPage",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters.perpage",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-perPage",
     "src/RequestParameters.js~RequestParameters.perPage",
     "member"
   ],
@@ -1471,13 +1501,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.sort",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-sort",
     "src/RequestParameters.js~RequestParameters.sort",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.sort",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-sort",
     "src/RequestParameters.js~RequestParameters.sort",
     "member"
   ],
@@ -2874,15 +2904,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/oauth/implicitflowpopup.js~implicitflowpopup.localstoragekey",
-    "class/src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.html#static-get-localStorageKey",
-    "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.localStorageKey",
-    "member"
-  ],
-  [
     "src/oauth/implicitflowpopup.js~implicitflowpopup.popupwindowname",
     "class/src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.html#static-get-popupWindowName",
     "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.popupWindowName",
+    "member"
+  ],
+  [
+    "src/oauth/implicitflowpopup.js~implicitflowpopup.storagekey",
+    "class/src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.html#static-get-storageKey",
+    "src/oauth/ImplicitFlowPopup.js~ImplicitFlowPopup.storageKey",
     "member"
   ],
   [
@@ -3012,12 +3042,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/oauth/oauthtoken.js~oauthtoken.nodetokenfilename",
-    "class/src/oauth/OAuthToken.js~OAuthToken.html#static-get-nodeTokenFilename",
-    "src/oauth/OAuthToken.js~OAuthToken.nodeTokenFilename",
-    "member"
-  ],
-  [
     "src/oauth/oauthtoken.js~oauthtoken.recover",
     "class/src/oauth/OAuthToken.js~OAuthToken.html#static-method-recover",
     "src/oauth/OAuthToken.js~OAuthToken.recover",
@@ -3049,20 +3073,14 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
-    "src/oauth/PasswordFlow.js~PasswordFlow#password",
-    "member"
-  ],
-  [
-    "src/oauth/passwordflow.js~passwordflow#password",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
-    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "src/oauth/passwordflow.js~passwordflow#password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
@@ -3072,14 +3090,20 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
-    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "src/oauth/passwordflow.js~passwordflow#path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
+    "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
+    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "member"
+  ],
+  [
+    "src/oauth/passwordflow.js~passwordflow#secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],
@@ -3106,6 +3130,252 @@ window.esdocSearchIndex = [
     "file/src/oauth/StateContainer.js.html",
     "src/oauth/StateContainer.js",
     "file"
+  ],
+  [
+    "src/storage/cookiesdriver.js",
+    "file/src/storage/CookiesDriver.js.html",
+    "src/storage/CookiesDriver.js",
+    "file"
+  ],
+  [
+    "src/storage/cookiesdriver.js~cookiesdriver#constructor",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html#instance-constructor-constructor",
+    "src/storage/CookiesDriver.js~CookiesDriver#constructor",
+    "method"
+  ],
+  [
+    "src/storage/cookiesdriver.js~cookiesdriver#get",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html#instance-method-get",
+    "src/storage/CookiesDriver.js~CookiesDriver#get",
+    "method"
+  ],
+  [
+    "src/storage/cookiesdriver.js~cookiesdriver#keys",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html#instance-method-keys",
+    "src/storage/CookiesDriver.js~CookiesDriver#keys",
+    "method"
+  ],
+  [
+    "src/storage/cookiesdriver.js~cookiesdriver#remove",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html#instance-method-remove",
+    "src/storage/CookiesDriver.js~CookiesDriver#remove",
+    "method"
+  ],
+  [
+    "src/storage/cookiesdriver.js~cookiesdriver#set",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html#instance-method-set",
+    "src/storage/CookiesDriver.js~CookiesDriver#set",
+    "method"
+  ],
+  [
+    "src/storage/cookiesdriver.js~cookiesdriver.available",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html#static-get-available",
+    "src/storage/CookiesDriver.js~CookiesDriver.available",
+    "member"
+  ],
+  [
+    "src/storage/cookiesdriver.js~cookiesdriver.secure",
+    "class/src/storage/CookiesDriver.js~CookiesDriver.html#static-get-secure",
+    "src/storage/CookiesDriver.js~CookiesDriver.secure",
+    "member"
+  ],
+  [
+    "src/storage/datastoredriver.js",
+    "file/src/storage/DataStoreDriver.js.html",
+    "src/storage/DataStoreDriver.js",
+    "file"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver#clear",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#instance-method-clear",
+    "src/storage/DataStoreDriver.js~DataStoreDriver#clear",
+    "method"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver#constructor",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#instance-constructor-constructor",
+    "src/storage/DataStoreDriver.js~DataStoreDriver#constructor",
+    "method"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver#get",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#instance-method-get",
+    "src/storage/DataStoreDriver.js~DataStoreDriver#get",
+    "method"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver#keys",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#instance-method-keys",
+    "src/storage/DataStoreDriver.js~DataStoreDriver#keys",
+    "method"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver#remove",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#instance-method-remove",
+    "src/storage/DataStoreDriver.js~DataStoreDriver#remove",
+    "method"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver#set",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#instance-method-set",
+    "src/storage/DataStoreDriver.js~DataStoreDriver#set",
+    "method"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver.available",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#static-get-available",
+    "src/storage/DataStoreDriver.js~DataStoreDriver.available",
+    "member"
+  ],
+  [
+    "src/storage/datastoredriver.js~datastoredriver.secure",
+    "class/src/storage/DataStoreDriver.js~DataStoreDriver.html#static-get-secure",
+    "src/storage/DataStoreDriver.js~DataStoreDriver.secure",
+    "member"
+  ],
+  [
+    "src/storage/filedriver.js",
+    "file/src/storage/FileDriver.js.html",
+    "src/storage/FileDriver.js",
+    "file"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#clear",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-method-clear",
+    "src/storage/FileDriver.js~FileDriver#clear",
+    "method"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#constructor",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-constructor-constructor",
+    "src/storage/FileDriver.js~FileDriver#constructor",
+    "method"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#get",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-method-get",
+    "src/storage/FileDriver.js~FileDriver#get",
+    "method"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#keys",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-method-keys",
+    "src/storage/FileDriver.js~FileDriver#keys",
+    "method"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#path",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-set-path",
+    "src/storage/FileDriver.js~FileDriver#path",
+    "member"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#path",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-get-path",
+    "src/storage/FileDriver.js~FileDriver#path",
+    "member"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#remove",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-method-remove",
+    "src/storage/FileDriver.js~FileDriver#remove",
+    "method"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver#set",
+    "class/src/storage/FileDriver.js~FileDriver.html#instance-method-set",
+    "src/storage/FileDriver.js~FileDriver#set",
+    "method"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver.available",
+    "class/src/storage/FileDriver.js~FileDriver.html#static-get-available",
+    "src/storage/FileDriver.js~FileDriver.available",
+    "member"
+  ],
+  [
+    "src/storage/filedriver.js~filedriver.secure",
+    "class/src/storage/FileDriver.js~FileDriver.html#static-get-secure",
+    "src/storage/FileDriver.js~FileDriver.secure",
+    "member"
+  ],
+  [
+    "src/storage/localstoragedriver.js",
+    "file/src/storage/LocalStorageDriver.js.html",
+    "src/storage/LocalStorageDriver.js",
+    "file"
+  ],
+  [
+    "src/storage/localstoragedriver.js~localstoragedriver#get",
+    "class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html#instance-method-get",
+    "src/storage/LocalStorageDriver.js~LocalStorageDriver#get",
+    "method"
+  ],
+  [
+    "src/storage/localstoragedriver.js~localstoragedriver#keys",
+    "class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html#instance-method-keys",
+    "src/storage/LocalStorageDriver.js~LocalStorageDriver#keys",
+    "method"
+  ],
+  [
+    "src/storage/localstoragedriver.js~localstoragedriver#remove",
+    "class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html#instance-method-remove",
+    "src/storage/LocalStorageDriver.js~LocalStorageDriver#remove",
+    "method"
+  ],
+  [
+    "src/storage/localstoragedriver.js~localstoragedriver#set",
+    "class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html#instance-method-set",
+    "src/storage/LocalStorageDriver.js~LocalStorageDriver#set",
+    "method"
+  ],
+  [
+    "src/storage/localstoragedriver.js~localstoragedriver.available",
+    "class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html#static-get-available",
+    "src/storage/LocalStorageDriver.js~LocalStorageDriver.available",
+    "member"
+  ],
+  [
+    "src/storage/storagemanager.js",
+    "file/src/storage/StorageManager.js.html",
+    "src/storage/StorageManager.js",
+    "file"
+  ],
+  [
+    "src/storage/storagemanager.js~storagemanager.availible",
+    "class/src/storage/StorageManager.js~StorageManager.html#static-get-availible",
+    "src/storage/StorageManager.js~StorageManager.availible",
+    "member"
+  ],
+  [
+    "src/storage/storagemanager.js~storagemanager.best",
+    "class/src/storage/StorageManager.js~StorageManager.html#static-get-best",
+    "src/storage/StorageManager.js~StorageManager.best",
+    "member"
+  ],
+  [
+    "src/storage/storagemanager.js~storagemanager.cookies",
+    "class/src/storage/StorageManager.js~StorageManager.html#static-get-cookies",
+    "src/storage/StorageManager.js~StorageManager.cookies",
+    "member"
+  ],
+  [
+    "src/storage/storagemanager.js~storagemanager.file",
+    "class/src/storage/StorageManager.js~StorageManager.html#static-get-file",
+    "src/storage/StorageManager.js~StorageManager.file",
+    "member"
+  ],
+  [
+    "src/storage/storagemanager.js~storagemanager.localstorage",
+    "class/src/storage/StorageManager.js~StorageManager.html#static-get-localStorage",
+    "src/storage/StorageManager.js~StorageManager.localStorage",
+    "member"
+  ],
+  [
+    "src/storage/storagemanager.js~storagemanager.secure",
+    "class/src/storage/StorageManager.js~StorageManager.html#static-get-secure",
+    "src/storage/StorageManager.js~StorageManager.secure",
+    "member"
   ],
   [
     "src/traits/handlesimages.js",

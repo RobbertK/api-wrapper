@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 14811,
+  "end": 14778,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 583,
+      "line": 582,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 14811,
+    "end": 14778,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 583,
+        "line": 582,
         "column": 0
       }
     },
@@ -2458,28 +2458,28 @@
       {
         "type": "ExportDefaultDeclaration",
         "start": 2541,
-        "end": 14810,
+        "end": 14777,
         "loc": {
           "start": {
             "line": 82,
             "column": 0
           },
           "end": {
-            "line": 582,
+            "line": 581,
             "column": 1
           }
         },
         "declaration": {
           "type": "ClassDeclaration",
           "start": 2556,
-          "end": 14810,
+          "end": 14777,
           "loc": {
             "start": {
               "line": 82,
               "column": 15
             },
             "end": {
-              "line": 582,
+              "line": 581,
               "column": 1
             }
           },
@@ -2505,14 +2505,14 @@
           "body": {
             "type": "ClassBody",
             "start": 2572,
-            "end": 14810,
+            "end": 14777,
             "loc": {
               "start": {
                 "line": 82,
                 "column": 31
               },
               "end": {
-                "line": 582,
+                "line": 581,
                 "column": 1
               }
             },
@@ -19770,16 +19770,16 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   ",
+                    "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   ",
                     "start": 14560,
-                    "end": 14767,
+                    "end": 14734,
                     "loc": {
                       "start": {
                         "line": 573,
                         "column": 2
                       },
                       "end": {
-                        "line": 578,
+                        "line": 577,
                         "column": 5
                       }
                     }
@@ -19788,30 +19788,30 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 14770,
-                "end": 14808,
+                "start": 14737,
+                "end": 14775,
                 "loc": {
                   "start": {
-                    "line": 579,
+                    "line": 578,
                     "column": 2
                   },
                   "end": {
-                    "line": 581,
+                    "line": 580,
                     "column": 3
                   }
                 },
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 14770,
-                  "end": 14776,
+                  "start": 14737,
+                  "end": 14743,
                   "loc": {
                     "start": {
-                      "line": 579,
+                      "line": 578,
                       "column": 2
                     },
                     "end": {
-                      "line": 579,
+                      "line": 578,
                       "column": 8
                     },
                     "identifierName": "logout"
@@ -19828,101 +19828,101 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 14779,
-                  "end": 14808,
+                  "start": 14746,
+                  "end": 14775,
                   "loc": {
                     "start": {
-                      "line": 579,
+                      "line": 578,
                       "column": 11
                     },
                     "end": {
-                      "line": 581,
+                      "line": 580,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 14785,
-                      "end": 14804,
+                      "start": 14752,
+                      "end": 14771,
                       "loc": {
                         "start": {
-                          "line": 580,
+                          "line": 579,
                           "column": 4
                         },
                         "end": {
-                          "line": 580,
+                          "line": 579,
                           "column": 23
                         }
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 14785,
-                        "end": 14803,
+                        "start": 14752,
+                        "end": 14770,
                         "loc": {
                           "start": {
-                            "line": 580,
+                            "line": 579,
                             "column": 4
                           },
                           "end": {
-                            "line": 580,
+                            "line": 579,
                             "column": 22
                           }
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 14785,
-                          "end": 14801,
+                          "start": 14752,
+                          "end": 14768,
                           "loc": {
                             "start": {
-                              "line": 580,
+                              "line": 579,
                               "column": 4
                             },
                             "end": {
-                              "line": 580,
+                              "line": 579,
                               "column": 20
                             }
                           },
                           "object": {
                             "type": "MemberExpression",
-                            "start": 14785,
-                            "end": 14794,
+                            "start": 14752,
+                            "end": 14761,
                             "loc": {
                               "start": {
-                                "line": 580,
+                                "line": 579,
                                 "column": 4
                               },
                               "end": {
-                                "line": 580,
+                                "line": 579,
                                 "column": 13
                               }
                             },
                             "object": {
                               "type": "ThisExpression",
-                              "start": 14785,
-                              "end": 14789,
+                              "start": 14752,
+                              "end": 14756,
                               "loc": {
                                 "start": {
-                                  "line": 580,
+                                  "line": 579,
                                   "column": 4
                                 },
                                 "end": {
-                                  "line": 580,
+                                  "line": 579,
                                   "column": 8
                                 }
                               }
                             },
                             "property": {
                               "type": "Identifier",
-                              "start": 14790,
-                              "end": 14794,
+                              "start": 14757,
+                              "end": 14761,
                               "loc": {
                                 "start": {
-                                  "line": 580,
+                                  "line": 579,
                                   "column": 9
                                 },
                                 "end": {
-                                  "line": 580,
+                                  "line": 579,
                                   "column": 13
                                 },
                                 "identifierName": "auth"
@@ -19933,15 +19933,15 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 14795,
-                            "end": 14801,
+                            "start": 14762,
+                            "end": 14768,
                             "loc": {
                               "start": {
-                                "line": 580,
+                                "line": 579,
                                 "column": 14
                               },
                               "end": {
-                                "line": 580,
+                                "line": 579,
                                 "column": 20
                               },
                               "identifierName": "forget"
@@ -19959,16 +19959,16 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   ",
+                    "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   ",
                     "start": 14560,
-                    "end": 14767,
+                    "end": 14734,
                     "loc": {
                       "start": {
                         "line": 573,
                         "column": 2
                       },
                       "end": {
-                        "line": 578,
+                        "line": 577,
                         "column": 5
                       }
                     }
@@ -20822,16 +20822,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   ",
+      "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   ",
       "start": 14560,
-      "end": 14767,
+      "end": 14734,
       "loc": {
         "start": {
           "line": 573,
           "column": 2
         },
         "end": {
-          "line": 578,
+          "line": 577,
           "column": 5
         }
       }
@@ -58678,16 +58678,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored in\n   * cookies or localStorage.\n   * @returns {void}\n   ",
+      "value": "*\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   ",
       "start": 14560,
-      "end": 14767,
+      "end": 14734,
       "loc": {
         "start": {
           "line": 573,
           "column": 2
         },
         "end": {
-          "line": 578,
+          "line": 577,
           "column": 5
         }
       }
@@ -58705,15 +58705,15 @@
         "binop": null
       },
       "value": "logout",
-      "start": 14770,
-      "end": 14776,
+      "start": 14737,
+      "end": 14743,
       "loc": {
         "start": {
-          "line": 579,
+          "line": 578,
           "column": 2
         },
         "end": {
-          "line": 579,
+          "line": 578,
           "column": 8
         }
       }
@@ -58730,15 +58730,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 14776,
-      "end": 14777,
+      "start": 14743,
+      "end": 14744,
       "loc": {
         "start": {
-          "line": 579,
+          "line": 578,
           "column": 8
         },
         "end": {
-          "line": 579,
+          "line": 578,
           "column": 9
         }
       }
@@ -58755,15 +58755,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 14777,
-      "end": 14778,
+      "start": 14744,
+      "end": 14745,
       "loc": {
         "start": {
-          "line": 579,
+          "line": 578,
           "column": 9
         },
         "end": {
-          "line": 579,
+          "line": 578,
           "column": 10
         }
       }
@@ -58780,15 +58780,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 14779,
-      "end": 14780,
+      "start": 14746,
+      "end": 14747,
       "loc": {
         "start": {
-          "line": 579,
+          "line": 578,
           "column": 11
         },
         "end": {
-          "line": 579,
+          "line": 578,
           "column": 12
         }
       }
@@ -58808,15 +58808,15 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 14785,
-      "end": 14789,
+      "start": 14752,
+      "end": 14756,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 4
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 8
         }
       }
@@ -58834,15 +58834,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 14789,
-      "end": 14790,
+      "start": 14756,
+      "end": 14757,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 8
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 9
         }
       }
@@ -58860,15 +58860,15 @@
         "binop": null
       },
       "value": "auth",
-      "start": 14790,
-      "end": 14794,
+      "start": 14757,
+      "end": 14761,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 9
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 13
         }
       }
@@ -58886,15 +58886,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 14794,
-      "end": 14795,
+      "start": 14761,
+      "end": 14762,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 13
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 14
         }
       }
@@ -58912,15 +58912,15 @@
         "binop": null
       },
       "value": "forget",
-      "start": 14795,
-      "end": 14801,
+      "start": 14762,
+      "end": 14768,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 14
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 20
         }
       }
@@ -58937,15 +58937,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 14801,
-      "end": 14802,
+      "start": 14768,
+      "end": 14769,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 20
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 21
         }
       }
@@ -58962,15 +58962,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 14802,
-      "end": 14803,
+      "start": 14769,
+      "end": 14770,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 21
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 22
         }
       }
@@ -58988,15 +58988,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 14803,
-      "end": 14804,
+      "start": 14770,
+      "end": 14771,
       "loc": {
         "start": {
-          "line": 580,
+          "line": 579,
           "column": 22
         },
         "end": {
-          "line": 580,
+          "line": 579,
           "column": 23
         }
       }
@@ -59013,15 +59013,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 14807,
-      "end": 14808,
+      "start": 14774,
+      "end": 14775,
       "loc": {
         "start": {
-          "line": 581,
+          "line": 580,
           "column": 2
         },
         "end": {
-          "line": 581,
+          "line": 580,
           "column": 3
         }
       }
@@ -59038,15 +59038,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 14809,
-      "end": 14810,
+      "start": 14776,
+      "end": 14777,
       "loc": {
         "start": {
-          "line": 582,
+          "line": 581,
           "column": 0
         },
         "end": {
-          "line": 582,
+          "line": 581,
           "column": 1
         }
       }
@@ -59064,15 +59064,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 14811,
-      "end": 14811,
+      "start": 14778,
+      "end": 14778,
       "loc": {
         "start": {
-          "line": 583,
+          "line": 582,
           "column": 0
         },
         "end": {
-          "line": 583,
+          "line": 582,
           "column": 0
         }
       }
