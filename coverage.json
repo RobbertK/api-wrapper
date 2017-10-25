@@ -111,7 +111,7 @@
       "expectCount": 11,
       "actualCount": 10,
       "undocumentLines": [
-        37
+        36
       ]
     },
     "src/crud/Font.js": {
@@ -134,8 +134,8 @@
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        36,
-        37
+        34,
+        35
       ]
     },
     "src/traits/HandlesImages.js": {

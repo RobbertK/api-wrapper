@@ -145,9 +145,7 @@
  */
 
 import fetchPonyfill from &apos;fetch-ponyfill&apos;;
-
-// eslint-disable-next-line no-eval
-export const FormData = require(&apos;form-data&apos;);
+export const FormData = (typeof window !== &apos;undefined&apos; &amp;&amp; window.FormData) ? window.FormData : require(&apos;../../node_modules/form-data/lib/form_data&apos;);
 export const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});
 
 /**
