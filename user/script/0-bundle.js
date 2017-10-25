@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:f306b50684aa6eaf7f04, chunkhash:c3f8b464cff85ffb5c18, name:bundle, version:v1.1.47
+ * hash:dcfd367e12fcc0fcaeb2, chunkhash:2e862d83c4799f620d95, name:bundle, version:v1.1.48
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.47) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.48) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -21256,7 +21256,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.47";
+var version = exports.version = "v1.1.48";
 
 /**
  * Package license
@@ -26807,7 +26807,7 @@ var CookiesDriver = function (_DataStoreDriver) {
     value: function set(name, value) {
       var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date('2050-01-01');
 
-      name = encodeURIComponent(CookiesDriver._prefix + name);
+      name = encodeURIComponent(this._prefix + name);
       value = encodeURIComponent(value);
 
       if (expires instanceof Date) {
@@ -26830,7 +26830,7 @@ var CookiesDriver = function (_DataStoreDriver) {
   }, {
     key: 'get',
     value: function get(name) {
-      name = CookiesDriver._prefix + name;
+      name = this._prefix + name;
 
       return this._toObject()[name];
     }
@@ -26842,7 +26842,7 @@ var CookiesDriver = function (_DataStoreDriver) {
   }, {
     key: 'remove',
     value: function remove(name) {
-      name = encodeURIComponent(CookiesDriver._prefix + name);
+      name = encodeURIComponent(this._prefix + name);
 
       var cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
 
@@ -26860,7 +26860,7 @@ var CookiesDriver = function (_DataStoreDriver) {
   }, {
     key: 'keys',
     value: function keys() {
-      var regex = new RegExp('^' + CookiesDriver._prefix);
+      var regex = new RegExp('^' + this._prefix);
 
       return Object.keys(this._toObject()).map(function (x) {
         return x.replace(regex, '');
@@ -26876,19 +26876,21 @@ var CookiesDriver = function (_DataStoreDriver) {
   }, {
     key: '_toObject',
     value: function _toObject() {
+      var _this2 = this;
+
       var cookies = {};
 
       document.cookie.split(';').map(function (x) {
         return x.trim().split('=').map(decodeURIComponent);
       }).filter(function (x) {
-        return x[0].startsWith(CookiesDriver._prefix);
+        return x[0].startsWith(_this2._prefix);
       }).forEach(function (x) {
         cookies[x[0]] = x[1];
       });
 
       return cookies;
     }
-  }], [{
+  }, {
     key: '_prefix',
     get: function get() {
       return this.__prefix;
@@ -26898,7 +26900,7 @@ var CookiesDriver = function (_DataStoreDriver) {
      * @inheritDoc
      */
 
-  }, {
+  }], [{
     key: 'secure',
     get: function get() {
       return window.location.protocol === 'https:';
