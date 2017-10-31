@@ -1,14 +1,14 @@
 {
-  "coverage": "77.14%",
-  "expectCount": 455,
-  "actualCount": 351,
+  "coverage": "78.01%",
+  "expectCount": 414,
+  "actualCount": 323,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        67,
-        58
+        58,
+        67
       ]
     },
     "src/errors/ApiError.js": {
@@ -37,14 +37,6 @@
         39
       ]
     },
-    "src/storage/CookiesDriver.js": {
-      "expectCount": 8,
-      "actualCount": 6,
-      "undocumentLines": [
-        36,
-        37
-      ]
-    },
     "src/crud/base/CrudBase.js": {
       "expectCount": 7,
       "actualCount": 7,
@@ -54,14 +46,6 @@
       "expectCount": 4,
       "actualCount": 4,
       "undocumentLines": []
-    },
-    "src/storage/DataStoreDriver.js": {
-      "expectCount": 9,
-      "actualCount": 7,
-      "undocumentLines": [
-        37,
-        38
-      ]
     },
     "src/enums.js": {
       "expectCount": 5,
@@ -105,13 +89,6 @@
       "actualCount": 1,
       "undocumentLines": [
         44
-      ]
-    },
-    "src/storage/FileDriver.js": {
-      "expectCount": 11,
-      "actualCount": 10,
-      "undocumentLines": [
-        36
       ]
     },
     "src/crud/Font.js": {
@@ -242,13 +219,6 @@
       "actualCount": 1,
       "undocumentLines": [
         45
-      ]
-    },
-    "src/storage/LocalStorageDriver.js": {
-      "expectCount": 6,
-      "actualCount": 5,
-      "undocumentLines": [
-        36
       ]
     },
     "src/Maps4News.js": {
@@ -418,19 +388,6 @@
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
-    },
-    "src/storage/StorageManager.js": {
-      "expectCount": 7,
-      "actualCount": 0,
-      "undocumentLines": [
-        38,
-        39,
-        59,
-        51,
-        55,
-        47,
-        63
-      ]
     },
     "src/crud/Svg.js": {
       "expectCount": 2,

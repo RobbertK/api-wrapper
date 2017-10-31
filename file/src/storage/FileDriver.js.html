@@ -93,11 +93,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">storage</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/CookiesDriver.js~CookiesDriver.html">CookiesDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/DataStoreDriver.js~DataStoreDriver.html">DataStoreDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/FileDriver.js~FileDriver.html">FileDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html">LocalStorageDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/StorageManager.js~StorageManager.html">StorageManager</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
@@ -147,12 +142,15 @@
 import {isNode} from &apos;../utils/node&apos;;
 import DataStoreDriver from &apos;./DataStoreDriver&apos;;
 
+/**
+ * @private
+ */
 export default class FileDriver extends DataStoreDriver {
   /**
    * @param {String} path - File storage path
    * @inheritDoc
    */
-  constructor(path = &apos;./.m4n&apos;) {
+  constructor(path = &apos;.m4n&apos;) {
     super();
 
     this._path = path;
@@ -176,6 +174,15 @@ export default class FileDriver extends DataStoreDriver {
     }
 
     this._path = value;
+  }
+
+  get realPath() {
+    if (this.path.startsWith(&apos;/&apos;)) {
+      return this.path;
+    }
+
+    // eslint-disable-next-line no-undef
+    return this._fs.realpathSync(this.path);
   }
 
   /**
@@ -241,7 +248,11 @@ export default class FileDriver extends DataStoreDriver {
    * @private
    */
   _read() {
-    const data = this.__fs.readFileSync(this.path);
+    const data = this._fs.readFileSync(this.realPath).toString();
+
+    if (!data) {
+      return {};
+    }
 
     return JSON.parse(data);
   }
@@ -255,7 +266,7 @@ export default class FileDriver extends DataStoreDriver {
   _write(data) {
     data = JSON.stringify(data);
 
-    this.__fs.writeFileSync(this.path, data);
+    this._fs.writeFileSync(this.realPath, data);
   }
 
   get _fs() {

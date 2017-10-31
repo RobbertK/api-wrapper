@@ -93,11 +93,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
-<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">storage</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/CookiesDriver.js~CookiesDriver.html">CookiesDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/DataStoreDriver.js~DataStoreDriver.html">DataStoreDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/FileDriver.js~FileDriver.html">FileDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/LocalStorageDriver.js~LocalStorageDriver.html">LocalStorageDriver</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/storage/StorageManager.js~StorageManager.html">StorageManager</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
@@ -160,7 +155,7 @@ export default class StateContainer extends StaticClass {
    * @constant
    */
   static get prefix() {
-    return &apos;m4n_api_state_&apos;;
+    return &apos;oauth_state_&apos;;
   }
 
   /**
@@ -168,11 +163,11 @@ export default class StateContainer extends StaticClass {
    * @returns {string} - state
    */
   static generate() {
-    const key = StateContainer.prefix + Date.now();
-    const value = Uuid.uuid4();
+    const uuid = Uuid.uuid4();
+    const key = StateContainer.prefix + uuid;
 
-    StorageManager.best.setItem(key, value);
-    return value;
+    StorageManager.best.set(key, Date.now());
+    return uuid;
   }
 
   /**
@@ -183,20 +178,14 @@ export default class StateContainer extends StaticClass {
    */
   static validate(state, purge = true) {
     const storage = StorageManager.best;
+    const key = StateContainer.prefix + state;
+    const found = typeof storage.get(key) !== &apos;undefined&apos;;
 
-    for (let i = 0; i &lt; storage.length; i++) {
-      const key = storage.key(i);
-
-      if (storage.getItem(key) === state) {
-        if (purge) {
-          storage.removeItem(key);
-        }
-
-        return true;
-      }
+    if (purge &amp;&amp; found) {
+      storage.remove(key);
     }
 
-    return false;
+    return found;
   }
 
   /**
@@ -204,15 +193,10 @@ export default class StateContainer extends StaticClass {
    * @returns {void}
    */
   static clean() {
-    const storage = StorageManager.best;
+    const tokens = Object.keys(this.list());
 
-    for (let i = 0; i &lt; storage.length; i++) {
-      const key = storage.key(i);
-      const prefix = key.slice(0, StateContainer.prefix.length);
-
-      if (prefix === StateContainer.prefix) {
-        storage.removeItem(key);
-      }
+    for (const token of tokens) {
+      StorageManager.best.remove(StateContainer.prefix + token);
     }
   }
 
@@ -222,18 +206,16 @@ export default class StateContainer extends StaticClass {
    */
   static list() {
     const storage = StorageManager.best;
-    const out = {};
 
-    for (let i = 0; i &lt; storage.length; i++) {
-      const key = storage.key(i);
-      const prefix = key.slice(0, StateContainer.prefix.length);
+    return storage
+      .keys()
+      .filter(x =&gt; x.startsWith(StateContainer.prefix))
+      .map(x =&gt; x.replace(StateContainer.prefix, &apos;&apos;))
+      .reduce((out, key) =&gt; {
+        out[key] = storage.get(key);
 
-      if (prefix === StateContainer.prefix) {
-        out[key] = storage.getItem(key);
-      }
-    }
-
-    return out;
+        return out;
+      }, {});
   }
 }
 </code></pre>
