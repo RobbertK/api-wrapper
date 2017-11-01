@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:20b1fb1a58d2cd69139b, chunkhash:5a5a0ffbec17998f514e, name:bundle, version:1f61fd8
+ * hash:41db0e604297f7457874, chunkhash:3c2995c58e579a996290, name:bundle, version:dea048f
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.51) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.53) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -4957,8 +4957,14 @@ var OAuthToken = function () {
     value: function recover() {
       var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
 
-      var data = JSON.parse(_StorageManager2.default.secure.get(name) || '{}');
-      var instance = new OAuthToken(data.token, data.type, new Date(data.expires), data.scopes || []);
+      var data = _StorageManager2.default.secure.get(name);
+
+      if (!data) {
+        return null;
+      }
+
+      var obj = JSON.parse(data);
+      var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
 
       if (!instance.expired) {
         return null;
@@ -14179,7 +14185,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "1f61fd8";
+var version = exports.version = "dea048f";
 
 /**
  * Package license
@@ -18795,7 +18801,13 @@ var FileDriver = function (_DataStoreDriver) {
   }, {
     key: '_read',
     value: function _read() {
-      var data = this._fs.readFileSync(this.realPath).toString();
+      var data = void 0;
+
+      try {
+        data = this._fs.readFileSync(this.realPath).toString();
+      } catch (e) {
+        data = '{}';
+      }
 
       if (!data) {
         return {};
@@ -18806,18 +18818,27 @@ var FileDriver = function (_DataStoreDriver) {
 
     /**
      * Write data to file
-     * @param {Object<String, String>} data - Key, value object
+     * @param {Object<String, String>} obj - Key, value object
      * @returns {void}
      * @private
      */
 
   }, {
     key: '_write',
-    value: function _write(data) {
-      data = JSON.stringify(data);
+    value: function _write(obj) {
+      var data = JSON.stringify(obj);
+      var fd = this._fs.openSync(this.realPath, 'w');
 
-      this._fs.writeFileSync(this.realPath, data);
+      this._fs.writeSync(fd, data);
+      this._fs.closeSync(fd);
     }
+
+    /**
+     * Get fs instance
+     * @returns {fs} - fs instance
+     * @private
+     */
+
   }, {
     key: 'path',
     get: function get() {
