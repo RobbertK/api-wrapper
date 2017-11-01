@@ -142,7 +142,6 @@
 import {AbstractClassError, AbstractMethodError} from &apos;../errors/AbstractError&apos;;
 import OAuthToken from &apos;./OAuthToken&apos;;
 import StateContainer from &apos;./StateContainer&apos;;
-import {isNode} from &apos;../utils/node&apos;;
 import StorageManager from &apos;../storage/StorageManager&apos;;
 
 /**
@@ -190,13 +189,8 @@ export default class OAuth {
    * @returns {void}
    */
   forget() {
-    if (isNode()) {
-      // eslint-disable-next-line no-eval
-      eval(&apos;require(&quot;fs&quot;)&apos;).unlink(OAuthToken.nodeTokenFilename);
-    } else {
-      StateContainer.clean();
-      StorageManager.secure.remove(OAuthToken.storageName);
-    }
+    StateContainer.clean();
+    StorageManager.secure.remove(OAuthToken.storageName);
 
     this.token = null;
   }

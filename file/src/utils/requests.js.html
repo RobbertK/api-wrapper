@@ -140,8 +140,13 @@
  */
 
 import fetchPonyfill from &apos;fetch-ponyfill&apos;;
-export const FormData = (typeof window !== &apos;undefined&apos; &amp;&amp; window.FormData) ? window.FormData : require(&apos;../../node_modules/form-data/lib/form_data&apos;);
+import {isNode} from &apos;./node&apos;;
+
 export const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});
+export const FormData = (typeof window !== &apos;undefined&apos; &amp;&amp; window.FormData) ? window.FormData : (
+  // Load FormData polyfill
+  isNode() ? null : require(&apos;formdata-polyfill&apos;)
+);
 
 /**
  * Encodes an object to a http query string with support for recursion

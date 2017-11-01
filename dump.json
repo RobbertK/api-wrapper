@@ -14702,7 +14702,7 @@
     "__docId__": 517,
     "kind": "file",
     "name": "src/oauth/OAuth.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractMethodError} from '../errors/AbstractError';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport {isNode} from '../utils/node';\nimport StorageManager from '../storage/StorageManager';\n\n/**\n * OAuth base class\n * @abstract\n */\nexport default class OAuth {\n  /**\n   * @param {String} clientId - OAuth client id\n   * @param {Array<String>} scopes - A list of required scopes\n   * @returns {void}\n   */\n  constructor(clientId, scopes = ['*']) {\n    if (this.constructor === OAuth) {\n      throw new AbstractClassError();\n    }\n\n    this.clientId = String(clientId);\n    this.scopes = scopes;\n    this.token = OAuthToken.recover();\n    this.host = process.env.HOST;\n    this.path = '/';\n  }\n\n  /**\n   * If the current instance has a valid token\n   * @returns {Boolean} - if a valid token is availble\n   */\n  get authenticated() {\n    return this.token !== null && !this.token.expired;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with OAuthToken and rejects with OAuthError\n   * @abstract\n   */\n  authenticate() {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Forget the current session\n   * Empty the session token store and forget the api token\n   * @returns {void}\n   */\n  forget() {\n    if (isNode()) {\n      // eslint-disable-next-line no-eval\n      eval('require(\"fs\")').unlink(OAuthToken.nodeTokenFilename);\n    } else {\n      StateContainer.clean();\n      StorageManager.secure.remove(OAuthToken.storageName);\n    }\n\n    this.token = null;\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {AbstractClassError, AbstractMethodError} from '../errors/AbstractError';\nimport OAuthToken from './OAuthToken';\nimport StateContainer from './StateContainer';\nimport StorageManager from '../storage/StorageManager';\n\n/**\n * OAuth base class\n * @abstract\n */\nexport default class OAuth {\n  /**\n   * @param {String} clientId - OAuth client id\n   * @param {Array<String>} scopes - A list of required scopes\n   * @returns {void}\n   */\n  constructor(clientId, scopes = ['*']) {\n    if (this.constructor === OAuth) {\n      throw new AbstractClassError();\n    }\n\n    this.clientId = String(clientId);\n    this.scopes = scopes;\n    this.token = OAuthToken.recover();\n    this.host = process.env.HOST;\n    this.path = '/';\n  }\n\n  /**\n   * If the current instance has a valid token\n   * @returns {Boolean} - if a valid token is availble\n   */\n  get authenticated() {\n    return this.token !== null && !this.token.expired;\n  }\n\n  /**\n   * Authenticate\n   * @returns {Promise} - Promise resolves with OAuthToken and rejects with OAuthError\n   * @abstract\n   */\n  authenticate() {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Forget the current session\n   * Empty the session token store and forget the api token\n   * @returns {void}\n   */\n  forget() {\n    StateContainer.clean();\n    StorageManager.secure.remove(OAuthToken.storageName);\n\n    this.token = null;\n  }\n}\n",
     "static": true,
     "longname": "src/oauth/OAuth.js",
     "access": null,
@@ -14721,7 +14721,7 @@
     "importPath": "@mapcreator/maps4news/src/oauth/OAuth.js",
     "importStyle": "OAuth",
     "description": "OAuth base class",
-    "lineNumber": 43,
+    "lineNumber": 42,
     "abstract": true,
     "interface": false
   },
@@ -14736,7 +14736,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 49,
+    "lineNumber": 48,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14783,7 +14783,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#clientId",
     "access": null,
     "description": null,
-    "lineNumber": 54,
+    "lineNumber": 53,
     "undocument": true,
     "unknown": [
       {
@@ -14806,7 +14806,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#scopes",
     "access": null,
     "description": null,
-    "lineNumber": 55,
+    "lineNumber": 54,
     "undocument": true,
     "unknown": [
       {
@@ -14829,7 +14829,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#token",
     "access": null,
     "description": null,
-    "lineNumber": 56,
+    "lineNumber": 55,
     "undocument": true,
     "unknown": [
       {
@@ -14852,7 +14852,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#host",
     "access": null,
     "description": null,
-    "lineNumber": 57,
+    "lineNumber": 56,
     "undocument": true,
     "unknown": [
       {
@@ -14875,7 +14875,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#path",
     "access": null,
     "description": null,
-    "lineNumber": 58,
+    "lineNumber": 57,
     "undocument": true,
     "unknown": [
       {
@@ -14900,7 +14900,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#authenticated",
     "access": null,
     "description": "If the current instance has a valid token",
-    "lineNumber": 65,
+    "lineNumber": 64,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14932,7 +14932,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#authenticate",
     "access": null,
     "description": "Authenticate",
-    "lineNumber": 74,
+    "lineNumber": 73,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14961,7 +14961,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#forget",
     "access": null,
     "description": "Forget the current session\nEmpty the session token store and forget the api token",
-    "lineNumber": 83,
+    "lineNumber": 82,
     "unknown": [
       {
         "tagName": "@returns",
@@ -14987,7 +14987,7 @@
     "longname": "src/oauth/OAuth.js~OAuth#token",
     "access": null,
     "description": null,
-    "lineNumber": 92,
+    "lineNumber": 86,
     "undocument": true,
     "unknown": [
       {
@@ -17590,7 +17590,7 @@
     "__docId__": 621,
     "kind": "file",
     "name": "src/storage/StorageManager.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from '../utils/StaticClass';\nimport CookiesDriver from './CookiesDriver';\nimport FileDriver from './FileDriver';\nimport LocalStorageDriver from './LocalStorageDriver';\n\n/**\n * @private\n */\nexport default class StorageManager extends StaticClass {\n  /**\n   * Available storage drivers\n   * @returns {Array.<function>} - Available storage drivers\n   */\n  static get available() {\n    return [\n      LocalStorageDriver,\n      CookiesDriver,\n      FileDriver,\n    ].filter(x => x.available);\n  }\n\n  /**\n   * Get LocalStorageDriver instance\n   * @returns {LocalStorageDriver} - instance\n   */\n  static get localStorage() {\n    return new LocalStorageDriver();\n  }\n\n  /**\n   * Get CookiesDriver instance\n   * @returns {CookiesDriver} - instance\n   */\n  static get cookies() {\n    return new CookiesDriver();\n  }\n\n  /**\n   * Get FileDriver instance\n   * @returns {FileDriver} - instance\n   */\n  static get file() {\n    return new FileDriver();\n  }\n\n  /**\n   * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}\n   * @returns {DataStoreDriver} - Best available storage driver\n   */\n  static get best() {\n    return new this.available[0]();\n  }\n\n  /**\n   * Returns the a secure storage driver\n   * @returns {DataStoreDriver} - Secure storage driver\n   */\n  static get secure() {\n    const C = this.available.filter(x => x.secure)[0];\n\n    return new C();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from '../utils/StaticClass';\nimport CookiesDriver from './CookiesDriver';\nimport FileDriver from './FileDriver';\nimport LocalStorageDriver from './LocalStorageDriver';\n\n/**\n * @private\n */\nexport default class StorageManager extends StaticClass {\n  /**\n   * Available storage drivers\n   * @returns {Array.<function>} - Available storage drivers\n   */\n  static get available() {\n    return [\n      LocalStorageDriver,\n      CookiesDriver,\n      FileDriver,\n    ].filter(x => x.available);\n  }\n\n  /**\n   * Get LocalStorageDriver instance\n   * @returns {LocalStorageDriver} - instance\n   */\n  static get localStorage() {\n    return new LocalStorageDriver();\n  }\n\n  /**\n   * Get CookiesDriver instance\n   * @returns {CookiesDriver} - instance\n   */\n  static get cookies() {\n    return new CookiesDriver();\n  }\n\n  /**\n   * Get FileDriver instance\n   * @returns {FileDriver} - instance\n   */\n  static get file() {\n    return new FileDriver();\n  }\n\n  /**\n   * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}\n   * @returns {DataStoreDriver} - Best available storage driver\n   */\n  static get best() {\n    return new this.available[0]();\n  }\n\n  /**\n   * Returns the a secure storage driver\n   * @returns {DataStoreDriver} - Secure storage driver\n   */\n  static get secure() {\n    const C = this.available.filter(x => x.secure)[0];\n\n    if (typeof C === 'undefined') {\n      return StorageManager.best;\n    }\n  }\n}\n",
     "static": true,
     "longname": "src/storage/StorageManager.js",
     "access": null,
@@ -18770,7 +18770,7 @@
     "__docId__": 664,
     "kind": "file",
     "name": "src/utils/requests.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport fetchPonyfill from 'fetch-ponyfill';\nexport const FormData = (typeof window !== 'undefined' && window.FormData) ? window.FormData : require('../../node_modules/form-data/lib/form_data');\nexport const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject).replace('&&', '&');\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .filter(key => paramsObject[key] !== null)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport fetchPonyfill from 'fetch-ponyfill';\nimport {isNode} from './node';\n\nexport const {fetch, Request, Response, Headers} = fetchPonyfill({Promise});\nexport const FormData = (typeof window !== 'undefined' && window.FormData) ? window.FormData : (\n  // Load FormData polyfill\n  isNode() ? null : require('formdata-polyfill')\n);\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @protected\n */\nexport function encodeQueryString(paramsObject) {\n  return _encodeQueryString(paramsObject).replace('&&', '&');\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .filter(key => paramsObject[key] !== null)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object') {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n      out += '=' + encodeURIComponent(paramsObject[key]); // value\n\n      return out;\n    }).join('&');\n}\n",
     "static": true,
     "longname": "src/utils/requests.js",
     "access": null,
@@ -18780,16 +18780,16 @@
   {
     "__docId__": 665,
     "kind": "variable",
-    "name": "FormData",
+    "name": "fetch",
     "memberof": "src/utils/requests.js",
     "static": true,
-    "longname": "src/utils/requests.js~FormData",
+    "longname": "src/utils/requests.js~fetch",
     "access": null,
     "export": true,
     "importPath": "@mapcreator/maps4news/src/utils/requests.js",
-    "importStyle": "{FormData}",
+    "importStyle": "{fetch}",
     "description": null,
-    "lineNumber": 34,
+    "lineNumber": 36,
     "undocument": true,
     "unknown": [
       {
@@ -18806,16 +18806,16 @@
   {
     "__docId__": 666,
     "kind": "variable",
-    "name": "fetch",
+    "name": "FormData",
     "memberof": "src/utils/requests.js",
     "static": true,
-    "longname": "src/utils/requests.js~fetch",
+    "longname": "src/utils/requests.js~FormData",
     "access": null,
     "export": true,
     "importPath": "@mapcreator/maps4news/src/utils/requests.js",
-    "importStyle": "{fetch}",
+    "importStyle": "{FormData}",
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 37,
     "undocument": true,
     "unknown": [
       {
@@ -18843,7 +18843,7 @@
     "importPath": "@mapcreator/maps4news/src/utils/requests.js",
     "importStyle": "{encodeQueryString}",
     "description": "Encodes an object to a http query string with support for recursion",
-    "lineNumber": 44,
+    "lineNumber": 49,
     "unknown": [
       {
         "tagName": "@returns",
@@ -18888,7 +18888,7 @@
     "see": [
       "http://stackoverflow.com/a/39828481"
     ],
-    "lineNumber": 57,
+    "lineNumber": 62,
     "unknown": [
       {
         "tagName": "@returns",
