@@ -15005,7 +15005,7 @@
     "__docId__": 529,
     "kind": "file",
     "name": "src/oauth/OAuthToken.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StorageManager from '../storage/StorageManager';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} type - token type\n   * @param {Date|Number} expires - expire time in seconds or Date\n   * @param {Array<string>} scopes - Any scopes\n   */\n  constructor(token, type, expires, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'api_token';\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      Number(data['expires_in']),\n      data['scope'] || [],\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken.storageName) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n      scopes: this.scopes,\n    };\n\n    // Third parameter is only used when we're using cookies\n    StorageManager.secure.set(name, JSON.stringify(data), this.expires);\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken.storageName) {\n    const data = StorageManager.secure.get(name);\n\n    if (!data) {\n      return null;\n    }\n\n    const obj = JSON.parse(data);\n    const instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);\n\n    if (!instance.expired) {\n      return null;\n    }\n\n    return instance;\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StorageManager from '../storage/StorageManager';\n\n/**\n * Oauth token container\n */\nexport default class OAuthToken {\n  /**\n   * @param {String} token - OAuth token\n   * @param {String} [type=Bearer] - token type\n   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date\n   * @param {Array<string>} [scopes=[]] - Any scopes\n   */\n  constructor(token, type = 'Bearer', expires = 432000, scopes = []) {\n    this.scopes = scopes;\n    this.token = token;\n    this.type = type\n      .toLowerCase()\n      .replace(/(\\s|^)\\w/g, x => x.toUpperCase());\n\n    if (typeof expires === 'number') {\n      // Expires is in seconds\n      this.expires = new Date(Date.now() + expires * 1000);\n    } else if (expires instanceof Date) {\n      this.expires = expires;\n    } else {\n      throw new TypeError('Expires not of type Date or Number');\n    }\n  }\n\n  /**\n   * String representation of the token, usable in the Authorization header\n   * @returns {string} - String representation\n   */\n  toString() {\n    return `${this.type} ${this.token}`;\n  }\n\n  /**\n   * Get equivalent OAuth response object\n   * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object\n   */\n  toResponseObject() {\n    return {\n      'access_token': this.token,\n      'token_type': this.type.toLowerCase(),\n      'expires_in': this.expires - Date.now(),\n      'scope': this.scopes,\n    };\n  }\n\n  /**\n   * If the token has expired\n   * @returns {Boolean} - expired\n   */\n  get expired() {\n    return new Date() > this.expires;\n  }\n\n  /**\n   * Internal storage key name\n   * @returns {String} - storage name\n   * @constant\n   */\n  static get storageName() {\n    return 'api_token';\n  }\n\n  /**\n   * Build instance from response object\n   * @param {String|Object} data - object or JSON string\n   * @returns {OAuthToken} - New OAuthToken instance\n   */\n  static fromResponseObject(data) {\n    if (typeof data === 'string') {\n      data = JSON.parse(data);\n    }\n\n    // Default expires = 5 days\n    let expires = 432000;\n\n    if (typeof data['exipires_in'] !== 'undefined') {\n      expires = Number(data['expires_in']);\n    } else if (typeof data['expires'] === 'string') {\n      expires = new Date(data['expires']);\n    }\n\n    return new OAuthToken(\n      data['access_token'],\n      data['token_type'],\n      expires,\n      data['scope'] || [],\n    );\n  }\n\n  /**\n   * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.\n   * @param {String} name - db key name\n   * @returns {void}\n   * @see OAuthToken#recover\n   */\n  save(name = OAuthToken.storageName) {\n    const data = {\n      token: this.token,\n      type: this.type,\n      expires: this.expires.toUTCString(),\n      scopes: this.scopes,\n    };\n\n    // Third parameter is only used when we're using cookies\n    StorageManager.secure.set(name, JSON.stringify(data), this.expires);\n  }\n\n  /**\n   * Recover a token by looking through the HTTPS cookies and localStorage\n   * @param {String} name - Storage key name\n   * @returns {OAuthToken|null} - null if none could be recovered\n   * @see OAuthToken#save\n   */\n  static recover(name = OAuthToken.storageName) {\n    const data = StorageManager.secure.get(name);\n\n    if (!data) {\n      return null;\n    }\n\n    const obj = JSON.parse(data);\n    const instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);\n\n    if (!instance.expired) {\n      return null;\n    }\n\n    return instance;\n  }\n}\n",
     "static": true,
     "longname": "src/oauth/OAuthToken.js",
     "access": null,
@@ -15056,7 +15056,9 @@
           "String"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "Bearer",
+        "defaultRaw": "Bearer",
         "name": "type",
         "description": "token type"
       },
@@ -15067,7 +15069,9 @@
           "Number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "5 days",
+        "defaultRaw": "5 days",
         "name": "expires",
         "description": "expire time in seconds or Date"
       },
@@ -15077,7 +15081,9 @@
           "Array<string>"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "[]",
+        "defaultRaw": [],
         "name": "scopes",
         "description": "Any scopes"
       }
@@ -15376,7 +15382,7 @@
     "see": [
       "OAuthToken#recover"
     ],
-    "lineNumber": 124,
+    "lineNumber": 133,
     "unknown": [
       {
         "tagName": "@returns",
@@ -15418,7 +15424,7 @@
     "see": [
       "OAuthToken#save"
     ],
-    "lineNumber": 142,
+    "lineNumber": 151,
     "unknown": [
       {
         "tagName": "@returns",

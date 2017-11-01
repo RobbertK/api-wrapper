@@ -147,11 +147,11 @@ import StorageManager from &apos;../storage/StorageManager&apos;;
 export default class OAuthToken {
   /**
    * @param {String} token - OAuth token
-   * @param {String} type - token type
-   * @param {Date|Number} expires - expire time in seconds or Date
-   * @param {Array&lt;string&gt;} scopes - Any scopes
+   * @param {String} [type=Bearer] - token type
+   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
+   * @param {Array&lt;string&gt;} [scopes=[]] - Any scopes
    */
-  constructor(token, type, expires, scopes = []) {
+  constructor(token, type = &apos;Bearer&apos;, expires = 432000, scopes = []) {
     this.scopes = scopes;
     this.token = token;
     this.type = type
@@ -216,10 +216,19 @@ export default class OAuthToken {
       data = JSON.parse(data);
     }
 
+    // Default expires = 5 days
+    let expires = 432000;
+
+    if (typeof data[&apos;exipires_in&apos;] !== &apos;undefined&apos;) {
+      expires = Number(data[&apos;expires_in&apos;]);
+    } else if (typeof data[&apos;expires&apos;] === &apos;string&apos;) {
+      expires = new Date(data[&apos;expires&apos;]);
+    }
+
     return new OAuthToken(
       data[&apos;access_token&apos;],
       data[&apos;token_type&apos;],
-      Number(data[&apos;expires_in&apos;]),
+      expires,
       data[&apos;scope&apos;] || [],
     );
   }

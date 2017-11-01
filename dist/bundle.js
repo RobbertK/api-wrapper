@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:8155437e6ae6cb122c40, chunkhash:0ef48585c918fb872251, name:bundle, version:v1.1.55
+ * hash:52c91dabcfac68780c89, chunkhash:e9add116ce8d2981754b, name:bundle, version:v1.1.56
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.55) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.56) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -4835,11 +4835,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var OAuthToken = function () {
   /**
    * @param {String} token - OAuth token
-   * @param {String} type - token type
-   * @param {Date|Number} expires - expire time in seconds or Date
-   * @param {Array<string>} scopes - Any scopes
+   * @param {String} [type=Bearer] - token type
+   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
+   * @param {Array<string>} [scopes=[]] - Any scopes
    */
-  function OAuthToken(token, type, expires) {
+  function OAuthToken(token) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Bearer';
+    var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 432000;
     var scopes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
 
     _classCallCheck(this, OAuthToken);
@@ -4950,7 +4952,16 @@ var OAuthToken = function () {
         data = JSON.parse(data);
       }
 
-      return new OAuthToken(data['access_token'], data['token_type'], Number(data['expires_in']), data['scope'] || []);
+      // Default expires = 5 days
+      var expires = 432000;
+
+      if (typeof data['exipires_in'] !== 'undefined') {
+        expires = Number(data['expires_in']);
+      } else if (typeof data['expires'] === 'string') {
+        expires = new Date(data['expires']);
+      }
+
+      return new OAuthToken(data['access_token'], data['token_type'], expires, data['scope'] || []);
     }
   }, {
     key: 'recover',
@@ -14185,7 +14196,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.55";
+var version = exports.version = "v1.1.56";
 
 /**
  * Package license
