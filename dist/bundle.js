@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:0f8f446d143a833c709b, chunkhash:6da80c1e686aeb823d47, name:bundle, version:v1.1.59
+ * hash:1ceb903244b3c5abb62e, chunkhash:2cda7e6b2d2f32e14069, name:bundle, version:v1.1.60
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.59) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.60) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -4979,7 +4979,7 @@ var OAuthToken = function () {
       var obj = JSON.parse(data);
       var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
 
-      if (!instance.expired) {
+      if (instance.expired) {
         return null;
       }
 
@@ -14198,7 +14198,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.59";
+var version = exports.version = "v1.1.60";
 
 /**
  * Package license
@@ -24706,14 +24706,15 @@ var PasswordFlow = function (_OAuth) {
 
       var init = {
         method: 'POST',
-        body: query,
+        body: (0, _requests.encodeQueryString)(query),
         mode: 'cors',
+        redirect: 'follow',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       };
 
-      (0, _requests.fetch)(url, init).then(function (response) {
+      return (0, _requests.fetch)(url, init).then(function (response) {
         var data = response.json();
 
         if (!data.success) {
