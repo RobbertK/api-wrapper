@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:fa69c09ead6e9c932f2f, chunkhash:bf3e2264a89639ac6584, name:bundle, version:v1.1.58
+ * hash:0f8f446d143a833c709b, chunkhash:6da80c1e686aeb823d47, name:bundle, version:v1.1.59
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.58) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.59) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -14198,7 +14198,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.58";
+var version = exports.version = "v1.1.59";
 
 /**
  * Package license
@@ -24534,9 +24534,9 @@ var ImplicitFlowPopup = function (_ImplicitFlow) {
           if (popup.closed) {
             clearInterval(ticker);
 
-            var data = JSON.parse(_this2._storage.getItem(ImplicitFlowPopup.storageKey));
+            var data = JSON.parse(_this2._storage.get(ImplicitFlowPopup.storageKey));
 
-            _this2._storage.removeItem(ImplicitFlowPopup.storageKey);
+            _this2._storage.remove(ImplicitFlowPopup.storageKey);
 
             if (!data) {
               reject(new _OAuthError2.default('window_closed', 'Pop-up window was closed'));
