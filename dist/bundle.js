@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:52c91dabcfac68780c89, chunkhash:e9add116ce8d2981754b, name:bundle, version:v1.1.56
+ * hash:6f189c71b182749340d2, chunkhash:f898a4d2c8061b1405a1, name:bundle, version:v1.1.57
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.56) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.57) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -14196,7 +14196,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.56";
+var version = exports.version = "v1.1.57";
 
 /**
  * Package license
@@ -24704,8 +24704,11 @@ var PasswordFlow = function (_OAuth) {
 
       var init = {
         method: 'POST',
-        body: (0, _requests.encodeQueryString)(query),
-        mode: 'cors'
+        body: query,
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       };
 
       (0, _requests.fetch)(url, init).then(function (response) {
