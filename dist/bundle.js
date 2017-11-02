@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:1ceb903244b3c5abb62e, chunkhash:2cda7e6b2d2f32e14069, name:bundle, version:v1.1.60
+ * hash:53f2a7b16c1504e4d2db, chunkhash:a06a7f7ba44c33a40018, name:bundle, version:v1.1.61
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.60) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.61) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -13879,15 +13879,18 @@ var ImplicitFlow = function (_OAuth) {
 
     /**
      * Builds an object containing all the anchor parameters
-     * @returns {Object<String, String>} - Anchor paramenters
+     * @param {String} query - Url hash
+     * @returns {Object<String, String>} - Anchor parameters
      * @protected
      */
 
   }, {
     key: '_getAnchorParams',
     value: function _getAnchorParams() {
+      var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.location.hash;
+
       var out = {};
-      var query = window.location.hash.replace(/^#\/?/g, '');
+      query = query.replace(/^#\/?/g, '');
 
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -14198,7 +14201,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.60";
+var version = exports.version = "v1.1.61";
 
 /**
  * Package license
@@ -24404,14 +24407,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ImplicitFlow2 = __webpack_require__(180);
-
-var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
-
-var _OAuthToken = __webpack_require__(66);
-
-var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
-
 var _OAuthError = __webpack_require__(56);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
@@ -24419,6 +24414,14 @@ var _OAuthError2 = _interopRequireDefault(_OAuthError);
 var _StorageManager = __webpack_require__(58);
 
 var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _ImplicitFlow2 = __webpack_require__(180);
+
+var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
+
+var _OAuthToken = __webpack_require__(66);
+
+var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24489,11 +24492,7 @@ var ImplicitFlowPopup = function (_ImplicitFlow) {
     _this._storage = _StorageManager2.default.best;
 
     if (window.name === ImplicitFlowPopup.popupWindowName) {
-      var data = _this.token.toResponseObject() || _this._getAnchorParams();
-
-      _this._storage.set(ImplicitFlowPopup.storageKey, JSON.stringify(data));
-
-      window.close();
+      throw new Error('We\'re a flow popup');
     }
     return _this;
   }
@@ -24532,15 +24531,25 @@ var ImplicitFlowPopup = function (_ImplicitFlow) {
 
         var ticker = setInterval(function () {
           if (popup.closed) {
+            reject(new _OAuthError2.default('window_closed', 'Pop-up window was closed before data could be extracted'));
+          }
+
+          var done = false;
+
+          try {
+            done = !['', 'about:blank'].includes(popup.location.href);
+          } catch (e) {
+            // Nothing
+          }
+
+          if (done) {
             clearInterval(ticker);
 
-            var data = JSON.parse(_this2._storage.get(ImplicitFlowPopup.storageKey));
+            var data = _this2._getAnchorParams(popup.location.hash);
 
-            _this2._storage.remove(ImplicitFlowPopup.storageKey);
+            popup.close();
 
-            if (!data) {
-              reject(new _OAuthError2.default('window_closed', 'Pop-up window was closed'));
-            } else if (data.error) {
+            if (data.error) {
               reject(new _OAuthError2.default(data.error, data.message));
             } else {
               resolve(_this2.token = _OAuthToken2.default.fromResponseObject(data));
@@ -24553,18 +24562,6 @@ var ImplicitFlowPopup = function (_ImplicitFlow) {
     key: 'popupWindowName',
     get: function get() {
       return 'm4n_api_auth';
-    }
-
-    /**
-     * Storage key name for temporarily storing the token
-     * @returns {String} - key name
-     * @constant
-     */
-
-  }, {
-    key: 'storageKey',
-    get: function get() {
-      return 'api_auth_response';
     }
   }]);
 

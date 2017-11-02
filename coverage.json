@@ -1,7 +1,7 @@
 {
-  "coverage": "78.01%",
-  "expectCount": 414,
-  "actualCount": 323,
+  "coverage": "77.96%",
+  "expectCount": 413,
+  "actualCount": 322,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -144,8 +144,8 @@
       ]
     },
     "src/oauth/ImplicitFlowPopup.js": {
-      "expectCount": 6,
-      "actualCount": 5,
+      "expectCount": 5,
+      "actualCount": 4,
       "undocumentLines": [
         56
       ]

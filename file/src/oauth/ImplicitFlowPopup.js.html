@@ -139,10 +139,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import ImplicitFlow from &apos;./ImplicitFlow&apos;;
-import OAuthToken from &apos;./OAuthToken&apos;;
 import OAuthError from &apos;../errors/OAuthError&apos;;
 import StorageManager from &apos;../storage/StorageManager&apos;;
+import ImplicitFlow from &apos;./ImplicitFlow&apos;;
+import OAuthToken from &apos;./OAuthToken&apos;;
 
 /**
  * Implicit OAuth flow using a pop-up.
@@ -166,11 +166,7 @@ export default class ImplicitFlowPopup extends ImplicitFlow {
     this._storage = StorageManager.best;
 
     if (window.name === ImplicitFlowPopup.popupWindowName) {
-      const data = this.token.toResponseObject() || this._getAnchorParams();
-
-      this._storage.set(ImplicitFlowPopup.storageKey, JSON.stringify(data));
-
-      window.close();
+      throw new Error(&apos;We\&apos;re a flow popup&apos;);
     }
   }
 
@@ -181,15 +177,6 @@ export default class ImplicitFlowPopup extends ImplicitFlow {
    */
   static get popupWindowName() {
     return &apos;m4n_api_auth&apos;;
-  }
-
-  /**
-   * Storage key name for temporarily storing the token
-   * @returns {String} - key name
-   * @constant
-   */
-  static get storageKey() {
-    return &apos;api_auth_response&apos;;
   }
 
   /**
@@ -213,20 +200,30 @@ export default class ImplicitFlowPopup extends ImplicitFlow {
       const popup = window.open(
         this._buildRedirectUrl(),
         ImplicitFlowPopup.popupWindowName,
-        this.windowOptions
+        this.windowOptions,
       );
 
       const ticker = setInterval(() =&gt; {
         if (popup.closed) {
+          reject(new OAuthError(&apos;window_closed&apos;, &apos;Pop-up window was closed before data could be extracted&apos;));
+        }
+
+        let done = false;
+
+        try {
+          done = ![&apos;&apos;, &apos;about:blank&apos;].includes(popup.location.href);
+        } catch (e) {
+          // Nothing
+        }
+
+        if (done) {
           clearInterval(ticker);
 
-          const data = JSON.parse(this._storage.get(ImplicitFlowPopup.storageKey));
+          const data = this._getAnchorParams(popup.location.hash);
 
-          this._storage.remove(ImplicitFlowPopup.storageKey);
+          popup.close();
 
-          if (!data) {
-            reject(new OAuthError(&apos;window_closed&apos;, &apos;Pop-up window was closed&apos;));
-          } else if (data.error) {
+          if (data.error) {
             reject(new OAuthError(data.error, data.message));
           } else {
             resolve(this.token = OAuthToken.fromResponseObject(data));

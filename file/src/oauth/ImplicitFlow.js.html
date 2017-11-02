@@ -242,13 +242,13 @@ export default class ImplicitFlow extends OAuth {
 
   /**
    * Builds an object containing all the anchor parameters
-   * @returns {Object&lt;String, String&gt;} - Anchor paramenters
+   * @param {String} query - Url hash
+   * @returns {Object&lt;String, String&gt;} - Anchor parameters
    * @protected
    */
-  _getAnchorParams() {
+  _getAnchorParams(query = window.location.hash) {
     const out = {};
-    const query = window.location.hash.replace(/^#\/?/g, &apos;&apos;);
-
+    query = query.replace(/^#\/?/g, &apos;&apos;);
 
     for (const raw of query.split(&apos;&amp;&apos;)) {
       const pair = raw.split(&apos;=&apos;).map(decodeURIComponent);
