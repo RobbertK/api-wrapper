@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:3392d9e4be605e527ea9, chunkhash:ae5b5ce9dfb7ee026a0b, name:bundle, version:v1.1.62
+ * hash:528b9dd66d8e5e52bbf4, chunkhash:4833ed01a96051547a9a, name:bundle, version:v1.1.63
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.62) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.63) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -14201,7 +14201,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.62";
+var version = exports.version = "v1.1.63";
 
 /**
  * Package license
@@ -24696,8 +24696,8 @@ var PasswordFlow = function (_OAuth) {
         'grant_type': 'password',
         'client_id': this.clientId,
         'client_secret': this._secret,
-        'username': this._username,
-        'password': this._password,
+        'username': this.username,
+        'password': this.password,
         'scope': this.scopes.join(' ')
       };
 
@@ -24712,9 +24712,9 @@ var PasswordFlow = function (_OAuth) {
       };
 
       return (0, _requests.fetch)(url, init).then(function (response) {
-        var data = response.json();
-
-        if (!data.success) {
+        return response.json();
+      }).then(function (data) {
+        if (data.error) {
           throw new _OAuthError2.default(data.error, data.message);
         }
 
