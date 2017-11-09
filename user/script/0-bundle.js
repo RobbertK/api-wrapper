@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:e6704ad175401f3662d1, chunkhash:8bccaae81454c9a2b35e, name:bundle, version:v1.1.64
+ * hash:7e0de0c5283aa698f309, chunkhash:f61c85ad3b57531dd811, name:bundle, version:v1.1.65
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.64) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.65) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6717,7 +6717,7 @@ var Organisation = function (_CrudBase) {
           var row = _step2.value;
 
           if (!row.ownable) {
-            throw new TypeError(row.constructor.name + '::ownable is false. Is it ownable?\nSee: https://mapcreatoreu.github.io/m4n-api/class/src/traits/OwnableResource.js~OwnableResource.html');
+            throw new TypeError(row.constructor.name + '::ownable is false. Is it ownable?\nSee: https://mapcreatoreu.github.io/api-wrapper/class/src/traits/OwnableResource.js~OwnableResource.html');
           }
 
           var key = row.resourceName;
@@ -14201,7 +14201,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.64";
+var version = exports.version = "v1.1.65";
 
 /**
  * Package license

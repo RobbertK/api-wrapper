@@ -23,7 +23,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/MapCreatorEU/m4n-api" class="repo-url-github">Repository</a>
+  <a data-ice="repoURL" href="https://github.com/MapCreatorEU/api-wrapper" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -223,7 +223,7 @@ export default class Organisation extends CrudBase {
 
     for (const row of items) {
       if (!row.ownable) {
-        throw new TypeError(`${row.constructor.name}::ownable is false. Is it ownable?\nSee: https://mapcreatoreu.github.io/m4n-api/class/src/traits/OwnableResource.js~OwnableResource.html`);
+        throw new TypeError(`${row.constructor.name}::ownable is false. Is it ownable?\nSee: https://mapcreatoreu.github.io/api-wrapper/class/src/traits/OwnableResource.js~OwnableResource.html`);
       }
 
       const key = row.resourceName;
