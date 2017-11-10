@@ -138,28 +138,55 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import {getTypeName} from &apos;./utils/reflection&apos;;
+import {constant as constantCase} from &apos;case&apos;;
+
 /**
  * Base enum class
  * @example
  * const Colors = new Enum([&apos;RED&apos;, &apos;BLACK&apos;, &apos;GREEN&apos;, &apos;WHITE&apos;, &apos;BLUE&apos;]);
  *
- * const ANSWER = new Enum({
+ * const Answers = new Enum({
  *   YES: true,
  *   NO: false,
  *   // Passing functions as values will turn them into getters
  *   // Getter results will appear in ::values
- *   MAYBE: () =&gt; !Math.round(Math.random()),
+ *   MAYBE: () =&gt; Math.random() &gt;= 0.5,
  * });
+ *
+ * const FontStyles = new Enum([&apos;italic&apos;, &apos;bold&apos;, &apos;underline&apos;, &apos;regular&apos;], true);
+ * FontStyles.ITALIC === &apos;italic&apos;
+ * FontStyles.BOLD   === &apos;bold&apos;
+ *
+ * // etc...
  */
-let index = 0;
-
 export class Enum {
-  constructor(enums) {
-    if (enums instanceof Array) {
+  /**
+   * @param {Object&lt;String, *&gt;,Array&lt;String&gt;} enums - Data to build the enum from
+   * @param {boolean} auto - Auto generate enum from data making assumptions about
+   *                         the data, requires enums to be of type array.
+   */
+  constructor(enums, auto = false) {
+    const isArray = enums instanceof Array;
+
+    if (auto &amp;&amp; !isArray) {
+      throw new TypeError(`Expected enums to be of type &quot;Array&quot; got &quot;${getTypeName(enums)}&quot;`);
+    }
+
+    if (isArray &amp;&amp; auto) {
+      for (const row of enums) {
+        const key = constantCase(row);
+
+        Object.defineProperty(this, key, {
+          enumerable: true,
+          value: row,
+        });
+      }
+    } else if (isArray) {
       for (const key of enums) {
         Object.defineProperty(this, key, {
           enumerable: true,
-          value: index++,
+          value: Enum._iota,
         });
       }
     } else {
@@ -195,6 +222,14 @@ export class Enum {
     return this.keys()
       .map(key =&gt; this[key])
       .filter((v, i, s) =&gt; s.indexOf(v) === i);
+  }
+
+  static get _iota() {
+    if (!Enum.__iota) {
+      Enum.__iota = 0;
+    }
+
+    return Enum.__iota++;
   }
 }
 

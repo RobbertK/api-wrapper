@@ -106,13 +106,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Enum} from &apos;<span><a href="file/src/enums.js.html#lineNumber48">@mapcreator/maps4news/src/enums.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Enum} from &apos;<span><a href="file/src/enums.js.html#lineNumber55">@mapcreator/maps4news/src/enums.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/enums.js.html#lineNumber48">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/enums.js.html#lineNumber55">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -136,12 +136,34 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>Base enum class</p>
+</div>
   
 
   
 
-  
+  <div data-ice="exampleDocs">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const Colors = new Enum([&apos;RED&apos;, &apos;BLACK&apos;, &apos;GREEN&apos;, &apos;WHITE&apos;, &apos;BLUE&apos;]);
+
+const Answers = new Enum({
+  YES: true,
+  NO: false,
+  // Passing functions as values will turn them into getters
+  // Getter results will appear in ::values
+  MAYBE: () =&gt; Math.random() &gt;= 0.5,
+});
+
+const FontStyles = new Enum([&apos;italic&apos;, &apos;bold&apos;, &apos;underline&apos;, &apos;regular&apos;], true);
+FontStyles.ITALIC === &apos;italic&apos;
+FontStyles.BOLD   === &apos;bold&apos;
+
+// etc...</code></pre>
+    </div>
+</div>
 
   
 
@@ -167,7 +189,7 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/enums.js~Enum.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(enums: <span>*</span>)</span>
+          <span data-ice="name"><span><a href="class/src/enums.js~Enum.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(enums: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span>*&gt;</span>, <span>Array&lt;String</span>&gt;, auto: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
         </p>
       </div>
       <div>
@@ -263,11 +285,11 @@
     
     
     
-    <span data-ice="name">constructor</span><span data-ice="signature">(enums: <span>*</span>)</span>
+    <span data-ice="name">constructor</span><span data-ice="signature">(enums: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span>*&gt;</span>, <span>Array&lt;String</span>&gt;, auto: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber49">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -288,9 +310,18 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">enums</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span>*&gt;</span>, <span>Array&lt;String</span>&gt;</td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Data to build the enum from</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">auto</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Auto generate enum from data making assumptions about
+                        the data, requires enums to be of type array.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -330,7 +361,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber78">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber105">source</a></span></span>
     </span>
   </h3>
 
@@ -387,7 +418,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber113">source</a></span></span>
     </span>
   </h3>
 
