@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:964db25e0f1a352fa40d, chunkhash:d5033d722ec1ff59c056, name:bundle, version:v1.1.71
+ * hash:9d3528d7026c37752674, chunkhash:70c3a55940a6ecef3f88, name:bundle, version:v1.1.72
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.71) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.72) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -11416,6 +11416,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _CrudBase2 = __webpack_require__(9);
@@ -11478,6 +11480,7 @@ var Contract = function (_CrudBase) {
 
     /**
      * @inheritDoc
+     * @override
      */
     value: function _update() {
       var _this2 = this;
@@ -11502,8 +11505,13 @@ var Contract = function (_CrudBase) {
         data.dateEnd = this.dateEnd;
       }
 
-      data.dateStart = this._formatDate(data.dateStart);
-      data.dateEnd = this._formatDate(data.dateEnd);
+      if (_typeof(data.dateStart) instanceof Date) {
+        data.dateStart = this._formatDate(data.dateStart);
+      }
+
+      if (_typeof(data.dateEnd) instanceof Date) {
+        data.dateEnd = this._formatDate(data.dateEnd);
+      }
 
       return this.api.request(this.url, 'PATCH', data).then(function () {
         if (_this2.api.defaults.autoUpdateSharedCache) {
@@ -11516,6 +11524,7 @@ var Contract = function (_CrudBase) {
 
     /**
      * @inheritDoc
+     * @override
      */
 
   }, {
@@ -11525,12 +11534,12 @@ var Contract = function (_CrudBase) {
 
       var createData = this._buildCreateData();
 
-      if (typeof createData.dateStart !== 'undefined') {
-        createData.dateStart = this._formatDate(createData.dateStart);
+      if (createData['date_start'] instanceof Date) {
+        createData['date_start'] = this._formatDate(createData['date_start']);
       }
 
-      if (typeof createData.dateEnd !== 'undefined') {
-        createData.dateEnd = this._formatDate(createData.dateEnd);
+      if (createData['date_end'] instanceof Date) {
+        createData['date_end'] = this._formatDate(createData['date_end']);
       }
 
       return this.api.request(this.baseUrl, 'POST', createData).then(function (data) {
@@ -11543,46 +11552,24 @@ var Contract = function (_CrudBase) {
     }
 
     /**
-     * Convert Date into server format, will return original value if date is not of type Date.
+     * Convert Date into server format
      * @param {Date} date - target
-     * @returns {*} - formatted date or original value
+     * @returns {String} - formatted date
      * @private
      */
 
   }, {
     key: '_formatDate',
     value: function _formatDate(date) {
-      if (!(date instanceof Date)) {
-        return date;
-      }
-
-      function pad(num) {
-        var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-
-        var s = num.toString();
-
-        while (s.length < size) {
-          s = '0' + s;
-        }
-
-        return s;
-      }
+      var pad = function pad(num) {
+        return ('00' + num).slice(-2);
+      };
 
       var out = [date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDay()].map(pad).join('-');
 
       out += ' ' + [date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()].map(pad).join(':');
 
       return out;
-    }
-  }, {
-    key: '_zeroPad',
-    value: function _zeroPad(num, size) {
-      var s = String(num);
-
-      while (s.length < size) {
-        s = '0' + s;
-      }
-      return s;
     }
   }, {
     key: 'resourceName',
@@ -14447,7 +14434,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.71";
+var version = exports.version = "v1.1.72";
 
 /**
  * Package license
