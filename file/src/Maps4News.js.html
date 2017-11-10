@@ -73,7 +73,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Role.js~Role.html">Role</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
@@ -133,7 +132,6 @@
   Role,
   Svg,
   SvgSet,
-  SvgSetType,
   User,
 } from &apos;./crud&apos;;
 import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
@@ -180,6 +178,8 @@ import {fnv32b} from &apos;./utils/hash&apos;;
 import {isNode} from &apos;./utils/node&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
 import {fetch, FormData, Headers} from &apos;./utils/requests&apos;;
+import {Enum} from &apos;./enums&apos;;
+import {constant as constantCase} from &apos;case&apos;;
 
 if (!global._babelPolyfill) {
   require(&apos;babel-polyfill&apos;);
@@ -666,21 +666,46 @@ export default class Maps4News {
   }
 
   /**
-   * SvgSetType accessor
-   * @see {@link SvgSetType}
-   * @returns {ResourceProxy} - A proxy for accessing the resource
-   */
-  get svgSetTypes() {
-    return this.static(SvgSetType);
-  }
-
-  /**
    * User accessor
    * @see {@link User}
    * @returns {ResourceProxy} - A proxy for accessing the resource
    */
   get users() {
     return this.static(User);
+  }
+
+  /**
+   * Get SVG set types
+   * @see {@link SvgSet}
+   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}
+   */
+  getSvgSetType() {
+    return this.request(&apos;/svgs/sets/types&apos;).then(data =&gt; {
+      const out = {};
+
+      for (const row of data) {
+        out[constantCase(row)] = row;
+      }
+
+      return new Enum(data);
+    });
+  }
+
+  /**
+   * Get font styles
+   * @see {@link Font}
+   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}
+   */
+  getFontStyles() {
+    return this.request(&apos;/fonts/styles&apos;).then(data =&gt; {
+      const out = {};
+
+      for (const row of data) {
+        out[constantCase(row)] = row;
+      }
+
+      return new Enum(data);
+    });
   }
 
   /**

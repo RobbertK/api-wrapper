@@ -73,7 +73,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Role.js~Role.html">Role</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Svg.js~Svg.html">Svg</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSet.js~SvgSet.html">SvgSet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/SvgSetType.js~SvgSetType.html">SvgSetType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/User.js~User.html">User</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
@@ -141,6 +140,7 @@
 
 import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
 import {encodeQueryString} from &apos;./utils/requests&apos;;
+import {DeletedState} from &apos;./enums&apos;;
 
 /**
  * Proxy for accessing resource. This will make sure that they
@@ -186,7 +186,7 @@ export default class ResourceProxy extends SimpleResourceProxy {
    * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
    * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
    */
-  get(id, deleted = this.api.defaults.showDeleted) {
+  get(id, deleted = DeletedState.NONE) {
     const data = Object.assign({}, this._seedData, this._parseSelector(id));
     let url = this.new(data).url;
     const glue = url.includes(&apos;?&apos;) ? &apos;&amp;&apos; : &apos;?&apos;;
