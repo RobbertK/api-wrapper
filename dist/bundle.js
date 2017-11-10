@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:7e0de0c5283aa698f309, chunkhash:f61c85ad3b57531dd811, name:bundle, version:v1.1.65
+ * hash:2655f74edccbe5cc05a2, chunkhash:5b649ca7b81756b6de0c, name:bundle, version:v1.1.66
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.65) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.66) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3874,7 +3874,7 @@ var Maps4News = function () {
       var isFormData = data instanceof _requests.FormData;
 
       if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object' && !isFormData) {
-        data = JSON.stringify(this._formatDates(data));
+        data = JSON.stringify(data);
 
         if (!headers.has('Content-Type')) {
           headers.set('Content-Type', 'application/json');
@@ -3938,46 +3938,6 @@ var Maps4News = function () {
 
         return response.buffer().then(respond);
       });
-    }
-  }, {
-    key: '_formatDates',
-    value: function _formatDates(obj) {
-      var _obj = Object.assign({}, obj);
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = Object.keys(_obj)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var key = _step.value;
-
-          var target = _obj[key];
-
-          if (target instanceof Date) {
-            _obj[key] = target.toUTCString();
-          }
-
-          if ((typeof target === 'undefined' ? 'undefined' : _typeof(target)) === 'object' && Object.keys(target).length > 0) {
-            _obj[key] = this._formatDates(_obj[key]);
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      return _obj;
     }
   }, {
     key: '_parseErrorResponse',
@@ -8014,15 +7974,46 @@ var JobResult = function (_ResourceBase) {
   }
 
   _createClass(JobResult, [{
-    key: 'downloadArchive',
+    key: 'downloadOutput',
 
 
     /**
      * Get archive blob url
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
      */
+    value: function downloadOutput() {
+      return this._download(this.outputUrl);
+    }
+
+    /**
+     * Get archive blob url
+     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
+     * @deprecated
+     */
+
+  }, {
+    key: 'downloadArchive',
     value: function downloadArchive() {
-      return this._download(this.archiveUrl);
+      return this.downloadOutput();
+    }
+
+    /**
+     * Get the output url url
+     * @returns {string} - Output url url
+     */
+
+  }, {
+    key: 'getOutputUrl',
+
+
+    /**
+     * Get the remote output url
+     * @returns {Promise} -  Resolves with a {@link String} containing the url to the output and rejects with {@link ApiError}
+     */
+    value: function getOutputUrl() {
+      return this.api.request(this.outputUrlUrl).then(function (x) {
+        return x.url;
+      });
     }
 
     /**
@@ -8096,9 +8087,14 @@ var JobResult = function (_ResourceBase) {
      */
 
   }, {
-    key: 'archiveUrl',
+    key: 'outputUrl',
     get: function get() {
-      return this.url + '/archive';
+      return this.url + '/output';
+    }
+  }, {
+    key: 'outputUrlUrl',
+    get: function get() {
+      return this.url + '/output-url';
     }
   }, {
     key: 'logUrl',
@@ -14201,7 +14197,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.65";
+var version = exports.version = "v1.1.66";
 
 /**
  * Package license
