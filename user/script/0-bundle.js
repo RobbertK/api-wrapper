@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:ea42641527ee1e426ab0, chunkhash:b6f04bb2fd21b0e04a9a, name:bundle, version:v1.1.70
+ * hash:964db25e0f1a352fa40d, chunkhash:d5033d722ec1ff59c056, name:bundle, version:v1.1.71
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.70) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.71) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -2632,6 +2632,9 @@ var _ref = (0, _helpers.windowTest)('fetch') ? window : (0, _fetchPonyfill2.defa
     Response = _ref.Response,
     Headers = _ref.Headers;
 
+// eslint-disable-next-line no-extra-parens
+
+
 exports.fetch = fetch;
 exports.Request = Request;
 exports.Response = Response;
@@ -4216,33 +4219,6 @@ var Maps4News = function () {
      */
     value: function getSvgSetType() {
       return this.request('/svgs/sets/types').then(function (data) {
-        var out = {};
-
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var row = _step.value;
-
-            out[(0, _case.constant)(row)] = row;
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-
         return new _enums.Enum(data, true);
       });
     }
@@ -4257,33 +4233,6 @@ var Maps4News = function () {
     key: 'getFontStyles',
     value: function getFontStyles() {
       return this.request('/fonts/styles').then(function (data) {
-        var out = {};
-
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
-
-        try {
-          for (var _iterator2 = data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var row = _step2.value;
-
-            out[(0, _case.constant)(row)] = row;
-          }
-        } catch (err) {
-          _didIteratorError2 = true;
-          _iteratorError2 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-              _iterator2.return();
-            }
-          } finally {
-            if (_didIteratorError2) {
-              throw _iteratorError2;
-            }
-          }
-        }
-
         return new _enums.Enum(data, true);
       });
     }
@@ -11553,6 +11502,9 @@ var Contract = function (_CrudBase) {
         data.dateEnd = this.dateEnd;
       }
 
+      data.dateStart = this._formatDate(data.dateStart);
+      data.dateEnd = this._formatDate(data.dateEnd);
+
       return this.api.request(this.url, 'PATCH', data).then(function () {
         if (_this2.api.defaults.autoUpdateSharedCache) {
           _this2.api.cache.update(_this2);
@@ -11560,6 +11512,77 @@ var Contract = function (_CrudBase) {
 
         return _this2;
       });
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: '_create',
+    value: function _create() {
+      var _this3 = this;
+
+      var createData = this._buildCreateData();
+
+      if (typeof createData.dateStart !== 'undefined') {
+        createData.dateStart = this._formatDate(createData.dateStart);
+      }
+
+      if (typeof createData.dateEnd !== 'undefined') {
+        createData.dateEnd = this._formatDate(createData.dateEnd);
+      }
+
+      return this.api.request(this.baseUrl, 'POST', createData).then(function (data) {
+        _this3._properties = {};
+        _this3._baseProperties = data;
+
+        _this3._updateProperties();
+        return _this3;
+      });
+    }
+
+    /**
+     * Convert Date into server format, will return original value if date is not of type Date.
+     * @param {Date} date - target
+     * @returns {*} - formatted date or original value
+     * @private
+     */
+
+  }, {
+    key: '_formatDate',
+    value: function _formatDate(date) {
+      if (!(date instanceof Date)) {
+        return date;
+      }
+
+      function pad(num) {
+        var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+
+        var s = num.toString();
+
+        while (s.length < size) {
+          s = '0' + s;
+        }
+
+        return s;
+      }
+
+      var out = [date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDay()].map(pad).join('-');
+
+      out += ' ' + [date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()].map(pad).join(':');
+
+      return out;
+    }
+  }, {
+    key: '_zeroPad',
+    value: function _zeroPad(num, size) {
+      var s = String(num);
+
+      while (s.length < size) {
+        s = '0' + s;
+      }
+      return s;
     }
   }, {
     key: 'resourceName',
@@ -14112,6 +14135,7 @@ var ImplicitFlow = function (_OAuth) {
       var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.location.hash;
 
       var out = {};
+
       query = query.replace(/^#\/?/g, '');
 
       var _iteratorNormalCompletion = true;
@@ -14423,7 +14447,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.70";
+var version = exports.version = "v1.1.71";
 
 /**
  * Package license

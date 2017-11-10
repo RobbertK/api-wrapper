@@ -170,6 +170,9 @@ export default class Contract extends CrudBase {
       data.dateEnd = this.dateEnd;
     }
 
+    data.dateStart = this._formatDate(data.dateStart);
+    data.dateEnd = this._formatDate(data.dateEnd);
+
     return this.api
       .request(this.url, &apos;PATCH&apos;, data)
       .then(() =&gt; {
@@ -179,6 +182,76 @@ export default class Contract extends CrudBase {
 
         return this;
       });
+  }
+
+  /**
+   * @inheritDoc
+   */
+  _create() {
+    const createData = this._buildCreateData();
+
+    if (typeof createData.dateStart !== &apos;undefined&apos;) {
+      createData.dateStart = this._formatDate(createData.dateStart);
+    }
+
+    if (typeof createData.dateEnd !== &apos;undefined&apos;) {
+      createData.dateEnd = this._formatDate(createData.dateEnd);
+    }
+
+    return this.api
+      .request(this.baseUrl, &apos;POST&apos;, createData)
+      .then(data =&gt; {
+        this._properties = {};
+        this._baseProperties = data;
+
+        this._updateProperties();
+        return this;
+      });
+  }
+
+  /**
+   * Convert Date into server format, will return original value if date is not of type Date.
+   * @param {Date} date - target
+   * @returns {*} - formatted date or original value
+   * @private
+   */
+  _formatDate(date) {
+    if (!(date instanceof Date)) {
+      return date;
+    }
+
+    function pad(num, size = 2) {
+      let s = num.toString();
+
+      while (s.length &lt; size) {
+        s = &apos;0&apos; + s;
+      }
+
+      return s;
+    }
+
+    let out = [
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDay(),
+    ].map(pad).join(&apos;-&apos;);
+
+    out += &apos; &apos; + [
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds(),
+    ].map(pad).join(&apos;:&apos;);
+
+    return out;
+  }
+
+  _zeroPad(num, size) {
+    let s = String(num);
+
+    while (s.length &lt; size) {
+      s = &apos;0&apos; + s;
+    }
+    return s;
   }
 }
 </code></pre>

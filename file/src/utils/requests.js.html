@@ -143,6 +143,8 @@ import {isNode} from &apos;./node&apos;;
 import {windowTest} from &apos;./helpers&apos;;
 
 export const {fetch, Request, Response, Headers} = windowTest(&apos;fetch&apos;) ? window : fetchPonyfill({Promise});
+
+// eslint-disable-next-line no-extra-parens
 export const FormData = windowTest(&apos;FormData&apos;) ? window.FormData : (
   // Load FormData polyfill
   isNode() ? null : require(&apos;formdata-polyfill&apos;)
