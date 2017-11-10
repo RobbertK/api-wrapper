@@ -769,13 +769,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -883,13 +883,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1045,13 +1045,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#deleted",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-deleted",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-deleted",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#deleted",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#deleted",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-deleted",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-deleted",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#deleted",
     "member"
   ],
@@ -1093,13 +1093,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
@@ -1291,13 +1291,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
@@ -1345,13 +1345,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#page",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-page",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-page",
     "src/RequestParameters.js~RequestParameters#page",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#page",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-page",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-page",
     "src/RequestParameters.js~RequestParameters#page",
     "member"
   ],
@@ -1381,13 +1381,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#sort",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
     "src/RequestParameters.js~RequestParameters#sort",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#sort",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-sort",
     "src/RequestParameters.js~RequestParameters#sort",
     "member"
   ],
@@ -1429,25 +1429,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.page",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-page",
-    "src/RequestParameters.js~RequestParameters.page",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters.page",
     "class/src/RequestParameters.js~RequestParameters.html#static-set-page",
     "src/RequestParameters.js~RequestParameters.page",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters.perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-perPage",
-    "src/RequestParameters.js~RequestParameters.perPage",
+    "src/requestparameters.js~requestparameters.page",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-page",
+    "src/RequestParameters.js~RequestParameters.page",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.perpage",
     "class/src/RequestParameters.js~RequestParameters.html#static-get-perPage",
+    "src/RequestParameters.js~RequestParameters.perPage",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters.perpage",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-perPage",
     "src/RequestParameters.js~RequestParameters.perPage",
     "member"
   ],
@@ -1459,25 +1459,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.search",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-search",
-    "src/RequestParameters.js~RequestParameters.search",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters.search",
     "class/src/RequestParameters.js~RequestParameters.html#static-get-search",
     "src/RequestParameters.js~RequestParameters.search",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters.sort",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-sort",
-    "src/RequestParameters.js~RequestParameters.sort",
+    "src/requestparameters.js~requestparameters.search",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-search",
+    "src/RequestParameters.js~RequestParameters.search",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.sort",
     "class/src/RequestParameters.js~RequestParameters.html#static-set-sort",
+    "src/RequestParameters.js~RequestParameters.sort",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters.sort",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-sort",
     "src/RequestParameters.js~RequestParameters.sort",
     "member"
   ],
@@ -2532,6 +2532,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/crud/base/resourcebase.js~resourcebase#reset",
+    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-reset",
+    "src/crud/base/ResourceBase.js~ResourceBase#reset",
+    "method"
+  ],
+  [
     "src/crud/base/resourcebase.js~resourcebase#resourcename",
     "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName",
     "src/crud/base/ResourceBase.js~ResourceBase#resourceName",
@@ -3037,13 +3043,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
@@ -3079,13 +3085,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],

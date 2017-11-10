@@ -147,6 +147,39 @@ export default class Contract extends CrudBase {
   get resourceName() {
     return &apos;contracts&apos;;
   }
+
+  /**
+   * @inheritDoc
+   */
+  _update() {
+    this._updateProperties();
+
+    // We&apos;ll just fake it, no need to bother the server
+    // with an empty request.
+    if (Object.keys(this._properties).length === 0) {
+      return new Promise(() =&gt; this);
+    }
+
+    const data = Object.assign({}, this._properties);
+
+    if (typeof data.dateStart === &apos;undefined&apos;) {
+      data.dateStart = this.dateStart;
+    }
+
+    if (typeof data.dateEnd === &apos;undefined&apos;) {
+      data.dateEnd = this.dateEnd;
+    }
+
+    return this.api
+      .request(this.url, &apos;PATCH&apos;, data)
+      .then(() =&gt; {
+        if (this.api.defaults.autoUpdateSharedCache) {
+          this.api.cache.update(this);
+        }
+
+        return this;
+      });
+  }
 }
 </code></pre>
 

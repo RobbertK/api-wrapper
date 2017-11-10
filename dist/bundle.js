@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:8395f2e936b6f8e44c8f, chunkhash:a0e0403bec552640c6ca, name:bundle, version:v1.1.68
+ * hash:2cd975d42bcac8a16cba, chunkhash:f0ce33ed778e01c58b04, name:bundle, version:v1.1.69
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.68) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.69) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -599,7 +599,7 @@ var _Trait = __webpack_require__(86);
 
 var _Trait2 = _interopRequireDefault(_Trait);
 
-var _hash = __webpack_require__(63);
+var _hash = __webpack_require__(64);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -968,6 +968,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
+var _case = __webpack_require__(63);
+
 var _AbstractError = __webpack_require__(36);
 
 var _Maps4News = __webpack_require__(62);
@@ -977,8 +979,6 @@ var _Maps4News2 = _interopRequireDefault(_Maps4News);
 var _SimpleResourceProxy = __webpack_require__(128);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
-
-var _case = __webpack_require__(64);
 
 var _reflection = __webpack_require__(11);
 
@@ -1169,6 +1169,18 @@ var ResourceBase = function () {
     value: function sanitize() {
       this._updateProperties();
       Object.assign(this._baseProperties, this._properties);
+      this._properties = {};
+    }
+
+    /**
+     * Resets model instance to it's original state
+     * @returns {void} - nothing
+     */
+
+  }, {
+    key: 'reset',
+    value: function reset() {
+      this._updateProperties();
       this._properties = {};
     }
 
@@ -2980,7 +2992,7 @@ var _CrudBase2 = __webpack_require__(9);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _case = __webpack_require__(64);
+var _case = __webpack_require__(63);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3751,7 +3763,7 @@ var _ResourceProxy = __webpack_require__(96);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _hash = __webpack_require__(63);
+var _hash = __webpack_require__(64);
 
 var _node = __webpack_require__(32);
 
@@ -3761,7 +3773,7 @@ var _requests = __webpack_require__(37);
 
 var _enums = __webpack_require__(65);
 
-var _case = __webpack_require__(64);
+var _case = __webpack_require__(63);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4508,94 +4520,6 @@ exports.default = Maps4News;
 
 /***/ }),
 /* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fnv32b = fnv32b;
-exports.hashObject = hashObject;
-
-var _jsonStableStringify = __webpack_require__(185);
-
-var _jsonStableStringify2 = _interopRequireDefault(_jsonStableStringify);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FNV1_32A_INIT = 0x811c9dc5;
-
-/**
- * Fast hash function for non-cryptographic use
- * @param {string} str - Input to be hashed
- * @returns {string} - String representation of the hash
- * @private
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-function fnv32b(str) {
-  var hash = str.split('').map(function (x) {
-    return x.charCodeAt(0);
-  }).reduce(function (sum, val) {
-    sum ^= val;
-    return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);
-  }, FNV1_32A_INIT);
-
-  // Avalanche
-  hash ^= hash << 3;
-  hash += hash >> 5;
-  hash ^= hash << 4;
-  hash += hash >> 17;
-  hash ^= hash << 25;
-  hash += hash >> 6;
-
-  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);
-}
-
-/**
- * Fast object hashing for non-cryptographic use
- * @param {object} data - input data
- * @returns {string} - String reprisentation of the hash
- * @private
- */
-function hashObject(data) {
-  return fnv32b((0, _jsonStableStringify2.default)(data));
-}
-
-/***/ }),
-/* 64 */
 /***/ (function(module, exports) {
 
 /*! Case - v1.5.3 - 2017-07-11
@@ -4760,6 +4684,94 @@ function hashObject(data) {
 
 }).call(this);
 
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fnv32b = fnv32b;
+exports.hashObject = hashObject;
+
+var _jsonStableStringify = __webpack_require__(185);
+
+var _jsonStableStringify2 = _interopRequireDefault(_jsonStableStringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FNV1_32A_INIT = 0x811c9dc5;
+
+/**
+ * Fast hash function for non-cryptographic use
+ * @param {string} str - Input to be hashed
+ * @returns {string} - String representation of the hash
+ * @private
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+function fnv32b(str) {
+  var hash = str.split('').map(function (x) {
+    return x.charCodeAt(0);
+  }).reduce(function (sum, val) {
+    sum ^= val;
+    return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);
+  }, FNV1_32A_INIT);
+
+  // Avalanche
+  hash ^= hash << 3;
+  hash += hash >> 5;
+  hash ^= hash << 4;
+  hash += hash >> 17;
+  hash ^= hash << 25;
+  hash += hash >> 6;
+
+  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);
+}
+
+/**
+ * Fast object hashing for non-cryptographic use
+ * @param {object} data - input data
+ * @returns {string} - String reprisentation of the hash
+ * @private
+ */
+function hashObject(data) {
+  return fnv32b((0, _jsonStableStringify2.default)(data));
+}
 
 /***/ }),
 /* 65 */
@@ -5923,11 +5935,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _case = __webpack_require__(64);
+var _case = __webpack_require__(63);
 
 var _enums = __webpack_require__(65);
 
-var _hash = __webpack_require__(63);
+var _hash = __webpack_require__(64);
 
 var _reflection = __webpack_require__(11);
 
@@ -11453,6 +11465,44 @@ var Contract = function (_CrudBase) {
   }
 
   _createClass(Contract, [{
+    key: '_update',
+
+
+    /**
+     * @inheritDoc
+     */
+    value: function _update() {
+      var _this2 = this;
+
+      this._updateProperties();
+
+      // We'll just fake it, no need to bother the server
+      // with an empty request.
+      if (Object.keys(this._properties).length === 0) {
+        return new Promise(function () {
+          return _this2;
+        });
+      }
+
+      var data = Object.assign({}, this._properties);
+
+      if (typeof data.dateStart === 'undefined') {
+        data.dateStart = this.dateStart;
+      }
+
+      if (typeof data.dateEnd === 'undefined') {
+        data.dateEnd = this.dateEnd;
+      }
+
+      return this.api.request(this.url, 'PATCH', data).then(function () {
+        if (_this2.api.defaults.autoUpdateSharedCache) {
+          _this2.api.cache.update(_this2);
+        }
+
+        return _this2;
+      });
+    }
+  }, {
     key: 'resourceName',
     get: function get() {
       return 'contracts';
@@ -14314,7 +14364,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.68";
+var version = exports.version = "v1.1.69";
 
 /**
  * Package license
@@ -14452,7 +14502,7 @@ var _ResourceCache = __webpack_require__(130);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
-var _hash = __webpack_require__(63);
+var _hash = __webpack_require__(64);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
