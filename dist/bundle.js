@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:398b4ea7c667843801d5, chunkhash:57b8019b66a81bfa3f4f, name:bundle, version:v1.1.74
+ * hash:f862fb4f2c7de6e2c887, chunkhash:917cc1da2b1e2542356d, name:bundle, version:v1.1.75
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.74) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.75) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -11595,7 +11595,7 @@ var Contract = function (_CrudBase) {
     key: '_formatDate',
     value: function _formatDate(date) {
       var pad = function pad(num) {
-        return ('00' + num).slice(-2);
+        return ('00' + num).slice(-Math.max(String(num).length, 2));
       };
 
       var out = [date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDay()].map(pad).join('-');
@@ -14467,7 +14467,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.74";
+var version = exports.version = "v1.1.75";
 
 /**
  * Package license
