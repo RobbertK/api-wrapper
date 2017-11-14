@@ -106,44 +106,7 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/Maps4News.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {
-  Choropleth,
-  Color,
-  Contract,
-  Dimension,
-  DimensionSet,
-  Faq,
-  Feature,
-  Font,
-  FontFamily,
-  Highlight,
-  InsetMap,
-  Job,
-  JobShare,
-  JobType,
-  Language,
-  Layer,
-  Mapstyle,
-  MapstyleSet,
-  Notification,
-  Organisation,
-  Permission,
-  PlaceName,
-  Role,
-  Svg,
-  SvgSet,
-  User,
-} from &apos;./crud&apos;;
-import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
-
-import ApiError from &apos;./errors/ApiError&apos;;
-import ValidationError from &apos;./errors/ValidationError&apos;;
-import DummyFlow from &apos;./oauth/DummyFlow&apos;;
-import OAuth from &apos;./oauth/OAuth&apos;;
-import ResourceCache from &apos;./ResourceCache&apos;;
-import ResourceProxy from &apos;./ResourceProxy&apos;;
-import {fnv32b} from &apos;./utils/hash&apos;;
-/*
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
  * Copyright (c) 2017, MapCreator
@@ -174,12 +137,48 @@ import {fnv32b} from &apos;./utils/hash&apos;;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-// Polyfill for terrible browsers (looking at you IE)
+
+import {
+  Choropleth,
+  Color,
+  Contract,
+  Dimension,
+  DimensionSet,
+  Faq,
+  Feature,
+  Font,
+  FontFamily,
+  Highlight,
+  InsetMap,
+  Job,
+  JobShare,
+  JobType,
+  Language,
+  Layer,
+  Mapstyle,
+  MapstyleSet,
+  Notification,
+  Organisation,
+  Permission,
+  PlaceName,
+  Role,
+  Svg,
+  SvgSet,
+  User,
+} from &apos;./crud&apos;;
+import ResourceBase from &apos;./crud/base/ResourceBase&apos;;
+import {Enum} from &apos;./enums&apos;;
+
+import ApiError from &apos;./errors/ApiError&apos;;
+import ValidationError from &apos;./errors/ValidationError&apos;;
+import DummyFlow from &apos;./oauth/DummyFlow&apos;;
+import OAuth from &apos;./oauth/OAuth&apos;;
+import ResourceCache from &apos;./ResourceCache&apos;;
+import ResourceProxy from &apos;./ResourceProxy&apos;;
+import {fnv32b} from &apos;./utils/hash&apos;;
 import {isNode} from &apos;./utils/node&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
 import {fetch, FormData, Headers} from &apos;./utils/requests&apos;;
-import {Enum} from &apos;./enums&apos;;
-import {constant as constantCase} from &apos;case&apos;;
 
 if (!global._babelPolyfill) {
   require(&apos;babel-polyfill&apos;);
@@ -197,7 +196,7 @@ export default class Maps4News {
     this.auth = auth;
     this.host = host;
 
-    const bool = str =&gt; str.toLowerCase() === &apos;true&apos;;
+    const bool = str =&gt; String(str).toLowerCase() === &apos;true&apos;;
 
     /**
      * Defaults for common parameters. These are populated during the build process using the `.env` file.
@@ -337,12 +336,17 @@ export default class Maps4News {
       data = undefined;
     }
 
-    return fetch(url, {
+    const init = {
       headers, method,
-      body: data,
       redirect: &apos;follow&apos;,
       mode: &apos;cors&apos;,
-    }).then(response =&gt; {
+    };
+
+    if (data) {
+      init.body = data;
+    }
+
+    return fetch(url, init).then(response =&gt; {
       const respond = data =&gt; !bundleResponse ? data : {response, data};
 
       // Check if there is an error response and parse it

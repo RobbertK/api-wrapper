@@ -273,7 +273,7 @@
     "__docId__": 10,
     "kind": "file",
     "name": "src/Maps4News.js",
-    "content": "import {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  User,\n} from './crud';\nimport ResourceBase from './crud/base/ResourceBase';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {fnv32b} from './utils/hash';\n/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n// Polyfill for terrible browsers (looking at you IE)\nimport {isNode} from './utils/node';\nimport {isParentOf} from './utils/reflection';\nimport {fetch, FormData, Headers} from './utils/requests';\nimport {Enum} from './enums';\nimport {constant as constantCase} from 'case';\n\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => str.toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => {\n      this.auth.token.save();\n\n      return this;\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}\n   * @returns {Promise} - Resolves with either an object, blob, buffer or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, bundleResponse = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    method = method.toUpperCase();\n\n    if (!(headers instanceof Headers)) {\n      headers = new Headers(headers);\n    }\n\n    if (this.authenticated) {\n      headers.set('Authorization', this.auth.token.toString());\n    }\n\n    // Automatically detect possible content-type header\n    const isFormData = data instanceof FormData;\n\n    if (typeof data === 'object' && !isFormData) {\n      data = JSON.stringify(data);\n\n      if (!headers.has('Content-Type')) {\n        headers.set('Content-Type', 'application/json');\n      }\n    } else if (data && !headers.has('Content-Type') && !isFormData) {\n      // headers.set('Content-Type', 'application/x-www-form-urlencoded');\n    }\n\n    if (!headers.has('Accept')) {\n      headers.set('Accept', 'application/json');\n    }\n\n    if (['GET', 'HEAD'].includes(method)) {\n      // eslint-disable-next-line no-undefined\n      data = undefined;\n    }\n\n    return fetch(url, {\n      headers, method,\n      body: data,\n      redirect: 'follow',\n      mode: 'cors',\n    }).then(response => {\n      const respond = data => !bundleResponse ? data : {response, data};\n\n      // Check if there is an error response and parse it\n      if (!response.ok) {\n        return response.json().then(data => {\n          throw this._parseErrorResponse(data, response.status);\n        });\n      }\n\n      if (response.headers.has('Content-Type')) {\n        const contentType = response.headers.get('Content-Type').toLowerCase();\n\n        // Any type of text\n        if (contentType.startsWith('text/')) {\n          return response.text().then(respond);\n        }\n\n        // Response data\n        if (contentType === 'application/json') {\n          return response.json()\n            .then(x => {\n              // Just in case, code path should in theory never be reached\n              if (typeof x.success === 'boolean' && !x.success) {\n                this._parseErrorResponse(data, response.status);\n              }\n\n              return x;\n            })\n            .then(x => x.data ? x.data : {})\n            .then(respond);\n        }\n      }\n\n      if (isNode()) {\n        return response.blob().then(respond);\n      }\n\n      return response.buffer().then(respond);\n    });\n  }\n\n  _parseErrorResponse(data, status) {\n    const err = data.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, status);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        console.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n\n    return new ValidationError(err.type, err.message, status, err['validation_errors']);\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32b(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Get SVG set types\n   * @see {@link SvgSet}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getSvgSetType() {\n    return this.request('/svgs/sets/types').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Get font styles\n   * @see {@link Font}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getFontStyles() {\n    return this.request('/fonts/styles').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  User,\n} from './crud';\nimport ResourceBase from './crud/base/ResourceBase';\nimport {Enum} from './enums';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceCache from './ResourceCache';\nimport ResourceProxy from './ResourceProxy';\nimport {fnv32b} from './utils/hash';\nimport {isNode} from './utils/node';\nimport {isParentOf} from './utils/reflection';\nimport {fetch, FormData, Headers} from './utils/requests';\n\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => String(str).toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => {\n      this.auth.token.save();\n\n      return this;\n    });\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}\n   * @returns {Promise} - Resolves with either an object, blob, buffer or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, bundleResponse = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    method = method.toUpperCase();\n\n    if (!(headers instanceof Headers)) {\n      headers = new Headers(headers);\n    }\n\n    if (this.authenticated) {\n      headers.set('Authorization', this.auth.token.toString());\n    }\n\n    // Automatically detect possible content-type header\n    const isFormData = data instanceof FormData;\n\n    if (typeof data === 'object' && !isFormData) {\n      data = JSON.stringify(data);\n\n      if (!headers.has('Content-Type')) {\n        headers.set('Content-Type', 'application/json');\n      }\n    } else if (data && !headers.has('Content-Type') && !isFormData) {\n      // headers.set('Content-Type', 'application/x-www-form-urlencoded');\n    }\n\n    if (!headers.has('Accept')) {\n      headers.set('Accept', 'application/json');\n    }\n\n    if (['GET', 'HEAD'].includes(method)) {\n      // eslint-disable-next-line no-undefined\n      data = undefined;\n    }\n\n    const init = {\n      headers, method,\n      redirect: 'follow',\n      mode: 'cors',\n    };\n\n    if (data) {\n      init.body = data;\n    }\n\n    return fetch(url, init).then(response => {\n      const respond = data => !bundleResponse ? data : {response, data};\n\n      // Check if there is an error response and parse it\n      if (!response.ok) {\n        return response.json().then(data => {\n          throw this._parseErrorResponse(data, response.status);\n        });\n      }\n\n      if (response.headers.has('Content-Type')) {\n        const contentType = response.headers.get('Content-Type').toLowerCase();\n\n        // Any type of text\n        if (contentType.startsWith('text/')) {\n          return response.text().then(respond);\n        }\n\n        // Response data\n        if (contentType === 'application/json') {\n          return response.json()\n            .then(x => {\n              // Just in case, code path should in theory never be reached\n              if (typeof x.success === 'boolean' && !x.success) {\n                this._parseErrorResponse(data, response.status);\n              }\n\n              return x;\n            })\n            .then(x => x.data ? x.data : {})\n            .then(respond);\n        }\n      }\n\n      if (isNode()) {\n        return response.blob().then(respond);\n      }\n\n      return response.buffer().then(respond);\n    });\n  }\n\n  _parseErrorResponse(data, status) {\n    const err = data.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, status);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        console.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n\n    return new ValidationError(err.type, err.message, status, err['validation_errors']);\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32b(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Get SVG set types\n   * @see {@link SvgSet}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getSvgSetType() {\n    return this.request('/svgs/sets/types').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Get font styles\n   * @see {@link Font}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getFontStyles() {\n    return this.request('/fonts/styles').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
     "static": true,
     "longname": "src/Maps4News.js",
     "access": null,
@@ -292,7 +292,7 @@
     "importPath": "@mapcreator/maps4news/src/Maps4News.js",
     "importStyle": "Maps4News",
     "description": "Base API class",
-    "lineNumber": 83,
+    "lineNumber": 82,
     "interface": false
   },
   {
@@ -306,7 +306,7 @@
     "longname": "src/Maps4News.js~Maps4News#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 88,
+    "lineNumber": 87,
     "params": [
       {
         "nullable": null,
@@ -339,7 +339,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": null,
-    "lineNumber": 89,
+    "lineNumber": 88,
     "undocument": true,
     "unknown": [
       {
@@ -362,7 +362,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": null,
-    "lineNumber": 90,
+    "lineNumber": 89,
     "undocument": true,
     "unknown": [
       {
@@ -385,7 +385,7 @@
     "longname": "src/Maps4News.js~Maps4News#defaults",
     "access": null,
     "description": "Defaults for common parameters. These are populated during the build process using the `.env` file.",
-    "lineNumber": 98,
+    "lineNumber": 97,
     "type": {
       "nullable": null,
       "types": [
@@ -404,7 +404,7 @@
     "longname": "src/Maps4News.js~Maps4News#_cache",
     "access": null,
     "description": null,
-    "lineNumber": 105,
+    "lineNumber": 104,
     "undocument": true,
     "unknown": [
       {
@@ -429,7 +429,7 @@
     "longname": "src/Maps4News.js~Maps4News#version",
     "access": null,
     "description": "Get api version",
-    "lineNumber": 113,
+    "lineNumber": 112,
     "unknown": [
       {
         "tagName": "@returns",
@@ -465,7 +465,7 @@
     "longname": "src/Maps4News.js~Maps4News#cache",
     "access": null,
     "description": "Get the shared cache instance",
-    "lineNumber": 121,
+    "lineNumber": 120,
     "unknown": [
       {
         "tagName": "@returns",
@@ -497,7 +497,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": "Get authentication provider instance",
-    "lineNumber": 129,
+    "lineNumber": 128,
     "unknown": [
       {
         "tagName": "@returns",
@@ -529,7 +529,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": null,
     "description": "Set authentication provider instance",
-    "lineNumber": 137,
+    "lineNumber": 136,
     "params": [
       {
         "nullable": null,
@@ -557,7 +557,7 @@
     "longname": "src/Maps4News.js~Maps4News#_auth",
     "access": null,
     "description": null,
-    "lineNumber": 142,
+    "lineNumber": 141,
     "undocument": true,
     "unknown": [
       {
@@ -582,7 +582,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticated",
     "access": null,
     "description": "Test if the client is authenticated with the api and has a valid token",
-    "lineNumber": 149,
+    "lineNumber": 148,
     "unknown": [
       {
         "tagName": "@returns",
@@ -614,7 +614,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": "The current host",
-    "lineNumber": 157,
+    "lineNumber": 156,
     "unknown": [
       {
         "tagName": "@returns",
@@ -646,7 +646,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": null,
     "description": "The remote host",
-    "lineNumber": 165,
+    "lineNumber": 164,
     "params": [
       {
         "nullable": null,
@@ -674,7 +674,7 @@
     "longname": "src/Maps4News.js~Maps4News#_host",
     "access": null,
     "description": null,
-    "lineNumber": 167,
+    "lineNumber": 166,
     "undocument": true,
     "unknown": [
       {
@@ -699,7 +699,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticate",
     "access": null,
     "description": "Authenticate with the api using the authentication method provided.",
-    "lineNumber": 175,
+    "lineNumber": 174,
     "unknown": [
       {
         "tagName": "@returns",
@@ -727,7 +727,7 @@
     "longname": "src/Maps4News.js~Maps4News#request",
     "access": null,
     "description": "Request an url using the API token (if available)",
-    "lineNumber": 193,
+    "lineNumber": 192,
     "unknown": [
       {
         "tagName": "@returns",
@@ -807,7 +807,7 @@
     "longname": "src/Maps4News.js~Maps4News#_parseErrorResponse",
     "access": null,
     "description": null,
-    "lineNumber": 279,
+    "lineNumber": 283,
     "undocument": true,
     "unknown": [
       {
@@ -850,7 +850,7 @@
       "api.static('/custom/resource/path/{id}/').get(123);",
       "class FooBar extends ResourceBase {\n   get resourceName() {\n     return 'custom';\n   }\n}\n\napi.static(FooBar)\n  .get(1)\n  .then(console.log);"
     ],
-    "lineNumber": 315,
+    "lineNumber": 319,
     "unknown": [
       {
         "tagName": "@returns",
@@ -893,7 +893,7 @@
     "see": [
       "{@link Choropleth}"
     ],
-    "lineNumber": 340,
+    "lineNumber": 344,
     "unknown": [
       {
         "tagName": "@returns",
@@ -928,7 +928,7 @@
     "see": [
       "{@link Color}"
     ],
-    "lineNumber": 349,
+    "lineNumber": 353,
     "unknown": [
       {
         "tagName": "@returns",
@@ -963,7 +963,7 @@
     "see": [
       "{@link Contract}"
     ],
-    "lineNumber": 358,
+    "lineNumber": 362,
     "unknown": [
       {
         "tagName": "@returns",
@@ -998,7 +998,7 @@
     "see": [
       "{@link Dimension}"
     ],
-    "lineNumber": 367,
+    "lineNumber": 371,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1033,7 +1033,7 @@
     "see": [
       "{@link DimensionSet}"
     ],
-    "lineNumber": 376,
+    "lineNumber": 380,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1068,7 +1068,7 @@
     "see": [
       "{@link Faq}"
     ],
-    "lineNumber": 385,
+    "lineNumber": 389,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1103,7 +1103,7 @@
     "see": [
       "{@link Feature}"
     ],
-    "lineNumber": 394,
+    "lineNumber": 398,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1138,7 +1138,7 @@
     "see": [
       "{@link Font}"
     ],
-    "lineNumber": 403,
+    "lineNumber": 407,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1173,7 +1173,7 @@
     "see": [
       "{@link FontFamily}"
     ],
-    "lineNumber": 412,
+    "lineNumber": 416,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1208,7 +1208,7 @@
     "see": [
       "{@link Highlight}"
     ],
-    "lineNumber": 421,
+    "lineNumber": 425,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1243,7 +1243,7 @@
     "see": [
       "{@link InsetMap}"
     ],
-    "lineNumber": 430,
+    "lineNumber": 434,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1278,7 +1278,7 @@
     "see": [
       "{@link Job}"
     ],
-    "lineNumber": 439,
+    "lineNumber": 443,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1313,7 +1313,7 @@
     "see": [
       "{@link JobShare}"
     ],
-    "lineNumber": 448,
+    "lineNumber": 452,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1348,7 +1348,7 @@
     "see": [
       "{@link JobType}"
     ],
-    "lineNumber": 457,
+    "lineNumber": 461,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1383,7 +1383,7 @@
     "see": [
       "{@link Language}"
     ],
-    "lineNumber": 466,
+    "lineNumber": 470,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1418,7 +1418,7 @@
     "see": [
       "{@link Layer}"
     ],
-    "lineNumber": 475,
+    "lineNumber": 479,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1453,7 +1453,7 @@
     "see": [
       "{@link Mapstyle}"
     ],
-    "lineNumber": 484,
+    "lineNumber": 488,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1488,7 +1488,7 @@
     "see": [
       "{@link MapstyleSet}"
     ],
-    "lineNumber": 493,
+    "lineNumber": 497,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1523,7 +1523,7 @@
     "see": [
       "{@link Notification}"
     ],
-    "lineNumber": 502,
+    "lineNumber": 506,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1558,7 +1558,7 @@
     "see": [
       "{@link Organisation}"
     ],
-    "lineNumber": 511,
+    "lineNumber": 515,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1593,7 +1593,7 @@
     "see": [
       "{@link Permission}"
     ],
-    "lineNumber": 520,
+    "lineNumber": 524,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1628,7 +1628,7 @@
     "see": [
       "{@link Role}"
     ],
-    "lineNumber": 529,
+    "lineNumber": 533,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1663,7 +1663,7 @@
     "see": [
       "{@link PlaceName}"
     ],
-    "lineNumber": 538,
+    "lineNumber": 542,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1698,7 +1698,7 @@
     "see": [
       "{@link Svg}"
     ],
-    "lineNumber": 547,
+    "lineNumber": 551,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1733,7 +1733,7 @@
     "see": [
       "{@link SvgSet}"
     ],
-    "lineNumber": 556,
+    "lineNumber": 560,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1768,7 +1768,7 @@
     "see": [
       "{@link User}"
     ],
-    "lineNumber": 565,
+    "lineNumber": 569,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1803,7 +1803,7 @@
     "see": [
       "{@link SvgSet}"
     ],
-    "lineNumber": 574,
+    "lineNumber": 578,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1834,7 +1834,7 @@
     "see": [
       "{@link Font}"
     ],
-    "lineNumber": 583,
+    "lineNumber": 587,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1862,7 +1862,7 @@
     "longname": "src/Maps4News.js~Maps4News#logout",
     "access": null,
     "description": "Forget the current session\nThis will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored",
-    "lineNumber": 592,
+    "lineNumber": 596,
     "unknown": [
       {
         "tagName": "@returns",
@@ -11986,7 +11986,7 @@
     "__docId__": 412,
     "kind": "file",
     "name": "src/crud/base/ResourceBase.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {camel as camelCase, snake as snakeCase} from 'case';\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = snakeCase(key);\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data || {};\n    this._properties = {};\n    this._api = api;\n\n    const fields = Object.keys(this._baseProperties);\n\n    // Apply properties\n    for (const key of fields) {\n      this._applyProperty(key);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n\n    /* We keep track of any new fields by recording the\n     * keys the object currently has. We don't need no\n     * fancy-pants observers, Proxies etc.\n     */\n    this._knownFields = Object.keys(this).filter(x => x[0] !== '_');\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Returns the url key of the resource\n   * @returns {String} - Resource key\n   */\n  static get resourceUrlKey() {\n    return 'id';\n  }\n\n  /**\n   * Protected read-only fields\n   * @returns {Array<string>} - Array containing the protected fields\n   * @protected\n   */\n  get _protectedFields() {\n    return ['id', 'created_at', 'updated_at', 'deleted_at'];\n  }\n\n  /**\n   * Moves new fields to this._properties and turns them into a getter/setter\n   * @returns {void}\n   * @protected\n   */\n  _updateProperties() {\n    // Build a list of new fields\n    const fields = Object.keys(this)\n      .filter(x => x[0] !== '_')\n      .filter(x => !this._knownFields.includes(x));\n\n    // Move the pointer from this to the properties object\n    for (const key of fields) {\n      const newKey = snakeCase(key);\n\n      this._properties[newKey] = this[key];\n      delete this[key];\n\n      this._knownFields.push(key);\n\n      this._applyProperty(newKey);\n    }\n  }\n\n  /**\n   * Clean up instance and commit all changes locally.\n   * This means that any changed fields will be marked\n   * as unchanged whilst  keeping their new values. The\n   * changes will not be saved.\n   * @returns {void} - nothing\n   */\n  sanitize() {\n    this._updateProperties();\n    Object.assign(this._baseProperties, this._properties);\n    this._properties = {};\n  }\n\n  /**\n   * Resets model instance to it's original state\n   * @returns {void} - nothing\n   */\n  reset() {\n    this._updateProperties();\n    this._properties = {};\n  }\n\n  /**\n   * Clone the object\n   * @returns {ResourceBase} - Exact clone of the object\n   */\n  clone() {\n    this._updateProperties();\n\n    const out = new this.constructor(this.api, this._baseProperties);\n\n    for (const key of Object.keys(this._properties)) {\n      out[key] = this._properties[key];\n    }\n\n    return out;\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return this._api\n      .request(this.url)\n      .then(data => {\n        if (updateSelf) {\n          this._properties = {};\n          this._baseProperties = data;\n\n          this._updateProperties();\n        }\n\n        return new this.constructor(this._api, data);\n      });\n  }\n\n  /**\n   * Create proxy for property\n   * @param {string} key - property key\n   * @returns {void}\n   * @private\n   */\n  _applyProperty(key) {\n    const desc = {\n      enumerable: true,\n      configurable: true,\n\n      get: () => {\n        if (this._properties.hasOwnProperty(key)) {\n          return this._properties[key];\n        }\n\n        return this._baseProperties[key];\n      },\n    };\n\n    if (!this._protectedFields.includes(key)) {\n      desc.set = (val) => {\n        this._properties[key] = ResourceBase._guessType(key, val);\n        delete this._url; // Clears url cache\n      };\n    }\n\n    Object.defineProperty(this, camelCase(key), desc);\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[camelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(camelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this[this.resourceUrlKey]})`;\n  }\n\n  /**\n   * Transform instance to object\n   * @returns {{}} - object\n   */\n  toObject() {\n    this._updateProperties();\n\n    return Object.assign({}, this._baseProperties, this._properties);\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {camel as camelCase, snake as snakeCase} from 'case';\nimport {AbstractClassError, AbstractError} from '../../errors/AbstractError';\nimport Maps4News from '../../Maps4News';\nimport SimpleResourceProxy from '../../SimpleResourceProxy';\nimport {isParentOf} from '../../utils/reflection';\n\n/**\n * Resource base\n * @abstract\n */\nexport default class ResourceBase {\n  /**\n   * @param {Maps4News} api - Api instance\n   * @param {Object<String, *>} data - Item data\n   */\n  constructor(api, data = {}) {\n    if (this.constructor === ResourceBase) {\n      throw new AbstractClassError();\n    }\n\n    if (!isParentOf(Maps4News, api)) {\n      throw new TypeError('Expected api to be of type Maps4News');\n    }\n\n    // Normalize keys to snake_case\n    // Fix data types\n    for (const key of Object.keys(data)) {\n      const newKey = snakeCase(key);\n\n      data[newKey] = ResourceBase._guessType(newKey, data[key]);\n\n      if (newKey !== key) {\n        delete data[key];\n      }\n    }\n\n    this._baseProperties = data || {};\n    this._properties = {};\n    this._api = api;\n\n    const fields = Object.keys(this._baseProperties);\n\n    // Apply properties\n    for (const key of fields) {\n      this._applyProperty(key);\n    }\n\n    // Add deleted field if possible\n    if (fields.includes('deleted_at')) {\n      Object.defineProperty(this, 'deleted', {\n        enumerable: true,\n        configurable: true,\n\n        get: () => {\n          return Boolean(this.deletedAt);\n        },\n      });\n    }\n\n    /* We keep track of any new fields by recording the\n     * keys the object currently has. We don't need no\n     * fancy-pants observers, Proxies etc.\n     */\n    this._knownFields = Object.keys(this).filter(x => x[0] !== '_');\n  }\n\n  /**\n   * Get api instance\n   * @returns {Maps4News} - Api instance\n   */\n  get api() {\n    return this._api;\n  }\n\n  /**\n   * Resource path template\n   * @returns {String} - Path template\n   */\n  get resourcePath() {\n    return `/${this.resourceName}/{id}`;\n  }\n\n  /**\n   * Resource name\n   * @returns {String} - Resource name\n   * @abstract\n   */\n  get resourceName() {\n    throw new AbstractError();\n  }\n\n  /**\n   * Returns the url key of the resource\n   * @returns {String} - Resource key\n   */\n  static get resourceUrlKey() {\n    return 'id';\n  }\n\n  /**\n   * Protected read-only fields\n   * @returns {Array<string>} - Array containing the protected fields\n   * @protected\n   */\n  get _protectedFields() {\n    return ['id', 'created_at', 'updated_at', 'deleted_at'];\n  }\n\n  /**\n   * Moves new fields to this._properties and turns them into a getter/setter\n   * @returns {void}\n   * @protected\n   * @todo Apply new baseProperties fields\n   */\n  _updateProperties() {\n    // Build a list of new fields\n    let fields = Object.keys(this)\n      .filter(x => x[0] !== '_')\n      .filter(x => !this._knownFields.includes(x));\n\n    // Move the pointer from this to the properties object\n    for (const key of fields) {\n      const newKey = snakeCase(key);\n\n      this._properties[newKey] = this[key];\n      delete this[key];\n\n      this._knownFields.push(this._applyProperty(newKey));\n    }\n\n    // Build a list of new BaseProperty fields\n    fields = Object.keys(this._baseProperties)\n      .filter(x => !this._knownFields.includes(camelCase(x)));\n\n    for (const key of fields) {\n      this._knownFields.push(this._applyProperty(key));\n    }\n  }\n\n  /**\n   * Clean up instance and commit all changes locally.\n   * This means that any changed fields will be marked\n   * as unchanged whilst  keeping their new values. The\n   * changes will not be saved.\n   * @returns {void} - nothing\n   */\n  sanitize() {\n    this._updateProperties();\n    Object.assign(this._baseProperties, this._properties);\n    this._properties = {};\n  }\n\n  /**\n   * Resets model instance to it's original state\n   * @returns {void} - nothing\n   */\n  reset() {\n    this._updateProperties();\n    this._properties = {};\n  }\n\n  /**\n   * Clone the object\n   * @returns {ResourceBase} - Exact clone of the object\n   */\n  clone() {\n    this._updateProperties();\n\n    const out = new this.constructor(this.api, this._baseProperties);\n\n    for (const key of Object.keys(this._properties)) {\n      out[key] = this._properties[key];\n    }\n\n    return out;\n  }\n\n  /**\n   * Refresh the resource by requesting it from the server again\n   * @param {Boolean} updateSelf - Update the current instance\n   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}\n   */\n  refresh(updateSelf = true) {\n    return this._api\n      .request(this.url)\n      .then(data => {\n        if (updateSelf) {\n          this._properties = {};\n          this._baseProperties = data;\n\n          this._updateProperties();\n        }\n\n        return new this.constructor(this._api, data);\n      });\n  }\n\n  /**\n   * Create proxy for property\n   * @param {string} key - property key\n   * @returns {string} - new key\n   * @private\n   */\n  _applyProperty(key) {\n    const desc = {\n      enumerable: true,\n      configurable: true,\n\n      get: () => {\n        if (this._properties.hasOwnProperty(key)) {\n          return this._properties[key];\n        }\n\n        return this._baseProperties[key];\n      },\n    };\n\n    if (!this._protectedFields.includes(key)) {\n      desc.set = (val) => {\n        this._properties[key] = ResourceBase._guessType(key, val);\n        delete this._url; // Clears url cache\n      };\n    }\n\n    const newKey = camelCase(key);\n\n    Object.defineProperty(this, newKey, desc);\n    return newKey;\n  }\n\n  /**\n   * Guess type based on property name\n   * @param {string} name - Field name\n   * @param {*} value - Field Value\n   * @private\n   * @returns {*} - Original or converted value\n   */\n  static _guessType(name, value) {\n    const regexp = /(?:^|_)([^_$]+)$/g;\n    const match = regexp.exec(name);\n    const idMacros = ['last', 'me', 'mine'];\n\n    if (match === null || typeof value !== 'string') {\n      return value;\n    }\n\n    switch (match[1]) {\n      case 'end':\n      case 'start':\n      case 'at':\n        return new Date(value.replace(' ', 'T'));\n      case 'id':\n        // Test if the value is in fact a macro\n        if (idMacros.includes(String(value).toLowerCase())) {\n          return value;\n        }\n\n        return Number(value);\n      default:\n        return value;\n    }\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return false;\n  }\n\n  /**\n   * Auto generated resource url\n   * @returns {string} - Resource url\n   */\n  get url() {\n    if (!this._url) {\n      let url = `${this._api.host}/${this._api.version}${this.resourcePath}`;\n\n      // Find and replace any keys\n      url = url.replace(/{(\\w+)}/g, (match, key) => this[camelCase(key)]);\n\n      this._url = url;\n    }\n\n    return this._url;\n  }\n\n  /**\n   * Auto generated Resource base url\n   * @returns {string} - Resource base url\n   */\n  get baseUrl() {\n    const basePath = this.resourcePath.match(/^(\\/[^{]+\\b)/)[1];\n\n    return `${this._api.host}/${this._api.version}${basePath}`;\n  }\n\n  /**\n   * List fields that contain object data\n   * @returns {Array<String>} - A list of fields\n   */\n  get fieldNames() {\n    return Object\n      .keys(this._baseProperties)\n      .map(camelCase);\n  }\n\n  /**\n   * String representation of the resource, similar to Python's __repr__\n   * @returns {string} - Resource name and id\n   */\n  toString() {\n    return `${this.constructor.name}(${this[this.resourceUrlKey]})`;\n  }\n\n  /**\n   * Transform instance to object\n   * @returns {{}} - object\n   */\n  toObject() {\n    this._updateProperties();\n\n    return Object.assign({}, this._baseProperties, this._properties);\n  }\n\n  /**\n   * Macro for resource listing\n   * @param {ResourceBase} Target - Target object\n   * @param {?String} url - Target url, if null it will guess\n   * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   * @protected\n   */\n  _proxyResourceList(Target, url = null, seedData = {}) {\n    if (!url) {\n      const resource = (new Target(this.api)).resourceName.replace(/s+$/, '');\n\n      url = `${this.url}/${resource}s`;\n    }\n\n    return new SimpleResourceProxy(this.api, Target, url, seedData);\n  }\n}\n",
     "static": true,
     "longname": "src/crud/base/ResourceBase.js",
     "access": null,
@@ -12303,7 +12303,10 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_updateProperties",
     "access": "protected",
     "description": "Moves new fields to this._properties and turns them into a getter/setter",
-    "lineNumber": 146,
+    "lineNumber": 147,
+    "todo": [
+      "Apply new baseProperties fields"
+    ],
     "unknown": [
       {
         "tagName": "@returns",
@@ -12331,7 +12334,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#sanitize",
     "access": null,
     "description": "Clean up instance and commit all changes locally.\nThis means that any changed fields will be marked\nas unchanged whilst  keeping their new values. The\nchanges will not be saved.",
-    "lineNumber": 172,
+    "lineNumber": 179,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12357,7 +12360,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 175,
+    "lineNumber": 182,
     "undocument": true,
     "unknown": [
       {
@@ -12382,7 +12385,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#reset",
     "access": null,
     "description": "Resets model instance to it's original state",
-    "lineNumber": 182,
+    "lineNumber": 189,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12408,7 +12411,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 184,
+    "lineNumber": 191,
     "undocument": true,
     "unknown": [
       {
@@ -12433,7 +12436,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#clone",
     "access": null,
     "description": "Clone the object",
-    "lineNumber": 191,
+    "lineNumber": 198,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12461,7 +12464,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#refresh",
     "access": null,
     "description": "Refresh the resource by requesting it from the server again",
-    "lineNumber": 208,
+    "lineNumber": 215,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12498,7 +12501,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_properties",
     "access": null,
     "description": null,
-    "lineNumber": 213,
+    "lineNumber": 220,
     "undocument": true,
     "unknown": [
       {
@@ -12521,7 +12524,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_baseProperties",
     "access": null,
     "description": null,
-    "lineNumber": 214,
+    "lineNumber": 221,
     "undocument": true,
     "unknown": [
       {
@@ -12546,11 +12549,11 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_applyProperty",
     "access": "private",
     "description": "Create proxy for property",
-    "lineNumber": 229,
+    "lineNumber": 236,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{void}"
+        "tagValue": "{string} - new key"
       }
     ],
     "params": [
@@ -12568,10 +12571,10 @@
     "return": {
       "nullable": null,
       "types": [
-        "void"
+        "string"
       ],
       "spread": false,
-      "description": ""
+      "description": "new key"
     }
   },
   {
@@ -12585,7 +12588,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase._guessType",
     "access": "private",
     "description": "Guess type based on property name",
-    "lineNumber": 260,
+    "lineNumber": 270,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12634,7 +12637,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#ownable",
     "access": null,
     "description": "If the resource can be owned by an organisation",
-    "lineNumber": 290,
+    "lineNumber": 300,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12666,7 +12669,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#url",
     "access": null,
     "description": "Auto generated resource url",
-    "lineNumber": 298,
+    "lineNumber": 308,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12696,7 +12699,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_url",
     "access": null,
     "description": null,
-    "lineNumber": 305,
+    "lineNumber": 315,
     "undocument": true,
     "unknown": [
       {
@@ -12721,7 +12724,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#baseUrl",
     "access": null,
     "description": "Auto generated Resource base url",
-    "lineNumber": 315,
+    "lineNumber": 325,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12753,7 +12756,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
     "access": null,
     "description": "List fields that contain object data",
-    "lineNumber": 325,
+    "lineNumber": 335,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12785,7 +12788,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#toString",
     "access": null,
     "description": "String representation of the resource, similar to Python's __repr__",
-    "lineNumber": 335,
+    "lineNumber": 345,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12813,7 +12816,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#toObject",
     "access": null,
     "description": "Transform instance to object",
-    "lineNumber": 343,
+    "lineNumber": 353,
     "unknown": [
       {
         "tagName": "@returns",
@@ -12841,7 +12844,7 @@
     "longname": "src/crud/base/ResourceBase.js~ResourceBase#_proxyResourceList",
     "access": "protected",
     "description": "Macro for resource listing",
-    "lineNumber": 357,
+    "lineNumber": 367,
     "unknown": [
       {
         "tagName": "@returns",
