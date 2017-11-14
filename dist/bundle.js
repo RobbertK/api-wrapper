@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:27070eb23d49b1e38364, chunkhash:532dd55e04b36c6714bb, name:bundle, version:v1.1.76
+ * hash:9786a8721e9eaee4c532, chunkhash:797ef6ff5107ed7b1a38, name:bundle, version:v1.1.77
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.76) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.77) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -1091,6 +1091,7 @@ var ResourceBase = function () {
     /* We keep track of any new fields by recording the
      * keys the object currently has. We don't need no
      * fancy-pants observers, Proxies etc.
+     * snake_case only
      */
     this._knownFields = Object.keys(this).filter(function (x) {
       return x[0] !== '_';
@@ -1111,7 +1112,6 @@ var ResourceBase = function () {
      * Moves new fields to this._properties and turns them into a getter/setter
      * @returns {void}
      * @protected
-     * @todo Apply new baseProperties fields
      */
     value: function _updateProperties() {
       var _this2 = this;
@@ -1137,7 +1137,8 @@ var ResourceBase = function () {
           this._properties[newKey] = this[key];
           delete this[key];
 
-          this._knownFields.push(this._applyProperty(newKey));
+          this._applyProperty(newKey);
+          this._knownFields.push(newKey);
         }
 
         // Build a list of new BaseProperty fields
@@ -1168,7 +1169,8 @@ var ResourceBase = function () {
         for (var _iterator4 = fields[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var _key2 = _step4.value;
 
-          this._knownFields.push(this._applyProperty(_key2));
+          this._applyProperty(_key2);
+          this._knownFields.push(_key2);
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -1191,7 +1193,7 @@ var ResourceBase = function () {
      * This means that any changed fields will be marked
      * as unchanged whilst  keeping their new values. The
      * changes will not be saved.
-     * @returns {void} - nothing
+     * @returns {void}
      */
 
   }, {
@@ -1204,7 +1206,7 @@ var ResourceBase = function () {
 
     /**
      * Resets model instance to it's original state
-     * @returns {void} - nothing
+     * @returns {void}
      */
 
   }, {
@@ -1282,7 +1284,7 @@ var ResourceBase = function () {
     /**
      * Create proxy for property
      * @param {string} key - property key
-     * @returns {string} - new key
+     * @returns {void}
      * @private
      */
 
@@ -1314,7 +1316,6 @@ var ResourceBase = function () {
       var newKey = (0, _case.camel)(key);
 
       Object.defineProperty(this, newKey, desc);
-      return newKey;
     }
 
     /**
@@ -14467,7 +14468,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.76";
+var version = exports.version = "v1.1.77";
 
 /**
  * Package license
