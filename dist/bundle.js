@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:3c01fa4ad753b9845c1a, chunkhash:5c8121e3ef13b7f5ea1c, name:bundle, version:v1.1.78
+ * hash:898ce17d093e3d949c14, chunkhash:a2c184100b8229e5a5e9, name:bundle, version:v1.1.79
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.78) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.79) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3988,10 +3988,10 @@ var Maps4News = function () {
         }
 
         if ((0, _node.isNode)()) {
-          return response.blob().then(respond);
+          return response.buffer().then(respond);
         }
 
-        return response.buffer().then(respond);
+        return response.blob().then(respond);
       });
     }
   }, {
@@ -14466,7 +14466,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.78";
+var version = exports.version = "v1.1.79";
 
 /**
  * Package license
@@ -16238,6 +16238,7 @@ var ImageHandler = function () {
      * layer.imageHandler.download().then(url => {
      *   $('img').src = url;
      * });
+     * @todo fix docs for nodejs
      */
 
   }, {
