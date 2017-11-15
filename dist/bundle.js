@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:9786a8721e9eaee4c532, chunkhash:797ef6ff5107ed7b1a38, name:bundle, version:v1.1.77
+ * hash:3c01fa4ad753b9845c1a, chunkhash:5c8121e3ef13b7f5ea1c, name:bundle, version:v1.1.78
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.77) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.78) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -11450,8 +11450,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _CrudBase2 = __webpack_require__(9);
@@ -11531,20 +11529,20 @@ var Contract = function (_CrudBase) {
 
       var data = Object.assign({}, this._properties);
 
-      if (typeof data.dateStart === 'undefined') {
-        data.dateStart = this.dateStart;
+      if (typeof data['date_start'] === 'undefined') {
+        data['date_start'] = this.dateStart;
       }
 
-      if (typeof data.dateEnd === 'undefined') {
-        data.dateEnd = this.dateEnd;
+      if (typeof data['date_end'] === 'undefined') {
+        data['date_end'] = this.dateEnd;
       }
 
-      if (_typeof(data.dateStart) instanceof Date) {
-        data.dateStart = this._formatDate(data.dateStart);
+      if (data['date_start'] instanceof Date) {
+        data['date_start'] = this._formatDate(data['date_start']);
       }
 
-      if (_typeof(data.dateEnd) instanceof Date) {
-        data.dateEnd = this._formatDate(data.dateEnd);
+      if (data['date_end'] instanceof Date) {
+        data['date_end'] = this._formatDate(data['date_end']);
       }
 
       return this.api.request(this.url, 'PATCH', data).then(function () {
@@ -14468,7 +14466,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.77";
+var version = exports.version = "v1.1.78";
 
 /**
  * Package license
