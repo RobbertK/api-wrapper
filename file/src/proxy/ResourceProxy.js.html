@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/storage/CookiesDriver.js | API Document</title>
+  <title data-ice="title">src/proxy/ResourceProxy.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -106,7 +106,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/storage/CookiesDriver.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/proxy/ResourceProxy.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
@@ -139,116 +139,77 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {isNode} from &apos;../utils/node&apos;;
-import DataStoreDriver from &apos;./DataStoreDriver&apos;;
+import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
+import {encodeQueryString} from &apos;../utils/requests&apos;;
+import {DeletedState} from &apos;../enums&apos;;
 
 /**
- * @private
+ * Proxy for accessing resource. This will make sure that they
+ * are properly wrapped before the promise resolves.
+ * @protected
  */
-export default class CookiesDriver extends DataStoreDriver {
-  constructor(prefix = &apos;_m4n_&apos;) {
-    super();
-
-    this.__prefix = prefix;
+export default class ResourceProxy extends SimpleResourceProxy {
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {ResourceBase} Target - Target to wrap
+   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
+   * @param {object} seedData - Internal use, used for seeding ::new
+   */
+  constructor(api, Target, altUrl = null, seedData = {}) {
+    super(api, Target, altUrl, seedData);
   }
 
   /**
-   * Cookie name prefix
-   * @returns {String} - Prefix
+   * Parse selector
+   * @param {Number|String|Object} [id=] - The resource id to be requested
+   * @returns {Object} - Parsed selector
    * @private
    */
-  get _prefix() {
-    return this.__prefix;
-  }
+  _parseSelector(id) {
+    const defaults = {};
 
-  /**
-   * @inheritDoc
-   */
-  static get secure() {
-    return window.location.protocol === &apos;https:&apos;;
-  }
+    switch (typeof id) {
+      case &apos;number&apos;:
+      case &apos;string&apos;:
+        defaults[this.Target.resourceUrlKey] = id;
 
-  /**
-   * @inheritDoc
-   */
-  static get available() {
-    return !isNode();
-  }
-
-  /**
-   * Store a value in the storage
-   * @param {String} name - value name
-   * @param {*} value - value
-   * @param {Date|String} [expires=2050-01-01] - Expiration date
-   * @returns {void}
-   */
-  set(name, value, expires = new Date(&apos;2050-01-01&apos;)) {
-    name = encodeURIComponent(this._prefix + name);
-    value = encodeURIComponent(value);
-
-    if (expires instanceof Date) {
-      expires = expires.toUTCString();
+        return defaults;
+      case &apos;object&apos;:
+        return id;
+      default:
+        return {};
     }
-
-    let cookie = `${name}=${value}; expires=${expires}`;
-
-    if (CookiesDriver.secure) {
-      cookie += &apos;;secure&apos;;
-    }
-
-    document.cookie = cookie;
   }
 
   /**
-   * @inheritDoc
+   * Get target resource
+   * @param {Number|String|Object} [id=] - The resource id to be requested
+   * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
+   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
    */
-  get(name) {
-    name = this._prefix + name;
+  get(id, deleted = DeletedState.NONE) {
+    const data = Object.assign({}, this._seedData, this._parseSelector(id));
+    let url = this.new(data).url;
+    const glue = url.includes(&apos;?&apos;) ? &apos;&amp;&apos; : &apos;?&apos;;
 
-    return this._toObject()[name];
+    url = `${url}${glue}${encodeQueryString({deleted})}`;
+
+    return this._api
+      .request(url)
+      .then(result =&gt; this.new(result));
   }
 
   /**
-   * @inheritDoc
+   * Select target resource without obtaining data
+   * @param {Number|String} [id=] - Resource id
+   * @returns {ResourceBase} - Empty target resource
+   * @example
+   * api.users.select(&apos;me&apos;).colors().then(doSomethingCool);
    */
-  remove(name) {
-    name = encodeURIComponent(this._prefix + name);
+  select(id) {
+    const data = Object.assign({}, this._seedData, this._parseSelector(id));
 
-    let cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-
-    if (CookiesDriver.secure) {
-      cookie += &apos;;secure&apos;;
-    }
-
-    document.cookie = cookie;
-  }
-
-  /**
-   * @inheritDoc
-   */
-  keys() {
-    const regex = new RegExp(&apos;^&apos; + this._prefix);
-
-    return Object.keys(this._toObject()).map(x =&gt; x.replace(regex, &apos;&apos;));
-  }
-
-  /**
-   * Extract cookies and turn them into a object
-   * @returns {Object} - cookies
-   * @private
-   */
-  _toObject() {
-    const cookies = {};
-
-    document.cookie
-      .split(&apos;;&apos;)
-      .map(x =&gt; x.trim().split(&apos;=&apos;).map(decodeURIComponent))
-      .filter(x =&gt; x[0].startsWith(this._prefix))
-      .forEach(x =&gt; {
-        cookies[x[0]] = x[1];
-      });
-
-    return cookies;
+    return this.new(data);
   }
 }
 </code></pre>

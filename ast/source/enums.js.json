@@ -2681,7 +2681,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * @param {Object<String, *>,Array<String>} enums - Data to build the enum from\n   * @param {boolean} auto - Auto generate enum from data making assumptions about\n   *                         the data, requires enums to be of type array.\n   ",
+                    "value": "*\n   * @param {Object<String, *>|Array<String>} enums - Data to build the enum from\n   * @param {boolean} auto - Auto generate enum from data making assumptions about\n   *                         the data, requires enums to be of type array.\n   ",
                     "start": 2215,
                     "end": 2464,
                     "loc": {
@@ -4276,7 +4276,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * @param {Object<String, *>,Array<String>} enums - Data to build the enum from\n   * @param {boolean} auto - Auto generate enum from data making assumptions about\n   *                         the data, requires enums to be of type array.\n   ",
+      "value": "*\n   * @param {Object<String, *>|Array<String>} enums - Data to build the enum from\n   * @param {boolean} auto - Auto generate enum from data making assumptions about\n   *                         the data, requires enums to be of type array.\n   ",
       "start": 2215,
       "end": 2464,
       "loc": {
@@ -4899,7 +4899,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * @param {Object<String, *>,Array<String>} enums - Data to build the enum from\n   * @param {boolean} auto - Auto generate enum from data making assumptions about\n   *                         the data, requires enums to be of type array.\n   ",
+      "value": "*\n   * @param {Object<String, *>|Array<String>} enums - Data to build the enum from\n   * @param {boolean} auto - Auto generate enum from data making assumptions about\n   *                         the data, requires enums to be of type array.\n   ",
       "start": 2215,
       "end": 2464,
       "loc": {

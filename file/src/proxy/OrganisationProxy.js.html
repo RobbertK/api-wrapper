@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/ResourceProxy.js | API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/proxy/OrganisationProxy.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -42,8 +42,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums.js~Enum.html">Enum</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
@@ -92,6 +90,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">proxy</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html">OrganisationProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/proxy/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
@@ -105,7 +106,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/ResourceProxy.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/proxy/OrganisationProxy.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
@@ -139,76 +140,77 @@
  */
 
 import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
-import {encodeQueryString} from &apos;./utils/requests&apos;;
-import {DeletedState} from &apos;./enums&apos;;
 
-/**
- * Proxy for accessing resource. This will make sure that they
- * are properly wrapped before the promise resolves.
- * @protected
- */
-export default class ResourceProxy extends SimpleResourceProxy {
+export default class OrganisationProxy extends SimpleResourceProxy {
   /**
    * @param {Maps4News} api - Instance of the api
-   * @param {ResourceBase} Target - Target to wrap
-   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
-   * @param {object} seedData - Internal use, used for seeding ::new
+   * @param {ResourceBase} parent - parent instance
    */
-  constructor(api, Target, altUrl = null, seedData = {}) {
-    super(api, Target, altUrl, seedData);
+  constructor(api, parent) {
+    // Fixes dependency issue
+    const Organisation = require(&apos;../crud/Organisation&apos;).default;
+
+    super(api, Organisation, `${parent.url}/organisations`, {});
+
+    this._parent = parent;
   }
 
   /**
-   * Parse selector
-   * @param {Number|String|Object} [id=] - The resource id to be requested
-   * @returns {Object} - Parsed selector
-   * @private
+   * Returns parent instance
+   * @returns {ResourceBase} - parent instance
    */
-  _parseSelector(id) {
-    const defaults = {};
-
-    switch (typeof id) {
-      case &apos;number&apos;:
-      case &apos;string&apos;:
-        defaults[this.Target.resourceUrlKey] = id;
-
-        return defaults;
-      case &apos;object&apos;:
-        return id;
-      default:
-        return {};
-    }
+  get parent() {
+    return this._parent;
   }
 
   /**
-   * Get target resource
-   * @param {Number|String|Object} [id=] - The resource id to be requested
-   * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
-   * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
+   * Sync organisations to the parent resource
+   * The organisations attached to the target resource will be replaced with the organisations provided in the request.
+   * @param {Array&lt;Organisation|number&gt;} organisations - List of items to sync
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
-  get(id, deleted = DeletedState.NONE) {
-    const data = Object.assign({}, this._seedData, this._parseSelector(id));
-    let url = this.new(data).url;
-    const glue = url.includes(&apos;?&apos;) ? &apos;&amp;&apos; : &apos;?&apos;;
-
-    url = `${url}${glue}${encodeQueryString({deleted})}`;
-
-    return this._api
-      .request(url)
-      .then(result =&gt; this.new(result));
+  sync(organisations) {
+    return this.parent._modifyLink(organisations, &apos;PATCH&apos;, this.Target);
   }
 
   /**
-   * Select target resource without obtaining data
-   * @param {Number|String} [id=] - Resource id
-   * @returns {ResourceBase} - Empty target resource
-   * @example
-   * api.users.select(&apos;me&apos;).colors().then(doSomethingCool);
+   * Attach organisations to the parent resource
+   * The provided organisations will be attached to the resource if they&apos;re not already attached
+   * @param {Array&lt;Organisation|number&gt;} organisations - List of items to attach
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
-  select(id) {
-    const data = Object.assign({}, this._seedData, this._parseSelector(id));
+  attach(organisations) {
+    return this.parent._modifyLink(organisations, &apos;POST&apos;, this.Target);
+  }
 
-    return this.new(data);
+  /**
+   * Detach organisations from the parent resource
+   * The provided organisations will be detached from the resource
+   * @param {Array&lt;Organisation|number&gt;} organisations - List of items to detach
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  detach(organisations) {
+    return this.parent._modifyLink(organisations, &apos;DELETE&apos;, this.Target);
+  }
+
+  /**
+   * Attach all organisations to the parent resource
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  attachAll() {
+    const url = this._baseUrl + &apos;/all&apos;;
+
+    return this.api.request(url, &apos;POST&apos;);
+  }
+
+  /**
+   * Attach all organisations to the parent resource
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  detachAll() {
+    const url = this._baseUrl + &apos;/all&apos;;
+
+    return this.api.request(url, &apos;DELETE&apos;);
   }
 }
 </code></pre>

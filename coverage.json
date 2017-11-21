@@ -1,7 +1,7 @@
 {
-  "coverage": "79.27%",
-  "expectCount": 415,
-  "actualCount": 329,
+  "coverage": "79.47%",
+  "expectCount": 419,
+  "actualCount": 333,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -108,7 +108,7 @@
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        40,
+        50,
         37
       ]
     },
@@ -285,12 +285,17 @@
         132
       ]
     },
-    "src/traits/OwnableResource.js": {
-      "expectCount": 7,
-      "actualCount": 6,
+    "src/proxy/OrganisationProxy.js": {
+      "expectCount": 8,
+      "actualCount": 7,
       "undocumentLines": [
-        40
+        35
       ]
+    },
+    "src/traits/OwnableResource.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "src/PaginatedResourceListing.js": {
       "expectCount": 25,
@@ -348,7 +353,7 @@
         46
       ]
     },
-    "src/ResourceProxy.js": {
+    "src/proxy/ResourceProxy.js": {
       "expectCount": 4,
       "actualCount": 4,
       "undocumentLines": []
@@ -361,7 +366,7 @@
         22
       ]
     },
-    "src/SimpleResourceProxy.js": {
+    "src/proxy/SimpleResourceProxy.js": {
       "expectCount": 8,
       "actualCount": 8,
       "undocumentLines": []

@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">SimpleResourceProxy | API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">OrganisationProxy | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -42,8 +42,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums.js~Enum.html">Enum</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
@@ -92,6 +90,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuth.js~OAuth.html">OAuth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/OAuthToken.js~OAuthToken.html">OAuthToken</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/oauth/PasswordFlow.js~PasswordFlow.html">PasswordFlow</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">proxy</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html">OrganisationProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/proxy/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">traits</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
@@ -106,24 +107,24 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import SimpleResourceProxy from &apos;<span><a href="file/src/SimpleResourceProxy.js.html#lineNumber43">@mapcreator/maps4news/src/SimpleResourceProxy.js</a></span>&apos;</code></pre></div>
-  <span data-ice="access">protected</span>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import OrganisationProxy from &apos;<span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber35">@mapcreator/maps4news/src/proxy/OrganisationProxy.js</a></span>&apos;</code></pre></div>
+  <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/SimpleResourceProxy.js.html#lineNumber43">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber35">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">SimpleResourceProxy</h1>
+  <h1 data-ice="name">OrganisationProxy</h1>
 
   
 
   
   
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span> &#x2192; OrganisationProxy</div></div>
   
-  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="class/src/ResourceProxy.js~ResourceProxy.html">ResourceProxy</a></span></div></div>
   
   
   
@@ -132,9 +133,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Proxy for accessing resource. This will make sure that they
-are properly wrapped before the promise resolves.</p>
-</div>
+  
   
 
   
@@ -165,7 +164,7 @@ are properly wrapped before the promise resolves.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>, Target: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>, altUrl: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, seedData: <span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span>)</span>
+          <span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>, parent: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>)</span>
         </p>
       </div>
       <div>
@@ -199,69 +198,13 @@ are properly wrapped before the promise resolves.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-Target">Target</a></span></span><span data-ice="signature">: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>: <span>*</span></span>
+          <span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-get-parent">parent</a></span></span><span data-ice="signature">: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Target to wrap results in</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-accessorName">accessorName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>The name of the target</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-api">api</a></span></span><span data-ice="signature">: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get api instance</p>
+        <div data-ice="description"><p>Returns parent instance</p>
 </div>
       </div>
     </td>
@@ -290,7 +233,242 @@ are properly wrapped before the promise resolves.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-list">list</a></span></span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          <span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-method-attach">attach</a></span></span><span data-ice="signature">(organisations: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Attach organisations to the parent resource
+The provided organisations will be attached to the resource if they&apos;re not already attached</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-method-attachAll">attachAll</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Attach all organisations to the parent resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-method-detach">detach</a></span></span><span data-ice="signature">(organisations: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Detach organisations from the parent resource
+The provided organisations will be detached from the resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-method-detachAll">detachAll</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Attach all organisations to the parent resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-method-sync">sync</a></span></span><span data-ice="signature">(organisations: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Sync organisations to the parent resource
+The organisations attached to the target resource will be replaced with the organisations provided in the request.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="inherited-summary" data-ice="inheritedSummary"><h2>Inherited Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span></td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-Target">Target</a></span></span><span data-ice="signature">: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Target to wrap results in</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-accessorName">accessorName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The name of the target</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-get-api">api</a></span></span><span data-ice="signature">: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get api instance</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-list">list</a></span></span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
@@ -318,7 +496,7 @@ are properly wrapped before the promise resolves.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-listAndWrap">listAndWrap</a></span></span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>): <span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span>
+          <span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-listAndWrap">listAndWrap</a></span></span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>): <span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span>
         </p>
       </div>
       <div>
@@ -346,7 +524,7 @@ are properly wrapped before the promise resolves.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-new">new</a></span></span><span data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span>*</span>&gt;): <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span>
+          <span data-ice="name"><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-new">new</a></span></span><span data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span>*</span>&gt;): <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span>
         </p>
       </div>
       <div>
@@ -367,8 +545,6 @@ are properly wrapped before the promise resolves.</p>
 
 
 
-
-
 <div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
 
 <div class="detail" data-ice="detail">
@@ -379,11 +555,11 @@ are properly wrapped before the promise resolves.</p>
     
     
     
-    <span data-ice="name">constructor</span><span data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>, Target: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>, altUrl: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, seedData: <span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span>)</span>
+    <span data-ice="name">constructor</span><span data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>, parent: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/SimpleResourceProxy.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber40">source</a></span></span>
     </span>
   </h3>
 
@@ -392,7 +568,7 @@ are properly wrapped before the promise resolves.</p>
   
   
 
-  
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-constructor-constructor">SimpleResourceProxy#constructor</a></span></div>
 
   <div data-ice="properties"><div data-ice="properties">
   <h4 data-ice="title">Params:</h4>
@@ -410,26 +586,10 @@ are properly wrapped before the promise resolves.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">Target</td>
+      <td data-ice="name" data-depth="0">parent</td>
       <td data-ice="type"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Target to wrap</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">altUrl</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: null</li>
-<li>nullable: true</li></ul></td>
-      <td data-ice="description"><p>Internal use, Optional alternative url for more complex routing</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">seedData</td>
-      <td data-ice="type"><span><a href="class/src/crud/JobRevision.js~JobRevision.html#instance-method-object">object</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Internal use, used for seeding ::new</p>
+      <td data-ice="description"><p>parent instance</p>
 </td>
     </tr>
 </tbody>
@@ -458,25 +618,25 @@ are properly wrapped before the promise resolves.</p>
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-Target">
+  <h3 data-ice="anchor" id="instance-get-parent">
     <span class="access" data-ice="access">public</span>
     
     <span class="kind" data-ice="kind">get</span>
     
     
     
-    <span data-ice="name">Target</span><span data-ice="signature">: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>: <span>*</span></span>
+    <span data-ice="name">parent</span><span data-ice="signature">: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/SimpleResourceProxy.js.html#lineNumber89">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber53">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Target to wrap results in</p>
+  <div data-ice="description"><p>Returns parent instance</p>
 </div>
 
   
@@ -490,129 +650,7 @@ are properly wrapped before the promise resolves.</p>
       <tbody>
         <tr>
           <td class="return-type" data-ice="returnType"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Target constructor</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-accessorName">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span data-ice="name">accessorName</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/SimpleResourceProxy.js.html#lineNumber100">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>The name of the target</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Target name</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">api.colors.accessorName === &apos;Color&apos;
-api.fontFamilies.accessorName = &apos;Font Families&apos;</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-api">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span data-ice="name">api</span><span data-ice="signature">: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/SimpleResourceProxy.js.html#lineNumber80">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get api instance</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Api instance</p>
+          <td class="return-desc" data-ice="returnDescription"><p>parent instance</p>
 </td>
         </tr>
       </tbody>
@@ -640,25 +678,26 @@ api.fontFamilies.accessorName = &apos;Font Families&apos;</code></pre>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-list">
+  <h3 data-ice="anchor" id="instance-method-attach">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span data-ice="name">list</span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span data-ice="name">attach</span><span data-ice="signature">(organisations: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/SimpleResourceProxy.js.html#lineNumber135">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber73">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>List target resource</p>
+  <div data-ice="description"><p>Attach organisations to the parent resource
+The provided organisations will be attached to the resource if they&apos;re not already attached</p>
 </div>
 
   
@@ -672,50 +711,10 @@ api.fontFamilies.accessorName = &apos;Font Families&apos;</code></pre>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">params</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>Parameters or the page number to be requested</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.page</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 1</li></ul></td>
-      <td data-ice="description"><p>The page to be requested</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.perPage</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: this.api.defaults.perPage</li></ul></td>
-      <td data-ice="description"><p>Amount of items per page. This is silently capped by the API</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.sort</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: &apos;&apos;</li></ul></td>
-      <td data-ice="description"><p>Amount of items per page. This is silently capped by the API</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.deleted</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: this.api.defaults.showDeleted</li></ul></td>
-      <td data-ice="description"><p>Show deleted resources, posible values: only, none, all</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.search</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;</td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>nullable: true</li></ul></td>
-      <td data-ice="description"><p>Search parameters</p>
+      <td data-ice="name" data-depth="0">organisations</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>List of items to attach</p>
 </td>
     </tr>
 </tbody>
@@ -729,7 +728,7 @@ api.fontFamilies.accessorName = &apos;Font Families&apos;</code></pre>
       <tbody>
         <tr>
           <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Resolves with <span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span> instance and rejects with <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span></p>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise will resolve with no value and reject with an <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span> instance.</p>
 </td>
         </tr>
       </tbody>
@@ -746,21 +745,7 @@ api.fontFamilies.accessorName = &apos;Font Families&apos;</code></pre>
 
   
 
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
-// See Api documentation for search query syntax
-const search = {
-  name: &apos;^:test&apos;,
-  scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
-};
-
-api.layers.list({perPage: 10, search});</code></pre>
-    </div>
-</div>
+  
 
   
 
@@ -768,95 +753,30 @@ api.layers.list({perPage: 10, search});</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-listAndWrap">
+  <h3 data-ice="anchor" id="instance-method-attachAll">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span data-ice="name">listAndWrap</span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>): <span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span>
+    <span data-ice="name">attachAll</span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/SimpleResourceProxy.js.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber91">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>List target resource</p>
+  <div data-ice="description"><p>Attach all organisations to the parent resource</p>
 </div>
 
   
 
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">params</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>Parameters or the page to be requested</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.page</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 1</li></ul></td>
-      <td data-ice="description"><p>The page to be requested</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.perPage</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: this.api.defaults.perPage</li></ul></td>
-      <td data-ice="description"><p>Amount of items per page. This is silently capped by the API</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.sort</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: &apos;&apos;</li></ul></td>
-      <td data-ice="description"><p>Amount of items per page. This is silently capped by the API</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.deleted</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: this.api.defaults.showDeleted</li></ul></td>
-      <td data-ice="description"><p>Show deleted resources, posible values: only, none, all</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.shareCache</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: this.api.defaults.shareCache</li></ul></td>
-      <td data-ice="description"><p>Share cache across instances</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" data-depth="1">params.search</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;&gt;</td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>nullable: true</li></ul></td>
-      <td data-ice="description"><p>Search parameters</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
+  <div data-ice="properties">
 </div>
 
   <div class="return-params" data-ice="returnParams">
@@ -864,8 +784,8 @@ api.layers.list({perPage: 10, search});</code></pre>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Wrapped paginated resource</p>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise will resolve with no value and reject with an <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span> instance.</p>
 </td>
         </tr>
       </tbody>
@@ -882,21 +802,7 @@ api.layers.list({perPage: 10, search});</code></pre>
 
   
 
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Find layers with a name that starts with &quot;test&quot; and a scale_min between 1 and 10
-// See Api documentation for search query syntax
-const search = {
-  name: &apos;^:test&apos;,
-  scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
-};
-
-api.layers.listandWrap({perPage: 10, search});</code></pre>
-    </div>
-</div>
+  
 
   
 
@@ -904,25 +810,26 @@ api.layers.listandWrap({perPage: 10, search});</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-new">
+  <h3 data-ice="anchor" id="instance-method-detach">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span data-ice="name">new</span><span data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span>*</span>&gt;): <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span>
+    <span data-ice="name">detach</span><span data-ice="signature">(organisations: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/SimpleResourceProxy.js.html#lineNumber109">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber83">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Build a new instance of the target</p>
+  <div data-ice="description"><p>Detach organisations from the parent resource
+The provided organisations will be detached from the resource</p>
 </div>
 
   
@@ -936,10 +843,10 @@ api.layers.listandWrap({perPage: 10, search});</code></pre>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">data</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, <span>*</span>&gt;</td>
+      <td data-ice="name" data-depth="0">organisations</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;</td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Data for the object to be populated with</p>
+      <td data-ice="description"><p>List of items to detach</p>
 </td>
     </tr>
 </tbody>
@@ -952,8 +859,140 @@ api.layers.listandWrap({perPage: 10, search});</code></pre>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Resource with target data</p>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise will resolve with no value and reject with an <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span> instance.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-detachAll">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">detachAll</span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber101">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Attach all organisations to the parent resource</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise will resolve with no value and reject with an <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span> instance.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-sync">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">sync</span><span data-ice="signature">(organisations: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/proxy/OrganisationProxy.js.html#lineNumber63">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Sync organisations to the parent resource
+The organisations attached to the target resource will be replaced with the organisations provided in the request.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">organisations</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/crud/Organisation.js~Organisation.html">Organisation</a></span>|<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>List of items to sync</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise will resolve with no value and reject with an <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span> instance.</p>
 </td>
         </tr>
       </tbody>
