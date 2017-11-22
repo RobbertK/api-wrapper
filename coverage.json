@@ -1,7 +1,7 @@
 {
-  "coverage": "79.57%",
+  "coverage": "79.81%",
   "expectCount": 426,
-  "actualCount": 339,
+  "actualCount": 340,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -299,10 +299,8 @@
     },
     "src/proxy/OwnedResourceProxy.js": {
       "expectCount": 7,
-      "actualCount": 6,
-      "undocumentLines": [
-        40
-      ]
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "src/PaginatedResourceListing.js": {
       "expectCount": 25,

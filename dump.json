@@ -15863,7 +15863,7 @@
     "__docId__": 565,
     "kind": "file",
     "name": "src/proxy/OwnedResourceProxy.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {getTypeName} from '../utils/reflection';\nimport SimpleResourceProxy from './SimpleResourceProxy';\n\n/**\n * Used for proxying resource => organisation\n */\nexport default class OwnedResourceProxy extends SimpleResourceProxy {\n  constructor(api, parent, Target) {\n    const resource = (new Target(api)).resourceName.replace(/s+$/, '');\n    const url = `${parent.url}/${resource}s`;\n\n    super(api, Target, url);\n  }\n\n  /**\n   * Sync items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   * @deprecated\n   */\n  sync(items) {\n    return this._modifyResourceLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   * @deprecated\n   */\n  attach(items) {\n    return this._modifyResourceLink(items, 'POST');\n  }\n\n  /**\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   * @deprecated\n   */\n  detach(items) {\n    return this._modifyResourceLink(items, 'DELETE');\n  }\n\n  /**\n   * Attach parent resource to all organisations\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachAll() {\n    const url = this._baseUrl + '/all';\n\n    return this.api.request(url, 'POST');\n  }\n\n  /**\n   * Detach parent resource to all organisations\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachAll() {\n    const url = this._baseUrl + '/all';\n\n    return this.api.request(url, 'DELETE');\n  }\n\n  /**\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync, attach or detach\n   * @param {string} method - http method\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyResourceLink(items, method) {\n    if (!(items instanceof Array)) {\n      items = [items];\n    }\n\n    const validData = items\n      .map(getTypeName)\n      .filter(x => !['Number', 'Organisation'].includes(x))\n      .length === 0;\n\n    if (!validData) {\n      throw new TypeError('Expected items to be of type Array<Organisation>, Array<number>, Organisation or number}');\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : Number(x.id));\n\n    return this.api.request(this._baseUrl, method, {keys});\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {getTypeName} from '../utils/reflection';\nimport SimpleResourceProxy from './SimpleResourceProxy';\n\n/**\n * Used for proxying resource => organisation\n */\nexport default class OwnedResourceProxy extends SimpleResourceProxy {\n  /**\n   * OwnedResourceProxy Constructor\n   * @param {Maps4News} api - api instance\n   * @param {Organisation} parent - parent instance\n   * @param {constructor} Target - target constructor\n   */\n  constructor(api, parent, Target) {\n    const resource = (new Target(api)).resourceName.replace(/s+$/, '');\n    const url = `${parent.url}/${resource}s`;\n\n    super(api, Target, url);\n  }\n\n  /**\n   * Sync items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   */\n  sync(items) {\n    return this._modifyResourceLink(items, 'PATCH');\n  }\n\n  /**\n   * Attach items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   */\n  attach(items) {\n    return this._modifyResourceLink(items, 'POST');\n  }\n\n  /**\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   */\n  detach(items) {\n    return this._modifyResourceLink(items, 'DELETE');\n  }\n\n  /**\n   * Attach parent resource to all organisations\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  attachAll() {\n    const url = this._baseUrl + '/all';\n\n    return this.api.request(url, 'POST');\n  }\n\n  /**\n   * Detach parent resource to all organisations\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   */\n  detachAll() {\n    const url = this._baseUrl + '/all';\n\n    return this.api.request(url, 'DELETE');\n  }\n\n  /**\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync, attach or detach\n   * @param {string} method - http method\n   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.\n   * @private\n   */\n  _modifyResourceLink(items, method) {\n    if (!(items instanceof Array)) {\n      items = [items];\n    }\n\n    const validData = items\n      .map(getTypeName)\n      .filter(x => !['Number', 'Organisation'].includes(x))\n      .length === 0;\n\n    if (!validData) {\n      throw new TypeError('Expected items to be of type Array<Organisation>, Array<number>, Organisation or number}');\n    }\n\n    const keys = items.map(x => typeof x === 'number' ? x : Number(x.id));\n\n    return this.api.request(this._baseUrl, method, {keys});\n  }\n}\n",
     "static": true,
     "longname": "src/proxy/OwnedResourceProxy.js",
     "access": null,
@@ -15898,33 +15898,38 @@
     "static": false,
     "longname": "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 40,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "OwnedResourceProxy Constructor",
+    "lineNumber": 46,
     "params": [
       {
+        "nullable": null,
+        "types": [
+          "Maps4News"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "api",
-        "types": [
-          "*"
-        ]
+        "description": "api instance"
       },
       {
+        "nullable": null,
+        "types": [
+          "Organisation"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "parent",
-        "types": [
-          "*"
-        ]
+        "description": "parent instance"
       },
       {
-        "name": "Target",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "constructor"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "Target",
+        "description": "target constructor"
       }
     ]
   },
@@ -15942,8 +15947,7 @@
     "see": [
       "http://es6-features.org/#PromiseCombination"
     ],
-    "lineNumber": 55,
-    "deprecated": true,
+    "lineNumber": 60,
     "unknown": [
       {
         "tagName": "@returns",
@@ -15993,8 +15997,7 @@
     "see": [
       "http://es6-features.org/#PromiseCombination"
     ],
-    "lineNumber": 67,
-    "deprecated": true,
+    "lineNumber": 71,
     "unknown": [
       {
         "tagName": "@returns",
@@ -16044,8 +16047,7 @@
     "see": [
       "http://es6-features.org/#PromiseCombination"
     ],
-    "lineNumber": 79,
-    "deprecated": true,
+    "lineNumber": 82,
     "unknown": [
       {
         "tagName": "@returns",
@@ -16092,7 +16094,7 @@
     "longname": "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#attachAll",
     "access": null,
     "description": "Attach parent resource to all organisations",
-    "lineNumber": 87,
+    "lineNumber": 90,
     "unknown": [
       {
         "tagName": "@returns",
@@ -16120,7 +16122,7 @@
     "longname": "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#detachAll",
     "access": null,
     "description": "Detach parent resource to all organisations",
-    "lineNumber": 97,
+    "lineNumber": 100,
     "unknown": [
       {
         "tagName": "@returns",
@@ -16148,7 +16150,7 @@
     "longname": "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#_modifyResourceLink",
     "access": "private",
     "description": "",
-    "lineNumber": 109,
+    "lineNumber": 112,
     "unknown": [
       {
         "tagName": "@returns",

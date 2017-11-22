@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:6f381d7ffb1012365d3b, chunkhash:7d28dd6cb5cdf5c23339, name:bundle, version:v1.1.81
+ * hash:aca38f6c97b945b971b0, chunkhash:4f62568f1c658e5bde79, name:bundle, version:v1.1.82
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.81) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.82) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -14462,7 +14462,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.81";
+var version = exports.version = "v1.1.82";
 
 /**
  * Package license
@@ -18533,6 +18533,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var OwnedResourceProxy = function (_SimpleResourceProxy) {
   _inherits(OwnedResourceProxy, _SimpleResourceProxy);
 
+  /**
+   * OwnedResourceProxy Constructor
+   * @param {Maps4News} api - api instance
+   * @param {Organisation} parent - parent instance
+   * @param {constructor} Target - target constructor
+   */
   function OwnedResourceProxy(api, parent, Target) {
     _classCallCheck(this, OwnedResourceProxy);
 
@@ -18548,7 +18554,6 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
    * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
    * @throws {TypeError} If the provided items are not of the same type as the proxy target
    * @see http://es6-features.org/#PromiseCombination
-   * @deprecated
    */
 
 
@@ -18564,7 +18569,6 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
      * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
      * @throws {TypeError}If the provided items are not of the same type as the proxy target
      * @see http://es6-features.org/#PromiseCombination
-     * @deprecated
      */
 
   }, {
@@ -18579,7 +18583,6 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
      * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
      * @throws {TypeError} If the provided items are not of the same type as the proxy target
      * @see http://es6-features.org/#PromiseCombination
-     * @deprecated
      */
 
   }, {
