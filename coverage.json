@@ -1,14 +1,14 @@
 {
-  "coverage": "79.47%",
-  "expectCount": 419,
-  "actualCount": 333,
+  "coverage": "79.57%",
+  "expectCount": 426,
+  "actualCount": 339,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        58,
-        67
+        67,
+        58
       ]
     },
     "src/errors/ApiError.js": {
@@ -281,8 +281,8 @@
       "expectCount": 16,
       "actualCount": 14,
       "undocumentLines": [
-        47,
-        132
+        48,
+        137
       ]
     },
     "src/proxy/OrganisationProxy.js": {
@@ -296,6 +296,13 @@
       "expectCount": 3,
       "actualCount": 3,
       "undocumentLines": []
+    },
+    "src/proxy/OwnedResourceProxy.js": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        40
+      ]
     },
     "src/PaginatedResourceListing.js": {
       "expectCount": 25,

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/errors/OAuthError.js | API Document</title>
+  <title data-ice="title">src/proxy/OwnedResourceProxy.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -107,7 +107,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/errors/OAuthError.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/proxy/OwnedResourceProxy.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
@@ -140,52 +140,99 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import {getTypeName} from &apos;../utils/reflection&apos;;
+import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
+
 /**
- * OAuth error
+ * Used for proxying resource =&gt; organisation
  */
-export default class OAuthError extends Error {
-  /**
-   * OAuth error response
-   * @param {String} error - OAuth error key
-   * @param {String} message - OAuth error message
-   */
-  constructor(error, message = &apos;&apos;) {
-    super();
-    this._error = String(error);
-    this._message = String(message);
+export default class OwnedResourceProxy extends SimpleResourceProxy {
+  constructor(api, parent, Target) {
+    const resource = (new Target(api)).resourceName.replace(/s+$/, &apos;&apos;);
+    const url = `${parent.url}/${resource}s`;
+
+    super(api, Target, url);
   }
 
   /**
-   * OAuth error message
-   * @returns {String} - message
+   * Sync items to the organisation
+   * @param {Array&lt;Organisation&gt;|Array&lt;number&gt;|Organisation|number} items - List of items to sync
+   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
+   * @throws {TypeError} If the provided items are not of the same type as the proxy target
+   * @see http://es6-features.org/#PromiseCombination
+   * @deprecated
    */
-  get message() {
-    return this._message;
+  sync(items) {
+    return this._modifyResourceLink(items, &apos;PATCH&apos;);
   }
 
   /**
-   * OAuth error code
-   * @returns {String} - error
+   * Attach items to the organisation
+   * @param {Array&lt;Organisation&gt;|Array&lt;number&gt;|Organisation|number} items - List of items to attach
+   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
+   * @throws {TypeError}If the provided items are not of the same type as the proxy target
+   * @see http://es6-features.org/#PromiseCombination
+   * @deprecated
    */
-  get error() {
-    return this._error;
+  attach(items) {
+    return this._modifyResourceLink(items, &apos;POST&apos;);
   }
 
   /**
-   * Displayable error string
-   * @returns {String} - error
+   * Detach items from the organisation
+   * @param {Array&lt;Organisation&gt;|Array&lt;number&gt;|Organisation|number} items - List of items to unlink
+   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
+   * @throws {TypeError} If the provided items are not of the same type as the proxy target
+   * @see http://es6-features.org/#PromiseCombination
+   * @deprecated
    */
-  toString() {
-    let error = this._error;
+  detach(items) {
+    return this._modifyResourceLink(items, &apos;DELETE&apos;);
+  }
 
-    if (error.includes(&apos;_&apos;)) {
-      error = error.replace(&apos;_&apos;, &apos; &apos;).replace(/^./, x =&gt; x.toUpperCase());
+  /**
+   * Attach parent resource to all organisations
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  attachAll() {
+    const url = this._baseUrl + &apos;/all&apos;;
+
+    return this.api.request(url, &apos;POST&apos;);
+  }
+
+  /**
+   * Detach parent resource to all organisations
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   */
+  detachAll() {
+    const url = this._baseUrl + &apos;/all&apos;;
+
+    return this.api.request(url, &apos;DELETE&apos;);
+  }
+
+  /**
+   * @param {Array&lt;Organisation&gt;|Array&lt;number&gt;|Organisation|number} items - List of items to sync, attach or detach
+   * @param {string} method - http method
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   * @private
+   */
+  _modifyResourceLink(items, method) {
+    if (!(items instanceof Array)) {
+      items = [items];
     }
 
-    if (this._message) {
-      return `${error}: ${this._message}`;
+    const validData = items
+      .map(getTypeName)
+      .filter(x =&gt; ![&apos;Number&apos;, &apos;Organisation&apos;].includes(x))
+      .length === 0;
+
+    if (!validData) {
+      throw new TypeError(&apos;Expected items to be of type Array&lt;Organisation&gt;, Array&lt;number&gt;, Organisation or number}&apos;);
     }
-    return error;
+
+    const keys = items.map(x =&gt; typeof x === &apos;number&apos; ? x : Number(x.id));
+
+    return this.api.request(this._baseUrl, method, {keys});
   }
 }
 </code></pre>

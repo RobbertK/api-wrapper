@@ -258,6 +258,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/proxy/ownedresourceproxy.js~ownedresourceproxy",
+    "class/src/proxy/OwnedResourceProxy.js~OwnedResourceProxy.html",
+    "<span>OwnedResourceProxy</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/proxy/OwnedResourceProxy.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/paginatedresourcelisting.js~paginatedresourcelisting",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html",
     "<span>PaginatedResourceListing</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/PaginatedResourceListing.js</span>",
@@ -1051,13 +1057,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#deleted",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-deleted",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-deleted",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#deleted",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#deleted",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-deleted",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-deleted",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#deleted",
     "member"
   ],
@@ -1123,25 +1129,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
-    "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
-    "member"
-  ],
-  [
-    "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
-    "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
-    "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-route",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
+    "member"
+  ],
+  [
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "member"
   ],
@@ -1153,13 +1159,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#sort",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-sort",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-sort",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#sort",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#sort",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-sort",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-sort",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#sort",
     "member"
   ],
@@ -1375,25 +1381,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#search",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-search",
-    "src/RequestParameters.js~RequestParameters#search",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters#search",
     "class/src/RequestParameters.js~RequestParameters.html#instance-get-search",
     "src/RequestParameters.js~RequestParameters#search",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters#sort",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
-    "src/RequestParameters.js~RequestParameters#sort",
+    "src/requestparameters.js~requestparameters#search",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-search",
+    "src/RequestParameters.js~RequestParameters#search",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#sort",
     "class/src/RequestParameters.js~RequestParameters.html#instance-set-sort",
+    "src/RequestParameters.js~RequestParameters#sort",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters#sort",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
     "src/RequestParameters.js~RequestParameters#sort",
     "member"
   ],
@@ -1435,25 +1441,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.page",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-page",
-    "src/RequestParameters.js~RequestParameters.page",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters.page",
     "class/src/RequestParameters.js~RequestParameters.html#static-set-page",
     "src/RequestParameters.js~RequestParameters.page",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters.perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-perPage",
-    "src/RequestParameters.js~RequestParameters.perPage",
+    "src/requestparameters.js~requestparameters.page",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-page",
+    "src/RequestParameters.js~RequestParameters.page",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.perpage",
     "class/src/RequestParameters.js~RequestParameters.html#static-set-perPage",
+    "src/RequestParameters.js~RequestParameters.perPage",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters.perpage",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-perPage",
     "src/RequestParameters.js~RequestParameters.perPage",
     "member"
   ],
@@ -1477,13 +1483,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.sort",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-sort",
     "src/RequestParameters.js~RequestParameters.sort",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.sort",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-sort",
     "src/RequestParameters.js~RequestParameters.sort",
     "member"
   ],
@@ -3081,6 +3087,48 @@ window.esdocSearchIndex = [
     "src/proxy/organisationproxy.js~organisationproxy#sync",
     "class/src/proxy/OrganisationProxy.js~OrganisationProxy.html#instance-method-sync",
     "src/proxy/OrganisationProxy.js~OrganisationProxy#sync",
+    "method"
+  ],
+  [
+    "src/proxy/ownedresourceproxy.js",
+    "file/src/proxy/OwnedResourceProxy.js.html",
+    "src/proxy/OwnedResourceProxy.js",
+    "file"
+  ],
+  [
+    "src/proxy/ownedresourceproxy.js~ownedresourceproxy#attach",
+    "class/src/proxy/OwnedResourceProxy.js~OwnedResourceProxy.html#instance-method-attach",
+    "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#attach",
+    "method"
+  ],
+  [
+    "src/proxy/ownedresourceproxy.js~ownedresourceproxy#attachall",
+    "class/src/proxy/OwnedResourceProxy.js~OwnedResourceProxy.html#instance-method-attachAll",
+    "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#attachAll",
+    "method"
+  ],
+  [
+    "src/proxy/ownedresourceproxy.js~ownedresourceproxy#constructor",
+    "class/src/proxy/OwnedResourceProxy.js~OwnedResourceProxy.html#instance-constructor-constructor",
+    "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#constructor",
+    "method"
+  ],
+  [
+    "src/proxy/ownedresourceproxy.js~ownedresourceproxy#detach",
+    "class/src/proxy/OwnedResourceProxy.js~OwnedResourceProxy.html#instance-method-detach",
+    "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#detach",
+    "method"
+  ],
+  [
+    "src/proxy/ownedresourceproxy.js~ownedresourceproxy#detachall",
+    "class/src/proxy/OwnedResourceProxy.js~OwnedResourceProxy.html#instance-method-detachAll",
+    "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#detachAll",
+    "method"
+  ],
+  [
+    "src/proxy/ownedresourceproxy.js~ownedresourceproxy#sync",
+    "class/src/proxy/OwnedResourceProxy.js~OwnedResourceProxy.html#instance-method-sync",
+    "src/proxy/OwnedResourceProxy.js~OwnedResourceProxy#sync",
     "method"
   ],
   [
