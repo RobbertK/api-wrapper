@@ -1,14 +1,14 @@
 {
-  "coverage": "79.81%",
-  "expectCount": 426,
-  "actualCount": 340,
+  "coverage": "79.66%",
+  "expectCount": 423,
+  "actualCount": 337,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        67,
-        58
+        58,
+        67
       ]
     },
     "src/errors/ApiError.js": {
@@ -278,11 +278,11 @@
       ]
     },
     "src/crud/Organisation.js": {
-      "expectCount": 16,
-      "actualCount": 14,
+      "expectCount": 13,
+      "actualCount": 11,
       "undocumentLines": [
         48,
-        137
+        49
       ]
     },
     "src/proxy/OrganisationProxy.js": {

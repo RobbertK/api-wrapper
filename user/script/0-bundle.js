@@ -31,20 +31,20 @@
  * 
  */
 /*!
- * hash:aca38f6c97b945b971b0, chunkhash:4f62568f1c658e5bde79, name:bundle, version:v1.1.82
+ * hash:b8c2254159fca0ba77f4, chunkhash:b961a9daa1c1d4529058, name:bundle, version:v1.1.85
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.82) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.85) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  │  └─ regenerator-runtime (0.11.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime ~ regenerator-runtime/package.json
  *    │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
- *    ├─ case (1.5.3) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
+ *    ├─ case (1.5.4) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
  *    ├─ fetch-ponyfill (4.1.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/fetch-ponyfill/package.json
  *    │  └─ node-fetch (1.7.3) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/node-fetch/package.json
  *    │     ├─ encoding (0.1.12) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/encoding/package.json
- *    │     │  └─ iconv-lite (0.4.18) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/iconv-lite/package.json
+ *    │     │  └─ iconv-lite (0.4.19) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/iconv-lite/package.json
  *    │     └─ is-stream (1.1.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/is-stream/package.json
  *    ├─ formdata-polyfill (2.0.4) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/formdata-polyfill/package.json
  *    ├─ json-stable-stringify (1.0.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/json-stable-stringify/package.json
@@ -4480,7 +4480,7 @@ exports.default = Maps4News;
 /* 63 */
 /***/ (function(module, exports) {
 
-/*! Case - v1.5.3 - 2017-07-11
+/*! Case - v1.5.4 - 2017-10-23
 * Copyright (c) 2017 Nathan Bubna; Licensed MIT, GPL */
 (function() {
     "use strict";
@@ -4596,9 +4596,6 @@ exports.default = Maps4News;
         kebab: function(s) {
             return Case.lower(s, '-', true);
         },
-        header: function(s) {
-            return Case.capital(s, '-', true);
-        },
         upper: function(s, fill, deapostrophe) {
             return _.fill(_.up.call(_.prep(s, fill, false, true)), fill, deapostrophe);
         },
@@ -4606,6 +4603,9 @@ exports.default = Maps4News;
             return _.fill(_.prep(s).replace(re.capitalize, function(m, border, letter) {
                 return border+_.up.call(letter);
             }), fill, deapostrophe);
+        },
+        header: function(s) {
+            return Case.capital(s, '-', true);
         },
         pascal: function(s) {
             return _.fill(_.prep(s, false, true).replace(re.pascal, function(m, border, letter) {
@@ -7113,150 +7113,6 @@ var Organisation = function (_CrudBase) {
   }
 
   _createClass(Organisation, [{
-    key: 'sync',
-
-    /**
-     * Sync items to the organisation
-     * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync
-     * @returns {Array<Promise>|Promise} - Array containing promises for each item type. Each will resolve with an empty {@link Object} and reject with an {@link ApiError} instance.
-     * @throws {TypeError} If the provided items contain anything that is not ownable
-     * @see http://es6-features.org/#PromiseCombination
-     * @deprecated
-     */
-    value: function sync(items) {
-      return this._modifyResourceLink(items, 'PATCH');
-    }
-
-    /**
-     * Attach items to the organisation
-     * @param {Array<ResourceBase>|ResourceBase} items - List of items to attach
-     * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
-     * @throws {TypeError} If the provided items contain anything that is not ownable
-     * @see http://es6-features.org/#PromiseCombination
-     * @deprecated
-     */
-
-  }, {
-    key: 'attach',
-    value: function attach(items) {
-      return this._modifyResourceLink(items, 'POST');
-    }
-
-    /**
-     * Detach items from the organisation
-     * @param {Array<ResourceBase>|ResourceBase} items - List of items to unlink
-     * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
-     * @throws {TypeError} If the provided items contain anything that is not ownable
-     * @see http://es6-features.org/#PromiseCombination
-     * @deprecated
-     */
-
-  }, {
-    key: 'detach',
-    value: function detach(items) {
-      return this._modifyResourceLink(items, 'DELETE');
-    }
-
-    /**
-     * Sync, attach or unlink resources
-     * @param {Array<ResourceBase>|ResourceBase} items - List of items to sync or attach
-     * @param {String} method - Http method to use
-     * @returns {Array<Promise>|Promise} - Array containing promises for each item type Each will resolve with no value and reject with an {@link ApiError} instance.
-     * @throws {TypeError} If the provided items contain anything that is not ownable
-     * @private
-     * @deprecated
-     */
-
-  }, {
-    key: '_modifyResourceLink',
-    value: function _modifyResourceLink(items, method) {
-      var isCollection = items instanceof Array;
-      var collections = this._reduceOwnable(isCollection ? items : [items]);
-      var out = [];
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = Object.keys(collections)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var key = _step.value;
-
-          var url = this.url + '/' + key;
-          var data = { keys: collections[key] };
-          var promise = this.api.request(url, method, data);
-
-          out.push(promise);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      return isCollection ? out : out[0];
-    }
-
-    /**
-     * Reduce the items to a more usable list
-     * @param {Array<ResourceBase>} items - List of items to reduce
-     * @returns {Object<String, Array<Number>>} - Object keys are resource names and the value is an array containing ids to sync/attach
-     * @throws {TypeError} If the provided items contain anything that is not ownable
-     * @private
-     */
-
-  }, {
-    key: '_reduceOwnable',
-    value: function _reduceOwnable(items) {
-      var out = {};
-
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = items[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var row = _step2.value;
-
-          if (!row.ownable) {
-            throw new TypeError(row.constructor.name + '::ownable is false. Is it ownable?\nSee: https://mapcreatoreu.github.io/api-wrapper/class/src/traits/OwnableResource.js~OwnableResource.html');
-          }
-
-          var key = row.resourceName;
-
-          if (!out[key]) {
-            out[key] = [row.id];
-          } else {
-            out[key].push(row.id);
-          }
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      return out;
-    }
-  }, {
     key: '_proxyBuilder',
 
 
@@ -7277,7 +7133,7 @@ var Organisation = function (_CrudBase) {
 
     // Resource listing
     /**
-     * Get the list font families linked to the organisation
+     * Get a proxy for font families linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7288,7 +7144,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list dimension sets linked to the organisation
+     * Get a proxy for dimension sets linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7299,7 +7155,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list mapstyle sets linked to the organisation
+     * Get a proxy for mapstyle sets linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7310,7 +7166,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list svg sets linked to the organisation
+     * Get a proxy for svg sets linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7321,7 +7177,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list colors linked to the organisation
+     * Get a proxy for colors linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7332,7 +7188,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list features linked to the organisation
+     * Get a proxy for features linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7343,7 +7199,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list layers linked to the organisation
+     * Get a proxy for layers linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7354,7 +7210,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list job types linked to the organisation
+     * Get a proxy for job types linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7365,7 +7221,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list job shares linked to the organisation
+     * Get a proxy for job shares linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7376,7 +7232,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list users linked to the organisation
+     * Get a proxy for users linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -7387,7 +7243,7 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
-     * Get the list contracts linked to the organisation
+     * Get a proxy for contracts linked to the organisation
      * @returns {SimpleResourceProxy} - A proxy for accessing the resource
      */
 
@@ -14462,7 +14318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.82";
+var version = exports.version = "v1.1.85";
 
 /**
  * Package license
