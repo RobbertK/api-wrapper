@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">FontFamily | API Document</title>
+  <title data-ice="title">Domain | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -109,23 +109,23 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import FontFamily from &apos;<span><a href="file/src/crud/FontFamily.js.html#lineNumber43">@mapcreator/maps4news/src/crud/FontFamily.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Domain from &apos;<span><a href="file/src/crud/Domain.js.html#lineNumber38">@mapcreator/maps4news/src/crud/Domain.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/crud/FontFamily.js.html#lineNumber43">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/crud/Domain.js.html#lineNumber38">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">FontFamily</h1>
+  <h1 data-ice="name">Domain</h1>
 
   
 
   
-  <div class="flat-list" data-ice="mixinExtends"><h4>Mixin Extends:</h4><div><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span>, <span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></div></div>
   
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span> &#x2192; <span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span> &#x2192; Domain</div></div>
   
   
   
@@ -135,7 +135,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Font family</p>
+  <div class="description" data-ice="description"><p>Domain resource</p>
 </div>
   
 
@@ -168,34 +168,7 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/src/crud/FontFamily.js~FontFamily.html#instance-get-resourceName">resourceName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/FontFamily.js~FontFamily.html#instance-get-resourcePath">resourcePath</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span data-ice="name"><span><a href="class/src/crud/Domain.js~Domain.html#instance-get-resourceName">resourceName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -843,97 +816,6 @@
   </tr>
 </tbody>
 </table>
-
-<table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-foreignKeyName">foreignKeyName</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get the foreign key name</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-items">items</a></span></span><span data-ice="signature">: <span><a href="class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html">SimpleResourceProxy</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get items associated with the set</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">protected</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      <span class="abstract" data-ice="abstract">abstract</span>
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-_Child">_Child</a></span></span><span data-ice="signature">: <span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Child constructor</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
 </div>
 
 
@@ -953,7 +835,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/crud/FontFamily.js.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/crud/Domain.js.html#lineNumber39">source</a></span></span>
     </span>
   </h3>
 
@@ -964,50 +846,6 @@
 </div>
 
   <div data-ice="override"><h4>Override:</h4><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName">ResourceBase#resourceName</a></span></div>
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-resourcePath">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span data-ice="name">resourcePath</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/crud/FontFamily.js.html#lineNumber44">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Resource path template</p>
-</div>
-
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourcePath">ResourceBase#resourcePath</a></span></div>
 
   <div data-ice="properties">
 </div>

@@ -1,14 +1,14 @@
 {
-  "coverage": "79.66%",
-  "expectCount": 423,
-  "actualCount": 337,
+  "coverage": "79.57%",
+  "expectCount": 426,
+  "actualCount": 339,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        58,
-        67
+        67,
+        58
       ]
     },
     "src/errors/ApiError.js": {
@@ -65,6 +65,13 @@
       "undocumentLines": [
         49,
         45
+      ]
+    },
+    "src/crud/Domain.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        39
       ]
     },
     "src/oauth/DummyFlow.js": {
@@ -278,11 +285,11 @@
       ]
     },
     "src/crud/Organisation.js": {
-      "expectCount": 13,
-      "actualCount": 11,
+      "expectCount": 14,
+      "actualCount": 12,
       "undocumentLines": [
-        48,
-        49
+        49,
+        50
       ]
     },
     "src/proxy/OrganisationProxy.js": {
