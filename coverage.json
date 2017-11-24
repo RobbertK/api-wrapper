@@ -1,14 +1,14 @@
 {
-  "coverage": "80.14%",
-  "expectCount": 428,
-  "actualCount": 343,
+  "coverage": "80.18%",
+  "expectCount": 429,
+  "actualCount": 344,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        67,
-        58
+        58,
+        67
       ]
     },
     "src/errors/ApiError.js": {
@@ -48,8 +48,8 @@
       "undocumentLines": []
     },
     "src/enums.js": {
-      "expectCount": 5,
-      "actualCount": 5,
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/crud/Dimension.js": {

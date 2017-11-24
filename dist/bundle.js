@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:33d5829be3b6a269e1ff, chunkhash:324dde84b2982b085c59, name:bundle, version:v1.1.88
+ * hash:8e7b2b6b506722e788e1, chunkhash:50480460e6bb14efd742, name:bundle, version:v1.1.89
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.88) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.89) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -5018,7 +5018,7 @@ function hashObject(data) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DeletedState = exports.Enum = undefined;
+exports.ResultStatus = exports.DeletedState = exports.Enum = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * BSD 3-Clause License
@@ -5248,6 +5248,25 @@ var DeletedState = exports.DeletedState = new Enum({
   BOTH: 'all',
   NONE: 'none',
   ONLY: 'only'
+});
+
+/**
+ * Enum containing the possible different values for {@link RequestParameters#deleted}
+ * @enum {string}
+ * @property {string} ALL - Don't discriminate between deleted items and non-deleted resources
+ * @property {string} QUEUED - Job has been queued
+ * @property {string} PROCESSING - Job is processing
+ * @property {string} COMPLETED - Job has been completed
+ * @property {string} CANCEL - Job has been canceled
+ * @property {string} FAILED - Job has failed
+ * @readonly
+ */
+var ResultStatus = exports.ResultStatus = new Enum({
+  QUEUED: 'queued',
+  PROCESSING: 'processing',
+  COMPLETED: 'completed',
+  CANCEL: 'canceled',
+  FAILED: 'failed'
 });
 
 /***/ }),
@@ -14463,7 +14482,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.88";
+var version = exports.version = "v1.1.89";
 
 /**
  * Package license
