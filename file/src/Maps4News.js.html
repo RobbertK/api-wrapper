@@ -303,7 +303,7 @@ export default class Maps4News {
   request(url, method = &apos;GET&apos;, data = {}, headers = {}, bundleResponse = false) {
     if (!url.startsWith(&apos;http&apos;)) {
       // Removes &apos;/&apos; at the start of the string (if any)
-      url = url.replace(/(^\/+)/, () =&gt; &apos;&apos;);
+      url = url.replace(/(^\/+)/g, () =&gt; &apos;&apos;);
       url = `${this._host}/${this.version}/${url}`;
     }
 

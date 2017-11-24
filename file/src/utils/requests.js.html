@@ -168,7 +168,10 @@ export const FormData = getFormData();
  * @protected
  */
 export function encodeQueryString(paramsObject) {
-  return _encodeQueryString(paramsObject).replace(&apos;&amp;&amp;&apos;, &apos;&amp;&apos;);
+  const query = _encodeQueryString(paramsObject);
+
+  // Removes any extra unused &amp;&apos;s.
+  return query.replace(/^&amp;*|&amp;+(?=&amp;)|&amp;*$/g, &apos;&apos;);
 }
 
 /**

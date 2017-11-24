@@ -1,7 +1,7 @@
 {
-  "coverage": "79.57%",
-  "expectCount": 426,
-  "actualCount": 339,
+  "coverage": "80.14%",
+  "expectCount": 428,
+  "actualCount": 343,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -259,8 +259,8 @@
       ]
     },
     "src/oauth/OAuth.js": {
-      "expectCount": 10,
-      "actualCount": 5,
+      "expectCount": 11,
+      "actualCount": 6,
       "undocumentLines": [
         53,
         56,
@@ -275,13 +275,13 @@
       "undocumentLines": []
     },
     "src/oauth/OAuthToken.js": {
-      "expectCount": 13,
-      "actualCount": 9,
+      "expectCount": 14,
+      "actualCount": 10,
       "undocumentLines": [
-        52,
-        46,
+        53,
         47,
-        48
+        48,
+        49
       ]
     },
     "src/crud/Organisation.js": {
@@ -344,11 +344,8 @@
     },
     "src/RequestParameters.js": {
       "expectCount": 29,
-      "actualCount": 27,
-      "undocumentLines": [
-        465,
-        456
-      ]
+      "actualCount": 29,
+      "undocumentLines": []
     },
     "src/crud/base/ResourceBase.js": {
       "expectCount": 19,
