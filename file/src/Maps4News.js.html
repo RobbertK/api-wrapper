@@ -148,6 +148,7 @@ import {
   Contract,
   Dimension,
   DimensionSet,
+  Domain,
   Faq,
   Feature,
   Font,
@@ -177,8 +178,8 @@ import ApiError from &apos;./errors/ApiError&apos;;
 import ValidationError from &apos;./errors/ValidationError&apos;;
 import DummyFlow from &apos;./oauth/DummyFlow&apos;;
 import OAuth from &apos;./oauth/OAuth&apos;;
-import ResourceCache from &apos;./ResourceCache&apos;;
 import ResourceProxy from &apos;./proxy/ResourceProxy&apos;;
+import ResourceCache from &apos;./ResourceCache&apos;;
 import {fnv32b} from &apos;./utils/hash&apos;;
 import {isNode} from &apos;./utils/node&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
@@ -491,6 +492,15 @@ export default class Maps4News {
    */
   get dimensionSets() {
     return this.static(DimensionSet);
+  }
+
+  /**
+   * Domain accessor
+   * @see {@link Domain}
+   * @returns {ResourceProxy} - A proxy for accessing the resource
+   */
+  get domains() {
+    return this.static(Domain);
   }
 
   /**

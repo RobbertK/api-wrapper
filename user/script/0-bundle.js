@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:8e7b2b6b506722e788e1, chunkhash:50480460e6bb14efd742, name:bundle, version:v1.1.89
+ * hash:12bd51514d0bc613bd5a, chunkhash:8e4368db8187a643ecc8, name:bundle, version:v1.1.90
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.89) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.90) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -3788,13 +3788,13 @@ var _OAuth = __webpack_require__(57);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
-var _ResourceCache = __webpack_require__(130);
-
-var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
-
 var _ResourceProxy = __webpack_require__(97);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
+
+var _ResourceCache = __webpack_require__(130);
+
+var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
 var _hash = __webpack_require__(65);
 
@@ -4237,6 +4237,18 @@ var Maps4News = function () {
     key: 'dimensionSets',
     get: function get() {
       return this.static(_crud.DimensionSet);
+    }
+
+    /**
+     * Domain accessor
+     * @see {@link Domain}
+     * @returns {ResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'domains',
+    get: function get() {
+      return this.static(_crud.Domain);
     }
 
     /**
@@ -14482,7 +14494,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.89";
+var version = exports.version = "v1.1.90";
 
 /**
  * Package license
