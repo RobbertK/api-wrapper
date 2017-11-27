@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/enums.js | API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/enums/index.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -44,10 +44,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums.js~Enum.html">Enum</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ResultStatus">ResultStatus</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -80,6 +76,10 @@
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">enums</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums/Enum.js~Enum.html">Enum</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ResultStatus">ResultStatus</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractClassError.html">AbstractClassError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractError.html">AbstractError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractMethodError.html">AbstractMethodError</a></span></span></li>
@@ -113,7 +113,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/enums.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/enums/index.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
@@ -146,152 +146,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {constant as constantCase} from &apos;case&apos;;
-import {getTypeName} from &apos;./utils/reflection&apos;;
-import Unobservable from &apos;./utils/Unobservable&apos;;
-
-/**
- * Base enum class
- * @example
- * const Colors = new Enum([&apos;RED&apos;, &apos;BLACK&apos;, &apos;GREEN&apos;, &apos;WHITE&apos;, &apos;BLUE&apos;]);
- *
- * const Answers = new Enum({
- *   YES: true,
- *   NO: false,
- *   // Passing functions as values will turn them into getters
- *   // Getter results will appear in ::values
- *   MAYBE: () =&gt; Math.random() &gt;= 0.5,
- * });
- *
- * const FontStyles = new Enum([&apos;italic&apos;, &apos;bold&apos;, &apos;underline&apos;, &apos;regular&apos;], true);
- * FontStyles.ITALIC === &apos;italic&apos;
- * FontStyles.BOLD   === &apos;bold&apos;
- *
- * // etc...
- */
-export class Enum extends Unobservable {
-  /**
-   * @param {Object&lt;String, *&gt;|Array&lt;String&gt;} enums - Data to build the enum from
-   * @param {boolean} auto - Auto generate enum from data making assumptions about
-   *                         the data, requires enums to be of type array.
-   */
-  constructor(enums, auto = false) {
-    super();
-
-    const isArray = enums instanceof Array;
-
-    if (auto &amp;&amp; !isArray) {
-      throw new TypeError(`Expected enums to be of type &quot;Array&quot; got &quot;${getTypeName(enums)}&quot;`);
-    }
-
-    if (isArray &amp;&amp; auto) {
-      for (const row of enums) {
-        const key = constantCase(row);
-
-        Object.defineProperty(this, key, {
-          enumerable: true,
-          value: row,
-        });
-      }
-    } else if (isArray) {
-      for (const key of enums) {
-        Object.defineProperty(this, key, {
-          enumerable: true,
-          value: Enum._iota,
-        });
-      }
-    } else {
-      for (const key of Object.keys(enums)) {
-        const init = {enumerable: true};
-
-        if (typeof enums[key] === &apos;function&apos;) {
-          init.get = enums[key];
-        } else {
-          init.value = enums[key];
-        }
-
-        Object.defineProperty(this, key, init);
-      }
-    }
-
-    Object.freeze(this);
-  }
-
-  /**
-   * List enum keys
-   * @returns {Array} - Enum keys
-   */
-  keys() {
-    return Object.keys(this);
-  }
-
-  /**
-   * List enum values
-   * @returns {Array&lt;*&gt;} - Enum values
-   */
-  values() {
-    return this.keys()
-      .map(key =&gt; this[key])
-      .filter((v, i, s) =&gt; s.indexOf(v) === i);
-  }
-
-  static get _iota() {
-    if (!Enum.__iota) {
-      Enum.__iota = 0;
-    }
-
-    return Enum.__iota++;
-  }
-}
-
-
-/**
- * Enum containing the possible different values for {@link RequestParameters#deleted}
- * @enum {string}
- * @property {string} ALL - Don&apos;t discriminate between deleted items and non-deleted resources
- * @property {string} BOTH - Don&apos;t discriminate between deleted items and non-deleted resources
- * @property {string} NONE - Don&apos;t return deleted resources
- * @property {string} ONLY - Only return deleted resources
- * @readonly
- */
-export const DeletedState = new Enum({
-  ALL: &apos;all&apos;,
-  BOTH: &apos;all&apos;,
-  NONE: &apos;none&apos;,
-  ONLY: &apos;only&apos;,
-});
-
-/**
- * Enum containing the possible different values for {@link RequestParameters#deleted}
- * @enum {string}
- * @property {string} ALL - Don&apos;t discriminate between deleted items and non-deleted resources
- * @property {string} QUEUED - Job has been queued
- * @property {string} PROCESSING - Job is processing
- * @property {string} COMPLETED - Job has been completed
- * @property {string} CANCEL - Job has been canceled
- * @property {string} FAILED - Job has failed
- * @readonly
- */
-export const ResultStatus = new Enum({
-  QUEUED: &apos;queued&apos;,
-  PROCESSING: &apos;processing&apos;,
-  COMPLETED: &apos;completed&apos;,
-  CANCEL: &apos;canceled&apos;,
-  FAILED: &apos;failed&apos;,
-});
-
-/**
- * Enum containing the possible different values for {@link RequestParameters#deleted}
- * @enum {string}
- * @property {string} ALL - Don&apos;t discriminate between deleted items and non-deleted resources
- * @property {string} QUEUED - Job has been queued
- * @property {string} PROCESSING - Job is processing
- * @property {string} COMPLETED - Job has been completed
- * @property {string} CANCEL - Job has been canceled
- * @property {string} FAILED - Job has failed
- * @readonly
- */
-export const JobMonitorFilter = new Enum(Object.assign({}, ResultStatus, {DEFAULT: &apos;default&apos;}));
+export Enum from &apos;./Enum&apos;;
+export {DeletedState} from &apos;./DeletedState&apos;;
+export {JobMonitorFilter} from &apos;./JobMonitorFilter&apos;;
+export {ResultStatus} from &apos;./ResultStatus&apos;;
 </code></pre>
 
 </div>

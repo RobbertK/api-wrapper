@@ -44,10 +44,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums.js~Enum.html">Enum</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ResultStatus">ResultStatus</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Contract.js~Contract.html">Contract</a></span></span></li>
@@ -80,6 +76,10 @@
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud/base</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">enums</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums/Enum.js~Enum.html">Enum</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ResultStatus">ResultStatus</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">errors</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractClassError.html">AbstractClassError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractError.html">AbstractError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/AbstractError.js~AbstractMethodError.html">AbstractMethodError</a></span></span></li>
@@ -153,7 +153,10 @@ export StorageManager from &apos;./storage/StorageManager&apos;;
 export JobMonitor from &apos;./JobMonitor&apos;;
 
 // Enums
-export {DeletedState, ResultStatus, JobMonitorFilter} from &apos;./enums&apos;;
+export Enum from &apos;./enums/Enum&apos;;
+export DeletedState from &apos;./enums/DeletedState&apos;;
+export JobMonitorFilter from &apos;./enums/JobMonitorFilter&apos;;
+export ResultStatus from &apos;./enums/ResultStatus&apos;;
 
 // Flows
 export OAuth from &apos;./oauth/OAuth&apos;;

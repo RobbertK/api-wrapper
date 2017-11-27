@@ -47,9 +47,9 @@
       "actualCount": 4,
       "undocumentLines": []
     },
-    "src/enums.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+    "src/enums/DeletedState.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     },
     "src/crud/Dimension.js": {
@@ -80,6 +80,11 @@
       "undocumentLines": [
         41
       ]
+    },
+    "src/enums/Enum.js": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
     },
     "src/crud/Faq.js": {
       "expectCount": 2,
@@ -172,6 +177,11 @@
     "src/JobMonitor.js": {
       "expectCount": 13,
       "actualCount": 13,
+      "undocumentLines": []
+    },
+    "src/enums/JobMonitorFilter.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     },
     "src/JobMonitorRow.js": {
@@ -376,6 +386,11 @@
     "src/proxy/ResourceProxy.js": {
       "expectCount": 4,
       "actualCount": 4,
+      "undocumentLines": []
+    },
+    "src/enums/ResultStatus.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     },
     "src/crud/Role.js": {
