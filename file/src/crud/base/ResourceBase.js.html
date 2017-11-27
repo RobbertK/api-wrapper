@@ -101,6 +101,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Singleton.js~Singleton.html">Singleton</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormData">FormData</a></span></span></li>
@@ -171,7 +172,7 @@ export default class ResourceBase {
     for (const key of Object.keys(data)) {
       const newKey = snakeCase(key);
 
-      data[newKey] = ResourceBase._guessType(newKey, data[key]);
+      data[newKey] = this.constructor._guessType(newKey, data[key]);
 
       if (newKey !== key) {
         delete data[key];
@@ -220,6 +221,7 @@ export default class ResourceBase {
   /**
    * Resource path template
    * @returns {String} - Path template
+   * @todo move to constructor
    */
   get resourcePath() {
     return `/${this.resourceName}/{id}`;
@@ -228,6 +230,7 @@ export default class ResourceBase {
   /**
    * Resource name
    * @returns {String} - Resource name
+   * @todo move to constructor
    * @abstract
    */
   get resourceName() {
@@ -245,10 +248,19 @@ export default class ResourceBase {
   /**
    * Protected read-only fields
    * @returns {Array&lt;string&gt;} - Array containing the protected fields
+   * @todo move to constructor
    * @protected
    */
   get _protectedFields() {
     return [&apos;id&apos;, &apos;created_at&apos;, &apos;updated_at&apos;, &apos;deleted_at&apos;];
+  }
+
+  /**
+   * Returns if the resource is readonly
+   * @returns {boolean} - readonly
+   */
+  static get readonly() {
+    return false;
   }
 
   /**
@@ -361,7 +373,7 @@ export default class ResourceBase {
       },
     };
 
-    if (!this._protectedFields.includes(key)) {
+    if (!this._protectedFields.includes(key) &amp;&amp; !this.constructor.readonly) {
       desc.set = (val) =&gt; {
         this._properties[key] = ResourceBase._guessType(key, val);
         delete this._url; // Clears url cache

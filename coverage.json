@@ -1,14 +1,14 @@
 {
-  "coverage": "80.23%",
-  "expectCount": 430,
-  "actualCount": 345,
+  "coverage": "80.6%",
+  "expectCount": 433,
+  "actualCount": 349,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        67,
-        58
+        58,
+        67
       ]
     },
     "src/errors/ApiError.js": {
@@ -164,10 +164,9 @@
     },
     "src/crud/Job.js": {
       "expectCount": 6,
-      "actualCount": 4,
+      "actualCount": 5,
       "undocumentLines": [
-        38,
-        59
+        38
       ]
     },
     "src/crud/JobResult.js": {
@@ -348,18 +347,18 @@
       "undocumentLines": []
     },
     "src/crud/base/ResourceBase.js": {
-      "expectCount": 19,
-      "actualCount": 19,
+      "expectCount": 20,
+      "actualCount": 20,
       "undocumentLines": []
     },
     "src/ResourceCache.js": {
       "expectCount": 11,
       "actualCount": 7,
       "undocumentLines": [
+        48,
         44,
-        42,
-        45,
-        46
+        49,
+        50
       ]
     },
     "src/proxy/ResourceProxy.js": {
@@ -417,6 +416,11 @@
       ]
     },
     "src/traits/Trait.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/utils/Unobservable.js": {
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []

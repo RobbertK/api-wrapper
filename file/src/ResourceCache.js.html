@@ -101,6 +101,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Singleton.js~Singleton.html">Singleton</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormData">FormData</a></span></span></li>
@@ -143,24 +144,25 @@
  */
 
 import mitt from &apos;mitt&apos;;
+import Unobservable from &apos;./utils/Unobservable&apos;;
 import Uuid from &apos;./utils/uuid&apos;;
 
 /**
  * Used for caching resources. Requires the resource to have an unique id field
  * @see {@link PaginatedResourceWrapper}
  * @todo Add periodic data refreshing while idle, most likely implemented in cache
+ * @todo complete rewrite
  */
-export default class ResourceCache {
+export default class ResourceCache extends Unobservable {
   constructor(api, cacheTime = api.defaults.cacheSeconds, dereference = api.defaults.dereferenceCache) {
+    super();
+
     this._api = api;
     this.cacheTime = cacheTime;
     this.dereference = dereference;
     this.emitter = mitt();
 
     this._storage = {};
-
-    // Prevent observers
-    Object.freeze(this);
   }
 
   /**
@@ -175,8 +177,7 @@ export default class ResourceCache {
       return; // Don&apos;t insert empty pages
     }
 
-    delete page.__ob__; // Remove VueJs observer
-    Object.freeze(page);
+    delete page[&apos;__ob__&apos;]; // Remove VueJs observer
 
     // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)
     const invalidData = page.data.map(row =&gt; row.id).filter(x =&gt; typeof x !== &apos;number&apos;).length &gt; 0;
@@ -284,7 +285,14 @@ export default class ResourceCache {
     const storage = (this._storage[resourceUrl] || {})[cacheToken] || [];
 
     // Sort by validThrough and extract pages
-    return storage.sort((a, b) =&gt; a.validThrough - b.validThrough);
+    // SORT BY page, validThrough ASCENDING
+    return storage.sort((a, b) =&gt; {
+      if (a.page === b.page) {
+        return a.validThrough - b.validThrough;
+      }
+
+      return a.page - b.page;
+    });
   }
 
   /**
@@ -316,54 +324,61 @@ export default class ResourceCache {
   resolve(resourceUrl, cacheToken = &apos;&apos;) {
     cacheToken = cacheToken.toLowerCase();
 
+    // row.diff should indicate that the records should just be
+    // applied to the object and not used to diff out old records
+    // List ordered from old to new
     const data = this.collectPages(resourceUrl, cacheToken);
     const out = [];
 
-    let lastStart;
-    let lastEnd;
     let lastPage;
+    let startIndex = 0;
 
     for (const row of data) {
       const page = row.page;
 
-      if (page.rows === 0) {
-        // We can&apos;t do anything if we don&apos;t have any data
+      if (page.data.length === 0) {
         continue;
       }
 
-      const ids = page.data.map(row =&gt; row.id);
-      const startId = Math.min(...ids);
-      const endId = Math.max(...ids);
+      // @todo compare `updatedAt` instead of assuming later pages are more recent
+      if (row.diff) {
+        continue; // @todo
+      } else if (lastPage === page.page) {
+        let ii;
 
-      const badKeys = [];
+        for (let i = 0; i &lt; page.data.length; i++) {
+          ii = i + startIndex;
 
-      if (page.page - 1 === lastPage || page.page === lastPage) {
-        badKeys.push(...this._diffRange(lastEnd, startId));
+          if (typeof out[ii] === &apos;undefined&apos;) {
+            out.push(page.data[i]);
+          } else if (page.data[i].id !== out[ii].id) {
+            out[ii] = page.data[i];
+
+            // lookbehind
+            for (let j = 0; j &lt; startIndex; j++) {
+              if (out[j].id === out[ii].id) {
+                out.splice(j, 1);
+
+                startIndex--;
+                i--;
+                ii--;
+                j--;
+              }
+            }
+          }
+        }
+
+        // Remove trailing data
+        if (typeof ii !== &apos;undefined&apos;) {
+          out.splice(ii, out.length);
+        }
+      } else {
+        startIndex = out.length;
+
+        page.data.map(x =&gt; out.push(x));
       }
 
-      if (page.page + 1 === lastPage || page.page === lastPage) {
-        badKeys.push(...this._diffRange(endId, lastStart));
-      }
-
-      lastStart = startId;
-      lastEnd = endId;
-
-      for (const row of page.data) {
-        out[row.id] = row;
-      }
-
-      if (!row.diff) {
-        // Grab list of applicable ids and delete offending
-        // keys that no longer exist in the newer data set
-        Object
-          .keys(out)
-          .map(Number)
-          .filter(key =&gt; startId &lt;= key &amp;&amp; key &lt;= endId)
-          .filter(key =&gt; !ids.includes(key))
-          .forEach(key =&gt; badKeys.push(key));
-      }
-
-      badKeys.forEach(key =&gt; delete out[key]);
+      lastPage = row.page;
     }
 
     if (this.dereference) {
