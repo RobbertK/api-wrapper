@@ -162,6 +162,24 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@mapcreator/maps4news/src/jobmonitor.js~jobmonitor",
+    "class/src/JobMonitor.js~JobMonitor.html",
+    "<span>JobMonitor</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/JobMonitor.js</span>",
+    "class"
+  ],
+  [
+    "@mapcreator/maps4news/src/enums.js~jobmonitorfilter",
+    "variable/index.html#static-variable-JobMonitorFilter",
+    "<span>JobMonitorFilter</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/enums.js</span>",
+    "variable"
+  ],
+  [
+    "@mapcreator/maps4news/src/jobmonitorrow.js~jobmonitorrow",
+    "class/src/JobMonitorRow.js~JobMonitorRow.html",
+    "<span>JobMonitorRow</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/JobMonitorRow.js</span>",
+    "class"
+  ],
+  [
     "@mapcreator/maps4news/src/crud/jobresult.js~jobresult",
     "class/src/crud/JobResult.js~JobResult.html",
     "<span>JobResult</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobResult.js</span>",
@@ -792,6 +810,114 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/jobmonitor.js",
+    "file/src/JobMonitor.js.html",
+    "src/JobMonitor.js",
+    "file"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#api",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-api",
+    "src/JobMonitor.js~JobMonitor#api",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#constructor",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-constructor-constructor",
+    "src/JobMonitor.js~JobMonitor#constructor",
+    "method"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#data",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-data",
+    "src/JobMonitor.js~JobMonitor#data",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#filterstatus",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-filterStatus",
+    "src/JobMonitor.js~JobMonitor#filterStatus",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#filterstatus",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-filterStatus",
+    "src/JobMonitor.js~JobMonitor#filterStatus",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#hideinternal",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-hideInternal",
+    "src/JobMonitor.js~JobMonitor#hideInternal",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#hideinternal",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-hideInternal",
+    "src/JobMonitor.js~JobMonitor#hideInternal",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#lastupdate",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-lastUpdate",
+    "src/JobMonitor.js~JobMonitor#lastUpdate",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#maxrows",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-maxRows",
+    "src/JobMonitor.js~JobMonitor#maxRows",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#maxrows",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-maxRows",
+    "src/JobMonitor.js~JobMonitor#maxRows",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#update",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-method-update",
+    "src/JobMonitor.js~JobMonitor#update",
+    "method"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#waiting",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-waiting",
+    "src/JobMonitor.js~JobMonitor#waiting",
+    "member"
+  ],
+  [
+    "src/jobmonitorrow.js",
+    "file/src/JobMonitorRow.js.html",
+    "src/JobMonitorRow.js",
+    "file"
+  ],
+  [
+    "src/jobmonitorrow.js~jobmonitorrow#job",
+    "class/src/JobMonitorRow.js~JobMonitorRow.html#instance-get-job",
+    "src/JobMonitorRow.js~JobMonitorRow#job",
+    "member"
+  ],
+  [
+    "src/jobmonitorrow.js~jobmonitorrow#jobrevision",
+    "class/src/JobMonitorRow.js~JobMonitorRow.html#instance-get-jobRevision",
+    "src/JobMonitorRow.js~JobMonitorRow#jobRevision",
+    "member"
+  ],
+  [
+    "src/jobmonitorrow.js~jobmonitorrow#user",
+    "class/src/JobMonitorRow.js~JobMonitorRow.html#instance-get-user",
+    "src/JobMonitorRow.js~JobMonitorRow#user",
+    "member"
+  ],
+  [
+    "src/jobmonitorrow.js~jobmonitorrow.readonly",
+    "class/src/JobMonitorRow.js~JobMonitorRow.html#static-get-readonly",
+    "src/JobMonitorRow.js~JobMonitorRow.readonly",
+    "member"
+  ],
+  [
     "src/maps4news.js",
     "file/src/Maps4News.js.html",
     "src/Maps4News.js",
@@ -799,13 +925,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -919,13 +1045,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1153,13 +1279,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
@@ -1327,13 +1453,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
@@ -1381,25 +1507,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#page",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-page",
-    "src/RequestParameters.js~RequestParameters#page",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters#page",
     "class/src/RequestParameters.js~RequestParameters.html#instance-set-page",
     "src/RequestParameters.js~RequestParameters#page",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters#perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-perPage",
-    "src/RequestParameters.js~RequestParameters#perPage",
+    "src/requestparameters.js~requestparameters#page",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-page",
+    "src/RequestParameters.js~RequestParameters#page",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#perpage",
     "class/src/RequestParameters.js~RequestParameters.html#instance-get-perPage",
+    "src/RequestParameters.js~RequestParameters#perPage",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters#perpage",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-perPage",
     "src/RequestParameters.js~RequestParameters#perPage",
     "member"
   ],
@@ -1447,13 +1573,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-deleted",
     "src/RequestParameters.js~RequestParameters.deleted",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-deleted",
     "src/RequestParameters.js~RequestParameters.deleted",
     "member"
   ],
@@ -3025,20 +3151,14 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
-    "src/oauth/PasswordFlow.js~PasswordFlow#password",
-    "member"
-  ],
-  [
-    "src/oauth/passwordflow.js~passwordflow#password",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
-    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "src/oauth/passwordflow.js~passwordflow#password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
@@ -3048,14 +3168,20 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#secret",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
-    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "src/oauth/passwordflow.js~passwordflow#path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
+    "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#secret",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-secret",
+    "src/oauth/PasswordFlow.js~PasswordFlow#secret",
+    "member"
+  ],
+  [
+    "src/oauth/passwordflow.js~passwordflow#secret",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-secret",
     "src/oauth/PasswordFlow.js~PasswordFlow#secret",
     "member"
   ],

@@ -37,6 +37,8 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ImageHandler.js~ImageHandler.html">ImageHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html">JobMonitor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/JobMonitorRow.js~JobMonitorRow.html">JobMonitorRow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceListing.js~PaginatedResourceListing.html">PaginatedResourceListing</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
@@ -44,6 +46,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums.js~Enum.html">Enum</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ResultStatus">ResultStatus</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">crud</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Choropleth.js~Choropleth.html">Choropleth</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/crud/Color.js~Color.html">Color</a></span></span></li>
@@ -111,13 +114,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Enum} from &apos;<span><a href="file/src/enums.js.html#lineNumber55">@mapcreator/maps4news/src/enums.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Enum} from &apos;<span><a href="file/src/enums.js.html#lineNumber56">@mapcreator/maps4news/src/enums.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/enums.js.html#lineNumber55">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/enums.js.html#lineNumber56">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -127,12 +130,13 @@
     <span>You can directly use an instance of this class.</span>
     
   <span data-ice="instanceDoc"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span>
+<span data-ice="instanceDoc"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span>
 <span data-ice="instanceDoc"><span><a href="variable/index.html#static-variable-ResultStatus">ResultStatus</a></span></span>
 </div>
 
   
   
-  
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span> &#x2192; Enum</div></div>
   
   
   
@@ -277,7 +281,41 @@ FontStyles.BOLD   === &apos;bold&apos;
 </table>
 </div>
 
-
+<div class="inherited-summary" data-ice="inheritedSummary"><h2>Inherited Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span></td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/utils/Unobservable.js~Unobservable.html#instance-get-[Symbol.toStringTag]">[Symbol.toStringTag]</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Overrides the <code>Object.prototype.toString.call(obj)</code> result</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
 
 
@@ -295,7 +333,7 @@ FontStyles.BOLD   === &apos;bold&apos;
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -367,7 +405,7 @@ FontStyles.BOLD   === &apos;bold&apos;
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber105">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber108">source</a></span></span>
     </span>
   </h3>
 
@@ -424,7 +462,7 @@ FontStyles.BOLD   === &apos;bold&apos;
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber113">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/enums.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 

@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/storage/StorageManager.js | API Document</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/JobMonitor.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -113,7 +113,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/storage/StorageManager.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/JobMonitor.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
@@ -146,71 +146,247 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import StaticClass from &apos;../utils/StaticClass&apos;;
-import CookiesDriver from &apos;./CookiesDriver&apos;;
-import FileDriver from &apos;./FileDriver&apos;;
-import LocalStorageDriver from &apos;./LocalStorageDriver&apos;;
+import {JobMonitorFilter} from &apos;./enums&apos;;
+import JobMonitorRow from &apos;./JobMonitorRow&apos;;
+import Maps4News from &apos;./Maps4News&apos;;
+import {isParentOf} from &apos;./utils/reflection&apos;;
 
 /**
- * @private
+ * Used for monitoring the job queue
  */
-export default class StorageManager extends StaticClass {
+export default class JobMonitor {
   /**
-   * Available storage drivers
-   * @returns {Array.&lt;function&gt;} - Available storage drivers
+   * JobMonitor constructor
+   * @param {Maps4News} api - Api instance
    */
-  static get available() {
-    return [
-      LocalStorageDriver,
-      CookiesDriver,
-      FileDriver,
-    ].filter(x =&gt; x.available);
-  }
-
-  /**
-   * Get LocalStorageDriver instance
-   * @returns {LocalStorageDriver} - instance
-   */
-  static get localStorage() {
-    return new LocalStorageDriver();
-  }
-
-  /**
-   * Get CookiesDriver instance
-   * @returns {CookiesDriver} - instance
-   */
-  static get cookies() {
-    return new CookiesDriver();
-  }
-
-  /**
-   * Get FileDriver instance
-   * @returns {FileDriver} - instance
-   */
-  static get file() {
-    return new FileDriver();
-  }
-
-  /**
-   * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}
-   * @returns {DataStoreDriver} - Best available storage driver
-   */
-  static get best() {
-    return new this.available[0]();
-  }
-
-  /**
-   * Returns the a secure storage driver
-   * @returns {DataStoreDriver} - Secure storage driver
-   */
-  static get secure() {
-    const C = this.available.filter(x =&gt; x.secure)[0];
-
-    if (typeof C === &apos;undefined&apos;) {
-      return StorageManager.best;
+  constructor(api) {
+    if (!isParentOf(Maps4News, api)) {
+      throw new TypeError(&apos;Expected api to be of type Maps4News&apos;);
     }
 
-    return new C();
+    this._api = api;
+
+    this._lastUpdate = Date.now();
+    this._data = [];
+    this._filterStatus = JobMonitorFilter.DEFAULT;
+  }
+
+  /**
+   * Contains the current JobMonitor data
+   * @returns {Array&lt;JobMonitorRow&gt;} - Job monitor rows
+   */
+  get data() {
+    return this._data;
+  }
+
+  /**
+   * Get api instance
+   * @returns {Maps4News} - Api instance
+   */
+  get api() {
+    return this._api;
+  }
+
+  /**
+   * Update the job list
+   * @returns {Promise&lt;Number, ApiError&gt;} - Resolves with the number of updated rows
+   */
+  update() {
+    if (this.waiting) {
+      return new Promise((resolve, reject) =&gt; {
+        reject(0); // Still waiting for the other promise to resolve
+      });
+    }
+
+    // Counter so we don&apos;t have to worry about racing
+    this._waiting = 1;
+
+    if (this._hideInternal === 2) {
+      // Don&apos;t hide internal
+      // Clear and rebuild the list
+      this._data = [];
+
+      this._hideInternal = 0;
+    } else if (this._hideInternal === 3) {
+
+      this._hideInternal = 1;
+    }
+
+    // First we need to check if we have enough data to begin with
+    let rowCountDiff = this.maxRows - this.data.length;
+
+    if (rowCountDiff &lt; 0) {
+      // Remove trailing data
+      this._data.splice(this.maxRows, this.data.length - this.maxRows);
+      rowCountDiff = 0;
+    }
+
+    const baseUrl = `/jobs/monitor/${this.filterStatus}?internal=${!this.hideInternal}`;
+    let requestedRowCount = 0;
+    const requests = [];
+
+    while (rowCountDiff &gt; 0) {
+      // Either always do 50 or calculate the correct page number and stuff which takes time...
+      const perPage = 50; // Math.min(rowCountDiff, 50);
+      const page = Math.floor((this.data.length + requestedRowCount) / perPage) + 1;
+
+      // Usefull for debugging:
+      // console.log(&apos;have&apos;, this.data.length + requestedRowCount, &apos;diff&apos;, rowCountDiff, &apos;perPage&apos;, perPage, &apos;page&apos;, page, &apos;target&apos;, perPage * page);
+
+      const url = `${baseUrl}&amp;per_page=${perPage}&amp;page=${page}`;
+
+      requests.push(this.api.request(url).then(data =&gt; data.map(x =&gt; new JobMonitorRow(this.api, x))));
+
+      requestedRowCount += perPage;
+      rowCountDiff -= perPage;
+      this._waiting++;
+    }
+
+    const out = [];
+
+    // note: Promise.all resolves with the data in the same order as the input
+    out.push(Promise.all(requests).then(data =&gt; {
+      // Join data
+      data = data.reduce((acc, val) =&gt; acc.concat(val), []);
+
+      // append data and remove duplicates
+      // noinspection JSCheckFunctionSignatures
+      this._data = this.data
+        .concat(data)
+        .filter((thing, index, self) =&gt;
+          index === self.findIndex((t) =&gt; t.id === thing.id),
+        );
+
+      // We&apos;re no longer waiting
+      this._waiting -= requests.length;
+
+      return data.length;
+    }));
+
+    // Fetch updates
+    const url = baseUrl + &apos;&amp;timestamp=&apos; + Math.floor(this._lastUpdate / 1000);
+
+    this._lastUpdate = Date.now();
+
+    out.push(this.api
+      .request(url)
+      .then(data =&gt; data.map(x =&gt; new JobMonitorRow(this.api, x)))
+      .then(data =&gt; {
+        const lookup = data.map(x =&gt; x.id);
+
+        for (let i = 0; i &lt; this._data.length &amp;&amp; lookup.length &gt; 0; i++) {
+          const ii = lookup.indexOf(this._data[i].id);
+
+          if (ii !== -1) {
+            this._data[i] = data[ii];
+
+            // Remove the data and the lookup entry
+            data.splice(ii, 1);
+            lookup.splice(ii, 1);
+          }
+        }
+
+        // Prepend new data
+        this._data = data.concat(this._data);
+
+        this._waiting--;
+      }));
+
+    return Promise
+      .all(out)
+      .then(x =&gt; {
+        // Truncate data if needed
+        this._data.splice(this.maxRows, this.data.length - this.maxRows);
+
+        return x;
+      })
+      .then(x =&gt; x.reduce((s, v) =&gt; s + v, 0));
+  }
+
+  /**
+   * If the JobMonitor is waiting for data. Any update request will
+   * resolve with false instantly while this is true.
+   * @returns {Boolean} - Waiting for data
+   */
+  get waiting() {
+    return this._waiting;
+  }
+
+  /**
+   * Maximum number of rows to store
+   * @returns {number} - Maximum number of rows
+   */
+  get maxRows() {
+    return this._maxRows || Number(process.env.JOB_MONITOR_MAX_ROWS) || 100;
+  }
+
+  /**
+   * Set the maximum number of rows to store. Updating this value won&apos;t take
+   * effect until the {@link JobMonitor#update} method has been called.
+   * @param {number} value - Maximum number of rows
+   */
+  set maxRows(value) {
+    value = Number(value);
+    value = Math.max(1, value);
+
+    this._maxRows = value;
+  }
+
+  /**
+   * If internal users should be hidden. Updating this value won&apos;t take
+   * effect until the {@link JobMonitor#update} method has been called.
+   * @param {boolean} [value=false] - hide internal users
+   */
+  set hideInternal(value) {
+    // I&apos;m abusing a bit flag here because it&apos;s easier.
+    // offset and use:
+    //  [0] Boolean value
+    //  [1] if 1 then it has been changed since the last update
+    if (value) {
+      this._hideInternal = 3; // 11
+    } else {
+      this._hideInternal = 2; // 10
+    }
+  }
+
+  /**
+   * If internal users should be hidden in the data
+   * @returns {boolean} - hide internal users
+   */
+  get hideInternal() {
+    return (this._hideInternal &amp; 1) === 1;
+  }
+
+  /**
+   * Set the filter for the job monitor
+   * @param {string} value - Job monitor filter
+   * @see JobMonitorFilter
+   */
+  set filterStatus(value) {
+    value = value.toLowerCase();
+
+    if (!JobMonitorFilter.values().includes(value)) {
+      throw new TypeError(&apos;Expected value to be property of JobMonitorFilter. Possible options: &apos; + JobMonitorFilter.values().join(&apos;, &apos;));
+    }
+
+    this._filterStatus = value;
+  }
+
+  /**
+   * get the filter for the job monitor
+   * @returns {string} - Job monitor filter
+   */
+  get filterStatus() {
+    return this._filterStatus;
+  }
+
+  /**
+   * Returns the time the ::update method was called for the last time.
+   * @returns {Date} - Last update
+   * @see JobMonitor#update
+   */
+  get lastUpdate() {
+    return new Date(this._lastUpdate);
   }
 }
 </code></pre>
