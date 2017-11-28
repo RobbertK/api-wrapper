@@ -24,33 +24,33 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/choropleth.js~choropleth",
-    "class/src/crud/Choropleth.js~Choropleth.html",
-    "<span>Choropleth</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Choropleth.js</span>",
+    "@mapcreator/maps4news/src/resources/choropleth.js~choropleth",
+    "class/src/resources/Choropleth.js~Choropleth.html",
+    "<span>Choropleth</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Choropleth.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/color.js~color",
-    "class/src/crud/Color.js~Color.html",
-    "<span>Color</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Color.js</span>",
+    "@mapcreator/maps4news/src/resources/color.js~color",
+    "class/src/resources/Color.js~Color.html",
+    "<span>Color</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Color.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/contract.js~contract",
-    "class/src/crud/Contract.js~Contract.html",
-    "<span>Contract</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Contract.js</span>",
+    "@mapcreator/maps4news/src/resources/contract.js~contract",
+    "class/src/resources/Contract.js~Contract.html",
+    "<span>Contract</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Contract.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/base/crudbase.js~crudbase",
-    "class/src/crud/base/CrudBase.js~CrudBase.html",
-    "<span>CrudBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/CrudBase.js</span>",
+    "@mapcreator/maps4news/src/resources/base/crudbase.js~crudbase",
+    "class/src/resources/base/CrudBase.js~CrudBase.html",
+    "<span>CrudBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/base/CrudBase.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/base/crudsetbase.js~crudsetbase",
-    "class/src/crud/base/CrudSetBase.js~CrudSetBase.html",
-    "<span>CrudSetBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/CrudSetBase.js</span>",
+    "@mapcreator/maps4news/src/resources/base/crudsetbase.js~crudsetbase",
+    "class/src/resources/base/CrudSetBase.js~CrudSetBase.html",
+    "<span>CrudSetBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/base/CrudSetBase.js</span>",
     "class"
   ],
   [
@@ -60,21 +60,21 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "@mapcreator/maps4news/src/crud/dimension.js~dimension",
-    "class/src/crud/Dimension.js~Dimension.html",
-    "<span>Dimension</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Dimension.js</span>",
+    "@mapcreator/maps4news/src/resources/dimension.js~dimension",
+    "class/src/resources/Dimension.js~Dimension.html",
+    "<span>Dimension</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Dimension.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/dimensionset.js~dimensionset",
-    "class/src/crud/DimensionSet.js~DimensionSet.html",
-    "<span>DimensionSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/DimensionSet.js</span>",
+    "@mapcreator/maps4news/src/resources/dimensionset.js~dimensionset",
+    "class/src/resources/DimensionSet.js~DimensionSet.html",
+    "<span>DimensionSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/DimensionSet.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/domain.js~domain",
-    "class/src/crud/Domain.js~Domain.html",
-    "<span>Domain</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Domain.js</span>",
+    "@mapcreator/maps4news/src/resources/domain.js~domain",
+    "class/src/resources/Domain.js~Domain.html",
+    "<span>Domain</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Domain.js</span>",
     "class"
   ],
   [
@@ -90,27 +90,27 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/faq.js~faq",
-    "class/src/crud/Faq.js~Faq.html",
-    "<span>Faq</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Faq.js</span>",
+    "@mapcreator/maps4news/src/resources/faq.js~faq",
+    "class/src/resources/Faq.js~Faq.html",
+    "<span>Faq</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Faq.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/feature.js~feature",
-    "class/src/crud/Feature.js~Feature.html",
-    "<span>Feature</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Feature.js</span>",
+    "@mapcreator/maps4news/src/resources/feature.js~feature",
+    "class/src/resources/Feature.js~Feature.html",
+    "<span>Feature</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Feature.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/font.js~font",
-    "class/src/crud/Font.js~Font.html",
-    "<span>Font</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Font.js</span>",
+    "@mapcreator/maps4news/src/resources/font.js~font",
+    "class/src/resources/Font.js~Font.html",
+    "<span>Font</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Font.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/fontfamily.js~fontfamily",
-    "class/src/crud/FontFamily.js~FontFamily.html",
-    "<span>FontFamily</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/FontFamily.js</span>",
+    "@mapcreator/maps4news/src/resources/fontfamily.js~fontfamily",
+    "class/src/resources/FontFamily.js~FontFamily.html",
+    "<span>FontFamily</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/FontFamily.js</span>",
     "class"
   ],
   [
@@ -126,9 +126,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/highlight.js~highlight",
-    "class/src/crud/Highlight.js~Highlight.html",
-    "<span>Highlight</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Highlight.js</span>",
+    "@mapcreator/maps4news/src/resources/highlight.js~highlight",
+    "class/src/resources/Highlight.js~Highlight.html",
+    "<span>Highlight</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Highlight.js</span>",
     "class"
   ],
   [
@@ -150,15 +150,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/insetmap.js~insetmap",
-    "class/src/crud/InsetMap.js~InsetMap.html",
-    "<span>InsetMap</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/InsetMap.js</span>",
+    "@mapcreator/maps4news/src/resources/insetmap.js~insetmap",
+    "class/src/resources/InsetMap.js~InsetMap.html",
+    "<span>InsetMap</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/InsetMap.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/job.js~job",
-    "class/src/crud/Job.js~Job.html",
-    "<span>Job</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Job.js</span>",
+    "@mapcreator/maps4news/src/resources/job.js~job",
+    "class/src/resources/Job.js~Job.html",
+    "<span>Job</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Job.js</span>",
     "class"
   ],
   [
@@ -174,45 +174,45 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "@mapcreator/maps4news/src/jobmonitorrow.js~jobmonitorrow",
-    "class/src/JobMonitorRow.js~JobMonitorRow.html",
-    "<span>JobMonitorRow</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/JobMonitorRow.js</span>",
+    "@mapcreator/maps4news/src/resources/jobmonitorrow.js~jobmonitorrow",
+    "class/src/resources/JobMonitorRow.js~JobMonitorRow.html",
+    "<span>JobMonitorRow</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/JobMonitorRow.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/jobresult.js~jobresult",
-    "class/src/crud/JobResult.js~JobResult.html",
-    "<span>JobResult</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobResult.js</span>",
+    "@mapcreator/maps4news/src/resources/jobresult.js~jobresult",
+    "class/src/resources/JobResult.js~JobResult.html",
+    "<span>JobResult</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/JobResult.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/jobrevision.js~jobrevision",
-    "class/src/crud/JobRevision.js~JobRevision.html",
-    "<span>JobRevision</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobRevision.js</span>",
+    "@mapcreator/maps4news/src/resources/jobrevision.js~jobrevision",
+    "class/src/resources/JobRevision.js~JobRevision.html",
+    "<span>JobRevision</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/JobRevision.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/jobshare.js~jobshare",
-    "class/src/crud/JobShare.js~JobShare.html",
-    "<span>JobShare</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobShare.js</span>",
+    "@mapcreator/maps4news/src/resources/jobshare.js~jobshare",
+    "class/src/resources/JobShare.js~JobShare.html",
+    "<span>JobShare</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/JobShare.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/jobtype.js~jobtype",
-    "class/src/crud/JobType.js~JobType.html",
-    "<span>JobType</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/JobType.js</span>",
+    "@mapcreator/maps4news/src/resources/jobtype.js~jobtype",
+    "class/src/resources/JobType.js~JobType.html",
+    "<span>JobType</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/JobType.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/language.js~language",
-    "class/src/crud/Language.js~Language.html",
-    "<span>Language</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Language.js</span>",
+    "@mapcreator/maps4news/src/resources/language.js~language",
+    "class/src/resources/Language.js~Language.html",
+    "<span>Language</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Language.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/layer.js~layer",
-    "class/src/crud/Layer.js~Layer.html",
-    "<span>Layer</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Layer.js</span>",
+    "@mapcreator/maps4news/src/resources/layer.js~layer",
+    "class/src/resources/Layer.js~Layer.html",
+    "<span>Layer</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Layer.js</span>",
     "class"
   ],
   [
@@ -222,15 +222,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/mapstyle.js~mapstyle",
-    "class/src/crud/Mapstyle.js~Mapstyle.html",
-    "<span>Mapstyle</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Mapstyle.js</span>",
+    "@mapcreator/maps4news/src/resources/mapstyle.js~mapstyle",
+    "class/src/resources/Mapstyle.js~Mapstyle.html",
+    "<span>Mapstyle</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Mapstyle.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/mapstyleset.js~mapstyleset",
-    "class/src/crud/MapstyleSet.js~MapstyleSet.html",
-    "<span>MapstyleSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/MapstyleSet.js</span>",
+    "@mapcreator/maps4news/src/resources/mapstyleset.js~mapstyleset",
+    "class/src/resources/MapstyleSet.js~MapstyleSet.html",
+    "<span>MapstyleSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/MapstyleSet.js</span>",
     "class"
   ],
   [
@@ -240,9 +240,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/notification.js~notification",
-    "class/src/crud/Notification.js~Notification.html",
-    "<span>Notification</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Notification.js</span>",
+    "@mapcreator/maps4news/src/resources/notification.js~notification",
+    "class/src/resources/Notification.js~Notification.html",
+    "<span>Notification</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Notification.js</span>",
     "class"
   ],
   [
@@ -264,9 +264,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/organisation.js~organisation",
-    "class/src/crud/Organisation.js~Organisation.html",
-    "<span>Organisation</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Organisation.js</span>",
+    "@mapcreator/maps4news/src/resources/organisation.js~organisation",
+    "class/src/resources/Organisation.js~Organisation.html",
+    "<span>Organisation</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Organisation.js</span>",
     "class"
   ],
   [
@@ -306,15 +306,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/permission.js~permission",
-    "class/src/crud/Permission.js~Permission.html",
-    "<span>Permission</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Permission.js</span>",
+    "@mapcreator/maps4news/src/resources/permission.js~permission",
+    "class/src/resources/Permission.js~Permission.html",
+    "<span>Permission</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Permission.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/placename.js~placename",
-    "class/src/crud/PlaceName.js~PlaceName.html",
-    "<span>PlaceName</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/PlaceName.js</span>",
+    "@mapcreator/maps4news/src/resources/placename.js~placename",
+    "class/src/resources/PlaceName.js~PlaceName.html",
+    "<span>PlaceName</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/PlaceName.js</span>",
     "class"
   ],
   [
@@ -324,9 +324,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/base/resourcebase.js~resourcebase",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html",
-    "<span>ResourceBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/base/ResourceBase.js</span>",
+    "@mapcreator/maps4news/src/resources/base/resourcebase.js~resourcebase",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html",
+    "<span>ResourceBase</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/base/ResourceBase.js</span>",
     "class"
   ],
   [
@@ -348,9 +348,9 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "@mapcreator/maps4news/src/crud/role.js~role",
-    "class/src/crud/Role.js~Role.html",
-    "<span>Role</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Role.js</span>",
+    "@mapcreator/maps4news/src/resources/role.js~role",
+    "class/src/resources/Role.js~Role.html",
+    "<span>Role</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Role.js</span>",
     "class"
   ],
   [
@@ -378,15 +378,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/svg.js~svg",
-    "class/src/crud/Svg.js~Svg.html",
-    "<span>Svg</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/Svg.js</span>",
+    "@mapcreator/maps4news/src/resources/svg.js~svg",
+    "class/src/resources/Svg.js~Svg.html",
+    "<span>Svg</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/Svg.js</span>",
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/svgset.js~svgset",
-    "class/src/crud/SvgSet.js~SvgSet.html",
-    "<span>SvgSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/SvgSet.js</span>",
+    "@mapcreator/maps4news/src/resources/svgset.js~svgset",
+    "class/src/resources/SvgSet.js~SvgSet.html",
+    "<span>SvgSet</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/SvgSet.js</span>",
     "class"
   ],
   [
@@ -408,9 +408,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@mapcreator/maps4news/src/crud/user.js~user",
-    "class/src/crud/User.js~User.html",
-    "<span>User</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/crud/User.js</span>",
+    "@mapcreator/maps4news/src/resources/user.js~user",
+    "class/src/resources/User.js~User.html",
+    "<span>User</span> <span class=\"search-result-import-path\">@mapcreator/maps4news/src/resources/User.js</span>",
     "class"
   ],
   [
@@ -835,25 +835,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/jobmonitor.js~jobmonitor#filterstatus",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-set-filterStatus",
-    "src/JobMonitor.js~JobMonitor#filterStatus",
-    "member"
-  ],
-  [
-    "src/jobmonitor.js~jobmonitor#filterstatus",
     "class/src/JobMonitor.js~JobMonitor.html#instance-get-filterStatus",
     "src/JobMonitor.js~JobMonitor#filterStatus",
     "member"
   ],
   [
-    "src/jobmonitor.js~jobmonitor#hideinternal",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-set-hideInternal",
-    "src/JobMonitor.js~JobMonitor#hideInternal",
+    "src/jobmonitor.js~jobmonitor#filterstatus",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-filterStatus",
+    "src/JobMonitor.js~JobMonitor#filterStatus",
     "member"
   ],
   [
     "src/jobmonitor.js~jobmonitor#hideinternal",
     "class/src/JobMonitor.js~JobMonitor.html#instance-get-hideInternal",
+    "src/JobMonitor.js~JobMonitor#hideInternal",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#hideinternal",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-hideInternal",
     "src/JobMonitor.js~JobMonitor#hideInternal",
     "member"
   ],
@@ -865,13 +865,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/jobmonitor.js~jobmonitor#maxrows",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-get-maxRows",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-maxRows",
     "src/JobMonitor.js~JobMonitor#maxRows",
     "member"
   ],
   [
     "src/jobmonitor.js~jobmonitor#maxrows",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-set-maxRows",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-maxRows",
     "src/JobMonitor.js~JobMonitor#maxRows",
     "member"
   ],
@@ -885,36 +885,6 @@ window.esdocSearchIndex = [
     "src/jobmonitor.js~jobmonitor#waiting",
     "class/src/JobMonitor.js~JobMonitor.html#instance-get-waiting",
     "src/JobMonitor.js~JobMonitor#waiting",
-    "member"
-  ],
-  [
-    "src/jobmonitorrow.js",
-    "file/src/JobMonitorRow.js.html",
-    "src/JobMonitorRow.js",
-    "file"
-  ],
-  [
-    "src/jobmonitorrow.js~jobmonitorrow#job",
-    "class/src/JobMonitorRow.js~JobMonitorRow.html#instance-get-job",
-    "src/JobMonitorRow.js~JobMonitorRow#job",
-    "member"
-  ],
-  [
-    "src/jobmonitorrow.js~jobmonitorrow#jobrevision",
-    "class/src/JobMonitorRow.js~JobMonitorRow.html#instance-get-jobRevision",
-    "src/JobMonitorRow.js~JobMonitorRow#jobRevision",
-    "member"
-  ],
-  [
-    "src/jobmonitorrow.js~jobmonitorrow#user",
-    "class/src/JobMonitorRow.js~JobMonitorRow.html#instance-get-user",
-    "src/JobMonitorRow.js~JobMonitorRow#user",
-    "member"
-  ],
-  [
-    "src/jobmonitorrow.js~jobmonitorrow.readonly",
-    "class/src/JobMonitorRow.js~JobMonitorRow.html#static-get-readonly",
-    "src/JobMonitorRow.js~JobMonitorRow.readonly",
     "member"
   ],
   [
@@ -1045,13 +1015,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#host",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-host",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-host",
     "src/Maps4News.js~Maps4News#host",
     "member"
   ],
@@ -1207,13 +1177,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#deleted",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-deleted",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-deleted",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#deleted",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#deleted",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-deleted",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-deleted",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#deleted",
     "member"
   ],
@@ -1255,13 +1225,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
@@ -1279,25 +1249,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
-    "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
-    "member"
-  ],
-  [
-    "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-query",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
-    "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
-    "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#query",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-query",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#query",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
     "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-route",
+    "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
+    "member"
+  ],
+  [
+    "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "member"
   ],
@@ -1351,13 +1321,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#currentpage",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-currentPage",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-currentPage",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#currentPage",
     "member"
   ],
@@ -1453,13 +1423,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#sharecache",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-shareCache",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-shareCache",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#shareCache",
     "member"
   ],
@@ -1489,13 +1459,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-deleted",
     "src/RequestParameters.js~RequestParameters#deleted",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-deleted",
     "src/RequestParameters.js~RequestParameters#deleted",
     "member"
   ],
@@ -1507,13 +1477,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#page",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-page",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-page",
     "src/RequestParameters.js~RequestParameters#page",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#page",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-page",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-page",
     "src/RequestParameters.js~RequestParameters#page",
     "member"
   ],
@@ -1603,13 +1573,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-perPage",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-perPage",
     "src/RequestParameters.js~RequestParameters.perPage",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-perPage",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-perPage",
     "src/RequestParameters.js~RequestParameters.perPage",
     "member"
   ],
@@ -1708,978 +1678,6 @@ window.esdocSearchIndex = [
     "class/src/ResourceCache.js~ResourceCache.html#instance-method-update",
     "src/ResourceCache.js~ResourceCache#update",
     "method"
-  ],
-  [
-    "src/crud/choropleth.js",
-    "file/src/crud/Choropleth.js.html",
-    "src/crud/Choropleth.js",
-    "file"
-  ],
-  [
-    "src/crud/choropleth.js~choropleth#resourcename",
-    "class/src/crud/Choropleth.js~Choropleth.html#instance-get-resourceName",
-    "src/crud/Choropleth.js~Choropleth#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/color.js",
-    "file/src/crud/Color.js.html",
-    "src/crud/Color.js",
-    "file"
-  ],
-  [
-    "src/crud/color.js~color#resourcename",
-    "class/src/crud/Color.js~Color.html#instance-get-resourceName",
-    "src/crud/Color.js~Color#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/contract.js",
-    "file/src/crud/Contract.js.html",
-    "src/crud/Contract.js",
-    "file"
-  ],
-  [
-    "src/crud/contract.js~contract#resourcename",
-    "class/src/crud/Contract.js~Contract.html#instance-get-resourceName",
-    "src/crud/Contract.js~Contract#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/dimension.js",
-    "file/src/crud/Dimension.js.html",
-    "src/crud/Dimension.js",
-    "file"
-  ],
-  [
-    "src/crud/dimension.js~dimension#resourcename",
-    "class/src/crud/Dimension.js~Dimension.html#instance-get-resourceName",
-    "src/crud/Dimension.js~Dimension#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/dimensionset.js",
-    "file/src/crud/DimensionSet.js.html",
-    "src/crud/DimensionSet.js",
-    "file"
-  ],
-  [
-    "src/crud/dimensionset.js~dimensionset#resourcename",
-    "class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-resourceName",
-    "src/crud/DimensionSet.js~DimensionSet#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/dimensionset.js~dimensionset#resourcepath",
-    "class/src/crud/DimensionSet.js~DimensionSet.html#instance-get-resourcePath",
-    "src/crud/DimensionSet.js~DimensionSet#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/domain.js",
-    "file/src/crud/Domain.js.html",
-    "src/crud/Domain.js",
-    "file"
-  ],
-  [
-    "src/crud/domain.js~domain#resourcename",
-    "class/src/crud/Domain.js~Domain.html#instance-get-resourceName",
-    "src/crud/Domain.js~Domain#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/faq.js",
-    "file/src/crud/Faq.js.html",
-    "src/crud/Faq.js",
-    "file"
-  ],
-  [
-    "src/crud/faq.js~faq#resourcename",
-    "class/src/crud/Faq.js~Faq.html#instance-get-resourceName",
-    "src/crud/Faq.js~Faq#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/feature.js",
-    "file/src/crud/Feature.js.html",
-    "src/crud/Feature.js",
-    "file"
-  ],
-  [
-    "src/crud/feature.js~feature#resourcename",
-    "class/src/crud/Feature.js~Feature.html#instance-get-resourceName",
-    "src/crud/Feature.js~Feature#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/font.js",
-    "file/src/crud/Font.js.html",
-    "src/crud/Font.js",
-    "file"
-  ],
-  [
-    "src/crud/font.js~font#resourcename",
-    "class/src/crud/Font.js~Font.html#instance-get-resourceName",
-    "src/crud/Font.js~Font#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/fontfamily.js",
-    "file/src/crud/FontFamily.js.html",
-    "src/crud/FontFamily.js",
-    "file"
-  ],
-  [
-    "src/crud/fontfamily.js~fontfamily#resourcename",
-    "class/src/crud/FontFamily.js~FontFamily.html#instance-get-resourceName",
-    "src/crud/FontFamily.js~FontFamily#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/fontfamily.js~fontfamily#resourcepath",
-    "class/src/crud/FontFamily.js~FontFamily.html#instance-get-resourcePath",
-    "src/crud/FontFamily.js~FontFamily#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/highlight.js",
-    "file/src/crud/Highlight.js.html",
-    "src/crud/Highlight.js",
-    "file"
-  ],
-  [
-    "src/crud/highlight.js~highlight#resourcename",
-    "class/src/crud/Highlight.js~Highlight.html#instance-get-resourceName",
-    "src/crud/Highlight.js~Highlight#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/insetmap.js",
-    "file/src/crud/InsetMap.js.html",
-    "src/crud/InsetMap.js",
-    "file"
-  ],
-  [
-    "src/crud/insetmap.js~insetmap#resourcename",
-    "class/src/crud/InsetMap.js~InsetMap.html#instance-get-resourceName",
-    "src/crud/InsetMap.js~InsetMap#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/job.js",
-    "file/src/crud/Job.js.html",
-    "src/crud/Job.js",
-    "file"
-  ],
-  [
-    "src/crud/job.js~job#lastarchiveurl",
-    "class/src/crud/Job.js~Job.html#instance-get-lastArchiveUrl",
-    "src/crud/Job.js~Job#lastArchiveUrl",
-    "member"
-  ],
-  [
-    "src/crud/job.js~job#lastpreviewurl",
-    "class/src/crud/Job.js~Job.html#instance-get-lastPreviewUrl",
-    "src/crud/Job.js~Job#lastPreviewUrl",
-    "member"
-  ],
-  [
-    "src/crud/job.js~job#resourcename",
-    "class/src/crud/Job.js~Job.html#instance-get-resourceName",
-    "src/crud/Job.js~Job#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/job.js~job#results",
-    "class/src/crud/Job.js~Job.html#instance-get-results",
-    "src/crud/Job.js~Job#results",
-    "member"
-  ],
-  [
-    "src/crud/job.js~job#revisions",
-    "class/src/crud/Job.js~Job.html#instance-get-revisions",
-    "src/crud/Job.js~Job#revisions",
-    "member"
-  ],
-  [
-    "src/crud/jobresult.js",
-    "file/src/crud/JobResult.js.html",
-    "src/crud/JobResult.js",
-    "file"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#downloadarchive",
-    "class/src/crud/JobResult.js~JobResult.html#instance-method-downloadArchive",
-    "src/crud/JobResult.js~JobResult#downloadArchive",
-    "method"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#downloadlog",
-    "class/src/crud/JobResult.js~JobResult.html#instance-method-downloadLog",
-    "src/crud/JobResult.js~JobResult#downloadLog",
-    "method"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#downloadoutput",
-    "class/src/crud/JobResult.js~JobResult.html#instance-method-downloadOutput",
-    "src/crud/JobResult.js~JobResult#downloadOutput",
-    "method"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#downloadpreview",
-    "class/src/crud/JobResult.js~JobResult.html#instance-method-downloadPreview",
-    "src/crud/JobResult.js~JobResult#downloadPreview",
-    "method"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#getoutputurl",
-    "class/src/crud/JobResult.js~JobResult.html#instance-method-getOutputUrl",
-    "src/crud/JobResult.js~JobResult#getOutputUrl",
-    "method"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#logurl",
-    "class/src/crud/JobResult.js~JobResult.html#instance-get-logUrl",
-    "src/crud/JobResult.js~JobResult#logUrl",
-    "member"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#outputurl",
-    "class/src/crud/JobResult.js~JobResult.html#instance-get-outputUrl",
-    "src/crud/JobResult.js~JobResult#outputUrl",
-    "member"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#outputurlurl",
-    "class/src/crud/JobResult.js~JobResult.html#instance-get-outputUrlUrl",
-    "src/crud/JobResult.js~JobResult#outputUrlUrl",
-    "member"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#previewurl",
-    "class/src/crud/JobResult.js~JobResult.html#instance-get-previewUrl",
-    "src/crud/JobResult.js~JobResult#previewUrl",
-    "member"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#resourcename",
-    "class/src/crud/JobResult.js~JobResult.html#instance-get-resourceName",
-    "src/crud/JobResult.js~JobResult#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/jobresult.js~jobresult#resourcepath",
-    "class/src/crud/JobResult.js~JobResult.html#instance-get-resourcePath",
-    "src/crud/JobResult.js~JobResult#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/jobrevision.js",
-    "file/src/crud/JobRevision.js.html",
-    "src/crud/JobRevision.js",
-    "file"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#baseurl",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-baseUrl",
-    "src/crud/JobRevision.js~JobRevision#baseUrl",
-    "member"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#build",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-build",
-    "src/crud/JobRevision.js~JobRevision#build",
-    "method"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#cancel",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-cancel",
-    "src/crud/JobRevision.js~JobRevision#cancel",
-    "method"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#clone",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-clone",
-    "src/crud/JobRevision.js~JobRevision#clone",
-    "method"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#layers",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-layers",
-    "src/crud/JobRevision.js~JobRevision#layers",
-    "member"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#object",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-object",
-    "src/crud/JobRevision.js~JobRevision#object",
-    "method"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#resourcename",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-resourceName",
-    "src/crud/JobRevision.js~JobRevision#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#resourcepath",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-resourcePath",
-    "src/crud/JobRevision.js~JobRevision#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#result",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-result",
-    "src/crud/JobRevision.js~JobRevision#result",
-    "method"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#resultproxy",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-get-resultProxy",
-    "src/crud/JobRevision.js~JobRevision#resultProxy",
-    "member"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#save",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-save",
-    "src/crud/JobRevision.js~JobRevision#save",
-    "method"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision#share",
-    "class/src/crud/JobRevision.js~JobRevision.html#instance-method-share",
-    "src/crud/JobRevision.js~JobRevision#share",
-    "method"
-  ],
-  [
-    "src/crud/jobrevision.js~jobrevision.resourceurlkey",
-    "class/src/crud/JobRevision.js~JobRevision.html#static-get-resourceUrlKey",
-    "src/crud/JobRevision.js~JobRevision.resourceUrlKey",
-    "member"
-  ],
-  [
-    "src/crud/jobshare.js",
-    "file/src/crud/JobShare.js.html",
-    "src/crud/JobShare.js",
-    "file"
-  ],
-  [
-    "src/crud/jobshare.js~jobshare#resourcename",
-    "class/src/crud/JobShare.js~JobShare.html#instance-get-resourceName",
-    "src/crud/JobShare.js~JobShare#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/jobshare.js~jobshare#resourcepath",
-    "class/src/crud/JobShare.js~JobShare.html#instance-get-resourcePath",
-    "src/crud/JobShare.js~JobShare#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/jobshare.js~jobshare.visibility",
-    "class/src/crud/JobShare.js~JobShare.html#static-get-visibility",
-    "src/crud/JobShare.js~JobShare.visibility",
-    "member"
-  ],
-  [
-    "src/crud/jobtype.js",
-    "file/src/crud/JobType.js.html",
-    "src/crud/JobType.js",
-    "file"
-  ],
-  [
-    "src/crud/jobtype.js~jobtype#resourcename",
-    "class/src/crud/JobType.js~JobType.html#instance-get-resourceName",
-    "src/crud/JobType.js~JobType#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/jobtype.js~jobtype#resourcepath",
-    "class/src/crud/JobType.js~JobType.html#instance-get-resourcePath",
-    "src/crud/JobType.js~JobType#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/language.js",
-    "file/src/crud/Language.js.html",
-    "src/crud/Language.js",
-    "file"
-  ],
-  [
-    "src/crud/language.js~language#resourcename",
-    "class/src/crud/Language.js~Language.html#instance-get-resourceName",
-    "src/crud/Language.js~Language#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/language.js~language#resourcepath",
-    "class/src/crud/Language.js~Language.html#instance-get-resourcePath",
-    "src/crud/Language.js~Language#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/language.js~language#tostring",
-    "class/src/crud/Language.js~Language.html#instance-method-toString",
-    "src/crud/Language.js~Language#toString",
-    "method"
-  ],
-  [
-    "src/crud/language.js~language.resourceurlkey",
-    "class/src/crud/Language.js~Language.html#static-get-resourceUrlKey",
-    "src/crud/Language.js~Language.resourceUrlKey",
-    "member"
-  ],
-  [
-    "src/crud/layer.js",
-    "file/src/crud/Layer.js.html",
-    "src/crud/Layer.js",
-    "file"
-  ],
-  [
-    "src/crud/layer.js~layer#resourcename",
-    "class/src/crud/Layer.js~Layer.html#instance-get-resourceName",
-    "src/crud/Layer.js~Layer#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/mapstyle.js",
-    "file/src/crud/Mapstyle.js.html",
-    "src/crud/Mapstyle.js",
-    "file"
-  ],
-  [
-    "src/crud/mapstyle.js~mapstyle#resourcename",
-    "class/src/crud/Mapstyle.js~Mapstyle.html#instance-get-resourceName",
-    "src/crud/Mapstyle.js~Mapstyle#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/mapstyleset.js",
-    "file/src/crud/MapstyleSet.js.html",
-    "src/crud/MapstyleSet.js",
-    "file"
-  ],
-  [
-    "src/crud/mapstyleset.js~mapstyleset#resourcename",
-    "class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-resourceName",
-    "src/crud/MapstyleSet.js~MapstyleSet#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/mapstyleset.js~mapstyleset#resourcepath",
-    "class/src/crud/MapstyleSet.js~MapstyleSet.html#instance-get-resourcePath",
-    "src/crud/MapstyleSet.js~MapstyleSet#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/notification.js",
-    "file/src/crud/Notification.js.html",
-    "src/crud/Notification.js",
-    "file"
-  ],
-  [
-    "src/crud/notification.js~notification#resourcename",
-    "class/src/crud/Notification.js~Notification.html#instance-get-resourceName",
-    "src/crud/Notification.js~Notification#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js",
-    "file/src/crud/Organisation.js.html",
-    "src/crud/Organisation.js",
-    "file"
-  ],
-  [
-    "src/crud/organisation.js~organisation#colors",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-colors",
-    "src/crud/Organisation.js~Organisation#colors",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#contracts",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-contracts",
-    "src/crud/Organisation.js~Organisation#contracts",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#dimensionsets",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-dimensionSets",
-    "src/crud/Organisation.js~Organisation#dimensionSets",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#domains",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-domains",
-    "src/crud/Organisation.js~Organisation#domains",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#features",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-features",
-    "src/crud/Organisation.js~Organisation#features",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#fontfamilies",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-fontFamilies",
-    "src/crud/Organisation.js~Organisation#fontFamilies",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#jobshares",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-jobShares",
-    "src/crud/Organisation.js~Organisation#jobShares",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#jobtypes",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-jobTypes",
-    "src/crud/Organisation.js~Organisation#jobTypes",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#layers",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-layers",
-    "src/crud/Organisation.js~Organisation#layers",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#mapstylesets",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-mapstyleSets",
-    "src/crud/Organisation.js~Organisation#mapstyleSets",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#resourcename",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-resourceName",
-    "src/crud/Organisation.js~Organisation#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#svgsets",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-svgSets",
-    "src/crud/Organisation.js~Organisation#svgSets",
-    "member"
-  ],
-  [
-    "src/crud/organisation.js~organisation#users",
-    "class/src/crud/Organisation.js~Organisation.html#instance-get-users",
-    "src/crud/Organisation.js~Organisation#users",
-    "member"
-  ],
-  [
-    "src/crud/permission.js",
-    "file/src/crud/Permission.js.html",
-    "src/crud/Permission.js",
-    "file"
-  ],
-  [
-    "src/crud/permission.js~permission#resourcename",
-    "class/src/crud/Permission.js~Permission.html#instance-get-resourceName",
-    "src/crud/Permission.js~Permission#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/placename.js",
-    "file/src/crud/PlaceName.js.html",
-    "src/crud/PlaceName.js",
-    "file"
-  ],
-  [
-    "src/crud/placename.js~placename#resourcename",
-    "class/src/crud/PlaceName.js~PlaceName.html#instance-get-resourceName",
-    "src/crud/PlaceName.js~PlaceName#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/role.js",
-    "file/src/crud/Role.js.html",
-    "src/crud/Role.js",
-    "file"
-  ],
-  [
-    "src/crud/role.js~role#attachpermissions",
-    "class/src/crud/Role.js~Role.html#instance-method-attachPermissions",
-    "src/crud/Role.js~Role#attachPermissions",
-    "method"
-  ],
-  [
-    "src/crud/role.js~role#attachusers",
-    "class/src/crud/Role.js~Role.html#instance-method-attachUsers",
-    "src/crud/Role.js~Role#attachUsers",
-    "method"
-  ],
-  [
-    "src/crud/role.js~role#detachpermissions",
-    "class/src/crud/Role.js~Role.html#instance-method-detachPermissions",
-    "src/crud/Role.js~Role#detachPermissions",
-    "method"
-  ],
-  [
-    "src/crud/role.js~role#detachusers",
-    "class/src/crud/Role.js~Role.html#instance-method-detachUsers",
-    "src/crud/Role.js~Role#detachUsers",
-    "method"
-  ],
-  [
-    "src/crud/role.js~role#permissions",
-    "class/src/crud/Role.js~Role.html#instance-get-permissions",
-    "src/crud/Role.js~Role#permissions",
-    "member"
-  ],
-  [
-    "src/crud/role.js~role#resourcename",
-    "class/src/crud/Role.js~Role.html#instance-get-resourceName",
-    "src/crud/Role.js~Role#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/role.js~role#syncpermissions",
-    "class/src/crud/Role.js~Role.html#instance-method-syncPermissions",
-    "src/crud/Role.js~Role#syncPermissions",
-    "method"
-  ],
-  [
-    "src/crud/role.js~role#syncusers",
-    "class/src/crud/Role.js~Role.html#instance-method-syncUsers",
-    "src/crud/Role.js~Role#syncUsers",
-    "method"
-  ],
-  [
-    "src/crud/role.js~role#users",
-    "class/src/crud/Role.js~Role.html#instance-get-users",
-    "src/crud/Role.js~Role#users",
-    "member"
-  ],
-  [
-    "src/crud/svg.js",
-    "file/src/crud/Svg.js.html",
-    "src/crud/Svg.js",
-    "file"
-  ],
-  [
-    "src/crud/svg.js~svg#resourcename",
-    "class/src/crud/Svg.js~Svg.html#instance-get-resourceName",
-    "src/crud/Svg.js~Svg#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/svgset.js",
-    "file/src/crud/SvgSet.js.html",
-    "src/crud/SvgSet.js",
-    "file"
-  ],
-  [
-    "src/crud/svgset.js~svgset#resourcename",
-    "class/src/crud/SvgSet.js~SvgSet.html#instance-get-resourceName",
-    "src/crud/SvgSet.js~SvgSet#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/svgset.js~svgset#resourcepath",
-    "class/src/crud/SvgSet.js~SvgSet.html#instance-get-resourcePath",
-    "src/crud/SvgSet.js~SvgSet#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/user.js",
-    "file/src/crud/User.js.html",
-    "src/crud/User.js",
-    "file"
-  ],
-  [
-    "src/crud/user.js~user#colors",
-    "class/src/crud/User.js~User.html#instance-get-colors",
-    "src/crud/User.js~User#colors",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#dimensionsets",
-    "class/src/crud/User.js~User.html#instance-get-dimensionSets",
-    "src/crud/User.js~User#dimensionSets",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#features",
-    "class/src/crud/User.js~User.html#instance-get-features",
-    "src/crud/User.js~User#features",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#fontfamilies",
-    "class/src/crud/User.js~User.html#instance-get-fontFamilies",
-    "src/crud/User.js~User#fontFamilies",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#ips",
-    "class/src/crud/User.js~User.html#instance-method-ips",
-    "src/crud/User.js~User#ips",
-    "method"
-  ],
-  [
-    "src/crud/user.js~user#jobshares",
-    "class/src/crud/User.js~User.html#instance-get-jobShares",
-    "src/crud/User.js~User#jobShares",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#jobtypes",
-    "class/src/crud/User.js~User.html#instance-get-jobTypes",
-    "src/crud/User.js~User#jobTypes",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#jobs",
-    "class/src/crud/User.js~User.html#instance-get-jobs",
-    "src/crud/User.js~User#jobs",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#language",
-    "class/src/crud/User.js~User.html#instance-method-language",
-    "src/crud/User.js~User#language",
-    "method"
-  ],
-  [
-    "src/crud/user.js~user#layers",
-    "class/src/crud/User.js~User.html#instance-get-layers",
-    "src/crud/User.js~User#layers",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#mapstylesets",
-    "class/src/crud/User.js~User.html#instance-get-mapstyleSets",
-    "src/crud/User.js~User#mapstyleSets",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#notifications",
-    "class/src/crud/User.js~User.html#instance-get-notifications",
-    "src/crud/User.js~User#notifications",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#organisation",
-    "class/src/crud/User.js~User.html#instance-method-organisation",
-    "src/crud/User.js~User#organisation",
-    "method"
-  ],
-  [
-    "src/crud/user.js~user#permissions",
-    "class/src/crud/User.js~User.html#instance-get-permissions",
-    "src/crud/User.js~User#permissions",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#resourcename",
-    "class/src/crud/User.js~User.html#instance-get-resourceName",
-    "src/crud/User.js~User#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#roles",
-    "class/src/crud/User.js~User.html#instance-get-roles",
-    "src/crud/User.js~User#roles",
-    "member"
-  ],
-  [
-    "src/crud/user.js~user#svgsets",
-    "class/src/crud/User.js~User.html#instance-get-svgSets",
-    "src/crud/User.js~User#svgSets",
-    "member"
-  ],
-  [
-    "src/crud/base/crudbase.js",
-    "file/src/crud/base/CrudBase.js.html",
-    "src/crud/base/CrudBase.js",
-    "file"
-  ],
-  [
-    "src/crud/base/crudbase.js~crudbase#_buildcreatedata",
-    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-_buildCreateData",
-    "src/crud/base/CrudBase.js~CrudBase#_buildCreateData",
-    "method"
-  ],
-  [
-    "src/crud/base/crudbase.js~crudbase#_modifylink",
-    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-_modifyLink",
-    "src/crud/base/CrudBase.js~CrudBase#_modifyLink",
-    "method"
-  ],
-  [
-    "src/crud/base/crudbase.js~crudbase#constructor",
-    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-constructor-constructor",
-    "src/crud/base/CrudBase.js~CrudBase#constructor",
-    "method"
-  ],
-  [
-    "src/crud/base/crudbase.js~crudbase#delete",
-    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-delete",
-    "src/crud/base/CrudBase.js~CrudBase#delete",
-    "method"
-  ],
-  [
-    "src/crud/base/crudbase.js~crudbase#restore",
-    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-restore",
-    "src/crud/base/CrudBase.js~CrudBase#restore",
-    "method"
-  ],
-  [
-    "src/crud/base/crudbase.js~crudbase#save",
-    "class/src/crud/base/CrudBase.js~CrudBase.html#instance-method-save",
-    "src/crud/base/CrudBase.js~CrudBase#save",
-    "method"
-  ],
-  [
-    "src/crud/base/crudsetbase.js",
-    "file/src/crud/base/CrudSetBase.js.html",
-    "src/crud/base/CrudSetBase.js",
-    "file"
-  ],
-  [
-    "src/crud/base/crudsetbase.js~crudsetbase#_child",
-    "class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-_Child",
-    "src/crud/base/CrudSetBase.js~CrudSetBase#_Child",
-    "member"
-  ],
-  [
-    "src/crud/base/crudsetbase.js~crudsetbase#foreignkeyname",
-    "class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-foreignKeyName",
-    "src/crud/base/CrudSetBase.js~CrudSetBase#foreignKeyName",
-    "member"
-  ],
-  [
-    "src/crud/base/crudsetbase.js~crudsetbase#items",
-    "class/src/crud/base/CrudSetBase.js~CrudSetBase.html#instance-get-items",
-    "src/crud/base/CrudSetBase.js~CrudSetBase#items",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js",
-    "file/src/crud/base/ResourceBase.js.html",
-    "src/crud/base/ResourceBase.js",
-    "file"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#_protectedfields",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-_protectedFields",
-    "src/crud/base/ResourceBase.js~ResourceBase#_protectedFields",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#_proxyresourcelist",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-_proxyResourceList",
-    "src/crud/base/ResourceBase.js~ResourceBase#_proxyResourceList",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#_updateproperties",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-_updateProperties",
-    "src/crud/base/ResourceBase.js~ResourceBase#_updateProperties",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#api",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-api",
-    "src/crud/base/ResourceBase.js~ResourceBase#api",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#baseurl",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-baseUrl",
-    "src/crud/base/ResourceBase.js~ResourceBase#baseUrl",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#clone",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-clone",
-    "src/crud/base/ResourceBase.js~ResourceBase#clone",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#constructor",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-constructor-constructor",
-    "src/crud/base/ResourceBase.js~ResourceBase#constructor",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#fieldnames",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-fieldNames",
-    "src/crud/base/ResourceBase.js~ResourceBase#fieldNames",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#ownable",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-ownable",
-    "src/crud/base/ResourceBase.js~ResourceBase#ownable",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#refresh",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-refresh",
-    "src/crud/base/ResourceBase.js~ResourceBase#refresh",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#reset",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-reset",
-    "src/crud/base/ResourceBase.js~ResourceBase#reset",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#resourcename",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName",
-    "src/crud/base/ResourceBase.js~ResourceBase#resourceName",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#resourcepath",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-resourcePath",
-    "src/crud/base/ResourceBase.js~ResourceBase#resourcePath",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#sanitize",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-sanitize",
-    "src/crud/base/ResourceBase.js~ResourceBase#sanitize",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#toobject",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-toObject",
-    "src/crud/base/ResourceBase.js~ResourceBase#toObject",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#tostring",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-method-toString",
-    "src/crud/base/ResourceBase.js~ResourceBase#toString",
-    "method"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase#url",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#instance-get-url",
-    "src/crud/base/ResourceBase.js~ResourceBase#url",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase.readonly",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#static-get-readonly",
-    "src/crud/base/ResourceBase.js~ResourceBase.readonly",
-    "member"
-  ],
-  [
-    "src/crud/base/resourcebase.js~resourcebase.resourceurlkey",
-    "class/src/crud/base/ResourceBase.js~ResourceBase.html#static-get-resourceUrlKey",
-    "src/crud/base/ResourceBase.js~ResourceBase.resourceUrlKey",
-    "member"
-  ],
-  [
-    "src/crud/index.js",
-    "file/src/crud/index.js.html",
-    "src/crud/index.js",
-    "file"
   ],
   [
     "src/enums/deletedstate.js",
@@ -3175,25 +2173,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
-    "src/oauth/PasswordFlow.js~PasswordFlow#password",
-    "member"
-  ],
-  [
-    "src/oauth/passwordflow.js~passwordflow#password",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
-    "src/oauth/passwordflow.js~passwordflow#path",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
-    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "src/oauth/passwordflow.js~passwordflow#password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#path",
     "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-path",
+    "src/oauth/PasswordFlow.js~PasswordFlow#path",
+    "member"
+  ],
+  [
+    "src/oauth/passwordflow.js~passwordflow#path",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-path",
     "src/oauth/PasswordFlow.js~PasswordFlow#path",
     "member"
   ],
@@ -3217,13 +2215,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
@@ -3394,6 +2392,1008 @@ window.esdocSearchIndex = [
     "class/src/proxy/SimpleResourceProxy.js~SimpleResourceProxy.html#instance-method-new",
     "src/proxy/SimpleResourceProxy.js~SimpleResourceProxy#new",
     "method"
+  ],
+  [
+    "src/resources/choropleth.js",
+    "file/src/resources/Choropleth.js.html",
+    "src/resources/Choropleth.js",
+    "file"
+  ],
+  [
+    "src/resources/choropleth.js~choropleth#resourcename",
+    "class/src/resources/Choropleth.js~Choropleth.html#instance-get-resourceName",
+    "src/resources/Choropleth.js~Choropleth#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/color.js",
+    "file/src/resources/Color.js.html",
+    "src/resources/Color.js",
+    "file"
+  ],
+  [
+    "src/resources/color.js~color#resourcename",
+    "class/src/resources/Color.js~Color.html#instance-get-resourceName",
+    "src/resources/Color.js~Color#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/contract.js",
+    "file/src/resources/Contract.js.html",
+    "src/resources/Contract.js",
+    "file"
+  ],
+  [
+    "src/resources/contract.js~contract#resourcename",
+    "class/src/resources/Contract.js~Contract.html#instance-get-resourceName",
+    "src/resources/Contract.js~Contract#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/dimension.js",
+    "file/src/resources/Dimension.js.html",
+    "src/resources/Dimension.js",
+    "file"
+  ],
+  [
+    "src/resources/dimension.js~dimension#resourcename",
+    "class/src/resources/Dimension.js~Dimension.html#instance-get-resourceName",
+    "src/resources/Dimension.js~Dimension#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/dimensionset.js",
+    "file/src/resources/DimensionSet.js.html",
+    "src/resources/DimensionSet.js",
+    "file"
+  ],
+  [
+    "src/resources/dimensionset.js~dimensionset#resourcename",
+    "class/src/resources/DimensionSet.js~DimensionSet.html#instance-get-resourceName",
+    "src/resources/DimensionSet.js~DimensionSet#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/dimensionset.js~dimensionset#resourcepath",
+    "class/src/resources/DimensionSet.js~DimensionSet.html#instance-get-resourcePath",
+    "src/resources/DimensionSet.js~DimensionSet#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/domain.js",
+    "file/src/resources/Domain.js.html",
+    "src/resources/Domain.js",
+    "file"
+  ],
+  [
+    "src/resources/domain.js~domain#resourcename",
+    "class/src/resources/Domain.js~Domain.html#instance-get-resourceName",
+    "src/resources/Domain.js~Domain#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/faq.js",
+    "file/src/resources/Faq.js.html",
+    "src/resources/Faq.js",
+    "file"
+  ],
+  [
+    "src/resources/faq.js~faq#resourcename",
+    "class/src/resources/Faq.js~Faq.html#instance-get-resourceName",
+    "src/resources/Faq.js~Faq#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/feature.js",
+    "file/src/resources/Feature.js.html",
+    "src/resources/Feature.js",
+    "file"
+  ],
+  [
+    "src/resources/feature.js~feature#resourcename",
+    "class/src/resources/Feature.js~Feature.html#instance-get-resourceName",
+    "src/resources/Feature.js~Feature#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/font.js",
+    "file/src/resources/Font.js.html",
+    "src/resources/Font.js",
+    "file"
+  ],
+  [
+    "src/resources/font.js~font#resourcename",
+    "class/src/resources/Font.js~Font.html#instance-get-resourceName",
+    "src/resources/Font.js~Font#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/fontfamily.js",
+    "file/src/resources/FontFamily.js.html",
+    "src/resources/FontFamily.js",
+    "file"
+  ],
+  [
+    "src/resources/fontfamily.js~fontfamily#resourcename",
+    "class/src/resources/FontFamily.js~FontFamily.html#instance-get-resourceName",
+    "src/resources/FontFamily.js~FontFamily#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/fontfamily.js~fontfamily#resourcepath",
+    "class/src/resources/FontFamily.js~FontFamily.html#instance-get-resourcePath",
+    "src/resources/FontFamily.js~FontFamily#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/highlight.js",
+    "file/src/resources/Highlight.js.html",
+    "src/resources/Highlight.js",
+    "file"
+  ],
+  [
+    "src/resources/highlight.js~highlight#resourcename",
+    "class/src/resources/Highlight.js~Highlight.html#instance-get-resourceName",
+    "src/resources/Highlight.js~Highlight#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/insetmap.js",
+    "file/src/resources/InsetMap.js.html",
+    "src/resources/InsetMap.js",
+    "file"
+  ],
+  [
+    "src/resources/insetmap.js~insetmap#resourcename",
+    "class/src/resources/InsetMap.js~InsetMap.html#instance-get-resourceName",
+    "src/resources/InsetMap.js~InsetMap#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/job.js",
+    "file/src/resources/Job.js.html",
+    "src/resources/Job.js",
+    "file"
+  ],
+  [
+    "src/resources/job.js~job#lastarchiveurl",
+    "class/src/resources/Job.js~Job.html#instance-get-lastArchiveUrl",
+    "src/resources/Job.js~Job#lastArchiveUrl",
+    "member"
+  ],
+  [
+    "src/resources/job.js~job#lastpreviewurl",
+    "class/src/resources/Job.js~Job.html#instance-get-lastPreviewUrl",
+    "src/resources/Job.js~Job#lastPreviewUrl",
+    "member"
+  ],
+  [
+    "src/resources/job.js~job#resourcename",
+    "class/src/resources/Job.js~Job.html#instance-get-resourceName",
+    "src/resources/Job.js~Job#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/job.js~job#results",
+    "class/src/resources/Job.js~Job.html#instance-get-results",
+    "src/resources/Job.js~Job#results",
+    "member"
+  ],
+  [
+    "src/resources/job.js~job#revisions",
+    "class/src/resources/Job.js~Job.html#instance-get-revisions",
+    "src/resources/Job.js~Job#revisions",
+    "member"
+  ],
+  [
+    "src/resources/jobmonitorrow.js",
+    "file/src/resources/JobMonitorRow.js.html",
+    "src/resources/JobMonitorRow.js",
+    "file"
+  ],
+  [
+    "src/resources/jobmonitorrow.js~jobmonitorrow#job",
+    "class/src/resources/JobMonitorRow.js~JobMonitorRow.html#instance-get-job",
+    "src/resources/JobMonitorRow.js~JobMonitorRow#job",
+    "member"
+  ],
+  [
+    "src/resources/jobmonitorrow.js~jobmonitorrow#jobrevision",
+    "class/src/resources/JobMonitorRow.js~JobMonitorRow.html#instance-get-jobRevision",
+    "src/resources/JobMonitorRow.js~JobMonitorRow#jobRevision",
+    "member"
+  ],
+  [
+    "src/resources/jobmonitorrow.js~jobmonitorrow#user",
+    "class/src/resources/JobMonitorRow.js~JobMonitorRow.html#instance-get-user",
+    "src/resources/JobMonitorRow.js~JobMonitorRow#user",
+    "member"
+  ],
+  [
+    "src/resources/jobmonitorrow.js~jobmonitorrow.readonly",
+    "class/src/resources/JobMonitorRow.js~JobMonitorRow.html#static-get-readonly",
+    "src/resources/JobMonitorRow.js~JobMonitorRow.readonly",
+    "member"
+  ],
+  [
+    "src/resources/jobresult.js",
+    "file/src/resources/JobResult.js.html",
+    "src/resources/JobResult.js",
+    "file"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#downloadarchive",
+    "class/src/resources/JobResult.js~JobResult.html#instance-method-downloadArchive",
+    "src/resources/JobResult.js~JobResult#downloadArchive",
+    "method"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#downloadlog",
+    "class/src/resources/JobResult.js~JobResult.html#instance-method-downloadLog",
+    "src/resources/JobResult.js~JobResult#downloadLog",
+    "method"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#downloadoutput",
+    "class/src/resources/JobResult.js~JobResult.html#instance-method-downloadOutput",
+    "src/resources/JobResult.js~JobResult#downloadOutput",
+    "method"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#downloadpreview",
+    "class/src/resources/JobResult.js~JobResult.html#instance-method-downloadPreview",
+    "src/resources/JobResult.js~JobResult#downloadPreview",
+    "method"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#getoutputurl",
+    "class/src/resources/JobResult.js~JobResult.html#instance-method-getOutputUrl",
+    "src/resources/JobResult.js~JobResult#getOutputUrl",
+    "method"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#logurl",
+    "class/src/resources/JobResult.js~JobResult.html#instance-get-logUrl",
+    "src/resources/JobResult.js~JobResult#logUrl",
+    "member"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#outputurl",
+    "class/src/resources/JobResult.js~JobResult.html#instance-get-outputUrl",
+    "src/resources/JobResult.js~JobResult#outputUrl",
+    "member"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#outputurlurl",
+    "class/src/resources/JobResult.js~JobResult.html#instance-get-outputUrlUrl",
+    "src/resources/JobResult.js~JobResult#outputUrlUrl",
+    "member"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#previewurl",
+    "class/src/resources/JobResult.js~JobResult.html#instance-get-previewUrl",
+    "src/resources/JobResult.js~JobResult#previewUrl",
+    "member"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#resourcename",
+    "class/src/resources/JobResult.js~JobResult.html#instance-get-resourceName",
+    "src/resources/JobResult.js~JobResult#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/jobresult.js~jobresult#resourcepath",
+    "class/src/resources/JobResult.js~JobResult.html#instance-get-resourcePath",
+    "src/resources/JobResult.js~JobResult#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/jobrevision.js",
+    "file/src/resources/JobRevision.js.html",
+    "src/resources/JobRevision.js",
+    "file"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#baseurl",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-get-baseUrl",
+    "src/resources/JobRevision.js~JobRevision#baseUrl",
+    "member"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#build",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-method-build",
+    "src/resources/JobRevision.js~JobRevision#build",
+    "method"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#cancel",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-method-cancel",
+    "src/resources/JobRevision.js~JobRevision#cancel",
+    "method"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#clone",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-method-clone",
+    "src/resources/JobRevision.js~JobRevision#clone",
+    "method"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#layers",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-get-layers",
+    "src/resources/JobRevision.js~JobRevision#layers",
+    "member"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#object",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-method-object",
+    "src/resources/JobRevision.js~JobRevision#object",
+    "method"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#resourcename",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-get-resourceName",
+    "src/resources/JobRevision.js~JobRevision#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#resourcepath",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-get-resourcePath",
+    "src/resources/JobRevision.js~JobRevision#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#result",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-method-result",
+    "src/resources/JobRevision.js~JobRevision#result",
+    "method"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#resultproxy",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-get-resultProxy",
+    "src/resources/JobRevision.js~JobRevision#resultProxy",
+    "member"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#save",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-method-save",
+    "src/resources/JobRevision.js~JobRevision#save",
+    "method"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision#share",
+    "class/src/resources/JobRevision.js~JobRevision.html#instance-method-share",
+    "src/resources/JobRevision.js~JobRevision#share",
+    "method"
+  ],
+  [
+    "src/resources/jobrevision.js~jobrevision.resourceurlkey",
+    "class/src/resources/JobRevision.js~JobRevision.html#static-get-resourceUrlKey",
+    "src/resources/JobRevision.js~JobRevision.resourceUrlKey",
+    "member"
+  ],
+  [
+    "src/resources/jobshare.js",
+    "file/src/resources/JobShare.js.html",
+    "src/resources/JobShare.js",
+    "file"
+  ],
+  [
+    "src/resources/jobshare.js~jobshare#resourcename",
+    "class/src/resources/JobShare.js~JobShare.html#instance-get-resourceName",
+    "src/resources/JobShare.js~JobShare#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/jobshare.js~jobshare#resourcepath",
+    "class/src/resources/JobShare.js~JobShare.html#instance-get-resourcePath",
+    "src/resources/JobShare.js~JobShare#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/jobshare.js~jobshare.visibility",
+    "class/src/resources/JobShare.js~JobShare.html#static-get-visibility",
+    "src/resources/JobShare.js~JobShare.visibility",
+    "member"
+  ],
+  [
+    "src/resources/jobtype.js",
+    "file/src/resources/JobType.js.html",
+    "src/resources/JobType.js",
+    "file"
+  ],
+  [
+    "src/resources/jobtype.js~jobtype#resourcename",
+    "class/src/resources/JobType.js~JobType.html#instance-get-resourceName",
+    "src/resources/JobType.js~JobType#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/jobtype.js~jobtype#resourcepath",
+    "class/src/resources/JobType.js~JobType.html#instance-get-resourcePath",
+    "src/resources/JobType.js~JobType#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/language.js",
+    "file/src/resources/Language.js.html",
+    "src/resources/Language.js",
+    "file"
+  ],
+  [
+    "src/resources/language.js~language#resourcename",
+    "class/src/resources/Language.js~Language.html#instance-get-resourceName",
+    "src/resources/Language.js~Language#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/language.js~language#resourcepath",
+    "class/src/resources/Language.js~Language.html#instance-get-resourcePath",
+    "src/resources/Language.js~Language#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/language.js~language#tostring",
+    "class/src/resources/Language.js~Language.html#instance-method-toString",
+    "src/resources/Language.js~Language#toString",
+    "method"
+  ],
+  [
+    "src/resources/language.js~language.resourceurlkey",
+    "class/src/resources/Language.js~Language.html#static-get-resourceUrlKey",
+    "src/resources/Language.js~Language.resourceUrlKey",
+    "member"
+  ],
+  [
+    "src/resources/layer.js",
+    "file/src/resources/Layer.js.html",
+    "src/resources/Layer.js",
+    "file"
+  ],
+  [
+    "src/resources/layer.js~layer#resourcename",
+    "class/src/resources/Layer.js~Layer.html#instance-get-resourceName",
+    "src/resources/Layer.js~Layer#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/mapstyle.js",
+    "file/src/resources/Mapstyle.js.html",
+    "src/resources/Mapstyle.js",
+    "file"
+  ],
+  [
+    "src/resources/mapstyle.js~mapstyle#resourcename",
+    "class/src/resources/Mapstyle.js~Mapstyle.html#instance-get-resourceName",
+    "src/resources/Mapstyle.js~Mapstyle#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/mapstyleset.js",
+    "file/src/resources/MapstyleSet.js.html",
+    "src/resources/MapstyleSet.js",
+    "file"
+  ],
+  [
+    "src/resources/mapstyleset.js~mapstyleset#resourcename",
+    "class/src/resources/MapstyleSet.js~MapstyleSet.html#instance-get-resourceName",
+    "src/resources/MapstyleSet.js~MapstyleSet#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/mapstyleset.js~mapstyleset#resourcepath",
+    "class/src/resources/MapstyleSet.js~MapstyleSet.html#instance-get-resourcePath",
+    "src/resources/MapstyleSet.js~MapstyleSet#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/notification.js",
+    "file/src/resources/Notification.js.html",
+    "src/resources/Notification.js",
+    "file"
+  ],
+  [
+    "src/resources/notification.js~notification#resourcename",
+    "class/src/resources/Notification.js~Notification.html#instance-get-resourceName",
+    "src/resources/Notification.js~Notification#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js",
+    "file/src/resources/Organisation.js.html",
+    "src/resources/Organisation.js",
+    "file"
+  ],
+  [
+    "src/resources/organisation.js~organisation#colors",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-colors",
+    "src/resources/Organisation.js~Organisation#colors",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#contracts",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-contracts",
+    "src/resources/Organisation.js~Organisation#contracts",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#dimensionsets",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-dimensionSets",
+    "src/resources/Organisation.js~Organisation#dimensionSets",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#domains",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-domains",
+    "src/resources/Organisation.js~Organisation#domains",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#features",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-features",
+    "src/resources/Organisation.js~Organisation#features",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#fontfamilies",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-fontFamilies",
+    "src/resources/Organisation.js~Organisation#fontFamilies",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#jobshares",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-jobShares",
+    "src/resources/Organisation.js~Organisation#jobShares",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#jobtypes",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-jobTypes",
+    "src/resources/Organisation.js~Organisation#jobTypes",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#layers",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-layers",
+    "src/resources/Organisation.js~Organisation#layers",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#mapstylesets",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-mapstyleSets",
+    "src/resources/Organisation.js~Organisation#mapstyleSets",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#resourcename",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-resourceName",
+    "src/resources/Organisation.js~Organisation#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#svgsets",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-svgSets",
+    "src/resources/Organisation.js~Organisation#svgSets",
+    "member"
+  ],
+  [
+    "src/resources/organisation.js~organisation#users",
+    "class/src/resources/Organisation.js~Organisation.html#instance-get-users",
+    "src/resources/Organisation.js~Organisation#users",
+    "member"
+  ],
+  [
+    "src/resources/permission.js",
+    "file/src/resources/Permission.js.html",
+    "src/resources/Permission.js",
+    "file"
+  ],
+  [
+    "src/resources/permission.js~permission#resourcename",
+    "class/src/resources/Permission.js~Permission.html#instance-get-resourceName",
+    "src/resources/Permission.js~Permission#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/placename.js",
+    "file/src/resources/PlaceName.js.html",
+    "src/resources/PlaceName.js",
+    "file"
+  ],
+  [
+    "src/resources/placename.js~placename#resourcename",
+    "class/src/resources/PlaceName.js~PlaceName.html#instance-get-resourceName",
+    "src/resources/PlaceName.js~PlaceName#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/role.js",
+    "file/src/resources/Role.js.html",
+    "src/resources/Role.js",
+    "file"
+  ],
+  [
+    "src/resources/role.js~role#attachpermissions",
+    "class/src/resources/Role.js~Role.html#instance-method-attachPermissions",
+    "src/resources/Role.js~Role#attachPermissions",
+    "method"
+  ],
+  [
+    "src/resources/role.js~role#attachusers",
+    "class/src/resources/Role.js~Role.html#instance-method-attachUsers",
+    "src/resources/Role.js~Role#attachUsers",
+    "method"
+  ],
+  [
+    "src/resources/role.js~role#detachpermissions",
+    "class/src/resources/Role.js~Role.html#instance-method-detachPermissions",
+    "src/resources/Role.js~Role#detachPermissions",
+    "method"
+  ],
+  [
+    "src/resources/role.js~role#detachusers",
+    "class/src/resources/Role.js~Role.html#instance-method-detachUsers",
+    "src/resources/Role.js~Role#detachUsers",
+    "method"
+  ],
+  [
+    "src/resources/role.js~role#permissions",
+    "class/src/resources/Role.js~Role.html#instance-get-permissions",
+    "src/resources/Role.js~Role#permissions",
+    "member"
+  ],
+  [
+    "src/resources/role.js~role#resourcename",
+    "class/src/resources/Role.js~Role.html#instance-get-resourceName",
+    "src/resources/Role.js~Role#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/role.js~role#syncpermissions",
+    "class/src/resources/Role.js~Role.html#instance-method-syncPermissions",
+    "src/resources/Role.js~Role#syncPermissions",
+    "method"
+  ],
+  [
+    "src/resources/role.js~role#syncusers",
+    "class/src/resources/Role.js~Role.html#instance-method-syncUsers",
+    "src/resources/Role.js~Role#syncUsers",
+    "method"
+  ],
+  [
+    "src/resources/role.js~role#users",
+    "class/src/resources/Role.js~Role.html#instance-get-users",
+    "src/resources/Role.js~Role#users",
+    "member"
+  ],
+  [
+    "src/resources/svg.js",
+    "file/src/resources/Svg.js.html",
+    "src/resources/Svg.js",
+    "file"
+  ],
+  [
+    "src/resources/svg.js~svg#resourcename",
+    "class/src/resources/Svg.js~Svg.html#instance-get-resourceName",
+    "src/resources/Svg.js~Svg#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/svgset.js",
+    "file/src/resources/SvgSet.js.html",
+    "src/resources/SvgSet.js",
+    "file"
+  ],
+  [
+    "src/resources/svgset.js~svgset#resourcename",
+    "class/src/resources/SvgSet.js~SvgSet.html#instance-get-resourceName",
+    "src/resources/SvgSet.js~SvgSet#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/svgset.js~svgset#resourcepath",
+    "class/src/resources/SvgSet.js~SvgSet.html#instance-get-resourcePath",
+    "src/resources/SvgSet.js~SvgSet#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/user.js",
+    "file/src/resources/User.js.html",
+    "src/resources/User.js",
+    "file"
+  ],
+  [
+    "src/resources/user.js~user#colors",
+    "class/src/resources/User.js~User.html#instance-get-colors",
+    "src/resources/User.js~User#colors",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#dimensionsets",
+    "class/src/resources/User.js~User.html#instance-get-dimensionSets",
+    "src/resources/User.js~User#dimensionSets",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#features",
+    "class/src/resources/User.js~User.html#instance-get-features",
+    "src/resources/User.js~User#features",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#fontfamilies",
+    "class/src/resources/User.js~User.html#instance-get-fontFamilies",
+    "src/resources/User.js~User#fontFamilies",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#ips",
+    "class/src/resources/User.js~User.html#instance-method-ips",
+    "src/resources/User.js~User#ips",
+    "method"
+  ],
+  [
+    "src/resources/user.js~user#jobshares",
+    "class/src/resources/User.js~User.html#instance-get-jobShares",
+    "src/resources/User.js~User#jobShares",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#jobtypes",
+    "class/src/resources/User.js~User.html#instance-get-jobTypes",
+    "src/resources/User.js~User#jobTypes",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#jobs",
+    "class/src/resources/User.js~User.html#instance-get-jobs",
+    "src/resources/User.js~User#jobs",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#language",
+    "class/src/resources/User.js~User.html#instance-method-language",
+    "src/resources/User.js~User#language",
+    "method"
+  ],
+  [
+    "src/resources/user.js~user#layers",
+    "class/src/resources/User.js~User.html#instance-get-layers",
+    "src/resources/User.js~User#layers",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#mapstylesets",
+    "class/src/resources/User.js~User.html#instance-get-mapstyleSets",
+    "src/resources/User.js~User#mapstyleSets",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#notifications",
+    "class/src/resources/User.js~User.html#instance-get-notifications",
+    "src/resources/User.js~User#notifications",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#organisation",
+    "class/src/resources/User.js~User.html#instance-method-organisation",
+    "src/resources/User.js~User#organisation",
+    "method"
+  ],
+  [
+    "src/resources/user.js~user#permissions",
+    "class/src/resources/User.js~User.html#instance-get-permissions",
+    "src/resources/User.js~User#permissions",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#resourcename",
+    "class/src/resources/User.js~User.html#instance-get-resourceName",
+    "src/resources/User.js~User#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#roles",
+    "class/src/resources/User.js~User.html#instance-get-roles",
+    "src/resources/User.js~User#roles",
+    "member"
+  ],
+  [
+    "src/resources/user.js~user#svgsets",
+    "class/src/resources/User.js~User.html#instance-get-svgSets",
+    "src/resources/User.js~User#svgSets",
+    "member"
+  ],
+  [
+    "src/resources/base/crudbase.js",
+    "file/src/resources/base/CrudBase.js.html",
+    "src/resources/base/CrudBase.js",
+    "file"
+  ],
+  [
+    "src/resources/base/crudbase.js~crudbase#_buildcreatedata",
+    "class/src/resources/base/CrudBase.js~CrudBase.html#instance-method-_buildCreateData",
+    "src/resources/base/CrudBase.js~CrudBase#_buildCreateData",
+    "method"
+  ],
+  [
+    "src/resources/base/crudbase.js~crudbase#_modifylink",
+    "class/src/resources/base/CrudBase.js~CrudBase.html#instance-method-_modifyLink",
+    "src/resources/base/CrudBase.js~CrudBase#_modifyLink",
+    "method"
+  ],
+  [
+    "src/resources/base/crudbase.js~crudbase#constructor",
+    "class/src/resources/base/CrudBase.js~CrudBase.html#instance-constructor-constructor",
+    "src/resources/base/CrudBase.js~CrudBase#constructor",
+    "method"
+  ],
+  [
+    "src/resources/base/crudbase.js~crudbase#delete",
+    "class/src/resources/base/CrudBase.js~CrudBase.html#instance-method-delete",
+    "src/resources/base/CrudBase.js~CrudBase#delete",
+    "method"
+  ],
+  [
+    "src/resources/base/crudbase.js~crudbase#restore",
+    "class/src/resources/base/CrudBase.js~CrudBase.html#instance-method-restore",
+    "src/resources/base/CrudBase.js~CrudBase#restore",
+    "method"
+  ],
+  [
+    "src/resources/base/crudbase.js~crudbase#save",
+    "class/src/resources/base/CrudBase.js~CrudBase.html#instance-method-save",
+    "src/resources/base/CrudBase.js~CrudBase#save",
+    "method"
+  ],
+  [
+    "src/resources/base/crudsetbase.js",
+    "file/src/resources/base/CrudSetBase.js.html",
+    "src/resources/base/CrudSetBase.js",
+    "file"
+  ],
+  [
+    "src/resources/base/crudsetbase.js~crudsetbase#_child",
+    "class/src/resources/base/CrudSetBase.js~CrudSetBase.html#instance-get-_Child",
+    "src/resources/base/CrudSetBase.js~CrudSetBase#_Child",
+    "member"
+  ],
+  [
+    "src/resources/base/crudsetbase.js~crudsetbase#foreignkeyname",
+    "class/src/resources/base/CrudSetBase.js~CrudSetBase.html#instance-get-foreignKeyName",
+    "src/resources/base/CrudSetBase.js~CrudSetBase#foreignKeyName",
+    "member"
+  ],
+  [
+    "src/resources/base/crudsetbase.js~crudsetbase#items",
+    "class/src/resources/base/CrudSetBase.js~CrudSetBase.html#instance-get-items",
+    "src/resources/base/CrudSetBase.js~CrudSetBase#items",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js",
+    "file/src/resources/base/ResourceBase.js.html",
+    "src/resources/base/ResourceBase.js",
+    "file"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#_protectedfields",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-_protectedFields",
+    "src/resources/base/ResourceBase.js~ResourceBase#_protectedFields",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#_proxyresourcelist",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-_proxyResourceList",
+    "src/resources/base/ResourceBase.js~ResourceBase#_proxyResourceList",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#_updateproperties",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-_updateProperties",
+    "src/resources/base/ResourceBase.js~ResourceBase#_updateProperties",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#api",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-api",
+    "src/resources/base/ResourceBase.js~ResourceBase#api",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#baseurl",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-baseUrl",
+    "src/resources/base/ResourceBase.js~ResourceBase#baseUrl",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#clone",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-clone",
+    "src/resources/base/ResourceBase.js~ResourceBase#clone",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#constructor",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-constructor-constructor",
+    "src/resources/base/ResourceBase.js~ResourceBase#constructor",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#fieldnames",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-fieldNames",
+    "src/resources/base/ResourceBase.js~ResourceBase#fieldNames",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#ownable",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-ownable",
+    "src/resources/base/ResourceBase.js~ResourceBase#ownable",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#refresh",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-refresh",
+    "src/resources/base/ResourceBase.js~ResourceBase#refresh",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#reset",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-reset",
+    "src/resources/base/ResourceBase.js~ResourceBase#reset",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#resourcename",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-resourceName",
+    "src/resources/base/ResourceBase.js~ResourceBase#resourceName",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#resourcepath",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-resourcePath",
+    "src/resources/base/ResourceBase.js~ResourceBase#resourcePath",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#sanitize",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-sanitize",
+    "src/resources/base/ResourceBase.js~ResourceBase#sanitize",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#toobject",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-toObject",
+    "src/resources/base/ResourceBase.js~ResourceBase#toObject",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#tostring",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-method-toString",
+    "src/resources/base/ResourceBase.js~ResourceBase#toString",
+    "method"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase#url",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#instance-get-url",
+    "src/resources/base/ResourceBase.js~ResourceBase#url",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase.readonly",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#static-get-readonly",
+    "src/resources/base/ResourceBase.js~ResourceBase.readonly",
+    "member"
+  ],
+  [
+    "src/resources/base/resourcebase.js~resourcebase.resourceurlkey",
+    "class/src/resources/base/ResourceBase.js~ResourceBase.html#static-get-resourceUrlKey",
+    "src/resources/base/ResourceBase.js~ResourceBase.resourceUrlKey",
+    "member"
+  ],
+  [
+    "src/resources/index.js",
+    "file/src/resources/index.js.html",
+    "src/resources/index.js",
+    "file"
   ],
   [
     "src/storage/cookiesdriver.js",
