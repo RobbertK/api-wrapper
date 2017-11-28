@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:99425e9101cc518d4e5e, chunkhash:835adeca109d4ac2164c, name:bundle, version:v1.1.94
+ * hash:346a94a5c3e8f38e38d4, chunkhash:af89a89b4894fb4e93e3, name:bundle, version:v1.1.95
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.94) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.1.95) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -14726,7 +14726,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.94";
+var version = exports.version = "v1.1.95";
 
 /**
  * Package license
@@ -25400,6 +25400,7 @@ var JobMonitor = function () {
 
       if (this._purge) {
         this._data = [];
+        this._purge = false;
       }
 
       // First we need to check if we have enough data to begin with
