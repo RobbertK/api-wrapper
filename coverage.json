@@ -1,14 +1,14 @@
 {
-  "coverage": "81.11%",
-  "expectCount": 450,
-  "actualCount": 365,
+  "coverage": "81.15%",
+  "expectCount": 451,
+  "actualCount": 366,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        58,
-        67
+        67,
+        58
       ]
     },
     "src/errors/ApiError.js": {
@@ -247,8 +247,8 @@
       ]
     },
     "src/Maps4News.js": {
-      "expectCount": 43,
-      "actualCount": 43,
+      "expectCount": 44,
+      "actualCount": 44,
       "undocumentLines": []
     },
     "src/resources/Mapstyle.js": {
