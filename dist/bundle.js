@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:544857a4d1d96b8af31e, chunkhash:d8a4b530bc98961e294d, name:bundle, version:v1.2.4
+ * hash:1a73da69a8eb7352ae39, chunkhash:2316fa6ee7d11a8de3be, name:bundle, version:v1.2.5
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.4) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -11030,22 +11030,24 @@ var ResourceCache = function (_Unobservable) {
 
           // Have we parsed the same page already?
           if (typeof lastPage !== 'undefined' && lastPage === page.page) {
-            for (var i = 0; i < page.data.length; i++) {
-              var _ii = i + startIndex; // Get relative index for `out`
+            var ii = void 0;
 
-              if (typeof out[_ii] === 'undefined') {
+            for (var i = 0; i < page.data.length; i++) {
+              ii = i + startIndex; // Get relative index for `out`
+
+              if (typeof out[ii] === 'undefined') {
                 out.push(page.data[i]); // Push if there is no data
-              } else if (page.data[i].id !== out[_ii].id) {
-                out[_ii] = page.data[i];
+              } else if (page.data[i].id !== out[ii].id) {
+                out[ii] = page.data[i];
 
                 // lookbehind
                 for (var j = 0; j < startIndex; j++) {
-                  if (out[j].id === out[_ii].id) {
+                  if (out[j].id === out[ii].id) {
                     out.splice(j, 1);
 
                     startIndex--;
                     i--;
-                    _ii--;
+                    ii--;
                     j--;
                   }
                 }
@@ -14785,7 +14787,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.4";
+var version = exports.version = "v1.2.5";
 
 /**
  * Package license
