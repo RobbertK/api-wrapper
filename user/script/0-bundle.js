@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:1a73da69a8eb7352ae39, chunkhash:2316fa6ee7d11a8de3be, name:bundle, version:v1.2.5
+ * hash:8aaad3927ca4902872fc, chunkhash:67b141fcbadf58223893, name:bundle, version:v1.2.6
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -11056,7 +11056,7 @@ var ResourceCache = function (_Unobservable) {
 
             // Remove trailing data
             if (typeof ii !== 'undefined') {
-              out.splice(ii, out.length);
+              out.splice(ii + 1, out.length);
             }
           } else {
             // First time page number is parsed, just append it.
@@ -14787,7 +14787,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.5";
+var version = exports.version = "v1.2.6";
 
 /**
  * Package license
