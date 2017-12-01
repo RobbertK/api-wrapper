@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:6863056a1310a7fa238f, chunkhash:5e018bec1c356c797dc3, name:bundle, version:v1.1.96
+ * hash:016ecabce8203258f627, chunkhash:d90b26e15af8063ca94a, name:bundle, version:v1.2.1
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.1.96) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -5247,8 +5247,8 @@ var SimpleResourceProxy = function () {
      * @param {Number|Object|RequestParameters} [params] - Parameters or the page to be requested
      * @param {Number} [params.page=1] - The page to be requested
      * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
-     * @param {Number} [params.sort=''] - Amount of items per page. This is silently capped by the API
-     * @param {Number} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
+     * @param {Array<String>|string} [params.sort=''] - Comma separated list or array
+     * @param {String} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
      * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
      * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
      * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
@@ -6604,39 +6604,13 @@ var RequestParameters = function () {
      */
 
   }, {
-    key: 'watch',
+    key: 'token',
 
-
-    /**
-     * Watch for changes
-     * @param {Function} method - Callback method
-     * @param {?String} [name=null] - Property name
-     * @returns {void}
-     * @deprecated
-     */
-    value: function watch(method) {
-      var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-      if (name) {
-        var wrapped = function wrapped(n, v) {
-          if (n === name.toLowerCase()) {
-            method(v);
-          }
-        };
-
-        this._watch.push(wrapped);
-      } else {
-        this._watch.push(method);
-      }
-    }
 
     /**
      * Generates a cache token
      * @returns {string} - Cache token
      */
-
-  }, {
-    key: 'token',
     value: function token() {
       var data = this.toObject();
 
@@ -7284,7 +7258,7 @@ var Organisation = function (_CrudBase) {
     // Resource listing
     /**
      * Get a proxy for font families linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7295,7 +7269,7 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Get a proxy for dimension sets linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7306,7 +7280,7 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Get a proxy for mapstyle sets linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7317,7 +7291,7 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Get a proxy for svg sets linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7328,7 +7302,7 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Get a proxy for colors linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7339,7 +7313,7 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Get a proxy for features linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7350,7 +7324,7 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Get a proxy for layers linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7361,7 +7335,7 @@ var Organisation = function (_CrudBase) {
 
     /**
      * Get a proxy for job types linked to the organisation
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
 
   }, {
@@ -7378,7 +7352,7 @@ var Organisation = function (_CrudBase) {
   }, {
     key: 'jobShares',
     get: function get() {
-      return this._proxyBuilder(_JobShare2.default);
+      return this._proxyResourceList(_JobShare2.default);
     }
 
     /**
@@ -7389,7 +7363,7 @@ var Organisation = function (_CrudBase) {
   }, {
     key: 'users',
     get: function get() {
-      return this._proxyBuilder(_User2.default);
+      return this._proxyResourceList(_User2.default);
     }
 
     /**
@@ -7400,7 +7374,7 @@ var Organisation = function (_CrudBase) {
   }, {
     key: 'contracts',
     get: function get() {
-      return this._proxyBuilder(_Contract2.default);
+      return this._proxyResourceList(_Contract2.default);
     }
 
     /**
@@ -7411,7 +7385,7 @@ var Organisation = function (_CrudBase) {
   }, {
     key: 'domains',
     get: function get() {
-      return this._proxyBuilder(_Domain2.default);
+      return this._proxyResourceList(_Domain2.default);
     }
   }]);
 
@@ -8566,18 +8540,6 @@ var JobResult = function (_ResourceBase) {
      */
     value: function downloadOutput() {
       return this._download(this.outputUrl);
-    }
-
-    /**
-     * Get archive blob url
-     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
-     * @deprecated
-     */
-
-  }, {
-    key: 'downloadArchive',
-    value: function downloadArchive() {
-      return this.downloadOutput();
     }
 
     /**
@@ -14822,7 +14784,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.1.96";
+var version = exports.version = "v1.2.1";
 
 /**
  * Package license

@@ -1,14 +1,14 @@
 {
-  "coverage": "81.19%",
-  "expectCount": 452,
-  "actualCount": 367,
+  "coverage": "81.11%",
+  "expectCount": 450,
+  "actualCount": 365,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        67,
-        58
+        58,
+        67
       ]
     },
     "src/errors/ApiError.js": {
@@ -192,8 +192,8 @@
       ]
     },
     "src/resources/JobResult.js": {
-      "expectCount": 12,
-      "actualCount": 9,
+      "expectCount": 11,
+      "actualCount": 8,
       "undocumentLines": [
         37,
         42,
@@ -364,8 +364,8 @@
       ]
     },
     "src/RequestParameters.js": {
-      "expectCount": 29,
-      "actualCount": 29,
+      "expectCount": 28,
+      "actualCount": 28,
       "undocumentLines": []
     },
     "src/resources/base/ResourceBase.js": {
