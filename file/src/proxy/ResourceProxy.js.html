@@ -146,9 +146,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
-import {encodeQueryString} from &apos;../utils/requests&apos;;
 import {DeletedState} from &apos;../enums&apos;;
+import {encodeQueryString} from &apos;../utils/requests&apos;;
+import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
 
 /**
  * Proxy for accessing resource. This will make sure that they
@@ -173,14 +173,14 @@ export default class ResourceProxy extends SimpleResourceProxy {
    * @private
    */
   _parseSelector(id) {
-    const defaults = {};
+    if (id === &apos;&apos; || id === null) {
+      return {};
+    }
 
     switch (typeof id) {
       case &apos;number&apos;:
       case &apos;string&apos;:
-        defaults[this.Target.resourceUrlKey] = id;
-
-        return defaults;
+        return { [this.Target.resourceUrlKey]: id};
       case &apos;object&apos;:
         return id;
       default:
@@ -199,7 +199,7 @@ export default class ResourceProxy extends SimpleResourceProxy {
     let url = this.new(data).url;
     const glue = url.includes(&apos;?&apos;) ? &apos;&amp;&apos; : &apos;?&apos;;
 
-    url = `${url}${glue}${encodeQueryString({deleted})}`;
+    url += glue + encodeQueryString({deleted});
 
     return this._api
       .request(url)

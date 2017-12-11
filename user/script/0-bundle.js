@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:8aaad3927ca4902872fc, chunkhash:67b141fcbadf58223893, name:bundle, version:v1.2.6
+ * hash:69fab0686084ab7ddc3a, chunkhash:8a8358fa418247de58e1, name:bundle, version:v1.2.7
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -8318,15 +8318,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _enums = __webpack_require__(53);
+
+var _requests = __webpack_require__(32);
+
 var _SimpleResourceProxy2 = __webpack_require__(67);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
-var _requests = __webpack_require__(32);
-
-var _enums = __webpack_require__(53);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8398,14 +8400,14 @@ var ResourceProxy = function (_SimpleResourceProxy) {
   _createClass(ResourceProxy, [{
     key: '_parseSelector',
     value: function _parseSelector(id) {
-      var defaults = {};
+      if (id === '' || id === null) {
+        return {};
+      }
 
       switch (typeof id === 'undefined' ? 'undefined' : _typeof(id)) {
         case 'number':
         case 'string':
-          defaults[this.Target.resourceUrlKey] = id;
-
-          return defaults;
+          return _defineProperty({}, this.Target.resourceUrlKey, id);
         case 'object':
           return id;
         default:
@@ -8431,7 +8433,7 @@ var ResourceProxy = function (_SimpleResourceProxy) {
       var url = this.new(data).url;
       var glue = url.includes('?') ? '&' : '?';
 
-      url = '' + url + glue + (0, _requests.encodeQueryString)({ deleted: deleted });
+      url += glue + (0, _requests.encodeQueryString)({ deleted: deleted });
 
       return this._api.request(url).then(function (result) {
         return _this2.new(result);
@@ -14787,7 +14789,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.6";
+var version = exports.version = "v1.2.7";
 
 /**
  * Package license
