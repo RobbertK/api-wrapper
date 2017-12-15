@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:69fab0686084ab7ddc3a, chunkhash:8a8358fa418247de58e1, name:bundle, version:v1.2.7
+ * hash:cb9112faa21ffaaae4e1, chunkhash:200b5d350e6c83f313b7, name:bundle, version:v1.2.8
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6417,13 +6417,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _case = __webpack_require__(65);
 
+var _enums = __webpack_require__(53);
+
 var _hash = __webpack_require__(66);
 
 var _reflection = __webpack_require__(10);
 
 var _requests = __webpack_require__(32);
-
-var _enums = __webpack_require__(53);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6532,7 +6532,9 @@ var RequestParameters = function () {
       var data = this.toObject();
 
       // Fix column names for sort
-      data.sort = data.sort.map(_case.snake).join(',');
+      data.sort = data.sort.map(function (x) {
+        return (0, _case.snake)(x).replace(/^_/, '-');
+      }).join(',');
 
       // Fix column names for search
       var _iteratorNormalCompletion2 = true;
@@ -6927,6 +6929,7 @@ var RequestParameters = function () {
         }
       }
     }
+
     // endregion utils
 
   }, {
@@ -6961,7 +6964,7 @@ var RequestParameters = function () {
   }, {
     key: 'perPage',
     get: function get() {
-      return RequestParameters._perPage || Number("12");
+      return RequestParameters._perPage || Number("12") || 12;
     }
 
     /**
@@ -14789,7 +14792,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.7";
+var version = exports.version = "v1.2.8";
 
 /**
  * Package license
