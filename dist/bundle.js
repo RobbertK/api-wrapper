@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:cb9112faa21ffaaae4e1, chunkhash:200b5d350e6c83f313b7, name:bundle, version:v1.2.8
+ * hash:5b281ba6e62dd8042fc3, chunkhash:1a514576c13c929f6e7e, name:bundle, version:v1.2.9
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -8541,7 +8541,7 @@ var JobResult = function (_ResourceBase) {
 
     /**
      * Get archive blob url
-     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
+     * @returns {Promise<{filename: string, blob: string}>} - Resolves with a blob reference and it's filename and rejects with {@link ApiError}
      */
     value: function downloadOutput() {
       return this._download(this.outputUrl);
@@ -8580,7 +8580,9 @@ var JobResult = function (_ResourceBase) {
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}
      */
     value: function downloadLog() {
-      return this._download(this.logUrl);
+      return this._download(this.logUrl).then(function (data) {
+        return data.blob;
+      });
     }
 
     /**
@@ -8597,8 +8599,17 @@ var JobResult = function (_ResourceBase) {
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
      */
     value: function downloadPreview() {
-      return this._download(this.previewUrl);
+      return this._download(this.previewUrl).then(function (data) {
+        return data.blob;
+      });
     }
+
+    /**
+     * @param {string} url - Target url
+     * @returns {Promise<{filename: string, blob: string}>} - filename and blob
+     * @private
+     */
+
   }, {
     key: '_download',
     value: function _download(url) {
@@ -8607,17 +8618,27 @@ var JobResult = function (_ResourceBase) {
         Authorization: this.api.auth.token.toString()
       };
 
+      var out = {};
+
       return (0, _requests.fetch)(url, { headers: headers }).then(function (res) {
+        /** @type Request res **/
         if (res.ok) {
+          var regex = /(?:^|;\s*)filename=(?:'([^']+)'|"([^"]+)")/i;
+          var match = regex.exec(res.headers.get('Content-Disposition'));
+
+          out.filename = (match ? match[1] || match[2] : false) || 'undefined';
           return res.blob();
         }
+
         return res.json().then(function (data) {
           var err = data.error;
 
           throw new _ApiError2.default(err.type, err.message, res.status);
         });
       }).then(function (blob) {
-        return (window.URL || window.webkitURL).createObjectURL(blob);
+        out.blob = (window.URL || window.webkitURL).createObjectURL(blob);
+
+        return out;
       });
     }
   }, {
@@ -8964,7 +8985,6 @@ var DataStoreDriver = function () {
     /**
      * Clear storage
      * @returns {void}
-     * @abstract
      */
 
   }, {
@@ -14792,7 +14812,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.8";
+var version = exports.version = "v1.2.9";
 
 /**
  * Package license

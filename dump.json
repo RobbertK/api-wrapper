@@ -13416,7 +13416,7 @@
     "__docId__": 468,
     "kind": "file",
     "name": "src/resources/JobResult.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ApiError from '../errors/ApiError';\nimport {fetch} from '../utils/requests';\nimport ResourceBase from './base/ResourceBase';\n\nexport default class JobResult extends ResourceBase {\n  get resourcePath() {\n    return '/jobs/{job_id}/revisions/{revision}/result';\n  }\n\n  get resourceName() {\n    return 'job-result';\n  }\n\n  /**\n   * Job result archive url\n   * @returns {string} - Archive url\n   */\n  get outputUrl() {\n    return `${this.url}/output`;\n  }\n\n  /**\n   * Get archive blob url\n   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}\n   */\n  downloadOutput() {\n    return this._download(this.outputUrl);\n  }\n\n  /**\n   * Get the output url url\n   * @returns {string} - Output url url\n   */\n  get outputUrlUrl() {\n    return `${this.url}/output-url`;\n  }\n\n  /**\n   * Get the remote output url\n   * @returns {Promise} -  Resolves with a {@link String} containing the url to the output and rejects with {@link ApiError}\n   */\n  getOutputUrl() {\n    return this.api.request(this.outputUrlUrl).then(x => x.url);\n  }\n\n  /**\n   * Job result log url\n   * @returns {string} - log url\n   */\n  get logUrl() {\n    return `${this.url}/log`;\n  }\n\n  /**\n   * Get log blob url\n   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}\n   */\n  downloadLog() {\n    return this._download(this.logUrl);\n  }\n\n  /**\n   * Job result preview url, usable in an `<img>` tag\n   * @returns {string} - Preview url\n   */\n  get previewUrl() {\n    return `${this.url}/preview`;\n  }\n\n  /**\n   * Get image blob url representation\n   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}\n   */\n  downloadPreview() {\n    return this._download(this.previewUrl);\n  }\n\n  _download(url) {\n    const headers = {\n      Accept: 'application/json',\n      Authorization: this.api.auth.token.toString(),\n    };\n\n    return fetch(url, {headers})\n      .then(res => {\n        if (res.ok) {\n          return res.blob();\n        }\n        return res.json().then(data => {\n          const err = data.error;\n\n          throw new ApiError(err.type, err.message, res.status);\n        });\n\n      })\n      .then(blob => (window.URL || window.webkitURL).createObjectURL(blob));\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ApiError from '../errors/ApiError';\nimport {fetch} from '../utils/requests';\nimport ResourceBase from './base/ResourceBase';\n\nexport default class JobResult extends ResourceBase {\n  get resourcePath() {\n    return '/jobs/{job_id}/revisions/{revision}/result';\n  }\n\n  get resourceName() {\n    return 'job-result';\n  }\n\n  /**\n   * Job result archive url\n   * @returns {string} - Archive url\n   */\n  get outputUrl() {\n    return `${this.url}/output`;\n  }\n\n  /**\n   * Get archive blob url\n   * @returns {Promise<{filename: string, blob: string}>} - Resolves with a blob reference and it's filename and rejects with {@link ApiError}\n   */\n  downloadOutput() {\n    return this._download(this.outputUrl);\n  }\n\n  /**\n   * Get the output url url\n   * @returns {string} - Output url url\n   */\n  get outputUrlUrl() {\n    return `${this.url}/output-url`;\n  }\n\n  /**\n   * Get the remote output url\n   * @returns {Promise} -  Resolves with a {@link String} containing the url to the output and rejects with {@link ApiError}\n   */\n  getOutputUrl() {\n    return this.api.request(this.outputUrlUrl).then(x => x.url);\n  }\n\n  /**\n   * Job result log url\n   * @returns {string} - log url\n   */\n  get logUrl() {\n    return `${this.url}/log`;\n  }\n\n  /**\n   * Get log blob url\n   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}\n   */\n  downloadLog() {\n    return this._download(this.logUrl).then(data => data.blob);\n  }\n\n  /**\n   * Job result preview url, usable in an `<img>` tag\n   * @returns {string} - Preview url\n   */\n  get previewUrl() {\n    return `${this.url}/preview`;\n  }\n\n  /**\n   * Get image blob url representation\n   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}\n   */\n  downloadPreview() {\n    return this._download(this.previewUrl).then(data => data.blob);\n  }\n\n  /**\n   * @param {string} url - Target url\n   * @returns {Promise<{filename: string, blob: string}>} - filename and blob\n   * @private\n   */\n  _download(url) {\n    const headers = {\n      Accept: 'application/json',\n      Authorization: this.api.auth.token.toString(),\n    };\n\n    const out = {};\n\n    return fetch(url, {headers})\n      .then(res => {\n        /** @type Request res **/\n        if (res.ok) {\n          const regex = /(?:^|;\\s*)filename=(?:'([^']+)'|\"([^\"]+)\")/i;\n          const match = regex.exec(res.headers.get('Content-Disposition'));\n\n          out.filename = (match ? match[1] || match[2] : false) || 'undefined';\n          return res.blob();\n        }\n\n        return res.json().then(data => {\n          const err = data.error;\n\n          throw new ApiError(err.type, err.message, res.status);\n        });\n      })\n      .then(blob => {\n        out.blob = (window.URL || window.webkitURL).createObjectURL(blob);\n\n        return out;\n      });\n  }\n}\n",
     "static": true,
     "longname": "src/resources/JobResult.js",
     "access": null,
@@ -13545,17 +13545,17 @@
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise} - Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}"
+        "tagValue": "{Promise<{filename: string, blob: string}>} - Resolves with a blob reference and it's filename and rejects with {@link ApiError}"
       }
     ],
     "params": [],
     "return": {
       "nullable": null,
       "types": [
-        "Promise"
+        "Promise<{filename: string, blob: string}>"
       ],
       "spread": false,
-      "description": "Resolves with a {@link String} containing a blob reference to the archive and rejects with {@link ApiError}"
+      "description": "Resolves with a blob reference and it's filename and rejects with {@link ApiError}"
     }
   },
   {
@@ -13747,28 +13747,34 @@
     "async": false,
     "static": false,
     "longname": "src/resources/JobResult.js~JobResult#_download",
-    "access": null,
-    "description": null,
-    "lineNumber": 110,
-    "undocument": true,
+    "access": "private",
+    "description": "",
+    "lineNumber": 115,
     "unknown": [
       {
-        "tagName": "@_undocument",
-        "tagValue": ""
+        "tagName": "@returns",
+        "tagValue": "{Promise<{filename: string, blob: string}>} - filename and blob"
       }
     ],
     "params": [
       {
-        "name": "url",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "Target url"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Promise<{filename: string, blob: string}>"
+      ],
+      "spread": false,
+      "description": "filename and blob"
     }
   },
   {
@@ -18523,7 +18529,7 @@
     "__docId__": 655,
     "kind": "file",
     "name": "src/storage/DataStoreDriver.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/* eslint-disable no-unused-vars */\n\nimport {AbstractClassError, AbstractMethodError} from '../errors/AbstractError';\n\n/**\n * @private\n */\nexport default class DataStoreDriver {\n  constructor() {\n    if (this.constructor === DataStoreDriver) {\n      throw new AbstractClassError();\n    }\n\n    if (!this.constructor.available) {\n      throw new Error(`${this.constructor.name} is unavailable`);\n    }\n  }\n\n  /**\n   * If the driver is currently available\n   * @returns {boolean} - Driver availability\n   */\n  static get available() {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * If the storage is secure\n   * @returns {boolean} - Secure storage\n   */\n  static get secure() {\n    return false;\n  }\n\n  /**\n   * Store a value in the storage\n   * @param {String} name - value name\n   * @param {*} value - value\n   * @returns {void}\n   * @abstract\n   */\n  set(name, value) {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Get a value from the store\n   * @param {String} name - value name\n   * @returns {String} - value\n   * @abstract\n   */\n  get(name) {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Remove a value from the store\n   * @param {String} name - value name\n   * @returns {void}\n   * @abstract\n   */\n  remove(name) {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Clear storage\n   * @returns {void}\n   * @abstract\n   */\n  clear() {\n    this.keys().map(key => this.remove(key));\n  }\n\n  /**\n   * Storage keys\n   * @returns {Array<String>} - Stored keys\n   * @abstract\n   */\n  keys() {\n    throw new AbstractMethodError();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/* eslint-disable no-unused-vars */\n\nimport {AbstractClassError, AbstractMethodError} from '../errors/AbstractError';\n\n/**\n * @private\n */\nexport default class DataStoreDriver {\n  constructor() {\n    if (this.constructor === DataStoreDriver) {\n      throw new AbstractClassError();\n    }\n\n    if (!this.constructor.available) {\n      throw new Error(`${this.constructor.name} is unavailable`);\n    }\n  }\n\n  /**\n   * If the driver is currently available\n   * @returns {boolean} - Driver availability\n   */\n  static get available() {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * If the storage is secure\n   * @returns {boolean} - Secure storage\n   */\n  static get secure() {\n    return false;\n  }\n\n  /**\n   * Store a value in the storage\n   * @param {String} name - value name\n   * @param {*} value - value\n   * @returns {void}\n   * @abstract\n   */\n  set(name, value) {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Get a value from the store\n   * @param {String} name - value name\n   * @returns {String} - value\n   * @abstract\n   */\n  get(name) {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Remove a value from the store\n   * @param {String} name - value name\n   * @returns {void}\n   * @abstract\n   */\n  remove(name) {\n    throw new AbstractMethodError();\n  }\n\n  /**\n   * Clear storage\n   * @returns {void}\n   */\n  clear() {\n    this.keys().map(key => this.remove(key));\n  }\n\n  /**\n   * Storage keys\n   * @returns {Array<String>} - Stored keys\n   * @abstract\n   */\n  keys() {\n    throw new AbstractMethodError();\n  }\n}\n",
     "static": true,
     "longname": "src/storage/DataStoreDriver.js",
     "access": null,
@@ -18766,7 +18772,7 @@
     "longname": "src/storage/DataStoreDriver.js~DataStoreDriver#clear",
     "access": null,
     "description": "Clear storage",
-    "lineNumber": 103,
+    "lineNumber": 102,
     "unknown": [
       {
         "tagName": "@returns",
@@ -18781,8 +18787,7 @@
       ],
       "spread": false,
       "description": ""
-    },
-    "abstract": true
+    }
   },
   {
     "__docId__": 664,
@@ -18795,7 +18800,7 @@
     "longname": "src/storage/DataStoreDriver.js~DataStoreDriver#keys",
     "access": null,
     "description": "Storage keys",
-    "lineNumber": 112,
+    "lineNumber": 111,
     "unknown": [
       {
         "tagName": "@returns",
