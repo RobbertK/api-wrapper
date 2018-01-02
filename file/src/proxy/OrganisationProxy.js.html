@@ -205,7 +205,7 @@ export default class OrganisationProxy extends SimpleResourceProxy {
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
   attachAll() {
-    const url = this._baseUrl + &apos;/all&apos;;
+    const url = this.baseUrl + &apos;/all&apos;;
 
     return this.api.request(url, &apos;POST&apos;);
   }
@@ -215,7 +215,7 @@ export default class OrganisationProxy extends SimpleResourceProxy {
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
   detachAll() {
-    const url = this._baseUrl + &apos;/all&apos;;
+    const url = this.baseUrl + &apos;/all&apos;;
 
     return this.api.request(url, &apos;DELETE&apos;);
   }

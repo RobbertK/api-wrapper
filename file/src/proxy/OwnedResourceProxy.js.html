@@ -204,7 +204,7 @@ export default class OwnedResourceProxy extends SimpleResourceProxy {
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
   attachAll() {
-    const url = this._baseUrl + &apos;/all&apos;;
+    const url = this.baseUrl + &apos;/all&apos;;
 
     return this.api.request(url, &apos;POST&apos;);
   }
@@ -214,7 +214,7 @@ export default class OwnedResourceProxy extends SimpleResourceProxy {
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
   detachAll() {
-    const url = this._baseUrl + &apos;/all&apos;;
+    const url = this.baseUrl + &apos;/all&apos;;
 
     return this.api.request(url, &apos;DELETE&apos;);
   }
@@ -241,7 +241,7 @@ export default class OwnedResourceProxy extends SimpleResourceProxy {
 
     const keys = items.map(x =&gt; typeof x === &apos;number&apos; ? x : Number(x.id));
 
-    return this.api.request(this._baseUrl, method, {keys});
+    return this.api.request(this.baseUrl, method, {keys});
   }
 }
 </code></pre>

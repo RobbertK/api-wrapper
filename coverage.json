@@ -1,14 +1,14 @@
 {
-  "coverage": "81.11%",
-  "expectCount": 450,
-  "actualCount": 365,
+  "coverage": "81.15%",
+  "expectCount": 451,
+  "actualCount": 366,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        58,
-        67
+        67,
+        58
       ]
     },
     "src/errors/ApiError.js": {
@@ -402,8 +402,8 @@
       ]
     },
     "src/proxy/SimpleResourceProxy.js": {
-      "expectCount": 8,
-      "actualCount": 8,
+      "expectCount": 9,
+      "actualCount": 9,
       "undocumentLines": []
     },
     "src/utils/Singleton.js": {

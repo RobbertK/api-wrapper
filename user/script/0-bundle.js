@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:5b281ba6e62dd8042fc3, chunkhash:1a514576c13c929f6e7e, name:bundle, version:v1.2.9
+ * hash:11ff70a98d7d7e79282f, chunkhash:530baa1a195b4630a3ea, name:bundle, version:v1.2.10
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -5194,6 +5194,14 @@ var SimpleResourceProxy = function () {
     this._seedData = seedData;
   }
 
+  /**
+   * Proxy target url
+   * @returns {string} url
+   * @example
+   * api.layers.select(100).organisations.baseUrl === "https://maponline-api.dev/v1/layers/100/organisations"
+   */
+
+
   _createClass(SimpleResourceProxy, [{
     key: 'new',
 
@@ -5280,7 +5288,7 @@ var SimpleResourceProxy = function () {
       var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       var paramType = typeof params === 'undefined' ? 'undefined' : _typeof(params);
-      var url = this._baseUrl;
+      var url = this.baseUrl;
 
       if (!['number', 'object'].includes(paramType)) {
         throw new TypeError('Expected params to be of type number or object. Got "' + paramType + '"');
@@ -5297,7 +5305,7 @@ var SimpleResourceProxy = function () {
       return new _PaginatedResourceListing2.default(this._api, url, this.Target, params);
     }
   }, {
-    key: '_baseUrl',
+    key: 'baseUrl',
     get: function get() {
       if (!this.__baseUrl) {
         this.__baseUrl = this.new().baseUrl;
@@ -8621,7 +8629,6 @@ var JobResult = function (_ResourceBase) {
       var out = {};
 
       return (0, _requests.fetch)(url, { headers: headers }).then(function (res) {
-        /** @type Request res **/
         if (res.ok) {
           var regex = /(?:^|;\s*)filename=(?:'([^']+)'|"([^"]+)")/i;
           var match = regex.exec(res.headers.get('Content-Disposition'));
@@ -14812,7 +14819,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.9";
+var version = exports.version = "v1.2.10";
 
 /**
  * Package license
@@ -16729,7 +16736,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
   }, {
     key: 'attachAll',
     value: function attachAll() {
-      var url = this._baseUrl + '/all';
+      var url = this.baseUrl + '/all';
 
       return this.api.request(url, 'POST');
     }
@@ -16742,7 +16749,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
   }, {
     key: 'detachAll',
     value: function detachAll() {
-      var url = this._baseUrl + '/all';
+      var url = this.baseUrl + '/all';
 
       return this.api.request(url, 'DELETE');
     }
@@ -19093,7 +19100,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
   }, {
     key: 'attachAll',
     value: function attachAll() {
-      var url = this._baseUrl + '/all';
+      var url = this.baseUrl + '/all';
 
       return this.api.request(url, 'POST');
     }
@@ -19106,7 +19113,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
   }, {
     key: 'detachAll',
     value: function detachAll() {
-      var url = this._baseUrl + '/all';
+      var url = this.baseUrl + '/all';
 
       return this.api.request(url, 'DELETE');
     }
@@ -19137,7 +19144,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
         return typeof x === 'number' ? x : Number(x.id);
       });
 
-      return this.api.request(this._baseUrl, method, { keys: keys });
+      return this.api.request(this.baseUrl, method, { keys: keys });
     }
   }]);
 
