@@ -1,6 +1,6 @@
 {
   "name": "@mapcreator/maps4news",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "Maps4News JavaScript Api",
   "main": "dist/bundle.js",
   "repository": "git@github.com:MapCreatorEU/api-wrapper.git",
@@ -14,7 +14,7 @@
     "babel-polyfill": "^6.23.0",
     "case": "^1.5.3",
     "fetch-ponyfill": "^4.1.0",
-    "formdata-polyfill": "^3.0.1",
+    "formdata-polyfill": "^3.0.9",
     "json-stable-stringify": "^1.0.1",
     "mitt": "^1.1.2"
   },
