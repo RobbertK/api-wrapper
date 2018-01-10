@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:cf6156401309315e22b6, chunkhash:eb23943dd6ad762e813b, name:bundle, version:v1.2.11
+ * hash:7a63e19b719821c44c00, chunkhash:dd4400bf5df80d19ed91, name:bundle, version:v1.2.12
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6537,7 +6537,45 @@ var RequestParameters = function () {
   }, {
     key: 'encode',
     value: function encode() {
-      var data = this.toObject();
+      return (0, _requests.encodeQueryString)(this.toParameterObject());
+    }
+
+    /**
+     * Convert to object
+     * @returns {Object} - Object
+     */
+
+  }, {
+    key: 'toObject',
+    value: function toObject() {
+      var _this2 = this;
+
+      return RequestParameters.keys().reduce(function (obj, key) {
+        obj[(0, _case.snake)(key)] = _this2._resolve(key);
+        return obj;
+      }, {});
+    }
+
+    /**
+     * Convert to object
+     * @returns {Object} - Object
+     */
+
+  }, {
+    key: 'toParameterObject',
+    value: function toParameterObject() {
+      var _this3 = this;
+
+      var data = {};
+
+      RequestParameters.keys().forEach(function (key) {
+        // Skip extra key
+        if (key === 'extra') {
+          return;
+        }
+
+        data[(0, _case.snake)(key)] = _this3._resolve(key);
+      });
 
       // Fix column names for sort
       data.sort = data.sort.map(function (x) {
@@ -6560,6 +6598,8 @@ var RequestParameters = function () {
             delete data.search[key];
           }
         }
+
+        // Overwrite using extra properties
       } catch (err) {
         _didIteratorError2 = true;
         _iteratorError2 = err;
@@ -6575,24 +6615,32 @@ var RequestParameters = function () {
         }
       }
 
-      return (0, _requests.encodeQueryString)(data);
-    }
+      var extra = this._resolve('extra');
 
-    /**
-     * Convert to object
-     * @returns {Object} - Object
-     */
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
 
-  }, {
-    key: 'toObject',
-    value: function toObject() {
-      var _this2 = this;
+      try {
+        for (var _iterator3 = Object.keys(extra)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _key = _step3.value;
 
-      var data = {};
-
-      RequestParameters.keys().forEach(function (key) {
-        data[(0, _case.snake)(key)] = _this2._resolve(key);
-      });
+          data[_key] = extra[_key];
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
 
       return data;
     }
@@ -6733,9 +6781,29 @@ var RequestParameters = function () {
     key: 'deleted',
     get: function get() {
       return this._resolve('deleted');
-    },
+    }
+
+    /**
+     * Extra parameters
+     * @returns {Object} - Extra parameters
+     */
+    ,
     set: function set(value) {
       this._update('deleted', value);
+    }
+
+    /**
+     * Extra request parameters
+     * @param {Object} value - Extra request parameters
+     */
+
+  }, {
+    key: 'extra',
+    get: function get() {
+      return this._resolve('extra');
+    },
+    set: function set(value) {
+      this._update('extra', value);
     }
 
     // endregion instance setters
@@ -6793,13 +6861,13 @@ var RequestParameters = function () {
         return typeof x === 'number' ? x.toString() : x;
       };
 
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
 
       try {
-        for (var _iterator3 = Object.keys(value)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var key = _step3.value;
+        for (var _iterator4 = Object.keys(value)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var key = _step4.value;
 
           key = normalize(key);
           value[key] = normalize(value[key]);
@@ -6810,29 +6878,29 @@ var RequestParameters = function () {
 
           if (Array.isArray(value[key])) {
             if (value[key].length > 0) {
-              var _iteratorNormalCompletion4 = true;
-              var _didIteratorError4 = false;
-              var _iteratorError4 = undefined;
+              var _iteratorNormalCompletion5 = true;
+              var _didIteratorError5 = false;
+              var _iteratorError5 = undefined;
 
               try {
-                for (var _iterator4 = value[key][Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                  var query = _step4.value;
+                for (var _iterator5 = value[key][Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                  var query = _step5.value;
 
                   if (typeof query !== 'string') {
                     throw new TypeError('Expected query for "' + key + '" to be of type "String" got "' + (0, _reflection.getTypeName)(query) + '"');
                   }
                 }
               } catch (err) {
-                _didIteratorError4 = true;
-                _iteratorError4 = err;
+                _didIteratorError5 = true;
+                _iteratorError5 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion4 && _iterator4.return) {
-                    _iterator4.return();
+                  if (!_iteratorNormalCompletion5 && _iterator5.return) {
+                    _iterator5.return();
                   }
                 } finally {
-                  if (_didIteratorError4) {
-                    throw _iteratorError4;
+                  if (_didIteratorError5) {
+                    throw _iteratorError5;
                   }
                 }
               }
@@ -6847,16 +6915,16 @@ var RequestParameters = function () {
           }
         }
       } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
           }
         } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
+          if (_didIteratorError4) {
+            throw _iteratorError4;
           }
         }
       }
@@ -6904,35 +6972,44 @@ var RequestParameters = function () {
       return value;
     }
   }, {
+    key: '_validateExtra',
+    value: function _validateExtra(value) {
+      if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== 'object') {
+        throw new TypeError('Expected extra to be of type \'object\', got \'' + (0, _reflection.getTypeName)(value) + '\'');
+      }
+
+      return value;
+    }
+  }, {
     key: 'keys',
     value: function keys() {
       // enumeration is disabled for properties
-      return ['page', 'perPage', 'search', 'sort', 'deleted'];
+      return ['page', 'perPage', 'search', 'sort', 'deleted', 'extra'];
     }
   }, {
     key: 'resetDefaults',
     value: function resetDefaults() {
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
 
       try {
-        for (var _iterator5 = RequestParameters.keys()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var key = _step5.value;
+        for (var _iterator6 = RequestParameters.keys()[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          var key = _step6.value;
 
           delete RequestParameters['_' + key];
         }
       } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion5 && _iterator5.return) {
-            _iterator5.return();
+          if (!_iteratorNormalCompletion6 && _iterator6.return) {
+            _iterator6.return();
           }
         } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
+          if (_didIteratorError6) {
+            throw _iteratorError6;
           }
         }
       }
@@ -7033,9 +7110,29 @@ var RequestParameters = function () {
     key: 'deleted',
     get: function get() {
       return RequestParameters._deleted || _enums.DeletedState.NONE;
-    },
+    }
+
+    /**
+     * Default extra request parameters
+     * @returns {Object} - Extra request parameters
+     */
+    ,
     set: function set(value) {
       RequestParameters._deleted = RequestParameters._validateDeleted(value);
+    }
+
+    /**
+     * Default extra request parameters
+     * @param {Object} value - Extra request parameters
+     */
+
+  }, {
+    key: 'extra',
+    get: function get() {
+      return RequestParameters._extra || {};
+    },
+    set: function set(value) {
+      RequestParameters._extra = RequestParameters._validateExtra(value);
     }
   }]);
 
@@ -14819,7 +14916,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.11";
+var version = exports.version = "v1.2.12";
 
 /**
  * Package license
