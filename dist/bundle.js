@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:c3d8018b2de868b60cc4, chunkhash:145e8259752682e9e878, name:bundle, version:v1.2.13
+ * hash:ce737234be89d86f233e, chunkhash:c822d66c5bf0c1714ab2, name:bundle, version:v1.2.14
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.13) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.14) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -14916,7 +14916,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.13";
+var version = exports.version = "v1.2.14";
 
 /**
  * Package license
@@ -25573,6 +25573,7 @@ var JobMonitor = function () {
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._purge = false;
+    this._longPoll = false;
   }
 
   /**
@@ -25669,6 +25670,10 @@ var JobMonitor = function () {
 
       // Fetch updates
       var url = baseUrl + '&timestamp=' + Math.floor(this._lastUpdate / 1000);
+
+      if (this.longPoll) {
+        url += '&long_poll';
+      }
 
       this._lastUpdate = Date.now();
 
@@ -25841,6 +25846,26 @@ var JobMonitor = function () {
     key: 'lastUpdate',
     get: function get() {
       return new Date(this._lastUpdate);
+    }
+
+    /**
+     * Get if long polling should be used
+     * @returns {boolean} - If long polling should be used
+     */
+
+  }, {
+    key: 'longPoll',
+    get: function get() {
+      return this._longPoll;
+    }
+
+    /**
+     * Set if long polling should be used
+     * @param {boolean} value - If long polling should be used
+     */
+    ,
+    set: function set(value) {
+      this._longPoll = Boolean(value);
     }
   }]);
 

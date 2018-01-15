@@ -1,7 +1,7 @@
 {
-  "coverage": "81.35%",
-  "expectCount": 456,
-  "actualCount": 371,
+  "coverage": "81.44%",
+  "expectCount": 458,
+  "actualCount": 373,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -175,8 +175,8 @@
       ]
     },
     "src/JobMonitor.js": {
-      "expectCount": 13,
-      "actualCount": 13,
+      "expectCount": 15,
+      "actualCount": 15,
       "undocumentLines": []
     },
     "src/enums/JobMonitorFilter.js": {
