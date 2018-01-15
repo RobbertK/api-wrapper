@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:ce737234be89d86f233e, chunkhash:c822d66c5bf0c1714ab2, name:bundle, version:v1.2.14
+ * hash:71abdd8f007aa6560a67, chunkhash:1ddbffeb01e104ec8dbe, name:bundle, version:v1.2.15
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.14) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.15) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -14916,7 +14916,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.14";
+var version = exports.version = "v1.2.15";
 
 /**
  * Package license
@@ -25569,7 +25569,7 @@ var JobMonitor = function () {
 
     this._api = api;
 
-    this._lastUpdate = Date.now();
+    this._lastUpdate = this._getTimestamp();
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._purge = false;
@@ -25593,9 +25593,9 @@ var JobMonitor = function () {
     value: function update() {
       var _this = this;
 
-      if (this.waiting) {
+      if (this.waiting || this._lastUpdate === this._getTimestamp()) {
         return new Promise(function (resolve) {
-          resolve(0); // Still waiting for the other promise to resolve
+          resolve(0); // Still waiting for the other promise to resolve or we're sure there is no new data
         });
       }
 
@@ -25669,13 +25669,13 @@ var JobMonitor = function () {
       }));
 
       // Fetch updates
-      var url = baseUrl + '&timestamp=' + Math.floor(this._lastUpdate / 1000);
+      var url = baseUrl + '&timestamp=' + Math.floor(this._lastUpdate);
 
       if (this.longPoll) {
         url += '&long_poll';
       }
 
-      this._lastUpdate = Date.now();
+      this._lastUpdate = this._getTimestamp();
 
       out.push(this.api.request(url).then(function (data) {
         return data.map(function (x) {
@@ -25732,6 +25732,11 @@ var JobMonitor = function () {
      * @returns {Boolean} - Waiting for data
      */
 
+  }, {
+    key: '_getTimestamp',
+    value: function _getTimestamp() {
+      return Date.now() / 1000;
+    }
   }, {
     key: 'data',
     get: function get() {
