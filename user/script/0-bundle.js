@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:91678ee82faae8b210f6, chunkhash:05ca197f306fd382f286, name:bundle, version:v1.2.16
+ * hash:6acf78a98ae9b74490c7, chunkhash:62629db16ba652cf3f92, name:bundle, version:v1.2.17
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6593,7 +6593,7 @@ var RequestParameters = function () {
         for (var _iterator2 = Object.keys(data.search)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var key = _step2.value;
 
-          var snakeKey = (0, _case.snake)(key);
+          var snakeKey = key.split(',').map(_case.snake).join(',');
 
           if (key !== snakeKey) {
             data.search[snakeKey] = data.search[key];
@@ -14918,7 +14918,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.16";
+var version = exports.version = "v1.2.17";
 
 /**
  * Package license
