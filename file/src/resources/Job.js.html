@@ -223,7 +223,7 @@ export default class Job extends CrudBase {
    * @returns {PromiseLike&lt;{filename: string, blob: string}&gt;} - Resolves with a blob reference and it&apos;s filename and rejects with {@link ApiError}
    */
   downloadOutput() {
-    return downloadFile(`${this.url}/preview`, this._getDownloadHeaders());
+    return downloadFile(`${this.url}/output`, this._getDownloadHeaders());
   }
 
   /**

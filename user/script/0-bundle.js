@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:292ad8275f4920214cd6, chunkhash:aecf498cdd0520247eca, name:bundle, version:v1.2.21
+ * hash:186c865cb9f3c093c028, chunkhash:195015a1f1bb513e70e3, name:bundle, version:v1.2.22
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.21) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.22) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -12352,7 +12352,7 @@ var Job = function (_CrudBase) {
   }, {
     key: 'downloadOutput',
     value: function downloadOutput() {
-      return (0, _requests.downloadFile)(this.url + '/preview', this._getDownloadHeaders());
+      return (0, _requests.downloadFile)(this.url + '/output', this._getDownloadHeaders());
     }
 
     /**
@@ -14999,7 +14999,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.21";
+var version = exports.version = "v1.2.22";
 
 /**
  * Package license
