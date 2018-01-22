@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:186c865cb9f3c093c028, chunkhash:195015a1f1bb513e70e3, name:bundle, version:v1.2.22
+ * hash:f7f3370788983bad5e2c, chunkhash:f34f90c365e07ce6dc70, name:bundle, version:v1.2.23
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.22) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.23) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -12339,7 +12339,7 @@ var Job = function (_CrudBase) {
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
      */
     value: function downloadPreview() {
-      return (0, _requests.downloadFile)(this.previewUrl, this._getDownloadHeaders()).then(function (data) {
+      return (0, _requests.downloadFile)(this.url + '/preview', this._getDownloadHeaders()).then(function (data) {
         return data.blob;
       });
     }
@@ -12429,17 +12429,6 @@ var Job = function (_CrudBase) {
     key: 'lastArchiveUrl',
     get: function get() {
       return this.url + '/revisions/last/result/archive';
-    }
-
-    /**
-     * Job result preview url, usable in an `<img>` tag
-     * @returns {string} - Preview url
-     */
-
-  }, {
-    key: 'previewUrl',
-    get: function get() {
-      return this.url + '/preview';
     }
   }]);
 
@@ -14999,7 +14988,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.22";
+var version = exports.version = "v1.2.23";
 
 /**
  * Package license
