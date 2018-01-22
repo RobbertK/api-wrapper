@@ -107,6 +107,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-downloadFile">downloadFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormData">FormData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
@@ -148,6 +149,7 @@
  */
 
 import fetchPonyfill from &apos;fetch-ponyfill&apos;;
+import ApiError from &apos;../errors/ApiError&apos;;
 import {windowTest} from &apos;./helpers&apos;;
 import {isNode} from &apos;./node&apos;;
 
@@ -213,6 +215,38 @@ function _encodeQueryString(paramsObject, _basePrefix = []) {
 
       return out;
     }).join(&apos;&amp;&apos;);
+}
+
+/**
+ * @param {string} url - Target url
+ * @param {object&lt;string, string&gt;} headers - Request headers
+ * @returns {PromiseLike&lt;{filename: string, blob: string}&gt;} - filename and blob
+ * @protected
+ */
+export function downloadFile(url, headers = {}) {
+  const out = {};
+
+  return fetch(url, {headers})
+    .then(res =&gt; {
+      if (res.ok) {
+        const regex = /(?:^|;\s*)filename=(?:&apos;([^&apos;]+)&apos;|&quot;([^&quot;]+)&quot;)/i;
+        const match = regex.exec(res.headers.get(&apos;Content-Disposition&apos;));
+
+        out.filename = (match ? match[1] || match[2] : false) || &apos;undefined&apos;;
+        return res.blob();
+      }
+
+      return res.json().then(data =&gt; {
+        const err = data.error;
+
+        throw new ApiError(err.type, err.message, res.status);
+      });
+    })
+    .then(blob =&gt; {
+      out.blob = (window.URL || window.webkitURL).createObjectURL(blob);
+
+      return out;
+    });
 }
 </code></pre>
 

@@ -107,6 +107,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-downloadFile">downloadFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeQueryString">encodeQueryString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FormData">FormData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-fetch">fetch</a></span></span></li>
@@ -148,6 +149,7 @@
  */
 
 import ResourceProxy from &apos;../proxy/ResourceProxy&apos;;
+import {downloadFile} from &apos;../utils/requests&apos;;
 import CrudBase from &apos;./base/CrudBase&apos;;
 import JobResult from &apos;./JobResult&apos;;
 import JobRevision from &apos;./JobRevision&apos;;
@@ -185,9 +187,11 @@ export default class Job extends CrudBase {
   /**
    * Get the most up to date preview url
    * @returns {string} - Last preview url
+   * @deprecated
+   * @see Job#previewUrl
    */
   get lastPreviewUrl() {
-    return `${this.url}/revisions/last/result/preview`;
+    return `${this.url}/preview`;
   }
 
   /**
@@ -196,6 +200,42 @@ export default class Job extends CrudBase {
    */
   get lastArchiveUrl() {
     return `${this.url}/revisions/last/result/archive`;
+  }
+
+  /**
+   * Job result preview url, usable in an `&lt;img&gt;` tag
+   * @returns {string} - Preview url
+   */
+  get previewUrl() {
+    return `${this.url}/preview`;
+  }
+
+  /**
+   * Get image blob url representation
+   * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
+   */
+  downloadPreview() {
+    return downloadFile(this.previewUrl, this._getDownloadHeaders()).then(data =&gt; data.blob);
+  }
+
+  /**
+   * Get archive blob url
+   * @returns {PromiseLike&lt;{filename: string, blob: string}&gt;} - Resolves with a blob reference and it&apos;s filename and rejects with {@link ApiError}
+   */
+  downloadOutput() {
+    return downloadFile(`${this.url}/preview`, this._getDownloadHeaders());
+  }
+
+  /**
+   * Get headers for downloading resources
+   * @returns {{Accept: string, Authorization: string}} - Request headers
+   * @private
+   */
+  _getDownloadHeaders() {
+    return {
+      Accept: &apos;application/json&apos;,
+      Authorization: this.api.auth.token.toString(),
+    };
   }
 }
 </code></pre>
