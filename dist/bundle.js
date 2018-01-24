@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:f7f3370788983bad5e2c, chunkhash:f34f90c365e07ce6dc70, name:bundle, version:v1.2.23
+ * hash:d6a14d86a40be7f6c298, chunkhash:20b7d8835b4df76a77db, name:bundle, version:v1.2.24
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.23) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -1818,12 +1818,10 @@ function encodeQueryString(paramsObject) {
 function _encodeQueryString(paramsObject) {
   var _basePrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-  return Object.keys(paramsObject).filter(function (key) {
-    return paramsObject[key] !== null;
-  }).sort().map(function (key) {
+  return Object.keys(paramsObject).sort().map(function (key) {
     var prefix = _basePrefix.slice(0);
 
-    if (_typeof(paramsObject[key]) === 'object') {
+    if (_typeof(paramsObject[key]) === 'object' && paramsObject[key] !== null) {
       prefix.push(key);
 
       return _encodeQueryString(paramsObject[key], prefix);
@@ -1837,7 +1835,12 @@ function _encodeQueryString(paramsObject) {
     out += prefix.map(function (item) {
       return '[' + encodeURIComponent(item) + ']';
     }).join(''); // optional array keys
-    out += '=' + encodeURIComponent(paramsObject[key]); // value
+
+    var value = paramsObject[key];
+
+    if (value !== null && typeof value !== 'undefined') {
+      out += '=' + encodeURIComponent(value); // value
+    }
 
     return out;
   }).join('&');
@@ -14988,7 +14991,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.23";
+var version = exports.version = "v1.2.24";
 
 /**
  * Package license

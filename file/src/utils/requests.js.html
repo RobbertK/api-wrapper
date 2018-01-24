@@ -194,12 +194,11 @@ export function encodeQueryString(paramsObject) {
 function _encodeQueryString(paramsObject, _basePrefix = []) {
   return Object
     .keys(paramsObject)
-    .filter(key =&gt; paramsObject[key] !== null)
     .sort()
     .map(key =&gt; {
       const prefix = _basePrefix.slice(0);
 
-      if (typeof paramsObject[key] === &apos;object&apos;) {
+      if (typeof paramsObject[key] === &apos;object&apos; &amp;&amp; paramsObject[key] !== null) {
         prefix.push(key);
 
         return _encodeQueryString(paramsObject[key], prefix);
@@ -211,7 +210,12 @@ function _encodeQueryString(paramsObject, _basePrefix = []) {
 
       out += encodeURIComponent(prefix.shift()); // main key
       out += prefix.map(item =&gt; `[${encodeURIComponent(item)}]`).join(&apos;&apos;); // optional array keys
-      out += &apos;=&apos; + encodeURIComponent(paramsObject[key]); // value
+
+      const value = paramsObject[key];
+
+      if (value !== null &amp;&amp; typeof value !== &apos;undefined&apos;) {
+        out += &apos;=&apos; + encodeURIComponent(value); // value
+      }
 
       return out;
     }).join(&apos;&amp;&apos;);
