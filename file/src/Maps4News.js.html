@@ -148,6 +148,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import {Enum} from &apos;./enums&apos;;
+
+import ApiError from &apos;./errors/ApiError&apos;;
+import ValidationError from &apos;./errors/ValidationError&apos;;
+import DummyFlow from &apos;./oauth/DummyFlow&apos;;
+import OAuth from &apos;./oauth/OAuth&apos;;
+import ResourceProxy from &apos;./proxy/ResourceProxy&apos;;
+import ResourceCache from &apos;./ResourceCache&apos;;
 import {
   Choropleth,
   Color,
@@ -178,19 +186,11 @@ import {
   User,
 } from &apos;./resources&apos;;
 import ResourceBase from &apos;./resources/base/ResourceBase&apos;;
-
-import ApiError from &apos;./errors/ApiError&apos;;
-import ValidationError from &apos;./errors/ValidationError&apos;;
-import DummyFlow from &apos;./oauth/DummyFlow&apos;;
-import OAuth from &apos;./oauth/OAuth&apos;;
-import ResourceProxy from &apos;./proxy/ResourceProxy&apos;;
-import ResourceCache from &apos;./ResourceCache&apos;;
 import {fnv32b} from &apos;./utils/hash&apos;;
 import Logger from &apos;./utils/Logger&apos;;
 import {isNode} from &apos;./utils/node&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
 import {fetch, FormData, Headers} from &apos;./utils/requests&apos;;
-import {Enum} from &apos;./enums&apos;;
 
 if (!global._babelPolyfill) {
   require(&apos;babel-polyfill&apos;);
@@ -367,8 +367,23 @@ export default class Maps4News {
       init.body = data;
     }
 
+    return this._fetch(url, init, bundleResponse);
+  }
+
+  _fetch(url, init, bundleResponse) {
     return fetch(url, init).then(response =&gt; {
       const respond = data =&gt; !bundleResponse ? data : {response, data};
+
+      if (response.status === 429) {
+        const resetTimestamp = Number(response.headers.get(&apos;X-RateLimit-Reset&apos;)) * 1000;
+        const waitTime = resetTimestamp - Date.now();
+
+        return new Promise((resolve, reject) =&gt; {
+          setTimeout(() =&gt; {
+            this._fetch(url, init, bundleResponse).then(resolve).catch(reject);
+          }, waitTime);
+        });
+      }
 
       // Check if there is an error response and parse it
       if (!response.ok) {
@@ -391,7 +406,7 @@ export default class Maps4News {
             .then(x =&gt; {
               // Just in case, code path should in theory never be reached
               if (typeof x.success === &apos;boolean&apos; &amp;&amp; !x.success) {
-                this._parseErrorResponse(data, response.status);
+                throw this._parseErrorResponse(x, response.status);
               }
 
               return x;

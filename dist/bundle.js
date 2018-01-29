@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:d6a14d86a40be7f6c298, chunkhash:20b7d8835b4df76a77db, name:bundle, version:v1.2.24
+ * hash:ba1b6e1ea3d1105e1f42, chunkhash:47a88f6c05c4a65cf0aa, name:bundle, version:v1.2.25
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.25) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -929,7 +929,7 @@ var _Maps4News = __webpack_require__(55);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _SimpleResourceProxy = __webpack_require__(67);
+var _SimpleResourceProxy = __webpack_require__(68);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
@@ -1761,7 +1761,7 @@ var _ApiError = __webpack_require__(57);
 
 var _ApiError2 = _interopRequireDefault(_ApiError);
 
-var _helpers = __webpack_require__(135);
+var _helpers = __webpack_require__(132);
 
 var _node = __webpack_require__(33);
 
@@ -2488,7 +2488,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _OrganisationProxy = __webpack_require__(198);
+var _OrganisationProxy = __webpack_require__(201);
 
 var _OrganisationProxy2 = _interopRequireDefault(_OrganisationProxy);
 
@@ -3377,35 +3377,37 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _resources = __webpack_require__(131);
-
-var _ResourceBase2 = __webpack_require__(17);
-
-var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
+var _enums = __webpack_require__(53);
 
 var _ApiError = __webpack_require__(57);
 
 var _ApiError2 = _interopRequireDefault(_ApiError);
 
-var _ValidationError = __webpack_require__(101);
+var _ValidationError = __webpack_require__(86);
 
 var _ValidationError2 = _interopRequireDefault(_ValidationError);
 
-var _DummyFlow = __webpack_require__(149);
+var _DummyFlow = __webpack_require__(131);
 
 var _DummyFlow2 = _interopRequireDefault(_DummyFlow);
 
-var _OAuth = __webpack_require__(60);
+var _OAuth = __webpack_require__(59);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
-var _ResourceProxy = __webpack_require__(98);
+var _ResourceProxy = __webpack_require__(90);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _ResourceCache = __webpack_require__(133);
+var _ResourceCache = __webpack_require__(136);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
+
+var _resources = __webpack_require__(137);
+
+var _ResourceBase2 = __webpack_require__(17);
+
+var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
 
 var _hash = __webpack_require__(66);
 
@@ -3418,8 +3420,6 @@ var _node = __webpack_require__(33);
 var _reflection = __webpack_require__(10);
 
 var _requests = __webpack_require__(30);
-
-var _enums = __webpack_require__(53);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3511,9 +3511,6 @@ var Maps4News = function () {
     value: function request(url) {
       var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'GET';
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-      var _this2 = this;
-
       var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
       var bundleResponse = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
 
@@ -3567,10 +3564,28 @@ var Maps4News = function () {
         init.body = data;
       }
 
+      return this._fetch(url, init, bundleResponse);
+    }
+  }, {
+    key: '_fetch',
+    value: function _fetch(url, init, bundleResponse) {
+      var _this2 = this;
+
       return (0, _requests.fetch)(url, init).then(function (response) {
         var respond = function respond(data) {
           return !bundleResponse ? data : { response: response, data: data };
         };
+
+        if (response.status === 429) {
+          var resetTimestamp = Number(response.headers.get('X-RateLimit-Reset')) * 1000;
+          var waitTime = resetTimestamp - Date.now();
+
+          return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+              _this2._fetch(url, init, bundleResponse).then(resolve).catch(reject);
+            }, waitTime);
+          });
+        }
 
         // Check if there is an error response and parse it
         if (!response.ok) {
@@ -3592,7 +3607,7 @@ var Maps4News = function () {
             return response.json().then(function (x) {
               // Just in case, code path should in theory never be reached
               if (typeof x.success === 'boolean' && !x.success) {
-                _this2._parseErrorResponse(data, response.status);
+                throw _this2._parseErrorResponse(x, response.status);
               }
 
               return x;
@@ -4294,137 +4309,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _AbstractError = __webpack_require__(37);
-
-var _CrudBase2 = __webpack_require__(6);
-
-var _CrudBase3 = _interopRequireDefault(_CrudBase2);
-
-var _case = __webpack_require__(65);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * Crud base for resource sets
- * @abstract
- */
-var CrudSetBase = function (_CrudBase) {
-  _inherits(CrudSetBase, _CrudBase);
-
-  function CrudSetBase() {
-    _classCallCheck(this, CrudSetBase);
-
-    return _possibleConstructorReturn(this, (CrudSetBase.__proto__ || Object.getPrototypeOf(CrudSetBase)).apply(this, arguments));
-  }
-
-  _createClass(CrudSetBase, [{
-    key: 'items',
-
-
-    /**
-     * Get items associated with the set
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-    get: function get() {
-      var url = this.url + '/items';
-
-      var data = {};
-
-      data[this.foreignKeyName] = this.id;
-
-      return this._proxyResourceList(this._Child, url, data);
-    }
-
-    /**
-     * Child constructor
-     * @returns {ResourceBase} - Child constructor
-     * @constructor
-     * @abstract
-     * @protected
-     */
-
-  }, {
-    key: '_Child',
-    get: function get() {
-      throw new _AbstractError.AbstractError();
-    }
-
-    /**
-     * Get the foreign key name
-     * @returns {string} - Foreign key name
-     * @example
-     * api.fontFamilies.select(1).foreignKeyName === 'fontFamilyId'
-     */
-
-  }, {
-    key: 'foreignKeyName',
-    get: function get() {
-      if (!this._fk) {
-        var key = this.constructor.name; // ex: FontFamily
-
-        key = (0, _case.camel)(key); // ex: fontFamily
-
-        this._fk = key + 'Id';
-      }
-
-      return this._fk;
-    }
-  }]);
-
-  return CrudSetBase;
-}(_CrudBase3.default);
-
-exports.default = CrudSetBase;
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -4538,7 +4422,7 @@ var OAuthError = function (_Error) {
 exports.default = OAuthError;
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4582,15 +4466,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _AbstractError = __webpack_require__(37);
 
-var _OAuthToken = __webpack_require__(70);
+var _OAuthToken = __webpack_require__(67);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _StateContainer = __webpack_require__(150);
+var _StateContainer = __webpack_require__(133);
 
 var _StateContainer2 = _interopRequireDefault(_StateContainer);
 
-var _StorageManager = __webpack_require__(61);
+var _StorageManager = __webpack_require__(60);
 
 var _StorageManager2 = _interopRequireDefault(_StorageManager);
 
@@ -4689,7 +4573,7 @@ var OAuth = function () {
 exports.default = OAuth;
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4701,19 +4585,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _StaticClass2 = __webpack_require__(86);
+var _StaticClass2 = __webpack_require__(87);
 
 var _StaticClass3 = _interopRequireDefault(_StaticClass2);
 
-var _CookiesDriver = __webpack_require__(209);
+var _CookiesDriver = __webpack_require__(193);
 
 var _CookiesDriver2 = _interopRequireDefault(_CookiesDriver);
 
-var _FileDriver = __webpack_require__(210);
+var _FileDriver = __webpack_require__(194);
 
 var _FileDriver2 = _interopRequireDefault(_FileDriver);
 
-var _LocalStorageDriver = __webpack_require__(211);
+var _LocalStorageDriver = __webpack_require__(195);
 
 var _LocalStorageDriver2 = _interopRequireDefault(_LocalStorageDriver);
 
@@ -4850,6 +4734,137 @@ var StorageManager = function (_StaticClass) {
 }(_StaticClass3.default);
 
 exports.default = StorageManager;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _AbstractError = __webpack_require__(37);
+
+var _CrudBase2 = __webpack_require__(6);
+
+var _CrudBase3 = _interopRequireDefault(_CrudBase2);
+
+var _case = __webpack_require__(65);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/**
+ * Crud base for resource sets
+ * @abstract
+ */
+var CrudSetBase = function (_CrudBase) {
+  _inherits(CrudSetBase, _CrudBase);
+
+  function CrudSetBase() {
+    _classCallCheck(this, CrudSetBase);
+
+    return _possibleConstructorReturn(this, (CrudSetBase.__proto__ || Object.getPrototypeOf(CrudSetBase)).apply(this, arguments));
+  }
+
+  _createClass(CrudSetBase, [{
+    key: 'items',
+
+
+    /**
+     * Get items associated with the set
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+    get: function get() {
+      var url = this.url + '/items';
+
+      var data = {};
+
+      data[this.foreignKeyName] = this.id;
+
+      return this._proxyResourceList(this._Child, url, data);
+    }
+
+    /**
+     * Child constructor
+     * @returns {ResourceBase} - Child constructor
+     * @constructor
+     * @abstract
+     * @protected
+     */
+
+  }, {
+    key: '_Child',
+    get: function get() {
+      throw new _AbstractError.AbstractError();
+    }
+
+    /**
+     * Get the foreign key name
+     * @returns {string} - Foreign key name
+     * @example
+     * api.fontFamilies.select(1).foreignKeyName === 'fontFamilyId'
+     */
+
+  }, {
+    key: 'foreignKeyName',
+    get: function get() {
+      if (!this._fk) {
+        var key = this.constructor.name; // ex: FontFamily
+
+        key = (0, _case.camel)(key); // ex: fontFamily
+
+        this._fk = key + 'Id';
+      }
+
+      return this._fk;
+    }
+  }]);
+
+  return CrudSetBase;
+}(_CrudBase3.default);
+
+exports.default = CrudSetBase;
 
 /***/ }),
 /* 62 */
@@ -5165,6 +5180,236 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+var _StorageManager = __webpack_require__(60);
+
+var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _requests = __webpack_require__(30);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Oauth token container
+ */
+var OAuthToken = function () {
+  /**
+   * @param {String} token - OAuth token
+   * @param {String} [type=Bearer] - token type
+   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
+   * @param {Array<string>} [scopes=[]] - Any scopes
+   */
+  function OAuthToken(token) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Bearer';
+    var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 432000;
+    var scopes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+
+    _classCallCheck(this, OAuthToken);
+
+    this.scopes = scopes;
+    this.token = token;
+    this.type = type.toLowerCase().replace(/(\s|^)\w/g, function (x) {
+      return x.toUpperCase();
+    });
+
+    if (typeof expires === 'number') {
+      // Expires is in seconds
+      this.expires = new Date(Date.now() + expires * 1000);
+    } else if (expires instanceof Date) {
+      this.expires = expires;
+    } else {
+      throw new TypeError('Expires not of type Date or Number');
+    }
+  }
+
+  /**
+   * String representation of the token, usable in the Authorization header
+   * @returns {string} - String representation
+   */
+
+
+  _createClass(OAuthToken, [{
+    key: 'toString',
+    value: function toString() {
+      return this.type + ' ' + this.token;
+    }
+
+    /**
+     * Get equivalent OAuth response object
+     * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object
+     */
+
+  }, {
+    key: 'toResponseObject',
+    value: function toResponseObject() {
+      return {
+        'access_token': this.token,
+        'token_type': this.type.toLowerCase(),
+        'expires_in': this.expires - Date.now(),
+        'scope': this.scopes
+      };
+    }
+
+    /**
+     * Export oauth response query string
+     * @returns {string} - OAuth response query
+     */
+
+  }, {
+    key: 'toQueryString',
+    value: function toQueryString() {
+      return (0, _requests.encodeQueryString)(this.toResponseObject());
+    }
+
+    /**
+     * If the token has expired
+     * @returns {Boolean} - expired
+     */
+
+  }, {
+    key: 'save',
+
+
+    /**
+     * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.
+     * @param {String} name - db key name
+     * @returns {void}
+     * @see OAuthToken#recover
+     */
+    value: function save() {
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
+
+      var data = {
+        token: this.token,
+        type: this.type,
+        expires: this.expires.toUTCString(),
+        scopes: this.scopes
+      };
+
+      // Third parameter is only used when we're using cookies
+      _StorageManager2.default.secure.set(name, JSON.stringify(data), this.expires);
+    }
+
+    /**
+     * Recover a token by looking through the HTTPS cookies and localStorage
+     * @param {String} name - Storage key name
+     * @returns {OAuthToken|null} - null if none could be recovered
+     * @see OAuthToken#save
+     */
+
+  }, {
+    key: 'expired',
+    get: function get() {
+      return new Date() > this.expires;
+    }
+
+    /**
+     * Internal storage key name
+     * @returns {String} - storage name
+     * @constant
+     */
+
+  }], [{
+    key: 'fromResponseObject',
+
+
+    /**
+     * Build instance from response object
+     * @param {String|Object} data - object or JSON string
+     * @returns {OAuthToken} - New OAuthToken instance
+     */
+    value: function fromResponseObject(data) {
+      if (typeof data === 'string') {
+        data = JSON.parse(data);
+      }
+
+      // Default expires = 5 days
+      var expires = 432000;
+
+      if (typeof data['exipires_in'] !== 'undefined') {
+        expires = Number(data['expires_in']);
+      } else if (typeof data['expires'] === 'string') {
+        expires = new Date(data['expires']);
+      }
+
+      return new OAuthToken(data['access_token'], data['token_type'], expires, data['scope'] || []);
+    }
+  }, {
+    key: 'recover',
+    value: function recover() {
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
+
+      var data = _StorageManager2.default.secure.get(name);
+
+      if (!data) {
+        return null;
+      }
+
+      var obj = JSON.parse(data);
+      var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
+
+      if (instance.expired) {
+        return null;
+      }
+
+      return instance;
+    }
+  }, {
+    key: 'storageName',
+    get: function get() {
+      return 'api_token';
+    }
+  }]);
+
+  return OAuthToken;
+}();
+
+exports.default = OAuthToken;
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
@@ -5203,13 +5448,13 @@ var _ResourceBase = __webpack_require__(17);
 
 var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
 
-var _PaginatedResourceListing = __webpack_require__(132);
+var _PaginatedResourceListing = __webpack_require__(135);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
 
 var _reflection = __webpack_require__(10);
 
-var _RequestParameters = __webpack_require__(88);
+var _RequestParameters = __webpack_require__(91);
 
 var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
@@ -5418,7 +5663,7 @@ var SimpleResourceProxy = function () {
 exports.default = SimpleResourceProxy;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5548,7 +5793,7 @@ var JobShareVisibility = function () {
 }();
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5560,7 +5805,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _HandlesImages = __webpack_require__(139);
+var _HandlesImages = __webpack_require__(141);
 
 var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
 
@@ -5638,236 +5883,6 @@ var Layer = function (_mix) {
 }((0, _reflection.mix)(_CrudBase2.default, _OwnableResource2.default, _HandlesImages2.default));
 
 exports.default = Layer;
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-var _StorageManager = __webpack_require__(61);
-
-var _StorageManager2 = _interopRequireDefault(_StorageManager);
-
-var _requests = __webpack_require__(30);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Oauth token container
- */
-var OAuthToken = function () {
-  /**
-   * @param {String} token - OAuth token
-   * @param {String} [type=Bearer] - token type
-   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
-   * @param {Array<string>} [scopes=[]] - Any scopes
-   */
-  function OAuthToken(token) {
-    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Bearer';
-    var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 432000;
-    var scopes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-
-    _classCallCheck(this, OAuthToken);
-
-    this.scopes = scopes;
-    this.token = token;
-    this.type = type.toLowerCase().replace(/(\s|^)\w/g, function (x) {
-      return x.toUpperCase();
-    });
-
-    if (typeof expires === 'number') {
-      // Expires is in seconds
-      this.expires = new Date(Date.now() + expires * 1000);
-    } else if (expires instanceof Date) {
-      this.expires = expires;
-    } else {
-      throw new TypeError('Expires not of type Date or Number');
-    }
-  }
-
-  /**
-   * String representation of the token, usable in the Authorization header
-   * @returns {string} - String representation
-   */
-
-
-  _createClass(OAuthToken, [{
-    key: 'toString',
-    value: function toString() {
-      return this.type + ' ' + this.token;
-    }
-
-    /**
-     * Get equivalent OAuth response object
-     * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object
-     */
-
-  }, {
-    key: 'toResponseObject',
-    value: function toResponseObject() {
-      return {
-        'access_token': this.token,
-        'token_type': this.type.toLowerCase(),
-        'expires_in': this.expires - Date.now(),
-        'scope': this.scopes
-      };
-    }
-
-    /**
-     * Export oauth response query string
-     * @returns {string} - OAuth response query
-     */
-
-  }, {
-    key: 'toQueryString',
-    value: function toQueryString() {
-      return (0, _requests.encodeQueryString)(this.toResponseObject());
-    }
-
-    /**
-     * If the token has expired
-     * @returns {Boolean} - expired
-     */
-
-  }, {
-    key: 'save',
-
-
-    /**
-     * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.
-     * @param {String} name - db key name
-     * @returns {void}
-     * @see OAuthToken#recover
-     */
-    value: function save() {
-      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
-
-      var data = {
-        token: this.token,
-        type: this.type,
-        expires: this.expires.toUTCString(),
-        scopes: this.scopes
-      };
-
-      // Third parameter is only used when we're using cookies
-      _StorageManager2.default.secure.set(name, JSON.stringify(data), this.expires);
-    }
-
-    /**
-     * Recover a token by looking through the HTTPS cookies and localStorage
-     * @param {String} name - Storage key name
-     * @returns {OAuthToken|null} - null if none could be recovered
-     * @see OAuthToken#save
-     */
-
-  }, {
-    key: 'expired',
-    get: function get() {
-      return new Date() > this.expires;
-    }
-
-    /**
-     * Internal storage key name
-     * @returns {String} - storage name
-     * @constant
-     */
-
-  }], [{
-    key: 'fromResponseObject',
-
-
-    /**
-     * Build instance from response object
-     * @param {String|Object} data - object or JSON string
-     * @returns {OAuthToken} - New OAuthToken instance
-     */
-    value: function fromResponseObject(data) {
-      if (typeof data === 'string') {
-        data = JSON.parse(data);
-      }
-
-      // Default expires = 5 days
-      var expires = 432000;
-
-      if (typeof data['exipires_in'] !== 'undefined') {
-        expires = Number(data['expires_in']);
-      } else if (typeof data['expires'] === 'string') {
-        expires = new Date(data['expires']);
-      }
-
-      return new OAuthToken(data['access_token'], data['token_type'], expires, data['scope'] || []);
-    }
-  }, {
-    key: 'recover',
-    value: function recover() {
-      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
-
-      var data = _StorageManager2.default.secure.get(name);
-
-      if (!data) {
-        return null;
-      }
-
-      var obj = JSON.parse(data);
-      var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
-
-      if (instance.expired) {
-        return null;
-      }
-
-      return instance;
-    }
-  }, {
-    key: 'storageName',
-    get: function get() {
-      return 'api_token';
-    }
-  }]);
-
-  return OAuthToken;
-}();
-
-exports.default = OAuthToken;
 
 /***/ }),
 /* 71 */
@@ -6319,7 +6334,117 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _StaticClassError = __webpack_require__(87);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ApiError2 = __webpack_require__(57);
+
+var _ApiError3 = _interopRequireDefault(_ApiError2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/**
+ * Extension of {@link ApiError} containing an extra field for validation errors
+ */
+var ValidationError = function (_ApiError) {
+  _inherits(ValidationError, _ApiError);
+
+  /**
+   * @param {String} type - Error type
+   * @param {String} message - Error message
+   * @param {Number} code - Http error code
+   * @param {Object<String, Array<String>>} validationErrors - Any validation errors
+   */
+  function ValidationError(type, message, code, validationErrors) {
+    _classCallCheck(this, ValidationError);
+
+    var _this = _possibleConstructorReturn(this, (ValidationError.__proto__ || Object.getPrototypeOf(ValidationError)).call(this, type, message, code));
+
+    _this._validationErrors = validationErrors;
+    return _this;
+  }
+
+  /**
+   * Any validation errors
+   * @returns {Object.<String, Array.<String>>} - Object containing arrays of validation errors where the field is stored in the key
+   */
+
+
+  _createClass(ValidationError, [{
+    key: 'toString',
+
+
+    /**
+     * @inheritDoc
+     */
+    value: function toString() {
+      var _this2 = this;
+
+      var errors = Object.keys(this.validationErrors).map(function (x) {
+        return _this2.validationErrors[x];
+      });
+
+      return 'There were some validation errors: ' + errors.join(' ');
+    }
+  }, {
+    key: 'validationErrors',
+    get: function get() {
+      return this._validationErrors;
+    }
+  }]);
+
+  return ValidationError;
+}(_ApiError3.default);
+
+exports.default = ValidationError;
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _StaticClassError = __webpack_require__(88);
 
 var _StaticClassError2 = _interopRequireDefault(_StaticClassError);
 
@@ -6370,7 +6495,7 @@ var StaticClass = function StaticClass() {
 exports.default = StaticClass;
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6437,7 +6562,327 @@ var StaticClassError = function (_Error) {
 exports.default = StaticClassError;
 
 /***/ }),
-/* 88 */
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+/* eslint-disable no-unused-vars */
+
+var _AbstractError = __webpack_require__(37);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @private
+ */
+var DataStoreDriver = function () {
+  function DataStoreDriver() {
+    _classCallCheck(this, DataStoreDriver);
+
+    if (this.constructor === DataStoreDriver) {
+      throw new _AbstractError.AbstractClassError();
+    }
+
+    if (!this.constructor.available) {
+      throw new Error(this.constructor.name + ' is unavailable');
+    }
+  }
+
+  /**
+   * If the driver is currently available
+   * @returns {boolean} - Driver availability
+   */
+
+
+  _createClass(DataStoreDriver, [{
+    key: 'set',
+
+
+    /**
+     * Store a value in the storage
+     * @param {String} name - value name
+     * @param {*} value - value
+     * @returns {void}
+     * @abstract
+     */
+    value: function set(name, value) {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * Get a value from the store
+     * @param {String} name - value name
+     * @returns {String} - value
+     * @abstract
+     */
+
+  }, {
+    key: 'get',
+    value: function get(name) {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * Remove a value from the store
+     * @param {String} name - value name
+     * @returns {void}
+     * @abstract
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * Clear storage
+     * @returns {void}
+     */
+
+  }, {
+    key: 'clear',
+    value: function clear() {
+      var _this = this;
+
+      this.keys().map(function (key) {
+        return _this.remove(key);
+      });
+    }
+
+    /**
+     * Storage keys
+     * @returns {Array<String>} - Stored keys
+     * @abstract
+     */
+
+  }, {
+    key: 'keys',
+    value: function keys() {
+      throw new _AbstractError.AbstractMethodError();
+    }
+  }], [{
+    key: 'available',
+    get: function get() {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * If the storage is secure
+     * @returns {boolean} - Secure storage
+     */
+
+  }, {
+    key: 'secure',
+    get: function get() {
+      return false;
+    }
+  }]);
+
+  return DataStoreDriver;
+}();
+
+exports.default = DataStoreDriver;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _enums = __webpack_require__(53);
+
+var _requests = __webpack_require__(30);
+
+var _SimpleResourceProxy2 = __webpack_require__(68);
+
+var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/**
+ * Proxy for accessing resource. This will make sure that they
+ * are properly wrapped before the promise resolves.
+ * @protected
+ */
+var ResourceProxy = function (_SimpleResourceProxy) {
+  _inherits(ResourceProxy, _SimpleResourceProxy);
+
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {ResourceBase} Target - Target to wrap
+   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
+   * @param {object} seedData - Internal use, used for seeding ::new
+   */
+  function ResourceProxy(api, Target) {
+    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+    _classCallCheck(this, ResourceProxy);
+
+    return _possibleConstructorReturn(this, (ResourceProxy.__proto__ || Object.getPrototypeOf(ResourceProxy)).call(this, api, Target, altUrl, seedData));
+  }
+
+  /**
+   * Parse selector
+   * @param {Number|String|Object} [id=] - The resource id to be requested
+   * @returns {Object} - Parsed selector
+   * @private
+   */
+
+
+  _createClass(ResourceProxy, [{
+    key: '_parseSelector',
+    value: function _parseSelector(id) {
+      if (id === '' || id === null) {
+        return {};
+      }
+
+      switch (typeof id === 'undefined' ? 'undefined' : _typeof(id)) {
+        case 'number':
+        case 'string':
+          return _defineProperty({}, this.Target.resourceUrlKey, id);
+        case 'object':
+          return id;
+        default:
+          return {};
+      }
+    }
+
+    /**
+     * Get target resource
+     * @param {Number|String|Object} [id=] - The resource id to be requested
+     * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
+     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'get',
+    value: function get(id) {
+      var _this2 = this;
+
+      var deleted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _enums.DeletedState.NONE;
+
+      var data = Object.assign({}, this._seedData, this._parseSelector(id));
+      var url = this.new(data).url;
+      var glue = url.includes('?') ? '&' : '?';
+
+      url += glue + (0, _requests.encodeQueryString)({ deleted: deleted });
+
+      return this._api.request(url).then(function (result) {
+        return _this2.new(result);
+      });
+    }
+
+    /**
+     * Select target resource without obtaining data
+     * @param {Number|String} [id=] - Resource id
+     * @returns {ResourceBase} - Empty target resource
+     * @example
+     * api.users.select('me').colors().then(doSomethingCool);
+     */
+
+  }, {
+    key: 'select',
+    value: function select(id) {
+      var data = Object.assign({}, this._seedData, this._parseSelector(id));
+
+      return this.new(data);
+    }
+  }]);
+
+  return ResourceProxy;
+}(_SimpleResourceProxy3.default);
+
+exports.default = ResourceProxy;
+
+/***/ }),
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7200,7 +7645,7 @@ var RequestParameters = function () {
 exports.default = RequestParameters;
 
 /***/ }),
-/* 89 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7287,7 +7732,7 @@ var Color = function (_mix) {
 exports.default = Color;
 
 /***/ }),
-/* 90 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7303,55 +7748,55 @@ var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _Color = __webpack_require__(89);
+var _Color = __webpack_require__(92);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _Contract = __webpack_require__(136);
+var _Contract = __webpack_require__(138);
 
 var _Contract2 = _interopRequireDefault(_Contract);
 
-var _DimensionSet = __webpack_require__(91);
+var _DimensionSet = __webpack_require__(94);
 
 var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
 
-var _Feature = __webpack_require__(92);
+var _Feature = __webpack_require__(95);
 
 var _Feature2 = _interopRequireDefault(_Feature);
 
-var _FontFamily = __webpack_require__(93);
+var _FontFamily = __webpack_require__(96);
 
 var _FontFamily2 = _interopRequireDefault(_FontFamily);
 
-var _JobShare = __webpack_require__(68);
+var _JobShare = __webpack_require__(69);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _JobType = __webpack_require__(94);
+var _JobType = __webpack_require__(97);
 
 var _JobType2 = _interopRequireDefault(_JobType);
 
-var _Layer = __webpack_require__(69);
+var _Layer = __webpack_require__(70);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _MapstyleSet = __webpack_require__(95);
+var _MapstyleSet = __webpack_require__(98);
 
 var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
 
-var _SvgSet = __webpack_require__(96);
+var _SvgSet = __webpack_require__(99);
 
 var _SvgSet2 = _interopRequireDefault(_SvgSet);
 
-var _User = __webpack_require__(97);
+var _User = __webpack_require__(100);
 
 var _User2 = _interopRequireDefault(_User);
 
-var _OwnedResourceProxy = __webpack_require__(204);
+var _OwnedResourceProxy = __webpack_require__(207);
 
 var _OwnedResourceProxy2 = _interopRequireDefault(_OwnedResourceProxy);
 
-var _Domain = __webpack_require__(147);
+var _Domain = __webpack_require__(149);
 
 var _Domain2 = _interopRequireDefault(_Domain);
 
@@ -7561,7 +8006,7 @@ var Organisation = function (_CrudBase) {
 exports.default = Organisation;
 
 /***/ }),
-/* 91 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7573,11 +8018,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CrudSetBase = __webpack_require__(58);
+var _CrudSetBase = __webpack_require__(61);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Dimension = __webpack_require__(137);
+var _Dimension = __webpack_require__(139);
 
 var _Dimension2 = _interopRequireDefault(_Dimension);
 
@@ -7662,7 +8107,7 @@ var DimensionSet = function (_mix) {
 exports.default = DimensionSet;
 
 /***/ }),
-/* 92 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7749,7 +8194,7 @@ var Feature = function (_mix) {
 exports.default = Feature;
 
 /***/ }),
-/* 93 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7767,11 +8212,11 @@ var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
 
 var _reflection = __webpack_require__(10);
 
-var _CrudSetBase = __webpack_require__(58);
+var _CrudSetBase = __webpack_require__(61);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Font = __webpack_require__(138);
+var _Font = __webpack_require__(140);
 
 var _Font2 = _interopRequireDefault(_Font);
 
@@ -7850,7 +8295,7 @@ var FontFamily = function (_mix) {
 exports.default = FontFamily;
 
 /***/ }),
-/* 94 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7942,7 +8387,7 @@ var JobType = function (_mix) {
 exports.default = JobType;
 
 /***/ }),
-/* 95 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7960,11 +8405,11 @@ var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
 
 var _reflection = __webpack_require__(10);
 
-var _CrudSetBase = __webpack_require__(58);
+var _CrudSetBase = __webpack_require__(61);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Mapstyle = __webpack_require__(140);
+var _Mapstyle = __webpack_require__(142);
 
 var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
 
@@ -8043,7 +8488,7 @@ var MapstyleSet = function (_mix) {
 exports.default = MapstyleSet;
 
 /***/ }),
-/* 96 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8059,11 +8504,11 @@ var _OwnableResource = __webpack_require__(34);
 
 var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
 
-var _CrudSetBase = __webpack_require__(58);
+var _CrudSetBase = __webpack_require__(61);
 
 var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
 
-var _Svg = __webpack_require__(141);
+var _Svg = __webpack_require__(143);
 
 var _Svg2 = _interopRequireDefault(_Svg);
 
@@ -8144,7 +8589,7 @@ var SvgSet = function (_mix) {
 exports.default = SvgSet;
 
 /***/ }),
-/* 97 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8156,7 +8601,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ResourceProxy = __webpack_require__(98);
+var _ResourceProxy = __webpack_require__(90);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
@@ -8164,63 +8609,63 @@ var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _Color = __webpack_require__(89);
+var _Color = __webpack_require__(92);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _DimensionSet = __webpack_require__(91);
+var _DimensionSet = __webpack_require__(94);
 
 var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
 
-var _Feature = __webpack_require__(92);
+var _Feature = __webpack_require__(95);
 
 var _Feature2 = _interopRequireDefault(_Feature);
 
-var _FontFamily = __webpack_require__(93);
+var _FontFamily = __webpack_require__(96);
 
 var _FontFamily2 = _interopRequireDefault(_FontFamily);
 
-var _Job = __webpack_require__(142);
+var _Job = __webpack_require__(144);
 
 var _Job2 = _interopRequireDefault(_Job);
 
-var _JobShare = __webpack_require__(68);
+var _JobShare = __webpack_require__(69);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _JobType = __webpack_require__(94);
+var _JobType = __webpack_require__(97);
 
 var _JobType2 = _interopRequireDefault(_JobType);
 
-var _Language = __webpack_require__(144);
+var _Language = __webpack_require__(146);
 
 var _Language2 = _interopRequireDefault(_Language);
 
-var _Layer = __webpack_require__(69);
+var _Layer = __webpack_require__(70);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _MapstyleSet = __webpack_require__(95);
+var _MapstyleSet = __webpack_require__(98);
 
 var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
 
-var _Notification = __webpack_require__(145);
+var _Notification = __webpack_require__(147);
 
 var _Notification2 = _interopRequireDefault(_Notification);
 
-var _Organisation = __webpack_require__(90);
+var _Organisation = __webpack_require__(93);
 
 var _Organisation2 = _interopRequireDefault(_Organisation);
 
-var _Permission = __webpack_require__(100);
+var _Permission = __webpack_require__(102);
 
 var _Permission2 = _interopRequireDefault(_Permission);
 
-var _Role = __webpack_require__(146);
+var _Role = __webpack_require__(148);
 
 var _Role2 = _interopRequireDefault(_Role);
 
-var _SvgSet = __webpack_require__(96);
+var _SvgSet = __webpack_require__(99);
 
 var _SvgSet2 = _interopRequireDefault(_SvgSet);
 
@@ -8470,166 +8915,7 @@ var User = function (_CrudBase) {
 exports.default = User;
 
 /***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _enums = __webpack_require__(53);
-
-var _requests = __webpack_require__(30);
-
-var _SimpleResourceProxy2 = __webpack_require__(67);
-
-var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * Proxy for accessing resource. This will make sure that they
- * are properly wrapped before the promise resolves.
- * @protected
- */
-var ResourceProxy = function (_SimpleResourceProxy) {
-  _inherits(ResourceProxy, _SimpleResourceProxy);
-
-  /**
-   * @param {Maps4News} api - Instance of the api
-   * @param {ResourceBase} Target - Target to wrap
-   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
-   * @param {object} seedData - Internal use, used for seeding ::new
-   */
-  function ResourceProxy(api, Target) {
-    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-
-    _classCallCheck(this, ResourceProxy);
-
-    return _possibleConstructorReturn(this, (ResourceProxy.__proto__ || Object.getPrototypeOf(ResourceProxy)).call(this, api, Target, altUrl, seedData));
-  }
-
-  /**
-   * Parse selector
-   * @param {Number|String|Object} [id=] - The resource id to be requested
-   * @returns {Object} - Parsed selector
-   * @private
-   */
-
-
-  _createClass(ResourceProxy, [{
-    key: '_parseSelector',
-    value: function _parseSelector(id) {
-      if (id === '' || id === null) {
-        return {};
-      }
-
-      switch (typeof id === 'undefined' ? 'undefined' : _typeof(id)) {
-        case 'number':
-        case 'string':
-          return _defineProperty({}, this.Target.resourceUrlKey, id);
-        case 'object':
-          return id;
-        default:
-          return {};
-      }
-    }
-
-    /**
-     * Get target resource
-     * @param {Number|String|Object} [id=] - The resource id to be requested
-     * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
-     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'get',
-    value: function get(id) {
-      var _this2 = this;
-
-      var deleted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _enums.DeletedState.NONE;
-
-      var data = Object.assign({}, this._seedData, this._parseSelector(id));
-      var url = this.new(data).url;
-      var glue = url.includes('?') ? '&' : '?';
-
-      url += glue + (0, _requests.encodeQueryString)({ deleted: deleted });
-
-      return this._api.request(url).then(function (result) {
-        return _this2.new(result);
-      });
-    }
-
-    /**
-     * Select target resource without obtaining data
-     * @param {Number|String} [id=] - Resource id
-     * @returns {ResourceBase} - Empty target resource
-     * @example
-     * api.users.select('me').colors().then(doSomethingCool);
-     */
-
-  }, {
-    key: 'select',
-    value: function select(id) {
-      var data = Object.assign({}, this._seedData, this._parseSelector(id));
-
-      return this.new(data);
-    }
-  }]);
-
-  return ResourceProxy;
-}(_SimpleResourceProxy3.default);
-
-exports.default = ResourceProxy;
-
-/***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8821,7 +9107,7 @@ var JobResult = function (_ResourceBase) {
 exports.default = JobResult;
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8895,277 +9181,6 @@ var Permission = function (_ResourceBase) {
 }(_ResourceBase3.default);
 
 exports.default = Permission;
-
-/***/ }),
-/* 101 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ApiError2 = __webpack_require__(57);
-
-var _ApiError3 = _interopRequireDefault(_ApiError2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * Extension of {@link ApiError} containing an extra field for validation errors
- */
-var ValidationError = function (_ApiError) {
-  _inherits(ValidationError, _ApiError);
-
-  /**
-   * @param {String} type - Error type
-   * @param {String} message - Error message
-   * @param {Number} code - Http error code
-   * @param {Object<String, Array<String>>} validationErrors - Any validation errors
-   */
-  function ValidationError(type, message, code, validationErrors) {
-    _classCallCheck(this, ValidationError);
-
-    var _this = _possibleConstructorReturn(this, (ValidationError.__proto__ || Object.getPrototypeOf(ValidationError)).call(this, type, message, code));
-
-    _this._validationErrors = validationErrors;
-    return _this;
-  }
-
-  /**
-   * Any validation errors
-   * @returns {Object.<String, Array.<String>>} - Object containing arrays of validation errors where the field is stored in the key
-   */
-
-
-  _createClass(ValidationError, [{
-    key: 'toString',
-
-
-    /**
-     * @inheritDoc
-     */
-    value: function toString() {
-      var _this2 = this;
-
-      var errors = Object.keys(this.validationErrors).map(function (x) {
-        return _this2.validationErrors[x];
-      });
-
-      return 'There were some validation errors: ' + errors.join(' ');
-    }
-  }, {
-    key: 'validationErrors',
-    get: function get() {
-      return this._validationErrors;
-    }
-  }]);
-
-  return ValidationError;
-}(_ApiError3.default);
-
-exports.default = ValidationError;
-
-/***/ }),
-/* 102 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-/* eslint-disable no-unused-vars */
-
-var _AbstractError = __webpack_require__(37);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * @private
- */
-var DataStoreDriver = function () {
-  function DataStoreDriver() {
-    _classCallCheck(this, DataStoreDriver);
-
-    if (this.constructor === DataStoreDriver) {
-      throw new _AbstractError.AbstractClassError();
-    }
-
-    if (!this.constructor.available) {
-      throw new Error(this.constructor.name + ' is unavailable');
-    }
-  }
-
-  /**
-   * If the driver is currently available
-   * @returns {boolean} - Driver availability
-   */
-
-
-  _createClass(DataStoreDriver, [{
-    key: 'set',
-
-
-    /**
-     * Store a value in the storage
-     * @param {String} name - value name
-     * @param {*} value - value
-     * @returns {void}
-     * @abstract
-     */
-    value: function set(name, value) {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * Get a value from the store
-     * @param {String} name - value name
-     * @returns {String} - value
-     * @abstract
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * Remove a value from the store
-     * @param {String} name - value name
-     * @returns {void}
-     * @abstract
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * Clear storage
-     * @returns {void}
-     */
-
-  }, {
-    key: 'clear',
-    value: function clear() {
-      var _this = this;
-
-      this.keys().map(function (key) {
-        return _this.remove(key);
-      });
-    }
-
-    /**
-     * Storage keys
-     * @returns {Array<String>} - Stored keys
-     * @abstract
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      throw new _AbstractError.AbstractMethodError();
-    }
-  }], [{
-    key: 'available',
-    get: function get() {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * If the storage is secure
-     * @returns {boolean} - Secure storage
-     */
-
-  }, {
-    key: 'secure',
-    get: function get() {
-      return false;
-    }
-  }]);
-
-  return DataStoreDriver;
-}();
-
-exports.default = DataStoreDriver;
 
 /***/ }),
 /* 103 */
@@ -10217,214 +10232,504 @@ var ResultStatus = exports.ResultStatus = new _Enum2.default({
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.base = exports.User = exports.SvgSet = exports.Svg = exports.Role = exports.PlaceName = exports.Permission = exports.Organisation = exports.Notification = exports.MapstyleSet = exports.Mapstyle = exports.Layer = exports.Language = exports.JobType = exports.JobShare = exports.JobRevision = exports.JobResult = exports.JobMonitorRow = exports.Job = exports.InsetMap = exports.Highlight = exports.FontFamily = exports.Font = exports.Feature = exports.Faq = exports.Domain = exports.DimensionSet = exports.Dimension = exports.Contract = exports.Color = exports.Choropleth = undefined;
 
-var _Choropleth2 = __webpack_require__(193);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Choropleth3 = _interopRequireDefault(_Choropleth2);
+var _OAuthError = __webpack_require__(58);
 
-var _Color2 = __webpack_require__(89);
+var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _Color3 = _interopRequireDefault(_Color2);
+var _OAuth2 = __webpack_require__(59);
 
-var _Contract2 = __webpack_require__(136);
-
-var _Contract3 = _interopRequireDefault(_Contract2);
-
-var _Dimension2 = __webpack_require__(137);
-
-var _Dimension3 = _interopRequireDefault(_Dimension2);
-
-var _DimensionSet2 = __webpack_require__(91);
-
-var _DimensionSet3 = _interopRequireDefault(_DimensionSet2);
-
-var _Domain2 = __webpack_require__(147);
-
-var _Domain3 = _interopRequireDefault(_Domain2);
-
-var _Faq2 = __webpack_require__(205);
-
-var _Faq3 = _interopRequireDefault(_Faq2);
-
-var _Feature2 = __webpack_require__(92);
-
-var _Feature3 = _interopRequireDefault(_Feature2);
-
-var _Font2 = __webpack_require__(138);
-
-var _Font3 = _interopRequireDefault(_Font2);
-
-var _FontFamily2 = __webpack_require__(93);
-
-var _FontFamily3 = _interopRequireDefault(_FontFamily2);
-
-var _Highlight2 = __webpack_require__(206);
-
-var _Highlight3 = _interopRequireDefault(_Highlight2);
-
-var _InsetMap2 = __webpack_require__(207);
-
-var _InsetMap3 = _interopRequireDefault(_InsetMap2);
-
-var _Job2 = __webpack_require__(142);
-
-var _Job3 = _interopRequireDefault(_Job2);
-
-var _JobMonitorRow2 = __webpack_require__(148);
-
-var _JobMonitorRow3 = _interopRequireDefault(_JobMonitorRow2);
-
-var _JobResult2 = __webpack_require__(99);
-
-var _JobResult3 = _interopRequireDefault(_JobResult2);
-
-var _JobRevision2 = __webpack_require__(143);
-
-var _JobRevision3 = _interopRequireDefault(_JobRevision2);
-
-var _JobShare2 = __webpack_require__(68);
-
-var _JobShare3 = _interopRequireDefault(_JobShare2);
-
-var _JobType2 = __webpack_require__(94);
-
-var _JobType3 = _interopRequireDefault(_JobType2);
-
-var _Language2 = __webpack_require__(144);
-
-var _Language3 = _interopRequireDefault(_Language2);
-
-var _Layer2 = __webpack_require__(69);
-
-var _Layer3 = _interopRequireDefault(_Layer2);
-
-var _Mapstyle2 = __webpack_require__(140);
-
-var _Mapstyle3 = _interopRequireDefault(_Mapstyle2);
-
-var _MapstyleSet2 = __webpack_require__(95);
-
-var _MapstyleSet3 = _interopRequireDefault(_MapstyleSet2);
-
-var _Notification2 = __webpack_require__(145);
-
-var _Notification3 = _interopRequireDefault(_Notification2);
-
-var _Organisation2 = __webpack_require__(90);
-
-var _Organisation3 = _interopRequireDefault(_Organisation2);
-
-var _Permission2 = __webpack_require__(100);
-
-var _Permission3 = _interopRequireDefault(_Permission2);
-
-var _PlaceName2 = __webpack_require__(208);
-
-var _PlaceName3 = _interopRequireDefault(_PlaceName2);
-
-var _Role2 = __webpack_require__(146);
-
-var _Role3 = _interopRequireDefault(_Role2);
-
-var _Svg2 = __webpack_require__(141);
-
-var _Svg3 = _interopRequireDefault(_Svg2);
-
-var _SvgSet2 = __webpack_require__(96);
-
-var _SvgSet3 = _interopRequireDefault(_SvgSet2);
-
-var _User2 = __webpack_require__(97);
-
-var _User3 = _interopRequireDefault(_User2);
-
-var _CrudBase = __webpack_require__(6);
-
-var _CrudBase2 = _interopRequireDefault(_CrudBase);
-
-var _CrudSetBase = __webpack_require__(58);
-
-var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
-
-var _ResourceBase = __webpack_require__(17);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+var _OAuth3 = _interopRequireDefault(_OAuth2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Choropleth = _Choropleth3.default; /*
-                                            * BSD 3-Clause License
-                                            *
-                                            * Copyright (c) 2017, MapCreator
-                                            * All rights reserved.
-                                            *
-                                            * Redistribution and use in source and binary forms, with or without
-                                            * modification, are permitted provided that the following conditions are met:
-                                            *
-                                            *  Redistributions of source code must retain the above copyright notice, this
-                                            *   list of conditions and the following disclaimer.
-                                            *
-                                            *  Redistributions in binary form must reproduce the above copyright notice,
-                                            *   this list of conditions and the following disclaimer in the documentation
-                                            *   and/or other materials provided with the distribution.
-                                            *
-                                            *  Neither the name of the copyright holder nor the names of its
-                                            *   contributors may be used to endorse or promote products derived from
-                                            *   this software without specific prior written permission.
-                                            *
-                                            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                            */
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-exports.Color = _Color3.default;
-exports.Contract = _Contract3.default;
-exports.Dimension = _Dimension3.default;
-exports.DimensionSet = _DimensionSet3.default;
-exports.Domain = _Domain3.default;
-exports.Faq = _Faq3.default;
-exports.Feature = _Feature3.default;
-exports.Font = _Font3.default;
-exports.FontFamily = _FontFamily3.default;
-exports.Highlight = _Highlight3.default;
-exports.InsetMap = _InsetMap3.default;
-exports.Job = _Job3.default;
-exports.JobMonitorRow = _JobMonitorRow3.default;
-exports.JobResult = _JobResult3.default;
-exports.JobRevision = _JobRevision3.default;
-exports.JobShare = _JobShare3.default;
-exports.JobType = _JobType3.default;
-exports.Language = _Language3.default;
-exports.Layer = _Layer3.default;
-exports.Mapstyle = _Mapstyle3.default;
-exports.MapstyleSet = _MapstyleSet3.default;
-exports.Notification = _Notification3.default;
-exports.Organisation = _Organisation3.default;
-exports.Permission = _Permission3.default;
-exports.PlaceName = _PlaceName3.default;
-exports.Role = _Role3.default;
-exports.Svg = _Svg3.default;
-exports.SvgSet = _SvgSet3.default;
-exports.User = _User3.default;
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 /**
- * @private
+ * Dummy flow for when the token should be available in the
+ * cache and no attempt at authentication should be made.
  */
-var base = exports.base = {
-  CrudBase: _CrudBase2.default, CrudSetBase: _CrudSetBase2.default, ResourceBase: _ResourceBase2.default
-};
+var DummyFlow = function (_OAuth) {
+  _inherits(DummyFlow, _OAuth);
+
+  function DummyFlow() {
+    _classCallCheck(this, DummyFlow);
+
+    return _possibleConstructorReturn(this, (DummyFlow.__proto__ || Object.getPrototypeOf(DummyFlow)).call(this, '', []));
+  }
+
+  /**
+   * Authenticate
+   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}
+   */
+
+
+  _createClass(DummyFlow, [{
+    key: 'authenticate',
+    value: function authenticate() {
+      var _this2 = this;
+
+      return new Promise(function (resolve, reject) {
+        if (_this2.authenticated) {
+          resolve(_this2.token);
+        } else {
+          reject(new _OAuthError2.default('dummy_error', 'Attempted authentication using a dummy authenticator'));
+        }
+      });
+    }
+  }]);
+
+  return DummyFlow;
+}(_OAuth3.default);
+
+exports.default = DummyFlow;
 
 /***/ }),
 /* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getPaginatedRange = getPaginatedRange;
+exports.windowTest = windowTest;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Get all the pages from a {@link PaginatedResourceListing} or a range
+ * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}
+ * @param {?Number} [start=1] - Start page
+ * @param {?Number} [stop] - Stop page
+ * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+ * @example
+ * import { helpers } from "@mapcreator/maps4news";
+ *
+ * const promise = api.users.list(1, 50); // 50 per page is more efficient
+ *
+ * helpers.getPaginatedRange(promise).then(data => {
+ *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names
+ *        .forEach(console.log) // Log the names and ids of every user
+ * })
+ */
+function getPaginatedRange(page) {
+  var start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var stop = arguments[2];
+
+  // Resolve promise if any
+  if (page instanceof Promise) {
+    return page.then(function (res) {
+      return getPaginatedRange(res, start, stop);
+    });
+  }
+
+  var out = page.data;
+  var promises = [];
+
+  // Handle defaults
+  start = start || page.page;
+  stop = stop || page.pageCount;
+
+  if (start === page.page) {
+    start++;
+  }
+
+  return new Promise(function (resolve, reject) {
+    // Get all pages
+    for (var i = start; i <= stop; i++) {
+      promises.push(page.get(i));
+    }
+
+    // Resolve
+    Promise.all(promises).then(function (rows) {
+      resolve(out.concat.apply(out, _toConsumableArray(rows.map(function (x) {
+        return x.data;
+      }))));
+    }, reject);
+  });
+}
+
+/**
+ * Quickly check if the window contains a variable
+ * @param {string} str - target variable
+ * @returns {boolean} - If the window contains the variable
+ * @private
+ */
+function windowTest(str) {
+  return typeof window !== 'undefined' && typeof window[str] !== 'undefined';
+}
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _StorageManager = __webpack_require__(60);
+
+var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _StaticClass2 = __webpack_require__(87);
+
+var _StaticClass3 = _interopRequireDefault(_StaticClass2);
+
+var _uuid = __webpack_require__(134);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/**
+ * State container for keeping track of OAuth states (crsf tokens)
+ * @static
+ * @private
+ */
+var StateContainer = function (_StaticClass) {
+  _inherits(StateContainer, _StaticClass);
+
+  function StateContainer() {
+    _classCallCheck(this, StateContainer);
+
+    return _possibleConstructorReturn(this, (StateContainer.__proto__ || Object.getPrototypeOf(StateContainer)).apply(this, arguments));
+  }
+
+  _createClass(StateContainer, null, [{
+    key: 'generate',
+
+
+    /**
+     * Generate and store a state that can be checked at a later point
+     * @returns {string} - state
+     */
+    value: function generate() {
+      var uuid = _uuid2.default.uuid4();
+      var key = StateContainer.prefix + uuid;
+
+      _StorageManager2.default.best.set(key, Date.now());
+      return uuid;
+    }
+
+    /**
+     * Validate a state
+     * @param {String} state - state to validate
+     * @param {Boolean} purge - remove from state db after validation
+     * @returns {Boolean} - if the state is valid
+     */
+
+  }, {
+    key: 'validate',
+    value: function validate(state) {
+      var purge = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      var storage = _StorageManager2.default.best;
+      var key = StateContainer.prefix + state;
+      var found = typeof storage.get(key) !== 'undefined';
+
+      if (purge && found) {
+        storage.remove(key);
+      }
+
+      return found;
+    }
+
+    /**
+     * Remove all states from the state db
+     * @returns {void}
+     */
+
+  }, {
+    key: 'clean',
+    value: function clean() {
+      var tokens = Object.keys(this.list());
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var token = _step.value;
+
+          _StorageManager2.default.best.remove(StateContainer.prefix + token);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+
+    /**
+     * Get states with their corresponding state db key
+     * @returns {Object<String, String>} - List of stored states
+     */
+
+  }, {
+    key: 'list',
+    value: function list() {
+      var storage = _StorageManager2.default.best;
+
+      return storage.keys().filter(function (x) {
+        return x.startsWith(StateContainer.prefix);
+      }).map(function (x) {
+        return x.replace(StateContainer.prefix, '');
+      }).reduce(function (out, key) {
+        out[key] = storage.get(key);
+
+        return out;
+      }, {});
+    }
+  }, {
+    key: 'prefix',
+
+    /**
+     * LocalStorage key prefix
+     * @returns {String} - prefix
+     * @constant
+     */
+    get: function get() {
+      return 'oauth_state_';
+    }
+  }]);
+
+  return StateContainer;
+}(_StaticClass3.default);
+
+exports.default = StateContainer;
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _StaticClass2 = __webpack_require__(87);
+
+var _StaticClass3 = _interopRequireDefault(_StaticClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/**
+ * UUID util class
+ * @static
+ * @private
+ */
+var Uuid = function (_StaticClass) {
+  _inherits(Uuid, _StaticClass);
+
+  function Uuid() {
+    _classCallCheck(this, Uuid);
+
+    return _possibleConstructorReturn(this, (Uuid.__proto__ || Object.getPrototypeOf(Uuid)).apply(this, arguments));
+  }
+
+  _createClass(Uuid, null, [{
+    key: 'uuid4',
+
+    /**
+     * Generate a UUID4 string
+     * @returns {string} - Uuid
+     */
+    value: function uuid4() {
+      var d = new Date().getTime();
+
+      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+        d += performance.now(); // use high-precision timer if available
+      }
+
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+      });
+    }
+
+    /**
+     * Empty uuid as per spec
+     * @returns {string} - Uuid
+     */
+
+  }, {
+    key: 'nil',
+    value: function nil() {
+      return '0000000-0000-0000-0000-000000000000';
+    }
+  }]);
+
+  return Uuid;
+}(_StaticClass3.default);
+
+exports.default = Uuid;
+
+/***/ }),
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10470,11 +10775,11 @@ var _Maps4News = __webpack_require__(55);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _PaginatedResourceWrapper = __webpack_require__(194);
+var _PaginatedResourceWrapper = __webpack_require__(198);
 
 var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
 
-var _RequestParameters = __webpack_require__(88);
+var _RequestParameters = __webpack_require__(91);
 
 var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
@@ -10838,7 +11143,7 @@ var PaginatedResourceListing = function () {
 exports.default = PaginatedResourceListing;
 
 /***/ }),
-/* 133 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10850,7 +11155,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _mitt = __webpack_require__(195);
+var _mitt = __webpack_require__(199);
 
 var _mitt2 = _interopRequireDefault(_mitt);
 
@@ -11457,7 +11762,7 @@ var ResourceCache = function (_Unobservable) {
 exports.default = ResourceCache;
 
 /***/ }),
-/* 134 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11466,216 +11771,214 @@ exports.default = ResourceCache;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.base = exports.User = exports.SvgSet = exports.Svg = exports.Role = exports.PlaceName = exports.Permission = exports.Organisation = exports.Notification = exports.MapstyleSet = exports.Mapstyle = exports.Layer = exports.Language = exports.JobType = exports.JobShare = exports.JobRevision = exports.JobResult = exports.JobMonitorRow = exports.Job = exports.InsetMap = exports.Highlight = exports.FontFamily = exports.Font = exports.Feature = exports.Faq = exports.Domain = exports.DimensionSet = exports.Dimension = exports.Contract = exports.Color = exports.Choropleth = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _Choropleth2 = __webpack_require__(200);
 
-var _StaticClass2 = __webpack_require__(86);
+var _Choropleth3 = _interopRequireDefault(_Choropleth2);
 
-var _StaticClass3 = _interopRequireDefault(_StaticClass2);
+var _Color2 = __webpack_require__(92);
+
+var _Color3 = _interopRequireDefault(_Color2);
+
+var _Contract2 = __webpack_require__(138);
+
+var _Contract3 = _interopRequireDefault(_Contract2);
+
+var _Dimension2 = __webpack_require__(139);
+
+var _Dimension3 = _interopRequireDefault(_Dimension2);
+
+var _DimensionSet2 = __webpack_require__(94);
+
+var _DimensionSet3 = _interopRequireDefault(_DimensionSet2);
+
+var _Domain2 = __webpack_require__(149);
+
+var _Domain3 = _interopRequireDefault(_Domain2);
+
+var _Faq2 = __webpack_require__(208);
+
+var _Faq3 = _interopRequireDefault(_Faq2);
+
+var _Feature2 = __webpack_require__(95);
+
+var _Feature3 = _interopRequireDefault(_Feature2);
+
+var _Font2 = __webpack_require__(140);
+
+var _Font3 = _interopRequireDefault(_Font2);
+
+var _FontFamily2 = __webpack_require__(96);
+
+var _FontFamily3 = _interopRequireDefault(_FontFamily2);
+
+var _Highlight2 = __webpack_require__(209);
+
+var _Highlight3 = _interopRequireDefault(_Highlight2);
+
+var _InsetMap2 = __webpack_require__(210);
+
+var _InsetMap3 = _interopRequireDefault(_InsetMap2);
+
+var _Job2 = __webpack_require__(144);
+
+var _Job3 = _interopRequireDefault(_Job2);
+
+var _JobMonitorRow2 = __webpack_require__(150);
+
+var _JobMonitorRow3 = _interopRequireDefault(_JobMonitorRow2);
+
+var _JobResult2 = __webpack_require__(101);
+
+var _JobResult3 = _interopRequireDefault(_JobResult2);
+
+var _JobRevision2 = __webpack_require__(145);
+
+var _JobRevision3 = _interopRequireDefault(_JobRevision2);
+
+var _JobShare2 = __webpack_require__(69);
+
+var _JobShare3 = _interopRequireDefault(_JobShare2);
+
+var _JobType2 = __webpack_require__(97);
+
+var _JobType3 = _interopRequireDefault(_JobType2);
+
+var _Language2 = __webpack_require__(146);
+
+var _Language3 = _interopRequireDefault(_Language2);
+
+var _Layer2 = __webpack_require__(70);
+
+var _Layer3 = _interopRequireDefault(_Layer2);
+
+var _Mapstyle2 = __webpack_require__(142);
+
+var _Mapstyle3 = _interopRequireDefault(_Mapstyle2);
+
+var _MapstyleSet2 = __webpack_require__(98);
+
+var _MapstyleSet3 = _interopRequireDefault(_MapstyleSet2);
+
+var _Notification2 = __webpack_require__(147);
+
+var _Notification3 = _interopRequireDefault(_Notification2);
+
+var _Organisation2 = __webpack_require__(93);
+
+var _Organisation3 = _interopRequireDefault(_Organisation2);
+
+var _Permission2 = __webpack_require__(102);
+
+var _Permission3 = _interopRequireDefault(_Permission2);
+
+var _PlaceName2 = __webpack_require__(211);
+
+var _PlaceName3 = _interopRequireDefault(_PlaceName2);
+
+var _Role2 = __webpack_require__(148);
+
+var _Role3 = _interopRequireDefault(_Role2);
+
+var _Svg2 = __webpack_require__(143);
+
+var _Svg3 = _interopRequireDefault(_Svg2);
+
+var _SvgSet2 = __webpack_require__(99);
+
+var _SvgSet3 = _interopRequireDefault(_SvgSet2);
+
+var _User2 = __webpack_require__(100);
+
+var _User3 = _interopRequireDefault(_User2);
+
+var _CrudBase = __webpack_require__(6);
+
+var _CrudBase2 = _interopRequireDefault(_CrudBase);
+
+var _CrudSetBase = __webpack_require__(61);
+
+var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
+
+var _ResourceBase = __webpack_require__(17);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+exports.Choropleth = _Choropleth3.default; /*
+                                            * BSD 3-Clause License
+                                            *
+                                            * Copyright (c) 2017, MapCreator
+                                            * All rights reserved.
+                                            *
+                                            * Redistribution and use in source and binary forms, with or without
+                                            * modification, are permitted provided that the following conditions are met:
+                                            *
+                                            *  Redistributions of source code must retain the above copyright notice, this
+                                            *   list of conditions and the following disclaimer.
+                                            *
+                                            *  Redistributions in binary form must reproduce the above copyright notice,
+                                            *   this list of conditions and the following disclaimer in the documentation
+                                            *   and/or other materials provided with the distribution.
+                                            *
+                                            *  Neither the name of the copyright holder nor the names of its
+                                            *   contributors may be used to endorse or promote products derived from
+                                            *   this software without specific prior written permission.
+                                            *
+                                            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                            */
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+exports.Color = _Color3.default;
+exports.Contract = _Contract3.default;
+exports.Dimension = _Dimension3.default;
+exports.DimensionSet = _DimensionSet3.default;
+exports.Domain = _Domain3.default;
+exports.Faq = _Faq3.default;
+exports.Feature = _Feature3.default;
+exports.Font = _Font3.default;
+exports.FontFamily = _FontFamily3.default;
+exports.Highlight = _Highlight3.default;
+exports.InsetMap = _InsetMap3.default;
+exports.Job = _Job3.default;
+exports.JobMonitorRow = _JobMonitorRow3.default;
+exports.JobResult = _JobResult3.default;
+exports.JobRevision = _JobRevision3.default;
+exports.JobShare = _JobShare3.default;
+exports.JobType = _JobType3.default;
+exports.Language = _Language3.default;
+exports.Layer = _Layer3.default;
+exports.Mapstyle = _Mapstyle3.default;
+exports.MapstyleSet = _MapstyleSet3.default;
+exports.Notification = _Notification3.default;
+exports.Organisation = _Organisation3.default;
+exports.Permission = _Permission3.default;
+exports.PlaceName = _PlaceName3.default;
+exports.Role = _Role3.default;
+exports.Svg = _Svg3.default;
+exports.SvgSet = _SvgSet3.default;
+exports.User = _User3.default;
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 /**
- * UUID util class
- * @static
  * @private
  */
-var Uuid = function (_StaticClass) {
-  _inherits(Uuid, _StaticClass);
-
-  function Uuid() {
-    _classCallCheck(this, Uuid);
-
-    return _possibleConstructorReturn(this, (Uuid.__proto__ || Object.getPrototypeOf(Uuid)).apply(this, arguments));
-  }
-
-  _createClass(Uuid, null, [{
-    key: 'uuid4',
-
-    /**
-     * Generate a UUID4 string
-     * @returns {string} - Uuid
-     */
-    value: function uuid4() {
-      var d = new Date().getTime();
-
-      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-        d += performance.now(); // use high-precision timer if available
-      }
-
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-      });
-    }
-
-    /**
-     * Empty uuid as per spec
-     * @returns {string} - Uuid
-     */
-
-  }, {
-    key: 'nil',
-    value: function nil() {
-      return '0000000-0000-0000-0000-000000000000';
-    }
-  }]);
-
-  return Uuid;
-}(_StaticClass3.default);
-
-exports.default = Uuid;
+var base = exports.base = {
+  CrudBase: _CrudBase2.default, CrudSetBase: _CrudSetBase2.default, ResourceBase: _ResourceBase2.default
+};
 
 /***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getPaginatedRange = getPaginatedRange;
-exports.windowTest = windowTest;
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Get all the pages from a {@link PaginatedResourceListing} or a range
- * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}
- * @param {?Number} [start=1] - Start page
- * @param {?Number} [stop] - Stop page
- * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
- * @example
- * import { helpers } from "@mapcreator/maps4news";
- *
- * const promise = api.users.list(1, 50); // 50 per page is more efficient
- *
- * helpers.getPaginatedRange(promise).then(data => {
- *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names
- *        .forEach(console.log) // Log the names and ids of every user
- * })
- */
-function getPaginatedRange(page) {
-  var start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  var stop = arguments[2];
-
-  // Resolve promise if any
-  if (page instanceof Promise) {
-    return page.then(function (res) {
-      return getPaginatedRange(res, start, stop);
-    });
-  }
-
-  var out = page.data;
-  var promises = [];
-
-  // Handle defaults
-  start = start || page.page;
-  stop = stop || page.pageCount;
-
-  if (start === page.page) {
-    start++;
-  }
-
-  return new Promise(function (resolve, reject) {
-    // Get all pages
-    for (var i = start; i <= stop; i++) {
-      promises.push(page.get(i));
-    }
-
-    // Resolve
-    Promise.all(promises).then(function (rows) {
-      resolve(out.concat.apply(out, _toConsumableArray(rows.map(function (x) {
-        return x.data;
-      }))));
-    }, reject);
-  });
-}
-
-/**
- * Quickly check if the window contains a variable
- * @param {string} str - target variable
- * @returns {boolean} - If the window contains the variable
- * @private
- */
-function windowTest(str) {
-  return typeof window !== 'undefined' && typeof window[str] !== 'undefined';
-}
-
-/***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11851,7 +12154,7 @@ var Contract = function (_CrudBase) {
 exports.default = Contract;
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11930,7 +12233,7 @@ var Dimension = function (_CrudBase) {
 exports.default = Dimension;
 
 /***/ }),
-/* 138 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12006,7 +12309,7 @@ var Font = function (_CrudBase) {
 exports.default = Font;
 
 /***/ }),
-/* 139 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12022,7 +12325,7 @@ var _Trait2 = __webpack_require__(85);
 
 var _Trait3 = _interopRequireDefault(_Trait2);
 
-var _ImageHandler = __webpack_require__(199);
+var _ImageHandler = __webpack_require__(202);
 
 var _ImageHandler2 = _interopRequireDefault(_ImageHandler);
 
@@ -12094,7 +12397,7 @@ var HandlesImages = function (_Trait) {
 exports.default = HandlesImages;
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12110,7 +12413,7 @@ var _CrudBase = __webpack_require__(6);
 
 var _CrudBase2 = _interopRequireDefault(_CrudBase);
 
-var _HandlesImages = __webpack_require__(139);
+var _HandlesImages = __webpack_require__(141);
 
 var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
 
@@ -12180,7 +12483,7 @@ var Mapstyle = function (_mix) {
 exports.default = Mapstyle;
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12256,7 +12559,7 @@ var Svg = function (_CrudBase) {
 exports.default = Svg;
 
 /***/ }),
-/* 142 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12268,7 +12571,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ResourceProxy = __webpack_require__(98);
+var _ResourceProxy = __webpack_require__(90);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
@@ -12278,11 +12581,11 @@ var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _JobResult = __webpack_require__(99);
+var _JobResult = __webpack_require__(101);
 
 var _JobResult2 = _interopRequireDefault(_JobResult);
 
-var _JobRevision = __webpack_require__(143);
+var _JobRevision = __webpack_require__(145);
 
 var _JobRevision2 = _interopRequireDefault(_JobRevision);
 
@@ -12441,7 +12744,7 @@ var Job = function (_CrudBase) {
 exports.default = Job;
 
 /***/ }),
-/* 143 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12459,15 +12762,15 @@ var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _JobResult = __webpack_require__(99);
+var _JobResult = __webpack_require__(101);
 
 var _JobResult2 = _interopRequireDefault(_JobResult);
 
-var _JobShare = __webpack_require__(68);
+var _JobShare = __webpack_require__(69);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _Layer = __webpack_require__(69);
+var _Layer = __webpack_require__(70);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
@@ -12710,7 +13013,7 @@ var JobRevision = function (_CrudBase) {
 exports.default = JobRevision;
 
 /***/ }),
-/* 144 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12801,7 +13104,7 @@ var Language = function (_CrudBase) {
 exports.default = Language;
 
 /***/ }),
-/* 145 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12877,7 +13180,7 @@ var Notification = function (_CrudBase) {
 exports.default = Notification;
 
 /***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12893,11 +13196,11 @@ var _CrudBase2 = __webpack_require__(6);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _Permission = __webpack_require__(100);
+var _Permission = __webpack_require__(102);
 
 var _Permission2 = _interopRequireDefault(_Permission);
 
-var _User = __webpack_require__(97);
+var _User = __webpack_require__(100);
 
 var _User2 = _interopRequireDefault(_User);
 
@@ -13024,7 +13327,7 @@ var Role = function (_CrudBase) {
 exports.default = Role;
 
 /***/ }),
-/* 147 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13103,7 +13406,7 @@ var Domain = function (_CrudBase) {
 exports.default = Domain;
 
 /***/ }),
-/* 148 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13236,294 +13539,6 @@ var JobMonitorRow = function (_ResourceBase) {
 }(_ResourceBase3.default);
 
 exports.default = JobMonitorRow;
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _OAuthError = __webpack_require__(59);
-
-var _OAuthError2 = _interopRequireDefault(_OAuthError);
-
-var _OAuth2 = __webpack_require__(60);
-
-var _OAuth3 = _interopRequireDefault(_OAuth2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * Dummy flow for when the token should be available in the
- * cache and no attempt at authentication should be made.
- */
-var DummyFlow = function (_OAuth) {
-  _inherits(DummyFlow, _OAuth);
-
-  function DummyFlow() {
-    _classCallCheck(this, DummyFlow);
-
-    return _possibleConstructorReturn(this, (DummyFlow.__proto__ || Object.getPrototypeOf(DummyFlow)).call(this, '', []));
-  }
-
-  /**
-   * Authenticate
-   * @returns {Promise} - Promise resolves with {@link OAuthToken} and rejects with {@link OAuthError}
-   */
-
-
-  _createClass(DummyFlow, [{
-    key: 'authenticate',
-    value: function authenticate() {
-      var _this2 = this;
-
-      return new Promise(function (resolve, reject) {
-        if (_this2.authenticated) {
-          resolve(_this2.token);
-        } else {
-          reject(new _OAuthError2.default('dummy_error', 'Attempted authentication using a dummy authenticator'));
-        }
-      });
-    }
-  }]);
-
-  return DummyFlow;
-}(_OAuth3.default);
-
-exports.default = DummyFlow;
-
-/***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _StorageManager = __webpack_require__(61);
-
-var _StorageManager2 = _interopRequireDefault(_StorageManager);
-
-var _StaticClass2 = __webpack_require__(86);
-
-var _StaticClass3 = _interopRequireDefault(_StaticClass2);
-
-var _uuid = __webpack_require__(134);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * State container for keeping track of OAuth states (crsf tokens)
- * @static
- * @private
- */
-var StateContainer = function (_StaticClass) {
-  _inherits(StateContainer, _StaticClass);
-
-  function StateContainer() {
-    _classCallCheck(this, StateContainer);
-
-    return _possibleConstructorReturn(this, (StateContainer.__proto__ || Object.getPrototypeOf(StateContainer)).apply(this, arguments));
-  }
-
-  _createClass(StateContainer, null, [{
-    key: 'generate',
-
-
-    /**
-     * Generate and store a state that can be checked at a later point
-     * @returns {string} - state
-     */
-    value: function generate() {
-      var uuid = _uuid2.default.uuid4();
-      var key = StateContainer.prefix + uuid;
-
-      _StorageManager2.default.best.set(key, Date.now());
-      return uuid;
-    }
-
-    /**
-     * Validate a state
-     * @param {String} state - state to validate
-     * @param {Boolean} purge - remove from state db after validation
-     * @returns {Boolean} - if the state is valid
-     */
-
-  }, {
-    key: 'validate',
-    value: function validate(state) {
-      var purge = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-      var storage = _StorageManager2.default.best;
-      var key = StateContainer.prefix + state;
-      var found = typeof storage.get(key) !== 'undefined';
-
-      if (purge && found) {
-        storage.remove(key);
-      }
-
-      return found;
-    }
-
-    /**
-     * Remove all states from the state db
-     * @returns {void}
-     */
-
-  }, {
-    key: 'clean',
-    value: function clean() {
-      var tokens = Object.keys(this.list());
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var token = _step.value;
-
-          _StorageManager2.default.best.remove(StateContainer.prefix + token);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    }
-
-    /**
-     * Get states with their corresponding state db key
-     * @returns {Object<String, String>} - List of stored states
-     */
-
-  }, {
-    key: 'list',
-    value: function list() {
-      var storage = _StorageManager2.default.best;
-
-      return storage.keys().filter(function (x) {
-        return x.startsWith(StateContainer.prefix);
-      }).map(function (x) {
-        return x.replace(StateContainer.prefix, '');
-      }).reduce(function (out, key) {
-        out[key] = storage.get(key);
-
-        return out;
-      }, {});
-    }
-  }, {
-    key: 'prefix',
-
-    /**
-     * LocalStorage key prefix
-     * @returns {String} - prefix
-     * @constant
-     */
-    get: function get() {
-      return 'oauth_state_';
-    }
-  }]);
-
-  return StateContainer;
-}(_StaticClass3.default);
-
-exports.default = StateContainer;
 
 /***/ }),
 /* 151 */
@@ -14473,21 +14488,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _OAuth2 = __webpack_require__(60);
+var _OAuth2 = __webpack_require__(59);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
-var _OAuthToken = __webpack_require__(70);
+var _OAuthToken = __webpack_require__(67);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _StateContainer = __webpack_require__(150);
+var _StateContainer = __webpack_require__(133);
 
 var _StateContainer2 = _interopRequireDefault(_StateContainer);
 
 var _requests = __webpack_require__(30);
 
-var _OAuthError = __webpack_require__(59);
+var _OAuthError = __webpack_require__(58);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
@@ -14854,11 +14869,11 @@ var _Maps4News2 = __webpack_require__(55);
 
 var _Maps4News3 = _interopRequireDefault(_Maps4News2);
 
-var _RequestParameters2 = __webpack_require__(88);
+var _RequestParameters2 = __webpack_require__(91);
 
 var _RequestParameters3 = _interopRequireDefault(_RequestParameters2);
 
-var _StorageManager2 = __webpack_require__(61);
+var _StorageManager2 = __webpack_require__(60);
 
 var _StorageManager3 = _interopRequireDefault(_StorageManager2);
 
@@ -14870,7 +14885,7 @@ var _Enum2 = __webpack_require__(54);
 
 var _Enum3 = _interopRequireDefault(_Enum2);
 
-var _OAuth2 = __webpack_require__(60);
+var _OAuth2 = __webpack_require__(59);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
@@ -14886,7 +14901,7 @@ var _PasswordFlow2 = __webpack_require__(417);
 
 var _PasswordFlow3 = _interopRequireDefault(_PasswordFlow2);
 
-var _DummyFlow2 = __webpack_require__(149);
+var _DummyFlow2 = __webpack_require__(131);
 
 var _DummyFlow3 = _interopRequireDefault(_DummyFlow2);
 
@@ -14894,19 +14909,19 @@ var _ApiError2 = __webpack_require__(57);
 
 var _ApiError3 = _interopRequireDefault(_ApiError2);
 
-var _ValidationError2 = __webpack_require__(101);
+var _ValidationError2 = __webpack_require__(86);
 
 var _ValidationError3 = _interopRequireDefault(_ValidationError2);
 
-var _StaticClassError2 = __webpack_require__(87);
+var _StaticClassError2 = __webpack_require__(88);
 
 var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 
-var _resources2 = __webpack_require__(131);
+var _resources2 = __webpack_require__(137);
 
 var _resources = _interopRequireWildcard(_resources2);
 
-var _helpers2 = __webpack_require__(135);
+var _helpers2 = __webpack_require__(132);
 
 var _helpers = _interopRequireWildcard(_helpers2);
 
@@ -14991,7 +15006,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.24";
+var version = exports.version = "v1.2.25";
 
 /**
  * Package license
@@ -15677,9 +15692,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ResourceBase2 = __webpack_require__(17);
+var _node = __webpack_require__(33);
 
-var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
+var _DataStoreDriver2 = __webpack_require__(89);
+
+var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15720,28 +15737,157 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 /**
- * Choropleth resource
+ * @private
  */
-var Choropleth = function (_ResourceBase) {
-  _inherits(Choropleth, _ResourceBase);
+var CookiesDriver = function (_DataStoreDriver) {
+  _inherits(CookiesDriver, _DataStoreDriver);
 
-  function Choropleth() {
-    _classCallCheck(this, Choropleth);
+  function CookiesDriver() {
+    var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '_m4n_';
 
-    return _possibleConstructorReturn(this, (Choropleth.__proto__ || Object.getPrototypeOf(Choropleth)).apply(this, arguments));
+    _classCallCheck(this, CookiesDriver);
+
+    var _this = _possibleConstructorReturn(this, (CookiesDriver.__proto__ || Object.getPrototypeOf(CookiesDriver)).call(this));
+
+    _this.__prefix = prefix;
+    return _this;
   }
 
-  _createClass(Choropleth, [{
-    key: 'resourceName',
+  /**
+   * Cookie name prefix
+   * @returns {String} - Prefix
+   * @private
+   */
+
+
+  _createClass(CookiesDriver, [{
+    key: 'set',
+
+
+    /**
+     * Store a value in the storage
+     * @param {String} name - value name
+     * @param {*} value - value
+     * @param {Date|String} [expires=2050-01-01] - Expiration date
+     * @returns {void}
+     */
+    value: function set(name, value) {
+      var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date('2050-01-01');
+
+      name = encodeURIComponent(this._prefix + name);
+      value = encodeURIComponent(value);
+
+      if (expires instanceof Date) {
+        expires = expires.toUTCString();
+      }
+
+      var cookie = name + '=' + value + '; expires=' + expires;
+
+      if (CookiesDriver.secure) {
+        cookie += ';secure';
+      }
+
+      document.cookie = cookie;
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'get',
+    value: function get(name) {
+      name = this._prefix + name;
+
+      return this._toObject()[name];
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      name = encodeURIComponent(this._prefix + name);
+
+      var cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+
+      if (CookiesDriver.secure) {
+        cookie += ';secure';
+      }
+
+      document.cookie = cookie;
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'keys',
+    value: function keys() {
+      var regex = new RegExp('^' + this._prefix);
+
+      return Object.keys(this._toObject()).map(function (x) {
+        return x.replace(regex, '');
+      });
+    }
+
+    /**
+     * Extract cookies and turn them into a object
+     * @returns {Object} - cookies
+     * @private
+     */
+
+  }, {
+    key: '_toObject',
+    value: function _toObject() {
+      var _this2 = this;
+
+      var cookies = {};
+
+      document.cookie.split(';').map(function (x) {
+        return x.trim().split('=').map(decodeURIComponent);
+      }).filter(function (x) {
+        return x[0].startsWith(_this2._prefix);
+      }).forEach(function (x) {
+        cookies[x[0]] = x[1];
+      });
+
+      return cookies;
+    }
+  }, {
+    key: '_prefix',
     get: function get() {
-      return 'choropleths';
+      return this.__prefix;
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }], [{
+    key: 'secure',
+    get: function get() {
+      return window.location.protocol === 'https:';
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'available',
+    get: function get() {
+      return !(0, _node.isNode)();
     }
   }]);
 
-  return Choropleth;
-}(_ResourceBase3.default);
+  return CookiesDriver;
+}(_DataStoreDriver3.default);
 
-exports.default = Choropleth;
+exports.default = CookiesDriver;
 
 /***/ }),
 /* 194 */
@@ -15754,502 +15900,414 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _PaginatedResourceListing = __webpack_require__(132);
+var _node = __webpack_require__(33);
 
-var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+var _DataStoreDriver2 = __webpack_require__(89);
 
-var _ResourceCache = __webpack_require__(133);
-
-var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
-
-var _hash = __webpack_require__(66);
+var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
 /**
- * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
- * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
+ * @private
  */
-var PaginatedResourceWrapper = function () {
+var FileDriver = function (_DataStoreDriver) {
+  _inherits(FileDriver, _DataStoreDriver);
+
   /**
-   *
-   * @param {PaginatedResourceListing} listing - Listing result
-   * @param {Maps4News} api - Instance of the api
-   * @param {Boolean} shareCache - Share cache across instances
+   * @param {String} path - File storage path
+   * @inheritDoc
    */
-  function PaginatedResourceWrapper(listing) {
-    var _this = this;
+  function FileDriver() {
+    var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '.m4n';
 
-    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
-    var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.shareCache;
+    _classCallCheck(this, FileDriver);
 
-    _classCallCheck(this, PaginatedResourceWrapper);
+    var _this = _possibleConstructorReturn(this, (FileDriver.__proto__ || Object.getPrototypeOf(FileDriver)).call(this));
 
-    // Fields
-    this._api = api;
-    this._shareCache = shareCache;
-    this._currentPage = 1;
-    this._context = [];
-
-    /**
-     * Available data assembled from the cache
-     * @type {Array<ResourceBase>} - Available data
-     */
-    this.data = [];
-
-    // Internal
-    this._localCache = new _ResourceCache2.default(api, this.api.defaults.cacheSeconds);
-    this._inflight = [];
-    this._last = listing;
-    this._waiting = false;
-
-    this.on('invalidate', function () {
-      return _this.rebuild();
-    });
-
-    this._promiseCallback(listing);
+    _this._path = path;
+    return _this;
   }
 
-  _createClass(PaginatedResourceWrapper, [{
+  /**
+   * File storage path
+   * @returns {String} - path
+   */
+
+
+  _createClass(FileDriver, [{
+    key: 'set',
+
+
+    /**
+     * @inheritDoc
+     */
+    value: function set(name, value) {
+      var data = this._read();
+
+      data[name] = value;
+
+      this._write(data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
     key: 'get',
-
-
-    /**
-     * Manually fetch a page. This will change the current page.
-     * @param {Number|Array<Number>} pageId - Page(s) to fetch
-     * @returns {void}
-     */
-    value: function get(pageId) {
-      if (pageId instanceof Array) {
-        pageId.map(this.get);
-      } else {
-        this._waiting = true;
-
-        this._inflight.push(pageId);
-        this._last.getPage(pageId).then(this._promiseCallback);
-      }
+    value: function get(name) {
+      return this._read()[name];
     }
 
     /**
-     * Grab the next page
-     * @returns {void}
+     * @inheritDoc
      */
 
   }, {
-    key: 'next',
-    value: function next() {
-      this.get(++this.currentPage);
+    key: 'remove',
+    value: function remove(name) {
+      var data = this._read();
+
+      delete data[name];
+
+      this._write(data);
     }
 
     /**
-     * Grab the previous page
-     * @returns {void}
+     * @inheritDoc
      */
 
   }, {
-    key: 'previous',
-    value: function previous() {
-      this.get(--this.currentPage);
+    key: 'clear',
+    value: function clear() {
+      this._write({});
     }
 
     /**
-     * Manually rebuild the data
-     * @returns {void}
+     * @inheritDoc
      */
 
   }, {
-    key: 'rebuild',
-    value: function rebuild() {
-      this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
-        return typeof value !== 'undefined';
-      });
-
-      this.cache.emitter.emit('post-rebuild', { resourceUrl: this._last.route });
+    key: 'keys',
+    value: function keys() {
+      return Object.keys(this._read());
     }
 
     /**
-     * Updates the cached pages.
-     * @param {Boolean} flush - Clear the cached route data
-     * @returns {void}
-     * @example
-     * function onRefresh() {
-     *   if(wrapper.waiting) {
-     *     return; // not done yet
-     *   }
-     *
-     *   wrapper.off('post-rebuild', onRefresh);
-     *
-     *   // Do stuff here
-     * }
-     *
-     * wrapper.on('post-rebuild', onRefresh);
-     * wrapper.refresh();
+     * Read file and parse
+     * @returns {Object<String, String>} - Key, value object
+     * @private
      */
 
   }, {
-    key: 'refresh',
-    value: function refresh() {
-      var _this2 = this;
+    key: '_read',
+    value: function _read() {
+      var data = void 0;
 
-      var flush = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-      if (flush) {
-        this.cache.clear(this.route);
+      try {
+        data = this._fs.readFileSync(this.realPath).toString();
+      } catch (e) {
+        data = '{}';
       }
 
-      this.cache.collectPages(this.route, this._last.cacheToken).map(function (page) {
-        return _this2.get(page.page);
-      });
-    }
-
-    /**
-     * Returns the page number that is currently being used as a reference point
-     * @returns {Number} - The current page
-     * @see {@link PaginatedResourceWrapper#next}
-     * @see {@link PaginatedResourceWrapper#previous}
-     */
-
-  }, {
-    key: 'query',
-
-
-    /**
-     * Set the search query and search
-     * @param {?Object<String, String|Array<String>>} [value=null] - Query
-     * @throws TypeError
-     * @default {}
-     * @see {@link ResourceProxy#search}
-     * @returns {Object<String, String|Array<String>>} - query
-     */
-    value: function query() {
-      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (!value || value === this.query()) {
-        return this._last.query;
+      if (!data) {
+        return {};
       }
 
-      this._context[this._last.cacheToken] = this._last;
-
-      var token = (0, _hash.hashObject)(value);
-
-      if (this._context[token]) {
-        this._last = this._context[token];
-      } else {
-        var parameters = this._last.parameters.copy();
-
-        parameters.search = value;
-        parameters.page = 1;
-
-        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, parameters);
-        this.get(1);
-        this.currentPage = 1;
-      }
-
-      this.rebuild();
-
-      return this.query();
+      return JSON.parse(data);
     }
 
     /**
-     * Get api instance
-     * @returns {Maps4News} - Api instance
-     */
-
-  }, {
-    key: 'on',
-
-
-    /**
-     * Register an event handler for the given type.
-     *
-     * @param {string} type - Type of event to listen for, or `"*"` for all events.
-     * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
+     * Write data to file
+     * @param {Object<String, String>} obj - Key, value object
      * @returns {void}
+     * @private
      */
-    value: function on(type, handler) {
-      var _this3 = this;
 
-      this.cache.emitter.on(type, function (t, e) {
-        if (type === '*' && e.resourceUrl === _this3.route) {
-          handler(t, e);
-        } else if (type !== '*' && t.resourceUrl === _this3.route) {
-          handler(t);
-        }
-      });
+  }, {
+    key: '_write',
+    value: function _write(obj) {
+      var data = JSON.stringify(obj);
+      var fd = this._fs.openSync(this.realPath, 'w');
+
+      this._fs.writeSync(fd, data);
+      this._fs.closeSync(fd);
     }
 
     /**
-     * Function to call in response to the given event
-     *
-     * @param {string} type - Type of event to unregister `handler` from, or `"*"`
-     * @param {function(event: any): void} handler - Handler function to remove.
-     * @returns {void}
+     * Get fs instance
+     * @returns {fs} - fs instance
+     * @private
      */
 
   }, {
-    key: 'off',
-    value: function off(type, handler) {
-      this.cache.emitter.off(type, handler);
-    }
-  }, {
-    key: '_promiseCallback',
+    key: 'path',
     get: function get() {
-      var _this4 = this;
-
-      return function (result) {
-        var query = _this4.query();
-
-        _this4._last = result;
-        _this4._query = query;
-
-        _this4.cache.push(result);
-
-        var inflightId = _this4.inflight.findIndex(function (x) {
-          return x === result.page;
-        });
-
-        if (inflightId >= 0) {
-          _this4._inflight.splice(inflightId, 1);
-        }
-
-        _this4._waiting = _this4.inflight.length > 0;
-
-        _this4.rebuild();
-      };
-    }
-  }, {
-    key: 'currentPage',
-    get: function get() {
-      return this._currentPage;
+      return this._path;
     }
 
     /**
-     * Set the current page number
-     * @param {Number} value - page number
+     * File storage path
+     * @param {String} value - path
      */
     ,
     set: function set(value) {
-      this._currentPage = Math.max(1, value);
+      if (typeof value !== 'string') {
+        throw new TypeError('Expected "path" value to be of type "string"');
+      }
+
+      this._path = value;
+    }
+  }, {
+    key: 'realPath',
+    get: function get() {
+      if (this.path.startsWith('/')) {
+        return this.path;
+      }
+
+      // eslint-disable-next-line no-undef
+      return this._fs.realpathSync(this.path);
     }
 
     /**
-     * Get the route of the resource
-     * @returns {String} - route
+     * @inheritDoc
      */
 
   }, {
-    key: 'route',
+    key: '_fs',
     get: function get() {
-      return this._last.route;
+      if (!this.__fs) {
+        // eslint-disable-next-line no-eval
+        this.__fs = eval('require("fs")');
+      }
+
+      return this.__fs;
+    }
+  }], [{
+    key: 'available',
+    get: function get() {
+      return (0, _node.isNode)();
     }
 
     /**
-     * Override the resource route
-     * @param {String} value - route
-     */
-    ,
-    set: function set(value) {
-      this._route = value;
-    }
-
-    /**
-     * Get the number of pages available
-     * @returns {Number} - Page count
-     */
-
-  }, {
-    key: 'pageCount',
-    get: function get() {
-      return this._last.pageCount;
-    }
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Get the active cache instance
-     * @returns {ResourceCache} - Cache instance
+     * @inheritDoc
      */
 
   }, {
-    key: 'cache',
+    key: 'secure',
     get: function get() {
-      return this.shareCache ? this.api.cache : this._localCache;
-    }
-
-    /**
-     * Get if the shared cache should be used
-     * @returns {Boolean} - Should the shared cache be used
-     */
-
-  }, {
-    key: 'shareCache',
-    get: function get() {
-      return this._shareCache;
-    }
-
-    /**
-     * Sets if the shared cache should be used
-     * @param {Boolean} value - Should the shared cache be used
-     */
-    ,
-    set: function set(value) {
-      this._shareCache = Boolean(value);
-    }
-
-    /**
-     * If there is a next page
-     * @returns {boolean} - If there is a next page
-     */
-
-  }, {
-    key: 'hasNext',
-    get: function get() {
-      return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
-    }
-
-    /**
-     * If there is a previous page
-     * @returns {boolean} - If there is a previous page
-     */
-
-  }, {
-    key: 'hasPrevious',
-    get: function get() {
-      return this._last.hasPrevious;
-    }
-
-    /**
-     * List of page numbers that are still mid-flight
-     * @returns {Array} - Page numbers that are still mid-flight
-     */
-
-  }, {
-    key: 'inflight',
-    get: function get() {
-      return this._inflight;
-    }
-
-    /**
-     * Returns if there are still requests mid-flight
-     * @returns {boolean} - Returns if the wrapper is waiting for requests to finish
-     */
-
-  }, {
-    key: 'waiting',
-    get: function get() {
-      return this._waiting;
+      return true;
     }
   }]);
 
-  return PaginatedResourceWrapper;
-}();
+  return FileDriver;
+}(_DataStoreDriver3.default);
 
-exports.default = PaginatedResourceWrapper;
+exports.default = FileDriver;
 
 /***/ }),
 /* 195 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//      
-// An event handler can take an optional event argument
-// and should not return a value
-                                          
-// An array of all currently registered event handlers for a type
-                                            
-// A map of event types and their corresponding event handlers.
-                        
-                                   
-  
 
-/** Mitt: Tiny (~200b) functional event emitter / pubsub.
- *  @name mitt
- *  @returns {Mitt}
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _DataStoreDriver2 = __webpack_require__(89);
+
+var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
+
+var _node = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/**
+ * @private
  */
-function mitt(all                 ) {
-	all = all || Object.create(null);
+var LocalStorageDriver = function (_DataStoreDriver) {
+  _inherits(LocalStorageDriver, _DataStoreDriver);
 
-	return {
-		/**
-		 * Register an event handler for the given type.
-		 *
-		 * @param  {String} type	Type of event to listen for, or `"*"` for all events
-		 * @param  {Function} handler Function to call in response to given event
-		 * @memberOf mitt
-		 */
-		on: function on(type        , handler              ) {
-			(all[type] || (all[type] = [])).push(handler);
-		},
+  function LocalStorageDriver() {
+    _classCallCheck(this, LocalStorageDriver);
 
-		/**
-		 * Remove an event handler for the given type.
-		 *
-		 * @param  {String} type	Type of event to unregister `handler` from, or `"*"`
-		 * @param  {Function} handler Handler function to remove
-		 * @memberOf mitt
-		 */
-		off: function off(type        , handler              ) {
-			if (all[type]) {
-				all[type].splice(all[type].indexOf(handler) >>> 0, 1);
-			}
-		},
+    return _possibleConstructorReturn(this, (LocalStorageDriver.__proto__ || Object.getPrototypeOf(LocalStorageDriver)).apply(this, arguments));
+  }
 
-		/**
-		 * Invoke all handlers for the given type.
-		 * If present, `"*"` handlers are invoked after type-matched handlers.
-		 *
-		 * @param {String} type  The event type to invoke
-		 * @param {Any} [evt]  Any value (object is recommended and powerful), passed to each handler
-		 * @memberof mitt
-		 */
-		emit: function emit(type        , evt     ) {
-			(all[type] || []).map(function (handler) { handler(evt); });
-			(all['*'] || []).map(function (handler) { handler(type, evt); });
-		}
-	};
-}
+  _createClass(LocalStorageDriver, [{
+    key: 'set',
 
-/* harmony default export */ __webpack_exports__["default"] = (mitt);
-//# sourceMappingURL=mitt.es.js.map
 
+    /**
+     * Store a value in the storage
+     * @param {String} name - value name
+     * @param {*} value - value
+     * @returns {void}
+     */
+    value: function set(name, value) {
+      name = LocalStorageDriver._prefix + name;
+
+      window.localStorage.setItem(name, value);
+    }
+
+    /**
+     * Get a value from the store
+     * @param {String} name - value name
+     * @returns {void}
+     */
+
+  }, {
+    key: 'get',
+    value: function get(name) {
+      name = LocalStorageDriver._prefix + name;
+
+      return window.localStorage.getItem(name);
+    }
+
+    /**
+     * Remove a value from the store
+     * @param {String} name - value name
+     * @returns {void}
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      name = LocalStorageDriver._prefix + name;
+
+      window.localStorage.removeItem(name);
+    }
+
+    /**
+     * Storage keys
+     * @returns {Array<String>} - Stored keys
+     */
+
+  }, {
+    key: 'keys',
+    value: function keys() {
+      var keys = [];
+      var storage = window.localStorage;
+      var prefix = LocalStorageDriver._prefix;
+
+      for (var i = 0; i < storage.length; i++) {
+        var key = storage.key(i);
+
+        if (key.startsWith(prefix)) {
+          key = key.replace(new RegExp('^' + prefix), '');
+
+          keys.push(key);
+        }
+      }
+
+      return keys;
+    }
+  }], [{
+    key: '_prefix',
+
+    /**
+     * LocalStorage name prefix
+     * @returns {String} - Prefix
+     * @private
+     */
+    get: function get() {
+      return '_m4n_';
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'available',
+    get: function get() {
+      return !(0, _node.isNode)();
+    }
+  }]);
+
+  return LocalStorageDriver;
+}(_DataStoreDriver3.default);
+
+exports.default = LocalStorageDriver;
 
 /***/ }),
 /* 196 */
@@ -16788,9 +16846,596 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+var _PaginatedResourceListing = __webpack_require__(135);
+
+var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+var _ResourceCache = __webpack_require__(136);
+
+var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
+
+var _hash = __webpack_require__(66);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
+ * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
+ */
+var PaginatedResourceWrapper = function () {
+  /**
+   *
+   * @param {PaginatedResourceListing} listing - Listing result
+   * @param {Maps4News} api - Instance of the api
+   * @param {Boolean} shareCache - Share cache across instances
+   */
+  function PaginatedResourceWrapper(listing) {
+    var _this = this;
+
+    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
+    var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.shareCache;
+
+    _classCallCheck(this, PaginatedResourceWrapper);
+
+    // Fields
+    this._api = api;
+    this._shareCache = shareCache;
+    this._currentPage = 1;
+    this._context = [];
+
+    /**
+     * Available data assembled from the cache
+     * @type {Array<ResourceBase>} - Available data
+     */
+    this.data = [];
+
+    // Internal
+    this._localCache = new _ResourceCache2.default(api, this.api.defaults.cacheSeconds);
+    this._inflight = [];
+    this._last = listing;
+    this._waiting = false;
+
+    this.on('invalidate', function () {
+      return _this.rebuild();
+    });
+
+    this._promiseCallback(listing);
+  }
+
+  _createClass(PaginatedResourceWrapper, [{
+    key: 'get',
+
+
+    /**
+     * Manually fetch a page. This will change the current page.
+     * @param {Number|Array<Number>} pageId - Page(s) to fetch
+     * @returns {void}
+     */
+    value: function get(pageId) {
+      if (pageId instanceof Array) {
+        pageId.map(this.get);
+      } else {
+        this._waiting = true;
+
+        this._inflight.push(pageId);
+        this._last.getPage(pageId).then(this._promiseCallback);
+      }
+    }
+
+    /**
+     * Grab the next page
+     * @returns {void}
+     */
+
+  }, {
+    key: 'next',
+    value: function next() {
+      this.get(++this.currentPage);
+    }
+
+    /**
+     * Grab the previous page
+     * @returns {void}
+     */
+
+  }, {
+    key: 'previous',
+    value: function previous() {
+      this.get(--this.currentPage);
+    }
+
+    /**
+     * Manually rebuild the data
+     * @returns {void}
+     */
+
+  }, {
+    key: 'rebuild',
+    value: function rebuild() {
+      this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
+        return typeof value !== 'undefined';
+      });
+
+      this.cache.emitter.emit('post-rebuild', { resourceUrl: this._last.route });
+    }
+
+    /**
+     * Updates the cached pages.
+     * @param {Boolean} flush - Clear the cached route data
+     * @returns {void}
+     * @example
+     * function onRefresh() {
+     *   if(wrapper.waiting) {
+     *     return; // not done yet
+     *   }
+     *
+     *   wrapper.off('post-rebuild', onRefresh);
+     *
+     *   // Do stuff here
+     * }
+     *
+     * wrapper.on('post-rebuild', onRefresh);
+     * wrapper.refresh();
+     */
+
+  }, {
+    key: 'refresh',
+    value: function refresh() {
+      var _this2 = this;
+
+      var flush = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      if (flush) {
+        this.cache.clear(this.route);
+      }
+
+      this.cache.collectPages(this.route, this._last.cacheToken).map(function (page) {
+        return _this2.get(page.page);
+      });
+    }
+
+    /**
+     * Returns the page number that is currently being used as a reference point
+     * @returns {Number} - The current page
+     * @see {@link PaginatedResourceWrapper#next}
+     * @see {@link PaginatedResourceWrapper#previous}
+     */
+
+  }, {
+    key: 'query',
+
+
+    /**
+     * Set the search query and search
+     * @param {?Object<String, String|Array<String>>} [value=null] - Query
+     * @throws TypeError
+     * @default {}
+     * @see {@link ResourceProxy#search}
+     * @returns {Object<String, String|Array<String>>} - query
+     */
+    value: function query() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      if (!value || value === this.query()) {
+        return this._last.query;
+      }
+
+      this._context[this._last.cacheToken] = this._last;
+
+      var token = (0, _hash.hashObject)(value);
+
+      if (this._context[token]) {
+        this._last = this._context[token];
+      } else {
+        var parameters = this._last.parameters.copy();
+
+        parameters.search = value;
+        parameters.page = 1;
+
+        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, parameters);
+        this.get(1);
+        this.currentPage = 1;
+      }
+
+      this.rebuild();
+
+      return this.query();
+    }
+
+    /**
+     * Get api instance
+     * @returns {Maps4News} - Api instance
+     */
+
+  }, {
+    key: 'on',
+
+
+    /**
+     * Register an event handler for the given type.
+     *
+     * @param {string} type - Type of event to listen for, or `"*"` for all events.
+     * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
+     * @returns {void}
+     */
+    value: function on(type, handler) {
+      var _this3 = this;
+
+      this.cache.emitter.on(type, function (t, e) {
+        if (type === '*' && e.resourceUrl === _this3.route) {
+          handler(t, e);
+        } else if (type !== '*' && t.resourceUrl === _this3.route) {
+          handler(t);
+        }
+      });
+    }
+
+    /**
+     * Function to call in response to the given event
+     *
+     * @param {string} type - Type of event to unregister `handler` from, or `"*"`
+     * @param {function(event: any): void} handler - Handler function to remove.
+     * @returns {void}
+     */
+
+  }, {
+    key: 'off',
+    value: function off(type, handler) {
+      this.cache.emitter.off(type, handler);
+    }
+  }, {
+    key: '_promiseCallback',
+    get: function get() {
+      var _this4 = this;
+
+      return function (result) {
+        var query = _this4.query();
+
+        _this4._last = result;
+        _this4._query = query;
+
+        _this4.cache.push(result);
+
+        var inflightId = _this4.inflight.findIndex(function (x) {
+          return x === result.page;
+        });
+
+        if (inflightId >= 0) {
+          _this4._inflight.splice(inflightId, 1);
+        }
+
+        _this4._waiting = _this4.inflight.length > 0;
+
+        _this4.rebuild();
+      };
+    }
+  }, {
+    key: 'currentPage',
+    get: function get() {
+      return this._currentPage;
+    }
+
+    /**
+     * Set the current page number
+     * @param {Number} value - page number
+     */
+    ,
+    set: function set(value) {
+      this._currentPage = Math.max(1, value);
+    }
+
+    /**
+     * Get the route of the resource
+     * @returns {String} - route
+     */
+
+  }, {
+    key: 'route',
+    get: function get() {
+      return this._last.route;
+    }
+
+    /**
+     * Override the resource route
+     * @param {String} value - route
+     */
+    ,
+    set: function set(value) {
+      this._route = value;
+    }
+
+    /**
+     * Get the number of pages available
+     * @returns {Number} - Page count
+     */
+
+  }, {
+    key: 'pageCount',
+    get: function get() {
+      return this._last.pageCount;
+    }
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Get the active cache instance
+     * @returns {ResourceCache} - Cache instance
+     */
+
+  }, {
+    key: 'cache',
+    get: function get() {
+      return this.shareCache ? this.api.cache : this._localCache;
+    }
+
+    /**
+     * Get if the shared cache should be used
+     * @returns {Boolean} - Should the shared cache be used
+     */
+
+  }, {
+    key: 'shareCache',
+    get: function get() {
+      return this._shareCache;
+    }
+
+    /**
+     * Sets if the shared cache should be used
+     * @param {Boolean} value - Should the shared cache be used
+     */
+    ,
+    set: function set(value) {
+      this._shareCache = Boolean(value);
+    }
+
+    /**
+     * If there is a next page
+     * @returns {boolean} - If there is a next page
+     */
+
+  }, {
+    key: 'hasNext',
+    get: function get() {
+      return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
+    }
+
+    /**
+     * If there is a previous page
+     * @returns {boolean} - If there is a previous page
+     */
+
+  }, {
+    key: 'hasPrevious',
+    get: function get() {
+      return this._last.hasPrevious;
+    }
+
+    /**
+     * List of page numbers that are still mid-flight
+     * @returns {Array} - Page numbers that are still mid-flight
+     */
+
+  }, {
+    key: 'inflight',
+    get: function get() {
+      return this._inflight;
+    }
+
+    /**
+     * Returns if there are still requests mid-flight
+     * @returns {boolean} - Returns if the wrapper is waiting for requests to finish
+     */
+
+  }, {
+    key: 'waiting',
+    get: function get() {
+      return this._waiting;
+    }
+  }]);
+
+  return PaginatedResourceWrapper;
+}();
+
+exports.default = PaginatedResourceWrapper;
+
+/***/ }),
+/* 199 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//      
+// An event handler can take an optional event argument
+// and should not return a value
+                                          
+// An array of all currently registered event handlers for a type
+                                            
+// A map of event types and their corresponding event handlers.
+                        
+                                   
+  
+
+/** Mitt: Tiny (~200b) functional event emitter / pubsub.
+ *  @name mitt
+ *  @returns {Mitt}
+ */
+function mitt(all                 ) {
+	all = all || Object.create(null);
+
+	return {
+		/**
+		 * Register an event handler for the given type.
+		 *
+		 * @param  {String} type	Type of event to listen for, or `"*"` for all events
+		 * @param  {Function} handler Function to call in response to given event
+		 * @memberOf mitt
+		 */
+		on: function on(type        , handler              ) {
+			(all[type] || (all[type] = [])).push(handler);
+		},
+
+		/**
+		 * Remove an event handler for the given type.
+		 *
+		 * @param  {String} type	Type of event to unregister `handler` from, or `"*"`
+		 * @param  {Function} handler Handler function to remove
+		 * @memberOf mitt
+		 */
+		off: function off(type        , handler              ) {
+			if (all[type]) {
+				all[type].splice(all[type].indexOf(handler) >>> 0, 1);
+			}
+		},
+
+		/**
+		 * Invoke all handlers for the given type.
+		 * If present, `"*"` handlers are invoked after type-matched handlers.
+		 *
+		 * @param {String} type  The event type to invoke
+		 * @param {Any} [evt]  Any value (object is recommended and powerful), passed to each handler
+		 * @memberof mitt
+		 */
+		emit: function emit(type        , evt     ) {
+			(all[type] || []).map(function (handler) { handler(evt); });
+			(all['*'] || []).map(function (handler) { handler(type, evt); });
+		}
+	};
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (mitt);
+//# sourceMappingURL=mitt.es.js.map
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _SimpleResourceProxy2 = __webpack_require__(67);
+var _ResourceBase2 = __webpack_require__(17);
+
+var _ResourceBase3 = _interopRequireDefault(_ResourceBase2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/**
+ * Choropleth resource
+ */
+var Choropleth = function (_ResourceBase) {
+  _inherits(Choropleth, _ResourceBase);
+
+  function Choropleth() {
+    _classCallCheck(this, Choropleth);
+
+    return _possibleConstructorReturn(this, (Choropleth.__proto__ || Object.getPrototypeOf(Choropleth)).apply(this, arguments));
+  }
+
+  _createClass(Choropleth, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'choropleths';
+    }
+  }]);
+
+  return Choropleth;
+}(_ResourceBase3.default);
+
+exports.default = Choropleth;
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _SimpleResourceProxy2 = __webpack_require__(68);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -16843,7 +17488,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
     _classCallCheck(this, OrganisationProxy);
 
     // Fixes dependency issue
-    var Organisation = __webpack_require__(90).default;
+    var Organisation = __webpack_require__(93).default;
 
     var _this = _possibleConstructorReturn(this, (OrganisationProxy.__proto__ || Object.getPrototypeOf(OrganisationProxy)).call(this, api, Organisation, parent.url + '/organisations', {}));
 
@@ -16935,7 +17580,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
 exports.default = OrganisationProxy;
 
 /***/ }),
-/* 199 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17119,10 +17764,10 @@ var ImageHandler = function () {
 }();
 
 exports.default = ImageHandler;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(200).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(203).Buffer))
 
 /***/ }),
-/* 200 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17136,9 +17781,9 @@ exports.default = ImageHandler;
 
 
 
-var base64 = __webpack_require__(201)
-var ieee754 = __webpack_require__(202)
-var isArray = __webpack_require__(203)
+var base64 = __webpack_require__(204)
+var ieee754 = __webpack_require__(205)
+var isArray = __webpack_require__(206)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -18919,7 +19564,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(56)))
 
 /***/ }),
-/* 201 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19040,7 +19685,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 202 */
+/* 205 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -19130,7 +19775,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 203 */
+/* 206 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -19141,7 +19786,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 204 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19155,7 +19800,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _reflection = __webpack_require__(10);
 
-var _SimpleResourceProxy2 = __webpack_require__(67);
+var _SimpleResourceProxy2 = __webpack_require__(68);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -19323,7 +19968,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
 exports.default = OwnedResourceProxy;
 
 /***/ }),
-/* 205 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19402,7 +20047,7 @@ var Faq = function (_CrudBase) {
 exports.default = Faq;
 
 /***/ }),
-/* 206 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19478,7 +20123,7 @@ var Highlight = function (_ResourceBase) {
 exports.default = Highlight;
 
 /***/ }),
-/* 207 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19554,7 +20199,7 @@ var InsetMap = function (_ResourceBase) {
 exports.default = InsetMap;
 
 /***/ }),
-/* 208 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19628,636 +20273,6 @@ var PlaceName = function (_ResourceBase) {
 }(_ResourceBase3.default);
 
 exports.default = PlaceName;
-
-/***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _node = __webpack_require__(33);
-
-var _DataStoreDriver2 = __webpack_require__(102);
-
-var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * @private
- */
-var CookiesDriver = function (_DataStoreDriver) {
-  _inherits(CookiesDriver, _DataStoreDriver);
-
-  function CookiesDriver() {
-    var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '_m4n_';
-
-    _classCallCheck(this, CookiesDriver);
-
-    var _this = _possibleConstructorReturn(this, (CookiesDriver.__proto__ || Object.getPrototypeOf(CookiesDriver)).call(this));
-
-    _this.__prefix = prefix;
-    return _this;
-  }
-
-  /**
-   * Cookie name prefix
-   * @returns {String} - Prefix
-   * @private
-   */
-
-
-  _createClass(CookiesDriver, [{
-    key: 'set',
-
-
-    /**
-     * Store a value in the storage
-     * @param {String} name - value name
-     * @param {*} value - value
-     * @param {Date|String} [expires=2050-01-01] - Expiration date
-     * @returns {void}
-     */
-    value: function set(name, value) {
-      var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date('2050-01-01');
-
-      name = encodeURIComponent(this._prefix + name);
-      value = encodeURIComponent(value);
-
-      if (expires instanceof Date) {
-        expires = expires.toUTCString();
-      }
-
-      var cookie = name + '=' + value + '; expires=' + expires;
-
-      if (CookiesDriver.secure) {
-        cookie += ';secure';
-      }
-
-      document.cookie = cookie;
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      name = this._prefix + name;
-
-      return this._toObject()[name];
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      name = encodeURIComponent(this._prefix + name);
-
-      var cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-
-      if (CookiesDriver.secure) {
-        cookie += ';secure';
-      }
-
-      document.cookie = cookie;
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      var regex = new RegExp('^' + this._prefix);
-
-      return Object.keys(this._toObject()).map(function (x) {
-        return x.replace(regex, '');
-      });
-    }
-
-    /**
-     * Extract cookies and turn them into a object
-     * @returns {Object} - cookies
-     * @private
-     */
-
-  }, {
-    key: '_toObject',
-    value: function _toObject() {
-      var _this2 = this;
-
-      var cookies = {};
-
-      document.cookie.split(';').map(function (x) {
-        return x.trim().split('=').map(decodeURIComponent);
-      }).filter(function (x) {
-        return x[0].startsWith(_this2._prefix);
-      }).forEach(function (x) {
-        cookies[x[0]] = x[1];
-      });
-
-      return cookies;
-    }
-  }, {
-    key: '_prefix',
-    get: function get() {
-      return this.__prefix;
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }], [{
-    key: 'secure',
-    get: function get() {
-      return window.location.protocol === 'https:';
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'available',
-    get: function get() {
-      return !(0, _node.isNode)();
-    }
-  }]);
-
-  return CookiesDriver;
-}(_DataStoreDriver3.default);
-
-exports.default = CookiesDriver;
-
-/***/ }),
-/* 210 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _node = __webpack_require__(33);
-
-var _DataStoreDriver2 = __webpack_require__(102);
-
-var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * @private
- */
-var FileDriver = function (_DataStoreDriver) {
-  _inherits(FileDriver, _DataStoreDriver);
-
-  /**
-   * @param {String} path - File storage path
-   * @inheritDoc
-   */
-  function FileDriver() {
-    var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '.m4n';
-
-    _classCallCheck(this, FileDriver);
-
-    var _this = _possibleConstructorReturn(this, (FileDriver.__proto__ || Object.getPrototypeOf(FileDriver)).call(this));
-
-    _this._path = path;
-    return _this;
-  }
-
-  /**
-   * File storage path
-   * @returns {String} - path
-   */
-
-
-  _createClass(FileDriver, [{
-    key: 'set',
-
-
-    /**
-     * @inheritDoc
-     */
-    value: function set(name, value) {
-      var data = this._read();
-
-      data[name] = value;
-
-      this._write(data);
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      return this._read()[name];
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      var data = this._read();
-
-      delete data[name];
-
-      this._write(data);
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'clear',
-    value: function clear() {
-      this._write({});
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      return Object.keys(this._read());
-    }
-
-    /**
-     * Read file and parse
-     * @returns {Object<String, String>} - Key, value object
-     * @private
-     */
-
-  }, {
-    key: '_read',
-    value: function _read() {
-      var data = void 0;
-
-      try {
-        data = this._fs.readFileSync(this.realPath).toString();
-      } catch (e) {
-        data = '{}';
-      }
-
-      if (!data) {
-        return {};
-      }
-
-      return JSON.parse(data);
-    }
-
-    /**
-     * Write data to file
-     * @param {Object<String, String>} obj - Key, value object
-     * @returns {void}
-     * @private
-     */
-
-  }, {
-    key: '_write',
-    value: function _write(obj) {
-      var data = JSON.stringify(obj);
-      var fd = this._fs.openSync(this.realPath, 'w');
-
-      this._fs.writeSync(fd, data);
-      this._fs.closeSync(fd);
-    }
-
-    /**
-     * Get fs instance
-     * @returns {fs} - fs instance
-     * @private
-     */
-
-  }, {
-    key: 'path',
-    get: function get() {
-      return this._path;
-    }
-
-    /**
-     * File storage path
-     * @param {String} value - path
-     */
-    ,
-    set: function set(value) {
-      if (typeof value !== 'string') {
-        throw new TypeError('Expected "path" value to be of type "string"');
-      }
-
-      this._path = value;
-    }
-  }, {
-    key: 'realPath',
-    get: function get() {
-      if (this.path.startsWith('/')) {
-        return this.path;
-      }
-
-      // eslint-disable-next-line no-undef
-      return this._fs.realpathSync(this.path);
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: '_fs',
-    get: function get() {
-      if (!this.__fs) {
-        // eslint-disable-next-line no-eval
-        this.__fs = eval('require("fs")');
-      }
-
-      return this.__fs;
-    }
-  }], [{
-    key: 'available',
-    get: function get() {
-      return (0, _node.isNode)();
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'secure',
-    get: function get() {
-      return true;
-    }
-  }]);
-
-  return FileDriver;
-}(_DataStoreDriver3.default);
-
-exports.default = FileDriver;
-
-/***/ }),
-/* 211 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _DataStoreDriver2 = __webpack_require__(102);
-
-var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
-
-var _node = __webpack_require__(33);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * BSD 3-Clause License
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (c) 2017, MapCreator
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All rights reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Redistribution and use in source and binary forms, with or without
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * modification, are permitted provided that the following conditions are met:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions of source code must retain the above copyright notice, this
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   list of conditions and the following disclaimer.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this list of conditions and the following disclaimer in the documentation
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   and/or other materials provided with the distribution.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *  Neither the name of the copyright holder nor the names of its
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   contributors may be used to endorse or promote products derived from
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *   this software without specific prior written permission.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/**
- * @private
- */
-var LocalStorageDriver = function (_DataStoreDriver) {
-  _inherits(LocalStorageDriver, _DataStoreDriver);
-
-  function LocalStorageDriver() {
-    _classCallCheck(this, LocalStorageDriver);
-
-    return _possibleConstructorReturn(this, (LocalStorageDriver.__proto__ || Object.getPrototypeOf(LocalStorageDriver)).apply(this, arguments));
-  }
-
-  _createClass(LocalStorageDriver, [{
-    key: 'set',
-
-
-    /**
-     * Store a value in the storage
-     * @param {String} name - value name
-     * @param {*} value - value
-     * @returns {void}
-     */
-    value: function set(name, value) {
-      name = LocalStorageDriver._prefix + name;
-
-      window.localStorage.setItem(name, value);
-    }
-
-    /**
-     * Get a value from the store
-     * @param {String} name - value name
-     * @returns {void}
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      name = LocalStorageDriver._prefix + name;
-
-      return window.localStorage.getItem(name);
-    }
-
-    /**
-     * Remove a value from the store
-     * @param {String} name - value name
-     * @returns {void}
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      name = LocalStorageDriver._prefix + name;
-
-      window.localStorage.removeItem(name);
-    }
-
-    /**
-     * Storage keys
-     * @returns {Array<String>} - Stored keys
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      var keys = [];
-      var storage = window.localStorage;
-      var prefix = LocalStorageDriver._prefix;
-
-      for (var i = 0; i < storage.length; i++) {
-        var key = storage.key(i);
-
-        if (key.startsWith(prefix)) {
-          key = key.replace(new RegExp('^' + prefix), '');
-
-          keys.push(key);
-        }
-      }
-
-      return keys;
-    }
-  }], [{
-    key: '_prefix',
-
-    /**
-     * LocalStorage name prefix
-     * @returns {String} - Prefix
-     * @private
-     */
-    get: function get() {
-      return '_m4n_';
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'available',
-    get: function get() {
-      return !(0, _node.isNode)();
-    }
-  }]);
-
-  return LocalStorageDriver;
-}(_DataStoreDriver3.default);
-
-exports.default = LocalStorageDriver;
 
 /***/ }),
 /* 212 */
@@ -25779,7 +25794,7 @@ var _Maps4News = __webpack_require__(55);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _JobMonitorRow = __webpack_require__(148);
+var _JobMonitorRow = __webpack_require__(150);
 
 var _JobMonitorRow2 = _interopRequireDefault(_JobMonitorRow);
 
@@ -26127,11 +26142,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _OAuthError = __webpack_require__(59);
+var _OAuthError = __webpack_require__(58);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _StorageManager = __webpack_require__(61);
+var _StorageManager = __webpack_require__(60);
 
 var _StorageManager2 = _interopRequireDefault(_StorageManager);
 
@@ -26139,7 +26154,7 @@ var _ImplicitFlow2 = __webpack_require__(185);
 
 var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
 
-var _OAuthToken = __webpack_require__(70);
+var _OAuthToken = __webpack_require__(67);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
@@ -26303,7 +26318,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _OAuthError = __webpack_require__(59);
+var _OAuthError = __webpack_require__(58);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
@@ -26311,11 +26326,11 @@ var _node = __webpack_require__(33);
 
 var _requests = __webpack_require__(30);
 
-var _OAuth2 = __webpack_require__(60);
+var _OAuth2 = __webpack_require__(59);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
-var _OAuthToken = __webpack_require__(70);
+var _OAuthToken = __webpack_require__(67);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
@@ -26557,11 +26572,11 @@ var _NodeError2 = __webpack_require__(419);
 
 var _NodeError3 = _interopRequireDefault(_NodeError2);
 
-var _OAuthError2 = __webpack_require__(59);
+var _OAuthError2 = __webpack_require__(58);
 
 var _OAuthError3 = _interopRequireDefault(_OAuthError2);
 
-var _StaticClassError2 = __webpack_require__(87);
+var _StaticClassError2 = __webpack_require__(88);
 
 var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 
@@ -26569,7 +26584,7 @@ var _UnsupportedCrudError2 = __webpack_require__(420);
 
 var _UnsupportedCrudError3 = _interopRequireDefault(_UnsupportedCrudError2);
 
-var _ValidationError2 = __webpack_require__(101);
+var _ValidationError2 = __webpack_require__(86);
 
 var _ValidationError3 = _interopRequireDefault(_ValidationError2);
 
