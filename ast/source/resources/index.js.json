@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2854,
+  "end": 2879,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 74,
+      "line": 75,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2854,
+    "end": 2879,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 74,
+        "line": 75,
         "column": 0
       }
     },
@@ -2052,7 +2052,7 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 2607,
-        "end": 2633,
+        "end": 2631,
         "loc": {
           "start": {
             "line": 62,
@@ -2060,14 +2060,14 @@
           },
           "end": {
             "line": 62,
-            "column": 26
+            "column": 24
           }
         },
         "specifiers": [
           {
             "type": "ExportDefaultSpecifier",
             "start": 2614,
-            "end": 2618,
+            "end": 2617,
             "loc": {
               "start": {
                 "line": 62,
@@ -2075,13 +2075,13 @@
               },
               "end": {
                 "line": 62,
-                "column": 11
+                "column": 10
               }
             },
             "exported": {
               "type": "Identifier",
               "start": 2614,
-              "end": 2618,
+              "end": 2617,
               "loc": {
                 "start": {
                   "line": 62,
@@ -2089,6 +2089,75 @@
                 },
                 "end": {
                   "line": 62,
+                  "column": 10
+                },
+                "identifierName": "Tag"
+              },
+              "name": "Tag"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 2623,
+          "end": 2630,
+          "loc": {
+            "start": {
+              "line": 62,
+              "column": 16
+            },
+            "end": {
+              "line": 62,
+              "column": 23
+            }
+          },
+          "extra": {
+            "rawValue": "./Tag",
+            "raw": "'./Tag'"
+          },
+          "value": "./Tag"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2632,
+        "end": 2658,
+        "loc": {
+          "start": {
+            "line": 63,
+            "column": 0
+          },
+          "end": {
+            "line": 63,
+            "column": 26
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ExportDefaultSpecifier",
+            "start": 2639,
+            "end": 2643,
+            "loc": {
+              "start": {
+                "line": 63,
+                "column": 7
+              },
+              "end": {
+                "line": 63,
+                "column": 11
+              }
+            },
+            "exported": {
+              "type": "Identifier",
+              "start": 2639,
+              "end": 2643,
+              "loc": {
+                "start": {
+                  "line": 63,
+                  "column": 7
+                },
+                "end": {
+                  "line": 63,
                   "column": 11
                 },
                 "identifierName": "User"
@@ -2099,15 +2168,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 2624,
-          "end": 2632,
+          "start": 2649,
+          "end": 2657,
           "loc": {
             "start": {
-              "line": 62,
+              "line": 63,
               "column": 17
             },
             "end": {
-              "line": 62,
+              "line": 63,
               "column": 25
             }
           },
@@ -2120,44 +2189,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 2635,
-        "end": 2674,
+        "start": 2660,
+        "end": 2699,
         "loc": {
           "start": {
-            "line": 64,
+            "line": 65,
             "column": 0
           },
           "end": {
-            "line": 64,
+            "line": 65,
             "column": 39
           }
         },
         "specifiers": [
           {
             "type": "ImportDefaultSpecifier",
-            "start": 2642,
-            "end": 2650,
+            "start": 2667,
+            "end": 2675,
             "loc": {
               "start": {
-                "line": 64,
+                "line": 65,
                 "column": 7
               },
               "end": {
-                "line": 64,
+                "line": 65,
                 "column": 15
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 2642,
-              "end": 2650,
+              "start": 2667,
+              "end": 2675,
               "loc": {
                 "start": {
-                  "line": 64,
+                  "line": 65,
                   "column": 7
                 },
                 "end": {
-                  "line": 64,
+                  "line": 65,
                   "column": 15
                 },
                 "identifierName": "CrudBase"
@@ -2168,15 +2237,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 2656,
-          "end": 2673,
+          "start": 2681,
+          "end": 2698,
           "loc": {
             "start": {
-              "line": 64,
+              "line": 65,
               "column": 21
             },
             "end": {
-              "line": 64,
+              "line": 65,
               "column": 38
             }
           },
@@ -2189,44 +2258,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 2675,
-        "end": 2720,
+        "start": 2700,
+        "end": 2745,
         "loc": {
           "start": {
-            "line": 65,
+            "line": 66,
             "column": 0
           },
           "end": {
-            "line": 65,
+            "line": 66,
             "column": 45
           }
         },
         "specifiers": [
           {
             "type": "ImportDefaultSpecifier",
-            "start": 2682,
-            "end": 2693,
+            "start": 2707,
+            "end": 2718,
             "loc": {
               "start": {
-                "line": 65,
+                "line": 66,
                 "column": 7
               },
               "end": {
-                "line": 65,
+                "line": 66,
                 "column": 18
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 2682,
-              "end": 2693,
+              "start": 2707,
+              "end": 2718,
               "loc": {
                 "start": {
-                  "line": 65,
+                  "line": 66,
                   "column": 7
                 },
                 "end": {
-                  "line": 65,
+                  "line": 66,
                   "column": 18
                 },
                 "identifierName": "CrudSetBase"
@@ -2237,15 +2306,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 2699,
-          "end": 2719,
+          "start": 2724,
+          "end": 2744,
           "loc": {
             "start": {
-              "line": 65,
+              "line": 66,
               "column": 24
             },
             "end": {
-              "line": 65,
+              "line": 66,
               "column": 44
             }
           },
@@ -2258,44 +2327,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 2721,
-        "end": 2768,
+        "start": 2746,
+        "end": 2793,
         "loc": {
           "start": {
-            "line": 66,
+            "line": 67,
             "column": 0
           },
           "end": {
-            "line": 66,
+            "line": 67,
             "column": 47
           }
         },
         "specifiers": [
           {
             "type": "ImportDefaultSpecifier",
-            "start": 2728,
-            "end": 2740,
+            "start": 2753,
+            "end": 2765,
             "loc": {
               "start": {
-                "line": 66,
+                "line": 67,
                 "column": 7
               },
               "end": {
-                "line": 66,
+                "line": 67,
                 "column": 19
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 2728,
-              "end": 2740,
+              "start": 2753,
+              "end": 2765,
               "loc": {
                 "start": {
-                  "line": 66,
+                  "line": 67,
                   "column": 7
                 },
                 "end": {
-                  "line": 66,
+                  "line": 67,
                   "column": 19
                 },
                 "identifierName": "ResourceBase"
@@ -2306,15 +2375,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 2746,
-          "end": 2767,
+          "start": 2771,
+          "end": 2792,
           "loc": {
             "start": {
-              "line": 66,
+              "line": 67,
               "column": 25
             },
             "end": {
-              "line": 66,
+              "line": 67,
               "column": 46
             }
           },
@@ -2328,15 +2397,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @private\n ",
-            "start": 2770,
-            "end": 2789,
+            "start": 2795,
+            "end": 2814,
             "loc": {
               "start": {
-                "line": 68,
+                "line": 69,
                 "column": 0
               },
               "end": {
-                "line": 70,
+                "line": 71,
                 "column": 3
               }
             }
@@ -2345,15 +2414,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 2790,
-        "end": 2853,
+        "start": 2815,
+        "end": 2878,
         "loc": {
           "start": {
-            "line": 71,
+            "line": 72,
             "column": 0
           },
           "end": {
-            "line": 73,
+            "line": 74,
             "column": 2
           }
         },
@@ -2361,44 +2430,44 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 2797,
-          "end": 2853,
+          "start": 2822,
+          "end": 2878,
           "loc": {
             "start": {
-              "line": 71,
+              "line": 72,
               "column": 7
             },
             "end": {
-              "line": 73,
+              "line": 74,
               "column": 2
             }
           },
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 2803,
-              "end": 2852,
+              "start": 2828,
+              "end": 2877,
               "loc": {
                 "start": {
-                  "line": 71,
+                  "line": 72,
                   "column": 13
                 },
                 "end": {
-                  "line": 73,
+                  "line": 74,
                   "column": 1
                 }
               },
               "id": {
                 "type": "Identifier",
-                "start": 2803,
-                "end": 2807,
+                "start": 2828,
+                "end": 2832,
                 "loc": {
                   "start": {
-                    "line": 71,
+                    "line": 72,
                     "column": 13
                   },
                   "end": {
-                    "line": 71,
+                    "line": 72,
                     "column": 17
                   },
                   "identifierName": "base"
@@ -2408,30 +2477,30 @@
               },
               "init": {
                 "type": "ObjectExpression",
-                "start": 2810,
-                "end": 2852,
+                "start": 2835,
+                "end": 2877,
                 "loc": {
                   "start": {
-                    "line": 71,
+                    "line": 72,
                     "column": 20
                   },
                   "end": {
-                    "line": 73,
+                    "line": 74,
                     "column": 1
                   }
                 },
                 "properties": [
                   {
                     "type": "ObjectProperty",
-                    "start": 2814,
-                    "end": 2822,
+                    "start": 2839,
+                    "end": 2847,
                     "loc": {
                       "start": {
-                        "line": 72,
+                        "line": 73,
                         "column": 2
                       },
                       "end": {
-                        "line": 72,
+                        "line": 73,
                         "column": 10
                       }
                     },
@@ -2440,15 +2509,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 2814,
-                      "end": 2822,
+                      "start": 2839,
+                      "end": 2847,
                       "loc": {
                         "start": {
-                          "line": 72,
+                          "line": 73,
                           "column": 2
                         },
                         "end": {
-                          "line": 72,
+                          "line": 73,
                           "column": 10
                         },
                         "identifierName": "CrudBase"
@@ -2457,15 +2526,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 2814,
-                      "end": 2822,
+                      "start": 2839,
+                      "end": 2847,
                       "loc": {
                         "start": {
-                          "line": 72,
+                          "line": 73,
                           "column": 2
                         },
                         "end": {
-                          "line": 72,
+                          "line": 73,
                           "column": 10
                         },
                         "identifierName": "CrudBase"
@@ -2478,15 +2547,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 2824,
-                    "end": 2835,
+                    "start": 2849,
+                    "end": 2860,
                     "loc": {
                       "start": {
-                        "line": 72,
+                        "line": 73,
                         "column": 12
                       },
                       "end": {
-                        "line": 72,
+                        "line": 73,
                         "column": 23
                       }
                     },
@@ -2495,15 +2564,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 2824,
-                      "end": 2835,
+                      "start": 2849,
+                      "end": 2860,
                       "loc": {
                         "start": {
-                          "line": 72,
+                          "line": 73,
                           "column": 12
                         },
                         "end": {
-                          "line": 72,
+                          "line": 73,
                           "column": 23
                         },
                         "identifierName": "CrudSetBase"
@@ -2512,15 +2581,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 2824,
-                      "end": 2835,
+                      "start": 2849,
+                      "end": 2860,
                       "loc": {
                         "start": {
-                          "line": 72,
+                          "line": 73,
                           "column": 12
                         },
                         "end": {
-                          "line": 72,
+                          "line": 73,
                           "column": 23
                         },
                         "identifierName": "CrudSetBase"
@@ -2533,15 +2602,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 2837,
-                    "end": 2849,
+                    "start": 2862,
+                    "end": 2874,
                     "loc": {
                       "start": {
-                        "line": 72,
+                        "line": 73,
                         "column": 25
                       },
                       "end": {
-                        "line": 72,
+                        "line": 73,
                         "column": 37
                       }
                     },
@@ -2550,15 +2619,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 2837,
-                      "end": 2849,
+                      "start": 2862,
+                      "end": 2874,
                       "loc": {
                         "start": {
-                          "line": 72,
+                          "line": 73,
                           "column": 25
                         },
                         "end": {
-                          "line": 72,
+                          "line": 73,
                           "column": 37
                         },
                         "identifierName": "ResourceBase"
@@ -2567,15 +2636,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 2837,
-                      "end": 2849,
+                      "start": 2862,
+                      "end": 2874,
                       "loc": {
                         "start": {
-                          "line": 72,
+                          "line": 73,
                           "column": 25
                         },
                         "end": {
-                          "line": 72,
+                          "line": 73,
                           "column": 37
                         },
                         "identifierName": "ResourceBase"
@@ -2596,15 +2665,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @private\n ",
-              "start": 2770,
-              "end": 2789,
+              "start": 2795,
+              "end": 2814,
               "loc": {
                 "start": {
-                  "line": 68,
+                  "line": 69,
                   "column": 0
                 },
                 "end": {
-                  "line": 70,
+                  "line": 71,
                   "column": 3
                 }
               }
@@ -2616,15 +2685,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @private\n ",
-            "start": 2770,
-            "end": 2789,
+            "start": 2795,
+            "end": 2814,
             "loc": {
               "start": {
-                "line": 68,
+                "line": 69,
                 "column": 0
               },
               "end": {
-                "line": 70,
+                "line": 71,
                 "column": 3
               }
             }
@@ -2654,15 +2723,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @private\n ",
-      "start": 2770,
-      "end": 2789,
+      "start": 2795,
+      "end": 2814,
       "loc": {
         "start": {
-          "line": 68,
+          "line": 69,
           "column": 0
         },
         "end": {
-          "line": 70,
+          "line": 71,
           "column": 3
         }
       }
@@ -6582,9 +6651,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "User",
+      "value": "Tag",
       "start": 2614,
-      "end": 2618,
+      "end": 2617,
       "loc": {
         "start": {
           "line": 62,
@@ -6592,6 +6661,139 @@
         },
         "end": {
           "line": 62,
+          "column": 10
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 2618,
+      "end": 2622,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 11
+        },
+        "end": {
+          "line": 62,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./Tag",
+      "start": 2623,
+      "end": 2630,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 16
+        },
+        "end": {
+          "line": 62,
+          "column": 23
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 2630,
+      "end": 2631,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 23
+        },
+        "end": {
+          "line": 62,
+          "column": 24
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 2632,
+      "end": 2638,
+      "loc": {
+        "start": {
+          "line": 63,
+          "column": 0
+        },
+        "end": {
+          "line": 63,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "User",
+      "start": 2639,
+      "end": 2643,
+      "loc": {
+        "start": {
+          "line": 63,
+          "column": 7
+        },
+        "end": {
+          "line": 63,
           "column": 11
         }
       }
@@ -6609,15 +6811,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 2619,
-      "end": 2623,
+      "start": 2644,
+      "end": 2648,
       "loc": {
         "start": {
-          "line": 62,
+          "line": 63,
           "column": 12
         },
         "end": {
-          "line": 62,
+          "line": 63,
           "column": 16
         }
       }
@@ -6636,15 +6838,15 @@
         "updateContext": null
       },
       "value": "./User",
-      "start": 2624,
-      "end": 2632,
+      "start": 2649,
+      "end": 2657,
       "loc": {
         "start": {
-          "line": 62,
+          "line": 63,
           "column": 17
         },
         "end": {
-          "line": 62,
+          "line": 63,
           "column": 25
         }
       }
@@ -6662,15 +6864,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2632,
-      "end": 2633,
+      "start": 2657,
+      "end": 2658,
       "loc": {
         "start": {
-          "line": 62,
+          "line": 63,
           "column": 25
         },
         "end": {
-          "line": 62,
+          "line": 63,
           "column": 26
         }
       }
@@ -6690,15 +6892,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 2635,
-      "end": 2641,
+      "start": 2660,
+      "end": 2666,
       "loc": {
         "start": {
-          "line": 64,
+          "line": 65,
           "column": 0
         },
         "end": {
-          "line": 64,
+          "line": 65,
           "column": 6
         }
       }
@@ -6716,15 +6918,15 @@
         "binop": null
       },
       "value": "CrudBase",
-      "start": 2642,
-      "end": 2650,
+      "start": 2667,
+      "end": 2675,
       "loc": {
         "start": {
-          "line": 64,
+          "line": 65,
           "column": 7
         },
         "end": {
-          "line": 64,
+          "line": 65,
           "column": 15
         }
       }
@@ -6742,15 +6944,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 2651,
-      "end": 2655,
+      "start": 2676,
+      "end": 2680,
       "loc": {
         "start": {
-          "line": 64,
+          "line": 65,
           "column": 16
         },
         "end": {
-          "line": 64,
+          "line": 65,
           "column": 20
         }
       }
@@ -6769,15 +6971,15 @@
         "updateContext": null
       },
       "value": "./base/CrudBase",
-      "start": 2656,
-      "end": 2673,
+      "start": 2681,
+      "end": 2698,
       "loc": {
         "start": {
-          "line": 64,
+          "line": 65,
           "column": 21
         },
         "end": {
-          "line": 64,
+          "line": 65,
           "column": 38
         }
       }
@@ -6795,15 +6997,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2673,
-      "end": 2674,
+      "start": 2698,
+      "end": 2699,
       "loc": {
         "start": {
-          "line": 64,
+          "line": 65,
           "column": 38
         },
         "end": {
-          "line": 64,
+          "line": 65,
           "column": 39
         }
       }
@@ -6823,15 +7025,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 2675,
-      "end": 2681,
+      "start": 2700,
+      "end": 2706,
       "loc": {
         "start": {
-          "line": 65,
+          "line": 66,
           "column": 0
         },
         "end": {
-          "line": 65,
+          "line": 66,
           "column": 6
         }
       }
@@ -6849,15 +7051,15 @@
         "binop": null
       },
       "value": "CrudSetBase",
-      "start": 2682,
-      "end": 2693,
+      "start": 2707,
+      "end": 2718,
       "loc": {
         "start": {
-          "line": 65,
+          "line": 66,
           "column": 7
         },
         "end": {
-          "line": 65,
+          "line": 66,
           "column": 18
         }
       }
@@ -6875,15 +7077,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 2694,
-      "end": 2698,
+      "start": 2719,
+      "end": 2723,
       "loc": {
         "start": {
-          "line": 65,
+          "line": 66,
           "column": 19
         },
         "end": {
-          "line": 65,
+          "line": 66,
           "column": 23
         }
       }
@@ -6902,15 +7104,15 @@
         "updateContext": null
       },
       "value": "./base/CrudSetBase",
-      "start": 2699,
-      "end": 2719,
+      "start": 2724,
+      "end": 2744,
       "loc": {
         "start": {
-          "line": 65,
+          "line": 66,
           "column": 24
         },
         "end": {
-          "line": 65,
+          "line": 66,
           "column": 44
         }
       }
@@ -6928,15 +7130,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2719,
-      "end": 2720,
+      "start": 2744,
+      "end": 2745,
       "loc": {
         "start": {
-          "line": 65,
+          "line": 66,
           "column": 44
         },
         "end": {
-          "line": 65,
+          "line": 66,
           "column": 45
         }
       }
@@ -6956,15 +7158,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 2721,
-      "end": 2727,
+      "start": 2746,
+      "end": 2752,
       "loc": {
         "start": {
-          "line": 66,
+          "line": 67,
           "column": 0
         },
         "end": {
-          "line": 66,
+          "line": 67,
           "column": 6
         }
       }
@@ -6982,15 +7184,15 @@
         "binop": null
       },
       "value": "ResourceBase",
-      "start": 2728,
-      "end": 2740,
+      "start": 2753,
+      "end": 2765,
       "loc": {
         "start": {
-          "line": 66,
+          "line": 67,
           "column": 7
         },
         "end": {
-          "line": 66,
+          "line": 67,
           "column": 19
         }
       }
@@ -7008,15 +7210,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 2741,
-      "end": 2745,
+      "start": 2766,
+      "end": 2770,
       "loc": {
         "start": {
-          "line": 66,
+          "line": 67,
           "column": 20
         },
         "end": {
-          "line": 66,
+          "line": 67,
           "column": 24
         }
       }
@@ -7035,15 +7237,15 @@
         "updateContext": null
       },
       "value": "./base/ResourceBase",
-      "start": 2746,
-      "end": 2767,
+      "start": 2771,
+      "end": 2792,
       "loc": {
         "start": {
-          "line": 66,
+          "line": 67,
           "column": 25
         },
         "end": {
-          "line": 66,
+          "line": 67,
           "column": 46
         }
       }
@@ -7061,15 +7263,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2767,
-      "end": 2768,
+      "start": 2792,
+      "end": 2793,
       "loc": {
         "start": {
-          "line": 66,
+          "line": 67,
           "column": 46
         },
         "end": {
-          "line": 66,
+          "line": 67,
           "column": 47
         }
       }
@@ -7077,15 +7279,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @private\n ",
-      "start": 2770,
-      "end": 2789,
+      "start": 2795,
+      "end": 2814,
       "loc": {
         "start": {
-          "line": 68,
+          "line": 69,
           "column": 0
         },
         "end": {
-          "line": 70,
+          "line": 71,
           "column": 3
         }
       }
@@ -7105,15 +7307,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 2790,
-      "end": 2796,
+      "start": 2815,
+      "end": 2821,
       "loc": {
         "start": {
-          "line": 71,
+          "line": 72,
           "column": 0
         },
         "end": {
-          "line": 71,
+          "line": 72,
           "column": 6
         }
       }
@@ -7133,15 +7335,15 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 2797,
-      "end": 2802,
+      "start": 2822,
+      "end": 2827,
       "loc": {
         "start": {
-          "line": 71,
+          "line": 72,
           "column": 7
         },
         "end": {
-          "line": 71,
+          "line": 72,
           "column": 12
         }
       }
@@ -7159,15 +7361,15 @@
         "binop": null
       },
       "value": "base",
-      "start": 2803,
-      "end": 2807,
+      "start": 2828,
+      "end": 2832,
       "loc": {
         "start": {
-          "line": 71,
+          "line": 72,
           "column": 13
         },
         "end": {
-          "line": 71,
+          "line": 72,
           "column": 17
         }
       }
@@ -7186,15 +7388,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 2808,
-      "end": 2809,
+      "start": 2833,
+      "end": 2834,
       "loc": {
         "start": {
-          "line": 71,
+          "line": 72,
           "column": 18
         },
         "end": {
-          "line": 71,
+          "line": 72,
           "column": 19
         }
       }
@@ -7211,15 +7413,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2810,
-      "end": 2811,
+      "start": 2835,
+      "end": 2836,
       "loc": {
         "start": {
-          "line": 71,
+          "line": 72,
           "column": 20
         },
         "end": {
-          "line": 71,
+          "line": 72,
           "column": 21
         }
       }
@@ -7237,15 +7439,15 @@
         "binop": null
       },
       "value": "CrudBase",
-      "start": 2814,
-      "end": 2822,
+      "start": 2839,
+      "end": 2847,
       "loc": {
         "start": {
-          "line": 72,
+          "line": 73,
           "column": 2
         },
         "end": {
-          "line": 72,
+          "line": 73,
           "column": 10
         }
       }
@@ -7263,15 +7465,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2822,
-      "end": 2823,
+      "start": 2847,
+      "end": 2848,
       "loc": {
         "start": {
-          "line": 72,
+          "line": 73,
           "column": 10
         },
         "end": {
-          "line": 72,
+          "line": 73,
           "column": 11
         }
       }
@@ -7289,15 +7491,15 @@
         "binop": null
       },
       "value": "CrudSetBase",
-      "start": 2824,
-      "end": 2835,
+      "start": 2849,
+      "end": 2860,
       "loc": {
         "start": {
-          "line": 72,
+          "line": 73,
           "column": 12
         },
         "end": {
-          "line": 72,
+          "line": 73,
           "column": 23
         }
       }
@@ -7315,15 +7517,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2835,
-      "end": 2836,
+      "start": 2860,
+      "end": 2861,
       "loc": {
         "start": {
-          "line": 72,
+          "line": 73,
           "column": 23
         },
         "end": {
-          "line": 72,
+          "line": 73,
           "column": 24
         }
       }
@@ -7341,15 +7543,15 @@
         "binop": null
       },
       "value": "ResourceBase",
-      "start": 2837,
-      "end": 2849,
+      "start": 2862,
+      "end": 2874,
       "loc": {
         "start": {
-          "line": 72,
+          "line": 73,
           "column": 25
         },
         "end": {
-          "line": 72,
+          "line": 73,
           "column": 37
         }
       }
@@ -7367,15 +7569,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2849,
-      "end": 2850,
+      "start": 2874,
+      "end": 2875,
       "loc": {
         "start": {
-          "line": 72,
+          "line": 73,
           "column": 37
         },
         "end": {
-          "line": 72,
+          "line": 73,
           "column": 38
         }
       }
@@ -7392,15 +7594,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2851,
-      "end": 2852,
+      "start": 2876,
+      "end": 2877,
       "loc": {
         "start": {
-          "line": 73,
+          "line": 74,
           "column": 0
         },
         "end": {
-          "line": 73,
+          "line": 74,
           "column": 1
         }
       }
@@ -7418,15 +7620,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2852,
-      "end": 2853,
+      "start": 2877,
+      "end": 2878,
       "loc": {
         "start": {
-          "line": 73,
+          "line": 74,
           "column": 1
         },
         "end": {
-          "line": 73,
+          "line": 74,
           "column": 2
         }
       }
@@ -7444,15 +7646,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2854,
-      "end": 2854,
+      "start": 2879,
+      "end": 2879,
       "loc": {
         "start": {
-          "line": 74,
+          "line": 75,
           "column": 0
         },
         "end": {
-          "line": 74,
+          "line": 75,
           "column": 0
         }
       }
