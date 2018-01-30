@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:bd07bc8a0d6de885b692, chunkhash:4adb6d32ada92198d006, name:bundle, version:v1.2.27
+ * hash:844edfcc523768aa3a99, chunkhash:e16bceca87f2e9897f16, name:bundle, version:v1.2.28
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.27) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.28) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -15125,7 +15125,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.27";
+var version = exports.version = "v1.2.28";
 
 /**
  * Package license
@@ -25945,6 +25945,8 @@ var JobMonitor = function () {
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._purge = false;
     this._longPoll = true;
+    this._skipMaxUpdate = false;
+    this._maxAvailible = {};
   }
 
   /**
@@ -25979,7 +25981,7 @@ var JobMonitor = function () {
       }
 
       // First we need to check if we have enough data to begin with
-      var rowCountDiff = this.maxRows - this.data.length;
+      var rowCountDiff = Math.min(this.maxRows, this.realMaxRows) - this.data.length;
 
       if (rowCountDiff < 0) {
         // Remove trailing data
@@ -25987,10 +25989,9 @@ var JobMonitor = function () {
         rowCountDiff = 0;
       }
 
-      var baseUrl = '/jobs/monitor/' + this.filterStatus + '?internal=' + !this.hideInternal;
       var requestedRowCount = 0;
       var requests = [];
-      var skipLongpoll = rowCountDiff > 0;
+      var skipLongPoll = rowCountDiff > 0;
 
       while (rowCountDiff > 0) {
         // @todo Either always do 50 or calculate the correct page number and stuff which takes time...
@@ -25999,7 +26000,7 @@ var JobMonitor = function () {
 
         this.api.logger.debug('[JobMonitor] have ' + (this.data.length + requestedRowCount) + ', Diff: ' + rowCountDiff + ',' + ('PerPage: ' + perPage + ', Page: ' + page + ', Target: ' + perPage * page));
 
-        var _url = baseUrl + '&per_page=' + perPage + '&page=' + page;
+        var _url = this._baseUrl + '&per_page=' + perPage + '&page=' + page;
 
         requests.push(this.api.request(_url).then(function (data) {
           return data.map(function (x) {
@@ -26040,9 +26041,9 @@ var JobMonitor = function () {
       }));
 
       // Fetch updates
-      var url = baseUrl + '&timestamp=' + Math.floor(this._lastUpdate);
+      var url = this._baseUrl + '&timestamp=' + Math.floor(this._lastUpdate);
 
-      if (this.longPoll && !skipLongpoll) {
+      if (this.longPoll && !skipLongPoll) {
         url += '&long_poll';
       }
 
@@ -26090,6 +26091,12 @@ var JobMonitor = function () {
         _this._data.splice(_this.maxRows, _this.data.length - _this.maxRows);
 
         _this.api.logger.debug('Target: ' + _this.maxRows + ', Actual: ' + _this.data.length + ', Updated: ' + rowCount + ', Dropped: ' + droppedRowCount);
+
+        if (!_this._skipMaxUpdate) {
+          _this._maxAvailible[_this._baseUrl] = _this.data.length;
+        }
+
+        _this._skipMaxUpdate = false;
 
         return rowCount;
       });
@@ -26149,7 +26156,26 @@ var JobMonitor = function () {
       value = Number(value);
       value = Math.max(1, value);
 
+      this.api.logger.debug('Setting maxRows to ' + value + '. skipping maxUpdate next cycle.');
+
+      this._skipMaxUpdate = true;
+      this._maxAvailible[this._baseUrl] = value;
       this._maxRows = value;
+    }
+
+    /**
+     * Used to
+     */
+
+  }, {
+    key: 'realMaxRows',
+    get: function get() {
+      return this._maxAvailible[this._baseUrl] || this.maxRows;
+    }
+  }, {
+    key: '_baseUrl',
+    get: function get() {
+      return '/jobs/monitor/' + this.filterStatus + '?internal=' + !this.hideInternal;
     }
 
     /**
