@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:2858baf8be1acabf8aaa, chunkhash:443771eaeef6eb28b39e, name:bundle, version:v1.2.26
+ * hash:bd07bc8a0d6de885b692, chunkhash:4adb6d32ada92198d006, name:bundle, version:v1.2.27
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.26) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.27) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -15125,7 +15125,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.26";
+var version = exports.version = "v1.2.27";
 
 /**
  * Package license
@@ -25944,7 +25944,7 @@ var JobMonitor = function () {
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._purge = false;
-    this._longPoll = false;
+    this._longPoll = true;
   }
 
   /**
