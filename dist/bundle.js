@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:844edfcc523768aa3a99, chunkhash:e16bceca87f2e9897f16, name:bundle, version:v1.2.28
+ * hash:a0ec75a9554ff147260e, chunkhash:5c843f5bae52cb737d2e, name:bundle, version:v1.2.29
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.28) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.2.29) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -15125,7 +15125,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.28";
+var version = exports.version = "v1.2.29";
 
 /**
  * Package license
@@ -26090,11 +26090,11 @@ var JobMonitor = function () {
         // Truncate data if needed
         _this._data.splice(_this.maxRows, _this.data.length - _this.maxRows);
 
-        _this.api.logger.debug('Target: ' + _this.maxRows + ', Actual: ' + _this.data.length + ', Updated: ' + rowCount + ', Dropped: ' + droppedRowCount);
-
         if (!_this._skipMaxUpdate) {
           _this._maxAvailible[_this._baseUrl] = _this.data.length;
         }
+
+        _this.api.logger.debug('Target: ' + _this.maxRows + ', Actual: ' + _this.data.length + ', Updated: ' + rowCount + ', Dropped: ' + droppedRowCount + ', RealMax: ' + _this.realMaxRows);
 
         _this._skipMaxUpdate = false;
 
@@ -26164,7 +26164,7 @@ var JobMonitor = function () {
     }
 
     /**
-     * Used to
+     * Used to get internal reference max rows
      */
 
   }, {
@@ -26245,7 +26245,7 @@ var JobMonitor = function () {
   }, {
     key: 'lastUpdate',
     get: function get() {
-      return new Date(this._lastUpdate);
+      return new Date(this._lastUpdate * 1000);
     }
 
     /**
