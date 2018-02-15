@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:ecba4c36643049e0541f, chunkhash:10bbe347af32cddb4ea8, name:bundle, version:v1.2.30
+ * hash:b1b96fe2a8582309626a, chunkhash:e9ca866c79d099a7f2bb, name:bundle, version:v1.3.1
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.2.30) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -4713,7 +4713,7 @@ var StorageManager = function (_StaticClass) {
 
     /**
      * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}
-     * @returns {DataStoreDriver} - Best available storage driver
+     * @returns {DataStoreContract} - Best available storage driver
      */
 
   }, {
@@ -4724,7 +4724,7 @@ var StorageManager = function (_StaticClass) {
 
     /**
      * Returns the a secure storage driver
-     * @returns {DataStoreDriver} - Secure storage driver
+     * @returns {DataStoreContract} - Secure storage driver
      */
 
   }, {
@@ -6625,11 +6625,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * @private
  */
-var DataStoreDriver = function () {
-  function DataStoreDriver() {
-    _classCallCheck(this, DataStoreDriver);
+var DataStoreContract = function () {
+  function DataStoreContract() {
+    _classCallCheck(this, DataStoreContract);
 
-    if (this.constructor === DataStoreDriver) {
+    if (this.constructor === DataStoreContract) {
       throw new _AbstractError.AbstractClassError();
     }
 
@@ -6644,7 +6644,7 @@ var DataStoreDriver = function () {
    */
 
 
-  _createClass(DataStoreDriver, [{
+  _createClass(DataStoreContract, [{
     key: 'set',
 
 
@@ -6729,10 +6729,10 @@ var DataStoreDriver = function () {
     }
   }]);
 
-  return DataStoreDriver;
+  return DataStoreContract;
 }();
 
-exports.default = DataStoreDriver;
+exports.default = DataStoreContract;
 
 /***/ }),
 /* 90 */
@@ -6973,36 +6973,7 @@ var RequestParameters = function () {
     });
 
     // Apply properties
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = Object.keys(object)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var key = _step.value;
-
-        var Key = (0, _case.camel)(key);
-
-        if (key[0] === '_' || !RequestParameters.keys().includes(Key)) {
-          continue;
-        }
-
-        this._update(Key, object[key]);
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
+    this.apply(object);
   }
 
   // region instance
@@ -7098,13 +7069,13 @@ var RequestParameters = function () {
       }).join(',');
 
       // Fix column names for search
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
       try {
-        for (var _iterator2 = Object.keys(data.search)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var key = _step2.value;
+        for (var _iterator = Object.keys(data.search)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
 
           var snakeKey = key.split(',').map(_case.snake).join(',');
 
@@ -7116,6 +7087,33 @@ var RequestParameters = function () {
 
         // Overwrite using extra properties
       } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      var extra = this._resolve('extra');
+
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = Object.keys(extra)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _key = _step2.value;
+
+          data[_key] = extra[_key];
+        }
+      } catch (err) {
         _didIteratorError2 = true;
         _iteratorError2 = err;
       } finally {
@@ -7126,33 +7124,6 @@ var RequestParameters = function () {
         } finally {
           if (_didIteratorError2) {
             throw _iteratorError2;
-          }
-        }
-      }
-
-      var extra = this._resolve('extra');
-
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = Object.keys(extra)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var _key = _step3.value;
-
-          data[_key] = extra[_key];
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
           }
         }
       }
@@ -7197,6 +7168,54 @@ var RequestParameters = function () {
      * Resets all parameters back to default
      * @returns {void}
      */
+
+  }, {
+    key: 'apply',
+
+
+    /**
+     * Apply parameters from object
+     * @param {object|RequestParameters} params - parameters
+     * @returns {void}
+     */
+    value: function apply(params) {
+      if (params instanceof RequestParameters) {
+        params = params.toObject();
+      }
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = Object.keys(params)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var key = _step3.value;
+
+          var Key = (0, _case.camel)(key);
+
+          if (key[0] === '_' || !RequestParameters.keys().includes(Key)) {
+            continue;
+          }
+
+          this._update(Key, params[key]);
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+    }
+
+    // endregion utils
 
   }, {
     key: 'page',
@@ -7529,9 +7548,6 @@ var RequestParameters = function () {
         }
       }
     }
-
-    // endregion utils
-
   }, {
     key: 'page',
     get: function get() {
@@ -15125,7 +15141,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.2.30";
+var version = exports.version = "v1.3.1";
 
 /**
  * Package license
@@ -15813,9 +15829,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _node = __webpack_require__(34);
 
-var _DataStoreDriver2 = __webpack_require__(89);
+var _DataStoreContract2 = __webpack_require__(89);
 
-var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
+var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15858,8 +15874,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 /**
  * @private
  */
-var CookiesDriver = function (_DataStoreDriver) {
-  _inherits(CookiesDriver, _DataStoreDriver);
+var CookiesDriver = function (_DataStoreContract) {
+  _inherits(CookiesDriver, _DataStoreContract);
 
   function CookiesDriver() {
     var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '_m4n_';
@@ -16004,7 +16020,7 @@ var CookiesDriver = function (_DataStoreDriver) {
   }]);
 
   return CookiesDriver;
-}(_DataStoreDriver3.default);
+}(_DataStoreContract3.default);
 
 exports.default = CookiesDriver;
 
@@ -16023,9 +16039,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _node = __webpack_require__(34);
 
-var _DataStoreDriver2 = __webpack_require__(89);
+var _DataStoreContract2 = __webpack_require__(89);
 
-var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
+var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16068,8 +16084,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 /**
  * @private
  */
-var FileDriver = function (_DataStoreDriver) {
-  _inherits(FileDriver, _DataStoreDriver);
+var FileDriver = function (_DataStoreContract) {
+  _inherits(FileDriver, _DataStoreContract);
 
   /**
    * @param {String} path - File storage path
@@ -16259,7 +16275,7 @@ var FileDriver = function (_DataStoreDriver) {
   }]);
 
   return FileDriver;
-}(_DataStoreDriver3.default);
+}(_DataStoreContract3.default);
 
 exports.default = FileDriver;
 
@@ -16276,9 +16292,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _DataStoreDriver2 = __webpack_require__(89);
+var _DataStoreContract2 = __webpack_require__(89);
 
-var _DataStoreDriver3 = _interopRequireDefault(_DataStoreDriver2);
+var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
 
 var _node = __webpack_require__(34);
 
@@ -16323,8 +16339,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 /**
  * @private
  */
-var LocalStorageDriver = function (_DataStoreDriver) {
-  _inherits(LocalStorageDriver, _DataStoreDriver);
+var LocalStorageDriver = function (_DataStoreContract) {
+  _inherits(LocalStorageDriver, _DataStoreContract);
 
   function LocalStorageDriver() {
     _classCallCheck(this, LocalStorageDriver);
@@ -16424,7 +16440,7 @@ var LocalStorageDriver = function (_DataStoreDriver) {
   }]);
 
   return LocalStorageDriver;
-}(_DataStoreDriver3.default);
+}(_DataStoreContract3.default);
 
 exports.default = LocalStorageDriver;
 
@@ -17159,8 +17175,8 @@ var PaginatedResourceWrapper = function () {
 
 
     /**
-     * Set the search query and search
-     * @param {?Object<String, String|Array<String>>} [value=null] - Query
+     * Set the request params and submit
+     * @param {?Object<String, *>} value - Query
      * @throws TypeError
      * @default {}
      * @see {@link ResourceProxy#search}
@@ -17182,11 +17198,11 @@ var PaginatedResourceWrapper = function () {
       } else {
         var parameters = this._last.parameters.copy();
 
-        parameters.search = value;
         parameters.page = 1;
+        parameters.apply(value);
 
         this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, parameters);
-        this.get(1);
+        this.get(parameters.page);
         this.currentPage = 1;
       }
 
@@ -17295,6 +17311,17 @@ var PaginatedResourceWrapper = function () {
     ,
     set: function set(value) {
       this._route = value;
+    }
+
+    /**
+     * Row count
+     * @returns {Number} - Row count
+     */
+
+  }, {
+    key: 'rows',
+    get: function get() {
+      return this._last.rows;
     }
 
     /**
