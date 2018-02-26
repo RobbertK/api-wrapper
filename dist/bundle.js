@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:b1b96fe2a8582309626a, chunkhash:e9ca866c79d099a7f2bb, name:bundle, version:v1.3.1
+ * hash:20f700066d973e82a997, chunkhash:8e92cc509e827f628469, name:bundle, version:v1.3.2
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.1) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.2) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -1293,15 +1293,30 @@ var ResourceBase = function () {
 
     /**
      * Transform instance to object
+     * @param {boolean} [camelCaseKeys=false] - camelCase object keys
      * @returns {{}} - object
      */
 
   }, {
     key: 'toObject',
     value: function toObject() {
+      var camelCaseKeys = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
       this._updateProperties();
 
-      return Object.assign({}, this._baseProperties, this._properties);
+      var out = Object.assign({}, this._baseProperties, this._properties);
+
+      if (camelCaseKeys) {
+        var oldOut = out;
+
+        out = {};
+
+        for (var key in Object.keys(oldOut)) {
+          out[(0, _case.camel)(key)] = oldOut[key];
+        }
+      }
+
+      return out;
     }
 
     /**
@@ -15141,7 +15156,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.1";
+var version = exports.version = "v1.3.2";
 
 /**
  * Package license
