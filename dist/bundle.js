@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:20f700066d973e82a997, chunkhash:8e92cc509e827f628469, name:bundle, version:v1.3.2
+ * hash:e31cf228770422ebb3be, chunkhash:971ae4d8d19ad609836c, name:bundle, version:v1.3.3
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.2) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -1307,12 +1307,14 @@ var ResourceBase = function () {
       var out = Object.assign({}, this._baseProperties, this._properties);
 
       if (camelCaseKeys) {
-        var oldOut = out;
+        for (var key in Object.keys(out)) {
+          var ccKey = (0, _case.camel)(key);
 
-        out = {};
+          if (key !== ccKey) {
+            out[ccKey] = out[key];
 
-        for (var key in Object.keys(oldOut)) {
-          out[(0, _case.camel)(key)] = oldOut[key];
+            delete out[key];
+          }
         }
       }
 
@@ -15156,7 +15158,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.2";
+var version = exports.version = "v1.3.3";
 
 /**
  * Package license
