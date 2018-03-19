@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:e31cf228770422ebb3be, chunkhash:971ae4d8d19ad609836c, name:bundle, version:v1.3.3
+ * hash:15a62845fe8684f5d1b6, chunkhash:527fe7d18628f236622c, name:bundle, version:v1.3.4
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.4) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -939,10 +939,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function unique(input) {
+  return input.filter(function (v, i) {
+    return input.findIndex(function (vv) {
+      return vv === v;
+    }) === i;
+  });
+}
+
 /**
  * Resource base
  * @abstract
  */
+
 var ResourceBase = function () {
   /**
    * @param {Maps4News} api - Api instance
@@ -1139,6 +1148,8 @@ var ResourceBase = function () {
           }
         }
       }
+
+      this._knownFields = unique(this._knownFields);
     }
 
     /**
@@ -1886,7 +1897,7 @@ function downloadFile(url) {
     return res.json().then(function (data) {
       var err = data.error;
 
-      throw new _ApiError2.default(err.type, err.message, res.status);
+      throw new _ApiError2.default(err.type, err.message, res.status, err.trace);
     });
   }).then(function (blob) {
     out.blob = (window.URL || window.webkitURL).createObjectURL(blob);
@@ -3647,7 +3658,7 @@ var Maps4News = function () {
       var err = data.error;
 
       if (!err['validation_errors']) {
-        var apiError = new _ApiError2.default(err.type, err.message, status);
+        var apiError = new _ApiError2.default(err.type, err.message, status, err.trace);
 
         if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {
           this.logger.warn('Lost Maps4News session, please re-authenticate');
@@ -4265,13 +4276,21 @@ var ApiError = function () {
    * @param {String} type - Error type
    * @param {String} message - Error message
    * @param {Number} code - Http error code
+   * @param {String|null} trace - Stack trace
    */
   function ApiError(type, message, code) {
+    var trace = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
     _classCallCheck(this, ApiError);
 
     this._type = type;
     this._message = message;
     this._code = code;
+    this._trace = [];
+
+    if (typeof trace === 'string') {
+      this._trace = ApiError._parseTrace(trace);
+    }
   }
 
   /**
@@ -4281,7 +4300,7 @@ var ApiError = function () {
 
 
   _createClass(ApiError, [{
-    key: "toString",
+    key: 'toString',
 
 
     /**
@@ -4289,10 +4308,10 @@ var ApiError = function () {
      * @returns {string} - Displayable error string
      */
     value: function toString() {
-      return "[" + this._code + "] " + this._type + ": " + this._message;
+      return '[' + this._code + '] ' + this._type + ': ' + this._message;
     }
   }, {
-    key: "type",
+    key: 'type',
     get: function get() {
       return this._type;
     }
@@ -4303,7 +4322,7 @@ var ApiError = function () {
      */
 
   }, {
-    key: "message",
+    key: 'message',
     get: function get() {
       return this._message;
     }
@@ -4314,9 +4333,55 @@ var ApiError = function () {
      */
 
   }, {
-    key: "code",
+    key: 'code',
     get: function get() {
       return this._code;
+    }
+
+    /**
+     * Returns if the error contained a stacktrace that has been parsed
+     * @returns {boolean} - If the Error contains a stacktrace
+     */
+
+  }, {
+    key: 'hasTrace',
+    get: function get() {
+      return this._trace.length > 0;
+    }
+
+    /**
+     * Get the parsed stacktrace from the error
+     * @returns {Array<{line: Number, file: String, code: String}>} - Stacktrace
+     */
+
+  }, {
+    key: 'trace',
+    get: function get() {
+      return this._trace;
+    }
+  }], [{
+    key: '_parseTrace',
+    value: function _parseTrace(input) {
+      // https://regex101.com/r/64cAbt/1
+      var regex = /^#(\d+)\s(?:(.*?)\((\d+)\)|(.*?)):\s(.*?)$/gm;
+      var output = [];
+      var match = void 0;
+
+      // eslint-disable-next-line no-cond-assign
+      while ((match = regex.exec(input)) !== null) {
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (match.index === regex.lastIndex) {
+          regex.lastIndex++;
+        }
+
+        output.push({
+          line: match[3],
+          file: match[2] || match[4],
+          code: match[5]
+        });
+      }
+
+      return output;
     }
   }]);
 
@@ -15158,7 +15223,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.3";
+var version = exports.version = "v1.3.4";
 
 /**
  * Package license

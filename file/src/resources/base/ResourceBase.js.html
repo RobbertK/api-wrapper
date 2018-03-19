@@ -155,6 +155,10 @@ import Maps4News from &apos;../../Maps4News&apos;;
 import SimpleResourceProxy from &apos;../../proxy/SimpleResourceProxy&apos;;
 import {isParentOf} from &apos;../../utils/reflection&apos;;
 
+function unique(input) {
+  return input.filter((v, i) =&gt; input.findIndex(vv =&gt; vv === v) === i);
+}
+
 /**
  * Resource base
  * @abstract
@@ -299,6 +303,8 @@ export default class ResourceBase {
       this._applyProperty(key);
       this._knownFields.push(key);
     }
+
+    this._knownFields = unique(this._knownFields);
   }
 
   /**
