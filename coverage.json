@@ -1,7 +1,7 @@
 {
-  "coverage": "82.12%",
-  "expectCount": 481,
-  "actualCount": 395,
+  "coverage": "82.15%",
+  "expectCount": 482,
+  "actualCount": 396,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
@@ -311,8 +311,8 @@
       ]
     },
     "src/resources/Organisation.js": {
-      "expectCount": 15,
-      "actualCount": 13,
+      "expectCount": 16,
+      "actualCount": 14,
       "undocumentLines": [
         50,
         51
