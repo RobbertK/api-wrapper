@@ -149,7 +149,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {getTypeName} from &apos;../utils/reflection&apos;;
 import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
 
 /**
@@ -223,7 +222,7 @@ export default class OwnedResourceProxy extends SimpleResourceProxy {
   }
 
   /**
-   * @param {Array&lt;Organisation&gt;|Array&lt;number&gt;|Organisation|number} items - List of items to sync, attach or detach
+   * @param {Array&lt;ResourceBase&gt;|Array&lt;number&gt;|ResourceBase|number} items - List of items to sync, attach or detach
    * @param {string} method - http method
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    * @private
@@ -233,16 +232,14 @@ export default class OwnedResourceProxy extends SimpleResourceProxy {
       items = [items];
     }
 
-    const validData = items
-      .map(getTypeName)
-      .filter(x =&gt; ![&apos;Number&apos;, &apos;Organisation&apos;].includes(x))
-      .length === 0;
+    const keys = items
+      .map(x =&gt; typeof x === &apos;object&apos; &amp;&amp; x.id ? x.id : x)
+      .map(Number)
+      .filter(x =&gt; !Number.isNaN(x));
 
-    if (!validData) {
-      throw new TypeError(&apos;Expected items to be of type Array&lt;Organisation&gt;, Array&lt;number&gt;, Organisation or number}&apos;);
+    if (!keys.length === 0) {
+      throw new TypeError(&apos;Expected items to be of type Array&lt;ResourceBase&gt;, Array&lt;number&gt;, ResourceBase or number}&apos;);
     }
-
-    const keys = items.map(x =&gt; typeof x === &apos;number&apos; ? x : Number(x.id));
 
     return this.api.request(this.baseUrl, method, {keys});
   }

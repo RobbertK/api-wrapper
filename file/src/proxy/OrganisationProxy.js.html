@@ -149,6 +149,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import {isParentOf} from &apos;../utils/reflection&apos;;
 import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
 
 export default class OrganisationProxy extends SimpleResourceProxy {
@@ -180,7 +181,7 @@ export default class OrganisationProxy extends SimpleResourceProxy {
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
   sync(organisations) {
-    return this.parent._modifyLink(organisations, &apos;PATCH&apos;, this.Target);
+    return this._modifyLink(organisations, &apos;PATCH&apos;, this.Target);
   }
 
   /**
@@ -190,7 +191,7 @@ export default class OrganisationProxy extends SimpleResourceProxy {
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
   attach(organisations) {
-    return this.parent._modifyLink(organisations, &apos;POST&apos;, this.Target);
+    return this._modifyLink(organisations, &apos;POST&apos;, this.Target);
   }
 
   /**
@@ -200,7 +201,7 @@ export default class OrganisationProxy extends SimpleResourceProxy {
    * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
    */
   detach(organisations) {
-    return this.parent._modifyLink(organisations, &apos;DELETE&apos;, this.Target);
+    return this._modifyLink(organisations, &apos;DELETE&apos;, this.Target);
   }
 
   /**
@@ -221,6 +222,34 @@ export default class OrganisationProxy extends SimpleResourceProxy {
     const url = this.baseUrl + &apos;/all&apos;;
 
     return this.api.request(url, &apos;DELETE&apos;);
+  }
+
+  /**
+   * Sync, attach or unlink resources
+   * @param {Array&lt;Organisation&gt;|Array&lt;Number&gt;} items - List of items to sync or attach
+   * @param {String} method - Http method to use
+   * @param {ResourceBase} Type - Resource type
+   * @param {?String} path - Optional appended resource path, will guess if null
+   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+   * @protected
+   */
+  _modifyLink(items, method, Type, path = null) {
+    if (!path) {
+      const resource = (new Type(this.api)).resourceName.replace(/s+$/, &apos;&apos;);
+
+      path = `${resource}s`;
+    }
+
+    const filter = x =&gt; !isParentOf(Type, x) &amp;&amp; !isParentOf(Number, x);
+    const isValid = items.filter(filter).length === 0;
+
+    if (!isValid) {
+      throw new TypeError(`Array must contain either Numbers (resource id) or &quot;${Type.name}&quot;.`);
+    }
+
+    const keys = items.map(x =&gt; typeof x === &apos;number&apos; ? x : x.id).map(Number);
+
+    return this.api.request(`${this.parent.url}/${path}`, method, {keys});
   }
 }
 </code></pre>
