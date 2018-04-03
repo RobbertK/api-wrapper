@@ -117,7 +117,8 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/resources/Role.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CrudBase from &apos;./base/CrudBase&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import OwnedResourceProxy from &apos;../proxy/OwnedResourceProxy&apos;;
+import CrudBase from &apos;./base/CrudBase&apos;;
 import Permission from &apos;./Permission&apos;;
 import User from &apos;./User&apos;;
 
@@ -127,7 +128,7 @@ export default class Role extends CrudBase {
    * @returns {SimpleResourceProxy} - A proxy for accessing the resource
    */
   get permissions() {
-    return this._proxyResourceList(Permission);
+    return new OwnedResourceProxy(this.api, this, Permission);
   }
 
   /**
@@ -135,65 +136,11 @@ export default class Role extends CrudBase {
    * @returns {SimpleResourceProxy} - A proxy for accessing the resource
    */
   get users() {
-    return this._proxyResourceList(User);
+    return new OwnedResourceProxy(this.api, this, User);
   }
 
   get resourceName() {
     return &apos;roles&apos;;
-  }
-
-  /**
-   * Sync permissions to the role
-   * @param {Array&lt;ResourceBase&gt;} items - List of items to sync
-   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-   */
-  syncPermissions(items) {
-    return this._modifyLink(items, &apos;PATCH&apos;, Permission);
-  }
-
-  /**
-   * Attach permissions to the role
-   * @param {Array&lt;ResourceBase&gt;} items - List of items to attach
-   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-   */
-  attachPermissions(items) {
-    return this._modifyLink(items, &apos;POST&apos;, Permission);
-  }
-
-  /**
-   * Detach permissions from the role
-   * @param {Array&lt;Organisation&gt;|Array&lt;Number&gt;} items - List of items to unlink
-   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-   */
-  detachPermissions(items) {
-    return this._modifyLink(items, &apos;DELETE&apos;, Permission);
-  }
-
-  /**
-   * Sync user to the role
-   * @param {Array&lt;ResourceBase&gt;} items - List of items to sync
-   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-   */
-  syncUsers(items) {
-    return this._modifyLink(items, &apos;PATCH&apos;, User);
-  }
-
-  /**
-   * Attach user to the role
-   * @param {Array&lt;ResourceBase&gt;} items - List of items to attach
-   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-   */
-  attachUsers(items) {
-    return this._modifyLink(items, &apos;POST&apos;, User);
-  }
-
-  /**
-   * Detach user from the role
-   * @param {Array&lt;Organisation&gt;|Array&lt;Number&gt;} items - List of items to unlink
-   * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-   */
-  detachUsers(items) {
-    return this._modifyLink(items, &apos;DELETE&apos;, User);
   }
 }
 </code></pre>

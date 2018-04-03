@@ -1,14 +1,14 @@
 {
-  "coverage": "82.15%",
-  "expectCount": 482,
-  "actualCount": 396,
+  "coverage": "81.93%",
+  "expectCount": 476,
+  "actualCount": 390,
   "files": {
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
       "undocumentLines": [
-        58,
-        67
+        67,
+        58
       ]
     },
     "src/errors/ApiError.js": {
@@ -399,11 +399,11 @@
       "undocumentLines": []
     },
     "src/resources/Role.js": {
-      "expectCount": 10,
-      "actualCount": 8,
+      "expectCount": 4,
+      "actualCount": 2,
       "undocumentLines": [
-        5,
-        22
+        6,
+        23
       ]
     },
     "src/proxy/SimpleResourceProxy.js": {

@@ -935,7 +935,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * OwnedResourceProxy Constructor\n   * @param {Maps4News} api - api instance\n   * @param {Organisation} parent - parent instance\n   * @param {constructor} Target - target constructor\n   ",
+                    "value": "*\n   * OwnedResourceProxy Constructor\n   * @param {Maps4News} api - api instance\n   * @param {ResourceBase} parent - parent instance\n   * @param {constructor} Target - target constructor\n   ",
                     "start": 1829,
                     "end": 2023,
                     "loc": {
@@ -3972,7 +3972,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * OwnedResourceProxy Constructor\n   * @param {Maps4News} api - api instance\n   * @param {Organisation} parent - parent instance\n   * @param {constructor} Target - target constructor\n   ",
+      "value": "*\n   * OwnedResourceProxy Constructor\n   * @param {Maps4News} api - api instance\n   * @param {ResourceBase} parent - parent instance\n   * @param {constructor} Target - target constructor\n   ",
       "start": 1829,
       "end": 2023,
       "loc": {
@@ -4623,7 +4623,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * OwnedResourceProxy Constructor\n   * @param {Maps4News} api - api instance\n   * @param {Organisation} parent - parent instance\n   * @param {constructor} Target - target constructor\n   ",
+      "value": "*\n   * OwnedResourceProxy Constructor\n   * @param {Maps4News} api - api instance\n   * @param {ResourceBase} parent - parent instance\n   * @param {constructor} Target - target constructor\n   ",
       "start": 1829,
       "end": 2023,
       "loc": {
