@@ -7737,7 +7737,7 @@
     "__docId__": 259,
     "kind": "file",
     "name": "src/enums/JobMonitorFilter.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Enum from './Enum';\nimport {ResultStatus} from './ResultStatus';\n\n/**\n * Enum containing the possible different values for {@link JobMonitor#filterStatus}\n * @enum {string}\n * @property {string} QUEUED - Job has been queued\n * @property {string} PROCESSING - Job is processing\n * @property {string} COMPLETED - Job has been completed\n * @property {string} CANCEL - Job has been canceled\n * @property {string} FAILED - Job has failed\n * @readonly\n */\nexport const JobMonitorFilter = new Enum(Object.assign({}, ResultStatus, {DEFAULT: 'default'}));\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Enum from './Enum';\nimport {ResultStatus} from './ResultStatus';\n\n/**\n * Enum containing the possible different values for {@link JobMonitor#filterStatus}\n * @enum {string}\n * @property {string} DEFAULT - All job types\n * @property {string} QUEUED - Job has been queued\n * @property {string} PROCESSING - Job is processing\n * @property {string} COMPLETED - Job has been completed\n * @property {string} CANCEL - Job has been canceled\n * @property {string} FAILED - Job has failed\n * @readonly\n */\nexport const JobMonitorFilter = new Enum(Object.assign({}, ResultStatus, {DEFAULT: 'default'}));\n",
     "static": true,
     "longname": "src/enums/JobMonitorFilter.js",
     "access": null,
@@ -7756,7 +7756,7 @@
     "importPath": "@mapcreator/maps4news/src/enums/JobMonitorFilter.js",
     "importStyle": "{JobMonitorFilter}",
     "description": "Enum containing the possible different values for {@link JobMonitor#filterStatus}",
-    "lineNumber": 46,
+    "lineNumber": 47,
     "unknown": [
       {
         "tagName": "@enum",
@@ -7768,6 +7768,16 @@
       }
     ],
     "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "DEFAULT",
+        "description": "All job types"
+      },
       {
         "nullable": null,
         "types": [
@@ -16967,7 +16977,7 @@
     "__docId__": 602,
     "kind": "file",
     "name": "src/resources/User.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport ResourceProxy from '../proxy/ResourceProxy';\nimport CrudBase from './base/CrudBase';\nimport Color from './Color';\nimport DimensionSet from './DimensionSet';\nimport Feature from './Feature';\nimport FontFamily from './FontFamily';\nimport Job from './Job';\nimport JobShare from './JobShare';\nimport JobType from './JobType';\nimport Language from './Language';\nimport Layer from './Layer';\nimport MapstyleSet from './MapstyleSet';\nimport Notification from './Notification';\nimport Organisation from './Organisation';\nimport Permission from './Permission';\nimport Role from './Role';\nimport SvgSet from './SvgSet';\n\nexport default class User extends CrudBase {\n  get resourceName() {\n    return 'users';\n  }\n\n  /**\n   * Get all known ips\n   * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}\n   */\n  ips() {\n    const url = `${this.url}/ips`;\n\n    return this.api\n      .request(url)\n      .then(data => data.map(row => row['ip_address']));\n  }\n\n  /**\n   * Get the user's organisation\n   * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}\n   */\n  organisation() {\n    return (new ResourceProxy(this.api, Organisation)).get(this.organisationId);\n  }\n\n  /**\n   * Get the user's language\n   * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}\n   */\n  language() {\n    return (new ResourceProxy(this.api, Language)).get(this.languageCode);\n  }\n\n  // region Resource listing\n  /**\n   * Get the list notifications linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this._proxyResourceList(Notification);\n  }\n\n  /**\n   * Get the list mapstyle sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this._proxyResourceList(MapstyleSet);\n  }\n\n  /**\n   * Get the list dimension sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this._proxyResourceList(DimensionSet);\n  }\n\n  /**\n   * Get the list font families linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this._proxyResourceList(FontFamily);\n  }\n\n  /**\n   * Get the list svg sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this._proxyResourceList(SvgSet);\n  }\n\n  /**\n   * Get the list colors linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this._proxyResourceList(Color);\n  }\n\n  /**\n   * Get the list jobs linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this._proxyResourceList(Job);\n  }\n\n  /**\n   * Get the list features linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this._proxyResourceList(Feature);\n  }\n\n  /**\n   * Get the list layers linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this._proxyResourceList(Layer);\n  }\n\n  /**\n   * Get the list job types linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this._proxyResourceList(JobType);\n  }\n\n  /**\n   * Get the list job shares linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this._proxyResourceList(JobShare);\n  }\n\n  /**\n   * Get the list permissions linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this._proxyResourceList(Permission);\n  }\n\n  /**\n   * Get the list roles linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this._proxyResourceList(Role);\n  }\n\n  // endregion\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OwnedResourceProxy from '../proxy/OwnedResourceProxy';\nimport ResourceProxy from '../proxy/ResourceProxy';\nimport CrudBase from './base/CrudBase';\nimport Color from './Color';\nimport DimensionSet from './DimensionSet';\nimport Feature from './Feature';\nimport FontFamily from './FontFamily';\nimport Job from './Job';\nimport JobShare from './JobShare';\nimport JobType from './JobType';\nimport Language from './Language';\nimport Layer from './Layer';\nimport MapstyleSet from './MapstyleSet';\nimport Notification from './Notification';\nimport Organisation from './Organisation';\nimport Permission from './Permission';\nimport Role from './Role';\nimport SvgSet from './SvgSet';\n\nexport default class User extends CrudBase {\n  get resourceName() {\n    return 'users';\n  }\n\n  /**\n   * Get all known ips\n   * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}\n   */\n  ips() {\n    const url = `${this.url}/ips`;\n\n    return this.api\n      .request(url)\n      .then(data => data.map(row => row['ip_address']));\n  }\n\n  /**\n   * Get the user's organisation\n   * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}\n   */\n  organisation() {\n    return (new ResourceProxy(this.api, Organisation)).get(this.organisationId);\n  }\n\n  /**\n   * Get the user's language\n   * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}\n   */\n  language() {\n    return (new ResourceProxy(this.api, Language)).get(this.languageCode);\n  }\n\n  // region Resource listing\n  /**\n   * Get the list notifications linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this._proxyResourceList(Notification);\n  }\n\n  /**\n   * Get the list mapstyle sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this._proxyResourceList(MapstyleSet);\n  }\n\n  /**\n   * Get the list dimension sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this._proxyResourceList(DimensionSet);\n  }\n\n  /**\n   * Get the list font families linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this._proxyResourceList(FontFamily);\n  }\n\n  /**\n   * Get the list svg sets linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this._proxyResourceList(SvgSet);\n  }\n\n  /**\n   * Get the list colors linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this._proxyResourceList(Color);\n  }\n\n  /**\n   * Get the list jobs linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this._proxyResourceList(Job);\n  }\n\n  /**\n   * Get the list features linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this._proxyResourceList(Feature);\n  }\n\n  /**\n   * Get the list layers linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this._proxyResourceList(Layer);\n  }\n\n  /**\n   * Get the list job types linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this._proxyResourceList(JobType);\n  }\n\n  /**\n   * Get the list job shares linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this._proxyResourceList(JobShare);\n  }\n\n  /**\n   * Get the list permissions linked to the user\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this._proxyResourceList(Permission);\n  }\n\n  /**\n   * Get the list roles linked to the user\n   * @returns {OwnedResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return new OwnedResourceProxy(this.api, this, Role);\n  }\n\n  // endregion\n}\n",
     "static": true,
     "longname": "src/resources/User.js",
     "access": null,
@@ -16986,7 +16996,7 @@
     "importPath": "@mapcreator/maps4news/src/resources/User.js",
     "importStyle": "User",
     "description": null,
-    "lineNumber": 51,
+    "lineNumber": 52,
     "undocument": true,
     "unknown": [
       {
@@ -17010,7 +17020,7 @@
     "longname": "src/resources/User.js~User#resourceName",
     "access": null,
     "description": null,
-    "lineNumber": 52,
+    "lineNumber": 53,
     "undocument": true,
     "unknown": [
       {
@@ -17035,7 +17045,7 @@
     "longname": "src/resources/User.js~User#ips",
     "access": null,
     "description": "Get all known ips",
-    "lineNumber": 60,
+    "lineNumber": 61,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17063,7 +17073,7 @@
     "longname": "src/resources/User.js~User#organisation",
     "access": null,
     "description": "Get the user's organisation",
-    "lineNumber": 72,
+    "lineNumber": 73,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17091,7 +17101,7 @@
     "longname": "src/resources/User.js~User#language",
     "access": null,
     "description": "Get the user's language",
-    "lineNumber": 80,
+    "lineNumber": 81,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17119,7 +17129,7 @@
     "longname": "src/resources/User.js~User#notifications",
     "access": null,
     "description": "Get the list notifications linked to the user",
-    "lineNumber": 89,
+    "lineNumber": 90,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17151,7 +17161,7 @@
     "longname": "src/resources/User.js~User#mapstyleSets",
     "access": null,
     "description": "Get the list mapstyle sets linked to the user",
-    "lineNumber": 97,
+    "lineNumber": 98,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17183,7 +17193,7 @@
     "longname": "src/resources/User.js~User#dimensionSets",
     "access": null,
     "description": "Get the list dimension sets linked to the user",
-    "lineNumber": 105,
+    "lineNumber": 106,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17215,7 +17225,7 @@
     "longname": "src/resources/User.js~User#fontFamilies",
     "access": null,
     "description": "Get the list font families linked to the user",
-    "lineNumber": 113,
+    "lineNumber": 114,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17247,7 +17257,7 @@
     "longname": "src/resources/User.js~User#svgSets",
     "access": null,
     "description": "Get the list svg sets linked to the user",
-    "lineNumber": 121,
+    "lineNumber": 122,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17279,7 +17289,7 @@
     "longname": "src/resources/User.js~User#colors",
     "access": null,
     "description": "Get the list colors linked to the user",
-    "lineNumber": 129,
+    "lineNumber": 130,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17311,7 +17321,7 @@
     "longname": "src/resources/User.js~User#jobs",
     "access": null,
     "description": "Get the list jobs linked to the user",
-    "lineNumber": 137,
+    "lineNumber": 138,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17343,7 +17353,7 @@
     "longname": "src/resources/User.js~User#features",
     "access": null,
     "description": "Get the list features linked to the user",
-    "lineNumber": 145,
+    "lineNumber": 146,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17375,7 +17385,7 @@
     "longname": "src/resources/User.js~User#layers",
     "access": null,
     "description": "Get the list layers linked to the user",
-    "lineNumber": 153,
+    "lineNumber": 154,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17407,7 +17417,7 @@
     "longname": "src/resources/User.js~User#jobTypes",
     "access": null,
     "description": "Get the list job types linked to the user",
-    "lineNumber": 161,
+    "lineNumber": 162,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17439,7 +17449,7 @@
     "longname": "src/resources/User.js~User#jobShares",
     "access": null,
     "description": "Get the list job shares linked to the user",
-    "lineNumber": 169,
+    "lineNumber": 170,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17471,7 +17481,7 @@
     "longname": "src/resources/User.js~User#permissions",
     "access": null,
     "description": "Get the list permissions linked to the user",
-    "lineNumber": 177,
+    "lineNumber": 178,
     "unknown": [
       {
         "tagName": "@returns",
@@ -17503,17 +17513,17 @@
     "longname": "src/resources/User.js~User#roles",
     "access": null,
     "description": "Get the list roles linked to the user",
-    "lineNumber": 185,
+    "lineNumber": 186,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{SimpleResourceProxy} - A proxy for accessing the resource"
+        "tagValue": "{OwnedResourceProxy} - A proxy for accessing the resource"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "SimpleResourceProxy"
+        "OwnedResourceProxy"
       ],
       "spread": false,
       "description": "A proxy for accessing the resource"

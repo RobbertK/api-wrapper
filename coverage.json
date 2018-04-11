@@ -473,8 +473,8 @@
       "expectCount": 18,
       "actualCount": 16,
       "undocumentLines": [
-        51,
-        52
+        52,
+        53
       ]
     },
     "src/errors/ValidationError.js": {
