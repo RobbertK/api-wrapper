@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:f4f55acbda820ea63ee0, chunkhash:b6d02a55d89a91174d2a, name:bundle, version:v1.3.8
+ * hash:848a374d68dfdc180560, chunkhash:8b7c3da895bc51ac8e7e, name:bundle, version:v1.3.9
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -8211,7 +8211,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
 
   /**
    * Sync items to the organisation
-   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync
+   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync
    * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
    * @throws {TypeError} If the provided items are not of the same type as the proxy target
    * @see http://es6-features.org/#PromiseCombination
@@ -8226,7 +8226,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
 
     /**
      * Attach items to the organisation
-     * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to attach
+     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to attach
      * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
      * @throws {TypeError}If the provided items are not of the same type as the proxy target
      * @see http://es6-features.org/#PromiseCombination
@@ -8240,7 +8240,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
 
     /**
      * Detach items from the organisation
-     * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to unlink
+     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to unlink
      * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
      * @throws {TypeError} If the provided items are not of the same type as the proxy target
      * @see http://es6-features.org/#PromiseCombination
@@ -15340,7 +15340,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.8";
+var version = exports.version = "v1.3.9";
 
 /**
  * Package license

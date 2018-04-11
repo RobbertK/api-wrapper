@@ -867,7 +867,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Sync items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 2167,
                     "end": 2567,
                     "loc": {
@@ -1080,7 +1080,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Sync items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 2167,
                     "end": 2567,
                     "loc": {
@@ -1098,7 +1098,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Attach items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 2644,
                     "end": 3047,
                     "loc": {
@@ -1311,7 +1311,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Attach items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 2644,
                     "end": 3047,
                     "loc": {
@@ -1329,7 +1329,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 3125,
                     "end": 3531,
                     "loc": {
@@ -1542,7 +1542,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+                    "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
                     "start": 3125,
                     "end": 3531,
                     "loc": {
@@ -3827,7 +3827,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Sync items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 2167,
       "end": 2567,
       "loc": {
@@ -3843,7 +3843,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Attach items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 2644,
       "end": 3047,
       "loc": {
@@ -3859,7 +3859,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 3125,
       "end": 3531,
       "loc": {
@@ -5751,7 +5751,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Sync items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Sync items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 2167,
       "end": 2567,
       "loc": {
@@ -6182,7 +6182,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Attach items to the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Attach items to the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to attach\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError}If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 2644,
       "end": 3047,
       "loc": {
@@ -6613,7 +6613,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Detach items from the organisation\n   * @param {Array<Organisation>|Array<number>|Organisation|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
+      "value": "*\n   * Detach items from the organisation\n   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to unlink\n   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.\n   * @throws {TypeError} If the provided items are not of the same type as the proxy target\n   * @see http://es6-features.org/#PromiseCombination\n   ",
       "start": 3125,
       "end": 3531,
       "loc": {
