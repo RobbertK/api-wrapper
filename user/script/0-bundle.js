@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:3a8ce49f0a48ce129843, chunkhash:40ad594172d40268ab1a, name:bundle, version:v1.3.11
+ * hash:a5e68981765782fda958, chunkhash:d020f07f7a5e1ae1b098, name:bundle, version:v1.3.12
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6094,6 +6094,11 @@ var JobResult = function (_ResourceBase) {
       return '/jobs/{job_id}/revisions/{revision}/result';
     }
   }, {
+    key: '_revisionUrl',
+    get: function get() {
+      return this.url.replace('/result', '');
+    }
+  }, {
     key: 'resourceName',
     get: function get() {
       return 'job-result';
@@ -6129,7 +6134,7 @@ var JobResult = function (_ResourceBase) {
   }, {
     key: 'outputUrl',
     get: function get() {
-      return this.url.replace('/result', '/output');
+      return this._revisionUrl + '/output';
     }
   }, {
     key: 'outputUrlUrl',
@@ -6139,12 +6144,12 @@ var JobResult = function (_ResourceBase) {
   }, {
     key: 'logUrl',
     get: function get() {
-      return this.url.replace('/result', '/log');
+      return this._revisionUrl + '/log';
     }
   }, {
     key: 'previewUrl',
     get: function get() {
-      return this.url.replace('/result', '/preview');
+      return this._revisionUrl + '/preview';
     }
   }]);
 
@@ -13828,6 +13833,20 @@ var JobMonitorRow = function (_JobResult) {
   }
 
   _createClass(JobMonitorRow, [{
+    key: 'resourcePath',
+    get: function get() {
+      return '/jobs/{job_id}/revisions/{revision}';
+    }
+
+    /**
+     * Guess type based on property name
+     * @param {string} name - Field name
+     * @param {*} value - Field Value
+     * @private
+     * @returns {*} - Original or converted value
+     */
+
+  }, {
     key: 'resourceName',
     get: function get() {
       return 'job-monitor';
@@ -13851,14 +13870,6 @@ var JobMonitorRow = function (_JobResult) {
     }
   }], [{
     key: '_guessType',
-
-    /**
-     * Guess type based on property name
-     * @param {string} name - Field name
-     * @param {*} value - Field Value
-     * @private
-     * @returns {*} - Original or converted value
-     */
     value: function _guessType(name, value) {
       if (['dealt_with', 'bought'].includes(name)) {
         return Boolean(value);
@@ -15344,7 +15355,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.11";
+var version = exports.version = "v1.3.12";
 
 /**
  * Package license
