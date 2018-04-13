@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:a5e68981765782fda958, chunkhash:d020f07f7a5e1ae1b098, name:bundle, version:v1.3.12
+ * hash:8d96ad9cd4bc43bbadd8, chunkhash:5f6ff1e0caee09385a40, name:bundle, version:v1.3.13
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.13) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6094,11 +6094,6 @@ var JobResult = function (_ResourceBase) {
       return '/jobs/{job_id}/revisions/{revision}/result';
     }
   }, {
-    key: '_revisionUrl',
-    get: function get() {
-      return this.url.replace('/result', '');
-    }
-  }, {
     key: 'resourceName',
     get: function get() {
       return 'job-result';
@@ -6134,22 +6129,22 @@ var JobResult = function (_ResourceBase) {
   }, {
     key: 'outputUrl',
     get: function get() {
-      return this._revisionUrl + '/output';
+      return this.url + '/output';
     }
   }, {
     key: 'outputUrlUrl',
     get: function get() {
-      return this.outputUrl + '-url';
+      return this.url + '-url';
     }
   }, {
     key: 'logUrl',
     get: function get() {
-      return this._revisionUrl + '/log';
+      return this.url + '/log';
     }
   }, {
     key: 'previewUrl',
     get: function get() {
-      return this._revisionUrl + '/preview';
+      return this.url + '/preview';
     }
   }]);
 
@@ -15355,7 +15350,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.12";
+var version = exports.version = "v1.3.13";
 
 /**
  * Package license
