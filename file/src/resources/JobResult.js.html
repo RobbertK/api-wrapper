@@ -162,6 +162,22 @@ export default class JobResult extends ResourceBase {
   }
 
   /**
+   * Get the related job
+   * @returns {Promise&lt;Job, ApiError&gt;} - The job related to this row
+   */
+  get job() {
+    return this.api.jobs.get(this.jobId);
+  }
+
+  /**
+   * Get the related job revision
+   * @returns {Promise&lt;JobRevision, ApiError&gt;} - The job revision related to this row
+   */
+  get jobRevision() {
+    return this.api.jobs.select(this.jobId).revisions.get(this.id);
+  }
+
+  /**
    * Job result archive url
    * @returns {string} - Archive url
    */

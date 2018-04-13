@@ -149,10 +149,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import ResourceBase from &apos;./base/ResourceBase&apos;;
+import JobResult from &apos;./JobResult&apos;;
 
-export default class JobMonitorRow extends ResourceBase {
-
+export default class JobMonitorRow extends JobResult {
   /**
    * Guess type based on property name
    * @param {string} name - Field name
@@ -168,28 +167,16 @@ export default class JobMonitorRow extends ResourceBase {
     return super._guessType(name, value);
   }
 
+  get resourceName() {
+    return &apos;job-monitor&apos;;
+  }
+
   /**
    * Returns if the resource is readonly
    * @returns {boolean} - readonly
    */
   static get readonly() {
     return true;
-  }
-
-  /**
-   * Get the related job
-   * @returns {Promise&lt;Job, ApiError&gt;} - The job related to this row
-   */
-  get job() {
-    return this.api.jobs.get(this.jobId);
-  }
-
-  /**
-   * Get the related job revision
-   * @returns {Promise&lt;JobRevision, ApiError&gt;} - The job revision related to this row
-   */
-  get jobRevision() {
-    return this.api.jobs.select(this.jobId).revisions.get(this.id);
   }
 
   /**

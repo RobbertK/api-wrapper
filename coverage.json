@@ -1,6 +1,6 @@
 {
-  "coverage": "81.93%",
-  "expectCount": 476,
+  "coverage": "81.76%",
+  "expectCount": 477,
   "actualCount": 390,
   "files": {
     "src/errors/AbstractError.js": {
@@ -185,15 +185,16 @@
       "undocumentLines": []
     },
     "src/resources/JobMonitorRow.js": {
-      "expectCount": 5,
-      "actualCount": 4,
+      "expectCount": 4,
+      "actualCount": 2,
       "undocumentLines": [
-        35
+        35,
+        51
       ]
     },
     "src/resources/JobResult.js": {
-      "expectCount": 11,
-      "actualCount": 8,
+      "expectCount": 13,
+      "actualCount": 10,
       "undocumentLines": [
         36,
         41,
