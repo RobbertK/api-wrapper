@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:9076373b0fe7233e0e2d, chunkhash:86424e01671005c1661b, name:bundle, version:v1.3.10
+ * hash:3a8ce49f0a48ce129843, chunkhash:40ad594172d40268ab1a, name:bundle, version:v1.3.11
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6129,22 +6129,22 @@ var JobResult = function (_ResourceBase) {
   }, {
     key: 'outputUrl',
     get: function get() {
-      return this.url + '/output';
+      return this.url.replace('/result', '/output');
     }
   }, {
     key: 'outputUrlUrl',
     get: function get() {
-      return this.url + '/output-url';
+      return this.outputUrl + '-url';
     }
   }, {
     key: 'logUrl',
     get: function get() {
-      return this.url + '/log';
+      return this.url.replace('/result', '/log');
     }
   }, {
     key: 'previewUrl',
     get: function get() {
-      return this.url + '/preview';
+      return this.url.replace('/result', '/preview');
     }
   }]);
 
@@ -15344,7 +15344,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.10";
+var version = exports.version = "v1.3.11";
 
 /**
  * Package license
