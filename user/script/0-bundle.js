@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:3f544916baba3bc6a7aa, chunkhash:09fda78e7a96f1b16854, name:bundle, version:v1.3.16
+ * hash:c86cd89ba108d708001a, chunkhash:ac7739be507cd42fe9cd, name:bundle, version:v1.3.17
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -6100,11 +6100,17 @@ var JobResult = function (_ResourceBase) {
   }, {
     key: 'dealWith',
     value: function dealWith() {
+      var _this2 = this;
+
       var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
       var method = value ? 'POST' : 'DELETE';
 
-      return this.api.request(this.url + '/deal-with', method);
+      return this.api.request(this.url + '/deal-with', method).then(function () {
+        _this2.dealtWith = value;
+
+        return value;
+      });
     }
   }, {
     key: 'resourcePath',
@@ -15368,7 +15374,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.16";
+var version = exports.version = "v1.3.17";
 
 /**
  * Package license
