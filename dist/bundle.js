@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:c86cd89ba108d708001a, chunkhash:ac7739be507cd42fe9cd, name:bundle, version:v1.3.17
+ * hash:8f4fb06bb987465d0bff, chunkhash:8c40933e9d50b20064e8, name:bundle, version:v1.3.18
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.18) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -13189,6 +13189,19 @@ var Job = function (_CrudBase) {
     }
 
     /**
+     * Get the remote output url
+     * @returns {Promise} -  Resolves with a {@link String} containing the url to the output and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'getOutputUrl',
+    value: function getOutputUrl() {
+      return this.api.request(this.url + '/output-url').then(function (x) {
+        return x.url;
+      });
+    }
+
+    /**
      * Get headers for downloading resources
      * @returns {{Accept: string, Authorization: string}} - Request headers
      * @private
@@ -15374,7 +15387,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.17";
+var version = exports.version = "v1.3.18";
 
 /**
  * Package license
