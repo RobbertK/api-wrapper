@@ -152,10 +152,6 @@
 import JobResult from &apos;./JobResult&apos;;
 
 export default class JobMonitorRow extends JobResult {
-  get resourcePath() {
-    return &apos;/jobs/{job_id}/revisions/{revision}&apos;;
-  }
-
   /**
    * Guess type based on property name
    * @param {string} name - Field name
