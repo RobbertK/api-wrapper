@@ -1,8 +1,125 @@
 {
-  "coverage": "81.66%",
-  "expectCount": 480,
-  "actualCount": 392,
+  "coverage": "72.28%",
+  "expectCount": 664,
+  "actualCount": 480,
   "files": {
+    "src/ImageHandler.js": {
+      "expectCount": 9,
+      "actualCount": 7,
+      "undocumentLines": [
+        57,
+        58
+      ]
+    },
+    "src/JobMonitor.js": {
+      "expectCount": 29,
+      "actualCount": 16,
+      "undocumentLines": [
+        51,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        90,
+        243,
+        253,
+        269,
+        332
+      ]
+    },
+    "src/Maps4News.js": {
+      "expectCount": 51,
+      "actualCount": 45,
+      "undocumentLines": [
+        107,
+        108,
+        153,
+        178,
+        256,
+        310
+      ]
+    },
+    "src/PaginatedResourceListing.js": {
+      "expectCount": 33,
+      "actualCount": 26,
+      "undocumentLines": [
+        61,
+        64,
+        65,
+        66,
+        67,
+        68,
+        100
+      ]
+    },
+    "src/PaginatedResourceWrapper.js": {
+      "expectCount": 36,
+      "actualCount": 25,
+      "undocumentLines": [
+        51,
+        52,
+        53,
+        54,
+        63,
+        64,
+        65,
+        66,
+        73,
+        78,
+        197
+      ]
+    },
+    "src/RequestParameters.js": {
+      "expectCount": 43,
+      "actualCount": 35,
+      "undocumentLines": [
+        49,
+        286,
+        298,
+        335,
+        357,
+        373,
+        383,
+        394
+      ]
+    },
+    "src/ResourceCache.js": {
+      "expectCount": 15,
+      "actualCount": 9,
+      "undocumentLines": [
+        43,
+        46,
+        47,
+        48,
+        49,
+        51
+      ]
+    },
+    "src/enums/DeletedState.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/enums/Enum.js": {
+      "expectCount": 5,
+      "actualCount": 4,
+      "undocumentLines": [
+        123
+      ]
+    },
+    "src/enums/JobMonitorFilter.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/enums/ResultStatus.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/errors/AbstractError.js": {
       "expectCount": 6,
       "actualCount": 4,
@@ -12,9 +129,142 @@
       ]
     },
     "src/errors/ApiError.js": {
+      "expectCount": 13,
+      "actualCount": 8,
+      "undocumentLines": [
+        44,
+        45,
+        46,
+        47,
+        102
+      ]
+    },
+    "src/errors/NodeError.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/errors/OAuthError.js": {
+      "expectCount": 7,
+      "actualCount": 5,
+      "undocumentLines": [
+        44,
+        45
+      ]
+    },
+    "src/errors/StaticClassError.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/errors/UnsupportedCrudError.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/errors/ValidationError.js": {
+      "expectCount": 5,
+      "actualCount": 4,
+      "undocumentLines": [
+        47
+      ]
+    },
+    "src/index.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/oauth/DummyFlow.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        41
+      ]
+    },
+    "src/oauth/ImplicitFlow.js": {
+      "expectCount": 15,
+      "actualCount": 10,
+      "undocumentLines": [
+        62,
+        64,
+        65,
+        72,
+        88
+      ]
+    },
+    "src/oauth/ImplicitFlowPopup.js": {
+      "expectCount": 6,
+      "actualCount": 4,
+      "undocumentLines": [
+        56,
+        57
+      ]
+    },
+    "src/oauth/OAuth.js": {
+      "expectCount": 11,
+      "actualCount": 6,
+      "undocumentLines": [
+        53,
+        54,
+        55,
+        56,
+        57
+      ]
+    },
+    "src/oauth/OAuthToken.js": {
+      "expectCount": 14,
+      "actualCount": 10,
+      "undocumentLines": [
+        47,
+        48,
+        49,
+        53
+      ]
+    },
+    "src/oauth/PasswordFlow.js": {
+      "expectCount": 16,
+      "actualCount": 11,
+      "undocumentLines": [
+        53,
+        54,
+        55,
+        57,
+        165
+      ]
+    },
+    "src/oauth/StateContainer.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
+    "src/proxy/OrganisationProxy.js": {
+      "expectCount": 10,
+      "actualCount": 8,
+      "undocumentLines": [
+        36,
+        47
+      ]
+    },
+    "src/proxy/OwnedResourceProxy.js": {
       "expectCount": 8,
       "actualCount": 8,
       "undocumentLines": []
+    },
+    "src/proxy/ResourceProxy.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/proxy/SimpleResourceProxy.js": {
+      "expectCount": 14,
+      "actualCount": 9,
+      "undocumentLines": [
+        60,
+        63,
+        64,
+        65,
+        175
+      ]
     },
     "src/resources/Choropleth.js": {
       "expectCount": 2,
@@ -31,26 +281,13 @@
       ]
     },
     "src/resources/Contract.js": {
-      "expectCount": 2,
-      "actualCount": 1,
-      "undocumentLines": [
-        39
-      ]
-    },
-    "src/resources/base/CrudBase.js": {
-      "expectCount": 6,
-      "actualCount": 6,
-      "undocumentLines": []
-    },
-    "src/resources/base/CrudSetBase.js": {
-      "expectCount": 4,
+      "expectCount": 7,
       "actualCount": 4,
-      "undocumentLines": []
-    },
-    "src/enums/DeletedState.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
+      "undocumentLines": [
+        39,
+        103,
+        104
+      ]
     },
     "src/resources/Dimension.js": {
       "expectCount": 2,
@@ -60,11 +297,12 @@
       ]
     },
     "src/resources/DimensionSet.js": {
-      "expectCount": 3,
+      "expectCount": 4,
       "actualCount": 1,
       "undocumentLines": [
+        45,
         49,
-        45
+        53
       ]
     },
     "src/resources/Domain.js": {
@@ -73,18 +311,6 @@
       "undocumentLines": [
         39
       ]
-    },
-    "src/oauth/DummyFlow.js": {
-      "expectCount": 3,
-      "actualCount": 2,
-      "undocumentLines": [
-        41
-      ]
-    },
-    "src/enums/Enum.js": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
     },
     "src/resources/Faq.js": {
       "expectCount": 2,
@@ -109,25 +335,13 @@
       ]
     },
     "src/resources/FontFamily.js": {
-      "expectCount": 3,
+      "expectCount": 4,
       "actualCount": 1,
       "undocumentLines": [
+        44,
         48,
-        44
+        52
       ]
-    },
-    "src/utils/requests.js": {
-      "expectCount": 4,
-      "actualCount": 2,
-      "undocumentLines": [
-        51,
-        38
-      ]
-    },
-    "src/traits/HandlesImages.js": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
     },
     "src/resources/Highlight.js": {
       "expectCount": 2,
@@ -135,28 +349,6 @@
       "undocumentLines": [
         35,
         36
-      ]
-    },
-    "src/ImageHandler.js": {
-      "expectCount": 7,
-      "actualCount": 7,
-      "undocumentLines": []
-    },
-    "src/oauth/ImplicitFlow.js": {
-      "expectCount": 14,
-      "actualCount": 10,
-      "undocumentLines": [
-        64,
-        62,
-        88,
-        65
-      ]
-    },
-    "src/oauth/ImplicitFlowPopup.js": {
-      "expectCount": 5,
-      "actualCount": 4,
-      "undocumentLines": [
-        56
       ]
     },
     "src/resources/InsetMap.js": {
@@ -168,38 +360,28 @@
       ]
     },
     "src/resources/Job.js": {
-      "expectCount": 9,
-      "actualCount": 8,
+      "expectCount": 10,
+      "actualCount": 9,
       "undocumentLines": [
         39
       ]
     },
-    "src/JobMonitor.js": {
-      "expectCount": 16,
-      "actualCount": 16,
-      "undocumentLines": []
-    },
-    "src/enums/JobMonitorFilter.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
     "src/resources/JobMonitorRow.js": {
-      "expectCount": 4,
-      "actualCount": 2,
+      "expectCount": 5,
+      "actualCount": 3,
       "undocumentLines": [
         35,
         51
       ]
     },
     "src/resources/JobResult.js": {
-      "expectCount": 15,
-      "actualCount": 11,
+      "expectCount": 16,
+      "actualCount": 12,
       "undocumentLines": [
         36,
-        148,
+        37,
         41,
-        37
+        148
       ]
     },
     "src/resources/JobRevision.js": {
@@ -208,26 +390,28 @@
       "undocumentLines": [
         39,
         40,
-        48,
         44,
+        48,
         52
       ]
     },
     "src/resources/JobShare.js": {
-      "expectCount": 4,
-      "actualCount": 1,
+      "expectCount": 8,
+      "actualCount": 3,
       "undocumentLines": [
         35,
+        54,
         58,
-        54
+        68,
+        72
       ]
     },
     "src/resources/JobType.js": {
       "expectCount": 3,
       "actualCount": 1,
       "undocumentLines": [
-        47,
-        43
+        43,
+        47
       ]
     },
     "src/resources/Language.js": {
@@ -237,8 +421,8 @@
         35,
         36,
         40,
-        48,
-        44
+        44,
+        48
       ]
     },
     "src/resources/Layer.js": {
@@ -248,16 +432,6 @@
         45
       ]
     },
-    "src/utils/Logger.js": {
-      "expectCount": 10,
-      "actualCount": 10,
-      "undocumentLines": []
-    },
-    "src/Maps4News.js": {
-      "expectCount": 45,
-      "actualCount": 45,
-      "undocumentLines": []
-    },
     "src/resources/Mapstyle.js": {
       "expectCount": 2,
       "actualCount": 1,
@@ -266,17 +440,13 @@
       ]
     },
     "src/resources/MapstyleSet.js": {
-      "expectCount": 3,
+      "expectCount": 4,
       "actualCount": 1,
       "undocumentLines": [
+        44,
         48,
-        44
+        52
       ]
-    },
-    "src/errors/NodeError.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
     },
     "src/resources/Notification.js": {
       "expectCount": 2,
@@ -286,72 +456,13 @@
         36
       ]
     },
-    "src/oauth/OAuth.js": {
-      "expectCount": 11,
-      "actualCount": 6,
-      "undocumentLines": [
-        53,
-        56,
-        57,
-        54,
-        55
-      ]
-    },
-    "src/errors/OAuthError.js": {
-      "expectCount": 5,
-      "actualCount": 5,
-      "undocumentLines": []
-    },
-    "src/oauth/OAuthToken.js": {
-      "expectCount": 14,
-      "actualCount": 10,
-      "undocumentLines": [
-        53,
-        47,
-        48,
-        49
-      ]
-    },
     "src/resources/Organisation.js": {
-      "expectCount": 16,
-      "actualCount": 14,
+      "expectCount": 18,
+      "actualCount": 15,
       "undocumentLines": [
         50,
-        51
-      ]
-    },
-    "src/proxy/OrganisationProxy.js": {
-      "expectCount": 9,
-      "actualCount": 8,
-      "undocumentLines": [
-        36
-      ]
-    },
-    "src/traits/OwnableResource.js": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
-    },
-    "src/proxy/OwnedResourceProxy.js": {
-      "expectCount": 7,
-      "actualCount": 7,
-      "undocumentLines": []
-    },
-    "src/PaginatedResourceListing.js": {
-      "expectCount": 25,
-      "actualCount": 25,
-      "undocumentLines": []
-    },
-    "src/PaginatedResourceWrapper.js": {
-      "expectCount": 25,
-      "actualCount": 25,
-      "undocumentLines": []
-    },
-    "src/oauth/PasswordFlow.js": {
-      "expectCount": 12,
-      "actualCount": 11,
-      "undocumentLines": [
-        165
+        51,
+        180
       ]
     },
     "src/resources/Permission.js": {
@@ -370,36 +481,6 @@
         36
       ]
     },
-    "src/RequestParameters.js": {
-      "expectCount": 34,
-      "actualCount": 34,
-      "undocumentLines": []
-    },
-    "src/resources/base/ResourceBase.js": {
-      "expectCount": 20,
-      "actualCount": 20,
-      "undocumentLines": []
-    },
-    "src/ResourceCache.js": {
-      "expectCount": 11,
-      "actualCount": 7,
-      "undocumentLines": [
-        47,
-        43,
-        48,
-        49
-      ]
-    },
-    "src/proxy/ResourceProxy.js": {
-      "expectCount": 4,
-      "actualCount": 4,
-      "undocumentLines": []
-    },
-    "src/enums/ResultStatus.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
     "src/resources/Role.js": {
       "expectCount": 4,
       "actualCount": 2,
@@ -407,31 +488,6 @@
         6,
         23
       ]
-    },
-    "src/proxy/SimpleResourceProxy.js": {
-      "expectCount": 9,
-      "actualCount": 9,
-      "undocumentLines": []
-    },
-    "src/utils/Singleton.js": {
-      "expectCount": 2,
-      "actualCount": 0,
-      "undocumentLines": [
-        33,
-        34
-      ]
-    },
-    "src/utils/StaticClass.js": {
-      "expectCount": 2,
-      "actualCount": 1,
-      "undocumentLines": [
-        40
-      ]
-    },
-    "src/errors/StaticClassError.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
     },
     "src/resources/Svg.js": {
       "expectCount": 2,
@@ -442,11 +498,12 @@
       ]
     },
     "src/resources/SvgSet.js": {
-      "expectCount": 3,
+      "expectCount": 4,
       "actualCount": 1,
       "undocumentLines": [
+        44,
         48,
-        44
+        52
       ]
     },
     "src/resources/Tag.js": {
@@ -456,21 +513,6 @@
         43
       ]
     },
-    "src/traits/Trait.js": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
-    },
-    "src/utils/Unobservable.js": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
-    },
-    "src/errors/UnsupportedCrudError.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
     "src/resources/User.js": {
       "expectCount": 18,
       "actualCount": 16,
@@ -479,14 +521,147 @@
         53
       ]
     },
-    "src/errors/ValidationError.js": {
+    "src/resources/base/CrudBase.js": {
+      "expectCount": 10,
+      "actualCount": 8,
+      "undocumentLines": [
+        100,
+        101
+      ]
+    },
+    "src/resources/base/CrudSetBase.js": {
+      "expectCount": 5,
+      "actualCount": 4,
+      "undocumentLines": [
+        80
+      ]
+    },
+    "src/resources/base/ResourceBase.js": {
+      "expectCount": 28,
+      "actualCount": 22,
+      "undocumentLines": [
+        39,
+        73,
+        74,
+        75,
+        101,
+        333
+      ]
+    },
+    "src/resources/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/storage/CookiesDriver.js": {
+      "expectCount": 11,
+      "actualCount": 9,
+      "undocumentLines": [
+        40,
+        43
+      ]
+    },
+    "src/storage/DataStoreContract.js": {
+      "expectCount": 9,
+      "actualCount": 8,
+      "undocumentLines": [
+        41
+      ]
+    },
+    "src/storage/FileDriver.js": {
+      "expectCount": 17,
+      "actualCount": 14,
+      "undocumentLines": [
+        47,
+        70,
+        179
+      ]
+    },
+    "src/storage/LocalStorageDriver.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/storage/StorageManager.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/traits/HandlesImages.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/traits/OwnableResource.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/traits/Trait.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/utils/Logger.js": {
+      "expectCount": 12,
+      "actualCount": 10,
+      "undocumentLines": [
+        100,
+        103
+      ]
+    },
+    "src/utils/Singleton.js": {
+      "expectCount": 3,
+      "actualCount": 1,
+      "undocumentLines": [
+        39,
+        42
+      ]
+    },
+    "src/utils/StaticClass.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        40
+      ]
+    },
+    "src/utils/Unobservable.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/utils/hash.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        35
+      ]
+    },
+    "src/utils/helpers.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/utils/node.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/utils/reflection.js": {
       "expectCount": 4,
       "actualCount": 4,
       "undocumentLines": []
     },
-    "src/utils/helpers.js": {
-      "expectCount": 1,
-      "actualCount": 1,
+    "src/utils/requests.js": {
+      "expectCount": 6,
+      "actualCount": 5,
+      "undocumentLines": [
+        43
+      ]
+    },
+    "src/utils/uuid.js": {
+      "expectCount": 3,
+      "actualCount": 3,
       "undocumentLines": []
     }
   }

@@ -2,19 +2,13 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">Example</title>
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | Maps4News Api Wrapper</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
-  
-  
   <script src="script/manual.js"></script>
-<script data-ice="userScript" src="user/script/0-bundle.js"></script>
-<script data-ice="userScript" src="user/script/1-sandbox.js"></script>
-<link data-ice="userStyle" rel="stylesheet" href="user/css/0-sidebar_fix.css">
-<link data-ice="userStyle" rel="stylesheet" href="user/css/1-hide_import.css">
-</head>
+<script src="./inject/script/0-bundle.js"></script><script src="./inject/script/0-sandbox.js"></script><link rel="stylesheet" href="./inject/css/0-sidebar_fix.css"><link rel="stylesheet" href="./inject/css/0-hide_import.css"><meta name="description" content="Maps4News Api Javascript Wrapper"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Maps4News Api Wrapper"><meta property="twitter:description" content="Maps4News Api Javascript Wrapper"></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
 <header>
@@ -23,7 +17,6 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/MapCreatorEU/api-wrapper" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -31,61 +24,54 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-</header>
+<a style="position:relative; top:3px;" href="https://github.com/MapCreatorEU/api-wrapper"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
-<div data-ice="manual" data-toc-name="installation">
+<div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/building.html"><a href="manual/installation/building.html" data-ice="link">Building</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/building.html"><a href="manual/installation/building.html#building-docs" data-ice="link">Building docs</a></li>
-<li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/installation.html"><a href="manual/installation/installation.html" data-ice="link">Installation</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/examples.html"><a href="manual/examples.html" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#getting-a-resource" data-ice="link">Getting a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#create-a-new-resource" data-ice="link">Create a new resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#modify-a-resource" data-ice="link">Modify a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#clone-a-resource" data-ice="link">Clone a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#pagination" data-ice="link">Pagination</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#searching" data-ice="link">Searching</a></li>
 </ul>
   </div>
-<div data-ice="manual" data-toc-name="example">
+<div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;" data-link="manual/example/examples.html"><a href="manual/example/examples.html" data-ice="link">Basics</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#getting-a-resource" data-ice="link">Getting a resource</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#create-a-new-resource" data-ice="link">Create a new resource</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#modify-a-resource" data-ice="link">Modify a resource</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#clone-a-resource" data-ice="link">Clone a resource</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#pagination" data-ice="link">Pagination</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.html"><a href="manual/example/examples.html#searching" data-ice="link">Searching</a></li>
-<li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html" data-ice="link">Authentication</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#web" data-ice="link">Web</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#implicit-flow" data-ice="link">Implicit Flow</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#implicit-flow-pop-up" data-ice="link">Implicit flow pop-up</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#implicit-flow-pop-up-advanced-" data-ice="link">Implicit flow pop-up (advanced)</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#password-flow-dangerous-" data-ice="link">Password flow (dangerous)</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#nodejs" data-ice="link">Nodejs</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#password-flow" data-ice="link">Password Flow</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/examples.authentication.html"><a href="manual/example/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html" data-ice="link">Authentication</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#web" data-ice="link">Web</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#implicit-flow" data-ice="link">Implicit Flow</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#implicit-flow-pop-up" data-ice="link">Implicit flow pop-up</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#implicit-flow-pop-up--advanced-" data-ice="link">Implicit flow pop-up (advanced)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#password-flow--dangerous-" data-ice="link">Password flow (dangerous)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#nodejs" data-ice="link">Nodejs</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#password-flow" data-ice="link">Password Flow</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
 </ul>
   </div>
-<div data-ice="manual" data-toc-name="reference">
+<div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#class" data-ice="link">Class</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#interface" data-ice="link">Interface</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/building.html"><a href="manual/building.html" data-ice="link">Building</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/building.html"><a href="manual/building.html#building-docs" data-ice="link">Building docs</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/installation.html"><a href="manual/installation.html" data-ice="link">Installation</a></li>
 </ul>
   </div>
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown">
-  <div class="manual-breadcrumb-list">
-    <a href="./manual/./index.html">Manual</a>
-    <span>&#xBB;</span>
-    <span data-ice="title">Example</span>
-  </div>
-  <div data-ice="content"><h1 id="authentication">Authentication</h1>
-<p>Authentication is done through <a href="https://oauth.org">OAuth</a>. This library provides multiple <a href="https://aaronparecki.com/oauth-2-simplified/#authorization">OAuth flow</a>
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="authentication">Authentication</h1><p>Authentication is done through <a href="https://oauth.org">OAuth</a>. This library provides multiple <a href="https://aaronparecki.com/oauth-2-simplified/#authorization">OAuth flow</a>
 implementations for authentication. A client id can be obtained through a support
 ticket but this is planned to change in the near future. The client will first
 check if any tokens can be found in the cache before requiring authentication.
@@ -94,11 +80,9 @@ any side-effects. The variable <code>api.authenticated</code> will be set to tru
 has been found and is still valid. </p>
 <p>Tokens are stored in HTTPS cookies if possible and using <code>localStorage</code> when the
 browser is not using a HTTPS connection. <a href="https://nodejs.org">Nodejs</a> uses a file named <code>.m4n_token</code> to store the token.</p>
-<h2 id="web">Web</h2>
-<p>Multiple flows are supported for web browsers. All the web examples assume the web
+<h2 id="web">Web</h2><p>Multiple flows are supported for web browsers. All the web examples assume the web
 build of the library has been included in the target page.</p>
-<h3 id="implicit-flow">Implicit Flow</h3>
-<p>A client id is required to use the implicit flow. The redirect url <em>must</em> be the 
+<h3 id="implicit-flow">Implicit Flow</h3><p>A client id is required to use the implicit flow. The redirect url <em>must</em> be the 
 same as the one linked to the client id. The callback url is automatically 
 guessed if none is provided.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">// Obtained client id
@@ -116,8 +100,7 @@ api.authenticate().then(function() {
   api.users.get(&apos;me&apos;).then(console.dir);
 });</code>
 </code></pre>
-<h3 id="implicit-flow-pop-up">Implicit flow pop-up</h3>
-<p>Just like the Implicit Flow a client id is required. </p>
+<h3 id="implicit-flow-pop-up">Implicit flow pop-up</h3><p>Just like the Implicit Flow a client id is required. </p>
 <pre><code class="lang-js"><code class="source-code prettyprint">// Obtained client id
 var clientId = 1;
 
@@ -138,8 +121,7 @@ api.authenticate().then(function() {
   api.users.get(&apos;me&apos;).then(console.dir);
 });</code>
 </code></pre>
-<h3 id="implicit-flow-pop-up-advanced-">Implicit flow pop-up (advanced)</h3>
-<p>Due to the nature of the implicit flow pop-up (referred to as IFP from now on)
+<h3 id="implicit-flow-pop-up--advanced-">Implicit flow pop-up (advanced)</h3><p>Due to the nature of the implicit flow pop-up (referred to as IFP from now on)
 method the callback page can be set to a blank page that just grabs the token 
 and then closes. This can be done in the following way.</p>
 <p><strong>index.html:</strong></p>
@@ -161,8 +143,7 @@ api.authenticate().then(function() {
 // This will instantly detect the token and close the page
 new ImplicitFlowPopup(clientId);</code>
 </code></pre>
-<h3 id="password-flow-dangerous-">Password flow (dangerous)</h3>
-<p>The password flow is <strong>NOT</strong> intended to be used in the browser. If you do 
+<h3 id="password-flow--dangerous-">Password flow (dangerous)</h3><p>The password flow is <strong>NOT</strong> intended to be used in the browser. If you do 
 decide to use the password flow then it is recommended to make sure that 
 the site is <strong>NOT</strong> public facing and using HTTPS. Leaking the <a href="https://www.youtube.com/watch?v=zwZISypgA9M">secret</a> is
 a very bad idea.</p>
@@ -182,8 +163,7 @@ api.authenticate().then(function() {
   api.users.get(&apos;me&apos;).then(console.dir);
 });</code>
 </code></pre>
-<h3 id="dummy-flow">Dummy flow</h3>
-<p>The dummy flow can be used when a token <em>should</em> be present in the cache. </p>
+<h3 id="dummy-flow">Dummy flow</h3><p>The dummy flow can be used when a token <em>should</em> be present in the cache. </p>
 <pre><code class="lang-js"><code class="source-code prettyprint">var auth = new DummyFlow();
 var api = new Maps4News(auth);
 
@@ -200,11 +180,9 @@ api.authenticate().then(function() {
     console.log(err.toString());
 });</code>
 </code></pre>
-<h2 id="nodejs">Nodejs</h2>
-<p>The library currently only supports the password flow and the dummy flow
+<h2 id="nodejs">Nodejs</h2><p>The library currently only supports the password flow and the dummy flow
 for <a href="https://nodejs.org">nodejs</a>. Other flows might be added in the future.</p>
-<h3 id="password-flow">Password Flow</h3>
-<p>Make sure to store your <a href="https://www.youtube.com/watch?v=zwZISypgA9M">secret</a> somewhere safe and to only store the token
+<h3 id="password-flow">Password Flow</h3><p>Make sure to store your <a href="https://www.youtube.com/watch?v=zwZISypgA9M">secret</a> somewhere safe and to only store the token
 and <strong>never</strong> the unencrypted user password.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">var clientId = 1; // client id
 var secret = &apos;&apos;; // secret
@@ -220,8 +198,7 @@ api.authenticate().then(function() {
   api.users.get(&apos;me&apos;).then(console.dir);
 });</code>
 </code></pre>
-<h3 id="dummy-flow">Dummy flow</h3>
-<p>The dummy flow can also be used when a token is known.</p>
+<h3 id="dummy-flow">Dummy flow</h3><p>The dummy flow can also be used when a token is known.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">var auth = new DummyFlow();
 var api = new Maps4News(auth);
 
@@ -249,10 +226,9 @@ api.authenticate().then(function() {
 </code></pre>
 </div>
 </div>
-</div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

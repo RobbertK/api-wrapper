@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | Maps4News Api Wrapper</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<script src="./inject/script/0-bundle.js"></script><script src="./inject/script/0-sandbox.js"></script><link rel="stylesheet" href="./inject/css/0-sidebar_fix.css"><link rel="stylesheet" href="./inject/css/0-hide_import.css"><meta name="description" content="Maps4News Api Javascript Wrapper"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Maps4News Api Wrapper"><meta property="twitter:description" content="Maps4News Api Javascript Wrapper"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/MapCreatorEU/api-wrapper"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/examples.html"><a href="manual/examples.html" data-ice="link">Basics</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#getting-a-resource" data-ice="link">Getting a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#create-a-new-resource" data-ice="link">Create a new resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#modify-a-resource" data-ice="link">Modify a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#clone-a-resource" data-ice="link">Clone a resource</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#pagination" data-ice="link">Pagination</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.html"><a href="manual/examples.html#searching" data-ice="link">Searching</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html" data-ice="link">Authentication</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#web" data-ice="link">Web</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#implicit-flow" data-ice="link">Implicit Flow</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#implicit-flow-pop-up" data-ice="link">Implicit flow pop-up</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#implicit-flow-pop-up--advanced-" data-ice="link">Implicit flow pop-up (advanced)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#password-flow--dangerous-" data-ice="link">Password flow (dangerous)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#nodejs" data-ice="link">Nodejs</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#password-flow" data-ice="link">Password Flow</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/examples.authentication.html"><a href="manual/examples.authentication.html#dummy-flow" data-ice="link">Dummy flow</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/building.html"><a href="manual/building.html" data-ice="link">Building</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/building.html"><a href="manual/building.html#building-docs" data-ice="link">Building docs</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/installation.html"><a href="manual/installation.html" data-ice="link">Installation</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="basics">Basics</h1><p>These examples assume that an instance of the api exists and is authenticated. 
+See the node and web authentication examples for more information on authenticating.</p>
+<h3 id="getting-a-resource">Getting a resource</h3><p>Resources are bound to the base api class by default. Resources can be fetched in 
+two ways; by selecting them (<code>.select</code>) or by fetching them (<code>.get</code>). Selecting them will only set the
+object&apos;s id to it&apos;s properties. Fetching a resource</p>
+<p>Fetch resource and all it&apos;s properties:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.colors.get(1).then(function(color) {
+    console.log(color.id + &quot; &quot; + color.name + &quot;: &quot; + color.hex);
+})</code>
+</code></pre>
+<p>Select the current user to quickly obtain related mapstyle sets:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).mapstyleSets().then(function(sets) {
+    for(var i = 0; i &lt; sets.data.length; i++) {
+        console.log(sets.data[i].name);
+    }
+});</code>
+</code></pre>
+<p>Selection is only usefull as a stepping stone to related resources that can be easily obtained 
+using the id of the parent. Please refer to the [api documentation] for further reference.</p>
+<h3 id="create-a-new-resource">Create a new resource</h3><p>Create a new color and dump the new resource to the console after saving</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">var data = {name: &apos;Smurf&apos;, hex: &apos;88CCFF&apos;};
+api.colors.new(data).save().then(console.dir);</code>
+</code></pre>
+<h3 id="modify-a-resource">Modify a resource</h3><p>Change profession of the current user and save it.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.users.get(&apos;me&apos;).then(me =&gt; {
+  me.profession = &apos;Developer&apos;;
+  me.save(); // Optional chaining to get the updated resource
+});</code>
+</code></pre>
+<h3 id="clone-a-resource">Clone a resource</h3><p>Setting the id to null forces the creation of a new object upon saving. </p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.colors.get(1).then(color =&gt; {
+  color.id = null;
+  color.save();
+});</code>
+</code></pre>
+<h3 id="pagination">Pagination</h3><p>Listing resources with pagination. First page with 5 items per page</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.colors.list(1, 5).then(page =&gt; {
+  console.log(&apos;Got resources:&apos;);
+
+  for (var i = 0; i &lt; page.data.length; i++) {
+    console.log(page.data[i].toString());
+  }
+});</code>
+</code></pre>
+<p>Loop over every page and print the result to the console.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">function parsePages(page) {
+  for (var i = 0; i &lt; page.data.length; i++) {
+    console.log(page.data[i].toString());     
+  }  
+
+  if (page.hasNext) {
+    console.log(&apos;Grabbing page &apos; + (page.page + 1));
+    page.next().then(parsePage);
+  }
+}
+
+api.colors
+   .list(1, 50)
+   .then(parsePages);</code>
+</code></pre>
+<p>Loop over all pages and return the data in a promise</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">function parsePages(page) {
+  var data = [];
+
+  function parse(page) {
+      data = data.concat(page.data);
+
+      if(page.hasNext) {
+          return page.next().then(parse);
+      } else {
+          return data;
+      }
+  }  
+
+  return parse(page);
+}
+
+api.colors
+   .list(1, 50)
+   .then(parsePages)
+   .then(d =&gt; console.log(&apos;Total rows: &apos; + d.length));</code>
+</code></pre>
+<p>Select current user but do not fetch any info to make fetching resources easier.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">api.users.select(&apos;me&apos;).colors.list().then(page =&gt; {
+  console.dir(page.data);
+});</code>
+</code></pre>
+<h3 id="searching">Searching</h3><p>Resource lists can be queried to search for specific records as follows:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">var query = {
+  name: &apos;^:test&apos;,
+  scale_min: [&apos;&gt;:1&apos;, &apos;&lt;:10&apos;],
+}
+api.layers.search(query).then(console.dir);</code>
+</code></pre>
+<p>The <code>search</code> method is an extension of <code>list</code>. This means that <code>.search({})</code> is the same as 
+<code>list()</code>. More information about search query formatting can be found in the [api documentation].</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

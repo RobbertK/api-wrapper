@@ -31,25 +31,25 @@
  * 
  */
 /*!
- * hash:acd0d3c159e91ef8397b, chunkhash:7032877048e01f49334c, name:bundle, version:v1.3.19
+ * hash:417914a61f95aa7238b2, chunkhash:dac7f0bfea9de8848ecf, name:bundle, version:v1.3.20
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.19) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.20) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
- *    │  │  └─ regenerator-runtime (0.11.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime ~ regenerator-runtime/package.json
+ *    │  │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime ~ regenerator-runtime/package.json
  *    │  └─ regenerator-runtime (0.10.5) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
- *    ├─ case (1.5.4) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
+ *    ├─ case (1.5.5) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
  *    ├─ fetch-ponyfill (4.1.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/fetch-ponyfill/package.json
  *    │  └─ node-fetch (1.7.3) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/node-fetch/package.json
  *    │     ├─ encoding (0.1.12) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/encoding/package.json
  *    │     │  └─ iconv-lite (0.4.19) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/iconv-lite/package.json
  *    │     └─ is-stream (1.1.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/is-stream/package.json
- *    ├─ formdata-polyfill (3.0.9) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/formdata-polyfill/package.json
+ *    ├─ formdata-polyfill (3.0.10) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/formdata-polyfill/package.json
  *    ├─ json-stable-stringify (1.0.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/json-stable-stringify/package.json
  *    │  └─ jsonify (0.0.0) ── public domain ── node_modules/jsonify/package.json
- *    └─ mitt (1.1.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/mitt/package.json
+ *    └─ mitt (1.1.3) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/mitt/package.json
  * 
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -61,7 +61,7 @@
 		exports["maps4news"] = factory();
 	else
 		root["maps4news"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1756,6 +1756,9 @@ var _node = __webpack_require__(34);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * @private
+ */
 var _ref = (0, _helpers.windowTest)('fetch') ? window : (0, _fetchPonyfill2.default)({ Promise: Promise }),
     fetch = _ref.fetch,
     Request = _ref.Request,
@@ -1779,6 +1782,9 @@ function getFormData() {
   return null;
 }
 
+/**
+ * @private
+ */
 var FormData = exports.FormData = getFormData();
 
 /**
@@ -1786,7 +1792,7 @@ var FormData = exports.FormData = getFormData();
  * @param {object<string, *>} paramsObject - data to be encoded
  * @returns {string} - encoded http query string
  *
- * @protected
+ * @private
  */
 function encodeQueryString(paramsObject) {
   var query = _encodeQueryString(paramsObject);
@@ -1839,7 +1845,7 @@ function _encodeQueryString(paramsObject) {
  * @param {string} url - Target url
  * @param {object<string, string>} headers - Request headers
  * @returns {PromiseLike<{filename: string, blob: string}>} - filename and blob
- * @protected
+ * @private
  */
 function downloadFile(url) {
   var headers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -4973,8 +4979,8 @@ module.exports = function (it) {
 /* 65 */
 /***/ (function(module, exports) {
 
-/*! Case - v1.5.4 - 2017-10-23
-* Copyright (c) 2017 Nathan Bubna; Licensed MIT, GPL */
+/*! Case - v1.5.5 - 2018-05-04
+* Copyright (c) 2018 Nathan Bubna; Licensed MIT, GPL */
 (function() {
     "use strict";
     var unicodes = function(s, prefix) {
@@ -4996,7 +5002,7 @@ module.exports = function (it) {
             fill: new RegExp('['+symbols+']+(.|$)','g'),
             sentence: new RegExp('(^\\s*|[\\?\\!\\.]+"?\\s+"?|,\\s+")(['+lowers+'])', 'g'),
             improper: new RegExp('\\b('+impropers+')\\b', 'g'),
-            relax: new RegExp('([^'+uppers+'])(['+uppers+']*)(['+uppers+'])(?=['+lowers+']|$)', 'g'),
+            relax: new RegExp('([^'+uppers+'])(['+uppers+']*)(['+uppers+'])(?=[^'+uppers+']|$)', 'g'),
             upper: new RegExp('^[^'+lowers+']+$'),
             hole: /[^\s]\s[^\s]/,
             apostrophe: /'/g,
@@ -10499,7 +10505,7 @@ var Unobservable = function () {
     /**
      * Overrides the `Object.prototype.toString.call(obj)` result
      * @returns {string} - type name
-     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag}
+     * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag
      */
     get: function get() {
       // Anything can go here really as long as it's not 'Object'
@@ -10727,7 +10733,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * Get all the pages from a {@link PaginatedResourceListing} or a range
  * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}
  * @param {?Number} [start=1] - Start page
- * @param {?Number} [stop] - Stop page
+ * @param {?Number} [stop] - Stop page, defaults to the page count if not filled in.
  * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
  * @example
  * import { helpers } from "@mapcreator/maps4news";
@@ -15381,7 +15387,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.19";
+var version = exports.version = "v1.3.20";
 
 /**
  * Package license
@@ -17178,9 +17184,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
   }
 
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
       return fetchPonyfill;
-    }.call(exports, __webpack_require__, exports, module),
+    }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   } else if (typeof exports === 'object') {
     module.exports = fetchPonyfill;
@@ -17195,19 +17201,22 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
 /* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var g,k="function"==typeof Object.defineProperties?Object.defineProperty:function(b,a,d){b!=Array.prototype&&b!=Object.prototype&&(b[a]=d.value)},l="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this;function n(){n=function(){};l.Symbol||(l.Symbol=p)}var p=function(){var b=0;return function(a){return"jscomp_symbol_"+(a||"")+b++}}();
-function q(){n();var b=l.Symbol.iterator;b||(b=l.Symbol.iterator=l.Symbol("iterator"));"function"!=typeof Array.prototype[b]&&k(Array.prototype,b,{configurable:!0,writable:!0,value:function(){return u(this)}});q=function(){}}function u(b){var a=0;return v(function(){return a<b.length?{done:!1,value:b[a++]}:{done:!0}})}function v(b){q();b={next:b};b[l.Symbol.iterator]=function(){return this};return b}function w(b){q();n();q();var a=b[Symbol.iterator];return a?a.call(b):u(b)}
-if(!window.FormData||!window.FormData.prototype.keys){var x=function(b,a,d){if(2>arguments.length)throw new TypeError("2 arguments required, but only "+arguments.length+" present.");return a instanceof Blob?[b+"",a,void 0!==d?d+"":"string"===typeof a.name?a.name:"Blob"]:[b+"",a+""]},y=function(b){if(!arguments.length)throw new TypeError("1 argument required, but only 0 present.");return[b+""]},A=function(b){var a=w(b);b=a.next().value;a=a.next().value;b instanceof Blob&&(b=new File([b],a,{type:b.type,
-lastModified:b.lastModified}));return b},B=window.FormData,C=window.XMLHttpRequest.prototype.send,D=window.Request&&window.fetch;n();var E=window.Symbol&&Symbol.toStringTag,F=new WeakMap,G=Array.from||function(b){return[].slice.call(b)};E&&(Blob.prototype[E]||(Blob.prototype[E]="Blob"),"File"in window&&!File.prototype[E]&&(File.prototype[E]="File"));try{new File([],"")}catch(b){window.File=function(a,d,c){a=new Blob(a,c);c=c&&void 0!==c.lastModified?new Date(c.lastModified):new Date;Object.defineProperties(a,
-{name:{value:d},lastModifiedDate:{value:c},lastModified:{value:+c},toString:{value:function(){return"[object File]"}}});E&&Object.defineProperty(a,E,{value:"File"});return a}}var H=function(b){F.set(this,Object.create(null));if(!b)return this;b=w(G(b.elements));for(var a=b.next();!a.done;a=b.next())if(a=a.value,a.name&&!a.disabled)if("file"===a.type)for(var d=w(a.files),c=d.next();!c.done;c=d.next())this.append(a.name,c.value);else if("select-multiple"===a.type||"select-one"===a.type)for(d=w(G(a.options)),
-c=d.next();!c.done;c=d.next())c=c.value,c.selected&&this.append(a.name,c.value);else"checkbox"===a.type||"radio"===a.type?a.checked&&this.append(a.name,a.value):this.append(a.name,a.value)};g=H.prototype;g.append=function(b,a,d){var c=F.get(this);c[b]||(c[b]=[]);c[b].push([a,d])};g["delete"]=function(b){delete F.get(this)[b]};g.entries=function(){function b(b,t,I){for(;;)switch(a){case 0:z=F.get(J);h=[];m=z;for(f in m)h.push(f);r=0;case 1:if(!(r<h.length)){a=3;break}f=h[r];if(f in m){a=4;break}a=
-2;break;case 4:e=w(z[f]),c=e.next();case 5:if(c.done){a=7;break}d=c.value;a=8;return{value:[f,A(d)],done:!1};case 8:if(1!=b){a=9;break}a=-1;throw I;case 9:case 6:c=e.next();a=5;break;case 7:case 2:r++;a=1;break;case 3:a=-1;default:return{value:void 0,done:!0}}}var a=0,d,c,e,f,m,r,h,z,J=this,t={next:function(a){return b(0,a,void 0)},"throw":function(a){return b(1,void 0,a)},"return":function(){throw Error("Not yet implemented");}};q();t[Symbol.iterator]=function(){return this};return t};g.forEach=
-function(b,a){for(var d=w(this),c=d.next();!c.done;c=d.next()){var e=w(c.value);c=e.next().value;e=e.next().value;b.call(a,e,c,this)}};g.get=function(b){var a=F.get(this);return a[b]?A(a[b][0]):null};g.getAll=function(b){return(F.get(this)[b]||[]).map(A)};g.has=function(b){return b in F.get(this)};g.keys=function(){function b(b,h,t){for(;;)switch(a){case 0:m=w(r),f=m.next();case 1:if(f.done){a=3;break}e=f.value;c=w(e);d=c.next().value;a=4;return{value:d,done:!1};case 4:if(1!=b){a=5;break}a=-1;throw t;
-case 5:case 2:f=m.next();a=1;break;case 3:a=-1;default:return{value:void 0,done:!0}}}var a=0,d,c,e,f,m,r=this,h={next:function(a){return b(0,a,void 0)},"throw":function(a){return b(1,void 0,a)},"return":function(){throw Error("Not yet implemented");}};q();h[Symbol.iterator]=function(){return this};return h};g.set=function(b,a,d){F.get(this)[b]=[[a,d]]};g.values=function(){function b(b,h,t){for(;;)switch(a){case 0:m=w(r),f=m.next();case 1:if(f.done){a=3;break}e=f.value;c=w(e);c.next();d=c.next().value;
-a=4;return{value:d,done:!1};case 4:if(1!=b){a=5;break}a=-1;throw t;case 5:case 2:f=m.next();a=1;break;case 3:a=-1;default:return{value:void 0,done:!0}}}var a=0,d,c,e,f,m,r=this,h={next:function(a){return b(0,a,void 0)},"throw":function(a){return b(1,void 0,a)},"return":function(){throw Error("Not yet implemented");}};q();h[Symbol.iterator]=function(){return this};return h};H.prototype._asNative=function(){for(var b=new B,a=w(this),d=a.next();!d.done;d=a.next()){var c=w(d.value);d=c.next().value;c=
-c.next().value;b.append(d,c)}return b};H.prototype._blob=function(){for(var b="----formdata-polyfill-"+Math.random(),a=[],d=w(this),c=d.next();!c.done;c=d.next()){var e=w(c.value);c=e.next().value;e=e.next().value;a.push("--"+b+"\r\n");e instanceof Blob?a.push('Content-Disposition: form-data; name="'+c+'"; filename="'+e.name+'"\r\n',"Content-Type: "+(e.type||"application/octet-stream")+"\r\n\r\n",e,"\r\n"):a.push('Content-Disposition: form-data; name="'+c+'"\r\n\r\n'+e+"\r\n")}a.push("--"+b+"--");
-return new Blob(a,{type:"multipart/form-data; boundary="+b})};n();q();H.prototype[Symbol.iterator]=function(){return this.entries()};H.prototype.toString=function(){return"[object FormData]"};E&&(H.prototype[E]="FormData");[["append",x],["delete",y],["get",y],["getAll",y],["has",y],["set",x]].forEach(function(b){var a=H.prototype[b[0]];H.prototype[b[0]]=function(){return a.apply(this,b[1].apply(this,G(arguments)))}});XMLHttpRequest.prototype.send=function(b){b instanceof H&&(b=b._blob(),this.setRequestHeader("Content-Type",
-b.type));C.call(this,b)};if(D){var K=window.fetch;window.fetch=function(b,a){a&&a.body&&a.body instanceof H&&(a.body=a.body._blob());return K(b,a)}}window.FormData=H};
+/* WEBPACK VAR INJECTION */(function(global) {;(function(){var k,l="function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,e){a!=Array.prototype&&a!=Object.prototype&&(a[b]=e.value)},m="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this;function n(){n=function(){};m.Symbol||(m.Symbol=p)}var p=function(){var a=0;return function(b){return"jscomp_symbol_"+(b||"")+a++}}();
+function r(){n();var a=m.Symbol.iterator;a||(a=m.Symbol.iterator=m.Symbol("iterator"));"function"!=typeof Array.prototype[a]&&l(Array.prototype,a,{configurable:!0,writable:!0,value:function(){return u(this)}});r=function(){}}function u(a){var b=0;return v(function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}})}function v(a){r();a={next:a};a[m.Symbol.iterator]=function(){return this};return a}function w(a){r();n();r();var b=a[Symbol.iterator];return b?b.call(a):u(a)}
+function x(){this.g=!1;this.c=null;this.m=void 0;this.b=1;this.l=this.o=0;this.f=null}function z(a){if(a.g)throw new TypeError("Generator is already running");a.g=!0}x.prototype.h=function(a){this.m=a};x.prototype.i=function(a){this.f={s:a,u:!0};this.b=this.o||this.l};x.prototype["return"]=function(a){this.f={"return":a};this.b=this.l};function A(a,b,e){a.b=e;return{value:b}}function B(a){this.v=a;this.j=[];for(var b in a)this.j.push(b);this.j.reverse()}function C(a){this.a=new x;this.w=a}
+C.prototype.h=function(a){z(this.a);if(this.a.c)return D(this,this.a.c.next,a,this.a.h);this.a.h(a);return E(this)};function F(a,b){z(a.a);var e=a.a.c;if(e)return D(a,"return"in e?e["return"]:function(a){return{value:a,done:!0}},b,a.a["return"]);a.a["return"](b);return E(a)}C.prototype.i=function(a){z(this.a);if(this.a.c)return D(this,this.a.c["throw"],a,this.a.h);this.a.i(a);return E(this)};
+function D(a,b,e,c){try{var d=b.call(a.a.c,e);if(!(d instanceof Object))throw new TypeError("Iterator result "+d+" is not an object");if(!d.done)return a.a.g=!1,d;var f=d.value}catch(g){return a.a.c=null,a.a.i(g),E(a)}a.a.c=null;c.call(a.a,f);return E(a)}function E(a){for(;a.a.b;)try{var b=a.w(a.a);if(b)return a.a.g=!1,{value:b.value,done:!1}}catch(e){a.a.m=void 0,a.a.i(e)}a.a.g=!1;if(a.a.f){b=a.a.f;a.a.f=null;if(b.u)throw b.s;return{value:b["return"],done:!0}}return{value:void 0,done:!0}}
+function G(a){this.next=function(b){return a.h(b)};this["throw"]=function(b){return a.i(b)};this["return"]=function(b){return F(a,b)};r();this[Symbol.iterator]=function(){return this}}function H(a,b){G.prototype=a.prototype;return new G(new C(b))}
+if("undefined"===typeof FormData||!FormData.prototype.keys){var I=function(a,b,e){if(2>arguments.length)throw new TypeError("2 arguments required, but only "+arguments.length+" present.");return b instanceof Blob?[a+"",b,void 0!==e?e+"":"string"===typeof b.name?b.name:"Blob"]:[a+"",b+""]},J=function(a){if(!arguments.length)throw new TypeError("1 argument required, but only 0 present.");return[a+""]},K=function(a){var b=w(a);a=b.next().value;b=b.next().value;a instanceof Blob&&(a=new File([a],b,{type:a.type,
+lastModified:a.lastModified}));return a},L="object"===typeof window?window:"object"===typeof self?self:this,M=L.FormData,N=L.XMLHttpRequest&&L.XMLHttpRequest.prototype.send,O=L.Request&&L.fetch;n();var P=L.Symbol&&Symbol.toStringTag,Q=new WeakMap,R=Array.from||function(a){return[].slice.call(a)};P&&(Blob.prototype[P]||(Blob.prototype[P]="Blob"),"File"in L&&!File.prototype[P]&&(File.prototype[P]="File"));try{new File([],"")}catch(a){L.File=function(b,e,c){b=new Blob(b,c);c=c&&void 0!==c.lastModified?
+new Date(c.lastModified):new Date;Object.defineProperties(b,{name:{value:e},lastModifiedDate:{value:c},lastModified:{value:+c},toString:{value:function(){return"[object File]"}}});P&&Object.defineProperty(b,P,{value:"File"});return b}}var S=function(a){Q.set(this,Object.create(null));if(!a)return this;a=w(R(a.elements));for(var b=a.next();!b.done;b=a.next())if(b=b.value,b.name&&!b.disabled)if("file"===b.type)for(var e=w(b.files),c=e.next();!c.done;c=e.next())this.append(b.name,c.value);else if("select-multiple"===
+b.type||"select-one"===b.type)for(e=w(R(b.options)),c=e.next();!c.done;c=e.next())c=c.value,c.selected&&this.append(b.name,c.value);else"checkbox"===b.type||"radio"===b.type?b.checked&&this.append(b.name,b.value):this.append(b.name,b.value)};k=S.prototype;k.append=function(a,b,e){var c=Q.get(this);c[a]||(c[a]=[]);c[a].push([b,e])};k["delete"]=function(a){delete Q.get(this)[a]};k.entries=function b(){var e=this,c,d,f,g,h,q;return H(b,function(b){switch(b.b){case 1:c=Q.get(e),f=new B(c);case 2:var t;
+a:{for(t=f;0<t.j.length;){var y=t.j.pop();if(y in t.v){t=y;break a}}t=null}if(null==(d=t)){b.b=0;break}g=w(c[d]);h=g.next();case 5:if(h.done){b.b=2;break}q=h.value;return A(b,[d,K(q)],6);case 6:h=g.next(),b.b=5}})};k.forEach=function(b,e){for(var c=w(this),d=c.next();!d.done;d=c.next()){var f=w(d.value);d=f.next().value;f=f.next().value;b.call(e,f,d,this)}};k.get=function(b){var e=Q.get(this);return e[b]?K(e[b][0]):null};k.getAll=function(b){return(Q.get(this)[b]||[]).map(K)};k.has=function(b){return b in
+Q.get(this)};k.keys=function e(){var c=this,d,f,g,h,q;return H(e,function(e){switch(e.b){case 1:d=w(c),f=d.next();case 2:if(f.done){e.b=0;break}g=f.value;h=w(g);q=h.next().value;return A(e,q,3);case 3:f=d.next(),e.b=2}})};k.set=function(e,c,d){Q.get(this)[e]=[[c,d]]};k.values=function c(){var d=this,f,g,h,q,y;return H(c,function(c){switch(c.b){case 1:f=w(d),g=f.next();case 2:if(g.done){c.b=0;break}h=g.value;q=w(h);q.next();y=q.next().value;return A(c,y,3);case 3:g=f.next(),c.b=2}})};S.prototype._asNative=
+function(){for(var c=new M,d=w(this),f=d.next();!f.done;f=d.next()){var g=w(f.value);f=g.next().value;g=g.next().value;c.append(f,g)}return c};S.prototype._blob=function(){for(var c="----formdata-polyfill-"+Math.random(),d=[],f=w(this),g=f.next();!g.done;g=f.next()){var h=w(g.value);g=h.next().value;h=h.next().value;d.push("--"+c+"\r\n");h instanceof Blob?d.push('Content-Disposition: form-data; name="'+g+'"; filename="'+h.name+'"\r\n',"Content-Type: "+(h.type||"application/octet-stream")+"\r\n\r\n",
+h,"\r\n"):d.push('Content-Disposition: form-data; name="'+g+'"\r\n\r\n'+h+"\r\n")}d.push("--"+c+"--");return new Blob(d,{type:"multipart/form-data; boundary="+c})};n();r();S.prototype[Symbol.iterator]=function(){return this.entries()};S.prototype.toString=function(){return"[object FormData]"};P&&(S.prototype[P]="FormData");[["append",I],["delete",J],["get",J],["getAll",J],["has",J],["set",I]].forEach(function(c){var d=S.prototype[c[0]];S.prototype[c[0]]=function(){return d.apply(this,c[1].apply(this,
+R(arguments)))}});N&&(XMLHttpRequest.prototype.send=function(c){c instanceof S?(c=c._blob(),this.setRequestHeader("Content-Type",c.type),N.call(this,c)):N.call(this,c)});if(O){var T=L.fetch;L.fetch=function(c,d){d&&d.body&&d.body instanceof S&&(d.body=d.body._blob());return T(c,d)}}L.FormData=S};
+})();
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(56)))
 
@@ -17672,10 +17681,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // An event handler can take an optional event argument
 // and should not return a value
                                           
+                                                               
+
 // An array of all currently registered event handlers for a type
                                             
+                                                            
 // A map of event types and their corresponding event handlers.
                         
+                                 
                                    
   
 
@@ -17717,11 +17730,11 @@ function mitt(all                 ) {
 		 *
 		 * @param {String} type  The event type to invoke
 		 * @param {Any} [evt]  Any value (object is recommended and powerful), passed to each handler
-		 * @memberof mitt
+		 * @memberOf mitt
 		 */
 		emit: function emit(type        , evt     ) {
-			(all[type] || []).map(function (handler) { handler(evt); });
-			(all['*'] || []).map(function (handler) { handler(type, evt); });
+			(all[type] || []).slice().map(function (handler) { handler(evt); });
+			(all['*'] || []).slice().map(function (handler) { handler(type, evt); });
 		}
 	};
 }
@@ -20010,68 +20023,102 @@ for (var i = 0, len = code.length; i < len; ++i) {
   revLookup[code.charCodeAt(i)] = i
 }
 
+// Support decoding URL-safe base64 strings, as Node.js does.
+// See: https://en.wikipedia.org/wiki/Base64#URL_applications
 revLookup['-'.charCodeAt(0)] = 62
 revLookup['_'.charCodeAt(0)] = 63
 
-function placeHoldersCount (b64) {
+function getLens (b64) {
   var len = b64.length
+
   if (len % 4 > 0) {
     throw new Error('Invalid string. Length must be a multiple of 4')
   }
 
-  // the number of equal signs (place holders)
-  // if there are two placeholders, than the two characters before it
-  // represent one byte
-  // if there is only one, then the three characters before it represent 2 bytes
-  // this is just a cheap hack to not do indexOf twice
-  return b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
+  // Trim off extra bytes after placeholder bytes are found
+  // See: https://github.com/beatgammit/base64-js/issues/42
+  var validLen = b64.indexOf('=')
+  if (validLen === -1) validLen = len
+
+  var placeHoldersLen = validLen === len
+    ? 0
+    : 4 - (validLen % 4)
+
+  return [validLen, placeHoldersLen]
 }
 
+// base64 is 4/3 + up to two characters of the original data
 function byteLength (b64) {
-  // base64 is 4/3 + up to two characters of the original data
-  return (b64.length * 3 / 4) - placeHoldersCount(b64)
+  var lens = getLens(b64)
+  var validLen = lens[0]
+  var placeHoldersLen = lens[1]
+  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
+}
+
+function _byteLength (b64, validLen, placeHoldersLen) {
+  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
 }
 
 function toByteArray (b64) {
-  var i, l, tmp, placeHolders, arr
-  var len = b64.length
-  placeHolders = placeHoldersCount(b64)
+  var tmp
+  var lens = getLens(b64)
+  var validLen = lens[0]
+  var placeHoldersLen = lens[1]
 
-  arr = new Arr((len * 3 / 4) - placeHolders)
+  var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
+
+  var curByte = 0
 
   // if there are placeholders, only get up to the last complete 4 chars
-  l = placeHolders > 0 ? len - 4 : len
+  var len = placeHoldersLen > 0
+    ? validLen - 4
+    : validLen
 
-  var L = 0
-
-  for (i = 0; i < l; i += 4) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
-    arr[L++] = (tmp >> 16) & 0xFF
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
+  for (var i = 0; i < len; i += 4) {
+    tmp =
+      (revLookup[b64.charCodeAt(i)] << 18) |
+      (revLookup[b64.charCodeAt(i + 1)] << 12) |
+      (revLookup[b64.charCodeAt(i + 2)] << 6) |
+      revLookup[b64.charCodeAt(i + 3)]
+    arr[curByte++] = (tmp >> 16) & 0xFF
+    arr[curByte++] = (tmp >> 8) & 0xFF
+    arr[curByte++] = tmp & 0xFF
   }
 
-  if (placeHolders === 2) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
-    arr[L++] = tmp & 0xFF
-  } else if (placeHolders === 1) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
+  if (placeHoldersLen === 2) {
+    tmp =
+      (revLookup[b64.charCodeAt(i)] << 2) |
+      (revLookup[b64.charCodeAt(i + 1)] >> 4)
+    arr[curByte++] = tmp & 0xFF
+  }
+
+  if (placeHoldersLen === 1) {
+    tmp =
+      (revLookup[b64.charCodeAt(i)] << 10) |
+      (revLookup[b64.charCodeAt(i + 1)] << 4) |
+      (revLookup[b64.charCodeAt(i + 2)] >> 2)
+    arr[curByte++] = (tmp >> 8) & 0xFF
+    arr[curByte++] = tmp & 0xFF
   }
 
   return arr
 }
 
 function tripletToBase64 (num) {
-  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+  return lookup[num >> 18 & 0x3F] +
+    lookup[num >> 12 & 0x3F] +
+    lookup[num >> 6 & 0x3F] +
+    lookup[num & 0x3F]
 }
 
 function encodeChunk (uint8, start, end) {
   var tmp
   var output = []
   for (var i = start; i < end; i += 3) {
-    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+    tmp =
+      ((uint8[i] << 16) & 0xFF0000) +
+      ((uint8[i + 1] << 8) & 0xFF00) +
+      (uint8[i + 2] & 0xFF)
     output.push(tripletToBase64(tmp))
   }
   return output.join('')
@@ -20081,30 +20128,33 @@ function fromByteArray (uint8) {
   var tmp
   var len = uint8.length
   var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
-  var output = ''
   var parts = []
   var maxChunkLength = 16383 // must be multiple of 3
 
   // go through the array every three bytes, we'll deal with trailing stuff later
   for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
+    parts.push(encodeChunk(
+      uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)
+    ))
   }
 
   // pad the end with zeros, but make sure to not forget the extra bytes
   if (extraBytes === 1) {
     tmp = uint8[len - 1]
-    output += lookup[tmp >> 2]
-    output += lookup[(tmp << 4) & 0x3F]
-    output += '=='
+    parts.push(
+      lookup[tmp >> 2] +
+      lookup[(tmp << 4) & 0x3F] +
+      '=='
+    )
   } else if (extraBytes === 2) {
-    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
-    output += lookup[tmp >> 10]
-    output += lookup[(tmp >> 4) & 0x3F]
-    output += lookup[(tmp << 2) & 0x3F]
-    output += '='
+    tmp = (uint8[len - 2] << 8) + uint8[len - 1]
+    parts.push(
+      lookup[tmp >> 10] +
+      lookup[(tmp >> 4) & 0x3F] +
+      lookup[(tmp << 2) & 0x3F] +
+      '='
+    )
   }
-
-  parts.push(output)
 
   return parts.join('')
 }
@@ -20116,7 +20166,7 @@ function fromByteArray (uint8) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
-  var eLen = nBytes * 8 - mLen - 1
+  var eLen = (nBytes * 8) - mLen - 1
   var eMax = (1 << eLen) - 1
   var eBias = eMax >> 1
   var nBits = -7
@@ -20129,12 +20179,12 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   e = s & ((1 << (-nBits)) - 1)
   s >>= (-nBits)
   nBits += eLen
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  for (; nBits > 0; e = (e * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 
   m = e & ((1 << (-nBits)) - 1)
   e >>= (-nBits)
   nBits += mLen
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  for (; nBits > 0; m = (m * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 
   if (e === 0) {
     e = 1 - eBias
@@ -20149,7 +20199,7 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
 
 exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   var e, m, c
-  var eLen = nBytes * 8 - mLen - 1
+  var eLen = (nBytes * 8) - mLen - 1
   var eMax = (1 << eLen) - 1
   var eBias = eMax >> 1
   var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
@@ -20182,7 +20232,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
       m = 0
       e = eMax
     } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen)
+      m = ((value * c) - 1) * Math.pow(2, mLen)
       e = e + eBias
     } else {
       m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)

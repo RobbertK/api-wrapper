@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2089,
+  "end": 2081,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2089,
+    "end": 2081,
     "loc": {
       "start": {
         "line": 1,
@@ -31,7 +31,7 @@
       {
         "type": "ExportDefaultDeclaration",
         "start": 1693,
-        "end": 2088,
+        "end": 2080,
         "loc": {
           "start": {
             "line": 37,
@@ -45,7 +45,7 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 1708,
-          "end": 2088,
+          "end": 2080,
           "loc": {
             "start": {
               "line": 37,
@@ -78,7 +78,7 @@
           "body": {
             "type": "ClassBody",
             "start": 1727,
-            "end": 2088,
+            "end": 2080,
             "loc": {
               "start": {
                 "line": 37,
@@ -92,8 +92,8 @@
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 1960,
-                "end": 2086,
+                "start": 1952,
+                "end": 2078,
                 "loc": {
                   "start": {
                     "line": 43,
@@ -104,11 +104,12 @@
                     "column": 3
                   }
                 },
+                "static": false,
                 "computed": true,
                 "key": {
                   "type": "MemberExpression",
-                  "start": 1965,
-                  "end": 1983,
+                  "start": 1957,
+                  "end": 1975,
                   "loc": {
                     "start": {
                       "line": 43,
@@ -121,8 +122,8 @@
                   },
                   "object": {
                     "type": "Identifier",
-                    "start": 1965,
-                    "end": 1971,
+                    "start": 1957,
+                    "end": 1963,
                     "loc": {
                       "start": {
                         "line": 43,
@@ -138,8 +139,8 @@
                   },
                   "property": {
                     "type": "Identifier",
-                    "start": 1972,
-                    "end": 1983,
+                    "start": 1964,
+                    "end": 1975,
                     "loc": {
                       "start": {
                         "line": 43,
@@ -155,7 +156,6 @@
                   },
                   "computed": false
                 },
-                "static": false,
                 "kind": "get",
                 "id": null,
                 "generator": false,
@@ -164,8 +164,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1987,
-                  "end": 2086,
+                  "start": 1979,
+                  "end": 2078,
                   "loc": {
                     "start": {
                       "line": 43,
@@ -179,8 +179,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2057,
-                      "end": 2082,
+                      "start": 2049,
+                      "end": 2074,
                       "loc": {
                         "start": {
                           "line": 45,
@@ -193,8 +193,8 @@
                       },
                       "argument": {
                         "type": "StringLiteral",
-                        "start": 2064,
-                        "end": 2081,
+                        "start": 2056,
+                        "end": 2073,
                         "loc": {
                           "start": {
                             "line": 45,
@@ -216,8 +216,8 @@
                         {
                           "type": "CommentLine",
                           "value": " Anything can go here really as long as it's not 'Object'",
-                          "start": 1993,
-                          "end": 2052,
+                          "start": 1985,
+                          "end": 2044,
                           "loc": {
                             "start": {
                               "line": 44,
@@ -237,9 +237,9 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Overrides the `Object.prototype.toString.call(obj)` result\n   * @returns {string} - type name\n   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag}\n   ",
+                    "value": "*\n   * Overrides the `Object.prototype.toString.call(obj)` result\n   * @returns {string} - type name\n   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag\n   ",
                     "start": 1731,
-                    "end": 1957,
+                    "end": 1949,
                     "loc": {
                       "start": {
                         "line": 38,
@@ -364,9 +364,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Overrides the `Object.prototype.toString.call(obj)` result\n   * @returns {string} - type name\n   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag}\n   ",
+      "value": "*\n   * Overrides the `Object.prototype.toString.call(obj)` result\n   * @returns {string} - type name\n   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag\n   ",
       "start": 1731,
-      "end": 1957,
+      "end": 1949,
       "loc": {
         "start": {
           "line": 38,
@@ -381,8 +381,8 @@
     {
       "type": "CommentLine",
       "value": " Anything can go here really as long as it's not 'Object'",
-      "start": 1993,
-      "end": 2052,
+      "start": 1985,
+      "end": 2044,
       "loc": {
         "start": {
           "line": 44,
@@ -565,9 +565,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Overrides the `Object.prototype.toString.call(obj)` result\n   * @returns {string} - type name\n   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag}\n   ",
+      "value": "*\n   * Overrides the `Object.prototype.toString.call(obj)` result\n   * @returns {string} - type name\n   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag\n   ",
       "start": 1731,
-      "end": 1957,
+      "end": 1949,
       "loc": {
         "start": {
           "line": 38,
@@ -592,8 +592,8 @@
         "binop": null
       },
       "value": "get",
-      "start": 1960,
-      "end": 1963,
+      "start": 1952,
+      "end": 1955,
       "loc": {
         "start": {
           "line": 43,
@@ -618,8 +618,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1964,
-      "end": 1965,
+      "start": 1956,
+      "end": 1957,
       "loc": {
         "start": {
           "line": 43,
@@ -644,8 +644,8 @@
         "binop": null
       },
       "value": "Symbol",
-      "start": 1965,
-      "end": 1971,
+      "start": 1957,
+      "end": 1963,
       "loc": {
         "start": {
           "line": 43,
@@ -670,8 +670,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1971,
-      "end": 1972,
+      "start": 1963,
+      "end": 1964,
       "loc": {
         "start": {
           "line": 43,
@@ -696,8 +696,8 @@
         "binop": null
       },
       "value": "toStringTag",
-      "start": 1972,
-      "end": 1983,
+      "start": 1964,
+      "end": 1975,
       "loc": {
         "start": {
           "line": 43,
@@ -722,8 +722,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1983,
-      "end": 1984,
+      "start": 1975,
+      "end": 1976,
       "loc": {
         "start": {
           "line": 43,
@@ -747,8 +747,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1984,
-      "end": 1985,
+      "start": 1976,
+      "end": 1977,
       "loc": {
         "start": {
           "line": 43,
@@ -772,8 +772,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1985,
-      "end": 1986,
+      "start": 1977,
+      "end": 1978,
       "loc": {
         "start": {
           "line": 43,
@@ -797,8 +797,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1987,
-      "end": 1988,
+      "start": 1979,
+      "end": 1980,
       "loc": {
         "start": {
           "line": 43,
@@ -813,8 +813,8 @@
     {
       "type": "CommentLine",
       "value": " Anything can go here really as long as it's not 'Object'",
-      "start": 1993,
-      "end": 2052,
+      "start": 1985,
+      "end": 2044,
       "loc": {
         "start": {
           "line": 44,
@@ -841,8 +841,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 2057,
-      "end": 2063,
+      "start": 2049,
+      "end": 2055,
       "loc": {
         "start": {
           "line": 45,
@@ -868,8 +868,8 @@
         "updateContext": null
       },
       "value": "ObjectNoObserve",
-      "start": 2064,
-      "end": 2081,
+      "start": 2056,
+      "end": 2073,
       "loc": {
         "start": {
           "line": 45,
@@ -894,8 +894,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2081,
-      "end": 2082,
+      "start": 2073,
+      "end": 2074,
       "loc": {
         "start": {
           "line": 45,
@@ -919,8 +919,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2085,
-      "end": 2086,
+      "start": 2077,
+      "end": 2078,
       "loc": {
         "start": {
           "line": 46,
@@ -944,8 +944,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2087,
-      "end": 2088,
+      "start": 2079,
+      "end": 2080,
       "loc": {
         "start": {
           "line": 47,
@@ -970,8 +970,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2089,
-      "end": 2089,
+      "start": 2081,
+      "end": 2081,
       "loc": {
         "start": {
           "line": 48,
