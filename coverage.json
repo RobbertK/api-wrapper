@@ -1,7 +1,7 @@
 {
-  "coverage": "72.28%",
-  "expectCount": 664,
-  "actualCount": 480,
+  "coverage": "72.26%",
+  "expectCount": 667,
+  "actualCount": 482,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -73,17 +73,18 @@
       ]
     },
     "src/RequestParameters.js": {
-      "expectCount": 43,
-      "actualCount": 35,
+      "expectCount": 46,
+      "actualCount": 37,
       "undocumentLines": [
         49,
-        286,
-        298,
-        335,
-        357,
-        373,
-        383,
-        394
+        304,
+        316,
+        328,
+        365,
+        387,
+        403,
+        413,
+        424
       ]
     },
     "src/ResourceCache.js": {

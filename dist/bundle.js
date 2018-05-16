@@ -31,10 +31,10 @@
  * 
  */
 /*!
- * hash:417914a61f95aa7238b2, chunkhash:dac7f0bfea9de8848ecf, name:bundle, version:v1.3.20
+ * hash:2d9512054529d931f1df, chunkhash:c023dbd74b53e6055d9f, name:bundle, version:v1.3.21
  * 
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.3.20) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.3.21) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-polyfill (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-polyfill/package.json
  *    │  ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  │  ├─ core-js (2.5.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
@@ -7665,8 +7665,21 @@ var RequestParameters = function () {
       }
 
       value = Math.round(value);
-      value = Math.min(50, value); // Upper limit is 50
+      value = Math.min(RequestParameters.maxPerPage, value); // Upper limit is 50 by default
       value = Math.max(1, value); // Lower limit is 1
+
+      return value;
+    }
+  }, {
+    key: '_validateMaxPerPage',
+    value: function _validateMaxPerPage(value) {
+      if (typeof value !== 'number') {
+        throw new TypeError('Expected page to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
+      }
+
+      if (value < 1) {
+        throw new TypeError('Value must be greater or equal to 1');
+      }
 
       return value;
     }
@@ -7871,12 +7884,34 @@ var RequestParameters = function () {
     }
 
     /**
+     * Gets the maximum allowed value for perPage
+     * Some users will have a special permission that allows them to fetch more than 50 resources at once
+     * @returns {Number} - Maximum amount of resources per page
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._perPage = RequestParameters._validatePerPage(value);
+    }
+
+    /**
+     * Sets the maximum allowed value for perPage
+     * Some users will have a special permission that allows them to fetch more than 50 resources at once
+     * @param {Number} value - Maximum amount of resources per page
+     */
+
+  }, {
+    key: 'maxPerPage',
+    get: function get() {
+      return RequestParameters._maxPerPage || 50;
+    }
+
+    /**
      * Default search query
      * @returns {Object<String, String|Array<String>>} - Search query
      */
     ,
     set: function set(value) {
-      RequestParameters._perPage = RequestParameters._validatePerPage(value);
+      RequestParameters._maxPerPage = RequestParameters._validateMaxPerPage(value);
     }
 
     /**
@@ -15387,7 +15422,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.3.20";
+var version = exports.version = "v1.3.21";
 
 /**
  * Package license

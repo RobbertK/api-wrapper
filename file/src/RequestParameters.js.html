@@ -291,6 +291,15 @@ export default class RequestParameters {
   }
 
   /**
+   * Gets the maximum allowed value for perPage
+   * Some users will have a special permission that allows them to fetch more than 50 resources at once
+   * @returns {Number} - Maximum amount of resources per page
+   */
+  static get maxPerPage() {
+    return RequestParameters._maxPerPage || 50;
+  }
+
+  /**
    * Default search query
    * @returns {Object&lt;String, String|Array&lt;String&gt;&gt;} - Search query
    */
@@ -339,6 +348,15 @@ export default class RequestParameters {
    */
   static set perPage(value) {
     RequestParameters._perPage = RequestParameters._validatePerPage(value);
+  }
+
+  /**
+   * Sets the maximum allowed value for perPage
+   * Some users will have a special permission that allows them to fetch more than 50 resources at once
+   * @param {Number} value - Maximum amount of resources per page
+   */
+  static set maxPerPage(value) {
+    RequestParameters._maxPerPage = RequestParameters._validateMaxPerPage(value);
   }
 
   /**
@@ -396,8 +414,20 @@ export default class RequestParameters {
     }
 
     value = Math.round(value);
-    value = Math.min(50, value); // Upper limit is 50
+    value = Math.min(RequestParameters.maxPerPage, value); // Upper limit is 50 by default
     value = Math.max(1, value); // Lower limit is 1
+
+    return value;
+  }
+
+  static _validateMaxPerPage(value) {
+    if (typeof value !== &apos;number&apos;) {
+      throw new TypeError(`Expected page to be of type &apos;Number&apos; instead got &apos;${getTypeName(value)}&apos;`);
+    }
+
+    if (value &lt; 1) {
+      throw new TypeError(&apos;Value must be greater or equal to 1&apos;);
+    }
 
     return value;
   }
