@@ -1,7 +1,7 @@
 {
-  "coverage": "72.26%",
-  "expectCount": 667,
-  "actualCount": 482,
+  "coverage": "72.4%",
+  "expectCount": 674,
+  "actualCount": 488,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -31,15 +31,15 @@
       ]
     },
     "src/Maps4News.js": {
-      "expectCount": 51,
-      "actualCount": 45,
+      "expectCount": 52,
+      "actualCount": 46,
       "undocumentLines": [
         107,
         108,
         153,
         178,
-        256,
-        310
+        262,
+        316
       ]
     },
     "src/PaginatedResourceListing.js": {
@@ -328,11 +328,12 @@
       ]
     },
     "src/resources/Font.js": {
-      "expectCount": 2,
+      "expectCount": 3,
       "actualCount": 0,
       "undocumentLines": [
         35,
-        36
+        36,
+        40
       ]
     },
     "src/resources/FontFamily.js": {
@@ -537,6 +538,11 @@
         80
       ]
     },
+    "src/resources/base/CrudSetItemBase.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
     "src/resources/base/ResourceBase.js": {
       "expectCount": 28,
       "actualCount": 22,
@@ -558,8 +564,8 @@
       "expectCount": 11,
       "actualCount": 9,
       "undocumentLines": [
-        40,
-        43
+        41,
+        44
       ]
     },
     "src/storage/DataStoreContract.js": {

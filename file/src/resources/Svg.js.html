@@ -92,6 +92,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/User.js~User.html">User</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#resources-base">resources/base</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/CrudBase.js~CrudBase.html">CrudBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/CrudSetBase.js~CrudSetBase.html">CrudSetBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/CrudSetItemBase.js~CrudSetItemBase.html">CrudSetItemBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#traits">traits</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
@@ -137,9 +138,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import CrudBase from &apos;./base/CrudBase&apos;;
+import CrudSetItemBase from &apos;./base/CrudSetItemBase&apos;;
 
-export default class Svg extends CrudBase {
+export default class Svg extends CrudSetItemBase {
   get resourceName() {
     return &apos;svgs&apos;;
   }
