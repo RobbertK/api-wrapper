@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">JobMonitor | Maps4News Api Wrapper</title>
+  <title data-ice="title">ResourceLister | Maps4News Api Wrapper</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -107,17 +107,17 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import JobMonitor from &apos;<span><a href="file/src/JobMonitor.js.html#lineNumber41">@mapcreator/maps4news/src/JobMonitor.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import ResourceLister from &apos;<span><a href="file/src/ResourceLister.js.html#lineNumber41">@mapcreator/maps4news/src/ResourceLister.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/JobMonitor.js.html#lineNumber41">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/ResourceLister.js.html#lineNumber41">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">JobMonitor</h1>
+  <h1 data-ice="name">ResourceLister</h1>
 
   
 
@@ -133,7 +133,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Used for monitoring the job queue</p>
+  <div class="description" data-ice="description"><p>Paginated resource lister</p>
 </div>
   
 
@@ -166,13 +166,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>, route: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, Resource: <span>Constructor</span>&lt;<span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;, parameters: <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>, maxRows: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>JobMonitor constructor</p>
+        <div data-ice="description"><p>ResourceLister constructor</p>
 </div>
       </div>
     </td>
@@ -202,13 +202,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-api">api</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-Resource">Resource</a></span></span><span class="code" data-ice="signature">: <span>Constructor</span>&lt;<span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Get api instance</p>
+        <div data-ice="description"><p>Resource constructor accessor, used for building the resource instance</p>
 </div>
       </div>
     </td>
@@ -231,13 +231,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/resources/JobMonitorRow.js~JobMonitorRow.html">JobMonitorRow</a></span>&gt;: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-api">api</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Contains the current JobMonitor data</p>
+        <div data-ice="description"><p>Get the api instance</p>
 </div>
       </div>
     </td>
@@ -260,13 +260,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-filterStatus">filterStatus</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-autoUpdate">autoUpdate</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>get the filter for the job monitor</p>
+        <div data-ice="description"><p>Get if <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-update">ResourceLister#update</a></span> should be called when <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-parameters">ResourceLister#parameters</a></span> is updated</p>
 </div>
       </div>
     </td>
@@ -289,13 +289,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-set-filterStatus">filterStatus</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-set-autoUpdate">autoUpdate</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Set the filter for the job monitor</p>
+        <div data-ice="description"><p>Set if <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-update">ResourceLister#update</a></span> should be called when <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-parameters">ResourceLister#parameters</a></span> is updated</p>
 </div>
       </div>
     </td>
@@ -318,13 +318,71 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-hideInternal">hideInternal</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-availibleRows">availibleRows</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>If internal users should be hidden in the data</p>
+        <div data-ice="description"><p>Get the number of rows the server has available</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-Resource">Resource</a></span>&gt;: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get the data</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-maxRows">maxRows</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get the maximum amount of rows allowed</p>
 </div>
       </div>
     </td>
@@ -347,71 +405,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-set-hideInternal">hideInternal</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-set-maxRows">maxRows</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>If internal users should be hidden.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-lastUpdate">lastUpdate</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Returns the time the ::update method was called for the last time.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-longPoll">longPoll</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get if long polling should be used</p>
+        <div data-ice="description"><p>Set the maximum amount of rows allowed</p>
 </div>
       </div>
     </td>
@@ -434,42 +434,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-set-longPoll">longPoll</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-set-parameters">parameters</a></span></span><span class="code" data-ice="signature">(object: <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Set if long polling should be used</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">set</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-set-maxRows">maxRows</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Set the maximum number of rows to store.</p>
+        <div data-ice="description"><p>Set the request parameters</p>
 </div>
       </div>
     </td>
@@ -492,13 +463,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-maxRows">maxRows</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-parameters">parameters</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Maximum number of rows to store</p>
+        <div data-ice="description"><p>Get the request parameters</p>
 </div>
       </div>
     </td>
@@ -521,13 +492,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-realMaxRows">realMaxRows</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-route">route</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Used to get internal reference max rows</p>
+        <div data-ice="description"><p>Get the route (url)</p>
 </div>
       </div>
     </td>
@@ -550,13 +521,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-get-waiting">waiting</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-rowCount">rowCount</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>If the JobMonitor is waiting for data.</p>
+        <div data-ice="description"><p>Get the row count</p>
 </div>
       </div>
     </td>
@@ -586,13 +557,71 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-method-update">update</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-[Symbol.iterator]">[Symbol.iterator]</a></span></span><span class="code" data-ice="signature">(): <span>Iterator</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Update the job list</p>
+        <div data-ice="description"><p>Returns the iterable</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-push">push</a></span></span><span class="code" data-ice="signature">(row: <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-Resource">Resource</a></span>, autoMaxRows: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span>void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Push a row to the data collection</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-update">update</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Update the server data</p>
 </div>
       </div>
     </td>
@@ -619,18 +648,18 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(api: <span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span>, route: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, Resource: <span>Constructor</span>&lt;<span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;, parameters: <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>, maxRows: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber46">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber52">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>JobMonitor constructor</p>
+  <div data-ice="description"><p>ResourceLister constructor</p>
 </div>
 
   
@@ -648,6 +677,43 @@
       <td data-ice="type" class="code"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Api instance</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">route</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Resource url route</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">Resource</td>
+      <td data-ice="type" class="code"><span>Constructor</span>&lt;<span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Resource constructor</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">parameters</td>
+      <td data-ice="type" class="code"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>Request parameters</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">maxRows</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 50</li></ul></td>
+      <td data-ice="description"><p>Initial max rows</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">key</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: id</li></ul></td>
+      <td data-ice="description"><p>Key</p>
 </td>
     </tr>
 </tbody>
@@ -676,6 +742,63 @@
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-Resource">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">Resource</span><span class="code" data-ice="signature">: <span>Constructor</span>&lt;<span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber93">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Resource constructor accessor, used for building the resource instance</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Constructor</span>&lt;<span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>resource constructor</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-api">
     <span class="access" data-ice="access">public</span>
     
@@ -687,14 +810,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber74">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber117">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get api instance</p>
+  <div data-ice="description"><p>Get the api instance</p>
 </div>
 
   
@@ -708,7 +831,154 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="class/src/Maps4News.js~Maps4News.html">Maps4News</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Api instance</p>
+          <td class="return-desc" data-ice="returnDescription"><p>api instance</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-autoUpdate">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">autoUpdate</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber188">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get if <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-update">ResourceLister#update</a></span> should be called when <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-parameters">ResourceLister#parameters</a></span> is updated</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="ResourceLister#update">ResourceLister#update</a></span></li>
+<li><span><a href="ResourceLister#parameters">ResourceLister#parameters</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-set-autoUpdate">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">set</span>
+    
+    
+    
+    <span class="code" data-ice="name">autoUpdate</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber168">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Set if <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-update">ResourceLister#update</a></span> should be called when <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-parameters">ResourceLister#parameters</a></span> is updated</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="ResourceLister#update">ResourceLister#update</a></span></li>
+<li><span><a href="ResourceLister#parameters">ResourceLister#parameters</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-availibleRows">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">availibleRows</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber157">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get the number of rows the server has available</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>number of rows</p>
 </td>
         </tr>
       </tbody>
@@ -740,18 +1010,18 @@
     
     
     
-    <span class="code" data-ice="name">data</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/resources/JobMonitorRow.js~JobMonitorRow.html">JobMonitorRow</a></span>&gt;: <span>*</span></span>
+    <span class="code" data-ice="name">data</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-Resource">Resource</a></span>&gt;: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber109">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Contains the current JobMonitor data</p>
+  <div data-ice="description"><p>Get the data</p>
 </div>
 
   
@@ -764,8 +1034,8 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/resources/JobMonitorRow.js~JobMonitorRow.html">JobMonitorRow</a></span>&gt;</td>
-          <td class="return-desc" data-ice="returnDescription"><p>Job monitor rows</p>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-Resource">Resource</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>data</p>
 </td>
         </tr>
       </tbody>
@@ -773,412 +1043,6 @@
     <div data-ice="returnProperties">
 </div>
   </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-filterStatus">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span class="code" data-ice="name">filterStatus</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber303">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>get the filter for the job monitor</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Job monitor filter</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-set-filterStatus">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">set</span>
-    
-    
-    
-    <span class="code" data-ice="name">filterStatus</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber285">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Set the filter for the job monitor</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="JobMonitorFilter">JobMonitorFilter</a></span></li></ul></div>
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-hideInternal">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span class="code" data-ice="name">hideInternal</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber276">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>If internal users should be hidden in the data</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>hide internal users</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-set-hideInternal">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">set</span>
-    
-    
-    
-    <span class="code" data-ice="name">hideInternal</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber262">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>If internal users should be hidden. Updating this value won&apos;t take
-effect until the <span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-method-update">JobMonitor#update</a></span> method has been called.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-lastUpdate">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span class="code" data-ice="name">lastUpdate</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a></span>: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber312">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Returns the time the ::update method was called for the last time.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Last update</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="JobMonitor#update">JobMonitor#update</a></span></li></ul></div>
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-longPoll">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span class="code" data-ice="name">longPoll</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber320">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get if long polling should be used</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>If long polling should be used</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-set-longPoll">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">set</span>
-    
-    
-    
-    <span class="code" data-ice="name">longPoll</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber328">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Set if long polling should be used</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-set-maxRows">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">set</span>
-    
-    
-    
-    <span class="code" data-ice="name">maxRows</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber235">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Set the maximum number of rows to store. Updating this value won&apos;t take
-effect until the <span><a href="class/src/JobMonitor.js~JobMonitor.html#instance-method-update">JobMonitor#update</a></span> method has been called.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
 
   
 
@@ -1207,14 +1071,14 @@ effect until the <span><a href="class/src/JobMonitor.js~JobMonitor.html#instance
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber226">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber135">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Maximum number of rows to store</p>
+  <div data-ice="description"><p>Get the maximum amount of rows allowed</p>
 </div>
 
   
@@ -1228,7 +1092,7 @@ effect until the <span><a href="class/src/JobMonitor.js~JobMonitor.html#instance
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Maximum number of rows</p>
+          <td class="return-desc" data-ice="returnDescription"><p>max rows</p>
 </td>
         </tr>
       </tbody>
@@ -1253,25 +1117,25 @@ effect until the <span><a href="class/src/JobMonitor.js~JobMonitor.html#instance
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-realMaxRows">
+  <h3 data-ice="anchor" id="instance-set-maxRows">
     <span class="access" data-ice="access">public</span>
     
-    <span class="kind" data-ice="kind">get</span>
+    <span class="kind" data-ice="kind">set</span>
     
     
     
-    <span class="code" data-ice="name">realMaxRows</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">maxRows</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber249">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Used to get internal reference max rows</p>
+  <div data-ice="description"><p>Set the maximum amount of rows allowed</p>
 </div>
 
   
@@ -1297,26 +1161,71 @@ effect until the <span><a href="class/src/JobMonitor.js~JobMonitor.html#instance
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-waiting">
+  <h3 data-ice="anchor" id="instance-set-parameters">
     <span class="access" data-ice="access">public</span>
     
-    <span class="kind" data-ice="kind">get</span>
+    <span class="kind" data-ice="kind">set</span>
     
     
     
-    <span class="code" data-ice="name">waiting</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>: <span>*</span></span>
+    <span class="code" data-ice="name">parameters</span><span class="code" data-ice="signature">(object: <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber218">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>If the JobMonitor is waiting for data. Any update request will
-resolve with false instantly while this is true.</p>
+  <div data-ice="description"><p>Set the request parameters</p>
+<p>If you set <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-set-autoUpdate">ResourceLister#autoUpdate</a></span> to true then <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-method-update">ResourceLister#update</a></span>
+will automatically be called when the parameters are updated.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="ResourceLister#autoUpdate">ResourceLister#autoUpdate</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-parameters">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">parameters</span><span class="code" data-ice="signature">: <span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber73">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get the request parameters</p>
 </div>
 
   
@@ -1329,8 +1238,8 @@ resolve with false instantly while this is true.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Waiting for data</p>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>parameters</p>
 </td>
         </tr>
       </tbody>
@@ -1352,31 +1261,145 @@ resolve with false instantly while this is true.</p>
   
 
   
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-route">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">route</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber101">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get the route (url)</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>route</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-rowCount">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">rowCount</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber127">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get the row count</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>row count</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="{ResourceLister.data}">{ResourceLister.data}</a></span></li></ul></div>
   
 </div>
 </div>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-update">
+  <h3 data-ice="anchor" id="instance-method-[Symbol.iterator]">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">update</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span>&gt;</span>
+    <span class="code" data-ice="name">[Symbol.iterator]</span><span class="code" data-ice="signature">(): <span>Iterator</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/JobMonitor.js.html#lineNumber82">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber264">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Update the job list</p>
+  <div data-ice="description"><p>Returns the iterable</p>
 </div>
 
   
@@ -1389,8 +1412,146 @@ resolve with false instantly while this is true.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, <span><a href="class/src/errors/ApiError.js~ApiError.html">ApiError</a></span>&gt;</td>
-          <td class="return-desc" data-ice="returnDescription"><p>Resolves with the number of updated rows</p>
+          <td class="return-type code" data-ice="returnType"><span>Iterator</span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>iterator</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-push">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">push</span><span class="code" data-ice="signature">(row: <span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-Resource">Resource</a></span>, autoMaxRows: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span>void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber276">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Push a row to the data collection</p>
+<p>This will append the row or update an existing row based on the key. If autoMaxRows is set to true and maxRows only needs to be increased by one for the new resource to show up it will</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">row</td>
+      <td data-ice="type" class="code"><span><a href="class/src/ResourceLister.js~ResourceLister.html#instance-get-Resource">Resource</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>resource</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">autoMaxRows</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Increase maxRows if needed</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>void</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-update">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    <span data-ice="async">async</span>
+    
+    <span class="code" data-ice="name">update</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/ResourceLister.js.html#lineNumber213">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Update the server data</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>void</span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>Resolves when the data has been updated</p>
 </td>
         </tr>
       </tbody>

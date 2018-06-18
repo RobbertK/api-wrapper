@@ -36,6 +36,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html">ResourceLister</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#enums">enums</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums/Enum.js~Enum.html">Enum</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span></li>
@@ -138,10 +139,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import ResourceBase from &apos;../resources/base/ResourceBase&apos;;
 import PaginatedResourceListing from &apos;../PaginatedResourceListing&apos;;
-import {isParentOf} from &apos;../utils/reflection&apos;;
 import RequestParameters from &apos;../RequestParameters&apos;;
+import ResourceLister from &apos;../ResourceLister&apos;;
+import ResourceBase from &apos;../resources/base/ResourceBase&apos;;
+import {isParentOf} from &apos;../utils/reflection&apos;;
 
 /**
  * Proxy for accessing resource. This will make sure that they
@@ -278,6 +280,17 @@ export default class SimpleResourceProxy {
 
     wrapped.get(resolver.page);
     return wrapped;
+  }
+
+  /**
+   * Get the resource lister
+   *
+   * @param {object|RequestParameters} parameters - parameters
+   * @param {number} maxRows - Maximum amount of rows
+   * @returns {ResourceLister} - Resource lister
+   */
+  lister(parameters = {}, maxRows = 50) {
+    return new ResourceLister(this.api, this.baseUrl, this.Target, parameters, maxRows, this.Target.resourceUrlKey);
   }
 
   _buildResolver(params = {}) {

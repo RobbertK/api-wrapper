@@ -1,7 +1,7 @@
 {
-  "coverage": "72.4%",
-  "expectCount": 674,
-  "actualCount": 488,
+  "coverage": "71.95%",
+  "expectCount": 706,
+  "actualCount": 508,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -73,18 +73,17 @@
       ]
     },
     "src/RequestParameters.js": {
-      "expectCount": 46,
+      "expectCount": 45,
       "actualCount": 37,
       "undocumentLines": [
-        49,
-        304,
-        316,
-        328,
-        365,
-        387,
-        403,
-        413,
-        424
+        313,
+        325,
+        337,
+        374,
+        396,
+        412,
+        422,
+        433
       ]
     },
     "src/ResourceCache.js": {
@@ -97,6 +96,25 @@
         48,
         49,
         51
+      ]
+    },
+    "src/ResourceLister.js": {
+      "expectCount": 32,
+      "actualCount": 19,
+      "undocumentLines": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        64,
+        172,
+        199,
+        201,
+        202,
+        203,
+        204
       ]
     },
     "src/enums/DeletedState.js": {
@@ -257,14 +275,14 @@
       "undocumentLines": []
     },
     "src/proxy/SimpleResourceProxy.js": {
-      "expectCount": 14,
-      "actualCount": 9,
+      "expectCount": 15,
+      "actualCount": 10,
       "undocumentLines": [
-        60,
-        63,
+        61,
         64,
         65,
-        175
+        66,
+        187
       ]
     },
     "src/resources/Choropleth.js": {

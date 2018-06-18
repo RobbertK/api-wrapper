@@ -36,6 +36,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html">PaginatedResourceWrapper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RequestParameters.js~RequestParameters.html">RequestParameters</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceCache.js~ResourceCache.html">ResourceCache</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ResourceLister.js~ResourceLister.html">ResourceLister</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#enums">enums</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/enums/Enum.js~Enum.html">Enum</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeletedState">DeletedState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JobMonitorFilter">JobMonitorFilter</a></span></span></li>
@@ -140,6 +141,7 @@
 
 
 import {camel as camelCase, pascal as pascalCase, snake as snakeCase} from &apos;case&apos;;
+import {EventEmitter} from &apos;events&apos;;
 import {DeletedState} from &apos;./enums&apos;;
 import {hashObject} from &apos;./utils/hash&apos;;
 import {getTypeName} from &apos;./utils/reflection&apos;;
@@ -147,14 +149,22 @@ import {encodeQueryString} from &apos;./utils/requests&apos;;
 
 /**
  * Used for keeping track of the request parameters
+ *
+ * @fires RequestParameters#change
+ * @fires RequestParameters#change:page
+ * @fires RequestParameters#change:perPage
+ * @fires RequestParameters#change:search
+ * @fires RequestParameters#change:sort
+ * @fires RequestParameters#change:deleted
+ * @fires RequestParameters#change:extra
  */
-export default class RequestParameters {
+export default class RequestParameters extends EventEmitter {
   /**
    * RequestParameters constructor
    * @param {Object} object - properties
    */
   constructor(object = {}) {
-    this._watch = [];
+    super();
 
     // Apply defaults
     RequestParameters.keys().forEach(x =&gt; this._resolve(x));
@@ -535,7 +545,16 @@ export default class RequestParameters {
     value = RequestParameters[&apos;_validate&apos; + pascalCase(name)](value);
     (this || {})[_name] = value; // Weird syntax confuses esdoc
 
-    this._watch.forEach(m =&gt; m(name, value));
+    /**
+     * Change event.
+     *
+     * @event RequestParameters#change
+     * @type {object}
+     * @property {string} name - Parameter name
+     * @property {*} value - New value
+     */
+    this.emit(&apos;change&apos;, {name, value});
+    this.emit(&apos;change:&apos; + name, value);
   }
 
   // region utils
@@ -670,7 +689,6 @@ export default class RequestParameters {
       this._update(Key, params[key]);
     }
   }
-
   // endregion utils
 }
 </code></pre>
