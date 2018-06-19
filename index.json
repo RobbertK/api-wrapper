@@ -1527,7 +1527,7 @@
     "__docId__": 102,
     "kind": "file",
     "name": "src/Maps4News.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {Enum} from './enums';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceProxy from './proxy/ResourceProxy';\nimport ResourceCache from './ResourceCache';\nimport {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Domain,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  Tag,\n  User,\n} from './resources';\nimport ResourceBase from './resources/base/ResourceBase';\nimport {fnv32b} from './utils/hash';\nimport Logger from './utils/Logger';\nimport {isNode} from './utils/node';\nimport {isParentOf} from './utils/reflection';\nimport {fetch, FormData, Headers} from './utils/requests';\n\nif (!global._babelPolyfill) {\n  require('babel-polyfill');\n}\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => String(str).toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n    this._logger = new Logger(process.env.LOG_LEVEL);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Get logger instance\n   * @returns {Logger} - Logger instance\n   */\n  get logger() {\n    return this._logger;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Saves the session token so that it can be recovered at a later time. The wrapper can\n   * find the token most of the time if the name parameter is left blank.\n   * @param {string?} name - name of the token\n   * @returns {void}\n   */\n  saveToken(name) {\n    this.auth.token.save(name);\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => this);\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}\n   * @returns {Promise} - Resolves with either an object, blob, buffer or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, bundleResponse = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/g, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    method = method.toUpperCase();\n\n    if (!(headers instanceof Headers)) {\n      headers = new Headers(headers);\n    }\n\n    if (this.authenticated) {\n      headers.set('Authorization', this.auth.token.toString());\n    }\n\n    // Automatically detect possible content-type header\n    const isFormData = data instanceof FormData;\n\n    if (typeof data === 'object' && !isFormData) {\n      data = JSON.stringify(data);\n\n      if (!headers.has('Content-Type')) {\n        headers.set('Content-Type', 'application/json');\n      }\n    } else if (data && !headers.has('Content-Type') && !isFormData) {\n      // headers.set('Content-Type', 'application/x-www-form-urlencoded');\n    }\n\n    if (!headers.has('Accept')) {\n      headers.set('Accept', 'application/json');\n    }\n\n    if (['GET', 'HEAD'].includes(method)) {\n      // eslint-disable-next-line no-undefined\n      data = undefined;\n    }\n\n    const init = {\n      headers, method,\n      redirect: 'follow',\n      mode: 'cors',\n    };\n\n    if (data) {\n      init.body = data;\n    }\n\n    return this._fetch(url, init, bundleResponse);\n  }\n\n  _fetch(url, init, bundleResponse) {\n    return fetch(url, init).then(response => {\n      const respond = data => !bundleResponse ? data : {response, data};\n\n      if (response.status === 429) {\n        const resetTimestamp = Number(response.headers.get('X-RateLimit-Reset')) * 1000;\n        const waitTime = resetTimestamp - Date.now();\n\n        return new Promise((resolve, reject) => {\n          setTimeout(() => {\n            this._fetch(url, init, bundleResponse).then(resolve).catch(reject);\n          }, waitTime);\n        });\n      }\n\n      // Check if there is an error response and parse it\n      if (!response.ok) {\n        return response.json().then(data => {\n          throw this._parseErrorResponse(data, response.status);\n        });\n      }\n\n      if (response.headers.has('Content-Type')) {\n        const contentType = response.headers.get('Content-Type').toLowerCase();\n\n        // Any type of text\n        if (contentType.startsWith('text/')) {\n          return response.text().then(respond);\n        }\n\n        // Response data\n        if (contentType === 'application/json') {\n          return response.json()\n            .then(x => {\n              // Just in case, code path should in theory never be reached\n              if (typeof x.success === 'boolean' && !x.success) {\n                throw this._parseErrorResponse(x, response.status);\n              }\n\n              return x;\n            })\n            .then(x => x.data ? x.data : {})\n            .then(respond);\n        }\n      }\n\n      if (isNode()) {\n        return response.buffer().then(respond);\n      }\n\n      return response.blob().then(respond);\n    });\n  }\n\n  _parseErrorResponse(data, status) {\n    const err = data.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, status, err.trace);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        this.logger.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n\n    return new ValidationError(err.type, err.message, status, err['validation_errors']);\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32b(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Tag accessor\n   * @see {@link Tag}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get tags() {\n    return this.static(Tag);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Domain accessor\n   * @see {@link Domain}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get domains() {\n    return this.static(Domain);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Get SVG set types\n   * @see {@link SvgSet}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getSvgSetType() {\n    return this.request('/svgs/sets/types').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Get font styles\n   * @see {@link Font}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getFontStyles() {\n    return this.request('/fonts/styles').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {Enum} from './enums';\n\nimport ApiError from './errors/ApiError';\nimport ValidationError from './errors/ValidationError';\nimport DummyFlow from './oauth/DummyFlow';\nimport OAuth from './oauth/OAuth';\nimport ResourceProxy from './proxy/ResourceProxy';\nimport ResourceCache from './ResourceCache';\nimport {\n  Choropleth,\n  Color,\n  Contract,\n  Dimension,\n  DimensionSet,\n  Domain,\n  Faq,\n  Feature,\n  Font,\n  FontFamily,\n  Highlight,\n  InsetMap,\n  Job,\n  JobShare,\n  JobType,\n  Language,\n  Layer,\n  Mapstyle,\n  MapstyleSet,\n  Notification,\n  Organisation,\n  Permission,\n  PlaceName,\n  Role,\n  Svg,\n  SvgSet,\n  Tag,\n  User,\n} from './resources';\nimport ResourceBase from './resources/base/ResourceBase';\nimport {fnv32b} from './utils/hash';\nimport Logger from './utils/Logger';\nimport {isNode} from './utils/node';\nimport {isParentOf} from './utils/reflection';\nimport {fetch, FormData, Headers} from './utils/requests';\n\n/**\n * Base API class\n */\nexport default class Maps4News {\n  /**\n   * @param {OAuth} auth - Authentication flow\n   * @param {string} host - Remote API host\n   */\n  constructor(auth = new DummyFlow(), host = process.env.HOST) {\n    this.auth = auth;\n    this.host = host;\n\n    const bool = str => String(str).toLowerCase() === 'true';\n\n    /**\n     * Defaults for common parameters. These are populated during the build process using the `.env` file.\n     * @type {{cacheSeconds: number, shareCache: boolean, autoUpdateSharedCache: boolean, dereferenceCache: boolean}}\n     */\n    this.defaults = {\n      cacheSeconds: Number(process.env.CACHE_SECONDS),\n      shareCache: bool(process.env.CACHE_SHARED),\n      autoUpdateSharedCache: bool(process.env.CACHE_SHARED_AUTO_UPDATE),\n      dereferenceCache: bool(process.env.CACHE_DEREFERENCE_OUTPUT),\n    };\n\n    this._cache = new ResourceCache(this);\n    this._logger = new Logger(process.env.LOG_LEVEL);\n  }\n\n  /**\n   * Get api version\n   * @returns {string} - Api version\n   * @constant\n   */\n  get version() {\n    return 'v1';\n  }\n\n  /**\n   * Get the shared cache instance\n   * @returns {ResourceCache} - Shared cache instance\n   */\n  get cache() {\n    return this._cache;\n  }\n\n  /**\n   * Get authentication provider instance\n   * @returns {OAuth} - OAuth instance\n   */\n  get auth() {\n    return this._auth;\n  }\n\n  /**\n   * Get logger instance\n   * @returns {Logger} - Logger instance\n   */\n  get logger() {\n    return this._logger;\n  }\n\n  /**\n   * Set authentication provider instance\n   * @param {OAuth} value -- OAuth instance\n   */\n  set auth(value) {\n    if (!isParentOf(OAuth, value)) {\n      throw new TypeError('auth must be an instance of OAuth');\n    }\n\n    this._auth = value;\n  }\n\n  /**\n   * Test if the client is authenticated with the api and has a valid token\n   * @returns {boolean} - If the client is authenticated with the api\n   */\n  get authenticated() {\n    return this.auth.authenticated;\n  }\n\n  /**\n   * The current host\n   * @returns {string} - The current host\n   */\n  get host() {\n    return this._host;\n  }\n\n  /**\n   * The remote host\n   * @param {string} value - A valid url\n   */\n  set host(value) {\n    value = value.replace(/\\/+$/, '');\n    this._host = value;\n    this.auth.host = value;\n  }\n\n  /**\n   * Saves the session token so that it can be recovered at a later time. The wrapper can\n   * find the token most of the time if the name parameter is left blank.\n   * @param {string?} name - name of the token\n   * @returns {void}\n   */\n  saveToken(name) {\n    this.auth.token.save(name);\n  }\n\n  /**\n   * Authenticate with the api using the authentication method provided.\n   * @returns {Promise} - Resolves with {@link Maps4News} instance and rejects with {@link OAuthError}\n   */\n  authenticate() {\n    return this.auth.authenticate().then(() => this);\n  }\n\n  /**\n   * Request an url using the API token (if available)\n   * @param {string} url - Relative or absolute url, api version will be prepended to relative urls\n   * @param {string} method - Http method\n   * @param {string|object} data - Raw string or object. If an object is passed it will be encoded\n   *                               and the content-type will be set to `application/json`\n   * @param {object} headers - Any headers that should be set for the request\n   * @param {boolean} bundleResponse - When set to true the promise will resolve with an object {response: {@link Response}, data: *}\n   * @returns {Promise} - Resolves with either an object, blob, buffer or the raw data by checking the `Content-Type` header and rejects with {@link ApiError}\n   */\n  request(url, method = 'GET', data = {}, headers = {}, bundleResponse = false) {\n    if (!url.startsWith('http')) {\n      // Removes '/' at the start of the string (if any)\n      url = url.replace(/(^\\/+)/g, () => '');\n      url = `${this._host}/${this.version}/${url}`;\n    }\n\n    method = method.toUpperCase();\n\n    if (!(headers instanceof Headers)) {\n      headers = new Headers(headers);\n    }\n\n    if (this.authenticated) {\n      headers.set('Authorization', this.auth.token.toString());\n    }\n\n    // Automatically detect possible content-type header\n    const isFormData = data instanceof FormData;\n\n    if (typeof data === 'object' && !isFormData) {\n      data = JSON.stringify(data);\n\n      if (!headers.has('Content-Type')) {\n        headers.set('Content-Type', 'application/json');\n      }\n    } else if (data && !headers.has('Content-Type') && !isFormData) {\n      // headers.set('Content-Type', 'application/x-www-form-urlencoded');\n    }\n\n    if (!headers.has('Accept')) {\n      headers.set('Accept', 'application/json');\n    }\n\n    if (['GET', 'HEAD'].includes(method)) {\n      // eslint-disable-next-line no-undefined\n      data = undefined;\n    }\n\n    const init = {\n      headers, method,\n      redirect: 'follow',\n      mode: 'cors',\n    };\n\n    if (data) {\n      init.body = data;\n    }\n\n    return this._fetch(url, init, bundleResponse);\n  }\n\n  _fetch(url, init, bundleResponse) {\n    return fetch(url, init).then(response => {\n      const respond = data => !bundleResponse ? data : {response, data};\n\n      if (response.status === 429) {\n        const resetTimestamp = Number(response.headers.get('X-RateLimit-Reset')) * 1000;\n        const waitTime = resetTimestamp - Date.now();\n\n        return new Promise((resolve, reject) => {\n          setTimeout(() => {\n            this._fetch(url, init, bundleResponse).then(resolve).catch(reject);\n          }, waitTime);\n        });\n      }\n\n      // Check if there is an error response and parse it\n      if (!response.ok) {\n        return response.json().then(data => {\n          throw this._parseErrorResponse(data, response.status);\n        });\n      }\n\n      if (response.headers.has('Content-Type')) {\n        const contentType = response.headers.get('Content-Type').toLowerCase();\n\n        // Any type of text\n        if (contentType.startsWith('text/')) {\n          return response.text().then(respond);\n        }\n\n        // Response data\n        if (contentType === 'application/json') {\n          return response.json()\n            .then(x => {\n              // Just in case, code path should in theory never be reached\n              if (typeof x.success === 'boolean' && !x.success) {\n                throw this._parseErrorResponse(x, response.status);\n              }\n\n              return x;\n            })\n            .then(x => x.data ? x.data : {})\n            .then(respond);\n        }\n      }\n\n      if (isNode()) {\n        return response.buffer().then(respond);\n      }\n\n      return response.blob().then(respond);\n    });\n  }\n\n  _parseErrorResponse(data, status) {\n    const err = data.error;\n\n    if (!err['validation_errors']) {\n      const apiError = new ApiError(err.type, err.message, status, err.trace);\n\n      if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {\n        this.logger.warn('Lost Maps4News session, please re-authenticate');\n\n        this.logout();\n      }\n\n      return apiError;\n    }\n\n    return new ValidationError(err.type, err.message, status, err['validation_errors']);\n  }\n\n  /**\n   * Static proxy generation\n   * @param {string|function} Target - Constructor or url\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   * @example\n   * api.static('/custom/resource/path/{id}/').get(123);\n   *\n   * @example\n   * class FooBar extends ResourceBase {\n   *    get resourceName() {\n   *      return 'custom';\n   *    }\n   * }\n   *\n   * api.static(FooBar)\n   *   .get(1)\n   *   .then(console.log);\n   */\n  static(Target) {\n    if (isParentOf(ResourceBase, Target)) {\n      return new ResourceProxy(this, Target);\n    }\n\n    const Constructor = class AnonymousResource extends ResourceBase {\n      get resourceName() {\n        return 'anonymous';\n      }\n\n      get resourcePath() {\n        return String(Target);\n      }\n    };\n\n    Object.defineProperty(Constructor, 'name', {value: `AnonymousResource_${fnv32b(String(Target))}`});\n\n    return this.static(Constructor);\n  }\n\n  /**\n   * Choropleth accessor\n   * @see {@link Choropleth}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get choropleths() {\n    return this.static(Choropleth);\n  }\n\n  /**\n   * Color accessor\n   * @see {@link Color}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get colors() {\n    return this.static(Color);\n  }\n\n  /**\n   * Tag accessor\n   * @see {@link Tag}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get tags() {\n    return this.static(Tag);\n  }\n\n  /**\n   * Contract accessor\n   * @see {@link Contract}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get contracts() {\n    return this.static(Contract);\n  }\n\n  /**\n   * Dimension accessor\n   * @see {@link Dimension}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensions() {\n    return this.static(Dimension);\n  }\n\n  /**\n   * Dimension set accessor\n   * @see {@link DimensionSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get dimensionSets() {\n    return this.static(DimensionSet);\n  }\n\n  /**\n   * Domain accessor\n   * @see {@link Domain}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get domains() {\n    return this.static(Domain);\n  }\n\n  /**\n   * Faq accessor\n   * @see {@link Faq}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get faqs() {\n    return this.static(Faq);\n  }\n\n  /**\n   * Feature accessor\n   * @see {@link Feature}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get features() {\n    return this.static(Feature);\n  }\n\n  /**\n   * Font accessor\n   * @see {@link Font}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fonts() {\n    return this.static(Font);\n  }\n\n  /**\n   * FontFamily accessor\n   * @see {@link FontFamily}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get fontFamilies() {\n    return this.static(FontFamily);\n  }\n\n  /**\n   * Highlight accessor\n   * @see {@link Highlight}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get highlights() {\n    return this.static(Highlight);\n  }\n\n  /**\n   * InsetMap accessor\n   * @see {@link InsetMap}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get insetMaps() {\n    return this.static(InsetMap);\n  }\n\n  /**\n   * Job accessor\n   * @see {@link Job}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobs() {\n    return this.static(Job);\n  }\n\n  /**\n   * JobShare accessor\n   * @see {@link JobShare}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobShares() {\n    return this.static(JobShare);\n  }\n\n  /**\n   * JobType accessor\n   * @see {@link JobType}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get jobTypes() {\n    return this.static(JobType);\n  }\n\n  /**\n   * Language accessor\n   * @see {@link Language}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get languages() {\n    return this.static(Language);\n  }\n\n  /**\n   * Layer accessor\n   * @see {@link Layer}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get layers() {\n    return this.static(Layer);\n  }\n\n  /**\n   * Mapstyle accessor\n   * @see {@link Mapstyle}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyles() {\n    return this.static(Mapstyle);\n  }\n\n  /**\n   * MapstyleSet accessor\n   * @see {@link MapstyleSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get mapstyleSets() {\n    return this.static(MapstyleSet);\n  }\n\n  /**\n   * Notification accessor\n   * @see {@link Notification}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get notifications() {\n    return this.static(Notification);\n  }\n\n  /**\n   * Organisation accessor\n   * @see {@link Organisation}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return this.static(Organisation);\n  }\n\n  /**\n   * Permission accessor\n   * @see {@link Permission}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get permissions() {\n    return this.static(Permission);\n  }\n\n  /**\n   * Role accessor\n   * @see {@link Role}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get roles() {\n    return this.static(Role);\n  }\n\n  /**\n   * PlaceName accessor\n   * @see {@link PlaceName}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get placeNames() {\n    return this.static(PlaceName);\n  }\n\n  /**\n   * Svg accessor\n   * @see {@link Svg}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgs() {\n    return this.static(Svg);\n  }\n\n  /**\n   * SvgSet accessor\n   * @see {@link SvgSet}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get svgSets() {\n    return this.static(SvgSet);\n  }\n\n  /**\n   * User accessor\n   * @see {@link User}\n   * @returns {ResourceProxy} - A proxy for accessing the resource\n   */\n  get users() {\n    return this.static(User);\n  }\n\n  /**\n   * Get SVG set types\n   * @see {@link SvgSet}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getSvgSetType() {\n    return this.request('/svgs/sets/types').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Get font styles\n   * @see {@link Font}\n   * @returns {Promise} - Resolves with a new {@link Enum} instance and rejects with {@link ApiError}\n   */\n  getFontStyles() {\n    return this.request('/fonts/styles').then(data => new Enum(data, true));\n  }\n\n  /**\n   * Forget the current session\n   * This will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored\n   * @returns {void}\n   */\n  logout() {\n    this.auth.forget();\n  }\n}\n",
     "static": true,
     "longname": "/home/jenkins/workspace/Creator_api-wrapper_develop-2NQCQ7AGLHGGIPDK7BB6AFW3LGCULDH7GAJGUMN43QSLA6NZ2TWQ/src/Maps4News.js",
     "access": "public",
@@ -1546,7 +1546,7 @@
     "importPath": "@mapcreator/maps4news/src/Maps4News.js",
     "importStyle": "Maps4News",
     "description": "Base API class",
-    "lineNumber": 85,
+    "lineNumber": 81,
     "interface": false
   },
   {
@@ -1560,7 +1560,7 @@
     "longname": "src/Maps4News.js~Maps4News#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 90,
+    "lineNumber": 86,
     "params": [
       {
         "nullable": null,
@@ -1593,7 +1593,7 @@
     "longname": "src/Maps4News.js~Maps4News#defaults",
     "access": "public",
     "description": "Defaults for common parameters. These are populated during the build process using the `.env` file.",
-    "lineNumber": 100,
+    "lineNumber": 96,
     "type": {
       "nullable": null,
       "types": [
@@ -1612,7 +1612,7 @@
     "longname": "src/Maps4News.js~Maps4News#_cache",
     "access": "private",
     "description": null,
-    "lineNumber": 107,
+    "lineNumber": 103,
     "undocument": true,
     "ignore": true,
     "type": {
@@ -1630,7 +1630,7 @@
     "longname": "src/Maps4News.js~Maps4News#_logger",
     "access": "private",
     "description": null,
-    "lineNumber": 108,
+    "lineNumber": 104,
     "undocument": true,
     "ignore": true,
     "type": {
@@ -1650,7 +1650,7 @@
     "longname": "src/Maps4News.js~Maps4News#version",
     "access": "public",
     "description": "Get api version",
-    "lineNumber": 116,
+    "lineNumber": 112,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1686,7 +1686,7 @@
     "longname": "src/Maps4News.js~Maps4News#cache",
     "access": "public",
     "description": "Get the shared cache instance",
-    "lineNumber": 124,
+    "lineNumber": 120,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1718,7 +1718,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": "public",
     "description": "Get authentication provider instance",
-    "lineNumber": 132,
+    "lineNumber": 128,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1750,7 +1750,7 @@
     "longname": "src/Maps4News.js~Maps4News#logger",
     "access": "public",
     "description": "Get logger instance",
-    "lineNumber": 140,
+    "lineNumber": 136,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1782,7 +1782,7 @@
     "longname": "src/Maps4News.js~Maps4News#auth",
     "access": "public",
     "description": "Set authentication provider instance",
-    "lineNumber": 148,
+    "lineNumber": 144,
     "params": [
       {
         "nullable": null,
@@ -1805,7 +1805,7 @@
     "longname": "src/Maps4News.js~Maps4News#_auth",
     "access": "private",
     "description": null,
-    "lineNumber": 153,
+    "lineNumber": 149,
     "undocument": true,
     "ignore": true,
     "type": {
@@ -1825,7 +1825,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticated",
     "access": "public",
     "description": "Test if the client is authenticated with the api and has a valid token",
-    "lineNumber": 160,
+    "lineNumber": 156,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1857,7 +1857,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": "public",
     "description": "The current host",
-    "lineNumber": 168,
+    "lineNumber": 164,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1889,7 +1889,7 @@
     "longname": "src/Maps4News.js~Maps4News#host",
     "access": "public",
     "description": "The remote host",
-    "lineNumber": 176,
+    "lineNumber": 172,
     "params": [
       {
         "nullable": null,
@@ -1912,7 +1912,7 @@
     "longname": "src/Maps4News.js~Maps4News#_host",
     "access": "private",
     "description": null,
-    "lineNumber": 178,
+    "lineNumber": 174,
     "undocument": true,
     "ignore": true,
     "type": {
@@ -1932,7 +1932,7 @@
     "longname": "src/Maps4News.js~Maps4News#saveToken",
     "access": "public",
     "description": "Saves the session token so that it can be recovered at a later time. The wrapper can\nfind the token most of the time if the name parameter is left blank.",
-    "lineNumber": 188,
+    "lineNumber": 184,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1971,7 +1971,7 @@
     "longname": "src/Maps4News.js~Maps4News#authenticate",
     "access": "public",
     "description": "Authenticate with the api using the authentication method provided.",
-    "lineNumber": 196,
+    "lineNumber": 192,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1999,7 +1999,7 @@
     "longname": "src/Maps4News.js~Maps4News#request",
     "access": "public",
     "description": "Request an url using the API token (if available)",
-    "lineNumber": 210,
+    "lineNumber": 206,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2079,7 +2079,7 @@
     "longname": "src/Maps4News.js~Maps4News#_fetch",
     "access": "private",
     "description": null,
-    "lineNumber": 262,
+    "lineNumber": 258,
     "undocument": true,
     "ignore": true,
     "params": [
@@ -2119,7 +2119,7 @@
     "longname": "src/Maps4News.js~Maps4News#_parseErrorResponse",
     "access": "private",
     "description": null,
-    "lineNumber": 316,
+    "lineNumber": 312,
     "undocument": true,
     "ignore": true,
     "params": [
@@ -2157,7 +2157,7 @@
       "api.static('/custom/resource/path/{id}/').get(123);",
       "class FooBar extends ResourceBase {\n   get resourceName() {\n     return 'custom';\n   }\n}\n\napi.static(FooBar)\n  .get(1)\n  .then(console.log);"
     ],
-    "lineNumber": 352,
+    "lineNumber": 348,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2200,7 +2200,7 @@
     "see": [
       "{@link Choropleth}"
     ],
-    "lineNumber": 377,
+    "lineNumber": 373,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2235,7 +2235,7 @@
     "see": [
       "{@link Color}"
     ],
-    "lineNumber": 386,
+    "lineNumber": 382,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2270,7 +2270,7 @@
     "see": [
       "{@link Tag}"
     ],
-    "lineNumber": 395,
+    "lineNumber": 391,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2305,7 +2305,7 @@
     "see": [
       "{@link Contract}"
     ],
-    "lineNumber": 404,
+    "lineNumber": 400,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2340,7 +2340,7 @@
     "see": [
       "{@link Dimension}"
     ],
-    "lineNumber": 413,
+    "lineNumber": 409,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2375,7 +2375,7 @@
     "see": [
       "{@link DimensionSet}"
     ],
-    "lineNumber": 422,
+    "lineNumber": 418,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2410,7 +2410,7 @@
     "see": [
       "{@link Domain}"
     ],
-    "lineNumber": 431,
+    "lineNumber": 427,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2445,7 +2445,7 @@
     "see": [
       "{@link Faq}"
     ],
-    "lineNumber": 440,
+    "lineNumber": 436,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2480,7 +2480,7 @@
     "see": [
       "{@link Feature}"
     ],
-    "lineNumber": 449,
+    "lineNumber": 445,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2515,7 +2515,7 @@
     "see": [
       "{@link Font}"
     ],
-    "lineNumber": 458,
+    "lineNumber": 454,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2550,7 +2550,7 @@
     "see": [
       "{@link FontFamily}"
     ],
-    "lineNumber": 467,
+    "lineNumber": 463,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2585,7 +2585,7 @@
     "see": [
       "{@link Highlight}"
     ],
-    "lineNumber": 476,
+    "lineNumber": 472,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2620,7 +2620,7 @@
     "see": [
       "{@link InsetMap}"
     ],
-    "lineNumber": 485,
+    "lineNumber": 481,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2655,7 +2655,7 @@
     "see": [
       "{@link Job}"
     ],
-    "lineNumber": 494,
+    "lineNumber": 490,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2690,7 +2690,7 @@
     "see": [
       "{@link JobShare}"
     ],
-    "lineNumber": 503,
+    "lineNumber": 499,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2725,7 +2725,7 @@
     "see": [
       "{@link JobType}"
     ],
-    "lineNumber": 512,
+    "lineNumber": 508,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2760,7 +2760,7 @@
     "see": [
       "{@link Language}"
     ],
-    "lineNumber": 521,
+    "lineNumber": 517,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2795,7 +2795,7 @@
     "see": [
       "{@link Layer}"
     ],
-    "lineNumber": 530,
+    "lineNumber": 526,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2830,7 +2830,7 @@
     "see": [
       "{@link Mapstyle}"
     ],
-    "lineNumber": 539,
+    "lineNumber": 535,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2865,7 +2865,7 @@
     "see": [
       "{@link MapstyleSet}"
     ],
-    "lineNumber": 548,
+    "lineNumber": 544,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2900,7 +2900,7 @@
     "see": [
       "{@link Notification}"
     ],
-    "lineNumber": 557,
+    "lineNumber": 553,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2935,7 +2935,7 @@
     "see": [
       "{@link Organisation}"
     ],
-    "lineNumber": 566,
+    "lineNumber": 562,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2970,7 +2970,7 @@
     "see": [
       "{@link Permission}"
     ],
-    "lineNumber": 575,
+    "lineNumber": 571,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3005,7 +3005,7 @@
     "see": [
       "{@link Role}"
     ],
-    "lineNumber": 584,
+    "lineNumber": 580,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3040,7 +3040,7 @@
     "see": [
       "{@link PlaceName}"
     ],
-    "lineNumber": 593,
+    "lineNumber": 589,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3075,7 +3075,7 @@
     "see": [
       "{@link Svg}"
     ],
-    "lineNumber": 602,
+    "lineNumber": 598,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3110,7 +3110,7 @@
     "see": [
       "{@link SvgSet}"
     ],
-    "lineNumber": 611,
+    "lineNumber": 607,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3145,7 +3145,7 @@
     "see": [
       "{@link User}"
     ],
-    "lineNumber": 620,
+    "lineNumber": 616,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3180,7 +3180,7 @@
     "see": [
       "{@link SvgSet}"
     ],
-    "lineNumber": 629,
+    "lineNumber": 625,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3211,7 +3211,7 @@
     "see": [
       "{@link Font}"
     ],
-    "lineNumber": 638,
+    "lineNumber": 634,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3239,7 +3239,7 @@
     "longname": "src/Maps4News.js~Maps4News#logout",
     "access": "public",
     "description": "Forget the current session\nThis will clean up any stored OAuth states stored using {@link StateContainer} and any OAuth tokens stored",
-    "lineNumber": 647,
+    "lineNumber": 643,
     "unknown": [
       {
         "tagName": "@returns",
@@ -22013,7 +22013,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@mapcreator/maps4news\",\n  \"version\": \"1.4.2\",\n  \"description\": \"Maps4News JavaScript Api\",\n  \"main\": \"dist/bundle.js\",\n  \"repository\": \"git@github.com:MapCreatorEU/api-wrapper.git\",\n  \"author\": \"Bas Bieling <b.bieling@mapcreator.eu>\",\n  \"license\": \"BSD-3-Clause\",\n  \"files\": [\n    \"dist\",\n    \"src\"\n  ],\n  \"dependencies\": {\n    \"babel-polyfill\": \"^6.23.0\",\n    \"case\": \"^1.5.3\",\n    \"fetch-ponyfill\": \"^4.1.0\",\n    \"formdata-polyfill\": \"^3.0.9\",\n    \"json-stable-stringify\": \"^1.0.1\",\n    \"mitt\": \"^1.1.2\"\n  },\n  \"devDependencies\": {\n    \"ava\": \"^0.25.0\",\n    \"babel-cli\": \"^6.24.1\",\n    \"babel-core\": \"^6.25.0\",\n    \"babel-eslint\": \"^8.0.1\",\n    \"babel-loader\": \"^7.1.1\",\n    \"babel-plugin-transform-export-extensions\": \"^6.22.0\",\n    \"babel-plugin-transform-runtime\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"babel-register\": \"^6.26.0\",\n    \"contributors\": \"^0.5.1\",\n    \"dotenv-webpack\": \"^1.5.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-inject-script-plugin\": \"^1.0.0\",\n    \"esdoc-inject-style-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.2.0\",\n    \"fs-extra\": \"^4.0.1\",\n    \"licensecheck\": \"^1.3.0\",\n    \"nyc\": \"^11.2.1\",\n    \"tap-nyc\": \"^1.0.3\",\n    \"uglifyjs-webpack-plugin\": \"^1.1.6\",\n    \"webpack\": \"^3.1.0\",\n    \"webpack-merge\": \"^4.1.0\"\n  },\n  \"scripts\": {\n    \"build\": \"./scripts/build.sh\",\n    \"watch\": \"npx webpack --progress --watch\",\n    \"docs\": \"npx esdoc\",\n    \"lint\": \"npx eslint --no-color --max-warnings 5 --format checkstyle --output-file build/checkstyle.xml src\",\n    \"authors\": \"npx contributors | grep -v -e '^- [A-Za-z]' | tail -n +4 > AUTHORS.md\",\n    \"clean\": \"rm -r dist docs .nyc_output build || true\",\n    \"all\": \"./scripts/all.sh\",\n    \"test\": \"npx ava\",\n    \"test-ci\": \"./scripts/test-ci.sh\",\n    \"version\": \"yarn run authors && git add AUTHORS.md\"\n  },\n  \"contributors\": [\n    \"Bas Bieling <b.bieling@mapcreator.eu> (https://GitHub.com/Mechazawa)\"\n  ],\n  \"esdoc\": {\n    \"source\": \"./src\",\n    \"destination\": \"./docs\",\n    \"name\": \"maps4news\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\",\n        \"option\": {\n          \"accessor\": {\n            \"access\": [\n              \"public\",\n              \"protected\"\n            ],\n            \"autoPrivate\": true\n          },\n          \"undocumentIdentifier\": {\n            \"enable\": true\n          },\n          \"unexportedIdentifier\": {\n            \"enable\": false\n          },\n          \"typeInference\": {\n            \"enable\": true\n          },\n          \"brand\": {\n            \"title\": \"Maps4News Api Wrapper\",\n            \"description\": \"Maps4News Api Javascript Wrapper\"\n          },\n          \"manual\": {\n            \"asset\": \"./manual/assets\",\n            \"index\": \"./README.md\",\n            \"files\": [\n              \"./manual/examples.md\",\n              \"./manual/examples.authentication.md\",\n              \"./manual/building.md\",\n              \"./manual/installation.md\"\n            ]\n          }\n        }\n      },\n      {\n        \"name\": \"esdoc-ecmascript-proposal-plugin\",\n        \"option\": {\n          \"all\": true\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-script-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"scripts\": [\n            \"./dist/bundle.js\",\n            \"./manual/js/sandbox.js\"\n          ]\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-style-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"styles\": [\n            \"./manual/css/sidebar_fix.css\",\n            \"./manual/css/hide_import.css\"\n          ]\n        }\n      }\n    ]\n  },\n  \"babel\": {\n    \"presets\": [\n      [\n        \"env\",\n        {\n          \"targets\": {\n            \"browsers\": [\n              \"> 1%\"\n            ]\n          }\n        }\n      ]\n    ],\n    \"sourceMap\": true,\n    \"env\": {\n      \"production\": {\n        \"presets\": [\n          \"@ava/stage-4\"\n        ]\n      }\n    },\n    \"plugins\": [\n      \"transform-export-extensions\"\n    ]\n  },\n  \"ava\": {\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"babel\": \"inherit\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@mapcreator/maps4news\",\n  \"version\": \"1.4.3\",\n  \"description\": \"Maps4News JavaScript Api\",\n  \"main\": \"dist/bundle.js\",\n  \"repository\": \"git@github.com:MapCreatorEU/api-wrapper.git\",\n  \"author\": \"Bas Bieling <b.bieling@mapcreator.eu>\",\n  \"license\": \"BSD-3-Clause\",\n  \"files\": [\n    \"dist\",\n    \"src\"\n  ],\n  \"dependencies\": {\n    \"babel-runtime\": \"^6.26.0\",\n    \"case\": \"^1.5.3\",\n    \"formdata-polyfill\": \"^3.0.9\",\n    \"json-stable-stringify\": \"^1.0.1\",\n    \"mitt\": \"^1.1.2\"\n  },\n  \"devDependencies\": {\n    \"ava\": \"^0.25.0\",\n    \"babel-cli\": \"^6.24.1\",\n    \"babel-core\": \"^6.25.0\",\n    \"babel-eslint\": \"^8.0.1\",\n    \"babel-loader\": \"^7.1.1\",\n    \"babel-plugin-transform-export-extensions\": \"^6.22.0\",\n    \"babel-plugin-transform-runtime\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"babel-preset-node8\": \"^1.2.0\",\n    \"babel-register\": \"^6.26.0\",\n    \"contributors\": \"^0.5.1\",\n    \"dotenv-webpack\": \"^1.5.7\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-inject-script-plugin\": \"^1.0.0\",\n    \"esdoc-inject-style-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.2.0\",\n    \"eslint-plugin-compat\": \"^2.4.0\",\n    \"fetch-ponyfill\": \"^6.0.2\",\n    \"fs-extra\": \"^6.0.1\",\n    \"licensecheck\": \"^1.3.0\",\n    \"nyc\": \"^11.2.1\",\n    \"tap-nyc\": \"^1.0.3\",\n    \"uglifyjs-webpack-plugin\": \"^1.1.6\",\n    \"webpack\": \"^4.12.0\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"webpack-node-externals\": \"^1.7.2\"\n  },\n  \"scripts\": {\n    \"build\": \"./scripts/build.sh\",\n    \"watch\": \"npx webpack --progress --watch\",\n    \"docs\": \"npx esdoc\",\n    \"lint\": \"npx eslint --no-color --max-warnings 5 --format checkstyle --output-file build/checkstyle.xml src\",\n    \"authors\": \"npx contributors | grep -v -e '^- [A-Za-z]' | tail -n +4 > AUTHORS.md\",\n    \"clean\": \"rm -r dist docs .nyc_output build || true\",\n    \"all\": \"./scripts/all.sh\",\n    \"test\": \"npx ava\",\n    \"test-ci\": \"./scripts/test-ci.sh\",\n    \"version\": \"yarn run authors && git add AUTHORS.md\"\n  },\n  \"contributors\": [\n    \"Bas Bieling <b.bieling@mapcreator.eu> (https://GitHub.com/Mechazawa)\"\n  ],\n  \"browserslist\": [\n    \"> 1%\",\n    \"Firefox ESR\",\n    \"not dead\",\n    \"not IE_mob < 12\",\n    \"not OperaMini all\"\n  ],\n  \"esdoc\": {\n    \"source\": \"./src\",\n    \"destination\": \"./docs\",\n    \"name\": \"maps4news\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\",\n        \"option\": {\n          \"accessor\": {\n            \"access\": [\n              \"public\",\n              \"protected\"\n            ],\n            \"autoPrivate\": true\n          },\n          \"undocumentIdentifier\": {\n            \"enable\": true\n          },\n          \"unexportedIdentifier\": {\n            \"enable\": false\n          },\n          \"typeInference\": {\n            \"enable\": true\n          },\n          \"brand\": {\n            \"title\": \"Maps4News Api Wrapper\",\n            \"description\": \"Maps4News Api Javascript Wrapper\"\n          },\n          \"manual\": {\n            \"asset\": \"./manual/assets\",\n            \"index\": \"./README.md\",\n            \"files\": [\n              \"./manual/examples.md\",\n              \"./manual/examples.authentication.md\",\n              \"./manual/building.md\",\n              \"./manual/installation.md\"\n            ]\n          }\n        }\n      },\n      {\n        \"name\": \"esdoc-ecmascript-proposal-plugin\",\n        \"option\": {\n          \"all\": true\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-script-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"scripts\": [\n            \"./dist/bundle.js\",\n            \"./manual/js/sandbox.js\"\n          ]\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-style-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"styles\": [\n            \"./manual/css/sidebar_fix.css\",\n            \"./manual/css/hide_import.css\"\n          ]\n        }\n      }\n    ]\n  },\n  \"ava\": {\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"babel\": \"inherit\"\n  }\n}\n",
     "longname": "/home/jenkins/workspace/Creator_api-wrapper_develop-2NQCQ7AGLHGGIPDK7BB6AFW3LGCULDH7GAJGUMN43QSLA6NZ2TWQ/package.json",
     "name": "package.json",
     "static": true,
