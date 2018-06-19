@@ -1,7 +1,7 @@
 {
-  "coverage": "71.95%",
-  "expectCount": 706,
-  "actualCount": 508,
+  "coverage": "71.89%",
+  "expectCount": 708,
+  "actualCount": 509,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -99,22 +99,23 @@
       ]
     },
     "src/ResourceLister.js": {
-      "expectCount": 32,
-      "actualCount": 19,
+      "expectCount": 34,
+      "actualCount": 20,
       "undocumentLines": [
         63,
         64,
         65,
         66,
         67,
-        157,
-        184,
-        187,
-        215,
-        217,
-        218,
-        219,
-        220
+        68,
+        166,
+        193,
+        196,
+        224,
+        226,
+        227,
+        228,
+        229
       ]
     },
     "src/enums/DeletedState.js": {

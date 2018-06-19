@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:ee71aae956fc8faa4b51, chunkhash:fbb35a6b7966ab26d82a, name:bundle, version:v1.4.5
+ * hash:eb2af113a71515f6ba0b, chunkhash:fa8da6d4d9e0801bb49b, name:bundle, version:v1.4.6
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.5";
+var version = exports.version = "v1.4.6";
 
 /**
  * Package license
@@ -7977,6 +7977,7 @@ var ResourceLister = function (_EventEmitter) {
     _this._route = route || new _this.Resource(api, {}).baseUrl;
     _this._parameters = new _RequestParameters2.default(parameters || { perPage: _RequestParameters2.default.maxPerPage });
     _this._key = (0, _case.snake)(key);
+    _this._waiting = false;
 
     _this.parameters.perPage = _RequestParameters2.default.maxPerPage;
     _this.autoUpdate = true;
@@ -7987,8 +7988,8 @@ var ResourceLister = function (_EventEmitter) {
   }
 
   /**
-   * Get the request parameters
-   * @returns {RequestParameters} - parameters
+   * Get if the instance is waiting for data
+   * @returns {boolean} - waiting for data
    */
 
 
@@ -8026,23 +8027,44 @@ var ResourceLister = function (_EventEmitter) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                if (!this.waiting) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt('return');
+
+              case 2:
+
+                this._waiting = true;
+
+                _context.prev = 3;
+
                 if (this._parameterToken !== this.parameters.token()) {
                   this._reset();
                 }
 
                 if (!(this._realData.length < this.maxRows)) {
-                  _context.next = 4;
+                  _context.next = 8;
                   break;
                 }
 
-                _context.next = 4;
+                _context.next = 8;
                 return this._fetchMore();
 
-              case 4:
+              case 8:
 
                 if (this.data.length !== this.maxRows) {
                   this._data = this._realData.slice(0, this.maxRows);
                 }
+
+              case 9:
+                _context.prev = 9;
+
+                this._waiting = false;
+                return _context.finish(9);
+
+              case 12:
 
                 /**
                  * Update event.
@@ -8052,12 +8074,12 @@ var ResourceLister = function (_EventEmitter) {
                  */
                 this.emit('update');
 
-              case 6:
+              case 13:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[3,, 9, 12]]);
       }));
 
       function update() {
@@ -8189,6 +8211,17 @@ var ResourceLister = function (_EventEmitter) {
         }
       }
     }
+  }, {
+    key: 'waiting',
+    get: function get() {
+      return this._waiting;
+    }
+
+    /**
+     * Get the request parameters
+     * @returns {RequestParameters} - parameters
+     */
+
   }, {
     key: 'parameters',
     get: function get() {
