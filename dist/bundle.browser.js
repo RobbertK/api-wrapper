@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:061c09a7c379a0673a1b, chunkhash:094570eb03642d36ec0d, name:bundle.browser, version:v1.4.3
+ * hash:555272092c2602ec3bf8, chunkhash:342686c0bf7d84e9c114, name:bundle.browser, version:v1.4.5
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.3) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.5) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -331,7 +331,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.3";
+var version = exports.version = "v1.4.5";
 
 /**
  * Package license
@@ -11226,6 +11226,18 @@ var _createClass2 = __webpack_require__(5);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _case = __webpack_require__(85);
+
+var _events = __webpack_require__(136);
+
 var _Maps4News = __webpack_require__(97);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
@@ -11244,6 +11256,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /**
  * Paginated resource lister
+ *
+ * @fires ResourceLister#update
  */
 /*
  * BSD 3-Clause License
@@ -11277,7 +11291,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-var ResourceLister = function () {
+var ResourceLister = function (_EventEmitter) {
+  (0, _inherits3.default)(ResourceLister, _EventEmitter);
+
   /**
    * ResourceLister constructor
    *
@@ -11295,20 +11311,24 @@ var ResourceLister = function () {
     var key = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 'id';
     (0, _classCallCheck3.default)(this, ResourceLister);
 
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceLister.__proto__ || Object.getPrototypeOf(ResourceLister)).call(this));
+
     if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
       throw new TypeError('Expected api to be of type Maps4News');
     }
 
-    this._api = api;
-    this._Resource = Resource;
-    this._route = route || new this.Resource(api, {}).baseUrl;
-    this._parameters = parameters || new _RequestParameters2.default({ perPage: _RequestParameters2.default.maxPerPage });
-    this._maxRows = maxRows;
-    this._key = key;
+    _this._api = api;
+    _this._Resource = Resource;
+    _this._route = route || new _this.Resource(api, {}).baseUrl;
+    _this._parameters = new _RequestParameters2.default(parameters || { perPage: _RequestParameters2.default.maxPerPage });
+    _this._key = (0, _case.snake)(key);
 
-    this._boundUpdate = this.update.bind(this);
+    _this.parameters.perPage = _RequestParameters2.default.maxPerPage;
+    _this.autoUpdate = true;
+    _this.maxRows = maxRows;
 
-    this._reset();
+    _this._reset();
+    return _this;
   }
 
   /**
@@ -11369,7 +11389,15 @@ var ResourceLister = function () {
                   this._data = this._realData.slice(0, this.maxRows);
                 }
 
-              case 5:
+                /**
+                 * Update event.
+                 * Called when the ResourceLister has updated
+                 *
+                 * @event RequestLister#update
+                 */
+                this.emit('update');
+
+              case 6:
               case 'end':
                 return _context.stop();
             }
@@ -11395,15 +11423,15 @@ var ResourceLister = function () {
     value: function () {
       var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
         var _ref3,
-            _this = this;
+            _this2 = this;
 
         var startPage, endPage, glue, promises, page, parameters, url, promise, responses, data;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                startPage = 1 + Math.floor(this.rowCount / _RequestParameters2.default.maxPerPage);
-                endPage = Math.ceil(this.maxRows / _RequestParameters2.default.maxPerPage);
+                startPage = 1 + Math.floor(this.rowCount / this.parameters.perPage);
+                endPage = Math.ceil(this.maxRows / this.parameters.perPage);
                 glue = this.route.includes('?') ? '&' : '?';
                 promises = [];
 
@@ -11435,7 +11463,7 @@ var ResourceLister = function () {
                 this._availableRows = Number(responses[0].response.headers.get('X-Paginate-Total')) || 0;
 
                 data.forEach(function (row) {
-                  return _this.push(row, false);
+                  return _this2.push(row, false);
                 });
 
               case 11:
@@ -11476,7 +11504,7 @@ var ResourceLister = function () {
   }, {
     key: 'push',
     value: function push(row) {
-      var _this2 = this;
+      var _this3 = this;
 
       var autoMaxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
@@ -11485,7 +11513,7 @@ var ResourceLister = function () {
       }
 
       var index = this._keys.findIndex(function (i) {
-        return i === row[_this2._key];
+        return i === row[_this3._key];
       });
 
       if (index >= 0) {
@@ -11606,6 +11634,11 @@ var ResourceLister = function () {
       }
 
       this._maxRows = value;
+
+      if (this.autoUpdate) {
+        // noinspection JSIgnoredPromiseFromCall
+        this.update();
+      }
     }
 
     /**
@@ -11635,6 +11668,10 @@ var ResourceLister = function () {
       if (this.autoUpdate !== value) {
         this._autoUpdate = value;
 
+        if (typeof this._boundUpdate === 'undefined') {
+          this._boundUpdate = this.update.bind(this);
+        }
+
         if (this.autoUpdate) {
           this.parameters.on('change', this._boundUpdate);
         } else {
@@ -11651,11 +11688,11 @@ var ResourceLister = function () {
      */
     ,
     get: function get() {
-      return this._autoUpdate || false;
+      return this._autoUpdate;
     }
   }]);
   return ResourceLister;
-}();
+}(_events.EventEmitter);
 
 exports.default = ResourceLister;
 
@@ -15917,21 +15954,25 @@ var CrudSetItemBase = function (_CrudBase) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (CrudSetItemBase.__proto__ || Object.getPrototypeOf(CrudSetItemBase)).call(this, api, data));
 
     if (_this.constructor === _CrudBase3.default) {
-      throw new AbstractClassError();
+      throw new _AbstractError.AbstractClassError();
     }
     return _this;
   }
 
   /**
    * Get the parent id
-   * @returns {number|undefined} - Parent number
+   * @returns {?number|undefined} - Parent number
    */
 
 
   (0, _createClass3.default)(CrudSetItemBase, [{
     key: 'parentId',
     get: function get() {
-      return this.hasParent ? Number(this[this.parentKey]) : undefined;
+      if (this.hasParent) {
+        return Number(this[this.parentKey]);
+      }
+
+      return [][0]; // same as "undefined"
     }
 
     /**
