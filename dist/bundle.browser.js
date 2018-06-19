@@ -29,15 +29,17 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:6341568516689964d347, chunkhash:1c24ac867c4316a7894d, name:bundle.browser, version:v1.4.6
+ * hash:768e6f0dfb2acdee5240, chunkhash:9af316af3e5a589eaec7, name:bundle.browser, version:v1.4.7
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.6) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
  *    ├─ case (1.5.5) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
+ *    ├─ fetch-ponyfill (6.0.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/fetch-ponyfill/package.json
+ *    │  └─ node-fetch (2.1.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/node-fetch/package.json
  *    ├─ formdata-polyfill (3.0.10) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/formdata-polyfill/package.json
  *    ├─ json-stable-stringify (1.0.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/json-stable-stringify/package.json
  *    │  └─ jsonify (0.0.0) ── public domain ── node_modules/jsonify/package.json
@@ -331,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.6";
+var version = exports.version = "v1.4.7";
 
 /**
  * Package license
