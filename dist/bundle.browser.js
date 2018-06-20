@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:768e6f0dfb2acdee5240, chunkhash:9af316af3e5a589eaec7, name:bundle.browser, version:v1.4.7
+ * hash:8c2e5af6ae9a7b9fa3f9, chunkhash:7ae09777399fc3a3d76f, name:bundle.browser, version:v1.4.8
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.7) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.8) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.7";
+var version = exports.version = "v1.4.8";
 
 /**
  * Package license
@@ -11335,8 +11335,8 @@ var ResourceLister = function (_EventEmitter) {
   }
 
   /**
-   * Get if the instance is waiting for data
-   * @returns {boolean} - waiting for data
+   * Get if there are more resources to fetch. It indicates if the maxRows can be increased.
+   * @returns {boolean} - if more rows are available
    */
 
 
@@ -11558,6 +11558,17 @@ var ResourceLister = function (_EventEmitter) {
         }
       }
     }
+  }, {
+    key: 'hasMore',
+    get: function get() {
+      return this.availibleRows < this.maxRows;
+    }
+
+    /**
+     * Get if the instance is waiting for data
+     * @returns {boolean} - waiting for data
+     */
+
   }, {
     key: 'waiting',
     get: function get() {

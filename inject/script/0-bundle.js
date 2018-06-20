@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:1d22d1bf7aa3abc40c4e, chunkhash:9a8cb99ec3951ce2da9b, name:bundle, version:v1.4.7
+ * hash:5692dd53af280fca19c4, chunkhash:6bada0c44404e00db4e8, name:bundle, version:v1.4.8
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.7";
+var version = exports.version = "v1.4.8";
 
 /**
  * Package license
@@ -7988,8 +7988,8 @@ var ResourceLister = function (_EventEmitter) {
   }
 
   /**
-   * Get if the instance is waiting for data
-   * @returns {boolean} - waiting for data
+   * Get if there are more resources to fetch. It indicates if the maxRows can be increased.
+   * @returns {boolean} - if more rows are available
    */
 
 
@@ -8211,6 +8211,17 @@ var ResourceLister = function (_EventEmitter) {
         }
       }
     }
+  }, {
+    key: 'hasMore',
+    get: function get() {
+      return this.availibleRows < this.maxRows;
+    }
+
+    /**
+     * Get if the instance is waiting for data
+     * @returns {boolean} - waiting for data
+     */
+
   }, {
     key: 'waiting',
     get: function get() {
