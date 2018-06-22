@@ -1752,9 +1752,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/resourcelister.js~resourcelister#availiblerows",
-    "class/src/ResourceLister.js~ResourceLister.html#instance-get-availibleRows",
-    "src/ResourceLister.js~ResourceLister#availibleRows",
+    "src/resourcelister.js~resourcelister#availablerows",
+    "class/src/ResourceLister.js~ResourceLister.html#instance-get-availableRows",
+    "src/ResourceLister.js~ResourceLister#availableRows",
     "member"
   ],
   [
