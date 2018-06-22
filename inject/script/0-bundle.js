@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:fad47dacf48da156d78c, chunkhash:82a5c23431185a2142fa, name:bundle, version:v1.4.9
+ * hash:9133d5f04c9b08a134fa, chunkhash:255ccdbd207044a1cb4b, name:bundle, version:v1.4.10
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.9";
+var version = exports.version = "v1.4.10";
 
 /**
  * Package license
@@ -8215,7 +8215,7 @@ var ResourceLister = function (_EventEmitter) {
   }, {
     key: 'hasMore',
     get: function get() {
-      return typeof this.availableRows === 'undefined' || this.availableRows < this.maxRows;
+      return typeof this.availableRows === 'undefined' || this.availableRows > this.maxRows;
     }
 
     /**

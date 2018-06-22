@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:1fc5515059ea738ec51d, chunkhash:d7a1c3cfa54158e0855c, name:bundle.browser, version:v1.4.9
+ * hash:a78839ec7e91385811c0, chunkhash:e0c848b8e1bbffb5f53c, name:bundle.browser, version:v1.4.10
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.9) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.9";
+var version = exports.version = "v1.4.10";
 
 /**
  * Package license
@@ -11562,7 +11562,7 @@ var ResourceLister = function (_EventEmitter) {
   }, {
     key: 'hasMore',
     get: function get() {
-      return typeof this.availableRows === 'undefined' || this.availableRows < this.maxRows;
+      return typeof this.availableRows === 'undefined' || this.availableRows > this.maxRows;
     }
 
     /**

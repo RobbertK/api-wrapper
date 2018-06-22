@@ -188,7 +188,7 @@ export default class ResourceLister extends EventEmitter {
    * @returns {boolean} - if more rows are available
    */
   get hasMore() {
-    return typeof this.availableRows === &apos;undefined&apos; || this.availableRows &lt; this.maxRows;
+    return typeof this.availableRows === &apos;undefined&apos; || this.availableRows &gt; this.maxRows;
   }
 
   /**
