@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:a78839ec7e91385811c0, chunkhash:e0c848b8e1bbffb5f53c, name:bundle.browser, version:v1.4.10
+ * hash:0544bc47167e341de5c8, chunkhash:5779a5a4a034efb9a022, name:bundle.browser, version:v1.4.11
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.10) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.10";
+var version = exports.version = "v1.4.11";
 
 /**
  * Package license
@@ -19710,43 +19710,13 @@ var _JobMonitorRow2 = _interopRequireDefault(_JobMonitorRow);
 
 var _reflection = __webpack_require__(86);
 
+var _requests = __webpack_require__(112);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Used for monitoring the job queue
  */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 var JobMonitor = function () {
   /**
    * JobMonitor constructor
@@ -19764,6 +19734,7 @@ var JobMonitor = function () {
     this._lastUpdate = this._getTimestamp();
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
+    this._filterTags = [];
     this._purge = false;
     this._longPoll = true;
     this._skipMaxUpdate = false;
@@ -19821,7 +19792,17 @@ var JobMonitor = function () {
 
         this.api.logger.debug('[JobMonitor] have ' + (this.data.length + requestedRowCount) + ', Diff: ' + rowCountDiff + ',' + ('PerPage: ' + perPage + ', Page: ' + page + ', Target: ' + perPage * page));
 
-        var _url = this._baseUrl + '&per_page=' + perPage + '&page=' + page;
+        var params = {
+          // eslint-disable-next-line
+          per_page: perPage,
+          page: page
+        };
+
+        if (this.filterTags.length > 0) {
+          params.tags = this.filterTags;
+        }
+
+        var _url = this._baseUrl + '&' + (0, _requests.encodeQueryString)(params);
 
         requests.push(this.api.request(_url).then(function (data) {
           return data.map(function (x) {
@@ -20059,6 +20040,24 @@ var JobMonitor = function () {
     get: function get() {
       return this._filterStatus;
     }
+  }, {
+    key: 'filterTags',
+    set: function set(value) {
+      if (Array.isArray('array')) {
+        var valueType = value.toString();
+
+        if (valueType !== null && typeof value !== 'undefined') {
+          valueType = value.constructor.name;
+        }
+
+        throw new TypeError('Expected value to be of type array got ' + valueType + '.');
+      }
+
+      this._filterTags = value;
+    },
+    get: function get() {
+      return this._filterTags;
+    }
 
     /**
      * Returns the time the ::update method was called for the last time.
@@ -20093,7 +20092,37 @@ var JobMonitor = function () {
     }
   }]);
   return JobMonitor;
-}();
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
 
 exports.default = JobMonitor;
 

@@ -1,6 +1,6 @@
 {
-  "coverage": "71.93%",
-  "expectCount": 709,
+  "coverage": "71.62%",
+  "expectCount": 712,
   "actualCount": 510,
   "files": {
     "src/ImageHandler.js": {
@@ -12,22 +12,25 @@
       ]
     },
     "src/JobMonitor.js": {
-      "expectCount": 29,
+      "expectCount": 32,
       "actualCount": 16,
       "undocumentLines": [
-        51,
-        53,
+        52,
         54,
         55,
         56,
         57,
         58,
         59,
-        90,
-        243,
-        253,
-        269,
-        332
+        60,
+        61,
+        92,
+        255,
+        265,
+        281,
+        319,
+        333,
+        362
       ]
     },
     "src/Maps4News.js": {
