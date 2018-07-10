@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:0544bc47167e341de5c8, chunkhash:5779a5a4a034efb9a022, name:bundle.browser, version:v1.4.11
+ * hash:aae5999e53e6a741c46f, chunkhash:1f722646da7a0c871a37, name:bundle.browser, version:v1.4.12
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.11) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.11";
+var version = exports.version = "v1.4.12";
 
 /**
  * Package license
@@ -3825,6 +3825,7 @@ var Maps4News = function () {
 
     this.auth = auth;
     this.host = host;
+    this.autoLogout = true;
 
     var bool = function bool(str) {
       return String(str).toLowerCase() === 'true';
@@ -4021,7 +4022,9 @@ var Maps4News = function () {
         if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {
           this.logger.warn('Lost Maps4News session, please re-authenticate');
 
-          this.logout();
+          if (this.autoLogout) {
+            this.logout();
+          }
         }
 
         return apiError;
@@ -4129,6 +4132,13 @@ var Maps4News = function () {
     value: function logout() {
       this.auth.forget();
     }
+
+    /**
+     * Get if the api should automatically call logout when it counters an AuthenticationException
+     * @returns {boolean} - Auto logout
+     * @see {@link logout}
+     */
+
   }, {
     key: 'version',
     get: function get() {
@@ -4541,6 +4551,21 @@ var Maps4News = function () {
     key: 'users',
     get: function get() {
       return this.static(_resources.User);
+    }
+  }, {
+    key: 'autoLogout',
+    get: function get() {
+      return this._autoLogout;
+    }
+
+    /**
+     * Set if the api should automatically call logout when it counters an AuthenticationException
+     * @param {boolean} value - Auto logout
+     * @see {@link logout}
+     */
+    ,
+    set: function set(value) {
+      this._autoLogout = Boolean(value);
     }
   }]);
   return Maps4News;

@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:9635219882f190322d47, chunkhash:9b3d803d730d779f06b8, name:bundle, version:v1.4.11
+ * hash:490d55291b008e52c646, chunkhash:5f2a85a1a0a1ae53599f, name:bundle, version:v1.4.12
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.11";
+var version = exports.version = "v1.4.12";
 
 /**
  * Package license
@@ -1574,6 +1574,7 @@ var Maps4News = function () {
 
     this.auth = auth;
     this.host = host;
+    this.autoLogout = true;
 
     var bool = function bool(str) {
       return String(str).toLowerCase() === 'true';
@@ -1770,7 +1771,9 @@ var Maps4News = function () {
         if (apiError.type === 'AuthenticationException' && apiError.message.startsWith('Unauthenticated') && apiError.code === 401) {
           this.logger.warn('Lost Maps4News session, please re-authenticate');
 
-          this.logout();
+          if (this.autoLogout) {
+            this.logout();
+          }
         }
 
         return apiError;
@@ -1878,6 +1881,13 @@ var Maps4News = function () {
     value: function logout() {
       this.auth.forget();
     }
+
+    /**
+     * Get if the api should automatically call logout when it counters an AuthenticationException
+     * @returns {boolean} - Auto logout
+     * @see {@link logout}
+     */
+
   }, {
     key: 'version',
     get: function get() {
@@ -2290,6 +2300,21 @@ var Maps4News = function () {
     key: 'users',
     get: function get() {
       return this.static(_resources.User);
+    }
+  }, {
+    key: 'autoLogout',
+    get: function get() {
+      return this._autoLogout;
+    }
+
+    /**
+     * Set if the api should automatically call logout when it counters an AuthenticationException
+     * @param {boolean} value - Auto logout
+     * @see {@link logout}
+     */
+    ,
+    set: function set(value) {
+      this._autoLogout = Boolean(value);
     }
   }]);
   return Maps4News;
