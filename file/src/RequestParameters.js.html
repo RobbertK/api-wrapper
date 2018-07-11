@@ -462,8 +462,8 @@ export default class RequestParameters extends EventEmitter {
       if (Array.isArray(value[key])) {
         if (value[key].length &gt; 0) {
           for (const query of value[key]) {
-            if (typeof query !== &apos;string&apos;) {
-              throw new TypeError(`Expected query for &quot;${key}&quot; to be of type &quot;String&quot; got &quot;${getTypeName(query)}&quot;`);
+            if (typeof query !== &apos;string&apos; &amp;&amp; typeof query !== &apos;number&apos;) {
+              throw new TypeError(`Expected query for &quot;${key}&quot; to be of type &quot;String&quot; or &quot;Number&quot; got &quot;${getTypeName(query)}&quot;`);
             }
           }
         } else {

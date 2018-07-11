@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:490d55291b008e52c646, chunkhash:5f2a85a1a0a1ae53599f, name:bundle, version:v1.4.12
+ * hash:288e679c70984d9e8e6b, chunkhash:a015845297c1507faffd, name:bundle, version:v1.4.13
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.12";
+var version = exports.version = "v1.4.13";
 
 /**
  * Package license
@@ -7592,8 +7592,8 @@ var RequestParameters = function (_EventEmitter) {
                 for (var _iterator5 = value[key][Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
                   var query = _step5.value;
 
-                  if (typeof query !== 'string') {
-                    throw new TypeError('Expected query for "' + key + '" to be of type "String" got "' + (0, _reflection.getTypeName)(query) + '"');
+                  if (typeof query !== 'string' && typeof query !== 'number') {
+                    throw new TypeError('Expected query for "' + key + '" to be of type "String" or "Number" got "' + (0, _reflection.getTypeName)(query) + '"');
                   }
                 }
               } catch (err) {

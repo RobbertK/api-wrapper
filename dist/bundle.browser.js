@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:aae5999e53e6a741c46f, chunkhash:1f722646da7a0c871a37, name:bundle.browser, version:v1.4.12
+ * hash:c033bac531e9994b89da, chunkhash:e6e56973995f2fd59f5c, name:bundle.browser, version:v1.4.13
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.12) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.13) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.12";
+var version = exports.version = "v1.4.13";
 
 /**
  * Package license
@@ -10637,8 +10637,8 @@ var RequestParameters = function (_EventEmitter) {
                 for (var _iterator5 = value[key][Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
                   var query = _step5.value;
 
-                  if (typeof query !== 'string') {
-                    throw new TypeError('Expected query for "' + key + '" to be of type "String" got "' + (0, _reflection.getTypeName)(query) + '"');
+                  if (typeof query !== 'string' && typeof query !== 'number') {
+                    throw new TypeError('Expected query for "' + key + '" to be of type "String" or "Number" got "' + (0, _reflection.getTypeName)(query) + '"');
                   }
                 }
               } catch (err) {
