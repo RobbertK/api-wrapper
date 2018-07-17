@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:c033bac531e9994b89da, chunkhash:e6e56973995f2fd59f5c, name:bundle.browser, version:v1.4.13
+ * hash:37acd251938b5d68bc1b, chunkhash:e9686886fe97a5971582, name:bundle.browser, version:v1.4.14
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.13) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.14) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.13";
+var version = exports.version = "v1.4.14";
 
 /**
  * Package license
@@ -3754,6 +3754,10 @@ var _ResourceProxy = __webpack_require__(128);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
+var _SimpleResourceProxy = __webpack_require__(130);
+
+var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
+
 var _ResourceCache = __webpack_require__(133);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
@@ -3781,38 +3785,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Base API class
  */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 var Maps4News = function () {
   /**
    * @param {OAuth} auth - Authentication flow
@@ -4326,6 +4298,18 @@ var Maps4News = function () {
     }
 
     /**
+     * Featured jobs accessor
+     * @see {@link Job}
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'featuredMaps',
+    get: function get() {
+      return new _SimpleResourceProxy2.default(this, _resources.Job, '/jobs/featured');
+    }
+
+    /**
      * Font accessor
      * @see {@link Font}
      * @returns {ResourceProxy} - A proxy for accessing the resource
@@ -4569,7 +4553,37 @@ var Maps4News = function () {
     }
   }]);
   return Maps4News;
-}();
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
 
 exports.default = Maps4News;
 

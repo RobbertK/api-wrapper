@@ -146,6 +146,7 @@ import ValidationError from &apos;./errors/ValidationError&apos;;
 import DummyFlow from &apos;./oauth/DummyFlow&apos;;
 import OAuth from &apos;./oauth/OAuth&apos;;
 import ResourceProxy from &apos;./proxy/ResourceProxy&apos;;
+import SimpleResourceProxy from &apos;./proxy/SimpleResourceProxy&apos;;
 import ResourceCache from &apos;./ResourceCache&apos;;
 import {
   Choropleth,
@@ -556,6 +557,15 @@ export default class Maps4News {
    */
   get features() {
     return this.static(Feature);
+  }
+
+  /**
+   * Featured jobs accessor
+   * @see {@link Job}
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+   */
+  get featuredMaps() {
+    return new SimpleResourceProxy(this, Job, &apos;/jobs/featured&apos;);
   }
 
   /**

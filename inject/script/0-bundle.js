@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:288e679c70984d9e8e6b, chunkhash:a015845297c1507faffd, name:bundle, version:v1.4.13
+ * hash:94ce4a6be2506172c1e0, chunkhash:4f77408cf13be5e58420, name:bundle, version:v1.4.14
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.13";
+var version = exports.version = "v1.4.14";
 
 /**
  * Package license
@@ -1503,6 +1503,10 @@ var _ResourceProxy = __webpack_require__(40);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
+var _SimpleResourceProxy = __webpack_require__(42);
+
+var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
+
 var _ResourceCache = __webpack_require__(45);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
@@ -1530,38 +1534,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Base API class
  */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 var Maps4News = function () {
   /**
    * @param {OAuth} auth - Authentication flow
@@ -2075,6 +2047,18 @@ var Maps4News = function () {
     }
 
     /**
+     * Featured jobs accessor
+     * @see {@link Job}
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'featuredMaps',
+    get: function get() {
+      return new _SimpleResourceProxy2.default(this, _resources.Job, '/jobs/featured');
+    }
+
+    /**
      * Font accessor
      * @see {@link Font}
      * @returns {ResourceProxy} - A proxy for accessing the resource
@@ -2318,7 +2302,37 @@ var Maps4News = function () {
     }
   }]);
   return Maps4News;
-}();
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
 
 exports.default = Maps4News;
 
