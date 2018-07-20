@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:37acd251938b5d68bc1b, chunkhash:e9686886fe97a5971582, name:bundle.browser, version:v1.4.14
+ * hash:312f396e15a8de1da274, chunkhash:959e24398aa51bef655d, name:bundle.browser, version:v1.4.15
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.14) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.15) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.14";
+var version = exports.version = "v1.4.15";
 
 /**
  * Package license
@@ -13605,14 +13605,32 @@ var ResourceBase = function () {
 
     /**
      * Resets model instance to it's original state
+     * @param {string[]|string|null} fields - Fields to reset, defaults to all fields
      * @returns {void}
      */
 
   }, {
     key: 'reset',
     value: function reset() {
+      var _this3 = this;
+
+      var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
       this._updateProperties();
-      this._properties = {};
+
+      if (fields === null) {
+        fields = this._knownFields;
+      }
+
+      if (!Array.isArray(fields)) {
+        fields = [fields];
+      }
+
+      fields = Array.isArray(fields) ? fields : [fields];
+
+      fields.map(String).map(_case.snake).forEach(function (field) {
+        return delete _this3._properties[field];
+      });
     }
 
     /**
@@ -13664,19 +13682,19 @@ var ResourceBase = function () {
   }, {
     key: 'refresh',
     value: function refresh() {
-      var _this3 = this;
+      var _this4 = this;
 
       var updateSelf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
       return this._api.request(this.url).then(function (data) {
         if (updateSelf) {
-          _this3._properties = {};
-          _this3._baseProperties = data;
+          _this4._properties = {};
+          _this4._baseProperties = data;
 
-          _this3._updateProperties();
+          _this4._updateProperties();
         }
 
-        return new _this3.constructor(_this3._api, data);
+        return new _this4.constructor(_this4._api, data);
       });
     }
 
@@ -13690,25 +13708,25 @@ var ResourceBase = function () {
   }, {
     key: '_applyProperty',
     value: function _applyProperty(key) {
-      var _this4 = this;
+      var _this5 = this;
 
       var desc = {
         enumerable: true,
         configurable: true,
 
         get: function get() {
-          if (_this4._properties.hasOwnProperty(key)) {
-            return _this4._properties[key];
+          if (_this5._properties.hasOwnProperty(key)) {
+            return _this5._properties[key];
           }
 
-          return _this4._baseProperties[key];
+          return _this5._baseProperties[key];
         }
       };
 
       if (!this._protectedFields.includes(key) && !this.constructor.readonly) {
         desc.set = function (val) {
-          _this4._properties[key] = ResourceBase._guessType(key, val);
-          delete _this4._url; // Clears url cache
+          _this5._properties[key] = ResourceBase._guessType(key, val);
+          delete _this5._url; // Clears url cache
         };
       }
 
@@ -13865,14 +13883,14 @@ var ResourceBase = function () {
   }, {
     key: 'url',
     get: function get() {
-      var _this5 = this;
+      var _this6 = this;
 
       if (!this._url) {
         var url = this._api.host + '/' + this._api.version + this.resourcePath;
 
         // Find and replace any keys
         url = url.replace(/{(\w+)}/g, function (match, key) {
-          return _this5[(0, _case.camel)(key)];
+          return _this6[(0, _case.camel)(key)];
         });
 
         this._url = url;
