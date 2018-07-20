@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:3fedb04c1e9a366da6dc, chunkhash:6b05f7c67cc2573397c0, name:bundle, version:v1.4.16
+ * hash:ff5395f6b207b1b031be, chunkhash:96dbbf559c979b612600, name:bundle, version:v1.4.17
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.16";
+var version = exports.version = "v1.4.17";
 
 /**
  * Package license
@@ -8756,19 +8756,15 @@ var ResourceBase = function () {
 
       this._updateProperties();
 
-      if (fields === null) {
-        fields = this._knownFields;
+      if (typeof fields === 'string') {
+        this.reset([fields]);
+      } else if (fields === null) {
+        this._properties = {}; // Delete all
+      } else if (Array.isArray(fields)) {
+        fields.map(String).map(_case.snake).forEach(function (field) {
+          return delete _this3._properties[field];
+        });
       }
-
-      if (!Array.isArray(fields)) {
-        fields = [fields];
-      }
-
-      fields = Array.isArray(fields) ? fields : [fields];
-
-      fields.map(String).map(_case.snake).forEach(function (field) {
-        return delete _this3._properties[field];
-      });
     }
 
     /**

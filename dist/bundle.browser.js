@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:ca0e61cf85cba07394b5, chunkhash:69f05eab17a06c93a6cf, name:bundle.browser, version:v1.4.16
+ * hash:c92d09e87c268f475092, chunkhash:e0ae6ef84073825f2da2, name:bundle.browser, version:v1.4.17
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.16";
+var version = exports.version = "v1.4.17";
 
 /**
  * Package license
@@ -13618,19 +13618,15 @@ var ResourceBase = function () {
 
       this._updateProperties();
 
-      if (fields === null) {
-        fields = this._knownFields;
+      if (typeof fields === 'string') {
+        this.reset([fields]);
+      } else if (fields === null) {
+        this._properties = {}; // Delete all
+      } else if (Array.isArray(fields)) {
+        fields.map(String).map(_case.snake).forEach(function (field) {
+          return delete _this3._properties[field];
+        });
       }
-
-      if (!Array.isArray(fields)) {
-        fields = [fields];
-      }
-
-      fields = Array.isArray(fields) ? fields : [fields];
-
-      fields.map(String).map(_case.snake).forEach(function (field) {
-        return delete _this3._properties[field];
-      });
     }
 
     /**
