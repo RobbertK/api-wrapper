@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:553f10bba2ab427758d3, chunkhash:18b84ee4f6df11a132d1, name:bundle, version:v1.4.15
+ * hash:3fedb04c1e9a366da6dc, chunkhash:6b05f7c67cc2573397c0, name:bundle, version:v1.4.16
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.15";
+var version = exports.version = "v1.4.16";
 
 /**
  * Package license
@@ -8743,7 +8743,7 @@ var ResourceBase = function () {
 
     /**
      * Resets model instance to it's original state
-     * @param {string[]|string|null} fields - Fields to reset, defaults to all fields
+     * @param {Array<string>|string|null} [fields=null] - Fields to reset, defaults to all fields
      * @returns {void}
      */
 
@@ -14631,7 +14631,7 @@ var Logger = function () {
 
   /**
    * Get available log levels
-   * @returns {string[]} - Log levels
+   * @returns {Array<string>} - Log levels
    */
 
 

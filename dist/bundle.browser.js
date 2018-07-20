@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:312f396e15a8de1da274, chunkhash:959e24398aa51bef655d, name:bundle.browser, version:v1.4.15
+ * hash:ca0e61cf85cba07394b5, chunkhash:69f05eab17a06c93a6cf, name:bundle.browser, version:v1.4.16
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.15) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.16) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.15";
+var version = exports.version = "v1.4.16";
 
 /**
  * Package license
@@ -13605,7 +13605,7 @@ var ResourceBase = function () {
 
     /**
      * Resets model instance to it's original state
-     * @param {string[]|string|null} fields - Fields to reset, defaults to all fields
+     * @param {Array<string>|string|null} [fields=null] - Fields to reset, defaults to all fields
      * @returns {void}
      */
 
@@ -19608,7 +19608,7 @@ var Logger = function () {
 
   /**
    * Get available log levels
-   * @returns {string[]} - Log levels
+   * @returns {Array<string>} - Log levels
    */
 
 
