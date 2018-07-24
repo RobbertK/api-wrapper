@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:b86828f5ece5f0d32f22, chunkhash:915c9b246d1ad7bf8c9f, name:bundle, version:v1.4.18
+ * hash:e604ac748619f29a4f21, chunkhash:409b83c2174455c028b6, name:bundle, version:v1.4.19
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.18";
+var version = exports.version = "v1.4.19";
 
 /**
  * Package license
@@ -13577,7 +13577,7 @@ var JobRevision = function (_CrudBase) {
       return this.api.request(url).then(function (data) {
         data.revision = _this2.revision;
 
-        new _JobResult2.default(_this2.api, data);
+        return new _JobResult2.default(_this2.api, data);
       });
     }
 

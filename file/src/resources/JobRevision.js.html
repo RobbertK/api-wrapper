@@ -182,7 +182,7 @@ export default class JobRevision extends CrudBase {
       .then(data =&gt; {
         data.revision = this.revision;
 
-        new JobResult(this.api, data);
+        return new JobResult(this.api, data);
       });
   }
 
