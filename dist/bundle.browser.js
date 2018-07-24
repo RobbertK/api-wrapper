@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:c92d09e87c268f475092, chunkhash:e0ae6ef84073825f2da2, name:bundle.browser, version:v1.4.17
+ * hash:5d413b993545180123a2, chunkhash:5a503573baf5f39a9035, name:bundle.browser, version:v1.4.18
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.17) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.18) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.17";
+var version = exports.version = "v1.4.18";
 
 /**
  * Package license
@@ -18437,7 +18437,9 @@ var JobRevision = function (_CrudBase) {
       var url = this.url + '/result';
 
       return this.api.request(url).then(function (data) {
-        return new _JobResult2.default(_this2.api, data);
+        data.revision = _this2.revision;
+
+        new _JobResult2.default(_this2.api, data);
       });
     }
 
