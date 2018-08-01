@@ -472,8 +472,8 @@ export default class RequestParameters extends EventEmitter {
         }
       } else if (value[key] === null) {
         delete value[key];
-      } else if (typeof value[key] !== &apos;string&apos;) {
-        throw new TypeError(`Expected query value to be of type &quot;String&quot; or &quot;Array&quot; got &quot;${getTypeName(value[key])}&quot;`);
+      } else if (![&apos;string&apos;, &apos;number&apos;, &apos;boolean&apos;].includes(typeof value[key]) &amp;&amp; value[key] !== null) {
+        throw new TypeError(`Expected query value to be of type &quot;String&quot;, &quot;Boolean&quot;, &quot;Number&quot;, &quot;Array&quot; or &quot;null&quot; got &quot;${getTypeName(value[key])}&quot;`);
       }
     }
 

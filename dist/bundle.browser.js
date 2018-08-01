@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:be496cf565a8d202d0f0, chunkhash:d6a26e762d3f93da9c65, name:bundle.browser, version:v1.4.21
+ * hash:523f1c6c4de6373f139a, chunkhash:3de73ebc67c33d5c104e, name:bundle.browser, version:v1.4.22
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.21) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.22) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.21";
+var version = exports.version = "v1.4.22";
 
 /**
  * Package license
@@ -10708,8 +10708,8 @@ var RequestParameters = function (_EventEmitter) {
             }
           } else if (value[key] === null) {
             delete value[key];
-          } else if (typeof value[key] !== 'string') {
-            throw new TypeError('Expected query value to be of type "String" or "Array" got "' + (0, _reflection.getTypeName)(value[key]) + '"');
+          } else if (!['string', 'number', 'boolean'].includes((0, _typeof3.default)(value[key])) && value[key] !== null) {
+            throw new TypeError('Expected query value to be of type "String", "Boolean", "Number", "Array" or "null" got "' + (0, _reflection.getTypeName)(value[key]) + '"');
           }
         }
       } catch (err) {
