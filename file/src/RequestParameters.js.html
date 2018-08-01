@@ -462,8 +462,8 @@ export default class RequestParameters extends EventEmitter {
       if (Array.isArray(value[key])) {
         if (value[key].length &gt; 0) {
           for (const query of value[key]) {
-            if (typeof query !== &apos;string&apos; &amp;&amp; typeof query !== &apos;number&apos;) {
-              throw new TypeError(`Expected query for &quot;${key}&quot; to be of type &quot;String&quot; or &quot;Number&quot; got &quot;${getTypeName(query)}&quot;`);
+            if (![&apos;string&apos;, &apos;number&apos;, &apos;boolean&apos;].includes(typeof query) &amp;&amp; query !== null) {
+              throw new TypeError(`Expected query for &quot;${key}&quot; to be of type &quot;String&quot;, &quot;Boolean&quot;, &quot;Number&quot; or &quot;null&quot; got &quot;${getTypeName(query)}&quot;`);
             }
           }
         } else {
@@ -611,6 +611,18 @@ export default class RequestParameters extends EventEmitter {
         delete data.search[key];
       }
     }
+
+    // Cast search values
+    for (const key of Object.keys(data.search)) {
+      if (typeof data.search[key] === &apos;boolean&apos;) {
+        data.search[key] = Number(data.search[key]);
+      }
+
+      if (data.search[key] === null) {
+        data.search[key] = &apos;&apos;;
+      }
+    }
+
 
     // Overwrite using extra properties
     const extra = this._resolve(&apos;extra&apos;);

@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:1af06cfb5199e1a09aeb, chunkhash:0513202faa0d913f380f, name:bundle.browser, version:v1.4.20
+ * hash:be496cf565a8d202d0f0, chunkhash:d6a26e762d3f93da9c65, name:bundle.browser, version:v1.4.21
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.20) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.21) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.20";
+var version = exports.version = "v1.4.21";
 
 /**
  * Package license
@@ -10304,7 +10304,7 @@ var RequestParameters = function (_EventEmitter) {
           }
         }
 
-        // Overwrite using extra properties
+        // Cast search values
       } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
@@ -10320,18 +10320,24 @@ var RequestParameters = function (_EventEmitter) {
         }
       }
 
-      var extra = this._resolve('extra');
-
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
 
       try {
-        for (var _iterator2 = Object.keys(extra)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        for (var _iterator2 = Object.keys(data.search)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
           var _key = _step2.value;
 
-          data[_key] = extra[_key];
+          if (typeof data.search[_key] === 'boolean') {
+            data.search[_key] = Number(data.search[_key]);
+          }
+
+          if (data.search[_key] === null) {
+            data.search[_key] = '';
+          }
         }
+
+        // Overwrite using extra properties
       } catch (err) {
         _didIteratorError2 = true;
         _iteratorError2 = err;
@@ -10343,6 +10349,33 @@ var RequestParameters = function (_EventEmitter) {
         } finally {
           if (_didIteratorError2) {
             throw _iteratorError2;
+          }
+        }
+      }
+
+      var extra = this._resolve('extra');
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = Object.keys(extra)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _key2 = _step3.value;
+
+          data[_key2] = extra[_key2];
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
           }
         }
       }
@@ -10402,13 +10435,13 @@ var RequestParameters = function (_EventEmitter) {
         params = params.toObject();
       }
 
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
 
       try {
-        for (var _iterator3 = Object.keys(params)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var key = _step3.value;
+        for (var _iterator4 = Object.keys(params)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var key = _step4.value;
 
           var Key = (0, _case.camel)(key);
 
@@ -10419,16 +10452,16 @@ var RequestParameters = function (_EventEmitter) {
           this._update(Key, params[key]);
         }
       } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
           }
         } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
+          if (_didIteratorError4) {
+            throw _iteratorError4;
           }
         }
       }
@@ -10626,13 +10659,13 @@ var RequestParameters = function (_EventEmitter) {
         return typeof x === 'number' ? x.toString() : x;
       };
 
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
 
       try {
-        for (var _iterator4 = Object.keys(value)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var key = _step4.value;
+        for (var _iterator5 = Object.keys(value)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var key = _step5.value;
 
           key = normalize(key);
           value[key] = normalize(value[key]);
@@ -10643,29 +10676,29 @@ var RequestParameters = function (_EventEmitter) {
 
           if (Array.isArray(value[key])) {
             if (value[key].length > 0) {
-              var _iteratorNormalCompletion5 = true;
-              var _didIteratorError5 = false;
-              var _iteratorError5 = undefined;
+              var _iteratorNormalCompletion6 = true;
+              var _didIteratorError6 = false;
+              var _iteratorError6 = undefined;
 
               try {
-                for (var _iterator5 = value[key][Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                  var query = _step5.value;
+                for (var _iterator6 = value[key][Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                  var query = _step6.value;
 
-                  if (typeof query !== 'string' && typeof query !== 'number') {
-                    throw new TypeError('Expected query for "' + key + '" to be of type "String" or "Number" got "' + (0, _reflection.getTypeName)(query) + '"');
+                  if (!['string', 'number', 'boolean'].includes(typeof query === 'undefined' ? 'undefined' : (0, _typeof3.default)(query)) && query !== null) {
+                    throw new TypeError('Expected query for "' + key + '" to be of type "String", "Boolean", "Number" or "null" got "' + (0, _reflection.getTypeName)(query) + '"');
                   }
                 }
               } catch (err) {
-                _didIteratorError5 = true;
-                _iteratorError5 = err;
+                _didIteratorError6 = true;
+                _iteratorError6 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion5 && _iterator5.return) {
-                    _iterator5.return();
+                  if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                    _iterator6.return();
                   }
                 } finally {
-                  if (_didIteratorError5) {
-                    throw _iteratorError5;
+                  if (_didIteratorError6) {
+                    throw _iteratorError6;
                   }
                 }
               }
@@ -10680,16 +10713,16 @@ var RequestParameters = function (_EventEmitter) {
           }
         }
       } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion4 && _iterator4.return) {
-            _iterator4.return();
+          if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
           }
         } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
+          if (_didIteratorError5) {
+            throw _iteratorError5;
           }
         }
       }
@@ -10754,27 +10787,27 @@ var RequestParameters = function (_EventEmitter) {
   }, {
     key: 'resetDefaults',
     value: function resetDefaults() {
-      var _iteratorNormalCompletion6 = true;
-      var _didIteratorError6 = false;
-      var _iteratorError6 = undefined;
+      var _iteratorNormalCompletion7 = true;
+      var _didIteratorError7 = false;
+      var _iteratorError7 = undefined;
 
       try {
-        for (var _iterator6 = RequestParameters.keys()[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-          var key = _step6.value;
+        for (var _iterator7 = RequestParameters.keys()[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+          var key = _step7.value;
 
           delete RequestParameters['_' + key];
         }
       } catch (err) {
-        _didIteratorError6 = true;
-        _iteratorError6 = err;
+        _didIteratorError7 = true;
+        _iteratorError7 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion6 && _iterator6.return) {
-            _iterator6.return();
+          if (!_iteratorNormalCompletion7 && _iterator7.return) {
+            _iterator7.return();
           }
         } finally {
-          if (_didIteratorError6) {
-            throw _iteratorError6;
+          if (_didIteratorError7) {
+            throw _iteratorError7;
           }
         }
       }
