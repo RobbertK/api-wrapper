@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:7956b032d8e05cb28d92, chunkhash:a9ec126f39b3f00b9285, name:bundle, version:v1.4.22
+ * hash:ffee2525d1865a2fa0a1, chunkhash:16864568c5819c77ea0b, name:bundle, version:v1.4.23
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.22";
+var version = exports.version = "v1.4.23";
 
 /**
  * Package license
