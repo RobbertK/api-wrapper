@@ -1,7 +1,7 @@
 {
-  "coverage": "71.64%",
+  "coverage": "71.78%",
   "expectCount": 716,
-  "actualCount": 513,
+  "actualCount": 514,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -37,13 +37,13 @@
       "expectCount": 56,
       "actualCount": 49,
       "undocumentLines": [
-        105,
-        106,
-        151,
-        176,
-        260,
-        314,
-        675
+        114,
+        115,
+        160,
+        185,
+        269,
+        323,
+        684
       ]
     },
     "src/PaginatedResourceListing.js": {
@@ -200,10 +200,8 @@
     },
     "src/oauth/DummyFlow.js": {
       "expectCount": 3,
-      "actualCount": 2,
-      "undocumentLines": [
-        41
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "src/oauth/ImplicitFlow.js": {
       "expectCount": 15,

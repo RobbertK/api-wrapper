@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:1e943e4719ff0b44dcd0, chunkhash:2bf91f385d34389797a7, name:bundle.browser, version:v1.4.23
+ * hash:3dd3cfaa4bcd13f5ebf6, chunkhash:f4186f4f4f1158670b67, name:bundle.browser, version:v1.4.24
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.23) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.23";
+var version = exports.version = "v1.4.24";
 
 /**
  * Package license
@@ -3750,6 +3750,10 @@ var _OAuth = __webpack_require__(102);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
+var _OAuthToken = __webpack_require__(103);
+
+var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
+
 var _ResourceProxy = __webpack_require__(128);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
@@ -3785,15 +3789,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Base API class
  */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 var Maps4News = function () {
   /**
-   * @param {OAuth} auth - Authentication flow
+   * @param {OAuth|string} auth - Authentication flow
    * @param {string} host - Remote API host
    */
   function Maps4News() {
     var auth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new _DummyFlow2.default();
     var host = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "https://api.maps4news.com";
     (0, _classCallCheck3.default)(this, Maps4News);
+
+    if (typeof auth === 'string') {
+      var token = auth;
+
+      auth = new _DummyFlow2.default();
+
+      auth.token = new _OAuthToken2.default(token, 'Bearer', new Date('2100-01-01T01:00:00'), ['*']);
+    }
 
     this.auth = auth;
     this.host = host;
@@ -4553,37 +4597,7 @@ var Maps4News = function () {
     }
   }]);
   return Maps4News;
-}(); /*
-      * BSD 3-Clause License
-      *
-      * Copyright (c) 2017, MapCreator
-      * All rights reserved.
-      *
-      * Redistribution and use in source and binary forms, with or without
-      * modification, are permitted provided that the following conditions are met:
-      *
-      *  Redistributions of source code must retain the above copyright notice, this
-      *   list of conditions and the following disclaimer.
-      *
-      *  Redistributions in binary form must reproduce the above copyright notice,
-      *   this list of conditions and the following disclaimer in the documentation
-      *   and/or other materials provided with the distribution.
-      *
-      *  Neither the name of the copyright holder nor the names of its
-      *   contributors may be used to endorse or promote products derived from
-      *   this software without specific prior written permission.
-      *
-      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-      */
+}();
 
 exports.default = Maps4News;
 
@@ -4953,9 +4967,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var DummyFlow = function (_OAuth) {
   (0, _inherits3.default)(DummyFlow, _OAuth);
 
+  /**
+   * @param {String} [clientId=] - OAuth client id
+   * @param {Array<String>} scopes - A list of required scopes
+   * @returns {void}
+   */
   function DummyFlow() {
+    var clientId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var scopes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ['*'];
     (0, _classCallCheck3.default)(this, DummyFlow);
-    return (0, _possibleConstructorReturn3.default)(this, (DummyFlow.__proto__ || Object.getPrototypeOf(DummyFlow)).call(this, '', []));
+    return (0, _possibleConstructorReturn3.default)(this, (DummyFlow.__proto__ || Object.getPrototypeOf(DummyFlow)).call(this, clientId, scopes));
   }
 
   /**
@@ -5203,7 +5224,7 @@ var OAuth = function () {
 
     this.clientId = String(clientId);
     this.scopes = scopes;
-    this.token = _OAuthToken2.default.recover();
+    this.token = clientId !== null ? _OAuthToken2.default.recover() : null;
     this.host = "https://api.maps4news.com";
     this.path = '/';
   }

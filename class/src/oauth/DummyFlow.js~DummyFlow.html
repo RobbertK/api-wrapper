@@ -167,7 +167,7 @@ cache and no attempt at authentication should be made.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/oauth/DummyFlow.js~DummyFlow.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/oauth/DummyFlow.js~DummyFlow.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(clientId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, scopes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;): <span>void</span></span>
         </p>
       </div>
       <div>
@@ -499,11 +499,11 @@ Empty the session token store and forget the api token</p>
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(clientId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, scopes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;): <span>void</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/oauth/DummyFlow.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/oauth/DummyFlow.js.html#lineNumber46">source</a></span></span>
     </span>
   </h3>
 
@@ -514,10 +514,47 @@ Empty the session token store and forget the api token</p>
 
   <div data-ice="override"><h4>Override:</h4><span><a href="class/src/oauth/OAuth.js~OAuth.html#instance-constructor-constructor">OAuth#constructor</a></span></div>
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">clientId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: </li></ul></td>
+      <td data-ice="description"><p>OAuth client id</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">scopes</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A list of required scopes</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>void</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -550,7 +587,7 @@ Empty the session token store and forget the api token</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/oauth/DummyFlow.js.html#lineNumber49">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/oauth/DummyFlow.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
