@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:3dd3cfaa4bcd13f5ebf6, chunkhash:f4186f4f4f1158670b67, name:bundle.browser, version:v1.4.24
+ * hash:9e90f6b118f4307d2026, chunkhash:daa94e9ad7e2cbed4be4, name:bundle.browser, version:v1.4.25
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.24) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.25) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.24";
+var version = exports.version = "v1.4.25";
 
 /**
  * Package license
@@ -6871,10 +6871,18 @@ function downloadFile(url) {
 
   return fetch(url, { headers: headers }).then(function (res) {
     if (res.ok) {
-      var regex = /(?:^|;\s*)filename=(?:'([^']+)'|"([^"]+)")/i;
-      var match = regex.exec(res.headers.get('Content-Disposition'));
+      var disposition = res.headers.get('Content-Disposition');
 
-      out.filename = (match ? match[1] || match[2] : false) || 'undefined';
+      if (disposition && disposition.indexOf('attachment') !== -1) {
+        var matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+
+        if (matches != null && matches[1]) {
+          out.filename = matches[1].replace(/['"]/g, '');
+        }
+      } else {
+        out.filename = 'Unknown Filename.zip';
+      }
+
       return res.blob();
     }
 
@@ -14997,6 +15005,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _regenerator = __webpack_require__(138);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(141);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _classCallCheck2 = __webpack_require__(4);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -15101,15 +15117,38 @@ var Organisation = function (_CrudBase) {
      *
      * organisation.getTree().then(printTree)
      */
-    value: function getTree() {
-      var _this2 = this;
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var _this2 = this;
 
-      return this._api.request(this.url + '/tree').then(function (data) {
-        return data.map(function (root) {
-          return _this2._parseTree(root);
-        });
-      });
-    }
+        var data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this._api.request(this.url + '/tree');
+
+              case 2:
+                data = _context.sent;
+                return _context.abrupt('return', data.map(function (root) {
+                  return _this2._parseTree(root);
+                }));
+
+              case 4:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getTree() {
+        return _ref.apply(this, arguments);
+      }
+
+      return getTree;
+    }()
   }, {
     key: '_parseTree',
     value: function _parseTree(rawNode) {

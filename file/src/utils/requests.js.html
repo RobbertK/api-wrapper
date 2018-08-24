@@ -230,10 +230,18 @@ export function downloadFile(url, headers = {}) {
   return fetch(url, {headers})
     .then(res =&gt; {
       if (res.ok) {
-        const regex = /(?:^|;\s*)filename=(?:&apos;([^&apos;]+)&apos;|&quot;([^&quot;]+)&quot;)/i;
-        const match = regex.exec(res.headers.get(&apos;Content-Disposition&apos;));
+        const disposition = res.headers.get(&apos;Content-Disposition&apos;);
 
-        out.filename = (match ? match[1] || match[2] : false) || &apos;undefined&apos;;
+        if (disposition &amp;&amp; disposition.indexOf(&apos;attachment&apos;) !== -1) {
+          const matches = /filename[^;=\n]*=(([&apos;&quot;]).*?\2|[^;\n]*)/.exec(disposition);
+
+          if (matches != null &amp;&amp; matches[1]) {
+            out.filename = matches[1].replace(/[&apos;&quot;]/g, &apos;&apos;);
+          }
+        } else {
+          out.filename = &apos;Unknown Filename.zip&apos;;
+        }
+
         return res.blob();
       }
 
