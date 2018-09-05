@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:ebbb360f97ef79aa40ea, chunkhash:3983c2d28f53812b5b57, name:bundle, version:v1.4.25
+ * hash:a22849771ce71be39ae0, chunkhash:70c6ae7bd6c7cb6aed47, name:bundle, version:v1.4.26
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -176,7 +176,7 @@ var _Maps4News2 = __webpack_require__(17);
 
 var _Maps4News3 = _interopRequireDefault(_Maps4News2);
 
-var _RequestParameters2 = __webpack_require__(47);
+var _RequestParameters2 = __webpack_require__(42);
 
 var _RequestParameters3 = _interopRequireDefault(_RequestParameters2);
 
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.25";
+var version = exports.version = "v1.4.26";
 
 /**
  * Package license
@@ -1507,11 +1507,11 @@ var _ResourceProxy = __webpack_require__(40);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _SimpleResourceProxy = __webpack_require__(42);
+var _SimpleResourceProxy = __webpack_require__(44);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
-var _ResourceCache = __webpack_require__(45);
+var _ResourceCache = __webpack_require__(47);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
@@ -5131,11 +5131,13 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _enums = __webpack_require__(1);
+var _RequestParameters = __webpack_require__(42);
+
+var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
 var _requests = __webpack_require__(33);
 
-var _SimpleResourceProxy2 = __webpack_require__(42);
+var _SimpleResourceProxy2 = __webpack_require__(44);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -5200,7 +5202,7 @@ var ResourceProxy = function (_SimpleResourceProxy) {
     value: function get(id) {
       var _this2 = this;
 
-      var deleted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _enums.DeletedState.NONE;
+      var deleted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _RequestParameters2.default.deleted;
 
       var data = Object.assign({}, this._seedData, this._parseSelector(id));
       var url = this.new(data).url;
@@ -5293,1797 +5295,6 @@ var _createClass2 = __webpack_require__(5);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _PaginatedResourceListing = __webpack_require__(43);
-
-var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
-
-var _RequestParameters = __webpack_require__(47);
-
-var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
-
-var _ResourceLister = __webpack_require__(49);
-
-var _ResourceLister2 = _interopRequireDefault(_ResourceLister);
-
-var _ResourceBase = __webpack_require__(52);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
-
-var _reflection = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Proxy for accessing resource. This will make sure that they
- * are properly wrapped before the promise resolves.
- * @protected
- */
-var SimpleResourceProxy = function () {
-  /**
-   * @param {Maps4News} api - Instance of the api
-   * @param {ResourceBase} Target - Target to wrap
-   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
-   * @param {object} seedData - Internal use, used for seeding ::new
-   */
-  function SimpleResourceProxy(api, Target) {
-    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-    (0, _classCallCheck3.default)(this, SimpleResourceProxy);
-
-    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, Target)) {
-      throw new TypeError('Target is not a child of ResourceBase');
-    }
-
-    if (typeof Target !== 'function') {
-      throw new TypeError('Target must to be a class not an instance');
-    }
-
-    if (altUrl) {
-      this.__baseUrl = altUrl;
-    }
-
-    this._api = api;
-    this._Target = Target;
-    this._seedData = seedData;
-  }
-
-  /**
-   * Proxy target url
-   * @returns {string} url
-   * @example
-   * api.layers.select(100).organisations.baseUrl === "https://maponline-api.dev/v1/layers/100/organisations"
-   */
-
-
-  (0, _createClass3.default)(SimpleResourceProxy, [{
-    key: 'new',
-
-
-    /**
-     * Build a new instance of the target
-     * @param {Object<String, *>} data - Data for the object to be populated with
-     * @returns {ResourceBase} - Resource with target data
-     */
-    value: function _new() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      // Merge but don't overwrite using seed data
-      data = Object.assign({}, this._seedData, data);
-
-      return new this.Target(this._api, data);
-    }
-
-    /**
-     * List target resource
-     * @param {Number|Object|RequestParameters} [params] - Parameters or the page number to be requested
-     * @param {Number} [params.page=1] - The page to be requested
-     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
-     * @param {Number} [params.sort=''] - Amount of items per page. This is silently capped by the API
-     * @param {Number} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
-     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     * @example
-     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
-     * // See Api documentation for search query syntax
-     * const search = {
-     *   name: '^:test',
-     *   scale_min: ['>:1', '<:10'],
-     * };
-     *
-     * api.layers.list({perPage: 10, search});
-     */
-
-  }, {
-    key: 'list',
-    value: function list() {
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      var resolver = this._buildResolver(params);
-
-      return resolver.getPage(resolver.page);
-    }
-
-    /**
-     * List target resource
-     * @param {Number|Object|RequestParameters} [params] - Parameters or the page to be requested
-     * @param {Number} [params.page=1] - The page to be requested
-     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
-     * @param {Array<String>|string} [params.sort=''] - Comma separated list or array
-     * @param {String} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
-     * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
-     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
-     * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
-     * @example
-     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
-     * // See Api documentation for search query syntax
-     * const search = {
-     *   name: '^:test',
-     *   scale_min: ['>:1', '<:10'],
-     * };
-     *
-     * api.layers.listandWrap({perPage: 10, search});
-     */
-
-  }, {
-    key: 'listAndWrap',
-    value: function listAndWrap() {
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      var resolver = this._buildResolver(params);
-      var wrapped = resolver.wrap(resolver.page);
-
-      wrapped.get(resolver.page);
-      return wrapped;
-    }
-
-    /**
-     * Get the resource lister
-     *
-     * @param {object|RequestParameters} parameters - parameters
-     * @param {number} maxRows - Maximum amount of rows
-     * @returns {ResourceLister} - Resource lister
-     */
-
-  }, {
-    key: 'lister',
-    value: function lister() {
-      var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var maxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 50;
-
-      return new _ResourceLister2.default(this.api, this.baseUrl, this.Target, parameters, maxRows, this.Target.resourceUrlKey);
-    }
-  }, {
-    key: '_buildResolver',
-    value: function _buildResolver() {
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      var paramType = typeof params === 'undefined' ? 'undefined' : (0, _typeof3.default)(params);
-      var url = this.baseUrl;
-
-      if (!['number', 'object'].includes(paramType)) {
-        throw new TypeError('Expected params to be of type number or object. Got "' + paramType + '"');
-      }
-
-      if (paramType === 'number') {
-        return this._buildResolver({ page: params });
-      }
-
-      if (!(params instanceof _RequestParameters2.default)) {
-        params = new _RequestParameters2.default(params);
-      }
-
-      return new _PaginatedResourceListing2.default(this._api, url, this.Target, params);
-    }
-  }, {
-    key: 'baseUrl',
-    get: function get() {
-      if (!this.__baseUrl) {
-        this.__baseUrl = this.new().baseUrl;
-      }
-
-      return this.__baseUrl;
-    }
-
-    /**
-     * Get api instance
-     * @returns {Maps4News} - Api instance
-     */
-
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Target to wrap results in
-     * @returns {ResourceBase} - Target constructor
-     * @constructor
-     */
-
-  }, {
-    key: 'Target',
-    get: function get() {
-      return this._Target;
-    }
-
-    /**
-     * The name of the target
-     * @returns {String} - Target name
-     * @example
-     * api.colors.accessorName === 'Color'
-     * api.fontFamilies.accessorName = 'Font Families'
-     */
-
-  }, {
-    key: 'accessorName',
-    get: function get() {
-      return this.Target.name.replace(/([A-Z])/g, function (x) {
-        return ' ' + x;
-      }).trim();
-    }
-  }]);
-  return SimpleResourceProxy;
-}(); /*
-      * BSD 3-Clause License
-      *
-      * Copyright (c) 2017, MapCreator
-      * All rights reserved.
-      *
-      * Redistribution and use in source and binary forms, with or without
-      * modification, are permitted provided that the following conditions are met:
-      *
-      *  Redistributions of source code must retain the above copyright notice, this
-      *   list of conditions and the following disclaimer.
-      *
-      *  Redistributions in binary form must reproduce the above copyright notice,
-      *   this list of conditions and the following disclaimer in the documentation
-      *   and/or other materials provided with the distribution.
-      *
-      *  Neither the name of the copyright holder nor the names of its
-      *   contributors may be used to endorse or promote products derived from
-      *   this software without specific prior written permission.
-      *
-      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-      */
-
-exports.default = SimpleResourceProxy;
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _Maps4News = __webpack_require__(17);
-
-var _Maps4News2 = _interopRequireDefault(_Maps4News);
-
-var _PaginatedResourceWrapper = __webpack_require__(44);
-
-var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
-
-var _RequestParameters = __webpack_require__(47);
-
-var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
-
-var _reflection = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Proxy for accessing paginated resources
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var PaginatedResourceListing = function () {
-  /**
-   * @param {Maps4News} api - Instance of the api
-   * @param {String} route - Resource route
-   * @param {ResourceBase} Target - Wrapper target
-   * @param {RequestParameters} parameters - Request parameters
-   * @param {Number} pageCount - Resolved page count
-   * @param {Number} rowCount - Resolved rowCount
-   * @param {Array<ResourceBase>} data - Resolved data
-   * @private
-   */
-  function PaginatedResourceListing(api, route, Target, parameters) {
-    var pageCount = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
-    var rowCount = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
-    var data = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
-    (0, _classCallCheck3.default)(this, PaginatedResourceListing);
-
-    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
-      throw new TypeError('Expected api to be of type Maps4News');
-    }
-
-    if (!(0, _reflection.isParentOf)(_RequestParameters2.default, parameters)) {
-      parameters = new _RequestParameters2.default(parameters);
-    }
-
-    this._api = api;
-
-    this.route = route;
-    this._Target = Target;
-    this._parameters = parameters;
-    this._pageCount = pageCount;
-    this._rows = rowCount;
-    this._data = data;
-  }
-
-  /**
-   * Get api instance
-   * @returns {Maps4News} - Api instance
-   */
-
-
-  (0, _createClass3.default)(PaginatedResourceListing, [{
-    key: 'getPage',
-
-
-    /**
-     * Get target page
-     * @param {Number} page - Page number
-     * @param {Number} perPage - Amount of items per page (max 50)
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-    value: function getPage() {
-      var _this = this;
-
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
-      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.perPage;
-
-      var query = this.parameters.copy();
-
-      query.page = page;
-      query.perPage = perPage;
-
-      var glue = this.route.includes('?') ? '&' : '?';
-      var url = this.route + glue + query.encode();
-
-      return this.api.request(url, 'GET', {}, {}, true).then(function (output) {
-        var headers = output.response.headers;
-
-        var getOrDefault = function getOrDefault(x, y) {
-          return headers.has(x) ? headers.get(x) : y;
-        };
-
-        var rowCount = Number(getOrDefault('X-Paginate-Total', output.data.length));
-        var totalPages = Number(getOrDefault('X-Paginate-Pages', 1));
-        var parameters = _this.parameters.copy();
-
-        parameters.page = page;
-
-        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, parameters, totalPages, rowCount, output.data.map(function (row) {
-          return new _this._Target(_this.api, row);
-        }));
-      });
-    }
-
-    /**
-     * If there is a next page
-     * @returns {boolean} - If there is a next page
-     */
-
-  }, {
-    key: 'next',
-
-
-    /**
-     * Get next page
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-    value: function next() {
-      return this.getPage(this.page + 1);
-    }
-
-    /**
-     * Get previous page
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'previous',
-    value: function previous() {
-      return this.getPage(this.page - 1);
-    }
-
-    /**
-     * Wraps {@link PaginatedResourceWrapper} around the page
-     * @param {Boolean} shareCache - Share cache across instances
-     * @returns {PaginatedResourceWrapper} - Wrapped resource listing
-     */
-
-  }, {
-    key: 'wrap',
-    value: function wrap() {
-      var shareCache = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults._shareCache;
-
-      return new _PaginatedResourceWrapper2.default(this, this.api, shareCache);
-    }
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Target route
-     * @returns {String} - url
-     */
-
-  }, {
-    key: 'route',
-    get: function get() {
-      return this._route;
-    }
-
-    /**
-     * Override the target route
-     * @param {String} value - route
-     */
-    ,
-    set: function set(value) {
-      if (!value.startsWith('https://') && !value.startsWith('http://')) {
-        if (!value.startsWith('/')) {
-          value = '/' + value;
-        }
-
-        value = this._api.host + '/' + this._api.version + value;
-      }
-
-      this._route = value;
-    }
-
-    /**
-     * Target to wrap results in
-     * @returns {ResourceBase} - Target constructor
-     * @constructor
-     */
-
-  }, {
-    key: 'Target',
-    get: function get() {
-      return this._Target;
-    }
-
-    /**
-     * Request parameters
-     * @returns {RequestParameters} - Request parameters
-     */
-
-  }, {
-    key: 'parameters',
-    get: function get() {
-      return this._parameters;
-    }
-
-    /**
-     * Request parameters
-     * @param {RequestParameters} value - Request parameters
-     */
-    ,
-    set: function set(value) {
-      this._parameters = value;
-    }
-
-    /**
-     * Current page number
-     * @returns {Number} - Current page
-     */
-
-  }, {
-    key: 'page',
-    get: function get() {
-      return this.parameters.page;
-    }
-
-    /**
-     * Maximum amount of items per page
-     * @returns {Number} - Amount of items
-     */
-
-  }, {
-    key: 'perPage',
-    get: function get() {
-      return this.parameters.perPage;
-    }
-
-    /**
-     * Set sort direction
-     * @returns {String} - Sort
-     * @example
-     * const sort = ['-name', 'id']
-     */
-
-  }, {
-    key: 'sort',
-    get: function get() {
-      return this.parameters.sort;
-    }
-
-    /**
-     * Current sorting value
-     * @param {String} value - Sort
-     */
-    ,
-    set: function set(value) {
-      this.parameters.sort = value;
-    }
-
-    /**
-     * Deleted items filter state
-     * @returns {String} value - Deleted items filter state
-     * @see {@link DeletedState}
-     */
-
-  }, {
-    key: 'deleted',
-    get: function get() {
-      return this.parameters.deleted;
-    }
-
-    /**
-     * Deleted items filter state
-     * @param {String} value - Deleted items filter state
-     * @see {@link DeletedState}
-     */
-    ,
-    set: function set(value) {
-      this.parameters.deleted = value;
-    }
-
-    /**
-     * Amount of pages available
-     * @returns {Number} - Page count
-     */
-
-  }, {
-    key: 'pageCount',
-    get: function get() {
-      return this._pageCount;
-    }
-
-    /**
-     * Page data
-     * @returns {Array<ResourceBase>} - Wrapped data
-     */
-
-  }, {
-    key: 'data',
-    get: function get() {
-      return this._data;
-    }
-
-    /**
-     * Row count
-     * @returns {Number} - Row count
-     */
-
-  }, {
-    key: 'rows',
-    get: function get() {
-      return this._rows;
-    }
-
-    /**
-     * Optional search query
-     * @default {}
-     * @return {Object<String, String|Array<String>>} - Query
-     */
-
-  }, {
-    key: 'query',
-    get: function get() {
-      return this.parameters.search;
-    }
-
-    /**
-     * Optional search query
-     * @param {Object<String, String|Array<String>>} value - Query
-     * @throws TypeError
-     * @default {}
-     * @see {@link ResourceProxy#search}
-     */
-    ,
-    set: function set(value) {
-      this.parameters.search = value;
-    }
-  }, {
-    key: 'hasNext',
-    get: function get() {
-      return this.page < this.pageCount;
-    }
-
-    /**
-     * If there is a previous page
-     * @returns {boolean} - If there is a previous page
-     */
-
-  }, {
-    key: 'hasPrevious',
-    get: function get() {
-      return this.page > 1;
-    }
-
-    /**
-     * Used for caching pages internally
-     * @returns {string} - Cache token
-     * @see {@link PaginatedResourceWrapper}
-     * @see {@link ResourceCache}
-     */
-
-  }, {
-    key: 'cacheToken',
-    get: function get() {
-      return this.parameters.token();
-    }
-  }]);
-  return PaginatedResourceListing;
-}();
-
-exports.default = PaginatedResourceListing;
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _PaginatedResourceListing = __webpack_require__(43);
-
-var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
-
-var _ResourceCache = __webpack_require__(45);
-
-var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
-
-var _hash = __webpack_require__(11);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
- * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
- */
-var PaginatedResourceWrapper = function () {
-  /**
-   *
-   * @param {PaginatedResourceListing} listing - Listing result
-   * @param {Maps4News} api - Instance of the api
-   * @param {Boolean} shareCache - Share cache across instances
-   */
-  function PaginatedResourceWrapper(listing) {
-    var _this = this;
-
-    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
-    var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.shareCache;
-    (0, _classCallCheck3.default)(this, PaginatedResourceWrapper);
-
-
-    // Fields
-    this._api = api;
-    this._shareCache = shareCache;
-    this._currentPage = 1;
-    this._context = [];
-
-    /**
-     * Available data assembled from the cache
-     * @type {Array<ResourceBase>} - Available data
-     */
-    this.data = [];
-
-    // Internal
-    this._localCache = new _ResourceCache2.default(api, this.api.defaults.cacheSeconds);
-    this._inflight = [];
-    this._last = listing;
-    this._waiting = false;
-
-    this.on('invalidate', function () {
-      return _this.rebuild();
-    });
-
-    this._promiseCallback(listing);
-  }
-
-  (0, _createClass3.default)(PaginatedResourceWrapper, [{
-    key: 'get',
-
-
-    /**
-     * Manually fetch a page. This will change the current page.
-     * @param {Number|Array<Number>} pageId - Page(s) to fetch
-     * @returns {void}
-     */
-    value: function get(pageId) {
-      if (pageId instanceof Array) {
-        pageId.map(this.get);
-      } else {
-        this._waiting = true;
-
-        this._inflight.push(pageId);
-        this._last.getPage(pageId).then(this._promiseCallback);
-      }
-    }
-
-    /**
-     * Grab the next page
-     * @returns {void}
-     */
-
-  }, {
-    key: 'next',
-    value: function next() {
-      this.get(++this.currentPage);
-    }
-
-    /**
-     * Grab the previous page
-     * @returns {void}
-     */
-
-  }, {
-    key: 'previous',
-    value: function previous() {
-      this.get(--this.currentPage);
-    }
-
-    /**
-     * Manually rebuild the data
-     * @returns {void}
-     */
-
-  }, {
-    key: 'rebuild',
-    value: function rebuild() {
-      this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
-        return typeof value !== 'undefined';
-      });
-
-      this.cache.emitter.emit('post-rebuild', { resourceUrl: this._last.route });
-    }
-
-    /**
-     * Updates the cached pages.
-     * @param {Boolean} flush - Clear the cached route data
-     * @returns {void}
-     * @example
-     * function onRefresh() {
-     *   if(wrapper.waiting) {
-     *     return; // not done yet
-     *   }
-     *
-     *   wrapper.off('post-rebuild', onRefresh);
-     *
-     *   // Do stuff here
-     * }
-     *
-     * wrapper.on('post-rebuild', onRefresh);
-     * wrapper.refresh();
-     */
-
-  }, {
-    key: 'refresh',
-    value: function refresh() {
-      var _this2 = this;
-
-      var flush = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-      if (flush) {
-        this.cache.clear(this.route);
-      }
-
-      this.cache.collectPages(this.route, this._last.cacheToken).map(function (page) {
-        return _this2.get(page.page);
-      });
-    }
-
-    /**
-     * Returns the page number that is currently being used as a reference point
-     * @returns {Number} - The current page
-     * @see {@link PaginatedResourceWrapper#next}
-     * @see {@link PaginatedResourceWrapper#previous}
-     */
-
-  }, {
-    key: 'query',
-
-
-    /**
-     * Set the request params and submit
-     * @param {?Object<String, *>} value - Query
-     * @throws TypeError
-     * @default {}
-     * @see {@link ResourceProxy#search}
-     * @returns {Object<String, String|Array<String>>} - query
-     */
-    value: function query() {
-      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (!value || value === this.query()) {
-        return this._last.query;
-      }
-
-      this._context[this._last.cacheToken] = this._last;
-
-      var token = (0, _hash.hashObject)(value);
-
-      if (this._context[token]) {
-        this._last = this._context[token];
-      } else {
-        var parameters = this._last.parameters.copy();
-
-        parameters.page = 1;
-        parameters.apply(value);
-
-        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, parameters);
-        this.get(parameters.page);
-        this.currentPage = 1;
-      }
-
-      this.rebuild();
-
-      return this.query();
-    }
-
-    /**
-     * Get api instance
-     * @returns {Maps4News} - Api instance
-     */
-
-  }, {
-    key: 'on',
-
-
-    /**
-     * Register an event handler for the given type.
-     *
-     * @param {string} type - Type of event to listen for, or `"*"` for all events.
-     * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
-     * @returns {void}
-     */
-    value: function on(type, handler) {
-      var _this3 = this;
-
-      this.cache.emitter.on(type, function (t, e) {
-        if (type === '*' && e.resourceUrl === _this3.route) {
-          handler(t, e);
-        } else if (type !== '*' && t.resourceUrl === _this3.route) {
-          handler(t);
-        }
-      });
-    }
-
-    /**
-     * Function to call in response to the given event
-     *
-     * @param {string} type - Type of event to unregister `handler` from, or `"*"`
-     * @param {function(event: any): void} handler - Handler function to remove.
-     * @returns {void}
-     */
-
-  }, {
-    key: 'off',
-    value: function off(type, handler) {
-      this.cache.emitter.off(type, handler);
-    }
-  }, {
-    key: '_promiseCallback',
-    get: function get() {
-      var _this4 = this;
-
-      return function (result) {
-        var query = _this4.query();
-
-        _this4._last = result;
-        _this4._query = query;
-
-        _this4.cache.push(result);
-
-        var inflightId = _this4.inflight.findIndex(function (x) {
-          return x === result.page;
-        });
-
-        if (inflightId >= 0) {
-          _this4._inflight.splice(inflightId, 1);
-        }
-
-        _this4._waiting = _this4.inflight.length > 0;
-
-        _this4.rebuild();
-      };
-    }
-  }, {
-    key: 'currentPage',
-    get: function get() {
-      return this._currentPage;
-    }
-
-    /**
-     * Set the current page number
-     * @param {Number} value - page number
-     */
-    ,
-    set: function set(value) {
-      this._currentPage = Math.max(1, value);
-    }
-
-    /**
-     * Get the route of the resource
-     * @returns {String} - route
-     */
-
-  }, {
-    key: 'route',
-    get: function get() {
-      return this._last.route;
-    }
-
-    /**
-     * Override the resource route
-     * @param {String} value - route
-     */
-    ,
-    set: function set(value) {
-      this._route = value;
-    }
-
-    /**
-     * Row count
-     * @returns {Number} - Row count
-     */
-
-  }, {
-    key: 'rows',
-    get: function get() {
-      return this._last.rows;
-    }
-
-    /**
-     * Get the number of pages available
-     * @returns {Number} - Page count
-     */
-
-  }, {
-    key: 'pageCount',
-    get: function get() {
-      return this._last.pageCount;
-    }
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Get the active cache instance
-     * @returns {ResourceCache} - Cache instance
-     */
-
-  }, {
-    key: 'cache',
-    get: function get() {
-      return this.shareCache ? this.api.cache : this._localCache;
-    }
-
-    /**
-     * Get if the shared cache should be used
-     * @returns {Boolean} - Should the shared cache be used
-     */
-
-  }, {
-    key: 'shareCache',
-    get: function get() {
-      return this._shareCache;
-    }
-
-    /**
-     * Sets if the shared cache should be used
-     * @param {Boolean} value - Should the shared cache be used
-     */
-    ,
-    set: function set(value) {
-      this._shareCache = Boolean(value);
-    }
-
-    /**
-     * If there is a next page
-     * @returns {boolean} - If there is a next page
-     */
-
-  }, {
-    key: 'hasNext',
-    get: function get() {
-      return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
-    }
-
-    /**
-     * If there is a previous page
-     * @returns {boolean} - If there is a previous page
-     */
-
-  }, {
-    key: 'hasPrevious',
-    get: function get() {
-      return this._last.hasPrevious;
-    }
-
-    /**
-     * List of page numbers that are still mid-flight
-     * @returns {Array} - Page numbers that are still mid-flight
-     */
-
-  }, {
-    key: 'inflight',
-    get: function get() {
-      return this._inflight;
-    }
-
-    /**
-     * Returns if there are still requests mid-flight
-     * @returns {boolean} - Returns if the wrapper is waiting for requests to finish
-     */
-
-  }, {
-    key: 'waiting',
-    get: function get() {
-      return this._waiting;
-    }
-  }]);
-  return PaginatedResourceWrapper;
-}(); /*
-      * BSD 3-Clause License
-      *
-      * Copyright (c) 2017, MapCreator
-      * All rights reserved.
-      *
-      * Redistribution and use in source and binary forms, with or without
-      * modification, are permitted provided that the following conditions are met:
-      *
-      *  Redistributions of source code must retain the above copyright notice, this
-      *   list of conditions and the following disclaimer.
-      *
-      *  Redistributions in binary form must reproduce the above copyright notice,
-      *   this list of conditions and the following disclaimer in the documentation
-      *   and/or other materials provided with the distribution.
-      *
-      *  Neither the name of the copyright holder nor the names of its
-      *   contributors may be used to endorse or promote products derived from
-      *   this software without specific prior written permission.
-      *
-      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-      */
-
-exports.default = PaginatedResourceWrapper;
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _mitt = __webpack_require__(46);
-
-var _mitt2 = _interopRequireDefault(_mitt);
-
-var _Unobservable2 = __webpack_require__(13);
-
-var _Unobservable3 = _interopRequireDefault(_Unobservable2);
-
-var _uuid = __webpack_require__(39);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Used for caching resources. Requires the resource to have an unique id field
- * @see {@link PaginatedResourceWrapper}
- * @todo Add periodic data refreshing while idle, most likely implemented in cache (maybe v1/resource?timestamp=123 where it will give modified records since)
- */
-var ResourceCache = function (_Unobservable) {
-  (0, _inherits3.default)(ResourceCache, _Unobservable);
-
-  function ResourceCache(api) {
-    var cacheTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : api.defaults.cacheSeconds;
-    var dereference = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.dereferenceCache;
-    (0, _classCallCheck3.default)(this, ResourceCache);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceCache.__proto__ || Object.getPrototypeOf(ResourceCache)).call(this));
-
-    _this._api = api;
-    _this.cacheTime = cacheTime;
-    _this.dereference = dereference;
-    _this.emitter = (0, _mitt2.default)();
-
-    _this._storage = {};
-    return _this;
-  }
-
-  /**
-   * Push a page into the cache
-   * @param {PaginatedResourceListing} page - Data to be cached
-   * @returns {void}
-   */
-
-
-  (0, _createClass3.default)(ResourceCache, [{
-    key: 'push',
-    value: function push(page) {
-      var _this2 = this;
-
-      if (page.rows === 0) {
-        return; // Don't insert empty pages
-      }
-
-      delete page['__ob__']; // Remove VueJs observer
-
-      // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)
-      var invalidData = page.data.map(function (row) {
-        return row.id;
-      }).filter(function (x) {
-        return typeof x !== 'number';
-      }).length > 0;
-
-      if (invalidData) {
-        throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric "id" field.');
-      }
-
-      var validThrough = this._timestamp + this.cacheTime;
-      var cacheId = _uuid2.default.uuid4();
-      var data = {
-        page: page, validThrough: validThrough,
-        id: cacheId,
-        timeout: setTimeout(function () {
-          return _this2._deleteCacheIds(cacheId);
-        }, this.cacheTime * 1000)
-      };
-
-      var storage = this._storage[page.route] || (this._storage[page.route] = {});
-
-      (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);
-
-      this.emitter.emit('push', { page: page, validThrough: validThrough, resourceUrl: page.route });
-      this.emitter.emit('invalidate', { resourceUrl: page.route });
-    }
-
-    /**
-     * Delete from cache using cacheId
-     * @param {String|Array<String>} ids - cache ids
-     * @returns {void}
-     */
-
-  }, {
-    key: '_deleteCacheIds',
-    value: function _deleteCacheIds(ids) {
-      if (!(ids instanceof Array)) {
-        this._deleteCacheIds([ids]);
-        return;
-      }
-
-      var found = 0;
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = Object.keys(this._storage)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var resourceUrl = _step.value;
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
-
-          try {
-            for (var _iterator2 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              var token = _step2.value;
-
-              var entries = this._storage[resourceUrl][token];
-
-              for (var i = 0; i < entries.length; i++) {
-                if (ids.includes(entries[i].id)) {
-                  entries.splice(i, 1);
-                  i--;
-                  found++;
-
-                  if (found === ids.length) {
-                    return;
-                  }
-                }
-              }
-            }
-          } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
-            }
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    }
-
-    /**
-     * Revalidate all data and delete stale data
-     * @param {String} resourceUrl - Resource url
-     * @returns {void}
-     */
-
-  }, {
-    key: 'revalidate',
-    value: function revalidate() {
-      var _this3 = this;
-
-      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (!resourceUrl) {
-        Object.keys(this._storage).map(this.revalidate);
-      } else if (this._storage[resourceUrl]) {
-        var storage = this._storage[resourceUrl];
-
-        // Remove old data from the cache and stop old timeouts
-        Object.keys(storage).forEach(function (key) {
-          storage[key].filter(function (row) {
-            return row.validThrough < _this3._timestamp;
-          }).forEach(function (row) {
-            return clearTimeout(row.timeout);
-          });
-
-          storage[key] = storage[key].filter(function (row) {
-            return row.validThrough >= _this3._timestamp;
-          });
-        });
-
-        var junk = Object.keys(storage).filter(function (key) {
-          return storage[key].length === 0;
-        });
-
-        // Delete empty
-        junk.forEach(function (key) {
-          return delete storage[key];
-        });
-        if (Object.keys(storage).length === 0) {
-          delete this._storage[resourceUrl];
-        }
-
-        if (junk.length > 0) {
-          this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
-        }
-      }
-    }
-
-    /**
-     * Collect relevant cached pages
-     * @param {String} resourceUrl - resource url
-     * @param {String} cacheToken - Cache token
-     * @see {@link PaginatedResourceListing#cacheToken}
-     * @returns {Array<PaginatedResourceListing>} - Relevant cached pages
-     */
-
-  }, {
-    key: 'collectPages',
-    value: function collectPages(resourceUrl) {
-      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-      cacheToken = cacheToken.toLowerCase();
-
-      // Storage array or []
-      var storage = (this._storage[resourceUrl] || {})[cacheToken] || [];
-
-      // Sort by validThrough and extract pages
-      // SORT BY page, validThrough ASCENDING
-      return storage.sort(function (a, b) {
-        if (a.page === b.page) {
-          return a.validThrough - b.validThrough;
-        }
-
-        return a.page - b.page;
-      });
-    }
-
-    /**
-     * Clears the cache
-     * @param {String} resourceUrl - Resource url
-     * @returns {void}
-     */
-
-  }, {
-    key: 'clear',
-    value: function clear() {
-      var _this4 = this;
-
-      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-      if (!resourceUrl) {
-        Object.keys(this._storage).forEach(function (url) {
-          _this4.emitter.emit('invalidate', { resourceUrl: url });
-        });
-
-        this._storage = {};
-      } else {
-        delete this._storage[resourceUrl];
-        this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
-      }
-    }
-
-    /**
-     * Resolve cache and return indexed data
-     * @param {String} resourceUrl - Resource url
-     * @param {String} cacheToken - Cache token
-     * @see {@link PaginatedResourceListing#cacheToken}
-     * @returns {Array<ResourceBase>} - Indexed relevant data
-     * @todo add page numbers or range as optional parameter
-     */
-
-  }, {
-    key: 'resolve',
-    value: function resolve(resourceUrl) {
-      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-      cacheToken = cacheToken.toLowerCase();
-
-      // List ordered from old to new
-      var data = this.collectPages(resourceUrl, cacheToken);
-      var out = [];
-
-      var lastPage = void 0;
-      var startIndex = 0;
-
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var row = _step3.value;
-
-          var page = row.page;
-
-          // Skip empty pages
-          if (page.data.length === 0) {
-            continue;
-          }
-
-          // Have we parsed the same page already?
-          if (typeof lastPage !== 'undefined' && lastPage === page.page) {
-            var ii = void 0;
-
-            for (var i = 0; i < page.data.length; i++) {
-              ii = i + startIndex; // Get relative index for `out`
-
-              if (typeof out[ii] === 'undefined') {
-                out.push(page.data[i]); // Push if there is no data
-              } else if (page.data[i].id !== out[ii].id) {
-                out[ii] = page.data[i];
-
-                // lookbehind
-                for (var j = 0; j < startIndex; j++) {
-                  if (out[j].id === out[ii].id) {
-                    out.splice(j, 1);
-
-                    startIndex--;
-                    i--;
-                    ii--;
-                    j--;
-                  }
-                }
-              }
-            }
-
-            // Remove trailing data
-            if (typeof ii !== 'undefined') {
-              out.splice(ii + 1, out.length);
-            }
-          } else {
-            // First time page number is parsed, just append it.
-            startIndex = out.length;
-
-            page.data.map(function (x) {
-              return out.push(x);
-            });
-          }
-
-          lastPage = row.page.page;
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-
-      if (this.dereference) {
-        return out.map(function (x) {
-          return x.clone();
-        });
-      }
-
-      return out;
-    }
-
-    /**
-     * Update records in the cache manually lazily. Any matching instance found will be updated.
-     * @param {ResourceBase|Array<ResourceBase>} rows - Data to be updated
-     * @returns {void} - nothing
-     */
-
-  }, {
-    key: 'update',
-    value: function update(rows) {
-      if (!(rows instanceof Array)) {
-        this.update([rows]);
-        return;
-      }
-
-      // Split up data into types
-      var data = {};
-      var ids = {};
-
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
-
-      try {
-        for (var _iterator4 = rows[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var row = _step4.value;
-
-          var key = row.constructor.name;
-
-          (data[key] || (data[key] = [])).push(row);
-          (ids[key] || (ids[key] = [])).push(row.id);
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4.return) {
-            _iterator4.return();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
-      }
-
-      var models = Object.keys(data);
-
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
-
-      try {
-        for (var _iterator5 = Object.keys(this._storage)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var resourceUrl = _step5.value;
-
-          var invalidate = false;
-
-          var _iteratorNormalCompletion6 = true;
-          var _didIteratorError6 = false;
-          var _iteratorError6 = undefined;
-
-          try {
-            for (var _iterator6 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-              var token = _step6.value;
-
-              var entries = this._storage[resourceUrl][token];
-
-              var _iteratorNormalCompletion7 = true;
-              var _didIteratorError7 = false;
-              var _iteratorError7 = undefined;
-
-              try {
-                for (var _iterator7 = entries[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                  var entry = _step7.value;
-
-                  var page = entry.page;
-
-                  if (page.data.length === 0) {
-                    continue;
-                  }
-
-                  var _key = page.data[0].constructor.name;
-
-                  if (!models.includes(_key)) {
-                    break;
-                  }
-
-                  var _loop = function _loop(_row) {
-                    if (!ids[_key].includes(_row.id)) {
-                      return 'continue';
-                    }
-
-                    var index = ids[_key].findIndex(function (x) {
-                      return x === _row.id;
-                    });
-                    var value = data[_key][index];
-
-                    value.sanitize();
-
-                    value.fieldNames.forEach(function (x) {
-                      _row[x] = value[x];
-                    });
-
-                    invalidate = true;
-                  };
-
-                  var _iteratorNormalCompletion8 = true;
-                  var _didIteratorError8 = false;
-                  var _iteratorError8 = undefined;
-
-                  try {
-                    for (var _iterator8 = page.data[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-                      var _row = _step8.value;
-
-                      var _ret = _loop(_row);
-
-                      if (_ret === 'continue') continue;
-                    }
-                  } catch (err) {
-                    _didIteratorError8 = true;
-                    _iteratorError8 = err;
-                  } finally {
-                    try {
-                      if (!_iteratorNormalCompletion8 && _iterator8.return) {
-                        _iterator8.return();
-                      }
-                    } finally {
-                      if (_didIteratorError8) {
-                        throw _iteratorError8;
-                      }
-                    }
-                  }
-                }
-              } catch (err) {
-                _didIteratorError7 = true;
-                _iteratorError7 = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                    _iterator7.return();
-                  }
-                } finally {
-                  if (_didIteratorError7) {
-                    throw _iteratorError7;
-                  }
-                }
-              }
-            }
-          } catch (err) {
-            _didIteratorError6 = true;
-            _iteratorError6 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                _iterator6.return();
-              }
-            } finally {
-              if (_didIteratorError6) {
-                throw _iteratorError6;
-              }
-            }
-          }
-
-          if (invalidate) {
-            this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
-          }
-        }
-      } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5.return) {
-            _iterator5.return();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
-          }
-        }
-      }
-    }
-
-    /**
-     * Get a usable timestamp
-     * @returns {number} - timestamp
-     * @private
-     */
-
-  }, {
-    key: '_timestamp',
-    get: function get() {
-      return Math.floor(Date.now() / 1000);
-    }
-  }]);
-  return ResourceCache;
-}(_Unobservable3.default); /*
-                            * BSD 3-Clause License
-                            *
-                            * Copyright (c) 2017, MapCreator
-                            * All rights reserved.
-                            *
-                            * Redistribution and use in source and binary forms, with or without
-                            * modification, are permitted provided that the following conditions are met:
-                            *
-                            *  Redistributions of source code must retain the above copyright notice, this
-                            *   list of conditions and the following disclaimer.
-                            *
-                            *  Redistributions in binary form must reproduce the above copyright notice,
-                            *   this list of conditions and the following disclaimer in the documentation
-                            *   and/or other materials provided with the distribution.
-                            *
-                            *  Neither the name of the copyright holder nor the names of its
-                            *   contributors may be used to endorse or promote products derived from
-                            *   this software without specific prior written permission.
-                            *
-                            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                            */
-
-exports.default = ResourceCache;
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports) {
-
-module.exports = require("mitt");
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof2 = __webpack_require__(18);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
 var _possibleConstructorReturn2 = __webpack_require__(6);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
@@ -7094,7 +5305,7 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _case = __webpack_require__(8);
 
-var _events = __webpack_require__(48);
+var _events = __webpack_require__(43);
 
 var _enums = __webpack_require__(1);
 
@@ -7942,10 +6153,1801 @@ var RequestParameters = function (_EventEmitter) {
 exports.default = RequestParameters;
 
 /***/ }),
-/* 48 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("events");
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof2 = __webpack_require__(18);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _PaginatedResourceListing = __webpack_require__(45);
+
+var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+var _RequestParameters = __webpack_require__(42);
+
+var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
+
+var _ResourceLister = __webpack_require__(49);
+
+var _ResourceLister2 = _interopRequireDefault(_ResourceLister);
+
+var _ResourceBase = __webpack_require__(52);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+
+var _reflection = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Proxy for accessing resource. This will make sure that they
+ * are properly wrapped before the promise resolves.
+ * @protected
+ */
+var SimpleResourceProxy = function () {
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {ResourceBase} Target - Target to wrap
+   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
+   * @param {object} seedData - Internal use, used for seeding ::new
+   */
+  function SimpleResourceProxy(api, Target) {
+    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+    (0, _classCallCheck3.default)(this, SimpleResourceProxy);
+
+    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, Target)) {
+      throw new TypeError('Target is not a child of ResourceBase');
+    }
+
+    if (typeof Target !== 'function') {
+      throw new TypeError('Target must to be a class not an instance');
+    }
+
+    if (altUrl) {
+      this.__baseUrl = altUrl;
+    }
+
+    this._api = api;
+    this._Target = Target;
+    this._seedData = seedData;
+  }
+
+  /**
+   * Proxy target url
+   * @returns {string} url
+   * @example
+   * api.layers.select(100).organisations.baseUrl === "https://maponline-api.dev/v1/layers/100/organisations"
+   */
+
+
+  (0, _createClass3.default)(SimpleResourceProxy, [{
+    key: 'new',
+
+
+    /**
+     * Build a new instance of the target
+     * @param {Object<String, *>} data - Data for the object to be populated with
+     * @returns {ResourceBase} - Resource with target data
+     */
+    value: function _new() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      // Merge but don't overwrite using seed data
+      data = Object.assign({}, this._seedData, data);
+
+      return new this.Target(this._api, data);
+    }
+
+    /**
+     * List target resource
+     * @param {Number|Object|RequestParameters} [params] - Parameters or the page number to be requested
+     * @param {Number} [params.page=1] - The page to be requested
+     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.sort=''] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
+     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * const search = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * };
+     *
+     * api.layers.list({perPage: 10, search});
+     */
+
+  }, {
+    key: 'list',
+    value: function list() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var resolver = this._buildResolver(params);
+
+      return resolver.getPage(resolver.page);
+    }
+
+    /**
+     * List target resource
+     * @param {Number|Object|RequestParameters} [params] - Parameters or the page to be requested
+     * @param {Number} [params.page=1] - The page to be requested
+     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {Array<String>|string} [params.sort=''] - Comma separated list or array
+     * @param {String} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
+     * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
+     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
+     * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * const search = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * };
+     *
+     * api.layers.listandWrap({perPage: 10, search});
+     */
+
+  }, {
+    key: 'listAndWrap',
+    value: function listAndWrap() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var resolver = this._buildResolver(params);
+      var wrapped = resolver.wrap(resolver.page);
+
+      wrapped.get(resolver.page);
+      return wrapped;
+    }
+
+    /**
+     * Get the resource lister
+     *
+     * @param {object|RequestParameters} parameters - parameters
+     * @param {number} maxRows - Maximum amount of rows
+     * @returns {ResourceLister} - Resource lister
+     */
+
+  }, {
+    key: 'lister',
+    value: function lister() {
+      var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var maxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 50;
+
+      return new _ResourceLister2.default(this.api, this.baseUrl, this.Target, parameters, maxRows, this.Target.resourceUrlKey);
+    }
+  }, {
+    key: '_buildResolver',
+    value: function _buildResolver() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var paramType = typeof params === 'undefined' ? 'undefined' : (0, _typeof3.default)(params);
+      var url = this.baseUrl;
+
+      if (!['number', 'object'].includes(paramType)) {
+        throw new TypeError('Expected params to be of type number or object. Got "' + paramType + '"');
+      }
+
+      if (paramType === 'number') {
+        return this._buildResolver({ page: params });
+      }
+
+      if (!(params instanceof _RequestParameters2.default)) {
+        params = new _RequestParameters2.default(params);
+      }
+
+      return new _PaginatedResourceListing2.default(this._api, url, this.Target, params);
+    }
+  }, {
+    key: 'baseUrl',
+    get: function get() {
+      if (!this.__baseUrl) {
+        this.__baseUrl = this.new().baseUrl;
+      }
+
+      return this.__baseUrl;
+    }
+
+    /**
+     * Get api instance
+     * @returns {Maps4News} - Api instance
+     */
+
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Target to wrap results in
+     * @returns {ResourceBase} - Target constructor
+     * @constructor
+     */
+
+  }, {
+    key: 'Target',
+    get: function get() {
+      return this._Target;
+    }
+
+    /**
+     * The name of the target
+     * @returns {String} - Target name
+     * @example
+     * api.colors.accessorName === 'Color'
+     * api.fontFamilies.accessorName = 'Font Families'
+     */
+
+  }, {
+    key: 'accessorName',
+    get: function get() {
+      return this.Target.name.replace(/([A-Z])/g, function (x) {
+        return ' ' + x;
+      }).trim();
+    }
+  }]);
+  return SimpleResourceProxy;
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
+
+exports.default = SimpleResourceProxy;
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _Maps4News = __webpack_require__(17);
+
+var _Maps4News2 = _interopRequireDefault(_Maps4News);
+
+var _PaginatedResourceWrapper = __webpack_require__(46);
+
+var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
+
+var _RequestParameters = __webpack_require__(42);
+
+var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
+
+var _reflection = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Proxy for accessing paginated resources
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var PaginatedResourceListing = function () {
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {String} route - Resource route
+   * @param {ResourceBase} Target - Wrapper target
+   * @param {RequestParameters} parameters - Request parameters
+   * @param {Number} pageCount - Resolved page count
+   * @param {Number} rowCount - Resolved rowCount
+   * @param {Array<ResourceBase>} data - Resolved data
+   * @private
+   */
+  function PaginatedResourceListing(api, route, Target, parameters) {
+    var pageCount = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+    var rowCount = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+    var data = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
+    (0, _classCallCheck3.default)(this, PaginatedResourceListing);
+
+    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
+      throw new TypeError('Expected api to be of type Maps4News');
+    }
+
+    if (!(0, _reflection.isParentOf)(_RequestParameters2.default, parameters)) {
+      parameters = new _RequestParameters2.default(parameters);
+    }
+
+    this._api = api;
+
+    this.route = route;
+    this._Target = Target;
+    this._parameters = parameters;
+    this._pageCount = pageCount;
+    this._rows = rowCount;
+    this._data = data;
+  }
+
+  /**
+   * Get api instance
+   * @returns {Maps4News} - Api instance
+   */
+
+
+  (0, _createClass3.default)(PaginatedResourceListing, [{
+    key: 'getPage',
+
+
+    /**
+     * Get target page
+     * @param {Number} page - Page number
+     * @param {Number} perPage - Amount of items per page (max 50)
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     */
+    value: function getPage() {
+      var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.perPage;
+
+      var query = this.parameters.copy();
+
+      query.page = page;
+      query.perPage = perPage;
+
+      var glue = this.route.includes('?') ? '&' : '?';
+      var url = this.route + glue + query.encode();
+
+      return this.api.request(url, 'GET', {}, {}, true).then(function (output) {
+        var headers = output.response.headers;
+
+        var getOrDefault = function getOrDefault(x, y) {
+          return headers.has(x) ? headers.get(x) : y;
+        };
+
+        var rowCount = Number(getOrDefault('X-Paginate-Total', output.data.length));
+        var totalPages = Number(getOrDefault('X-Paginate-Pages', 1));
+        var parameters = _this.parameters.copy();
+
+        parameters.page = page;
+
+        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, parameters, totalPages, rowCount, output.data.map(function (row) {
+          return new _this._Target(_this.api, row);
+        }));
+      });
+    }
+
+    /**
+     * If there is a next page
+     * @returns {boolean} - If there is a next page
+     */
+
+  }, {
+    key: 'next',
+
+
+    /**
+     * Get next page
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     */
+    value: function next() {
+      return this.getPage(this.page + 1);
+    }
+
+    /**
+     * Get previous page
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'previous',
+    value: function previous() {
+      return this.getPage(this.page - 1);
+    }
+
+    /**
+     * Wraps {@link PaginatedResourceWrapper} around the page
+     * @param {Boolean} shareCache - Share cache across instances
+     * @returns {PaginatedResourceWrapper} - Wrapped resource listing
+     */
+
+  }, {
+    key: 'wrap',
+    value: function wrap() {
+      var shareCache = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults._shareCache;
+
+      return new _PaginatedResourceWrapper2.default(this, this.api, shareCache);
+    }
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Target route
+     * @returns {String} - url
+     */
+
+  }, {
+    key: 'route',
+    get: function get() {
+      return this._route;
+    }
+
+    /**
+     * Override the target route
+     * @param {String} value - route
+     */
+    ,
+    set: function set(value) {
+      if (!value.startsWith('https://') && !value.startsWith('http://')) {
+        if (!value.startsWith('/')) {
+          value = '/' + value;
+        }
+
+        value = this._api.host + '/' + this._api.version + value;
+      }
+
+      this._route = value;
+    }
+
+    /**
+     * Target to wrap results in
+     * @returns {ResourceBase} - Target constructor
+     * @constructor
+     */
+
+  }, {
+    key: 'Target',
+    get: function get() {
+      return this._Target;
+    }
+
+    /**
+     * Request parameters
+     * @returns {RequestParameters} - Request parameters
+     */
+
+  }, {
+    key: 'parameters',
+    get: function get() {
+      return this._parameters;
+    }
+
+    /**
+     * Request parameters
+     * @param {RequestParameters} value - Request parameters
+     */
+    ,
+    set: function set(value) {
+      this._parameters = value;
+    }
+
+    /**
+     * Current page number
+     * @returns {Number} - Current page
+     */
+
+  }, {
+    key: 'page',
+    get: function get() {
+      return this.parameters.page;
+    }
+
+    /**
+     * Maximum amount of items per page
+     * @returns {Number} - Amount of items
+     */
+
+  }, {
+    key: 'perPage',
+    get: function get() {
+      return this.parameters.perPage;
+    }
+
+    /**
+     * Set sort direction
+     * @returns {String} - Sort
+     * @example
+     * const sort = ['-name', 'id']
+     */
+
+  }, {
+    key: 'sort',
+    get: function get() {
+      return this.parameters.sort;
+    }
+
+    /**
+     * Current sorting value
+     * @param {String} value - Sort
+     */
+    ,
+    set: function set(value) {
+      this.parameters.sort = value;
+    }
+
+    /**
+     * Deleted items filter state
+     * @returns {String} value - Deleted items filter state
+     * @see {@link DeletedState}
+     */
+
+  }, {
+    key: 'deleted',
+    get: function get() {
+      return this.parameters.deleted;
+    }
+
+    /**
+     * Deleted items filter state
+     * @param {String} value - Deleted items filter state
+     * @see {@link DeletedState}
+     */
+    ,
+    set: function set(value) {
+      this.parameters.deleted = value;
+    }
+
+    /**
+     * Amount of pages available
+     * @returns {Number} - Page count
+     */
+
+  }, {
+    key: 'pageCount',
+    get: function get() {
+      return this._pageCount;
+    }
+
+    /**
+     * Page data
+     * @returns {Array<ResourceBase>} - Wrapped data
+     */
+
+  }, {
+    key: 'data',
+    get: function get() {
+      return this._data;
+    }
+
+    /**
+     * Row count
+     * @returns {Number} - Row count
+     */
+
+  }, {
+    key: 'rows',
+    get: function get() {
+      return this._rows;
+    }
+
+    /**
+     * Optional search query
+     * @default {}
+     * @return {Object<String, String|Array<String>>} - Query
+     */
+
+  }, {
+    key: 'query',
+    get: function get() {
+      return this.parameters.search;
+    }
+
+    /**
+     * Optional search query
+     * @param {Object<String, String|Array<String>>} value - Query
+     * @throws TypeError
+     * @default {}
+     * @see {@link ResourceProxy#search}
+     */
+    ,
+    set: function set(value) {
+      this.parameters.search = value;
+    }
+  }, {
+    key: 'hasNext',
+    get: function get() {
+      return this.page < this.pageCount;
+    }
+
+    /**
+     * If there is a previous page
+     * @returns {boolean} - If there is a previous page
+     */
+
+  }, {
+    key: 'hasPrevious',
+    get: function get() {
+      return this.page > 1;
+    }
+
+    /**
+     * Used for caching pages internally
+     * @returns {string} - Cache token
+     * @see {@link PaginatedResourceWrapper}
+     * @see {@link ResourceCache}
+     */
+
+  }, {
+    key: 'cacheToken',
+    get: function get() {
+      return this.parameters.token();
+    }
+  }]);
+  return PaginatedResourceListing;
+}();
+
+exports.default = PaginatedResourceListing;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _PaginatedResourceListing = __webpack_require__(45);
+
+var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+var _ResourceCache = __webpack_require__(47);
+
+var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
+
+var _hash = __webpack_require__(11);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
+ * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
+ */
+var PaginatedResourceWrapper = function () {
+  /**
+   *
+   * @param {PaginatedResourceListing} listing - Listing result
+   * @param {Maps4News} api - Instance of the api
+   * @param {Boolean} shareCache - Share cache across instances
+   */
+  function PaginatedResourceWrapper(listing) {
+    var _this = this;
+
+    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
+    var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.shareCache;
+    (0, _classCallCheck3.default)(this, PaginatedResourceWrapper);
+
+
+    // Fields
+    this._api = api;
+    this._shareCache = shareCache;
+    this._currentPage = 1;
+    this._context = [];
+
+    /**
+     * Available data assembled from the cache
+     * @type {Array<ResourceBase>} - Available data
+     */
+    this.data = [];
+
+    // Internal
+    this._localCache = new _ResourceCache2.default(api, this.api.defaults.cacheSeconds);
+    this._inflight = [];
+    this._last = listing;
+    this._waiting = false;
+
+    this.on('invalidate', function () {
+      return _this.rebuild();
+    });
+
+    this._promiseCallback(listing);
+  }
+
+  (0, _createClass3.default)(PaginatedResourceWrapper, [{
+    key: 'get',
+
+
+    /**
+     * Manually fetch a page. This will change the current page.
+     * @param {Number|Array<Number>} pageId - Page(s) to fetch
+     * @returns {void}
+     */
+    value: function get(pageId) {
+      if (pageId instanceof Array) {
+        pageId.map(this.get);
+      } else {
+        this._waiting = true;
+
+        this._inflight.push(pageId);
+        this._last.getPage(pageId).then(this._promiseCallback);
+      }
+    }
+
+    /**
+     * Grab the next page
+     * @returns {void}
+     */
+
+  }, {
+    key: 'next',
+    value: function next() {
+      this.get(++this.currentPage);
+    }
+
+    /**
+     * Grab the previous page
+     * @returns {void}
+     */
+
+  }, {
+    key: 'previous',
+    value: function previous() {
+      this.get(--this.currentPage);
+    }
+
+    /**
+     * Manually rebuild the data
+     * @returns {void}
+     */
+
+  }, {
+    key: 'rebuild',
+    value: function rebuild() {
+      this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
+        return typeof value !== 'undefined';
+      });
+
+      this.cache.emitter.emit('post-rebuild', { resourceUrl: this._last.route });
+    }
+
+    /**
+     * Updates the cached pages.
+     * @param {Boolean} flush - Clear the cached route data
+     * @returns {void}
+     * @example
+     * function onRefresh() {
+     *   if(wrapper.waiting) {
+     *     return; // not done yet
+     *   }
+     *
+     *   wrapper.off('post-rebuild', onRefresh);
+     *
+     *   // Do stuff here
+     * }
+     *
+     * wrapper.on('post-rebuild', onRefresh);
+     * wrapper.refresh();
+     */
+
+  }, {
+    key: 'refresh',
+    value: function refresh() {
+      var _this2 = this;
+
+      var flush = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      if (flush) {
+        this.cache.clear(this.route);
+      }
+
+      this.cache.collectPages(this.route, this._last.cacheToken).map(function (page) {
+        return _this2.get(page.page);
+      });
+    }
+
+    /**
+     * Returns the page number that is currently being used as a reference point
+     * @returns {Number} - The current page
+     * @see {@link PaginatedResourceWrapper#next}
+     * @see {@link PaginatedResourceWrapper#previous}
+     */
+
+  }, {
+    key: 'query',
+
+
+    /**
+     * Set the request params and submit
+     * @param {?Object<String, *>} value - Query
+     * @throws TypeError
+     * @default {}
+     * @see {@link ResourceProxy#search}
+     * @returns {Object<String, String|Array<String>>} - query
+     */
+    value: function query() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      if (!value || value === this.query()) {
+        return this._last.query;
+      }
+
+      this._context[this._last.cacheToken] = this._last;
+
+      var token = (0, _hash.hashObject)(value);
+
+      if (this._context[token]) {
+        this._last = this._context[token];
+      } else {
+        var parameters = this._last.parameters.copy();
+
+        parameters.page = 1;
+        parameters.apply(value);
+
+        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, parameters);
+        this.get(parameters.page);
+        this.currentPage = 1;
+      }
+
+      this.rebuild();
+
+      return this.query();
+    }
+
+    /**
+     * Get api instance
+     * @returns {Maps4News} - Api instance
+     */
+
+  }, {
+    key: 'on',
+
+
+    /**
+     * Register an event handler for the given type.
+     *
+     * @param {string} type - Type of event to listen for, or `"*"` for all events.
+     * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
+     * @returns {void}
+     */
+    value: function on(type, handler) {
+      var _this3 = this;
+
+      this.cache.emitter.on(type, function (t, e) {
+        if (type === '*' && e.resourceUrl === _this3.route) {
+          handler(t, e);
+        } else if (type !== '*' && t.resourceUrl === _this3.route) {
+          handler(t);
+        }
+      });
+    }
+
+    /**
+     * Function to call in response to the given event
+     *
+     * @param {string} type - Type of event to unregister `handler` from, or `"*"`
+     * @param {function(event: any): void} handler - Handler function to remove.
+     * @returns {void}
+     */
+
+  }, {
+    key: 'off',
+    value: function off(type, handler) {
+      this.cache.emitter.off(type, handler);
+    }
+  }, {
+    key: '_promiseCallback',
+    get: function get() {
+      var _this4 = this;
+
+      return function (result) {
+        var query = _this4.query();
+
+        _this4._last = result;
+        _this4._query = query;
+
+        _this4.cache.push(result);
+
+        var inflightId = _this4.inflight.findIndex(function (x) {
+          return x === result.page;
+        });
+
+        if (inflightId >= 0) {
+          _this4._inflight.splice(inflightId, 1);
+        }
+
+        _this4._waiting = _this4.inflight.length > 0;
+
+        _this4.rebuild();
+      };
+    }
+  }, {
+    key: 'currentPage',
+    get: function get() {
+      return this._currentPage;
+    }
+
+    /**
+     * Set the current page number
+     * @param {Number} value - page number
+     */
+    ,
+    set: function set(value) {
+      this._currentPage = Math.max(1, value);
+    }
+
+    /**
+     * Get the route of the resource
+     * @returns {String} - route
+     */
+
+  }, {
+    key: 'route',
+    get: function get() {
+      return this._last.route;
+    }
+
+    /**
+     * Override the resource route
+     * @param {String} value - route
+     */
+    ,
+    set: function set(value) {
+      this._route = value;
+    }
+
+    /**
+     * Row count
+     * @returns {Number} - Row count
+     */
+
+  }, {
+    key: 'rows',
+    get: function get() {
+      return this._last.rows;
+    }
+
+    /**
+     * Get the number of pages available
+     * @returns {Number} - Page count
+     */
+
+  }, {
+    key: 'pageCount',
+    get: function get() {
+      return this._last.pageCount;
+    }
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Get the active cache instance
+     * @returns {ResourceCache} - Cache instance
+     */
+
+  }, {
+    key: 'cache',
+    get: function get() {
+      return this.shareCache ? this.api.cache : this._localCache;
+    }
+
+    /**
+     * Get if the shared cache should be used
+     * @returns {Boolean} - Should the shared cache be used
+     */
+
+  }, {
+    key: 'shareCache',
+    get: function get() {
+      return this._shareCache;
+    }
+
+    /**
+     * Sets if the shared cache should be used
+     * @param {Boolean} value - Should the shared cache be used
+     */
+    ,
+    set: function set(value) {
+      this._shareCache = Boolean(value);
+    }
+
+    /**
+     * If there is a next page
+     * @returns {boolean} - If there is a next page
+     */
+
+  }, {
+    key: 'hasNext',
+    get: function get() {
+      return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
+    }
+
+    /**
+     * If there is a previous page
+     * @returns {boolean} - If there is a previous page
+     */
+
+  }, {
+    key: 'hasPrevious',
+    get: function get() {
+      return this._last.hasPrevious;
+    }
+
+    /**
+     * List of page numbers that are still mid-flight
+     * @returns {Array} - Page numbers that are still mid-flight
+     */
+
+  }, {
+    key: 'inflight',
+    get: function get() {
+      return this._inflight;
+    }
+
+    /**
+     * Returns if there are still requests mid-flight
+     * @returns {boolean} - Returns if the wrapper is waiting for requests to finish
+     */
+
+  }, {
+    key: 'waiting',
+    get: function get() {
+      return this._waiting;
+    }
+  }]);
+  return PaginatedResourceWrapper;
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
+
+exports.default = PaginatedResourceWrapper;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _mitt = __webpack_require__(48);
+
+var _mitt2 = _interopRequireDefault(_mitt);
+
+var _Unobservable2 = __webpack_require__(13);
+
+var _Unobservable3 = _interopRequireDefault(_Unobservable2);
+
+var _uuid = __webpack_require__(39);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Used for caching resources. Requires the resource to have an unique id field
+ * @see {@link PaginatedResourceWrapper}
+ * @todo Add periodic data refreshing while idle, most likely implemented in cache (maybe v1/resource?timestamp=123 where it will give modified records since)
+ */
+var ResourceCache = function (_Unobservable) {
+  (0, _inherits3.default)(ResourceCache, _Unobservable);
+
+  function ResourceCache(api) {
+    var cacheTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : api.defaults.cacheSeconds;
+    var dereference = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.dereferenceCache;
+    (0, _classCallCheck3.default)(this, ResourceCache);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceCache.__proto__ || Object.getPrototypeOf(ResourceCache)).call(this));
+
+    _this._api = api;
+    _this.cacheTime = cacheTime;
+    _this.dereference = dereference;
+    _this.emitter = (0, _mitt2.default)();
+
+    _this._storage = {};
+    return _this;
+  }
+
+  /**
+   * Push a page into the cache
+   * @param {PaginatedResourceListing} page - Data to be cached
+   * @returns {void}
+   */
+
+
+  (0, _createClass3.default)(ResourceCache, [{
+    key: 'push',
+    value: function push(page) {
+      var _this2 = this;
+
+      if (page.rows === 0) {
+        return; // Don't insert empty pages
+      }
+
+      delete page['__ob__']; // Remove VueJs observer
+
+      // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)
+      var invalidData = page.data.map(function (row) {
+        return row.id;
+      }).filter(function (x) {
+        return typeof x !== 'number';
+      }).length > 0;
+
+      if (invalidData) {
+        throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric "id" field.');
+      }
+
+      var validThrough = this._timestamp + this.cacheTime;
+      var cacheId = _uuid2.default.uuid4();
+      var data = {
+        page: page, validThrough: validThrough,
+        id: cacheId,
+        timeout: setTimeout(function () {
+          return _this2._deleteCacheIds(cacheId);
+        }, this.cacheTime * 1000)
+      };
+
+      var storage = this._storage[page.route] || (this._storage[page.route] = {});
+
+      (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);
+
+      this.emitter.emit('push', { page: page, validThrough: validThrough, resourceUrl: page.route });
+      this.emitter.emit('invalidate', { resourceUrl: page.route });
+    }
+
+    /**
+     * Delete from cache using cacheId
+     * @param {String|Array<String>} ids - cache ids
+     * @returns {void}
+     */
+
+  }, {
+    key: '_deleteCacheIds',
+    value: function _deleteCacheIds(ids) {
+      if (!(ids instanceof Array)) {
+        this._deleteCacheIds([ids]);
+        return;
+      }
+
+      var found = 0;
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(this._storage)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var resourceUrl = _step.value;
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var token = _step2.value;
+
+              var entries = this._storage[resourceUrl][token];
+
+              for (var i = 0; i < entries.length; i++) {
+                if (ids.includes(entries[i].id)) {
+                  entries.splice(i, 1);
+                  i--;
+                  found++;
+
+                  if (found === ids.length) {
+                    return;
+                  }
+                }
+              }
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+
+    /**
+     * Revalidate all data and delete stale data
+     * @param {String} resourceUrl - Resource url
+     * @returns {void}
+     */
+
+  }, {
+    key: 'revalidate',
+    value: function revalidate() {
+      var _this3 = this;
+
+      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      if (!resourceUrl) {
+        Object.keys(this._storage).map(this.revalidate);
+      } else if (this._storage[resourceUrl]) {
+        var storage = this._storage[resourceUrl];
+
+        // Remove old data from the cache and stop old timeouts
+        Object.keys(storage).forEach(function (key) {
+          storage[key].filter(function (row) {
+            return row.validThrough < _this3._timestamp;
+          }).forEach(function (row) {
+            return clearTimeout(row.timeout);
+          });
+
+          storage[key] = storage[key].filter(function (row) {
+            return row.validThrough >= _this3._timestamp;
+          });
+        });
+
+        var junk = Object.keys(storage).filter(function (key) {
+          return storage[key].length === 0;
+        });
+
+        // Delete empty
+        junk.forEach(function (key) {
+          return delete storage[key];
+        });
+        if (Object.keys(storage).length === 0) {
+          delete this._storage[resourceUrl];
+        }
+
+        if (junk.length > 0) {
+          this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
+        }
+      }
+    }
+
+    /**
+     * Collect relevant cached pages
+     * @param {String} resourceUrl - resource url
+     * @param {String} cacheToken - Cache token
+     * @see {@link PaginatedResourceListing#cacheToken}
+     * @returns {Array<PaginatedResourceListing>} - Relevant cached pages
+     */
+
+  }, {
+    key: 'collectPages',
+    value: function collectPages(resourceUrl) {
+      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      cacheToken = cacheToken.toLowerCase();
+
+      // Storage array or []
+      var storage = (this._storage[resourceUrl] || {})[cacheToken] || [];
+
+      // Sort by validThrough and extract pages
+      // SORT BY page, validThrough ASCENDING
+      return storage.sort(function (a, b) {
+        if (a.page === b.page) {
+          return a.validThrough - b.validThrough;
+        }
+
+        return a.page - b.page;
+      });
+    }
+
+    /**
+     * Clears the cache
+     * @param {String} resourceUrl - Resource url
+     * @returns {void}
+     */
+
+  }, {
+    key: 'clear',
+    value: function clear() {
+      var _this4 = this;
+
+      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (!resourceUrl) {
+        Object.keys(this._storage).forEach(function (url) {
+          _this4.emitter.emit('invalidate', { resourceUrl: url });
+        });
+
+        this._storage = {};
+      } else {
+        delete this._storage[resourceUrl];
+        this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
+      }
+    }
+
+    /**
+     * Resolve cache and return indexed data
+     * @param {String} resourceUrl - Resource url
+     * @param {String} cacheToken - Cache token
+     * @see {@link PaginatedResourceListing#cacheToken}
+     * @returns {Array<ResourceBase>} - Indexed relevant data
+     * @todo add page numbers or range as optional parameter
+     */
+
+  }, {
+    key: 'resolve',
+    value: function resolve(resourceUrl) {
+      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      cacheToken = cacheToken.toLowerCase();
+
+      // List ordered from old to new
+      var data = this.collectPages(resourceUrl, cacheToken);
+      var out = [];
+
+      var lastPage = void 0;
+      var startIndex = 0;
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var row = _step3.value;
+
+          var page = row.page;
+
+          // Skip empty pages
+          if (page.data.length === 0) {
+            continue;
+          }
+
+          // Have we parsed the same page already?
+          if (typeof lastPage !== 'undefined' && lastPage === page.page) {
+            var ii = void 0;
+
+            for (var i = 0; i < page.data.length; i++) {
+              ii = i + startIndex; // Get relative index for `out`
+
+              if (typeof out[ii] === 'undefined') {
+                out.push(page.data[i]); // Push if there is no data
+              } else if (page.data[i].id !== out[ii].id) {
+                out[ii] = page.data[i];
+
+                // lookbehind
+                for (var j = 0; j < startIndex; j++) {
+                  if (out[j].id === out[ii].id) {
+                    out.splice(j, 1);
+
+                    startIndex--;
+                    i--;
+                    ii--;
+                    j--;
+                  }
+                }
+              }
+            }
+
+            // Remove trailing data
+            if (typeof ii !== 'undefined') {
+              out.splice(ii + 1, out.length);
+            }
+          } else {
+            // First time page number is parsed, just append it.
+            startIndex = out.length;
+
+            page.data.map(function (x) {
+              return out.push(x);
+            });
+          }
+
+          lastPage = row.page.page;
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      if (this.dereference) {
+        return out.map(function (x) {
+          return x.clone();
+        });
+      }
+
+      return out;
+    }
+
+    /**
+     * Update records in the cache manually lazily. Any matching instance found will be updated.
+     * @param {ResourceBase|Array<ResourceBase>} rows - Data to be updated
+     * @returns {void} - nothing
+     */
+
+  }, {
+    key: 'update',
+    value: function update(rows) {
+      if (!(rows instanceof Array)) {
+        this.update([rows]);
+        return;
+      }
+
+      // Split up data into types
+      var data = {};
+      var ids = {};
+
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = rows[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var row = _step4.value;
+
+          var key = row.constructor.name;
+
+          (data[key] || (data[key] = [])).push(row);
+          (ids[key] || (ids[key] = [])).push(row.id);
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      var models = Object.keys(data);
+
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = Object.keys(this._storage)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var resourceUrl = _step5.value;
+
+          var invalidate = false;
+
+          var _iteratorNormalCompletion6 = true;
+          var _didIteratorError6 = false;
+          var _iteratorError6 = undefined;
+
+          try {
+            for (var _iterator6 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+              var token = _step6.value;
+
+              var entries = this._storage[resourceUrl][token];
+
+              var _iteratorNormalCompletion7 = true;
+              var _didIteratorError7 = false;
+              var _iteratorError7 = undefined;
+
+              try {
+                for (var _iterator7 = entries[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                  var entry = _step7.value;
+
+                  var page = entry.page;
+
+                  if (page.data.length === 0) {
+                    continue;
+                  }
+
+                  var _key = page.data[0].constructor.name;
+
+                  if (!models.includes(_key)) {
+                    break;
+                  }
+
+                  var _loop = function _loop(_row) {
+                    if (!ids[_key].includes(_row.id)) {
+                      return 'continue';
+                    }
+
+                    var index = ids[_key].findIndex(function (x) {
+                      return x === _row.id;
+                    });
+                    var value = data[_key][index];
+
+                    value.sanitize();
+
+                    value.fieldNames.forEach(function (x) {
+                      _row[x] = value[x];
+                    });
+
+                    invalidate = true;
+                  };
+
+                  var _iteratorNormalCompletion8 = true;
+                  var _didIteratorError8 = false;
+                  var _iteratorError8 = undefined;
+
+                  try {
+                    for (var _iterator8 = page.data[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                      var _row = _step8.value;
+
+                      var _ret = _loop(_row);
+
+                      if (_ret === 'continue') continue;
+                    }
+                  } catch (err) {
+                    _didIteratorError8 = true;
+                    _iteratorError8 = err;
+                  } finally {
+                    try {
+                      if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                        _iterator8.return();
+                      }
+                    } finally {
+                      if (_didIteratorError8) {
+                        throw _iteratorError8;
+                      }
+                    }
+                  }
+                }
+              } catch (err) {
+                _didIteratorError7 = true;
+                _iteratorError7 = err;
+              } finally {
+                try {
+                  if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                    _iterator7.return();
+                  }
+                } finally {
+                  if (_didIteratorError7) {
+                    throw _iteratorError7;
+                  }
+                }
+              }
+            }
+          } catch (err) {
+            _didIteratorError6 = true;
+            _iteratorError6 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                _iterator6.return();
+              }
+            } finally {
+              if (_didIteratorError6) {
+                throw _iteratorError6;
+              }
+            }
+          }
+
+          if (invalidate) {
+            this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
+          }
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
+          }
+        }
+      }
+    }
+
+    /**
+     * Get a usable timestamp
+     * @returns {number} - timestamp
+     * @private
+     */
+
+  }, {
+    key: '_timestamp',
+    get: function get() {
+      return Math.floor(Date.now() / 1000);
+    }
+  }]);
+  return ResourceCache;
+}(_Unobservable3.default); /*
+                            * BSD 3-Clause License
+                            *
+                            * Copyright (c) 2017, MapCreator
+                            * All rights reserved.
+                            *
+                            * Redistribution and use in source and binary forms, with or without
+                            * modification, are permitted provided that the following conditions are met:
+                            *
+                            *  Redistributions of source code must retain the above copyright notice, this
+                            *   list of conditions and the following disclaimer.
+                            *
+                            *  Redistributions in binary form must reproduce the above copyright notice,
+                            *   this list of conditions and the following disclaimer in the documentation
+                            *   and/or other materials provided with the distribution.
+                            *
+                            *  Neither the name of the copyright holder nor the names of its
+                            *   contributors may be used to endorse or promote products derived from
+                            *   this software without specific prior written permission.
+                            *
+                            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                            */
+
+exports.default = ResourceCache;
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+module.exports = require("mitt");
 
 /***/ }),
 /* 49 */
@@ -7992,13 +7994,13 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _case = __webpack_require__(8);
 
-var _events = __webpack_require__(48);
+var _events = __webpack_require__(43);
 
 var _Maps4News = __webpack_require__(17);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _RequestParameters = __webpack_require__(47);
+var _RequestParameters = __webpack_require__(42);
 
 var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
@@ -8536,7 +8538,7 @@ var _Maps4News = __webpack_require__(17);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _SimpleResourceProxy = __webpack_require__(42);
+var _SimpleResourceProxy = __webpack_require__(44);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
@@ -9956,7 +9958,7 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _reflection = __webpack_require__(9);
 
-var _SimpleResourceProxy2 = __webpack_require__(42);
+var _SimpleResourceProxy2 = __webpack_require__(44);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -10529,7 +10531,7 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _SimpleResourceProxy2 = __webpack_require__(42);
+var _SimpleResourceProxy2 = __webpack_require__(44);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 

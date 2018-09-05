@@ -139,7 +139,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {DeletedState} from &apos;../enums&apos;;
+import RequestParameters from &apos;../RequestParameters&apos;;
 import {encodeQueryString} from &apos;../utils/requests&apos;;
 import SimpleResourceProxy from &apos;./SimpleResourceProxy&apos;;
 
@@ -173,7 +173,7 @@ export default class ResourceProxy extends SimpleResourceProxy {
     switch (typeof id) {
       case &apos;number&apos;:
       case &apos;string&apos;:
-        return { [this.Target.resourceUrlKey]: id};
+        return {[this.Target.resourceUrlKey]: id};
       case &apos;object&apos;:
         return id;
       default:
@@ -187,7 +187,7 @@ export default class ResourceProxy extends SimpleResourceProxy {
    * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
    * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
    */
-  get(id, deleted = DeletedState.NONE) {
+  get(id, deleted = RequestParameters.deleted) {
     const data = Object.assign({}, this._seedData, this._parseSelector(id));
     let url = this.new(data).url;
     const glue = url.includes(&apos;?&apos;) ? &apos;&amp;&apos; : &apos;?&apos;;
