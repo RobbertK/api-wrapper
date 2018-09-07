@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:b792290a26fe790fd6ba, chunkhash:748e75c8a6617913a870, name:bundle, version:v1.4.27
+ * hash:dc3ea6f811fe86d5ff0b, chunkhash:ee195860a8c7ee0e37e2, name:bundle, version:v1.4.28
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.27";
+var version = exports.version = "v1.4.28";
 
 /**
  * Package license
@@ -5411,21 +5411,27 @@ var RequestParameters = function (_EventEmitter) {
   }, {
     key: '_update',
     value: function _update(name, value) {
+      var preventEvent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
       var _name = '_' + name;
 
       value = RequestParameters['_validate' + (0, _case.pascal)(name)](value);
       (this || {})[_name] = value; // Weird syntax confuses esdoc
 
-      /**
-       * Change event.
-       *
-       * @event RequestParameters#change
-       * @type {object}
-       * @property {string} name - Parameter name
-       * @property {*} value - New value
-       */
-      this.emit('change', { name: name, value: value });
-      this.emit('change:' + name, value);
+      if (!preventEvent) {
+        /**
+         * Change event.
+         *
+         * @event RequestParameters#change
+         * @type {Array<object>}
+         * @property {string} name - Parameter name
+         * @property {*} value - New value
+         */
+        this.emit('change', [{ name: name, value: value }]);
+        this.emit('change:' + name, value);
+      }
+
+      return value;
     }
 
     // region utils
@@ -5623,12 +5629,15 @@ var RequestParameters = function (_EventEmitter) {
     /**
      * Apply parameters from object
      * @param {object|RequestParameters} params - parameters
-     * @returns {void}
+     * @returns {Object[]} - Array containing the updated values
+     * @todo update JSDoc
      */
     value: function apply(params) {
       if (params instanceof RequestParameters) {
         params = params.toObject();
       }
+
+      var out = [];
 
       var _iteratorNormalCompletion4 = true;
       var _didIteratorError4 = false;
@@ -5644,7 +5653,10 @@ var RequestParameters = function (_EventEmitter) {
             continue;
           }
 
-          this._update(Key, params[key]);
+          out.push({
+            name: Key,
+            value: this._update(Key, params[key], true)
+          });
         }
       } catch (err) {
         _didIteratorError4 = true;
@@ -5660,7 +5672,39 @@ var RequestParameters = function (_EventEmitter) {
           }
         }
       }
+
+      this.emit('change', out);
+
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = out[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var _ref = _step5.value;
+          var name = _ref.name;
+          var value = _ref.value;
+
+          this.emit('change:' + name, value);
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
+          }
+        }
+      }
+
+      return out;
     }
+
     // endregion utils
 
   }, {
@@ -5854,13 +5898,13 @@ var RequestParameters = function (_EventEmitter) {
         return typeof x === 'number' ? x.toString() : x;
       };
 
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
 
       try {
-        for (var _iterator5 = Object.keys(value)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var key = _step5.value;
+        for (var _iterator6 = Object.keys(value)[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          var key = _step6.value;
 
           key = normalize(key);
           value[key] = normalize(value[key]);
@@ -5871,29 +5915,29 @@ var RequestParameters = function (_EventEmitter) {
 
           if (Array.isArray(value[key])) {
             if (value[key].length > 0) {
-              var _iteratorNormalCompletion6 = true;
-              var _didIteratorError6 = false;
-              var _iteratorError6 = undefined;
+              var _iteratorNormalCompletion7 = true;
+              var _didIteratorError7 = false;
+              var _iteratorError7 = undefined;
 
               try {
-                for (var _iterator6 = value[key][Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                  var query = _step6.value;
+                for (var _iterator7 = value[key][Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                  var query = _step7.value;
 
                   if (!['string', 'number', 'boolean'].includes(typeof query === 'undefined' ? 'undefined' : (0, _typeof3.default)(query)) && query !== null) {
                     throw new TypeError('Expected query for "' + key + '" to be of type "String", "Boolean", "Number" or "null" got "' + (0, _reflection.getTypeName)(query) + '"');
                   }
                 }
               } catch (err) {
-                _didIteratorError6 = true;
-                _iteratorError6 = err;
+                _didIteratorError7 = true;
+                _iteratorError7 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                    _iterator6.return();
+                  if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                    _iterator7.return();
                   }
                 } finally {
-                  if (_didIteratorError6) {
-                    throw _iteratorError6;
+                  if (_didIteratorError7) {
+                    throw _iteratorError7;
                   }
                 }
               }
@@ -5908,16 +5952,16 @@ var RequestParameters = function (_EventEmitter) {
           }
         }
       } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion5 && _iterator5.return) {
-            _iterator5.return();
+          if (!_iteratorNormalCompletion6 && _iterator6.return) {
+            _iterator6.return();
           }
         } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
+          if (_didIteratorError6) {
+            throw _iteratorError6;
           }
         }
       }
@@ -5982,27 +6026,27 @@ var RequestParameters = function (_EventEmitter) {
   }, {
     key: 'resetDefaults',
     value: function resetDefaults() {
-      var _iteratorNormalCompletion7 = true;
-      var _didIteratorError7 = false;
-      var _iteratorError7 = undefined;
+      var _iteratorNormalCompletion8 = true;
+      var _didIteratorError8 = false;
+      var _iteratorError8 = undefined;
 
       try {
-        for (var _iterator7 = RequestParameters.keys()[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-          var key = _step7.value;
+        for (var _iterator8 = RequestParameters.keys()[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+          var key = _step8.value;
 
           delete RequestParameters['_' + key];
         }
       } catch (err) {
-        _didIteratorError7 = true;
-        _iteratorError7 = err;
+        _didIteratorError8 = true;
+        _iteratorError8 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion7 && _iterator7.return) {
-            _iterator7.return();
+          if (!_iteratorNormalCompletion8 && _iterator8.return) {
+            _iterator8.return();
           }
         } finally {
-          if (_didIteratorError7) {
-            throw _iteratorError7;
+          if (_didIteratorError8) {
+            throw _iteratorError8;
           }
         }
       }
@@ -8085,7 +8129,6 @@ var ResourceLister = function (_EventEmitter) {
     _this._key = (0, _case.snake)(key);
     _this._waiting = false;
 
-    _this.parameters.perPage = _RequestParameters2.default.maxPerPage;
     _this.autoUpdate = true;
     _this.maxRows = maxRows;
 
@@ -8317,6 +8360,20 @@ var ResourceLister = function (_EventEmitter) {
           this._data.push(row);
         }
       }
+    }
+
+    /**
+     * Same as `this.maxRows += this.parameters.perPage`
+     * @param {number} [rows=parameters.perPage] - Amount to increment maxRows with
+     * @returns {void}
+     */
+
+  }, {
+    key: 'loadMore',
+    value: function loadMore() {
+      var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.parameters.perPage;
+
+      this.maxRows += rows;
     }
   }, {
     key: 'hasMore',
