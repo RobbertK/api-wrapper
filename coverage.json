@@ -1,6 +1,6 @@
 {
-  "coverage": "71.78%",
-  "expectCount": 716,
+  "coverage": "71.88%",
+  "expectCount": 715,
   "actualCount": 514,
   "files": {
     "src/ImageHandler.js": {
@@ -63,17 +63,17 @@
       "expectCount": 36,
       "actualCount": 25,
       "undocumentLines": [
-        51,
         52,
         53,
         54,
-        63,
+        55,
         64,
         65,
         66,
-        73,
-        78,
-        197
+        67,
+        74,
+        79,
+        198
       ]
     },
     "src/RequestParameters.js": {
@@ -91,11 +91,10 @@
       ]
     },
     "src/ResourceCache.js": {
-      "expectCount": 15,
+      "expectCount": 14,
       "actualCount": 9,
       "undocumentLines": [
-        43,
-        46,
+        44,
         47,
         48,
         49,
@@ -281,11 +280,11 @@
       "expectCount": 15,
       "actualCount": 10,
       "undocumentLines": [
-        61,
-        64,
+        62,
         65,
         66,
-        187
+        67,
+        189
       ]
     },
     "src/resources/Choropleth.js": {

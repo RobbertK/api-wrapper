@@ -146,13 +146,13 @@ import Uuid from &apos;./utils/uuid&apos;;
 /**
  * Used for caching resources. Requires the resource to have an unique id field
  * @see {@link PaginatedResourceWrapper}
+ * @deprecated
  * @todo Add periodic data refreshing while idle, most likely implemented in cache (maybe v1/resource?timestamp=123 where it will give modified records since)
  */
 export default class ResourceCache extends Unobservable {
-  constructor(api, cacheTime = api.defaults.cacheSeconds, dereference = api.defaults.dereferenceCache) {
+  constructor(cacheTime, dereference) {
     super();
 
-    this._api = api;
     this.cacheTime = cacheTime;
     this.dereference = dereference;
     this.emitter = mitt();
@@ -237,7 +237,7 @@ export default class ResourceCache extends Unobservable {
    */
   revalidate(resourceUrl = null) {
     if (!resourceUrl) {
-      Object.keys(this._storage).map(this.revalidate);
+      Object.keys(this._storage).map(x =&gt; this.revalidate(x));
     } else if (this._storage[resourceUrl]) {
       const storage = this._storage[resourceUrl];
 

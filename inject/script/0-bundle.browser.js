@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:89078cb80b895dee5c3f, chunkhash:ee636fb6797bffd8ea42, name:bundle.browser, version:v1.4.26
+ * hash:0e7d8bde415daefd38dd, chunkhash:559378e75f585a2f66c3, name:bundle.browser, version:v1.4.27
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.26) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.27) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.26";
+var version = exports.version = "v1.4.27";
 
 /**
  * Package license
@@ -3858,7 +3858,7 @@ var Maps4News = function () {
       dereferenceCache: bool("false")
     };
 
-    this._cache = new _ResourceCache2.default(this);
+    this._cache = new _ResourceCache2.default(this.defaults.cacheSeconds, this.defaults.dereferenceCache);
     this._logger = new _Logger2.default("warn");
   }
 
@@ -9486,6 +9486,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Proxy for accessing resource. This will make sure that they
  * are properly wrapped before the promise resolves.
  * @protected
+ * @deprecated
  */
 var SimpleResourceProxy = function () {
   /**
@@ -9582,6 +9583,7 @@ var SimpleResourceProxy = function () {
      * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
      * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
      * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
+     * @deprecated
      * @example
      * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
      * // See Api documentation for search query syntax
@@ -10179,6 +10181,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
  * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
+ * @deprecated
  */
 var PaginatedResourceWrapper = function () {
   /**
@@ -10208,7 +10211,7 @@ var PaginatedResourceWrapper = function () {
     this.data = [];
 
     // Internal
-    this._localCache = new _ResourceCache2.default(api, this.api.defaults.cacheSeconds);
+    this._localCache = new _ResourceCache2.default(this.api.defaults.cacheSeconds, this.api.defaults.dereferenceCache);
     this._inflight = [];
     this._last = listing;
     this._waiting = false;
@@ -10643,19 +10646,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Used for caching resources. Requires the resource to have an unique id field
  * @see {@link PaginatedResourceWrapper}
+ * @deprecated
  * @todo Add periodic data refreshing while idle, most likely implemented in cache (maybe v1/resource?timestamp=123 where it will give modified records since)
  */
 var ResourceCache = function (_Unobservable) {
   (0, _inherits3.default)(ResourceCache, _Unobservable);
 
-  function ResourceCache(api) {
-    var cacheTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : api.defaults.cacheSeconds;
-    var dereference = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.dereferenceCache;
+  function ResourceCache(cacheTime, dereference) {
     (0, _classCallCheck3.default)(this, ResourceCache);
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceCache.__proto__ || Object.getPrototypeOf(ResourceCache)).call(this));
 
-    _this._api = api;
     _this.cacheTime = cacheTime;
     _this.dereference = dereference;
     _this.emitter = (0, _mitt2.default)();
@@ -10801,7 +10802,9 @@ var ResourceCache = function (_Unobservable) {
       var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
       if (!resourceUrl) {
-        Object.keys(this._storage).map(this.revalidate);
+        Object.keys(this._storage).map(function (x) {
+          return _this3.revalidate(x);
+        });
       } else if (this._storage[resourceUrl]) {
         var storage = this._storage[resourceUrl];
 

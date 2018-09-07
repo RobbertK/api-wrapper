@@ -146,6 +146,7 @@ import {hashObject} from &apos;./utils/hash&apos;;
 /**
  * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
  * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
+ * @deprecated
  */
 export default class PaginatedResourceWrapper {
   /**
@@ -169,7 +170,7 @@ export default class PaginatedResourceWrapper {
     this.data = [];
 
     // Internal
-    this._localCache = new ResourceCache(api, this.api.defaults.cacheSeconds);
+    this._localCache = new ResourceCache(this.api.defaults.cacheSeconds, this.api.defaults.dereferenceCache);
     this._inflight = [];
     this._last = listing;
     this._waiting = false;
