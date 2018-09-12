@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:ab2fd472cf0ef14a7555, chunkhash:a5db63af81b4b828d5c5, name:bundle.browser, version:v1.4.28
+ * hash:d4f5711c67088ed79b00, chunkhash:d94e7b3f25f172425761, name:bundle.browser, version:v1.4.29
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.28) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.29) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.28";
+var version = exports.version = "v1.4.29";
 
 /**
  * Package license
@@ -19932,8 +19932,12 @@ var JobMonitor = function () {
   /**
    * JobMonitor constructor
    * @param {Maps4News} api - Api instance
+   * @param {number} [maxRows=100] - Default maximum amount of rows
+   * @param {boolean} [longPoll=true] - Use long-polling instead of regular poling
    */
   function JobMonitor(api) {
+    var maxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Number("100");
+    var longPoll = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
     (0, _classCallCheck3.default)(this, JobMonitor);
 
     if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
@@ -19942,12 +19946,14 @@ var JobMonitor = function () {
 
     this._api = api;
 
+    this.maxRows = maxRows;
+    this.longPoll = longPoll;
+
     this._lastUpdate = this._getTimestamp();
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._filterTags = [];
     this._purge = false;
-    this._longPoll = true;
     this._skipMaxUpdate = false;
     this._maxAvailible = {};
   }

@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:dc3ea6f811fe86d5ff0b, chunkhash:ee195860a8c7ee0e37e2, name:bundle, version:v1.4.28
+ * hash:839bbd819e63ca3e4e80, chunkhash:2f7ca7e2c3f65dacc48d, name:bundle, version:v1.4.29
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.28";
+var version = exports.version = "v1.4.29";
 
 /**
  * Package license
@@ -14955,8 +14955,12 @@ var JobMonitor = function () {
   /**
    * JobMonitor constructor
    * @param {Maps4News} api - Api instance
+   * @param {number} [maxRows=100] - Default maximum amount of rows
+   * @param {boolean} [longPoll=true] - Use long-polling instead of regular poling
    */
   function JobMonitor(api) {
+    var maxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Number("100");
+    var longPoll = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
     (0, _classCallCheck3.default)(this, JobMonitor);
 
     if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
@@ -14965,12 +14969,14 @@ var JobMonitor = function () {
 
     this._api = api;
 
+    this.maxRows = maxRows;
+    this.longPoll = longPoll;
+
     this._lastUpdate = this._getTimestamp();
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._filterTags = [];
     this._purge = false;
-    this._longPoll = true;
     this._skipMaxUpdate = false;
     this._maxAvailible = {};
   }
