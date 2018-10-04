@@ -1,7 +1,7 @@
 {
-  "coverage": "71.92%",
-  "expectCount": 716,
-  "actualCount": 515,
+  "coverage": "72.06%",
+  "expectCount": 723,
+  "actualCount": 521,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -12,25 +12,25 @@
       ]
     },
     "src/JobMonitor.js": {
-      "expectCount": 32,
-      "actualCount": 16,
+      "expectCount": 33,
+      "actualCount": 17,
       "undocumentLines": [
         54,
+        56,
+        57,
+        58,
         59,
         60,
         61,
         62,
         63,
         64,
-        65,
-        96,
-        259,
-        269,
-        285,
-        323,
-        337,
-        363,
-        366
+        106,
+        279,
+        295,
+        333,
+        347,
+        376
       ]
     },
     "src/Maps4News.js": {
@@ -77,17 +77,18 @@
       ]
     },
     "src/RequestParameters.js": {
-      "expectCount": 45,
-      "actualCount": 37,
+      "expectCount": 50,
+      "actualCount": 41,
       "undocumentLines": [
-        313,
-        325,
-        337,
-        374,
-        396,
-        412,
-        422,
-        433
+        358,
+        381,
+        401,
+        413,
+        450,
+        472,
+        488,
+        498,
+        509
       ]
     },
     "src/ResourceCache.js": {
@@ -222,14 +223,14 @@
       ]
     },
     "src/oauth/OAuth.js": {
-      "expectCount": 11,
-      "actualCount": 6,
+      "expectCount": 12,
+      "actualCount": 7,
       "undocumentLines": [
-        53,
-        54,
         55,
         56,
-        57
+        57,
+        58,
+        59
       ]
     },
     "src/oauth/OAuthToken.js": {
@@ -280,11 +281,11 @@
       "expectCount": 15,
       "actualCount": 10,
       "undocumentLines": [
-        62,
+        61,
+        64,
         65,
         66,
-        67,
-        189
+        188
       ]
     },
     "src/resources/Choropleth.js": {

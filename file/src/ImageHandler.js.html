@@ -139,8 +139,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import ResourceBase from &apos;./resources/base/ResourceBase&apos;;
 import Maps4News from &apos;./Maps4News&apos;;
+import ResourceBase from &apos;./resources/base/ResourceBase&apos;;
 import {isNode} from &apos;./utils/node&apos;;
 import {isParentOf} from &apos;./utils/reflection&apos;;
 import {FormData} from &apos;./utils/requests&apos;;
@@ -217,16 +217,14 @@ export default class ImageHandler {
    *   });
    * });
    */
-  download() {
-    return this.api
-      .request(this.url)
-      .then(data =&gt; {
-        if (isNode()) {
-          return data;
-        }
+  async download() {
+    const data = await this.api.request(`${this.url}`);
 
-        return (window.URL || window.webkitURL).createObjectURL(data);
-      });
+    if (isNode()) {
+      return data;
+    }
+
+    return (window.URL || window.webkitURL).createObjectURL(data);
   }
 
   /**

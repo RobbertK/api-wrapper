@@ -149,7 +149,7 @@ import {mix} from &apos;../utils/reflection&apos;;
  * @extends {OwnableResource}
  */
 export default class Color extends mix(CrudBase, OwnableResource) {
-  get resourceName() {
+  static get resourceName() {
     return &apos;colors&apos;;
   }
 }

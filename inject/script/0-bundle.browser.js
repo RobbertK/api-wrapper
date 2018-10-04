@@ -29,18 +29,18 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:d4f5711c67088ed79b00, chunkhash:d94e7b3f25f172425761, name:bundle.browser, version:v1.4.29
+ * hash:a90a79e8fb4dd49d8469, chunkhash:2b5b2c4e3defc8bee8f7, name:bundle.browser, version:v1.4.39
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.29) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.39) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
  *    ├─ case (1.5.5) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
  *    ├─ fetch-ponyfill (6.0.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/fetch-ponyfill/package.json
  *    │  └─ node-fetch (2.1.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/node-fetch/package.json
- *    ├─ formdata-polyfill (3.0.10) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/formdata-polyfill/package.json
+ *    ├─ formdata-polyfill (3.0.12) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/formdata-polyfill/package.json
  *    ├─ json-stable-stringify (1.0.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/json-stable-stringify/package.json
  *    │  └─ jsonify (0.0.0) ── public domain ── node_modules/jsonify/package.json
  *    └─ mitt (1.1.3) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/mitt/package.json
@@ -191,11 +191,11 @@ var _Maps4News2 = __webpack_require__(97);
 
 var _Maps4News3 = _interopRequireDefault(_Maps4News2);
 
-var _RequestParameters2 = __webpack_require__(130);
+var _RequestParameters2 = __webpack_require__(151);
 
 var _RequestParameters3 = _interopRequireDefault(_RequestParameters2);
 
-var _StorageManager2 = __webpack_require__(104);
+var _StorageManager2 = __webpack_require__(129);
 
 var _StorageManager3 = _interopRequireDefault(_StorageManager2);
 
@@ -235,7 +235,7 @@ var _ValidationError2 = __webpack_require__(99);
 
 var _ValidationError3 = _interopRequireDefault(_ValidationError2);
 
-var _StaticClassError2 = __webpack_require__(106);
+var _StaticClassError2 = __webpack_require__(131);
 
 var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 
@@ -243,11 +243,11 @@ var _resources2 = __webpack_require__(160);
 
 var _resources = _interopRequireWildcard(_resources2);
 
-var _helpers2 = __webpack_require__(114);
+var _helpers2 = __webpack_require__(140);
 
 var _helpers = _interopRequireWildcard(_helpers2);
 
-var _ResourceLister2 = __webpack_require__(137);
+var _ResourceLister2 = __webpack_require__(158);
 
 var _ResourceLister3 = _interopRequireDefault(_ResourceLister2);
 
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.29";
+var version = exports.version = "v1.4.39";
 
 /**
  * Package license
@@ -3750,19 +3750,19 @@ var _OAuth = __webpack_require__(102);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
-var _OAuthToken = __webpack_require__(103);
+var _OAuthToken = __webpack_require__(137);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _ResourceProxy = __webpack_require__(128);
+var _ResourceProxy = __webpack_require__(149);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _SimpleResourceProxy = __webpack_require__(132);
+var _SimpleResourceProxy = __webpack_require__(153);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
-var _ResourceCache = __webpack_require__(135);
+var _ResourceCache = __webpack_require__(156);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
@@ -3778,11 +3778,11 @@ var _Logger = __webpack_require__(208);
 
 var _Logger2 = _interopRequireDefault(_Logger);
 
-var _node = __webpack_require__(108);
+var _node = __webpack_require__(133);
 
 var _reflection = __webpack_require__(86);
 
-var _requests = __webpack_require__(112);
+var _requests = __webpack_require__(138);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4058,7 +4058,7 @@ var Maps4News = function () {
      *
      * @example
      * class FooBar extends ResourceBase {
-     *    get resourceName() {
+     *    static get resourceName() {
      *      return 'custom';
      *    }
      * }
@@ -4084,14 +4084,14 @@ var Maps4News = function () {
         }
 
         (0, _createClass3.default)(AnonymousResource, [{
-          key: 'resourceName',
-          get: function get() {
-            return 'anonymous';
-          }
-        }, {
           key: 'resourcePath',
           get: function get() {
             return String(Target);
+          }
+        }], [{
+          key: 'resourceName',
+          get: function get() {
+            return 'anonymous';
           }
         }]);
         return AnonymousResource;
@@ -4146,7 +4146,7 @@ var Maps4News = function () {
   }, {
     key: 'logout',
     value: function logout() {
-      this.auth.forget();
+      this.auth.logout();
     }
 
     /**
@@ -5148,6 +5148,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _regenerator = __webpack_require__(103);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(106);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _classCallCheck2 = __webpack_require__(4);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -5158,17 +5166,25 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _AbstractError = __webpack_require__(96);
 
-var _OAuthToken = __webpack_require__(103);
+var _ApiError = __webpack_require__(98);
+
+var _ApiError2 = _interopRequireDefault(_ApiError);
+
+var _OAuthError = __webpack_require__(101);
+
+var _OAuthError2 = _interopRequireDefault(_OAuthError);
+
+var _StorageManager = __webpack_require__(129);
+
+var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _OAuthToken = __webpack_require__(137);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _StateContainer = __webpack_require__(126);
+var _StateContainer = __webpack_require__(147);
 
 var _StateContainer2 = _interopRequireDefault(_StateContainer);
-
-var _StorageManager = __webpack_require__(104);
-
-var _StorageManager2 = _interopRequireDefault(_StorageManager);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5264,6 +5280,90 @@ var OAuth = function () {
     }
 
     /**
+     * Invalidates the session token
+     * @async
+     * @returns {Promise<void>} - Promise that resolves with no value
+     * @throws {OAuthError} - If de-authentication fails
+     * @throws {ApiError} - If the api returns errors
+     */
+
+  }, {
+    key: 'logout',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var url, init, response, body, data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (this.token) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt('return');
+
+              case 2:
+                url = this.host + '/oauth/logout';
+                init = {
+                  method: 'POST',
+                  mode: 'cors',
+                  redirect: 'follow',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Authorization': this.token.toString()
+                  }
+                };
+                _context.prev = 4;
+                _context.next = 7;
+                return fetch(url, init);
+
+              case 7:
+                response = _context.sent;
+                _context.next = 10;
+                return response.text();
+
+              case 10:
+                body = _context.sent;
+                data = JSON.parse(body);
+
+                if (data.success) {
+                  _context.next = 14;
+                  break;
+                }
+
+                throw new _ApiError2.default(data.error.type, data.error.message, response.status);
+
+              case 14:
+                if (response.ok) {
+                  _context.next = 16;
+                  break;
+                }
+
+                throw new _OAuthError2.default('logout_fail', 'Logout failed:\n' + body);
+
+              case 16:
+                _context.prev = 16;
+
+                this.forget();
+                return _context.finish(16);
+
+              case 19:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[4,, 16, 19]]);
+      }));
+
+      function logout() {
+        return _ref.apply(this, arguments);
+      }
+
+      return logout;
+    }()
+
+    /**
      * Manually import OAuthToken, usefull for debugging
      * @param {String} token - OAuth token
      * @param {String} [type=Bearer] - token type
@@ -5296,6625 +5396,11 @@ exports.default = OAuth;
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+module.exports = __webpack_require__(104);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _StorageManager = __webpack_require__(104);
-
-var _StorageManager2 = _interopRequireDefault(_StorageManager);
-
-var _requests = __webpack_require__(112);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Oauth token container
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var OAuthToken = function () {
-  /**
-   * @param {String} token - OAuth token
-   * @param {String} [type=Bearer] - token type
-   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
-   * @param {Array<string>} [scopes=[]] - Any scopes
-   */
-  function OAuthToken(token) {
-    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Bearer';
-    var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 432000;
-    var scopes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-    (0, _classCallCheck3.default)(this, OAuthToken);
-
-    this.scopes = scopes;
-    this.token = token;
-    this.type = type.toLowerCase().replace(/(\s|^)\w/g, function (x) {
-      return x.toUpperCase();
-    });
-
-    if (typeof expires === 'number') {
-      // Expires is in seconds
-      this.expires = new Date(Date.now() + expires * 1000);
-    } else if (expires instanceof Date) {
-      this.expires = expires;
-    } else {
-      throw new TypeError('Expires not of type Date or Number');
-    }
-  }
-
-  /**
-   * String representation of the token, usable in the Authorization header
-   * @returns {string} - String representation
-   */
-
-
-  (0, _createClass3.default)(OAuthToken, [{
-    key: 'toString',
-    value: function toString() {
-      return this.type + ' ' + this.token;
-    }
-
-    /**
-     * Get equivalent OAuth response object
-     * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object
-     */
-
-  }, {
-    key: 'toResponseObject',
-    value: function toResponseObject() {
-      return {
-        'access_token': this.token,
-        'token_type': this.type.toLowerCase(),
-        'expires_in': this.expires - Date.now(),
-        'scope': this.scopes
-      };
-    }
-
-    /**
-     * Export oauth response query string
-     * @returns {string} - OAuth response query
-     */
-
-  }, {
-    key: 'toQueryString',
-    value: function toQueryString() {
-      return (0, _requests.encodeQueryString)(this.toResponseObject());
-    }
-
-    /**
-     * If the token has expired
-     * @returns {Boolean} - expired
-     */
-
-  }, {
-    key: 'save',
-
-
-    /**
-     * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.
-     * @param {String} name - db key name
-     * @returns {void}
-     * @see OAuthToken#recover
-     */
-    value: function save() {
-      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
-
-      var data = {
-        token: this.token,
-        type: this.type,
-        expires: this.expires.toUTCString(),
-        scopes: this.scopes
-      };
-
-      // Third parameter is only used when we're using cookies
-      _StorageManager2.default.secure.set(name, JSON.stringify(data), this.expires);
-    }
-
-    /**
-     * Recover a token by looking through the HTTPS cookies and localStorage
-     * @param {String} name - Storage key name
-     * @returns {OAuthToken|null} - null if none could be recovered
-     * @see OAuthToken#save
-     */
-
-  }, {
-    key: 'expired',
-    get: function get() {
-      return new Date() > this.expires;
-    }
-
-    /**
-     * Internal storage key name
-     * @returns {String} - storage name
-     * @constant
-     */
-
-  }], [{
-    key: 'fromResponseObject',
-
-
-    /**
-     * Build instance from response object
-     * @param {String|Object} data - object or JSON string
-     * @returns {OAuthToken} - New OAuthToken instance
-     */
-    value: function fromResponseObject(data) {
-      if (typeof data === 'string') {
-        data = JSON.parse(data);
-      }
-
-      // Default expires = 5 days
-      var expires = 432000;
-
-      if (typeof data['exipires_in'] !== 'undefined') {
-        expires = Number(data['expires_in']);
-      } else if (typeof data['expires'] === 'string') {
-        expires = new Date(data['expires']);
-      }
-
-      return new OAuthToken(data['access_token'], data['token_type'], expires, data['scope'] || []);
-    }
-  }, {
-    key: 'recover',
-    value: function recover() {
-      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
-
-      var data = _StorageManager2.default.secure.get(name);
-
-      if (!data) {
-        return null;
-      }
-
-      var obj = JSON.parse(data);
-      var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
-
-      if (instance.expired) {
-        return null;
-      }
-
-      return instance;
-    }
-  }, {
-    key: 'storageName',
-    get: function get() {
-      return 'api_token';
-    }
-  }]);
-  return OAuthToken;
-}();
-
-exports.default = OAuthToken;
 
 /***/ }),
 /* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _StaticClass2 = __webpack_require__(105);
-
-var _StaticClass3 = _interopRequireDefault(_StaticClass2);
-
-var _CookiesDriver = __webpack_require__(107);
-
-var _CookiesDriver2 = _interopRequireDefault(_CookiesDriver);
-
-var _FileDriver = __webpack_require__(110);
-
-var _FileDriver2 = _interopRequireDefault(_FileDriver);
-
-var _LocalStorageDriver = __webpack_require__(111);
-
-var _LocalStorageDriver2 = _interopRequireDefault(_LocalStorageDriver);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @private
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var StorageManager = function (_StaticClass) {
-  (0, _inherits3.default)(StorageManager, _StaticClass);
-
-  function StorageManager() {
-    (0, _classCallCheck3.default)(this, StorageManager);
-    return (0, _possibleConstructorReturn3.default)(this, (StorageManager.__proto__ || Object.getPrototypeOf(StorageManager)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(StorageManager, null, [{
-    key: 'available',
-
-    /**
-     * Available storage drivers
-     * @returns {Array.<function>} - Available storage drivers
-     */
-    get: function get() {
-      return [_LocalStorageDriver2.default,
-      // CookiesDriver,
-      _FileDriver2.default].filter(function (x) {
-        return x.available;
-      });
-    }
-
-    /**
-     * Get LocalStorageDriver instance
-     * @returns {LocalStorageDriver} - instance
-     */
-
-  }, {
-    key: 'localStorage',
-    get: function get() {
-      return new _LocalStorageDriver2.default();
-    }
-
-    /**
-     * Get CookiesDriver instance
-     * @returns {CookiesDriver} - instance
-     */
-
-  }, {
-    key: 'cookies',
-    get: function get() {
-      return new _CookiesDriver2.default();
-    }
-
-    /**
-     * Get FileDriver instance
-     * @returns {FileDriver} - instance
-     */
-
-  }, {
-    key: 'file',
-    get: function get() {
-      return new _FileDriver2.default();
-    }
-
-    /**
-     * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}
-     * @returns {DataStoreContract} - Best available storage driver
-     */
-
-  }, {
-    key: 'best',
-    get: function get() {
-      return new this.available[0]();
-    }
-
-    /**
-     * Returns the a secure storage driver
-     * @returns {DataStoreContract} - Secure storage driver
-     */
-
-  }, {
-    key: 'secure',
-    get: function get() {
-      var C = this.available.filter(function (x) {
-        return x.secure;
-      })[0];
-
-      if (typeof C === 'undefined') {
-        return StorageManager.best;
-      }
-
-      return new C();
-    }
-  }]);
-  return StorageManager;
-}(_StaticClass3.default);
-
-exports.default = StorageManager;
-
-/***/ }),
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _StaticClassError = __webpack_require__(106);
-
-var _StaticClassError2 = _interopRequireDefault(_StaticClassError);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Disables the constructor and throws a {@link StaticClassError} when an instance is created.
- * @protected
- */
-var StaticClass = function StaticClass() {
-  (0, _classCallCheck3.default)(this, StaticClass);
-
-  throw new _StaticClassError2.default();
-}; /*
-    * BSD 3-Clause License
-    *
-    * Copyright (c) 2017, MapCreator
-    * All rights reserved.
-    *
-    * Redistribution and use in source and binary forms, with or without
-    * modification, are permitted provided that the following conditions are met:
-    *
-    *  Redistributions of source code must retain the above copyright notice, this
-    *   list of conditions and the following disclaimer.
-    *
-    *  Redistributions in binary form must reproduce the above copyright notice,
-    *   this list of conditions and the following disclaimer in the documentation
-    *   and/or other materials provided with the distribution.
-    *
-    *  Neither the name of the copyright holder nor the names of its
-    *   contributors may be used to endorse or promote products derived from
-    *   this software without specific prior written permission.
-    *
-    * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-    * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-    * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-    * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-    * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-    * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-    * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-    * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    */
-
-exports.default = StaticClass;
-
-/***/ }),
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Thrown upon invocation of a static class
- * @see StaticClass
- */
-var StaticClassError = function (_Error) {
-  (0, _inherits3.default)(StaticClassError, _Error);
-
-  function StaticClassError() {
-    (0, _classCallCheck3.default)(this, StaticClassError);
-    return (0, _possibleConstructorReturn3.default)(this, (StaticClassError.__proto__ || Object.getPrototypeOf(StaticClassError)).apply(this, arguments));
-  }
-
-  return StaticClassError;
-}(Error);
-
-exports.default = StaticClassError;
-
-/***/ }),
-/* 107 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _node = __webpack_require__(108);
-
-var _DataStoreContract2 = __webpack_require__(109);
-
-var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @private
- * @todo fix
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var CookiesDriver = function (_DataStoreContract) {
-  (0, _inherits3.default)(CookiesDriver, _DataStoreContract);
-
-  function CookiesDriver() {
-    var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '_m4n_';
-    (0, _classCallCheck3.default)(this, CookiesDriver);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (CookiesDriver.__proto__ || Object.getPrototypeOf(CookiesDriver)).call(this));
-
-    _this.__prefix = prefix;
-    return _this;
-  }
-
-  /**
-   * Cookie name prefix
-   * @returns {String} - Prefix
-   * @private
-   */
-
-
-  (0, _createClass3.default)(CookiesDriver, [{
-    key: 'set',
-
-
-    /**
-     * Store a value in the storage
-     * @param {String} name - value name
-     * @param {*} value - value
-     * @param {Date|String} [expires=2050-01-01] - Expiration date
-     * @returns {void}
-     */
-    value: function set(name, value) {
-      var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date('2050-01-01');
-
-      name = encodeURIComponent(this._prefix + name);
-      value = encodeURIComponent(value);
-
-      if (expires instanceof Date) {
-        expires = expires.toUTCString();
-      }
-
-      var cookie = name + '=' + value + '; expires=' + expires;
-
-      if (CookiesDriver.secure) {
-        cookie += '; secure';
-      }
-
-      document.cookie = cookie;
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      name = this._prefix + name;
-
-      return this._toObject()[name];
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      name = encodeURIComponent(this._prefix + name);
-
-      var cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-
-      if (CookiesDriver.secure) {
-        cookie += ';secure';
-      }
-
-      document.cookie = cookie;
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      var regex = new RegExp('^' + this._prefix);
-
-      return Object.keys(this._toObject()).map(function (x) {
-        return x.replace(regex, '');
-      });
-    }
-
-    /**
-     * Extract cookies and turn them into a object
-     * @returns {Object} - cookies
-     * @private
-     */
-
-  }, {
-    key: '_toObject',
-    value: function _toObject() {
-      var _this2 = this;
-
-      var cookies = {};
-
-      document.cookie.split(';').map(function (x) {
-        return x.trim().split('=').map(decodeURIComponent);
-      }).filter(function (x) {
-        return x[0].startsWith(_this2._prefix);
-      }).forEach(function (x) {
-        cookies[x[0]] = x[1];
-      });
-
-      return cookies;
-    }
-  }, {
-    key: '_prefix',
-    get: function get() {
-      return this.__prefix;
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }], [{
-    key: 'secure',
-    get: function get() {
-      return window.location.protocol === 'https:';
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'available',
-    get: function get() {
-      return !(0, _node.isNode)();
-    }
-  }]);
-  return CookiesDriver;
-}(_DataStoreContract3.default);
-
-exports.default = CookiesDriver;
-
-/***/ }),
-/* 108 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isNode = isNode;
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Test if the application is running under nodejs
- * @returns {boolean} - Is the application running under node?
- * @see https://nodejs.org
- * @private
- */
-function isNode() {
-  return typeof window === 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined';
-}
-
-/***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _AbstractError = __webpack_require__(96);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @private
- */
-var DataStoreContract = function () {
-  function DataStoreContract() {
-    (0, _classCallCheck3.default)(this, DataStoreContract);
-
-    if (this.constructor === DataStoreContract) {
-      throw new _AbstractError.AbstractClassError();
-    }
-
-    if (!this.constructor.available) {
-      throw new Error(this.constructor.name + ' is unavailable');
-    }
-  }
-
-  /**
-   * If the driver is currently available
-   * @returns {boolean} - Driver availability
-   */
-
-
-  (0, _createClass3.default)(DataStoreContract, [{
-    key: 'set',
-
-
-    /**
-     * Store a value in the storage
-     * @param {String} name - value name
-     * @param {*} value - value
-     * @returns {void}
-     * @abstract
-     */
-    value: function set(name, value) {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * Get a value from the store
-     * @param {String} name - value name
-     * @returns {String} - value
-     * @abstract
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * Remove a value from the store
-     * @param {String} name - value name
-     * @returns {void}
-     * @abstract
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * Clear storage
-     * @returns {void}
-     */
-
-  }, {
-    key: 'clear',
-    value: function clear() {
-      var _this = this;
-
-      this.keys().map(function (key) {
-        return _this.remove(key);
-      });
-    }
-
-    /**
-     * Storage keys
-     * @returns {Array<String>} - Stored keys
-     * @abstract
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      throw new _AbstractError.AbstractMethodError();
-    }
-  }], [{
-    key: 'available',
-    get: function get() {
-      throw new _AbstractError.AbstractMethodError();
-    }
-
-    /**
-     * If the storage is secure
-     * @returns {boolean} - Secure storage
-     */
-
-  }, {
-    key: 'secure',
-    get: function get() {
-      return false;
-    }
-  }]);
-  return DataStoreContract;
-}(); /*
-      * BSD 3-Clause License
-      *
-      * Copyright (c) 2017, MapCreator
-      * All rights reserved.
-      *
-      * Redistribution and use in source and binary forms, with or without
-      * modification, are permitted provided that the following conditions are met:
-      *
-      *  Redistributions of source code must retain the above copyright notice, this
-      *   list of conditions and the following disclaimer.
-      *
-      *  Redistributions in binary form must reproduce the above copyright notice,
-      *   this list of conditions and the following disclaimer in the documentation
-      *   and/or other materials provided with the distribution.
-      *
-      *  Neither the name of the copyright holder nor the names of its
-      *   contributors may be used to endorse or promote products derived from
-      *   this software without specific prior written permission.
-      *
-      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-      */
-
-/* eslint-disable no-unused-vars */
-
-exports.default = DataStoreContract;
-
-/***/ }),
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _node = __webpack_require__(108);
-
-var _DataStoreContract2 = __webpack_require__(109);
-
-var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @private
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var FileDriver = function (_DataStoreContract) {
-  (0, _inherits3.default)(FileDriver, _DataStoreContract);
-
-  /**
-   * @param {String} path - File storage path
-   * @inheritDoc
-   */
-  function FileDriver() {
-    var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '.m4n';
-    (0, _classCallCheck3.default)(this, FileDriver);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (FileDriver.__proto__ || Object.getPrototypeOf(FileDriver)).call(this));
-
-    _this._path = path;
-    return _this;
-  }
-
-  /**
-   * File storage path
-   * @returns {String} - path
-   */
-
-
-  (0, _createClass3.default)(FileDriver, [{
-    key: 'set',
-
-
-    /**
-     * @inheritDoc
-     */
-    value: function set(name, value) {
-      var data = this._read();
-
-      data[name] = value;
-
-      this._write(data);
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      return this._read()[name];
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      var data = this._read();
-
-      delete data[name];
-
-      this._write(data);
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'clear',
-    value: function clear() {
-      this._write({});
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      return Object.keys(this._read());
-    }
-
-    /**
-     * Read file and parse
-     * @returns {Object<String, String>} - Key, value object
-     * @private
-     */
-
-  }, {
-    key: '_read',
-    value: function _read() {
-      var data = void 0;
-
-      try {
-        data = this._fs.readFileSync(this.realPath).toString();
-      } catch (e) {
-        data = '{}';
-      }
-
-      if (!data) {
-        return {};
-      }
-
-      return JSON.parse(data);
-    }
-
-    /**
-     * Write data to file
-     * @param {Object<String, String>} obj - Key, value object
-     * @returns {void}
-     * @private
-     */
-
-  }, {
-    key: '_write',
-    value: function _write(obj) {
-      var data = JSON.stringify(obj);
-      var fd = this._fs.openSync(this.realPath, 'w');
-
-      this._fs.writeSync(fd, data);
-      this._fs.closeSync(fd);
-    }
-
-    /**
-     * Get fs instance
-     * @returns {fs} - fs instance
-     * @private
-     */
-
-  }, {
-    key: 'path',
-    get: function get() {
-      return this._path;
-    }
-
-    /**
-     * File storage path
-     * @param {String} value - path
-     */
-    ,
-    set: function set(value) {
-      if (typeof value !== 'string') {
-        throw new TypeError('Expected "path" value to be of type "string"');
-      }
-
-      this._path = value;
-    }
-  }, {
-    key: 'realPath',
-    get: function get() {
-      if (this.path.startsWith('/')) {
-        return this.path;
-      }
-
-      // eslint-disable-next-line no-undef
-      return this._fs.realpathSync(this.path);
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: '_fs',
-    get: function get() {
-      if (!this.__fs) {
-        // eslint-disable-next-line no-eval
-        this.__fs = eval('require("fs")');
-      }
-
-      return this.__fs;
-    }
-  }], [{
-    key: 'available',
-    get: function get() {
-      return (0, _node.isNode)();
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'secure',
-    get: function get() {
-      return true;
-    }
-  }]);
-  return FileDriver;
-}(_DataStoreContract3.default);
-
-exports.default = FileDriver;
-
-/***/ }),
-/* 111 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _DataStoreContract2 = __webpack_require__(109);
-
-var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
-
-var _node = __webpack_require__(108);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @private
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var LocalStorageDriver = function (_DataStoreContract) {
-  (0, _inherits3.default)(LocalStorageDriver, _DataStoreContract);
-
-  function LocalStorageDriver() {
-    (0, _classCallCheck3.default)(this, LocalStorageDriver);
-    return (0, _possibleConstructorReturn3.default)(this, (LocalStorageDriver.__proto__ || Object.getPrototypeOf(LocalStorageDriver)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(LocalStorageDriver, [{
-    key: 'set',
-
-
-    /**
-     * Store a value in the storage
-     * @param {String} name - value name
-     * @param {*} value - value
-     * @returns {void}
-     */
-    value: function set(name, value) {
-      name = LocalStorageDriver._prefix + name;
-
-      window.localStorage.setItem(name, value);
-    }
-
-    /**
-     * Get a value from the store
-     * @param {String} name - value name
-     * @returns {void}
-     */
-
-  }, {
-    key: 'get',
-    value: function get(name) {
-      name = LocalStorageDriver._prefix + name;
-
-      return window.localStorage.getItem(name);
-    }
-
-    /**
-     * Remove a value from the store
-     * @param {String} name - value name
-     * @returns {void}
-     */
-
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      name = LocalStorageDriver._prefix + name;
-
-      window.localStorage.removeItem(name);
-    }
-
-    /**
-     * Storage keys
-     * @returns {Array<String>} - Stored keys
-     */
-
-  }, {
-    key: 'keys',
-    value: function keys() {
-      var keys = [];
-      var storage = window.localStorage;
-      var prefix = LocalStorageDriver._prefix;
-
-      for (var i = 0; i < storage.length; i++) {
-        var key = storage.key(i);
-
-        if (key.startsWith(prefix)) {
-          key = key.replace(new RegExp('^' + prefix), '');
-
-          keys.push(key);
-        }
-      }
-
-      return keys;
-    }
-  }], [{
-    key: '_prefix',
-
-    /**
-     * LocalStorage name prefix
-     * @returns {String} - Prefix
-     * @private
-     */
-    get: function get() {
-      return '_m4n_';
-    }
-
-    /**
-     * @inheritDoc
-     */
-
-  }, {
-    key: 'available',
-    get: function get() {
-      return !(0, _node.isNode)();
-    }
-  }]);
-  return LocalStorageDriver;
-}(_DataStoreContract3.default);
-
-exports.default = LocalStorageDriver;
-
-/***/ }),
-/* 112 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.FormData = exports.Headers = exports.Response = exports.Request = exports.fetch = undefined;
-
-var _typeof2 = __webpack_require__(26);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-exports.encodeQueryString = encodeQueryString;
-exports.downloadFile = downloadFile;
-
-var _fetchPonyfill = __webpack_require__(113);
-
-var _fetchPonyfill2 = _interopRequireDefault(_fetchPonyfill);
-
-var _ApiError = __webpack_require__(98);
-
-var _ApiError2 = _interopRequireDefault(_ApiError);
-
-var _helpers = __webpack_require__(114);
-
-var _node = __webpack_require__(108);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @private
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var _ref = (0, _helpers.windowTest)('fetch') ? window : (0, _fetchPonyfill2.default)({ Promise: Promise }),
-    fetch = _ref.fetch,
-    Request = _ref.Request,
-    Response = _ref.Response,
-    Headers = _ref.Headers;
-
-exports.fetch = fetch;
-exports.Request = Request;
-exports.Response = Response;
-exports.Headers = Headers;
-
-
-function getFormData() {
-  if ((0, _helpers.windowTest)('FormData')) {
-    return window.FormData;
-  } else if (!(0, _node.isNode)()) {
-    return __webpack_require__(125);
-  }
-
-  // @todo find nodejs polyfill
-  return null;
-}
-
-/**
- * @private
- */
-var FormData = exports.FormData = getFormData();
-
-/**
- * Encodes an object to a http query string with support for recursion
- * @param {object<string, *>} paramsObject - data to be encoded
- * @returns {string} - encoded http query string
- *
- * @private
- */
-function encodeQueryString(paramsObject) {
-  var query = _encodeQueryString(paramsObject);
-
-  // Removes any extra unused &'s.
-  return query.replace(/^&*|&+(?=&)|&*$/g, '');
-}
-
-/**
- * Encodes an object to a http query string with support for recursion
- * @param {Object<string, *>} paramsObject - data to be encoded
- * @param {Array<string>} _basePrefix - Used internally for tracking recursion
- * @returns {string} - encoded http query string
- *
- * @see http://stackoverflow.com/a/39828481
- * @private
- */
-function _encodeQueryString(paramsObject) {
-  var _basePrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-  return Object.keys(paramsObject).sort().map(function (key) {
-    var prefix = _basePrefix.slice(0);
-
-    if ((0, _typeof3.default)(paramsObject[key]) === 'object' && paramsObject[key] !== null) {
-      prefix.push(key);
-
-      return _encodeQueryString(paramsObject[key], prefix);
-    }
-
-    prefix.push(key);
-
-    var out = '';
-
-    out += encodeURIComponent(prefix.shift()); // main key
-    out += prefix.map(function (item) {
-      return '[' + encodeURIComponent(item) + ']';
-    }).join(''); // optional array keys
-
-    var value = paramsObject[key];
-
-    if (value !== null && typeof value !== 'undefined') {
-      out += '=' + encodeURIComponent(value); // value
-    }
-
-    return out;
-  }).join('&');
-}
-
-/**
- * @param {string} url - Target url
- * @param {object<string, string>} headers - Request headers
- * @returns {PromiseLike<{filename: string, blob: string}>} - filename and blob
- * @private
- */
-function downloadFile(url) {
-  var headers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  var out = {};
-
-  return fetch(url, { headers: headers }).then(function (res) {
-    if (res.ok) {
-      var disposition = res.headers.get('Content-Disposition');
-
-      if (disposition && disposition.indexOf('attachment') !== -1) {
-        var matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
-
-        if (matches != null && matches[1]) {
-          out.filename = matches[1].replace(/['"]/g, '');
-        }
-      } else {
-        out.filename = 'Unknown Filename.zip';
-      }
-
-      return res.blob();
-    }
-
-    return res.json().then(function (data) {
-      var err = data.error;
-
-      throw new _ApiError2.default(err.type, err.message, res.status, err.trace);
-    });
-  }).then(function (blob) {
-    out.blob = (window.URL || window.webkitURL).createObjectURL(blob);
-
-    return out;
-  });
-}
-
-/***/ }),
-/* 113 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
-  'use strict';
-
-  function fetchPonyfill(options) {
-    var Promise = options && options.Promise || self.Promise;
-    var XMLHttpRequest = options && options.XMLHttpRequest || self.XMLHttpRequest;
-    var global = self;
-
-    return (function () {
-      var self = Object.create(global, {
-        fetch: {
-          value: undefined,
-          writable: true
-        }
-      });
-
-      (function(self) {
-        'use strict';
-
-        if (self.fetch) {
-          return
-        }
-
-        var support = {
-          searchParams: 'URLSearchParams' in self,
-          iterable: 'Symbol' in self && 'iterator' in Symbol,
-          blob: 'FileReader' in self && 'Blob' in self && (function() {
-            try {
-              new Blob()
-              return true
-            } catch(e) {
-              return false
-            }
-          })(),
-          formData: 'FormData' in self,
-          arrayBuffer: 'ArrayBuffer' in self
-        }
-
-        if (support.arrayBuffer) {
-          var viewClasses = [
-            '[object Int8Array]',
-            '[object Uint8Array]',
-            '[object Uint8ClampedArray]',
-            '[object Int16Array]',
-            '[object Uint16Array]',
-            '[object Int32Array]',
-            '[object Uint32Array]',
-            '[object Float32Array]',
-            '[object Float64Array]'
-          ]
-
-          var isDataView = function(obj) {
-            return obj && DataView.prototype.isPrototypeOf(obj)
-          }
-
-          var isArrayBufferView = ArrayBuffer.isView || function(obj) {
-            return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
-          }
-        }
-
-        function normalizeName(name) {
-          if (typeof name !== 'string') {
-            name = String(name)
-          }
-          if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
-            throw new TypeError('Invalid character in header field name')
-          }
-          return name.toLowerCase()
-        }
-
-        function normalizeValue(value) {
-          if (typeof value !== 'string') {
-            value = String(value)
-          }
-          return value
-        }
-
-        // Build a destructive iterator for the value list
-        function iteratorFor(items) {
-          var iterator = {
-            next: function() {
-              var value = items.shift()
-              return {done: value === undefined, value: value}
-            }
-          }
-
-          if (support.iterable) {
-            iterator[Symbol.iterator] = function() {
-              return iterator
-            }
-          }
-
-          return iterator
-        }
-
-        function Headers(headers) {
-          this.map = {}
-
-          if (headers instanceof Headers) {
-            headers.forEach(function(value, name) {
-              this.append(name, value)
-            }, this)
-          } else if (Array.isArray(headers)) {
-            headers.forEach(function(header) {
-              this.append(header[0], header[1])
-            }, this)
-          } else if (headers) {
-            Object.getOwnPropertyNames(headers).forEach(function(name) {
-              this.append(name, headers[name])
-            }, this)
-          }
-        }
-
-        Headers.prototype.append = function(name, value) {
-          name = normalizeName(name)
-          value = normalizeValue(value)
-          var oldValue = this.map[name]
-          this.map[name] = oldValue ? oldValue+','+value : value
-        }
-
-        Headers.prototype['delete'] = function(name) {
-          delete this.map[normalizeName(name)]
-        }
-
-        Headers.prototype.get = function(name) {
-          name = normalizeName(name)
-          return this.has(name) ? this.map[name] : null
-        }
-
-        Headers.prototype.has = function(name) {
-          return this.map.hasOwnProperty(normalizeName(name))
-        }
-
-        Headers.prototype.set = function(name, value) {
-          this.map[normalizeName(name)] = normalizeValue(value)
-        }
-
-        Headers.prototype.forEach = function(callback, thisArg) {
-          for (var name in this.map) {
-            if (this.map.hasOwnProperty(name)) {
-              callback.call(thisArg, this.map[name], name, this)
-            }
-          }
-        }
-
-        Headers.prototype.keys = function() {
-          var items = []
-          this.forEach(function(value, name) { items.push(name) })
-          return iteratorFor(items)
-        }
-
-        Headers.prototype.values = function() {
-          var items = []
-          this.forEach(function(value) { items.push(value) })
-          return iteratorFor(items)
-        }
-
-        Headers.prototype.entries = function() {
-          var items = []
-          this.forEach(function(value, name) { items.push([name, value]) })
-          return iteratorFor(items)
-        }
-
-        if (support.iterable) {
-          Headers.prototype[Symbol.iterator] = Headers.prototype.entries
-        }
-
-        function consumed(body) {
-          if (body.bodyUsed) {
-            return Promise.reject(new TypeError('Already read'))
-          }
-          body.bodyUsed = true
-        }
-
-        function fileReaderReady(reader) {
-          return new Promise(function(resolve, reject) {
-            reader.onload = function() {
-              resolve(reader.result)
-            }
-            reader.onerror = function() {
-              reject(reader.error)
-            }
-          })
-        }
-
-        function readBlobAsArrayBuffer(blob) {
-          var reader = new FileReader()
-          var promise = fileReaderReady(reader)
-          reader.readAsArrayBuffer(blob)
-          return promise
-        }
-
-        function readBlobAsText(blob) {
-          var reader = new FileReader()
-          var promise = fileReaderReady(reader)
-          reader.readAsText(blob)
-          return promise
-        }
-
-        function readArrayBufferAsText(buf) {
-          var view = new Uint8Array(buf)
-          var chars = new Array(view.length)
-
-          for (var i = 0; i < view.length; i++) {
-            chars[i] = String.fromCharCode(view[i])
-          }
-          return chars.join('')
-        }
-
-        function bufferClone(buf) {
-          if (buf.slice) {
-            return buf.slice(0)
-          } else {
-            var view = new Uint8Array(buf.byteLength)
-            view.set(new Uint8Array(buf))
-            return view.buffer
-          }
-        }
-
-        function Body() {
-          this.bodyUsed = false
-
-          this._initBody = function(body) {
-            this._bodyInit = body
-            if (!body) {
-              this._bodyText = ''
-            } else if (typeof body === 'string') {
-              this._bodyText = body
-            } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-              this._bodyBlob = body
-            } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-              this._bodyFormData = body
-            } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-              this._bodyText = body.toString()
-            } else if (support.arrayBuffer && support.blob && isDataView(body)) {
-              this._bodyArrayBuffer = bufferClone(body.buffer)
-              // IE 10-11 can't handle a DataView body.
-              this._bodyInit = new Blob([this._bodyArrayBuffer])
-            } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
-              this._bodyArrayBuffer = bufferClone(body)
-            } else {
-              throw new Error('unsupported BodyInit type')
-            }
-
-            if (!this.headers.get('content-type')) {
-              if (typeof body === 'string') {
-                this.headers.set('content-type', 'text/plain;charset=UTF-8')
-              } else if (this._bodyBlob && this._bodyBlob.type) {
-                this.headers.set('content-type', this._bodyBlob.type)
-              } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-                this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
-              }
-            }
-          }
-
-          if (support.blob) {
-            this.blob = function() {
-              var rejected = consumed(this)
-              if (rejected) {
-                return rejected
-              }
-
-              if (this._bodyBlob) {
-                return Promise.resolve(this._bodyBlob)
-              } else if (this._bodyArrayBuffer) {
-                return Promise.resolve(new Blob([this._bodyArrayBuffer]))
-              } else if (this._bodyFormData) {
-                throw new Error('could not read FormData body as blob')
-              } else {
-                return Promise.resolve(new Blob([this._bodyText]))
-              }
-            }
-
-            this.arrayBuffer = function() {
-              if (this._bodyArrayBuffer) {
-                return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
-              } else {
-                return this.blob().then(readBlobAsArrayBuffer)
-              }
-            }
-          }
-
-          this.text = function() {
-            var rejected = consumed(this)
-            if (rejected) {
-              return rejected
-            }
-
-            if (this._bodyBlob) {
-              return readBlobAsText(this._bodyBlob)
-            } else if (this._bodyArrayBuffer) {
-              return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
-            } else if (this._bodyFormData) {
-              throw new Error('could not read FormData body as text')
-            } else {
-              return Promise.resolve(this._bodyText)
-            }
-          }
-
-          if (support.formData) {
-            this.formData = function() {
-              return this.text().then(decode)
-            }
-          }
-
-          this.json = function() {
-            return this.text().then(JSON.parse)
-          }
-
-          return this
-        }
-
-        // HTTP methods whose capitalization should be normalized
-        var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
-
-        function normalizeMethod(method) {
-          var upcased = method.toUpperCase()
-          return (methods.indexOf(upcased) > -1) ? upcased : method
-        }
-
-        function Request(input, options) {
-          options = options || {}
-          var body = options.body
-
-          if (input instanceof Request) {
-            if (input.bodyUsed) {
-              throw new TypeError('Already read')
-            }
-            this.url = input.url
-            this.credentials = input.credentials
-            if (!options.headers) {
-              this.headers = new Headers(input.headers)
-            }
-            this.method = input.method
-            this.mode = input.mode
-            if (!body && input._bodyInit != null) {
-              body = input._bodyInit
-              input.bodyUsed = true
-            }
-          } else {
-            this.url = String(input)
-          }
-
-          this.credentials = options.credentials || this.credentials || 'omit'
-          if (options.headers || !this.headers) {
-            this.headers = new Headers(options.headers)
-          }
-          this.method = normalizeMethod(options.method || this.method || 'GET')
-          this.mode = options.mode || this.mode || null
-          this.referrer = null
-
-          if ((this.method === 'GET' || this.method === 'HEAD') && body) {
-            throw new TypeError('Body not allowed for GET or HEAD requests')
-          }
-          this._initBody(body)
-        }
-
-        Request.prototype.clone = function() {
-          return new Request(this, { body: this._bodyInit })
-        }
-
-        function decode(body) {
-          var form = new FormData()
-          body.trim().split('&').forEach(function(bytes) {
-            if (bytes) {
-              var split = bytes.split('=')
-              var name = split.shift().replace(/\+/g, ' ')
-              var value = split.join('=').replace(/\+/g, ' ')
-              form.append(decodeURIComponent(name), decodeURIComponent(value))
-            }
-          })
-          return form
-        }
-
-        function parseHeaders(rawHeaders) {
-          var headers = new Headers()
-          rawHeaders.split(/\r?\n/).forEach(function(line) {
-            var parts = line.split(':')
-            var key = parts.shift().trim()
-            if (key) {
-              var value = parts.join(':').trim()
-              headers.append(key, value)
-            }
-          })
-          return headers
-        }
-
-        Body.call(Request.prototype)
-
-        function Response(bodyInit, options) {
-          if (!options) {
-            options = {}
-          }
-
-          this.type = 'default'
-          this.status = 'status' in options ? options.status : 200
-          this.ok = this.status >= 200 && this.status < 300
-          this.statusText = 'statusText' in options ? options.statusText : 'OK'
-          this.headers = new Headers(options.headers)
-          this.url = options.url || ''
-          this._initBody(bodyInit)
-        }
-
-        Body.call(Response.prototype)
-
-        Response.prototype.clone = function() {
-          return new Response(this._bodyInit, {
-            status: this.status,
-            statusText: this.statusText,
-            headers: new Headers(this.headers),
-            url: this.url
-          })
-        }
-
-        Response.error = function() {
-          var response = new Response(null, {status: 0, statusText: ''})
-          response.type = 'error'
-          return response
-        }
-
-        var redirectStatuses = [301, 302, 303, 307, 308]
-
-        Response.redirect = function(url, status) {
-          if (redirectStatuses.indexOf(status) === -1) {
-            throw new RangeError('Invalid status code')
-          }
-
-          return new Response(null, {status: status, headers: {location: url}})
-        }
-
-        self.Headers = Headers
-        self.Request = Request
-        self.Response = Response
-
-        self.fetch = function(input, init) {
-          return new Promise(function(resolve, reject) {
-            var request = new Request(input, init)
-            var xhr = new XMLHttpRequest()
-
-            xhr.onload = function() {
-              var options = {
-                status: xhr.status,
-                statusText: xhr.statusText,
-                headers: parseHeaders(xhr.getAllResponseHeaders() || '')
-              }
-              options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL')
-              var body = 'response' in xhr ? xhr.response : xhr.responseText
-              resolve(new Response(body, options))
-            }
-
-            xhr.onerror = function() {
-              reject(new TypeError('Network request failed'))
-            }
-
-            xhr.ontimeout = function() {
-              reject(new TypeError('Network request failed'))
-            }
-
-            xhr.open(request.method, request.url, true)
-
-            if (request.credentials === 'include') {
-              xhr.withCredentials = true
-            }
-
-            if ('responseType' in xhr && support.blob) {
-              xhr.responseType = 'blob'
-            }
-
-            request.headers.forEach(function(value, name) {
-              xhr.setRequestHeader(name, value)
-            })
-
-            xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
-          })
-        }
-        self.fetch.polyfill = true
-      })(typeof self !== 'undefined' ? self : this);
-
-
-      return {
-        fetch: self.fetch,
-        Headers: self.Headers,
-        Request: self.Request,
-        Response: self.Response
-      };
-    }());
-  }
-
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-      return fetchPonyfill;
-    }).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-}(typeof self !== 'undefined' ? self : typeof global !== 'undefined' ? global : this));
-
-
-
-/***/ }),
-/* 114 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(115);
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-exports.getPaginatedRange = getPaginatedRange;
-exports.windowTest = windowTest;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Get all the pages from a {@link PaginatedResourceListing} or a range
- * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}
- * @param {?Number} [start=1] - Start page
- * @param {?Number} [stop] - Stop page, defaults to the page count if not filled in.
- * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
- * @example
- * import { helpers } from "@mapcreator/maps4news";
- *
- * const promise = api.users.list(1, 50); // 50 per page is more efficient
- *
- * helpers.getPaginatedRange(promise).then(data => {
- *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names
- *        .forEach(console.log) // Log the names and ids of every user
- * })
- */
-function getPaginatedRange(page) {
-  var start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  var stop = arguments[2];
-
-  // Resolve promise if any
-  if (page instanceof Promise) {
-    return page.then(function (res) {
-      return getPaginatedRange(res, start, stop);
-    });
-  }
-
-  var out = page.data;
-  var promises = [];
-
-  // Handle defaults
-  start = start || page.page;
-  stop = stop || page.pageCount;
-
-  if (start === page.page) {
-    start++;
-  }
-
-  return new Promise(function (resolve, reject) {
-    // Get all pages
-    for (var i = start; i <= stop; i++) {
-      promises.push(page.get(i));
-    }
-
-    // Resolve
-    Promise.all(promises).then(function (rows) {
-      resolve(out.concat.apply(out, (0, _toConsumableArray3.default)(rows.map(function (x) {
-        return x.data;
-      }))));
-    }, reject);
-  });
-}
-
-/**
- * Quickly check if the window contains a variable
- * @param {string} str - target variable
- * @returns {boolean} - If the window contains the variable
- * @private
- */
-function windowTest(str) {
-  return typeof window !== 'undefined' && typeof window[str] !== 'undefined';
-}
-
-/***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __webpack_require__(116);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
-
-/***/ }),
-/* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(117), __esModule: true };
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(29);
-__webpack_require__(118);
-module.exports = __webpack_require__(11).Array.from;
-
-
-/***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ctx = __webpack_require__(12);
-var $export = __webpack_require__(9);
-var toObject = __webpack_require__(56);
-var call = __webpack_require__(119);
-var isArrayIter = __webpack_require__(120);
-var toLength = __webpack_require__(46);
-var createProperty = __webpack_require__(121);
-var getIterFn = __webpack_require__(122);
-
-$export($export.S + $export.F * !__webpack_require__(124)(function (iter) { Array.from(iter); }), 'Array', {
-  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-    var O = toObject(arrayLike);
-    var C = typeof this == 'function' ? this : Array;
-    var aLen = arguments.length;
-    var mapfn = aLen > 1 ? arguments[1] : undefined;
-    var mapping = mapfn !== undefined;
-    var index = 0;
-    var iterFn = getIterFn(O);
-    var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-    // if object isn't iterable or it's array with default iterator - use simple case
-    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
-      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
-        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-      }
-    } else {
-      length = toLength(O.length);
-      for (result = new C(length); length > index; index++) {
-        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-      }
-    }
-    result.length = index;
-    return result;
-  }
-});
-
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// call something on iterator step with safe closing on error
-var anObject = __webpack_require__(16);
-module.exports = function (iterator, fn, value, entries) {
-  try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-  // 7.4.6 IteratorClose(iterator, completion)
-  } catch (e) {
-    var ret = iterator['return'];
-    if (ret !== undefined) anObject(ret.call(iterator));
-    throw e;
-  }
-};
-
-
-/***/ }),
-/* 120 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// check on default Array iterator
-var Iterators = __webpack_require__(36);
-var ITERATOR = __webpack_require__(54)('iterator');
-var ArrayProto = Array.prototype;
-
-module.exports = function (it) {
-  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-};
-
-
-/***/ }),
-/* 121 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $defineProperty = __webpack_require__(15);
-var createDesc = __webpack_require__(23);
-
-module.exports = function (object, index, value) {
-  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
-  else object[index] = value;
-};
-
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var classof = __webpack_require__(123);
-var ITERATOR = __webpack_require__(54)('iterator');
-var Iterators = __webpack_require__(36);
-module.exports = __webpack_require__(11).getIteratorMethod = function (it) {
-  if (it != undefined) return it[ITERATOR]
-    || it['@@iterator']
-    || Iterators[classof(it)];
-};
-
-
-/***/ }),
-/* 123 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(44);
-var TAG = __webpack_require__(54)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-/* 124 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ITERATOR = __webpack_require__(54)('iterator');
-var SAFE_CLOSING = false;
-
-try {
-  var riter = [7][ITERATOR]();
-  riter['return'] = function () { SAFE_CLOSING = true; };
-  // eslint-disable-next-line no-throw-literal
-  Array.from(riter, function () { throw 2; });
-} catch (e) { /* empty */ }
-
-module.exports = function (exec, skipClosing) {
-  if (!skipClosing && !SAFE_CLOSING) return false;
-  var safe = false;
-  try {
-    var arr = [7];
-    var iter = arr[ITERATOR]();
-    iter.next = function () { return { done: safe = true }; };
-    arr[ITERATOR] = function () { return iter; };
-    exec(arr);
-  } catch (e) { /* empty */ }
-  return safe;
-};
-
-
-/***/ }),
-/* 125 */
-/***/ (function(module, exports) {
-
-;(function(){var k,l="function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,e){a!=Array.prototype&&a!=Object.prototype&&(a[b]=e.value)},m="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this;function n(){n=function(){};m.Symbol||(m.Symbol=p)}var p=function(){var a=0;return function(b){return"jscomp_symbol_"+(b||"")+a++}}();
-function r(){n();var a=m.Symbol.iterator;a||(a=m.Symbol.iterator=m.Symbol("iterator"));"function"!=typeof Array.prototype[a]&&l(Array.prototype,a,{configurable:!0,writable:!0,value:function(){return u(this)}});r=function(){}}function u(a){var b=0;return v(function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}})}function v(a){r();a={next:a};a[m.Symbol.iterator]=function(){return this};return a}function w(a){r();n();r();var b=a[Symbol.iterator];return b?b.call(a):u(a)}
-function x(){this.g=!1;this.c=null;this.m=void 0;this.b=1;this.l=this.o=0;this.f=null}function z(a){if(a.g)throw new TypeError("Generator is already running");a.g=!0}x.prototype.h=function(a){this.m=a};x.prototype.i=function(a){this.f={s:a,u:!0};this.b=this.o||this.l};x.prototype["return"]=function(a){this.f={"return":a};this.b=this.l};function A(a,b,e){a.b=e;return{value:b}}function B(a){this.v=a;this.j=[];for(var b in a)this.j.push(b);this.j.reverse()}function C(a){this.a=new x;this.w=a}
-C.prototype.h=function(a){z(this.a);if(this.a.c)return D(this,this.a.c.next,a,this.a.h);this.a.h(a);return E(this)};function F(a,b){z(a.a);var e=a.a.c;if(e)return D(a,"return"in e?e["return"]:function(a){return{value:a,done:!0}},b,a.a["return"]);a.a["return"](b);return E(a)}C.prototype.i=function(a){z(this.a);if(this.a.c)return D(this,this.a.c["throw"],a,this.a.h);this.a.i(a);return E(this)};
-function D(a,b,e,c){try{var d=b.call(a.a.c,e);if(!(d instanceof Object))throw new TypeError("Iterator result "+d+" is not an object");if(!d.done)return a.a.g=!1,d;var f=d.value}catch(g){return a.a.c=null,a.a.i(g),E(a)}a.a.c=null;c.call(a.a,f);return E(a)}function E(a){for(;a.a.b;)try{var b=a.w(a.a);if(b)return a.a.g=!1,{value:b.value,done:!1}}catch(e){a.a.m=void 0,a.a.i(e)}a.a.g=!1;if(a.a.f){b=a.a.f;a.a.f=null;if(b.u)throw b.s;return{value:b["return"],done:!0}}return{value:void 0,done:!0}}
-function G(a){this.next=function(b){return a.h(b)};this["throw"]=function(b){return a.i(b)};this["return"]=function(b){return F(a,b)};r();this[Symbol.iterator]=function(){return this}}function H(a,b){G.prototype=a.prototype;return new G(new C(b))}
-if("undefined"===typeof FormData||!FormData.prototype.keys){var I=function(a,b,e){if(2>arguments.length)throw new TypeError("2 arguments required, but only "+arguments.length+" present.");return b instanceof Blob?[a+"",b,void 0!==e?e+"":"string"===typeof b.name?b.name:"Blob"]:[a+"",b+""]},J=function(a){if(!arguments.length)throw new TypeError("1 argument required, but only 0 present.");return[a+""]},K=function(a){var b=w(a);a=b.next().value;b=b.next().value;a instanceof Blob&&(a=new File([a],b,{type:a.type,
-lastModified:a.lastModified}));return a},L="object"===typeof window?window:"object"===typeof self?self:this,M=L.FormData,N=L.XMLHttpRequest&&L.XMLHttpRequest.prototype.send,O=L.Request&&L.fetch;n();var P=L.Symbol&&Symbol.toStringTag,Q=new WeakMap,R=Array.from||function(a){return[].slice.call(a)};P&&(Blob.prototype[P]||(Blob.prototype[P]="Blob"),"File"in L&&!File.prototype[P]&&(File.prototype[P]="File"));try{new File([],"")}catch(a){L.File=function(b,e,c){b=new Blob(b,c);c=c&&void 0!==c.lastModified?
-new Date(c.lastModified):new Date;Object.defineProperties(b,{name:{value:e},lastModifiedDate:{value:c},lastModified:{value:+c},toString:{value:function(){return"[object File]"}}});P&&Object.defineProperty(b,P,{value:"File"});return b}}var S=function(a){Q.set(this,Object.create(null));if(!a)return this;a=w(R(a.elements));for(var b=a.next();!b.done;b=a.next())if(b=b.value,b.name&&!b.disabled)if("file"===b.type)for(var e=w(b.files),c=e.next();!c.done;c=e.next())this.append(b.name,c.value);else if("select-multiple"===
-b.type||"select-one"===b.type)for(e=w(R(b.options)),c=e.next();!c.done;c=e.next())c=c.value,c.selected&&this.append(b.name,c.value);else"checkbox"===b.type||"radio"===b.type?b.checked&&this.append(b.name,b.value):this.append(b.name,b.value)};k=S.prototype;k.append=function(a,b,e){var c=Q.get(this);c[a]||(c[a]=[]);c[a].push([b,e])};k["delete"]=function(a){delete Q.get(this)[a]};k.entries=function b(){var e=this,c,d,f,g,h,q;return H(b,function(b){switch(b.b){case 1:c=Q.get(e),f=new B(c);case 2:var t;
-a:{for(t=f;0<t.j.length;){var y=t.j.pop();if(y in t.v){t=y;break a}}t=null}if(null==(d=t)){b.b=0;break}g=w(c[d]);h=g.next();case 5:if(h.done){b.b=2;break}q=h.value;return A(b,[d,K(q)],6);case 6:h=g.next(),b.b=5}})};k.forEach=function(b,e){for(var c=w(this),d=c.next();!d.done;d=c.next()){var f=w(d.value);d=f.next().value;f=f.next().value;b.call(e,f,d,this)}};k.get=function(b){var e=Q.get(this);return e[b]?K(e[b][0]):null};k.getAll=function(b){return(Q.get(this)[b]||[]).map(K)};k.has=function(b){return b in
-Q.get(this)};k.keys=function e(){var c=this,d,f,g,h,q;return H(e,function(e){switch(e.b){case 1:d=w(c),f=d.next();case 2:if(f.done){e.b=0;break}g=f.value;h=w(g);q=h.next().value;return A(e,q,3);case 3:f=d.next(),e.b=2}})};k.set=function(e,c,d){Q.get(this)[e]=[[c,d]]};k.values=function c(){var d=this,f,g,h,q,y;return H(c,function(c){switch(c.b){case 1:f=w(d),g=f.next();case 2:if(g.done){c.b=0;break}h=g.value;q=w(h);q.next();y=q.next().value;return A(c,y,3);case 3:g=f.next(),c.b=2}})};S.prototype._asNative=
-function(){for(var c=new M,d=w(this),f=d.next();!f.done;f=d.next()){var g=w(f.value);f=g.next().value;g=g.next().value;c.append(f,g)}return c};S.prototype._blob=function(){for(var c="----formdata-polyfill-"+Math.random(),d=[],f=w(this),g=f.next();!g.done;g=f.next()){var h=w(g.value);g=h.next().value;h=h.next().value;d.push("--"+c+"\r\n");h instanceof Blob?d.push('Content-Disposition: form-data; name="'+g+'"; filename="'+h.name+'"\r\n',"Content-Type: "+(h.type||"application/octet-stream")+"\r\n\r\n",
-h,"\r\n"):d.push('Content-Disposition: form-data; name="'+g+'"\r\n\r\n'+h+"\r\n")}d.push("--"+c+"--");return new Blob(d,{type:"multipart/form-data; boundary="+c})};n();r();S.prototype[Symbol.iterator]=function(){return this.entries()};S.prototype.toString=function(){return"[object FormData]"};P&&(S.prototype[P]="FormData");[["append",I],["delete",J],["get",J],["getAll",J],["has",J],["set",I]].forEach(function(c){var d=S.prototype[c[0]];S.prototype[c[0]]=function(){return d.apply(this,c[1].apply(this,
-R(arguments)))}});N&&(XMLHttpRequest.prototype.send=function(c){c instanceof S?(c=c._blob(),this.setRequestHeader("Content-Type",c.type),N.call(this,c)):N.call(this,c)});if(O){var T=L.fetch;L.fetch=function(c,d){d&&d.body&&d.body instanceof S&&(d.body=d.body._blob());return T(c,d)}}L.FormData=S};
-})();
-
-
-/***/ }),
-/* 126 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _StorageManager = __webpack_require__(104);
-
-var _StorageManager2 = _interopRequireDefault(_StorageManager);
-
-var _StaticClass2 = __webpack_require__(105);
-
-var _StaticClass3 = _interopRequireDefault(_StaticClass2);
-
-var _uuid = __webpack_require__(127);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * State container for keeping track of OAuth states (crsf tokens)
- * @static
- * @private
- */
-var StateContainer = function (_StaticClass) {
-  (0, _inherits3.default)(StateContainer, _StaticClass);
-
-  function StateContainer() {
-    (0, _classCallCheck3.default)(this, StateContainer);
-    return (0, _possibleConstructorReturn3.default)(this, (StateContainer.__proto__ || Object.getPrototypeOf(StateContainer)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(StateContainer, null, [{
-    key: 'generate',
-
-
-    /**
-     * Generate and store a state that can be checked at a later point
-     * @returns {string} - state
-     */
-    value: function generate() {
-      var uuid = _uuid2.default.uuid4();
-      var key = StateContainer.prefix + uuid;
-
-      _StorageManager2.default.best.set(key, Date.now());
-      return uuid;
-    }
-
-    /**
-     * Validate a state
-     * @param {String} state - state to validate
-     * @param {Boolean} purge - remove from state db after validation
-     * @returns {Boolean} - if the state is valid
-     */
-
-  }, {
-    key: 'validate',
-    value: function validate(state) {
-      var purge = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-      var storage = _StorageManager2.default.best;
-      var key = StateContainer.prefix + state;
-      var found = typeof storage.get(key) !== 'undefined';
-
-      if (purge && found) {
-        storage.remove(key);
-      }
-
-      return found;
-    }
-
-    /**
-     * Remove all states from the state db
-     * @returns {void}
-     */
-
-  }, {
-    key: 'clean',
-    value: function clean() {
-      var tokens = Object.keys(this.list());
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var token = _step.value;
-
-          _StorageManager2.default.best.remove(StateContainer.prefix + token);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    }
-
-    /**
-     * Get states with their corresponding state db key
-     * @returns {Object<String, String>} - List of stored states
-     */
-
-  }, {
-    key: 'list',
-    value: function list() {
-      var storage = _StorageManager2.default.best;
-
-      return storage.keys().filter(function (x) {
-        return x.startsWith(StateContainer.prefix);
-      }).map(function (x) {
-        return x.replace(StateContainer.prefix, '');
-      }).reduce(function (out, key) {
-        out[key] = storage.get(key);
-
-        return out;
-      }, {});
-    }
-  }, {
-    key: 'prefix',
-
-    /**
-     * LocalStorage key prefix
-     * @returns {String} - prefix
-     * @constant
-     */
-    get: function get() {
-      return 'oauth_state_';
-    }
-  }]);
-  return StateContainer;
-}(_StaticClass3.default); /*
-                           * BSD 3-Clause License
-                           *
-                           * Copyright (c) 2017, MapCreator
-                           * All rights reserved.
-                           *
-                           * Redistribution and use in source and binary forms, with or without
-                           * modification, are permitted provided that the following conditions are met:
-                           *
-                           *  Redistributions of source code must retain the above copyright notice, this
-                           *   list of conditions and the following disclaimer.
-                           *
-                           *  Redistributions in binary form must reproduce the above copyright notice,
-                           *   this list of conditions and the following disclaimer in the documentation
-                           *   and/or other materials provided with the distribution.
-                           *
-                           *  Neither the name of the copyright holder nor the names of its
-                           *   contributors may be used to endorse or promote products derived from
-                           *   this software without specific prior written permission.
-                           *
-                           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                           * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                           * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                           * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                           * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                           * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                           * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                           * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                           * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                           */
-
-exports.default = StateContainer;
-
-/***/ }),
-/* 127 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _StaticClass2 = __webpack_require__(105);
-
-var _StaticClass3 = _interopRequireDefault(_StaticClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * UUID util class
- * @static
- * @private
- */
-var Uuid = function (_StaticClass) {
-  (0, _inherits3.default)(Uuid, _StaticClass);
-
-  function Uuid() {
-    (0, _classCallCheck3.default)(this, Uuid);
-    return (0, _possibleConstructorReturn3.default)(this, (Uuid.__proto__ || Object.getPrototypeOf(Uuid)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(Uuid, null, [{
-    key: 'uuid4',
-
-    /**
-     * Generate a UUID4 string
-     * @returns {string} - Uuid
-     */
-    value: function uuid4() {
-      var d = new Date().getTime();
-
-      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-        d += performance.now(); // use high-precision timer if available
-      }
-
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-      });
-    }
-
-    /**
-     * Empty uuid as per spec
-     * @returns {string} - Uuid
-     */
-
-  }, {
-    key: 'nil',
-    value: function nil() {
-      return '0000000-0000-0000-0000-000000000000';
-    }
-  }]);
-  return Uuid;
-}(_StaticClass3.default); /*
-                           * BSD 3-Clause License
-                           *
-                           * Copyright (c) 2017, MapCreator
-                           * All rights reserved.
-                           *
-                           * Redistribution and use in source and binary forms, with or without
-                           * modification, are permitted provided that the following conditions are met:
-                           *
-                           *  Redistributions of source code must retain the above copyright notice, this
-                           *   list of conditions and the following disclaimer.
-                           *
-                           *  Redistributions in binary form must reproduce the above copyright notice,
-                           *   this list of conditions and the following disclaimer in the documentation
-                           *   and/or other materials provided with the distribution.
-                           *
-                           *  Neither the name of the copyright holder nor the names of its
-                           *   contributors may be used to endorse or promote products derived from
-                           *   this software without specific prior written permission.
-                           *
-                           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                           * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                           * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                           * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                           * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                           * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                           * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                           * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                           * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                           */
-
-exports.default = Uuid;
-
-/***/ }),
-/* 128 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _defineProperty2 = __webpack_require__(129);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _typeof2 = __webpack_require__(26);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _RequestParameters = __webpack_require__(130);
-
-var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
-
-var _requests = __webpack_require__(112);
-
-var _SimpleResourceProxy2 = __webpack_require__(132);
-
-var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Proxy for accessing resource. This will make sure that they
- * are properly wrapped before the promise resolves.
- * @protected
- */
-var ResourceProxy = function (_SimpleResourceProxy) {
-  (0, _inherits3.default)(ResourceProxy, _SimpleResourceProxy);
-
-  /**
-   * @param {Maps4News} api - Instance of the api
-   * @param {ResourceBase} Target - Target to wrap
-   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
-   * @param {object} seedData - Internal use, used for seeding ::new
-   */
-  function ResourceProxy(api, Target) {
-    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-    (0, _classCallCheck3.default)(this, ResourceProxy);
-    return (0, _possibleConstructorReturn3.default)(this, (ResourceProxy.__proto__ || Object.getPrototypeOf(ResourceProxy)).call(this, api, Target, altUrl, seedData));
-  }
-
-  /**
-   * Parse selector
-   * @param {Number|String|Object} [id=] - The resource id to be requested
-   * @returns {Object} - Parsed selector
-   * @private
-   */
-
-
-  (0, _createClass3.default)(ResourceProxy, [{
-    key: '_parseSelector',
-    value: function _parseSelector(id) {
-      if (id === '' || id === null) {
-        return {};
-      }
-
-      switch (typeof id === 'undefined' ? 'undefined' : (0, _typeof3.default)(id)) {
-        case 'number':
-        case 'string':
-          return (0, _defineProperty3.default)({}, this.Target.resourceUrlKey, id);
-        case 'object':
-          return id;
-        default:
-          return {};
-      }
-    }
-
-    /**
-     * Get target resource
-     * @param {Number|String|Object} [id=] - The resource id to be requested
-     * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
-     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'get',
-    value: function get(id) {
-      var _this2 = this;
-
-      var deleted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _RequestParameters2.default.deleted;
-
-      var data = Object.assign({}, this._seedData, this._parseSelector(id));
-      var url = this.new(data).url;
-      var glue = url.includes('?') ? '&' : '?';
-
-      url += glue + (0, _requests.encodeQueryString)({ deleted: deleted });
-
-      return this._api.request(url).then(function (result) {
-        return _this2.new(result);
-      });
-    }
-
-    /**
-     * Select target resource without obtaining data
-     * @param {Number|String} [id=] - Resource id
-     * @returns {ResourceBase} - Empty target resource
-     * @example
-     * api.users.select('me').colors().then(doSomethingCool);
-     */
-
-  }, {
-    key: 'select',
-    value: function select(id) {
-      var data = Object.assign({}, this._seedData, this._parseSelector(id));
-
-      return this.new(data);
-    }
-  }]);
-  return ResourceProxy;
-}(_SimpleResourceProxy3.default); /*
-                                   * BSD 3-Clause License
-                                   *
-                                   * Copyright (c) 2017, MapCreator
-                                   * All rights reserved.
-                                   *
-                                   * Redistribution and use in source and binary forms, with or without
-                                   * modification, are permitted provided that the following conditions are met:
-                                   *
-                                   *  Redistributions of source code must retain the above copyright notice, this
-                                   *   list of conditions and the following disclaimer.
-                                   *
-                                   *  Redistributions in binary form must reproduce the above copyright notice,
-                                   *   this list of conditions and the following disclaimer in the documentation
-                                   *   and/or other materials provided with the distribution.
-                                   *
-                                   *  Neither the name of the copyright holder nor the names of its
-                                   *   contributors may be used to endorse or promote products derived from
-                                   *   this software without specific prior written permission.
-                                   *
-                                   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                   * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                   * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                   * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                   * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                   */
-
-exports.default = ResourceProxy;
-
-/***/ }),
-/* 129 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _defineProperty = __webpack_require__(6);
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (obj, key, value) {
-  if (key in obj) {
-    (0, _defineProperty2.default)(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-/***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof2 = __webpack_require__(26);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _case = __webpack_require__(85);
-
-var _events = __webpack_require__(131);
-
-var _enums = __webpack_require__(1);
-
-var _hash = __webpack_require__(88);
-
-var _reflection = __webpack_require__(86);
-
-var _requests = __webpack_require__(112);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Used for keeping track of the request parameters
- *
- * @fires RequestParameters#change
- * @fires RequestParameters#change:page
- * @fires RequestParameters#change:perPage
- * @fires RequestParameters#change:search
- * @fires RequestParameters#change:sort
- * @fires RequestParameters#change:deleted
- * @fires RequestParameters#change:extra
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var RequestParameters = function (_EventEmitter) {
-  (0, _inherits3.default)(RequestParameters, _EventEmitter);
-
-  /**
-   * RequestParameters constructor
-   * @param {Object} object - properties
-   */
-  function RequestParameters() {
-    var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    (0, _classCallCheck3.default)(this, RequestParameters);
-
-    // Apply defaults
-    var _this = (0, _possibleConstructorReturn3.default)(this, (RequestParameters.__proto__ || Object.getPrototypeOf(RequestParameters)).call(this));
-
-    RequestParameters.keys().forEach(function (x) {
-      return _this._resolve(x);
-    });
-
-    // Apply properties
-    _this.apply(object);
-    return _this;
-  }
-
-  // region instance
-  // region instance getters
-  /**
-   * Get page number
-   * @returns {Number} - Page number
-   * @throws TypeError
-   */
-
-
-  (0, _createClass3.default)(RequestParameters, [{
-    key: '_resolve',
-
-
-    // endregion validators
-
-    value: function _resolve(name) {
-      var _name = '_' + name;
-
-      if (!this[_name]) {
-        // Confuse esdoc
-        (this || {})[_name] = RequestParameters[name];
-      }
-
-      return this[_name];
-    }
-  }, {
-    key: '_update',
-    value: function _update(name, value) {
-      var preventEvent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-      var _name = '_' + name;
-
-      value = RequestParameters['_validate' + (0, _case.pascal)(name)](value);
-      (this || {})[_name] = value; // Weird syntax confuses esdoc
-
-      if (!preventEvent) {
-        /**
-         * Change event.
-         *
-         * @event RequestParameters#change
-         * @type {Array<object>}
-         * @property {string} name - Parameter name
-         * @property {*} value - New value
-         */
-        this.emit('change', [{ name: name, value: value }]);
-        this.emit('change:' + name, value);
-      }
-
-      return value;
-    }
-
-    // region utils
-    /**
-     * Urlencode parameters
-     * @returns {string} - HTTP query
-     */
-
-  }, {
-    key: 'encode',
-    value: function encode() {
-      return (0, _requests.encodeQueryString)(this.toParameterObject());
-    }
-
-    /**
-     * Convert to object
-     * @returns {Object} - Object
-     */
-
-  }, {
-    key: 'toObject',
-    value: function toObject() {
-      var _this2 = this;
-
-      return RequestParameters.keys().reduce(function (obj, key) {
-        obj[(0, _case.snake)(key)] = _this2._resolve(key);
-        return obj;
-      }, {});
-    }
-
-    /**
-     * Convert to object
-     * @returns {Object} - Object
-     */
-
-  }, {
-    key: 'toParameterObject',
-    value: function toParameterObject() {
-      var _this3 = this;
-
-      var data = {};
-
-      RequestParameters.keys().forEach(function (key) {
-        // Skip extra key
-        if (key === 'extra') {
-          return;
-        }
-
-        data[(0, _case.snake)(key)] = _this3._resolve(key);
-      });
-
-      // Fix column names for sort
-      data.sort = data.sort.map(function (x) {
-        return (0, _case.snake)(x).replace(/^_/, '-');
-      }).join(',');
-
-      // Fix column names for search
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = Object.keys(data.search)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var key = _step.value;
-
-          var snakeKey = key.split(',').map(_case.snake).join(',');
-
-          if (key !== snakeKey) {
-            data.search[snakeKey] = data.search[key];
-            delete data.search[key];
-          }
-        }
-
-        // Cast search values
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = Object.keys(data.search)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var _key = _step2.value;
-
-          if (typeof data.search[_key] === 'boolean') {
-            data.search[_key] = Number(data.search[_key]);
-          }
-
-          if (data.search[_key] === null) {
-            data.search[_key] = '';
-          }
-        }
-
-        // Overwrite using extra properties
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      var extra = this._resolve('extra');
-
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = Object.keys(extra)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var _key2 = _step3.value;
-
-          data[_key2] = extra[_key2];
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-
-      return data;
-    }
-
-    /**
-     * Copy object
-     * @returns {RequestParameters} - Copy
-     */
-
-  }, {
-    key: 'copy',
-    value: function copy() {
-      return new RequestParameters(this.toObject());
-    }
-
-    /**
-     * Different parameters
-     * @returns {Array<String>} - keys
-     */
-
-  }, {
-    key: 'token',
-
-
-    /**
-     * Generates a cache token
-     * @returns {string} - Cache token
-     */
-    value: function token() {
-      var data = this.toObject();
-
-      delete data['page'];
-      delete data['per_page'];
-
-      return (0, _hash.hashObject)(data);
-    }
-
-    /**
-     * Resets all parameters back to default
-     * @returns {void}
-     */
-
-  }, {
-    key: 'apply',
-
-
-    /**
-     * Apply parameters from object
-     * @param {object|RequestParameters} params - parameters
-     * @returns {Object[]} - Array containing the updated values
-     * @todo update JSDoc
-     */
-    value: function apply(params) {
-      if (params instanceof RequestParameters) {
-        params = params.toObject();
-      }
-
-      var out = [];
-
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
-
-      try {
-        for (var _iterator4 = Object.keys(params)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var key = _step4.value;
-
-          var Key = (0, _case.camel)(key);
-
-          if (key[0] === '_' || !RequestParameters.keys().includes(Key)) {
-            continue;
-          }
-
-          out.push({
-            name: Key,
-            value: this._update(Key, params[key], true)
-          });
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4.return) {
-            _iterator4.return();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
-      }
-
-      this.emit('change', out);
-
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
-
-      try {
-        for (var _iterator5 = out[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var _ref = _step5.value;
-          var name = _ref.name;
-          var value = _ref.value;
-
-          this.emit('change:' + name, value);
-        }
-      } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5.return) {
-            _iterator5.return();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
-          }
-        }
-      }
-
-      return out;
-    }
-
-    // endregion utils
-
-  }, {
-    key: 'page',
-    get: function get() {
-      return this._resolve('page');
-    }
-
-    /**
-     * Get rows per page
-     * @returns {Number} - Per page
-     * @throws TypeError
-     */
-    ,
-
-
-    // endregion instance getters
-
-    // region instance setters
-    /**
-     * Page number
-     * @param {Number} value - Page number
-     */
-    set: function set(value) {
-      this._update('page', value);
-    }
-
-    /**
-     * Rows per page number
-     * @param {Number} value - Per page
-     */
-
-  }, {
-    key: 'perPage',
-    get: function get() {
-      return this._resolve('perPage');
-    }
-
-    /**
-     * Search query
-     * @returns {Object<String, String|Array<String>>} - Query
-     * @throws TypeError
-     */
-    ,
-    set: function set(value) {
-      this._update('perPage', value);
-    }
-
-    /**
-     * Search query
-     * @param {Object<String, String|Array<String>>} value - Search query
-     */
-
-  }, {
-    key: 'search',
-    get: function get() {
-      return this._resolve('search');
-    }
-
-    /**
-     * Get sort options
-     * @returns {Array<String>} - Per page
-     * @throws TypeError
-     */
-    ,
-    set: function set(value) {
-      this._update('search', value);
-    }
-
-    /**
-     * Sort query
-     * @param {Array<String>} value - Sort query
-     */
-
-  }, {
-    key: 'sort',
-    get: function get() {
-      return this._resolve('sort');
-    }
-
-    /**
-     * If deleted items should be shown
-     * @returns {String} - Deleted items filter state
-     * @see {@link DeletedState}
-     */
-    ,
-    set: function set(value) {
-      this._update('sort', value);
-    }
-
-    /**
-     * Deleted items filter state
-     * @param {String} value - Deleted items filter state
-     * @see {@link DeletedState}
-     */
-
-  }, {
-    key: 'deleted',
-    get: function get() {
-      return this._resolve('deleted');
-    }
-
-    /**
-     * Extra parameters
-     * @returns {Object} - Extra parameters
-     */
-    ,
-    set: function set(value) {
-      this._update('deleted', value);
-    }
-
-    /**
-     * Extra request parameters
-     * @param {Object} value - Extra request parameters
-     */
-
-  }, {
-    key: 'extra',
-    get: function get() {
-      return this._resolve('extra');
-    },
-    set: function set(value) {
-      this._update('extra', value);
-    }
-
-    // endregion instance setters
-    // endregion instance
-
-    // region static
-    // region getters
-    /**
-     * Default page number
-     * @returns {Number} - Page number
-     */
-
-  }], [{
-    key: '_validatePage',
-
-
-    // endregion setters
-    // endregion static
-
-    // region validators
-    /**
-     * Validators should work the same as laravel's ::validate method. This means
-     * this means that they will throw a TypeError or return a normalized result.
-     */
-
-    value: function _validatePage(value) {
-      if (typeof value !== 'number') {
-        throw new TypeError('Expected page to be of type \'number\' instead got \'' + (typeof value === 'undefined' ? 'undefined' : (0, _typeof3.default)(value)) + '\'');
-      }
-
-      return Math.round(value);
-    }
-  }, {
-    key: '_validatePerPage',
-    value: function _validatePerPage(value) {
-      if (typeof value !== 'number') {
-        throw new TypeError('Expected page to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
-      }
-
-      value = Math.round(value);
-      value = Math.min(RequestParameters.maxPerPage, value); // Upper limit is 50 by default
-      value = Math.max(1, value); // Lower limit is 1
-
-      return value;
-    }
-  }, {
-    key: '_validateMaxPerPage',
-    value: function _validateMaxPerPage(value) {
-      if (typeof value !== 'number') {
-        throw new TypeError('Expected page to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
-      }
-
-      if (value < 1) {
-        throw new TypeError('Value must be greater or equal to 1');
-      }
-
-      return value;
-    }
-  }, {
-    key: '_validateSearch',
-    value: function _validateSearch(value) {
-      if ((typeof value === 'undefined' ? 'undefined' : (0, _typeof3.default)(value)) !== 'object' || Array.isArray(value)) {
-        throw new TypeError('Expected value to be of type "Object" got "' + (0, _reflection.getTypeName)(value) + '"');
-      }
-
-      // Normalization macro
-      var normalize = function normalize(x) {
-        return typeof x === 'number' ? x.toString() : x;
-      };
-
-      var _iteratorNormalCompletion6 = true;
-      var _didIteratorError6 = false;
-      var _iteratorError6 = undefined;
-
-      try {
-        for (var _iterator6 = Object.keys(value)[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-          var key = _step6.value;
-
-          key = normalize(key);
-          value[key] = normalize(value[key]);
-
-          if (typeof key !== 'string') {
-            throw new TypeError('Expected key to be of type "String" got "' + (0, _reflection.getTypeName)(key) + '"');
-          }
-
-          if (Array.isArray(value[key])) {
-            if (value[key].length > 0) {
-              var _iteratorNormalCompletion7 = true;
-              var _didIteratorError7 = false;
-              var _iteratorError7 = undefined;
-
-              try {
-                for (var _iterator7 = value[key][Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                  var query = _step7.value;
-
-                  if (!['string', 'number', 'boolean'].includes(typeof query === 'undefined' ? 'undefined' : (0, _typeof3.default)(query)) && query !== null) {
-                    throw new TypeError('Expected query for "' + key + '" to be of type "String", "Boolean", "Number" or "null" got "' + (0, _reflection.getTypeName)(query) + '"');
-                  }
-                }
-              } catch (err) {
-                _didIteratorError7 = true;
-                _iteratorError7 = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                    _iterator7.return();
-                  }
-                } finally {
-                  if (_didIteratorError7) {
-                    throw _iteratorError7;
-                  }
-                }
-              }
-            } else {
-              // Drop empty nodes
-              delete value[key];
-            }
-          } else if (value[key] === null) {
-            delete value[key];
-          } else if (!['string', 'number', 'boolean'].includes((0, _typeof3.default)(value[key])) && value[key] !== null) {
-            throw new TypeError('Expected query value to be of type "String", "Boolean", "Number", "Array" or "null" got "' + (0, _reflection.getTypeName)(value[key]) + '"');
-          }
-        }
-      } catch (err) {
-        _didIteratorError6 = true;
-        _iteratorError6 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion6 && _iterator6.return) {
-            _iterator6.return();
-          }
-        } finally {
-          if (_didIteratorError6) {
-            throw _iteratorError6;
-          }
-        }
-      }
-
-      return value;
-    }
-  }, {
-    key: '_validateSort',
-    value: function _validateSort(value) {
-      if (typeof value === 'string') {
-        return this._validateSort(value.split(','));
-      }
-
-      if (!(value instanceof Array)) {
-        throw new TypeError('Expected sort value to be of type "Array" got "' + (0, _reflection.getTypeName)(value) + '"');
-      }
-
-      // Array keys type checking
-      value.filter(function (x) {
-        return typeof x !== 'string';
-      }).forEach(function (x) {
-        throw new TypeError('Expected sort array values to be of type "String" got "' + (0, _reflection.getTypeName)(x) + '"');
-      });
-
-      // Don't do regex matching because it's something
-      // we can just let the server do for us.
-
-      return value;
-    }
-  }, {
-    key: '_validateDeleted',
-    value: function _validateDeleted(value) {
-      if (typeof value !== 'string') {
-        throw new TypeError('Expected deleted to be of type "string" got "' + (0, _reflection.getTypeName)(value) + '". See: DeletedState');
-      }
-
-      value = value.toLowerCase();
-
-      var possible = _enums.DeletedState.values();
-
-      if (!possible.includes(value)) {
-        throw new TypeError('Expected deleted to be one of ' + possible.join(', ') + ', got ' + value);
-      }
-
-      return value;
-    }
-  }, {
-    key: '_validateExtra',
-    value: function _validateExtra(value) {
-      if ((typeof value === 'undefined' ? 'undefined' : (0, _typeof3.default)(value)) !== 'object') {
-        throw new TypeError('Expected extra to be of type \'object\', got \'' + (0, _reflection.getTypeName)(value) + '\'');
-      }
-
-      return value;
-    }
-  }, {
-    key: 'keys',
-    value: function keys() {
-      // enumeration is disabled for properties
-      return ['page', 'perPage', 'search', 'sort', 'deleted', 'extra'];
-    }
-  }, {
-    key: 'resetDefaults',
-    value: function resetDefaults() {
-      var _iteratorNormalCompletion8 = true;
-      var _didIteratorError8 = false;
-      var _iteratorError8 = undefined;
-
-      try {
-        for (var _iterator8 = RequestParameters.keys()[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-          var key = _step8.value;
-
-          delete RequestParameters['_' + key];
-        }
-      } catch (err) {
-        _didIteratorError8 = true;
-        _iteratorError8 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion8 && _iterator8.return) {
-            _iterator8.return();
-          }
-        } finally {
-          if (_didIteratorError8) {
-            throw _iteratorError8;
-          }
-        }
-      }
-    }
-  }, {
-    key: 'page',
-    get: function get() {
-      return RequestParameters._page || 1;
-    }
-
-    /**
-     * Default per page
-     * @returns {Number} - Per page
-     */
-    ,
-
-
-    // endregion getters
-
-    // region setters
-    /**
-     * Default page number
-     * @param {Number} value - Page number
-     */
-    set: function set(value) {
-      RequestParameters._page = RequestParameters._validatePage(value);
-    }
-
-    /**
-     * Default per page
-     * @param {Number} value - Per page
-     */
-
-  }, {
-    key: 'perPage',
-    get: function get() {
-      return RequestParameters._perPage || Number("12") || 12;
-    }
-
-    /**
-     * Gets the maximum allowed value for perPage
-     * Some users will have a special permission that allows them to fetch more than 50 resources at once
-     * @returns {Number} - Maximum amount of resources per page
-     */
-    ,
-    set: function set(value) {
-      RequestParameters._perPage = RequestParameters._validatePerPage(value);
-    }
-
-    /**
-     * Sets the maximum allowed value for perPage
-     * Some users will have a special permission that allows them to fetch more than 50 resources at once
-     * @param {Number} value - Maximum amount of resources per page
-     */
-
-  }, {
-    key: 'maxPerPage',
-    get: function get() {
-      return RequestParameters._maxPerPage || 50;
-    }
-
-    /**
-     * Default search query
-     * @returns {Object<String, String|Array<String>>} - Search query
-     */
-    ,
-    set: function set(value) {
-      RequestParameters._maxPerPage = RequestParameters._validateMaxPerPage(value);
-    }
-
-    /**
-     * Default search query
-     * @param {Object<String, String|Array<String>>} value - Search query
-     */
-
-  }, {
-    key: 'search',
-    get: function get() {
-      return RequestParameters._search || {};
-    }
-
-    /**
-     * Default sort query
-     * @returns {Array<String>} - Sort query
-     */
-    ,
-    set: function set(value) {
-      RequestParameters._search = RequestParameters._validateSearch(value);
-    }
-
-    /**
-     * Default sort query
-     * @param {Array<String>} value - Sort query
-     */
-
-  }, {
-    key: 'sort',
-    get: function get() {
-      return RequestParameters._sort || [];
-    }
-
-    /**
-     * Default deleted items filter state
-     * @returns {String} -  Deleted items filter state
-     */
-    ,
-    set: function set(value) {
-      RequestParameters._sort = RequestParameters._validateSort(value);
-    }
-
-    /**
-     * Default deleted items filter state
-     * @param {String} value -  Deleted items filter state
-     */
-
-  }, {
-    key: 'deleted',
-    get: function get() {
-      return RequestParameters._deleted || _enums.DeletedState.NONE;
-    }
-
-    /**
-     * Default extra request parameters
-     * @returns {Object} - Extra request parameters
-     */
-    ,
-    set: function set(value) {
-      RequestParameters._deleted = RequestParameters._validateDeleted(value);
-    }
-
-    /**
-     * Default extra request parameters
-     * @param {Object} value - Extra request parameters
-     */
-
-  }, {
-    key: 'extra',
-    get: function get() {
-      return RequestParameters._extra || {};
-    },
-    set: function set(value) {
-      RequestParameters._extra = RequestParameters._validateExtra(value);
-    }
-  }]);
-  return RequestParameters;
-}(_events.EventEmitter);
-
-exports.default = RequestParameters;
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports) {
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-function EventEmitter() {
-  this._events = this._events || {};
-  this._maxListeners = this._maxListeners || undefined;
-}
-module.exports = EventEmitter;
-
-// Backwards-compat with node 0.10.x
-EventEmitter.EventEmitter = EventEmitter;
-
-EventEmitter.prototype._events = undefined;
-EventEmitter.prototype._maxListeners = undefined;
-
-// By default EventEmitters will print a warning if more than 10 listeners are
-// added to it. This is a useful default which helps finding memory leaks.
-EventEmitter.defaultMaxListeners = 10;
-
-// Obviously not all Emitters should be limited to 10. This function allows
-// that to be increased. Set to zero for unlimited.
-EventEmitter.prototype.setMaxListeners = function(n) {
-  if (!isNumber(n) || n < 0 || isNaN(n))
-    throw TypeError('n must be a positive number');
-  this._maxListeners = n;
-  return this;
-};
-
-EventEmitter.prototype.emit = function(type) {
-  var er, handler, len, args, i, listeners;
-
-  if (!this._events)
-    this._events = {};
-
-  // If there is no 'error' event listener then throw.
-  if (type === 'error') {
-    if (!this._events.error ||
-        (isObject(this._events.error) && !this._events.error.length)) {
-      er = arguments[1];
-      if (er instanceof Error) {
-        throw er; // Unhandled 'error' event
-      } else {
-        // At least give some kind of context to the user
-        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-        err.context = er;
-        throw err;
-      }
-    }
-  }
-
-  handler = this._events[type];
-
-  if (isUndefined(handler))
-    return false;
-
-  if (isFunction(handler)) {
-    switch (arguments.length) {
-      // fast cases
-      case 1:
-        handler.call(this);
-        break;
-      case 2:
-        handler.call(this, arguments[1]);
-        break;
-      case 3:
-        handler.call(this, arguments[1], arguments[2]);
-        break;
-      // slower
-      default:
-        args = Array.prototype.slice.call(arguments, 1);
-        handler.apply(this, args);
-    }
-  } else if (isObject(handler)) {
-    args = Array.prototype.slice.call(arguments, 1);
-    listeners = handler.slice();
-    len = listeners.length;
-    for (i = 0; i < len; i++)
-      listeners[i].apply(this, args);
-  }
-
-  return true;
-};
-
-EventEmitter.prototype.addListener = function(type, listener) {
-  var m;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events)
-    this._events = {};
-
-  // To avoid recursion in the case that type === "newListener"! Before
-  // adding it to the listeners, first emit "newListener".
-  if (this._events.newListener)
-    this.emit('newListener', type,
-              isFunction(listener.listener) ?
-              listener.listener : listener);
-
-  if (!this._events[type])
-    // Optimize the case of one listener. Don't need the extra array object.
-    this._events[type] = listener;
-  else if (isObject(this._events[type]))
-    // If we've already got an array, just append.
-    this._events[type].push(listener);
-  else
-    // Adding the second element, need to change to array.
-    this._events[type] = [this._events[type], listener];
-
-  // Check for listener leak
-  if (isObject(this._events[type]) && !this._events[type].warned) {
-    if (!isUndefined(this._maxListeners)) {
-      m = this._maxListeners;
-    } else {
-      m = EventEmitter.defaultMaxListeners;
-    }
-
-    if (m && m > 0 && this._events[type].length > m) {
-      this._events[type].warned = true;
-      console.error('(node) warning: possible EventEmitter memory ' +
-                    'leak detected. %d listeners added. ' +
-                    'Use emitter.setMaxListeners() to increase limit.',
-                    this._events[type].length);
-      if (typeof console.trace === 'function') {
-        // not supported in IE 10
-        console.trace();
-      }
-    }
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-EventEmitter.prototype.once = function(type, listener) {
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  var fired = false;
-
-  function g() {
-    this.removeListener(type, g);
-
-    if (!fired) {
-      fired = true;
-      listener.apply(this, arguments);
-    }
-  }
-
-  g.listener = listener;
-  this.on(type, g);
-
-  return this;
-};
-
-// emits a 'removeListener' event iff the listener was removed
-EventEmitter.prototype.removeListener = function(type, listener) {
-  var list, position, length, i;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events || !this._events[type])
-    return this;
-
-  list = this._events[type];
-  length = list.length;
-  position = -1;
-
-  if (list === listener ||
-      (isFunction(list.listener) && list.listener === listener)) {
-    delete this._events[type];
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-
-  } else if (isObject(list)) {
-    for (i = length; i-- > 0;) {
-      if (list[i] === listener ||
-          (list[i].listener && list[i].listener === listener)) {
-        position = i;
-        break;
-      }
-    }
-
-    if (position < 0)
-      return this;
-
-    if (list.length === 1) {
-      list.length = 0;
-      delete this._events[type];
-    } else {
-      list.splice(position, 1);
-    }
-
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.removeAllListeners = function(type) {
-  var key, listeners;
-
-  if (!this._events)
-    return this;
-
-  // not listening for removeListener, no need to emit
-  if (!this._events.removeListener) {
-    if (arguments.length === 0)
-      this._events = {};
-    else if (this._events[type])
-      delete this._events[type];
-    return this;
-  }
-
-  // emit removeListener for all listeners on all events
-  if (arguments.length === 0) {
-    for (key in this._events) {
-      if (key === 'removeListener') continue;
-      this.removeAllListeners(key);
-    }
-    this.removeAllListeners('removeListener');
-    this._events = {};
-    return this;
-  }
-
-  listeners = this._events[type];
-
-  if (isFunction(listeners)) {
-    this.removeListener(type, listeners);
-  } else if (listeners) {
-    // LIFO order
-    while (listeners.length)
-      this.removeListener(type, listeners[listeners.length - 1]);
-  }
-  delete this._events[type];
-
-  return this;
-};
-
-EventEmitter.prototype.listeners = function(type) {
-  var ret;
-  if (!this._events || !this._events[type])
-    ret = [];
-  else if (isFunction(this._events[type]))
-    ret = [this._events[type]];
-  else
-    ret = this._events[type].slice();
-  return ret;
-};
-
-EventEmitter.prototype.listenerCount = function(type) {
-  if (this._events) {
-    var evlistener = this._events[type];
-
-    if (isFunction(evlistener))
-      return 1;
-    else if (evlistener)
-      return evlistener.length;
-  }
-  return 0;
-};
-
-EventEmitter.listenerCount = function(emitter, type) {
-  return emitter.listenerCount(type);
-};
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof2 = __webpack_require__(26);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _PaginatedResourceListing = __webpack_require__(133);
-
-var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
-
-var _RequestParameters = __webpack_require__(130);
-
-var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
-
-var _ResourceLister = __webpack_require__(137);
-
-var _ResourceLister2 = _interopRequireDefault(_ResourceLister);
-
-var _ResourceBase = __webpack_require__(159);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
-
-var _reflection = __webpack_require__(86);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Proxy for accessing resource. This will make sure that they
- * are properly wrapped before the promise resolves.
- * @protected
- * @deprecated
- */
-var SimpleResourceProxy = function () {
-  /**
-   * @param {Maps4News} api - Instance of the api
-   * @param {ResourceBase} Target - Target to wrap
-   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
-   * @param {object} seedData - Internal use, used for seeding ::new
-   */
-  function SimpleResourceProxy(api, Target) {
-    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-    (0, _classCallCheck3.default)(this, SimpleResourceProxy);
-
-    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, Target)) {
-      throw new TypeError('Target is not a child of ResourceBase');
-    }
-
-    if (typeof Target !== 'function') {
-      throw new TypeError('Target must to be a class not an instance');
-    }
-
-    if (altUrl) {
-      this.__baseUrl = altUrl;
-    }
-
-    this._api = api;
-    this._Target = Target;
-    this._seedData = seedData;
-  }
-
-  /**
-   * Proxy target url
-   * @returns {string} url
-   * @example
-   * api.layers.select(100).organisations.baseUrl === "https://maponline-api.dev/v1/layers/100/organisations"
-   */
-
-
-  (0, _createClass3.default)(SimpleResourceProxy, [{
-    key: 'new',
-
-
-    /**
-     * Build a new instance of the target
-     * @param {Object<String, *>} data - Data for the object to be populated with
-     * @returns {ResourceBase} - Resource with target data
-     */
-    value: function _new() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      // Merge but don't overwrite using seed data
-      data = Object.assign({}, this._seedData, data);
-
-      return new this.Target(this._api, data);
-    }
-
-    /**
-     * List target resource
-     * @param {Number|Object|RequestParameters} [params] - Parameters or the page number to be requested
-     * @param {Number} [params.page=1] - The page to be requested
-     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
-     * @param {Number} [params.sort=''] - Amount of items per page. This is silently capped by the API
-     * @param {Number} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
-     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     * @example
-     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
-     * // See Api documentation for search query syntax
-     * const search = {
-     *   name: '^:test',
-     *   scale_min: ['>:1', '<:10'],
-     * };
-     *
-     * api.layers.list({perPage: 10, search});
-     */
-
-  }, {
-    key: 'list',
-    value: function list() {
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      var resolver = this._buildResolver(params);
-
-      return resolver.getPage(resolver.page);
-    }
-
-    /**
-     * List target resource
-     * @param {Number|Object|RequestParameters} [params] - Parameters or the page to be requested
-     * @param {Number} [params.page=1] - The page to be requested
-     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
-     * @param {Array<String>|string} [params.sort=''] - Comma separated list or array
-     * @param {String} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
-     * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
-     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
-     * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
-     * @deprecated
-     * @example
-     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
-     * // See Api documentation for search query syntax
-     * const search = {
-     *   name: '^:test',
-     *   scale_min: ['>:1', '<:10'],
-     * };
-     *
-     * api.layers.listandWrap({perPage: 10, search});
-     */
-
-  }, {
-    key: 'listAndWrap',
-    value: function listAndWrap() {
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      var resolver = this._buildResolver(params);
-      var wrapped = resolver.wrap(resolver.page);
-
-      wrapped.get(resolver.page);
-      return wrapped;
-    }
-
-    /**
-     * Get the resource lister
-     *
-     * @param {object|RequestParameters} parameters - parameters
-     * @param {number} maxRows - Maximum amount of rows
-     * @returns {ResourceLister} - Resource lister
-     */
-
-  }, {
-    key: 'lister',
-    value: function lister() {
-      var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var maxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 50;
-
-      return new _ResourceLister2.default(this.api, this.baseUrl, this.Target, parameters, maxRows, this.Target.resourceUrlKey);
-    }
-  }, {
-    key: '_buildResolver',
-    value: function _buildResolver() {
-      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      var paramType = typeof params === 'undefined' ? 'undefined' : (0, _typeof3.default)(params);
-      var url = this.baseUrl;
-
-      if (!['number', 'object'].includes(paramType)) {
-        throw new TypeError('Expected params to be of type number or object. Got "' + paramType + '"');
-      }
-
-      if (paramType === 'number') {
-        return this._buildResolver({ page: params });
-      }
-
-      if (!(params instanceof _RequestParameters2.default)) {
-        params = new _RequestParameters2.default(params);
-      }
-
-      return new _PaginatedResourceListing2.default(this._api, url, this.Target, params);
-    }
-  }, {
-    key: 'baseUrl',
-    get: function get() {
-      if (!this.__baseUrl) {
-        this.__baseUrl = this.new().baseUrl;
-      }
-
-      return this.__baseUrl;
-    }
-
-    /**
-     * Get api instance
-     * @returns {Maps4News} - Api instance
-     */
-
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Target to wrap results in
-     * @returns {ResourceBase} - Target constructor
-     * @constructor
-     */
-
-  }, {
-    key: 'Target',
-    get: function get() {
-      return this._Target;
-    }
-
-    /**
-     * The name of the target
-     * @returns {String} - Target name
-     * @example
-     * api.colors.accessorName === 'Color'
-     * api.fontFamilies.accessorName = 'Font Families'
-     */
-
-  }, {
-    key: 'accessorName',
-    get: function get() {
-      return this.Target.name.replace(/([A-Z])/g, function (x) {
-        return ' ' + x;
-      }).trim();
-    }
-  }]);
-  return SimpleResourceProxy;
-}(); /*
-      * BSD 3-Clause License
-      *
-      * Copyright (c) 2017, MapCreator
-      * All rights reserved.
-      *
-      * Redistribution and use in source and binary forms, with or without
-      * modification, are permitted provided that the following conditions are met:
-      *
-      *  Redistributions of source code must retain the above copyright notice, this
-      *   list of conditions and the following disclaimer.
-      *
-      *  Redistributions in binary form must reproduce the above copyright notice,
-      *   this list of conditions and the following disclaimer in the documentation
-      *   and/or other materials provided with the distribution.
-      *
-      *  Neither the name of the copyright holder nor the names of its
-      *   contributors may be used to endorse or promote products derived from
-      *   this software without specific prior written permission.
-      *
-      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-      */
-
-exports.default = SimpleResourceProxy;
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _Maps4News = __webpack_require__(97);
-
-var _Maps4News2 = _interopRequireDefault(_Maps4News);
-
-var _PaginatedResourceWrapper = __webpack_require__(134);
-
-var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
-
-var _RequestParameters = __webpack_require__(130);
-
-var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
-
-var _reflection = __webpack_require__(86);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Proxy for accessing paginated resources
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var PaginatedResourceListing = function () {
-  /**
-   * @param {Maps4News} api - Instance of the api
-   * @param {String} route - Resource route
-   * @param {ResourceBase} Target - Wrapper target
-   * @param {RequestParameters} parameters - Request parameters
-   * @param {Number} pageCount - Resolved page count
-   * @param {Number} rowCount - Resolved rowCount
-   * @param {Array<ResourceBase>} data - Resolved data
-   * @private
-   */
-  function PaginatedResourceListing(api, route, Target, parameters) {
-    var pageCount = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
-    var rowCount = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
-    var data = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
-    (0, _classCallCheck3.default)(this, PaginatedResourceListing);
-
-    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
-      throw new TypeError('Expected api to be of type Maps4News');
-    }
-
-    if (!(0, _reflection.isParentOf)(_RequestParameters2.default, parameters)) {
-      parameters = new _RequestParameters2.default(parameters);
-    }
-
-    this._api = api;
-
-    this.route = route;
-    this._Target = Target;
-    this._parameters = parameters;
-    this._pageCount = pageCount;
-    this._rows = rowCount;
-    this._data = data;
-  }
-
-  /**
-   * Get api instance
-   * @returns {Maps4News} - Api instance
-   */
-
-
-  (0, _createClass3.default)(PaginatedResourceListing, [{
-    key: 'getPage',
-
-
-    /**
-     * Get target page
-     * @param {Number} page - Page number
-     * @param {Number} perPage - Amount of items per page (max 50)
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-    value: function getPage() {
-      var _this = this;
-
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
-      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.perPage;
-
-      var query = this.parameters.copy();
-
-      query.page = page;
-      query.perPage = perPage;
-
-      var glue = this.route.includes('?') ? '&' : '?';
-      var url = this.route + glue + query.encode();
-
-      return this.api.request(url, 'GET', {}, {}, true).then(function (output) {
-        var headers = output.response.headers;
-
-        var getOrDefault = function getOrDefault(x, y) {
-          return headers.has(x) ? headers.get(x) : y;
-        };
-
-        var rowCount = Number(getOrDefault('X-Paginate-Total', output.data.length));
-        var totalPages = Number(getOrDefault('X-Paginate-Pages', 1));
-        var parameters = _this.parameters.copy();
-
-        parameters.page = page;
-
-        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, parameters, totalPages, rowCount, output.data.map(function (row) {
-          return new _this._Target(_this.api, row);
-        }));
-      });
-    }
-
-    /**
-     * If there is a next page
-     * @returns {boolean} - If there is a next page
-     */
-
-  }, {
-    key: 'next',
-
-
-    /**
-     * Get next page
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-    value: function next() {
-      return this.getPage(this.page + 1);
-    }
-
-    /**
-     * Get previous page
-     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'previous',
-    value: function previous() {
-      return this.getPage(this.page - 1);
-    }
-
-    /**
-     * Wraps {@link PaginatedResourceWrapper} around the page
-     * @param {Boolean} shareCache - Share cache across instances
-     * @returns {PaginatedResourceWrapper} - Wrapped resource listing
-     */
-
-  }, {
-    key: 'wrap',
-    value: function wrap() {
-      var shareCache = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults._shareCache;
-
-      return new _PaginatedResourceWrapper2.default(this, this.api, shareCache);
-    }
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Target route
-     * @returns {String} - url
-     */
-
-  }, {
-    key: 'route',
-    get: function get() {
-      return this._route;
-    }
-
-    /**
-     * Override the target route
-     * @param {String} value - route
-     */
-    ,
-    set: function set(value) {
-      if (!value.startsWith('https://') && !value.startsWith('http://')) {
-        if (!value.startsWith('/')) {
-          value = '/' + value;
-        }
-
-        value = this._api.host + '/' + this._api.version + value;
-      }
-
-      this._route = value;
-    }
-
-    /**
-     * Target to wrap results in
-     * @returns {ResourceBase} - Target constructor
-     * @constructor
-     */
-
-  }, {
-    key: 'Target',
-    get: function get() {
-      return this._Target;
-    }
-
-    /**
-     * Request parameters
-     * @returns {RequestParameters} - Request parameters
-     */
-
-  }, {
-    key: 'parameters',
-    get: function get() {
-      return this._parameters;
-    }
-
-    /**
-     * Request parameters
-     * @param {RequestParameters} value - Request parameters
-     */
-    ,
-    set: function set(value) {
-      this._parameters = value;
-    }
-
-    /**
-     * Current page number
-     * @returns {Number} - Current page
-     */
-
-  }, {
-    key: 'page',
-    get: function get() {
-      return this.parameters.page;
-    }
-
-    /**
-     * Maximum amount of items per page
-     * @returns {Number} - Amount of items
-     */
-
-  }, {
-    key: 'perPage',
-    get: function get() {
-      return this.parameters.perPage;
-    }
-
-    /**
-     * Set sort direction
-     * @returns {String} - Sort
-     * @example
-     * const sort = ['-name', 'id']
-     */
-
-  }, {
-    key: 'sort',
-    get: function get() {
-      return this.parameters.sort;
-    }
-
-    /**
-     * Current sorting value
-     * @param {String} value - Sort
-     */
-    ,
-    set: function set(value) {
-      this.parameters.sort = value;
-    }
-
-    /**
-     * Deleted items filter state
-     * @returns {String} value - Deleted items filter state
-     * @see {@link DeletedState}
-     */
-
-  }, {
-    key: 'deleted',
-    get: function get() {
-      return this.parameters.deleted;
-    }
-
-    /**
-     * Deleted items filter state
-     * @param {String} value - Deleted items filter state
-     * @see {@link DeletedState}
-     */
-    ,
-    set: function set(value) {
-      this.parameters.deleted = value;
-    }
-
-    /**
-     * Amount of pages available
-     * @returns {Number} - Page count
-     */
-
-  }, {
-    key: 'pageCount',
-    get: function get() {
-      return this._pageCount;
-    }
-
-    /**
-     * Page data
-     * @returns {Array<ResourceBase>} - Wrapped data
-     */
-
-  }, {
-    key: 'data',
-    get: function get() {
-      return this._data;
-    }
-
-    /**
-     * Row count
-     * @returns {Number} - Row count
-     */
-
-  }, {
-    key: 'rows',
-    get: function get() {
-      return this._rows;
-    }
-
-    /**
-     * Optional search query
-     * @default {}
-     * @return {Object<String, String|Array<String>>} - Query
-     */
-
-  }, {
-    key: 'query',
-    get: function get() {
-      return this.parameters.search;
-    }
-
-    /**
-     * Optional search query
-     * @param {Object<String, String|Array<String>>} value - Query
-     * @throws TypeError
-     * @default {}
-     * @see {@link ResourceProxy#search}
-     */
-    ,
-    set: function set(value) {
-      this.parameters.search = value;
-    }
-  }, {
-    key: 'hasNext',
-    get: function get() {
-      return this.page < this.pageCount;
-    }
-
-    /**
-     * If there is a previous page
-     * @returns {boolean} - If there is a previous page
-     */
-
-  }, {
-    key: 'hasPrevious',
-    get: function get() {
-      return this.page > 1;
-    }
-
-    /**
-     * Used for caching pages internally
-     * @returns {string} - Cache token
-     * @see {@link PaginatedResourceWrapper}
-     * @see {@link ResourceCache}
-     */
-
-  }, {
-    key: 'cacheToken',
-    get: function get() {
-      return this.parameters.token();
-    }
-  }]);
-  return PaginatedResourceListing;
-}();
-
-exports.default = PaginatedResourceListing;
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _PaginatedResourceListing = __webpack_require__(133);
-
-var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
-
-var _ResourceCache = __webpack_require__(135);
-
-var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
-
-var _hash = __webpack_require__(88);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
- * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
- * @deprecated
- */
-var PaginatedResourceWrapper = function () {
-  /**
-   *
-   * @param {PaginatedResourceListing} listing - Listing result
-   * @param {Maps4News} api - Instance of the api
-   * @param {Boolean} shareCache - Share cache across instances
-   */
-  function PaginatedResourceWrapper(listing) {
-    var _this = this;
-
-    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
-    var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.shareCache;
-    (0, _classCallCheck3.default)(this, PaginatedResourceWrapper);
-
-
-    // Fields
-    this._api = api;
-    this._shareCache = shareCache;
-    this._currentPage = 1;
-    this._context = [];
-
-    /**
-     * Available data assembled from the cache
-     * @type {Array<ResourceBase>} - Available data
-     */
-    this.data = [];
-
-    // Internal
-    this._localCache = new _ResourceCache2.default(this.api.defaults.cacheSeconds, this.api.defaults.dereferenceCache);
-    this._inflight = [];
-    this._last = listing;
-    this._waiting = false;
-
-    this.on('invalidate', function () {
-      return _this.rebuild();
-    });
-
-    this._promiseCallback(listing);
-  }
-
-  (0, _createClass3.default)(PaginatedResourceWrapper, [{
-    key: 'get',
-
-
-    /**
-     * Manually fetch a page. This will change the current page.
-     * @param {Number|Array<Number>} pageId - Page(s) to fetch
-     * @returns {void}
-     */
-    value: function get(pageId) {
-      if (pageId instanceof Array) {
-        pageId.map(this.get);
-      } else {
-        this._waiting = true;
-
-        this._inflight.push(pageId);
-        this._last.getPage(pageId).then(this._promiseCallback);
-      }
-    }
-
-    /**
-     * Grab the next page
-     * @returns {void}
-     */
-
-  }, {
-    key: 'next',
-    value: function next() {
-      this.get(++this.currentPage);
-    }
-
-    /**
-     * Grab the previous page
-     * @returns {void}
-     */
-
-  }, {
-    key: 'previous',
-    value: function previous() {
-      this.get(--this.currentPage);
-    }
-
-    /**
-     * Manually rebuild the data
-     * @returns {void}
-     */
-
-  }, {
-    key: 'rebuild',
-    value: function rebuild() {
-      this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
-        return typeof value !== 'undefined';
-      });
-
-      this.cache.emitter.emit('post-rebuild', { resourceUrl: this._last.route });
-    }
-
-    /**
-     * Updates the cached pages.
-     * @param {Boolean} flush - Clear the cached route data
-     * @returns {void}
-     * @example
-     * function onRefresh() {
-     *   if(wrapper.waiting) {
-     *     return; // not done yet
-     *   }
-     *
-     *   wrapper.off('post-rebuild', onRefresh);
-     *
-     *   // Do stuff here
-     * }
-     *
-     * wrapper.on('post-rebuild', onRefresh);
-     * wrapper.refresh();
-     */
-
-  }, {
-    key: 'refresh',
-    value: function refresh() {
-      var _this2 = this;
-
-      var flush = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-      if (flush) {
-        this.cache.clear(this.route);
-      }
-
-      this.cache.collectPages(this.route, this._last.cacheToken).map(function (page) {
-        return _this2.get(page.page);
-      });
-    }
-
-    /**
-     * Returns the page number that is currently being used as a reference point
-     * @returns {Number} - The current page
-     * @see {@link PaginatedResourceWrapper#next}
-     * @see {@link PaginatedResourceWrapper#previous}
-     */
-
-  }, {
-    key: 'query',
-
-
-    /**
-     * Set the request params and submit
-     * @param {?Object<String, *>} value - Query
-     * @throws TypeError
-     * @default {}
-     * @see {@link ResourceProxy#search}
-     * @returns {Object<String, String|Array<String>>} - query
-     */
-    value: function query() {
-      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (!value || value === this.query()) {
-        return this._last.query;
-      }
-
-      this._context[this._last.cacheToken] = this._last;
-
-      var token = (0, _hash.hashObject)(value);
-
-      if (this._context[token]) {
-        this._last = this._context[token];
-      } else {
-        var parameters = this._last.parameters.copy();
-
-        parameters.page = 1;
-        parameters.apply(value);
-
-        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, parameters);
-        this.get(parameters.page);
-        this.currentPage = 1;
-      }
-
-      this.rebuild();
-
-      return this.query();
-    }
-
-    /**
-     * Get api instance
-     * @returns {Maps4News} - Api instance
-     */
-
-  }, {
-    key: 'on',
-
-
-    /**
-     * Register an event handler for the given type.
-     *
-     * @param {string} type - Type of event to listen for, or `"*"` for all events.
-     * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
-     * @returns {void}
-     */
-    value: function on(type, handler) {
-      var _this3 = this;
-
-      this.cache.emitter.on(type, function (t, e) {
-        if (type === '*' && e.resourceUrl === _this3.route) {
-          handler(t, e);
-        } else if (type !== '*' && t.resourceUrl === _this3.route) {
-          handler(t);
-        }
-      });
-    }
-
-    /**
-     * Function to call in response to the given event
-     *
-     * @param {string} type - Type of event to unregister `handler` from, or `"*"`
-     * @param {function(event: any): void} handler - Handler function to remove.
-     * @returns {void}
-     */
-
-  }, {
-    key: 'off',
-    value: function off(type, handler) {
-      this.cache.emitter.off(type, handler);
-    }
-  }, {
-    key: '_promiseCallback',
-    get: function get() {
-      var _this4 = this;
-
-      return function (result) {
-        var query = _this4.query();
-
-        _this4._last = result;
-        _this4._query = query;
-
-        _this4.cache.push(result);
-
-        var inflightId = _this4.inflight.findIndex(function (x) {
-          return x === result.page;
-        });
-
-        if (inflightId >= 0) {
-          _this4._inflight.splice(inflightId, 1);
-        }
-
-        _this4._waiting = _this4.inflight.length > 0;
-
-        _this4.rebuild();
-      };
-    }
-  }, {
-    key: 'currentPage',
-    get: function get() {
-      return this._currentPage;
-    }
-
-    /**
-     * Set the current page number
-     * @param {Number} value - page number
-     */
-    ,
-    set: function set(value) {
-      this._currentPage = Math.max(1, value);
-    }
-
-    /**
-     * Get the route of the resource
-     * @returns {String} - route
-     */
-
-  }, {
-    key: 'route',
-    get: function get() {
-      return this._last.route;
-    }
-
-    /**
-     * Override the resource route
-     * @param {String} value - route
-     */
-    ,
-    set: function set(value) {
-      this._route = value;
-    }
-
-    /**
-     * Row count
-     * @returns {Number} - Row count
-     */
-
-  }, {
-    key: 'rows',
-    get: function get() {
-      return this._last.rows;
-    }
-
-    /**
-     * Get the number of pages available
-     * @returns {Number} - Page count
-     */
-
-  }, {
-    key: 'pageCount',
-    get: function get() {
-      return this._last.pageCount;
-    }
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Get the active cache instance
-     * @returns {ResourceCache} - Cache instance
-     */
-
-  }, {
-    key: 'cache',
-    get: function get() {
-      return this.shareCache ? this.api.cache : this._localCache;
-    }
-
-    /**
-     * Get if the shared cache should be used
-     * @returns {Boolean} - Should the shared cache be used
-     */
-
-  }, {
-    key: 'shareCache',
-    get: function get() {
-      return this._shareCache;
-    }
-
-    /**
-     * Sets if the shared cache should be used
-     * @param {Boolean} value - Should the shared cache be used
-     */
-    ,
-    set: function set(value) {
-      this._shareCache = Boolean(value);
-    }
-
-    /**
-     * If there is a next page
-     * @returns {boolean} - If there is a next page
-     */
-
-  }, {
-    key: 'hasNext',
-    get: function get() {
-      return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
-    }
-
-    /**
-     * If there is a previous page
-     * @returns {boolean} - If there is a previous page
-     */
-
-  }, {
-    key: 'hasPrevious',
-    get: function get() {
-      return this._last.hasPrevious;
-    }
-
-    /**
-     * List of page numbers that are still mid-flight
-     * @returns {Array} - Page numbers that are still mid-flight
-     */
-
-  }, {
-    key: 'inflight',
-    get: function get() {
-      return this._inflight;
-    }
-
-    /**
-     * Returns if there are still requests mid-flight
-     * @returns {boolean} - Returns if the wrapper is waiting for requests to finish
-     */
-
-  }, {
-    key: 'waiting',
-    get: function get() {
-      return this._waiting;
-    }
-  }]);
-  return PaginatedResourceWrapper;
-}(); /*
-      * BSD 3-Clause License
-      *
-      * Copyright (c) 2017, MapCreator
-      * All rights reserved.
-      *
-      * Redistribution and use in source and binary forms, with or without
-      * modification, are permitted provided that the following conditions are met:
-      *
-      *  Redistributions of source code must retain the above copyright notice, this
-      *   list of conditions and the following disclaimer.
-      *
-      *  Redistributions in binary form must reproduce the above copyright notice,
-      *   this list of conditions and the following disclaimer in the documentation
-      *   and/or other materials provided with the distribution.
-      *
-      *  Neither the name of the copyright holder nor the names of its
-      *   contributors may be used to endorse or promote products derived from
-      *   this software without specific prior written permission.
-      *
-      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-      */
-
-exports.default = PaginatedResourceWrapper;
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _mitt = __webpack_require__(136);
-
-var _mitt2 = _interopRequireDefault(_mitt);
-
-var _Unobservable2 = __webpack_require__(93);
-
-var _Unobservable3 = _interopRequireDefault(_Unobservable2);
-
-var _uuid = __webpack_require__(127);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Used for caching resources. Requires the resource to have an unique id field
- * @see {@link PaginatedResourceWrapper}
- * @deprecated
- * @todo Add periodic data refreshing while idle, most likely implemented in cache (maybe v1/resource?timestamp=123 where it will give modified records since)
- */
-var ResourceCache = function (_Unobservable) {
-  (0, _inherits3.default)(ResourceCache, _Unobservable);
-
-  function ResourceCache(cacheTime, dereference) {
-    (0, _classCallCheck3.default)(this, ResourceCache);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceCache.__proto__ || Object.getPrototypeOf(ResourceCache)).call(this));
-
-    _this.cacheTime = cacheTime;
-    _this.dereference = dereference;
-    _this.emitter = (0, _mitt2.default)();
-
-    _this._storage = {};
-    return _this;
-  }
-
-  /**
-   * Push a page into the cache
-   * @param {PaginatedResourceListing} page - Data to be cached
-   * @returns {void}
-   */
-
-
-  (0, _createClass3.default)(ResourceCache, [{
-    key: 'push',
-    value: function push(page) {
-      var _this2 = this;
-
-      if (page.rows === 0) {
-        return; // Don't insert empty pages
-      }
-
-      delete page['__ob__']; // Remove VueJs observer
-
-      // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)
-      var invalidData = page.data.map(function (row) {
-        return row.id;
-      }).filter(function (x) {
-        return typeof x !== 'number';
-      }).length > 0;
-
-      if (invalidData) {
-        throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric "id" field.');
-      }
-
-      var validThrough = this._timestamp + this.cacheTime;
-      var cacheId = _uuid2.default.uuid4();
-      var data = {
-        page: page, validThrough: validThrough,
-        id: cacheId,
-        timeout: setTimeout(function () {
-          return _this2._deleteCacheIds(cacheId);
-        }, this.cacheTime * 1000)
-      };
-
-      var storage = this._storage[page.route] || (this._storage[page.route] = {});
-
-      (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);
-
-      this.emitter.emit('push', { page: page, validThrough: validThrough, resourceUrl: page.route });
-      this.emitter.emit('invalidate', { resourceUrl: page.route });
-    }
-
-    /**
-     * Delete from cache using cacheId
-     * @param {String|Array<String>} ids - cache ids
-     * @returns {void}
-     */
-
-  }, {
-    key: '_deleteCacheIds',
-    value: function _deleteCacheIds(ids) {
-      if (!(ids instanceof Array)) {
-        this._deleteCacheIds([ids]);
-        return;
-      }
-
-      var found = 0;
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = Object.keys(this._storage)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var resourceUrl = _step.value;
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
-
-          try {
-            for (var _iterator2 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              var token = _step2.value;
-
-              var entries = this._storage[resourceUrl][token];
-
-              for (var i = 0; i < entries.length; i++) {
-                if (ids.includes(entries[i].id)) {
-                  entries.splice(i, 1);
-                  i--;
-                  found++;
-
-                  if (found === ids.length) {
-                    return;
-                  }
-                }
-              }
-            }
-          } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
-            }
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    }
-
-    /**
-     * Revalidate all data and delete stale data
-     * @param {String} resourceUrl - Resource url
-     * @returns {void}
-     */
-
-  }, {
-    key: 'revalidate',
-    value: function revalidate() {
-      var _this3 = this;
-
-      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (!resourceUrl) {
-        Object.keys(this._storage).map(function (x) {
-          return _this3.revalidate(x);
-        });
-      } else if (this._storage[resourceUrl]) {
-        var storage = this._storage[resourceUrl];
-
-        // Remove old data from the cache and stop old timeouts
-        Object.keys(storage).forEach(function (key) {
-          storage[key].filter(function (row) {
-            return row.validThrough < _this3._timestamp;
-          }).forEach(function (row) {
-            return clearTimeout(row.timeout);
-          });
-
-          storage[key] = storage[key].filter(function (row) {
-            return row.validThrough >= _this3._timestamp;
-          });
-        });
-
-        var junk = Object.keys(storage).filter(function (key) {
-          return storage[key].length === 0;
-        });
-
-        // Delete empty
-        junk.forEach(function (key) {
-          return delete storage[key];
-        });
-        if (Object.keys(storage).length === 0) {
-          delete this._storage[resourceUrl];
-        }
-
-        if (junk.length > 0) {
-          this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
-        }
-      }
-    }
-
-    /**
-     * Collect relevant cached pages
-     * @param {String} resourceUrl - resource url
-     * @param {String} cacheToken - Cache token
-     * @see {@link PaginatedResourceListing#cacheToken}
-     * @returns {Array<PaginatedResourceListing>} - Relevant cached pages
-     */
-
-  }, {
-    key: 'collectPages',
-    value: function collectPages(resourceUrl) {
-      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-      cacheToken = cacheToken.toLowerCase();
-
-      // Storage array or []
-      var storage = (this._storage[resourceUrl] || {})[cacheToken] || [];
-
-      // Sort by validThrough and extract pages
-      // SORT BY page, validThrough ASCENDING
-      return storage.sort(function (a, b) {
-        if (a.page === b.page) {
-          return a.validThrough - b.validThrough;
-        }
-
-        return a.page - b.page;
-      });
-    }
-
-    /**
-     * Clears the cache
-     * @param {String} resourceUrl - Resource url
-     * @returns {void}
-     */
-
-  }, {
-    key: 'clear',
-    value: function clear() {
-      var _this4 = this;
-
-      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-      if (!resourceUrl) {
-        Object.keys(this._storage).forEach(function (url) {
-          _this4.emitter.emit('invalidate', { resourceUrl: url });
-        });
-
-        this._storage = {};
-      } else {
-        delete this._storage[resourceUrl];
-        this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
-      }
-    }
-
-    /**
-     * Resolve cache and return indexed data
-     * @param {String} resourceUrl - Resource url
-     * @param {String} cacheToken - Cache token
-     * @see {@link PaginatedResourceListing#cacheToken}
-     * @returns {Array<ResourceBase>} - Indexed relevant data
-     * @todo add page numbers or range as optional parameter
-     */
-
-  }, {
-    key: 'resolve',
-    value: function resolve(resourceUrl) {
-      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-      cacheToken = cacheToken.toLowerCase();
-
-      // List ordered from old to new
-      var data = this.collectPages(resourceUrl, cacheToken);
-      var out = [];
-
-      var lastPage = void 0;
-      var startIndex = 0;
-
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var row = _step3.value;
-
-          var page = row.page;
-
-          // Skip empty pages
-          if (page.data.length === 0) {
-            continue;
-          }
-
-          // Have we parsed the same page already?
-          if (typeof lastPage !== 'undefined' && lastPage === page.page) {
-            var ii = void 0;
-
-            for (var i = 0; i < page.data.length; i++) {
-              ii = i + startIndex; // Get relative index for `out`
-
-              if (typeof out[ii] === 'undefined') {
-                out.push(page.data[i]); // Push if there is no data
-              } else if (page.data[i].id !== out[ii].id) {
-                out[ii] = page.data[i];
-
-                // lookbehind
-                for (var j = 0; j < startIndex; j++) {
-                  if (out[j].id === out[ii].id) {
-                    out.splice(j, 1);
-
-                    startIndex--;
-                    i--;
-                    ii--;
-                    j--;
-                  }
-                }
-              }
-            }
-
-            // Remove trailing data
-            if (typeof ii !== 'undefined') {
-              out.splice(ii + 1, out.length);
-            }
-          } else {
-            // First time page number is parsed, just append it.
-            startIndex = out.length;
-
-            page.data.map(function (x) {
-              return out.push(x);
-            });
-          }
-
-          lastPage = row.page.page;
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-
-      if (this.dereference) {
-        return out.map(function (x) {
-          return x.clone();
-        });
-      }
-
-      return out;
-    }
-
-    /**
-     * Update records in the cache manually lazily. Any matching instance found will be updated.
-     * @param {ResourceBase|Array<ResourceBase>} rows - Data to be updated
-     * @returns {void} - nothing
-     */
-
-  }, {
-    key: 'update',
-    value: function update(rows) {
-      if (!(rows instanceof Array)) {
-        this.update([rows]);
-        return;
-      }
-
-      // Split up data into types
-      var data = {};
-      var ids = {};
-
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
-
-      try {
-        for (var _iterator4 = rows[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var row = _step4.value;
-
-          var key = row.constructor.name;
-
-          (data[key] || (data[key] = [])).push(row);
-          (ids[key] || (ids[key] = [])).push(row.id);
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4.return) {
-            _iterator4.return();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
-      }
-
-      var models = Object.keys(data);
-
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
-
-      try {
-        for (var _iterator5 = Object.keys(this._storage)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var resourceUrl = _step5.value;
-
-          var invalidate = false;
-
-          var _iteratorNormalCompletion6 = true;
-          var _didIteratorError6 = false;
-          var _iteratorError6 = undefined;
-
-          try {
-            for (var _iterator6 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-              var token = _step6.value;
-
-              var entries = this._storage[resourceUrl][token];
-
-              var _iteratorNormalCompletion7 = true;
-              var _didIteratorError7 = false;
-              var _iteratorError7 = undefined;
-
-              try {
-                for (var _iterator7 = entries[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                  var entry = _step7.value;
-
-                  var page = entry.page;
-
-                  if (page.data.length === 0) {
-                    continue;
-                  }
-
-                  var _key = page.data[0].constructor.name;
-
-                  if (!models.includes(_key)) {
-                    break;
-                  }
-
-                  var _loop = function _loop(_row) {
-                    if (!ids[_key].includes(_row.id)) {
-                      return 'continue';
-                    }
-
-                    var index = ids[_key].findIndex(function (x) {
-                      return x === _row.id;
-                    });
-                    var value = data[_key][index];
-
-                    value.sanitize();
-
-                    value.fieldNames.forEach(function (x) {
-                      _row[x] = value[x];
-                    });
-
-                    invalidate = true;
-                  };
-
-                  var _iteratorNormalCompletion8 = true;
-                  var _didIteratorError8 = false;
-                  var _iteratorError8 = undefined;
-
-                  try {
-                    for (var _iterator8 = page.data[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-                      var _row = _step8.value;
-
-                      var _ret = _loop(_row);
-
-                      if (_ret === 'continue') continue;
-                    }
-                  } catch (err) {
-                    _didIteratorError8 = true;
-                    _iteratorError8 = err;
-                  } finally {
-                    try {
-                      if (!_iteratorNormalCompletion8 && _iterator8.return) {
-                        _iterator8.return();
-                      }
-                    } finally {
-                      if (_didIteratorError8) {
-                        throw _iteratorError8;
-                      }
-                    }
-                  }
-                }
-              } catch (err) {
-                _didIteratorError7 = true;
-                _iteratorError7 = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                    _iterator7.return();
-                  }
-                } finally {
-                  if (_didIteratorError7) {
-                    throw _iteratorError7;
-                  }
-                }
-              }
-            }
-          } catch (err) {
-            _didIteratorError6 = true;
-            _iteratorError6 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                _iterator6.return();
-              }
-            } finally {
-              if (_didIteratorError6) {
-                throw _iteratorError6;
-              }
-            }
-          }
-
-          if (invalidate) {
-            this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
-          }
-        }
-      } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5.return) {
-            _iterator5.return();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
-          }
-        }
-      }
-    }
-
-    /**
-     * Get a usable timestamp
-     * @returns {number} - timestamp
-     * @private
-     */
-
-  }, {
-    key: '_timestamp',
-    get: function get() {
-      return Math.floor(Date.now() / 1000);
-    }
-  }]);
-  return ResourceCache;
-}(_Unobservable3.default); /*
-                            * BSD 3-Clause License
-                            *
-                            * Copyright (c) 2017, MapCreator
-                            * All rights reserved.
-                            *
-                            * Redistribution and use in source and binary forms, with or without
-                            * modification, are permitted provided that the following conditions are met:
-                            *
-                            *  Redistributions of source code must retain the above copyright notice, this
-                            *   list of conditions and the following disclaimer.
-                            *
-                            *  Redistributions in binary form must reproduce the above copyright notice,
-                            *   this list of conditions and the following disclaimer in the documentation
-                            *   and/or other materials provided with the distribution.
-                            *
-                            *  Neither the name of the copyright holder nor the names of its
-                            *   contributors may be used to endorse or promote products derived from
-                            *   this software without specific prior written permission.
-                            *
-                            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                            */
-
-exports.default = ResourceCache;
-
-/***/ }),
-/* 136 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//      
-// An event handler can take an optional event argument
-// and should not return a value
-                                          
-                                                               
-
-// An array of all currently registered event handlers for a type
-                                            
-                                                            
-// A map of event types and their corresponding event handlers.
-                        
-                                 
-                                   
-  
-
-/** Mitt: Tiny (~200b) functional event emitter / pubsub.
- *  @name mitt
- *  @returns {Mitt}
- */
-function mitt(all                 ) {
-	all = all || Object.create(null);
-
-	return {
-		/**
-		 * Register an event handler for the given type.
-		 *
-		 * @param  {String} type	Type of event to listen for, or `"*"` for all events
-		 * @param  {Function} handler Function to call in response to given event
-		 * @memberOf mitt
-		 */
-		on: function on(type        , handler              ) {
-			(all[type] || (all[type] = [])).push(handler);
-		},
-
-		/**
-		 * Remove an event handler for the given type.
-		 *
-		 * @param  {String} type	Type of event to unregister `handler` from, or `"*"`
-		 * @param  {Function} handler Handler function to remove
-		 * @memberOf mitt
-		 */
-		off: function off(type        , handler              ) {
-			if (all[type]) {
-				all[type].splice(all[type].indexOf(handler) >>> 0, 1);
-			}
-		},
-
-		/**
-		 * Invoke all handlers for the given type.
-		 * If present, `"*"` handlers are invoked after type-matched handlers.
-		 *
-		 * @param {String} type  The event type to invoke
-		 * @param {Any} [evt]  Any value (object is recommended and powerful), passed to each handler
-		 * @memberOf mitt
-		 */
-		emit: function emit(type        , evt     ) {
-			(all[type] || []).slice().map(function (handler) { handler(evt); });
-			(all['*'] || []).slice().map(function (handler) { handler(type, evt); });
-		}
-	};
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (mitt);
-//# sourceMappingURL=mitt.es.js.map
-
-
-/***/ }),
-/* 137 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof2 = __webpack_require__(26);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _toConsumableArray2 = __webpack_require__(115);
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _regenerator = __webpack_require__(138);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(141);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(25);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(77);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _case = __webpack_require__(85);
-
-var _events = __webpack_require__(131);
-
-var _Maps4News = __webpack_require__(97);
-
-var _Maps4News2 = _interopRequireDefault(_Maps4News);
-
-var _RequestParameters = __webpack_require__(130);
-
-var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
-
-var _ResourceBase = __webpack_require__(159);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
-
-var _reflection = __webpack_require__(86);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Paginated resource lister
- *
- * @fires ResourceLister#update
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2018, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var ResourceLister = function (_EventEmitter) {
-  (0, _inherits3.default)(ResourceLister, _EventEmitter);
-
-  /**
-   * ResourceLister constructor
-   *
-   * @param {Maps4News} api - Api instance
-   * @param {string} route - Resource url route
-   * @param {Constructor<ResourceBase>} Resource - Resource constructor
-   * @param {?RequestParameters} parameters - Request parameters
-   * @param {number} [maxRows=50] - Initial max rows
-   * @param {string} [key=id] - Key
-   */
-  function ResourceLister(api, route) {
-    var Resource = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _ResourceBase2.default;
-    var parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-    var maxRows = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 50;
-    var key = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 'id';
-    (0, _classCallCheck3.default)(this, ResourceLister);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceLister.__proto__ || Object.getPrototypeOf(ResourceLister)).call(this));
-
-    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
-      throw new TypeError('Expected api to be of type Maps4News');
-    }
-
-    _this._api = api;
-    _this._Resource = Resource;
-    _this._route = route || new _this.Resource(api, {}).baseUrl;
-    _this._parameters = new _RequestParameters2.default(parameters || { perPage: _RequestParameters2.default.maxPerPage });
-    _this._key = (0, _case.snake)(key);
-    _this._waiting = false;
-
-    _this.autoUpdate = true;
-    _this.maxRows = maxRows;
-
-    _this._reset();
-    return _this;
-  }
-
-  /**
-   * Get if there are more resources to fetch. It indicates if the maxRows can be increased.
-   * @returns {boolean} - if more rows are available
-   */
-
-
-  (0, _createClass3.default)(ResourceLister, [{
-    key: '_reset',
-
-
-    /**
-     * Reset the instance
-     *
-     * @returns {void}
-     * @private
-     */
-    value: function _reset() {
-      this._parameterToken = this.parameters.token();
-
-      this._realData = [];
-      this._data = [];
-      this._keys = [];
-
-      delete this._availableRows;
-    }
-
-    /**
-     * Update the server data
-     *
-     * @returns {Promise<void>} - Resolves when the data has been updated
-     * @async
-     */
-
-  }, {
-    key: 'update',
-    value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-        return _regenerator2.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!this.waiting) {
-                  _context.next = 2;
-                  break;
-                }
-
-                return _context.abrupt('return');
-
-              case 2:
-
-                this._waiting = true;
-
-                _context.prev = 3;
-
-                if (this._parameterToken !== this.parameters.token()) {
-                  this._reset();
-                }
-
-                if (!(this._realData.length < this.maxRows)) {
-                  _context.next = 8;
-                  break;
-                }
-
-                _context.next = 8;
-                return this._fetchMore();
-
-              case 8:
-
-                if (this.data.length !== this.maxRows) {
-                  this._data = this._realData.slice(0, this.maxRows);
-                }
-
-              case 9:
-                _context.prev = 9;
-
-                this._waiting = false;
-                return _context.finish(9);
-
-              case 12:
-
-                /**
-                 * Update event.
-                 * Called when the ResourceLister has updated
-                 *
-                 * @event RequestLister#update
-                 */
-                this.emit('update');
-
-              case 13:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[3,, 9, 12]]);
-      }));
-
-      function update() {
-        return _ref.apply(this, arguments);
-      }
-
-      return update;
-    }()
-
-    /**
-     * Fetch more data from the server
-     * @returns {Promise<void>} - Resolves when _availableRows has been updated
-     * @private
-     */
-
-  }, {
-    key: '_fetchMore',
-    value: function () {
-      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-        var _ref3,
-            _this2 = this;
-
-        var startPage, endPage, glue, promises, page, parameters, url, promise, responses, data;
-        return _regenerator2.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                startPage = 1 + Math.floor(this.rowCount / this.parameters.perPage);
-                endPage = Math.ceil(this.maxRows / this.parameters.perPage);
-                glue = this.route.includes('?') ? '&' : '?';
-                promises = [];
-
-
-                for (page = startPage; page <= endPage; page++) {
-                  parameters = this.parameters.copy();
-
-
-                  parameters.page = page;
-
-                  url = this.route + glue + parameters.encode();
-                  promise = this.api.request(url, 'GET', {}, {}, true);
-
-
-                  promises.push(promise);
-                }
-
-                // Wait for responses and flatten data
-                _context2.next = 7;
-                return Promise.all(promises);
-
-              case 7:
-                responses = _context2.sent;
-                data = (_ref3 = []).concat.apply(_ref3, (0, _toConsumableArray3.default)(responses.map(function (x) {
-                  return x.data;
-                })));
-
-
-                this._availableRows = Number(responses[0].response.headers.get('X-Paginate-Total')) || 0;
-
-                data.forEach(function (row) {
-                  return _this2.push(row, false);
-                });
-
-              case 11:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function _fetchMore() {
-        return _ref2.apply(this, arguments);
-      }
-
-      return _fetchMore;
-    }()
-
-    /**
-     * Returns the iterable
-     * @returns {Iterator} - iterator
-     */
-
-  }, {
-    key: Symbol.iterator,
-    value: function value() {
-      return this.data[Symbol.iterator]();
-    }
-
-    /**
-     * Push a row to the data collection
-     *
-     * This will append the row or update an existing row based on the key. If autoMaxRows is set to true and maxRows only needs to be increased by one for the new resource to show up it will
-     * @param {ResourceLister.Resource} row - resource
-     * @param {boolean} autoMaxRows - Increase maxRows if needed
-     * @returns {void}
-     */
-
-  }, {
-    key: 'push',
-    value: function push(row) {
-      var _this3 = this;
-
-      var autoMaxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-      if (!(0, _reflection.isParentOf)(this.Resource, row)) {
-        row = new this.Resource(this.api, row);
-      }
-
-      var index = this._keys.findIndex(function (i) {
-        return i === row[_this3._key];
-      });
-
-      if (index >= 0) {
-        this._realData[index] = row;
-
-        if (typeof this._data[index] !== 'undefined') {
-          this._data[index] = row;
-        }
-      } else {
-        this._realData.push(row);
-
-        this._keys.push(row[this._key]);
-
-        if (autoMaxRows && this.maxRows + 1 === this._realData.length) {
-          this.maxRows++;
-
-          this._data.push(row);
-        }
-      }
-    }
-
-    /**
-     * Same as `this.maxRows += this.parameters.perPage`
-     * @param {number} [rows=parameters.perPage] - Amount to increment maxRows with
-     * @returns {void}
-     */
-
-  }, {
-    key: 'loadMore',
-    value: function loadMore() {
-      var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.parameters.perPage;
-
-      this.maxRows += rows;
-    }
-  }, {
-    key: 'hasMore',
-    get: function get() {
-      return typeof this.availableRows === 'undefined' || this.availableRows > this.maxRows;
-    }
-
-    /**
-     * Get if the instance is waiting for data
-     * @returns {boolean} - waiting for data
-     */
-
-  }, {
-    key: 'waiting',
-    get: function get() {
-      return this._waiting;
-    }
-
-    /**
-     * Get the request parameters
-     * @returns {RequestParameters} - parameters
-     */
-
-  }, {
-    key: 'parameters',
-    get: function get() {
-      return this._parameters;
-    }
-
-    /**
-     * Set the request parameters
-     *
-     * If you set {@link ResourceLister#autoUpdate} to true then {@link ResourceLister#update}
-     * will automatically be called when the parameters are updated.
-     * @see ResourceLister#autoUpdate
-     * @param {RequestParameters} object - parameters
-     */
-    ,
-    set: function set(object) {
-      this.parameters.apply(object);
-    }
-
-    /**
-     * Resource constructor accessor, used for building the resource instance
-     * @returns {Constructor<ResourceBase>} - resource constructor
-     */
-
-  }, {
-    key: 'Resource',
-    get: function get() {
-      return this._Resource;
-    }
-
-    /**
-     * Get the route (url)
-     * @returns {string} - route
-     */
-
-  }, {
-    key: 'route',
-    get: function get() {
-      return this._route;
-    }
-
-    /**
-     * Get the data
-     * @returns {Array<ResourceLister.Resource>} - data
-     */
-
-  }, {
-    key: 'data',
-    get: function get() {
-      return this._data;
-    }
-
-    /**
-     * Get the api instance
-     * @returns {Maps4News} - api instance
-     */
-
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Get the row count
-     *
-     * @see {ResourceLister.data}
-     * @returns {number} - row count
-     */
-
-  }, {
-    key: 'rowCount',
-    get: function get() {
-      return this.data.length;
-    }
-
-    /**
-     * Get the maximum amount of rows allowed
-     * @returns {number} - max rows
-     */
-
-  }, {
-    key: 'maxRows',
-    get: function get() {
-      return this._maxRows;
-    }
-
-    /**
-     * Set the maximum amount of rows allowed
-     * @param {number} value - max rows
-     */
-    ,
-    set: function set(value) {
-      value = Number(value);
-
-      if (Number.isNaN(value)) {
-        throw new TypeError('Expected maxRows to be numeric got ' + (typeof raw === 'undefined' ? 'undefined' : (0, _typeof3.default)(raw)));
-      }
-
-      this._maxRows = value;
-
-      if (this.autoUpdate) {
-        // noinspection JSIgnoredPromiseFromCall
-        this.update();
-      }
-    }
-
-    /**
-     * Get the number of rows the server has available
-     * @returns {number} - number of rows
-     */
-
-  }, {
-    key: 'availableRows',
-    get: function get() {
-      return this._availableRows;
-    }
-
-    /**
-     * Set if {@link ResourceLister#update} should be called when {@link ResourceLister#parameters} is updated
-     *
-     * @see ResourceLister#update
-     * @see ResourceLister#parameters
-     * @param {boolean} value - auto update
-     */
-
-  }, {
-    key: 'autoUpdate',
-    set: function set(value) {
-      value = Boolean(value);
-
-      if (this.autoUpdate !== value) {
-        this._autoUpdate = value;
-
-        if (typeof this._boundUpdate === 'undefined') {
-          this._boundUpdate = this.update.bind(this);
-        }
-
-        if (this.autoUpdate) {
-          this.parameters.on('change', this._boundUpdate);
-        } else {
-          this.parameters.off('change', this._boundUpdate);
-        }
-      }
-    }
-
-    /**
-     * Get if {@link ResourceLister#update} should be called when {@link ResourceLister#parameters} is updated
-     *
-     * @see ResourceLister#update
-     * @see ResourceLister#parameters
-     */
-    ,
-    get: function get() {
-      return this._autoUpdate;
-    }
-  }]);
-  return ResourceLister;
-}(_events.EventEmitter);
-
-exports.default = ResourceLister;
-
-/***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(139);
-
-
-/***/ }),
-/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -11939,7 +5425,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(140);
+module.exports = __webpack_require__(105);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -11955,7 +5441,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 140 */
+/* 105 */
 /***/ (function(module, exports) {
 
 /**
@@ -12688,7 +6174,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 141 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12696,7 +6182,7 @@ if (hadRuntime) {
 
 exports.__esModule = true;
 
-var _promise = __webpack_require__(142);
+var _promise = __webpack_require__(107);
 
 var _promise2 = _interopRequireDefault(_promise);
 
@@ -12732,26 +6218,26 @@ exports.default = function (fn) {
 };
 
 /***/ }),
-/* 142 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(143), __esModule: true };
+module.exports = { "default": __webpack_require__(108), __esModule: true };
 
 /***/ }),
-/* 143 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(74);
 __webpack_require__(29);
 __webpack_require__(57);
-__webpack_require__(144);
-__webpack_require__(157);
-__webpack_require__(158);
+__webpack_require__(109);
+__webpack_require__(127);
+__webpack_require__(128);
 module.exports = __webpack_require__(11).Promise;
 
 
 /***/ }),
-/* 144 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12759,19 +6245,19 @@ module.exports = __webpack_require__(11).Promise;
 var LIBRARY = __webpack_require__(34);
 var global = __webpack_require__(10);
 var ctx = __webpack_require__(12);
-var classof = __webpack_require__(123);
+var classof = __webpack_require__(110);
 var $export = __webpack_require__(9);
 var isObject = __webpack_require__(17);
 var aFunction = __webpack_require__(13);
-var anInstance = __webpack_require__(145);
-var forOf = __webpack_require__(146);
-var speciesConstructor = __webpack_require__(147);
-var task = __webpack_require__(148).set;
-var microtask = __webpack_require__(150)();
-var newPromiseCapabilityModule = __webpack_require__(151);
-var perform = __webpack_require__(152);
-var userAgent = __webpack_require__(153);
-var promiseResolve = __webpack_require__(154);
+var anInstance = __webpack_require__(111);
+var forOf = __webpack_require__(112);
+var speciesConstructor = __webpack_require__(116);
+var task = __webpack_require__(117).set;
+var microtask = __webpack_require__(119)();
+var newPromiseCapabilityModule = __webpack_require__(120);
+var perform = __webpack_require__(121);
+var userAgent = __webpack_require__(122);
+var promiseResolve = __webpack_require__(123);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -12946,7 +6432,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(155)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(124)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -12978,7 +6464,7 @@ if (!USE_NATIVE) {
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
 __webpack_require__(53)($Promise, PROMISE);
-__webpack_require__(156)(PROMISE);
+__webpack_require__(125)(PROMISE);
 Wrapper = __webpack_require__(11)[PROMISE];
 
 // statics
@@ -12997,7 +6483,7 @@ $export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
     return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
   }
 });
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(124)(function (iter) {
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(126)(function (iter) {
   $Promise.all(iter)['catch'](empty);
 })), PROMISE, {
   // 25.4.4.1 Promise.all(iterable)
@@ -13044,7 +6530,36 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(124)(functio
 
 
 /***/ }),
-/* 145 */
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(44);
+var TAG = __webpack_require__(54)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+
+/***/ }),
+/* 111 */
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name, forbiddenField) {
@@ -13055,15 +6570,15 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 
 
 /***/ }),
-/* 146 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(12);
-var call = __webpack_require__(119);
-var isArrayIter = __webpack_require__(120);
+var call = __webpack_require__(113);
+var isArrayIter = __webpack_require__(114);
 var anObject = __webpack_require__(16);
 var toLength = __webpack_require__(46);
-var getIterFn = __webpack_require__(122);
+var getIterFn = __webpack_require__(115);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -13086,7 +6601,53 @@ exports.RETURN = RETURN;
 
 
 /***/ }),
-/* 147 */
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// call something on iterator step with safe closing on error
+var anObject = __webpack_require__(16);
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// check on default Array iterator
+var Iterators = __webpack_require__(36);
+var ITERATOR = __webpack_require__(54)('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(110);
+var ITERATOR = __webpack_require__(54)('iterator');
+var Iterators = __webpack_require__(36);
+module.exports = __webpack_require__(11).getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+
+/***/ }),
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
@@ -13101,11 +6662,11 @@ module.exports = function (O, D) {
 
 
 /***/ }),
-/* 148 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(12);
-var invoke = __webpack_require__(149);
+var invoke = __webpack_require__(118);
 var html = __webpack_require__(52);
 var cel = __webpack_require__(21);
 var global = __webpack_require__(10);
@@ -13191,7 +6752,7 @@ module.exports = {
 
 
 /***/ }),
-/* 149 */
+/* 118 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -13213,11 +6774,11 @@ module.exports = function (fn, args, that) {
 
 
 /***/ }),
-/* 150 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(10);
-var macrotask = __webpack_require__(148).set;
+var macrotask = __webpack_require__(117).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
@@ -13288,7 +6849,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 151 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13313,7 +6874,7 @@ module.exports.f = function (C) {
 
 
 /***/ }),
-/* 152 */
+/* 121 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -13326,7 +6887,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 153 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(10);
@@ -13336,12 +6897,12 @@ module.exports = navigator && navigator.userAgent || '';
 
 
 /***/ }),
-/* 154 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(16);
 var isObject = __webpack_require__(17);
-var newPromiseCapability = __webpack_require__(151);
+var newPromiseCapability = __webpack_require__(120);
 
 module.exports = function (C, x) {
   anObject(C);
@@ -13354,7 +6915,7 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 155 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hide = __webpack_require__(14);
@@ -13367,7 +6928,7 @@ module.exports = function (target, src, safe) {
 
 
 /***/ }),
-/* 156 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13388,7 +6949,35 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 157 */
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ITERATOR = __webpack_require__(54)('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+
+/***/ }),
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13397,8 +6986,8 @@ module.exports = function (KEY) {
 var $export = __webpack_require__(9);
 var core = __webpack_require__(11);
 var global = __webpack_require__(10);
-var speciesConstructor = __webpack_require__(147);
-var promiseResolve = __webpack_require__(154);
+var speciesConstructor = __webpack_require__(116);
+var promiseResolve = __webpack_require__(123);
 
 $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   var C = speciesConstructor(this, core.Promise || global.Promise);
@@ -13415,15 +7004,15 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 
 
 /***/ }),
-/* 158 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // https://github.com/tc39/proposal-promise-try
 var $export = __webpack_require__(9);
-var newPromiseCapability = __webpack_require__(151);
-var perform = __webpack_require__(152);
+var newPromiseCapability = __webpack_require__(120);
+var perform = __webpack_require__(121);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
   var promiseCapability = newPromiseCapability.f(this);
@@ -13432,6 +7021,6602 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
   return promiseCapability.promise;
 } });
 
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _StaticClass2 = __webpack_require__(130);
+
+var _StaticClass3 = _interopRequireDefault(_StaticClass2);
+
+var _CookiesDriver = __webpack_require__(132);
+
+var _CookiesDriver2 = _interopRequireDefault(_CookiesDriver);
+
+var _FileDriver = __webpack_require__(135);
+
+var _FileDriver2 = _interopRequireDefault(_FileDriver);
+
+var _LocalStorageDriver = __webpack_require__(136);
+
+var _LocalStorageDriver2 = _interopRequireDefault(_LocalStorageDriver);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @private
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var StorageManager = function (_StaticClass) {
+  (0, _inherits3.default)(StorageManager, _StaticClass);
+
+  function StorageManager() {
+    (0, _classCallCheck3.default)(this, StorageManager);
+    return (0, _possibleConstructorReturn3.default)(this, (StorageManager.__proto__ || Object.getPrototypeOf(StorageManager)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(StorageManager, null, [{
+    key: 'available',
+
+    /**
+     * Available storage drivers
+     * @returns {Array.<function>} - Available storage drivers
+     */
+    get: function get() {
+      return [_LocalStorageDriver2.default,
+      // CookiesDriver,
+      _FileDriver2.default].filter(function (x) {
+        return x.available;
+      });
+    }
+
+    /**
+     * Get LocalStorageDriver instance
+     * @returns {LocalStorageDriver} - instance
+     */
+
+  }, {
+    key: 'localStorage',
+    get: function get() {
+      return new _LocalStorageDriver2.default();
+    }
+
+    /**
+     * Get CookiesDriver instance
+     * @returns {CookiesDriver} - instance
+     */
+
+  }, {
+    key: 'cookies',
+    get: function get() {
+      return new _CookiesDriver2.default();
+    }
+
+    /**
+     * Get FileDriver instance
+     * @returns {FileDriver} - instance
+     */
+
+  }, {
+    key: 'file',
+    get: function get() {
+      return new _FileDriver2.default();
+    }
+
+    /**
+     * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}
+     * @returns {DataStoreContract} - Best available storage driver
+     */
+
+  }, {
+    key: 'best',
+    get: function get() {
+      return new this.available[0]();
+    }
+
+    /**
+     * Returns the a secure storage driver
+     * @returns {DataStoreContract} - Secure storage driver
+     */
+
+  }, {
+    key: 'secure',
+    get: function get() {
+      var C = this.available.filter(function (x) {
+        return x.secure;
+      })[0];
+
+      if (typeof C === 'undefined') {
+        return StorageManager.best;
+      }
+
+      return new C();
+    }
+  }]);
+  return StorageManager;
+}(_StaticClass3.default);
+
+exports.default = StorageManager;
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _StaticClassError = __webpack_require__(131);
+
+var _StaticClassError2 = _interopRequireDefault(_StaticClassError);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Disables the constructor and throws a {@link StaticClassError} when an instance is created.
+ * @protected
+ */
+var StaticClass = function StaticClass() {
+  (0, _classCallCheck3.default)(this, StaticClass);
+
+  throw new _StaticClassError2.default();
+}; /*
+    * BSD 3-Clause License
+    *
+    * Copyright (c) 2017, MapCreator
+    * All rights reserved.
+    *
+    * Redistribution and use in source and binary forms, with or without
+    * modification, are permitted provided that the following conditions are met:
+    *
+    *  Redistributions of source code must retain the above copyright notice, this
+    *   list of conditions and the following disclaimer.
+    *
+    *  Redistributions in binary form must reproduce the above copyright notice,
+    *   this list of conditions and the following disclaimer in the documentation
+    *   and/or other materials provided with the distribution.
+    *
+    *  Neither the name of the copyright holder nor the names of its
+    *   contributors may be used to endorse or promote products derived from
+    *   this software without specific prior written permission.
+    *
+    * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    */
+
+exports.default = StaticClass;
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Thrown upon invocation of a static class
+ * @see StaticClass
+ */
+var StaticClassError = function (_Error) {
+  (0, _inherits3.default)(StaticClassError, _Error);
+
+  function StaticClassError() {
+    (0, _classCallCheck3.default)(this, StaticClassError);
+    return (0, _possibleConstructorReturn3.default)(this, (StaticClassError.__proto__ || Object.getPrototypeOf(StaticClassError)).apply(this, arguments));
+  }
+
+  return StaticClassError;
+}(Error);
+
+exports.default = StaticClassError;
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _node = __webpack_require__(133);
+
+var _DataStoreContract2 = __webpack_require__(134);
+
+var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @private
+ * @todo fix
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var CookiesDriver = function (_DataStoreContract) {
+  (0, _inherits3.default)(CookiesDriver, _DataStoreContract);
+
+  function CookiesDriver() {
+    var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '_m4n_';
+    (0, _classCallCheck3.default)(this, CookiesDriver);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (CookiesDriver.__proto__ || Object.getPrototypeOf(CookiesDriver)).call(this));
+
+    _this.__prefix = prefix;
+    return _this;
+  }
+
+  /**
+   * Cookie name prefix
+   * @returns {String} - Prefix
+   * @private
+   */
+
+
+  (0, _createClass3.default)(CookiesDriver, [{
+    key: 'set',
+
+
+    /**
+     * Store a value in the storage
+     * @param {String} name - value name
+     * @param {*} value - value
+     * @param {Date|String} [expires=2050-01-01] - Expiration date
+     * @returns {void}
+     */
+    value: function set(name, value) {
+      var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date('2050-01-01');
+
+      name = encodeURIComponent(this._prefix + name);
+      value = encodeURIComponent(value);
+
+      if (expires instanceof Date) {
+        expires = expires.toUTCString();
+      }
+
+      var cookie = name + '=' + value + '; expires=' + expires;
+
+      if (CookiesDriver.secure) {
+        cookie += '; secure';
+      }
+
+      document.cookie = cookie;
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'get',
+    value: function get(name) {
+      name = this._prefix + name;
+
+      return this._toObject()[name];
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      name = encodeURIComponent(this._prefix + name);
+
+      var cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+
+      if (CookiesDriver.secure) {
+        cookie += ';secure';
+      }
+
+      document.cookie = cookie;
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'keys',
+    value: function keys() {
+      var regex = new RegExp('^' + this._prefix);
+
+      return Object.keys(this._toObject()).map(function (x) {
+        return x.replace(regex, '');
+      });
+    }
+
+    /**
+     * Extract cookies and turn them into a object
+     * @returns {Object} - cookies
+     * @private
+     */
+
+  }, {
+    key: '_toObject',
+    value: function _toObject() {
+      var _this2 = this;
+
+      var cookies = {};
+
+      document.cookie.split(';').map(function (x) {
+        return x.trim().split('=').map(decodeURIComponent);
+      }).filter(function (x) {
+        return x[0].startsWith(_this2._prefix);
+      }).forEach(function (x) {
+        cookies[x[0]] = x[1];
+      });
+
+      return cookies;
+    }
+  }, {
+    key: '_prefix',
+    get: function get() {
+      return this.__prefix;
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }], [{
+    key: 'secure',
+    get: function get() {
+      return window.location.protocol === 'https:';
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'available',
+    get: function get() {
+      return !(0, _node.isNode)();
+    }
+  }]);
+  return CookiesDriver;
+}(_DataStoreContract3.default);
+
+exports.default = CookiesDriver;
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isNode = isNode;
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Test if the application is running under nodejs
+ * @returns {boolean} - Is the application running under node?
+ * @see https://nodejs.org
+ * @private
+ */
+function isNode() {
+  return typeof window === 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined';
+}
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _AbstractError = __webpack_require__(96);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @private
+ */
+var DataStoreContract = function () {
+  function DataStoreContract() {
+    (0, _classCallCheck3.default)(this, DataStoreContract);
+
+    if (this.constructor === DataStoreContract) {
+      throw new _AbstractError.AbstractClassError();
+    }
+
+    if (!this.constructor.available) {
+      throw new Error(this.constructor.name + ' is unavailable');
+    }
+  }
+
+  /**
+   * If the driver is currently available
+   * @returns {boolean} - Driver availability
+   */
+
+
+  (0, _createClass3.default)(DataStoreContract, [{
+    key: 'set',
+
+
+    /**
+     * Store a value in the storage
+     * @param {String} name - value name
+     * @param {*} value - value
+     * @returns {void}
+     * @abstract
+     */
+    value: function set(name, value) {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * Get a value from the store
+     * @param {String} name - value name
+     * @returns {String} - value
+     * @abstract
+     */
+
+  }, {
+    key: 'get',
+    value: function get(name) {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * Remove a value from the store
+     * @param {String} name - value name
+     * @returns {void}
+     * @abstract
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * Clear storage
+     * @returns {void}
+     */
+
+  }, {
+    key: 'clear',
+    value: function clear() {
+      var _this = this;
+
+      this.keys().map(function (key) {
+        return _this.remove(key);
+      });
+    }
+
+    /**
+     * Storage keys
+     * @returns {Array<String>} - Stored keys
+     * @abstract
+     */
+
+  }, {
+    key: 'keys',
+    value: function keys() {
+      throw new _AbstractError.AbstractMethodError();
+    }
+  }], [{
+    key: 'available',
+    get: function get() {
+      throw new _AbstractError.AbstractMethodError();
+    }
+
+    /**
+     * If the storage is secure
+     * @returns {boolean} - Secure storage
+     */
+
+  }, {
+    key: 'secure',
+    get: function get() {
+      return false;
+    }
+  }]);
+  return DataStoreContract;
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
+
+/* eslint-disable no-unused-vars */
+
+exports.default = DataStoreContract;
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _node = __webpack_require__(133);
+
+var _DataStoreContract2 = __webpack_require__(134);
+
+var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @private
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var FileDriver = function (_DataStoreContract) {
+  (0, _inherits3.default)(FileDriver, _DataStoreContract);
+
+  /**
+   * @param {String} path - File storage path
+   * @inheritDoc
+   */
+  function FileDriver() {
+    var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '.m4n';
+    (0, _classCallCheck3.default)(this, FileDriver);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (FileDriver.__proto__ || Object.getPrototypeOf(FileDriver)).call(this));
+
+    _this._path = path;
+    return _this;
+  }
+
+  /**
+   * File storage path
+   * @returns {String} - path
+   */
+
+
+  (0, _createClass3.default)(FileDriver, [{
+    key: 'set',
+
+
+    /**
+     * @inheritDoc
+     */
+    value: function set(name, value) {
+      var data = this._read();
+
+      data[name] = value;
+
+      this._write(data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'get',
+    value: function get(name) {
+      return this._read()[name];
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      var data = this._read();
+
+      delete data[name];
+
+      this._write(data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'clear',
+    value: function clear() {
+      this._write({});
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'keys',
+    value: function keys() {
+      return Object.keys(this._read());
+    }
+
+    /**
+     * Read file and parse
+     * @returns {Object<String, String>} - Key, value object
+     * @private
+     */
+
+  }, {
+    key: '_read',
+    value: function _read() {
+      var data = void 0;
+
+      try {
+        data = this._fs.readFileSync(this.realPath).toString();
+      } catch (e) {
+        data = '{}';
+      }
+
+      if (!data) {
+        return {};
+      }
+
+      return JSON.parse(data);
+    }
+
+    /**
+     * Write data to file
+     * @param {Object<String, String>} obj - Key, value object
+     * @returns {void}
+     * @private
+     */
+
+  }, {
+    key: '_write',
+    value: function _write(obj) {
+      var data = JSON.stringify(obj);
+      var fd = this._fs.openSync(this.realPath, 'w');
+
+      this._fs.writeSync(fd, data);
+      this._fs.closeSync(fd);
+    }
+
+    /**
+     * Get fs instance
+     * @returns {fs} - fs instance
+     * @private
+     */
+
+  }, {
+    key: 'path',
+    get: function get() {
+      return this._path;
+    }
+
+    /**
+     * File storage path
+     * @param {String} value - path
+     */
+    ,
+    set: function set(value) {
+      if (typeof value !== 'string') {
+        throw new TypeError('Expected "path" value to be of type "string"');
+      }
+
+      this._path = value;
+    }
+  }, {
+    key: 'realPath',
+    get: function get() {
+      if (this.path.startsWith('/')) {
+        return this.path;
+      }
+
+      // eslint-disable-next-line no-undef
+      return this._fs.realpathSync(this.path);
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: '_fs',
+    get: function get() {
+      if (!this.__fs) {
+        // eslint-disable-next-line no-eval
+        this.__fs = eval('require("fs")');
+      }
+
+      return this.__fs;
+    }
+  }], [{
+    key: 'available',
+    get: function get() {
+      return (0, _node.isNode)();
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'secure',
+    get: function get() {
+      return true;
+    }
+  }]);
+  return FileDriver;
+}(_DataStoreContract3.default);
+
+exports.default = FileDriver;
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _DataStoreContract2 = __webpack_require__(134);
+
+var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
+
+var _node = __webpack_require__(133);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @private
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var LocalStorageDriver = function (_DataStoreContract) {
+  (0, _inherits3.default)(LocalStorageDriver, _DataStoreContract);
+
+  function LocalStorageDriver() {
+    (0, _classCallCheck3.default)(this, LocalStorageDriver);
+    return (0, _possibleConstructorReturn3.default)(this, (LocalStorageDriver.__proto__ || Object.getPrototypeOf(LocalStorageDriver)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(LocalStorageDriver, [{
+    key: 'set',
+
+
+    /**
+     * Store a value in the storage
+     * @param {String} name - value name
+     * @param {*} value - value
+     * @returns {void}
+     */
+    value: function set(name, value) {
+      name = LocalStorageDriver._prefix + name;
+
+      window.localStorage.setItem(name, value);
+    }
+
+    /**
+     * Get a value from the store
+     * @param {String} name - value name
+     * @returns {void}
+     */
+
+  }, {
+    key: 'get',
+    value: function get(name) {
+      name = LocalStorageDriver._prefix + name;
+
+      return window.localStorage.getItem(name);
+    }
+
+    /**
+     * Remove a value from the store
+     * @param {String} name - value name
+     * @returns {void}
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      name = LocalStorageDriver._prefix + name;
+
+      window.localStorage.removeItem(name);
+    }
+
+    /**
+     * Storage keys
+     * @returns {Array<String>} - Stored keys
+     */
+
+  }, {
+    key: 'keys',
+    value: function keys() {
+      var keys = [];
+      var storage = window.localStorage;
+      var prefix = LocalStorageDriver._prefix;
+
+      for (var i = 0; i < storage.length; i++) {
+        var key = storage.key(i);
+
+        if (key.startsWith(prefix)) {
+          key = key.replace(new RegExp('^' + prefix), '');
+
+          keys.push(key);
+        }
+      }
+
+      return keys;
+    }
+  }], [{
+    key: '_prefix',
+
+    /**
+     * LocalStorage name prefix
+     * @returns {String} - Prefix
+     * @private
+     */
+    get: function get() {
+      return '_m4n_';
+    }
+
+    /**
+     * @inheritDoc
+     */
+
+  }, {
+    key: 'available',
+    get: function get() {
+      return !(0, _node.isNode)();
+    }
+  }]);
+  return LocalStorageDriver;
+}(_DataStoreContract3.default);
+
+exports.default = LocalStorageDriver;
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _StorageManager = __webpack_require__(129);
+
+var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _requests = __webpack_require__(138);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Oauth token container
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var OAuthToken = function () {
+  /**
+   * @param {String} token - OAuth token
+   * @param {String} [type=Bearer] - token type
+   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
+   * @param {Array<string>} [scopes=[]] - Any scopes
+   */
+  function OAuthToken(token) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Bearer';
+    var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 432000;
+    var scopes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+    (0, _classCallCheck3.default)(this, OAuthToken);
+
+    this.scopes = scopes;
+    this.token = token;
+    this.type = type.toLowerCase().replace(/(\s|^)\w/g, function (x) {
+      return x.toUpperCase();
+    });
+
+    if (typeof expires === 'number') {
+      // Expires is in seconds
+      this.expires = new Date(Date.now() + expires * 1000);
+    } else if (expires instanceof Date) {
+      this.expires = expires;
+    } else {
+      throw new TypeError('Expires not of type Date or Number');
+    }
+  }
+
+  /**
+   * String representation of the token, usable in the Authorization header
+   * @returns {string} - String representation
+   */
+
+
+  (0, _createClass3.default)(OAuthToken, [{
+    key: 'toString',
+    value: function toString() {
+      return this.type + ' ' + this.token;
+    }
+
+    /**
+     * Get equivalent OAuth response object
+     * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object
+     */
+
+  }, {
+    key: 'toResponseObject',
+    value: function toResponseObject() {
+      return {
+        'access_token': this.token,
+        'token_type': this.type.toLowerCase(),
+        'expires_in': this.expires - Date.now(),
+        'scope': this.scopes
+      };
+    }
+
+    /**
+     * Export oauth response query string
+     * @returns {string} - OAuth response query
+     */
+
+  }, {
+    key: 'toQueryString',
+    value: function toQueryString() {
+      return (0, _requests.encodeQueryString)(this.toResponseObject());
+    }
+
+    /**
+     * If the token has expired
+     * @returns {Boolean} - expired
+     */
+
+  }, {
+    key: 'save',
+
+
+    /**
+     * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.
+     * @param {String} name - db key name
+     * @returns {void}
+     * @see OAuthToken#recover
+     */
+    value: function save() {
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
+
+      var data = {
+        token: this.token,
+        type: this.type,
+        expires: this.expires.toUTCString(),
+        scopes: this.scopes
+      };
+
+      // Third parameter is only used when we're using cookies
+      _StorageManager2.default.secure.set(name, JSON.stringify(data), this.expires);
+    }
+
+    /**
+     * Recover a token by looking through the HTTPS cookies and localStorage
+     * @param {String} name - Storage key name
+     * @returns {OAuthToken|null} - null if none could be recovered
+     * @see OAuthToken#save
+     */
+
+  }, {
+    key: 'expired',
+    get: function get() {
+      return new Date() > this.expires;
+    }
+
+    /**
+     * Internal storage key name
+     * @returns {String} - storage name
+     * @constant
+     */
+
+  }], [{
+    key: 'fromResponseObject',
+
+
+    /**
+     * Build instance from response object
+     * @param {String|Object} data - object or JSON string
+     * @returns {OAuthToken} - New OAuthToken instance
+     */
+    value: function fromResponseObject(data) {
+      if (typeof data === 'string') {
+        data = JSON.parse(data);
+      }
+
+      // Default expires = 5 days
+      var expires = 432000;
+
+      if (typeof data['exipires_in'] !== 'undefined') {
+        expires = Number(data['expires_in']);
+      } else if (typeof data['expires'] === 'string') {
+        expires = new Date(data['expires']);
+      }
+
+      return new OAuthToken(data['access_token'], data['token_type'], expires, data['scope'] || []);
+    }
+  }, {
+    key: 'recover',
+    value: function recover() {
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
+
+      var data = _StorageManager2.default.secure.get(name);
+
+      if (!data) {
+        return null;
+      }
+
+      var obj = JSON.parse(data);
+      var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
+
+      if (instance.expired) {
+        return null;
+      }
+
+      return instance;
+    }
+  }, {
+    key: 'storageName',
+    get: function get() {
+      return 'api_token';
+    }
+  }]);
+  return OAuthToken;
+}();
+
+exports.default = OAuthToken;
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FormData = exports.Headers = exports.Response = exports.Request = exports.fetch = undefined;
+
+var _typeof2 = __webpack_require__(26);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+exports.encodeQueryString = encodeQueryString;
+exports.downloadFile = downloadFile;
+
+var _fetchPonyfill = __webpack_require__(139);
+
+var _fetchPonyfill2 = _interopRequireDefault(_fetchPonyfill);
+
+var _ApiError = __webpack_require__(98);
+
+var _ApiError2 = _interopRequireDefault(_ApiError);
+
+var _helpers = __webpack_require__(140);
+
+var _node = __webpack_require__(133);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @private
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var _ref = (0, _helpers.windowTest)('fetch') ? window : (0, _fetchPonyfill2.default)({ Promise: Promise }),
+    fetch = _ref.fetch,
+    Request = _ref.Request,
+    Response = _ref.Response,
+    Headers = _ref.Headers;
+
+exports.fetch = fetch;
+exports.Request = Request;
+exports.Response = Response;
+exports.Headers = Headers;
+
+
+function getFormData() {
+  if ((0, _helpers.windowTest)('FormData')) {
+    return window.FormData;
+  } else if (!(0, _node.isNode)()) {
+    return __webpack_require__(146);
+  }
+
+  // @todo find nodejs polyfill
+  return null;
+}
+
+/**
+ * @private
+ */
+var FormData = exports.FormData = getFormData();
+
+/**
+ * Encodes an object to a http query string with support for recursion
+ * @param {object<string, *>} paramsObject - data to be encoded
+ * @returns {string} - encoded http query string
+ *
+ * @private
+ */
+function encodeQueryString(paramsObject) {
+  var query = _encodeQueryString(paramsObject);
+
+  // Removes any extra unused &'s.
+  return query.replace(/^&*|&+(?=&)|&*$/g, '');
+}
+
+/**
+ * Encodes an object to a http query string with support for recursion
+ * @param {Object<string, *>} paramsObject - data to be encoded
+ * @param {Array<string>} _basePrefix - Used internally for tracking recursion
+ * @returns {string} - encoded http query string
+ *
+ * @see http://stackoverflow.com/a/39828481
+ * @private
+ */
+function _encodeQueryString(paramsObject) {
+  var _basePrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+  return Object.keys(paramsObject).sort().map(function (key) {
+    var prefix = _basePrefix.slice(0);
+
+    if ((0, _typeof3.default)(paramsObject[key]) === 'object' && paramsObject[key] !== null) {
+      prefix.push(key);
+
+      return _encodeQueryString(paramsObject[key], prefix);
+    }
+
+    prefix.push(key);
+
+    var out = '';
+
+    out += encodeURIComponent(prefix.shift()); // main key
+    out += prefix.map(function (item) {
+      return '[' + encodeURIComponent(item) + ']';
+    }).join(''); // optional array keys
+
+    var value = paramsObject[key];
+
+    if (value !== null && typeof value !== 'undefined') {
+      out += '=' + encodeURIComponent(value); // value
+    }
+
+    return out;
+  }).join('&');
+}
+
+/**
+ * @param {string} url - Target url
+ * @param {object<string, string>} headers - Request headers
+ * @returns {PromiseLike<{filename: string, blob: string}>} - filename and blob
+ * @private
+ */
+function downloadFile(url) {
+  var headers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var out = {};
+
+  return fetch(url, { headers: headers }).then(function (res) {
+    if (res.ok) {
+      var disposition = res.headers.get('Content-Disposition');
+
+      if (disposition && disposition.indexOf('attachment') !== -1) {
+        var matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+
+        if (matches != null && matches[1]) {
+          out.filename = matches[1].replace(/['"]/g, '');
+        }
+      } else {
+        out.filename = 'Unknown Filename.zip';
+      }
+
+      return res.blob();
+    }
+
+    return res.json().then(function (data) {
+      var err = data.error;
+
+      throw new _ApiError2.default(err.type, err.message, res.status, err.trace);
+    });
+  }).then(function (blob) {
+    out.blob = (window.URL || window.webkitURL).createObjectURL(blob);
+
+    return out;
+  });
+}
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
+  'use strict';
+
+  function fetchPonyfill(options) {
+    var Promise = options && options.Promise || self.Promise;
+    var XMLHttpRequest = options && options.XMLHttpRequest || self.XMLHttpRequest;
+    var global = self;
+
+    return (function () {
+      var self = Object.create(global, {
+        fetch: {
+          value: undefined,
+          writable: true
+        }
+      });
+
+      (function(self) {
+        'use strict';
+
+        if (self.fetch) {
+          return
+        }
+
+        var support = {
+          searchParams: 'URLSearchParams' in self,
+          iterable: 'Symbol' in self && 'iterator' in Symbol,
+          blob: 'FileReader' in self && 'Blob' in self && (function() {
+            try {
+              new Blob()
+              return true
+            } catch(e) {
+              return false
+            }
+          })(),
+          formData: 'FormData' in self,
+          arrayBuffer: 'ArrayBuffer' in self
+        }
+
+        if (support.arrayBuffer) {
+          var viewClasses = [
+            '[object Int8Array]',
+            '[object Uint8Array]',
+            '[object Uint8ClampedArray]',
+            '[object Int16Array]',
+            '[object Uint16Array]',
+            '[object Int32Array]',
+            '[object Uint32Array]',
+            '[object Float32Array]',
+            '[object Float64Array]'
+          ]
+
+          var isDataView = function(obj) {
+            return obj && DataView.prototype.isPrototypeOf(obj)
+          }
+
+          var isArrayBufferView = ArrayBuffer.isView || function(obj) {
+            return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+          }
+        }
+
+        function normalizeName(name) {
+          if (typeof name !== 'string') {
+            name = String(name)
+          }
+          if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+            throw new TypeError('Invalid character in header field name')
+          }
+          return name.toLowerCase()
+        }
+
+        function normalizeValue(value) {
+          if (typeof value !== 'string') {
+            value = String(value)
+          }
+          return value
+        }
+
+        // Build a destructive iterator for the value list
+        function iteratorFor(items) {
+          var iterator = {
+            next: function() {
+              var value = items.shift()
+              return {done: value === undefined, value: value}
+            }
+          }
+
+          if (support.iterable) {
+            iterator[Symbol.iterator] = function() {
+              return iterator
+            }
+          }
+
+          return iterator
+        }
+
+        function Headers(headers) {
+          this.map = {}
+
+          if (headers instanceof Headers) {
+            headers.forEach(function(value, name) {
+              this.append(name, value)
+            }, this)
+          } else if (Array.isArray(headers)) {
+            headers.forEach(function(header) {
+              this.append(header[0], header[1])
+            }, this)
+          } else if (headers) {
+            Object.getOwnPropertyNames(headers).forEach(function(name) {
+              this.append(name, headers[name])
+            }, this)
+          }
+        }
+
+        Headers.prototype.append = function(name, value) {
+          name = normalizeName(name)
+          value = normalizeValue(value)
+          var oldValue = this.map[name]
+          this.map[name] = oldValue ? oldValue+','+value : value
+        }
+
+        Headers.prototype['delete'] = function(name) {
+          delete this.map[normalizeName(name)]
+        }
+
+        Headers.prototype.get = function(name) {
+          name = normalizeName(name)
+          return this.has(name) ? this.map[name] : null
+        }
+
+        Headers.prototype.has = function(name) {
+          return this.map.hasOwnProperty(normalizeName(name))
+        }
+
+        Headers.prototype.set = function(name, value) {
+          this.map[normalizeName(name)] = normalizeValue(value)
+        }
+
+        Headers.prototype.forEach = function(callback, thisArg) {
+          for (var name in this.map) {
+            if (this.map.hasOwnProperty(name)) {
+              callback.call(thisArg, this.map[name], name, this)
+            }
+          }
+        }
+
+        Headers.prototype.keys = function() {
+          var items = []
+          this.forEach(function(value, name) { items.push(name) })
+          return iteratorFor(items)
+        }
+
+        Headers.prototype.values = function() {
+          var items = []
+          this.forEach(function(value) { items.push(value) })
+          return iteratorFor(items)
+        }
+
+        Headers.prototype.entries = function() {
+          var items = []
+          this.forEach(function(value, name) { items.push([name, value]) })
+          return iteratorFor(items)
+        }
+
+        if (support.iterable) {
+          Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+        }
+
+        function consumed(body) {
+          if (body.bodyUsed) {
+            return Promise.reject(new TypeError('Already read'))
+          }
+          body.bodyUsed = true
+        }
+
+        function fileReaderReady(reader) {
+          return new Promise(function(resolve, reject) {
+            reader.onload = function() {
+              resolve(reader.result)
+            }
+            reader.onerror = function() {
+              reject(reader.error)
+            }
+          })
+        }
+
+        function readBlobAsArrayBuffer(blob) {
+          var reader = new FileReader()
+          var promise = fileReaderReady(reader)
+          reader.readAsArrayBuffer(blob)
+          return promise
+        }
+
+        function readBlobAsText(blob) {
+          var reader = new FileReader()
+          var promise = fileReaderReady(reader)
+          reader.readAsText(blob)
+          return promise
+        }
+
+        function readArrayBufferAsText(buf) {
+          var view = new Uint8Array(buf)
+          var chars = new Array(view.length)
+
+          for (var i = 0; i < view.length; i++) {
+            chars[i] = String.fromCharCode(view[i])
+          }
+          return chars.join('')
+        }
+
+        function bufferClone(buf) {
+          if (buf.slice) {
+            return buf.slice(0)
+          } else {
+            var view = new Uint8Array(buf.byteLength)
+            view.set(new Uint8Array(buf))
+            return view.buffer
+          }
+        }
+
+        function Body() {
+          this.bodyUsed = false
+
+          this._initBody = function(body) {
+            this._bodyInit = body
+            if (!body) {
+              this._bodyText = ''
+            } else if (typeof body === 'string') {
+              this._bodyText = body
+            } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+              this._bodyBlob = body
+            } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+              this._bodyFormData = body
+            } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+              this._bodyText = body.toString()
+            } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+              this._bodyArrayBuffer = bufferClone(body.buffer)
+              // IE 10-11 can't handle a DataView body.
+              this._bodyInit = new Blob([this._bodyArrayBuffer])
+            } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+              this._bodyArrayBuffer = bufferClone(body)
+            } else {
+              throw new Error('unsupported BodyInit type')
+            }
+
+            if (!this.headers.get('content-type')) {
+              if (typeof body === 'string') {
+                this.headers.set('content-type', 'text/plain;charset=UTF-8')
+              } else if (this._bodyBlob && this._bodyBlob.type) {
+                this.headers.set('content-type', this._bodyBlob.type)
+              } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+                this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+              }
+            }
+          }
+
+          if (support.blob) {
+            this.blob = function() {
+              var rejected = consumed(this)
+              if (rejected) {
+                return rejected
+              }
+
+              if (this._bodyBlob) {
+                return Promise.resolve(this._bodyBlob)
+              } else if (this._bodyArrayBuffer) {
+                return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+              } else if (this._bodyFormData) {
+                throw new Error('could not read FormData body as blob')
+              } else {
+                return Promise.resolve(new Blob([this._bodyText]))
+              }
+            }
+
+            this.arrayBuffer = function() {
+              if (this._bodyArrayBuffer) {
+                return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+              } else {
+                return this.blob().then(readBlobAsArrayBuffer)
+              }
+            }
+          }
+
+          this.text = function() {
+            var rejected = consumed(this)
+            if (rejected) {
+              return rejected
+            }
+
+            if (this._bodyBlob) {
+              return readBlobAsText(this._bodyBlob)
+            } else if (this._bodyArrayBuffer) {
+              return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+            } else if (this._bodyFormData) {
+              throw new Error('could not read FormData body as text')
+            } else {
+              return Promise.resolve(this._bodyText)
+            }
+          }
+
+          if (support.formData) {
+            this.formData = function() {
+              return this.text().then(decode)
+            }
+          }
+
+          this.json = function() {
+            return this.text().then(JSON.parse)
+          }
+
+          return this
+        }
+
+        // HTTP methods whose capitalization should be normalized
+        var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+        function normalizeMethod(method) {
+          var upcased = method.toUpperCase()
+          return (methods.indexOf(upcased) > -1) ? upcased : method
+        }
+
+        function Request(input, options) {
+          options = options || {}
+          var body = options.body
+
+          if (input instanceof Request) {
+            if (input.bodyUsed) {
+              throw new TypeError('Already read')
+            }
+            this.url = input.url
+            this.credentials = input.credentials
+            if (!options.headers) {
+              this.headers = new Headers(input.headers)
+            }
+            this.method = input.method
+            this.mode = input.mode
+            if (!body && input._bodyInit != null) {
+              body = input._bodyInit
+              input.bodyUsed = true
+            }
+          } else {
+            this.url = String(input)
+          }
+
+          this.credentials = options.credentials || this.credentials || 'omit'
+          if (options.headers || !this.headers) {
+            this.headers = new Headers(options.headers)
+          }
+          this.method = normalizeMethod(options.method || this.method || 'GET')
+          this.mode = options.mode || this.mode || null
+          this.referrer = null
+
+          if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+            throw new TypeError('Body not allowed for GET or HEAD requests')
+          }
+          this._initBody(body)
+        }
+
+        Request.prototype.clone = function() {
+          return new Request(this, { body: this._bodyInit })
+        }
+
+        function decode(body) {
+          var form = new FormData()
+          body.trim().split('&').forEach(function(bytes) {
+            if (bytes) {
+              var split = bytes.split('=')
+              var name = split.shift().replace(/\+/g, ' ')
+              var value = split.join('=').replace(/\+/g, ' ')
+              form.append(decodeURIComponent(name), decodeURIComponent(value))
+            }
+          })
+          return form
+        }
+
+        function parseHeaders(rawHeaders) {
+          var headers = new Headers()
+          rawHeaders.split(/\r?\n/).forEach(function(line) {
+            var parts = line.split(':')
+            var key = parts.shift().trim()
+            if (key) {
+              var value = parts.join(':').trim()
+              headers.append(key, value)
+            }
+          })
+          return headers
+        }
+
+        Body.call(Request.prototype)
+
+        function Response(bodyInit, options) {
+          if (!options) {
+            options = {}
+          }
+
+          this.type = 'default'
+          this.status = 'status' in options ? options.status : 200
+          this.ok = this.status >= 200 && this.status < 300
+          this.statusText = 'statusText' in options ? options.statusText : 'OK'
+          this.headers = new Headers(options.headers)
+          this.url = options.url || ''
+          this._initBody(bodyInit)
+        }
+
+        Body.call(Response.prototype)
+
+        Response.prototype.clone = function() {
+          return new Response(this._bodyInit, {
+            status: this.status,
+            statusText: this.statusText,
+            headers: new Headers(this.headers),
+            url: this.url
+          })
+        }
+
+        Response.error = function() {
+          var response = new Response(null, {status: 0, statusText: ''})
+          response.type = 'error'
+          return response
+        }
+
+        var redirectStatuses = [301, 302, 303, 307, 308]
+
+        Response.redirect = function(url, status) {
+          if (redirectStatuses.indexOf(status) === -1) {
+            throw new RangeError('Invalid status code')
+          }
+
+          return new Response(null, {status: status, headers: {location: url}})
+        }
+
+        self.Headers = Headers
+        self.Request = Request
+        self.Response = Response
+
+        self.fetch = function(input, init) {
+          return new Promise(function(resolve, reject) {
+            var request = new Request(input, init)
+            var xhr = new XMLHttpRequest()
+
+            xhr.onload = function() {
+              var options = {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+              }
+              options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL')
+              var body = 'response' in xhr ? xhr.response : xhr.responseText
+              resolve(new Response(body, options))
+            }
+
+            xhr.onerror = function() {
+              reject(new TypeError('Network request failed'))
+            }
+
+            xhr.ontimeout = function() {
+              reject(new TypeError('Network request failed'))
+            }
+
+            xhr.open(request.method, request.url, true)
+
+            if (request.credentials === 'include') {
+              xhr.withCredentials = true
+            }
+
+            if ('responseType' in xhr && support.blob) {
+              xhr.responseType = 'blob'
+            }
+
+            request.headers.forEach(function(value, name) {
+              xhr.setRequestHeader(name, value)
+            })
+
+            xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+          })
+        }
+        self.fetch.polyfill = true
+      })(typeof self !== 'undefined' ? self : this);
+
+
+      return {
+        fetch: self.fetch,
+        Headers: self.Headers,
+        Request: self.Request,
+        Response: self.Response
+      };
+    }());
+  }
+
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+      return fetchPonyfill;
+    }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+}(typeof self !== 'undefined' ? self : typeof global !== 'undefined' ? global : this));
+
+
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _toConsumableArray2 = __webpack_require__(141);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+exports.getPaginatedRange = getPaginatedRange;
+exports.windowTest = windowTest;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Get all the pages from a {@link PaginatedResourceListing} or a range
+ * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}
+ * @param {?Number} [start=1] - Start page
+ * @param {?Number} [stop] - Stop page, defaults to the page count if not filled in.
+ * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+ * @example
+ * import { helpers } from "@mapcreator/maps4news";
+ *
+ * const promise = api.users.list(1, 50); // 50 per page is more efficient
+ *
+ * helpers.getPaginatedRange(promise).then(data => {
+ *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names
+ *        .forEach(console.log) // Log the names and ids of every user
+ * })
+ */
+function getPaginatedRange(page) {
+  var start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var stop = arguments[2];
+
+  // Resolve promise if any
+  if (page instanceof Promise) {
+    return page.then(function (res) {
+      return getPaginatedRange(res, start, stop);
+    });
+  }
+
+  var out = page.data;
+  var promises = [];
+
+  // Handle defaults
+  start = start || page.page;
+  stop = stop || page.pageCount;
+
+  if (start === page.page) {
+    start++;
+  }
+
+  return new Promise(function (resolve, reject) {
+    // Get all pages
+    for (var i = start; i <= stop; i++) {
+      promises.push(page.get(i));
+    }
+
+    // Resolve
+    Promise.all(promises).then(function (rows) {
+      resolve(out.concat.apply(out, (0, _toConsumableArray3.default)(rows.map(function (x) {
+        return x.data;
+      }))));
+    }, reject);
+  });
+}
+
+/**
+ * Quickly check if the window contains a variable
+ * @param {string} str - target variable
+ * @returns {boolean} - If the window contains the variable
+ * @private
+ */
+function windowTest(str) {
+  return typeof window !== 'undefined' && typeof window[str] !== 'undefined';
+}
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _from = __webpack_require__(142);
+
+var _from2 = _interopRequireDefault(_from);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return (0, _from2.default)(arr);
+  }
+};
+
+/***/ }),
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(143), __esModule: true };
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(29);
+__webpack_require__(144);
+module.exports = __webpack_require__(11).Array.from;
+
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ctx = __webpack_require__(12);
+var $export = __webpack_require__(9);
+var toObject = __webpack_require__(56);
+var call = __webpack_require__(113);
+var isArrayIter = __webpack_require__(114);
+var toLength = __webpack_require__(46);
+var createProperty = __webpack_require__(145);
+var getIterFn = __webpack_require__(115);
+
+$export($export.S + $export.F * !__webpack_require__(126)(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $defineProperty = __webpack_require__(15);
+var createDesc = __webpack_require__(23);
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
+
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports) {
+
+;(function(){var k,l="function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,d){a!=Array.prototype&&a!=Object.prototype&&(a[b]=d.value)},m="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this;function n(){n=function(){};m.Symbol||(m.Symbol=p)}var p=function(){var a=0;return function(b){return"jscomp_symbol_"+(b||"")+a++}}();
+function r(){n();var a=m.Symbol.iterator;a||(a=m.Symbol.iterator=m.Symbol("iterator"));"function"!=typeof Array.prototype[a]&&l(Array.prototype,a,{configurable:!0,writable:!0,value:function(){return t(this)}});r=function(){}}function t(a){var b=0;return v(function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}})}function v(a){r();a={next:a};a[m.Symbol.iterator]=function(){return this};return a}function w(a){r();n();r();var b=a[Symbol.iterator];return b?b.call(a):t(a)}var x;
+if("function"==typeof Object.setPrototypeOf)x=Object.setPrototypeOf;else{var z;a:{var A={o:!0},B={};try{B.__proto__=A;z=B.o;break a}catch(a){}z=!1}x=z?function(a,b){a.__proto__=b;if(a.__proto__!==b)throw new TypeError(a+" is not extensible");return a}:null}var C=x;function D(){this.g=!1;this.c=null;this.m=void 0;this.b=1;this.l=this.s=0;this.f=null}function E(a){if(a.g)throw new TypeError("Generator is already running");a.g=!0}D.prototype.h=function(a){this.m=a};
+D.prototype.i=function(a){this.f={u:a,v:!0};this.b=this.s||this.l};D.prototype["return"]=function(a){this.f={"return":a};this.b=this.l};function F(a,b,d){a.b=d;return{value:b}}function G(a){this.w=a;this.j=[];for(var b in a)this.j.push(b);this.j.reverse()}function H(a){this.a=new D;this.A=a}H.prototype.h=function(a){E(this.a);if(this.a.c)return I(this,this.a.c.next,a,this.a.h);this.a.h(a);return J(this)};
+function K(a,b){E(a.a);var d=a.a.c;if(d)return I(a,"return"in d?d["return"]:function(a){return{value:a,done:!0}},b,a.a["return"]);a.a["return"](b);return J(a)}H.prototype.i=function(a){E(this.a);if(this.a.c)return I(this,this.a.c["throw"],a,this.a.h);this.a.i(a);return J(this)};
+function I(a,b,d,c){try{var e=b.call(a.a.c,d);if(!(e instanceof Object))throw new TypeError("Iterator result "+e+" is not an object");if(!e.done)return a.a.g=!1,e;var f=e.value}catch(g){return a.a.c=null,a.a.i(g),J(a)}a.a.c=null;c.call(a.a,f);return J(a)}function J(a){for(;a.a.b;)try{var b=a.A(a.a);if(b)return a.a.g=!1,{value:b.value,done:!1}}catch(d){a.a.m=void 0,a.a.i(d)}a.a.g=!1;if(a.a.f){b=a.a.f;a.a.f=null;if(b.v)throw b.u;return{value:b["return"],done:!0}}return{value:void 0,done:!0}}
+function L(a){this.next=function(b){return a.h(b)};this["throw"]=function(b){return a.i(b)};this["return"]=function(b){return K(a,b)};r();n();r();this[Symbol.iterator]=function(){return this}}function M(a,b){var d=new L(new H(b));C&&C(d,a.prototype);return d}
+if("undefined"===typeof FormData||!FormData.prototype.keys){var N=function(a,b,d){if(2>arguments.length)throw new TypeError("2 arguments required, but only "+arguments.length+" present.");return b instanceof Blob?[a+"",b,void 0!==d?d+"":"string"===typeof b.name?b.name:"blob"]:[a+"",b+""]},O=function(a){if(!arguments.length)throw new TypeError("1 argument required, but only 0 present.");return[a+""]},P=function(a){var b=w(a);a=b.next().value;b=b.next().value;a instanceof Blob&&(a=new File([a],b,{type:a.type,
+lastModified:a.lastModified}));return a},Q="object"===typeof window?window:"object"===typeof self?self:this,R=Q.FormData,S=Q.XMLHttpRequest&&Q.XMLHttpRequest.prototype.send,T=Q.Request&&Q.fetch;n();var U=Q.Symbol&&Symbol.toStringTag,V=new WeakMap,W=Array.from||function(a){return[].slice.call(a)};U&&(Blob.prototype[U]||(Blob.prototype[U]="Blob"),"File"in Q&&!File.prototype[U]&&(File.prototype[U]="File"));try{new File([],"")}catch(a){Q.File=function(b,d,c){b=new Blob(b,c);c=c&&void 0!==c.lastModified?
+new Date(c.lastModified):new Date;Object.defineProperties(b,{name:{value:d},lastModifiedDate:{value:c},lastModified:{value:+c},toString:{value:function(){return"[object File]"}}});U&&Object.defineProperty(b,U,{value:"File"});return b}}var X=function(a){V.set(this,Object.create(null));if(!a)return this;a=w(W(a.elements));for(var b=a.next();!b.done;b=a.next())if(b=b.value,b.name&&!b.disabled)if("file"===b.type)for(var d=w(W(b.files||[])),c=d.next();!c.done;c=d.next())this.append(b.name,c.value);else if("select-multiple"===
+b.type||"select-one"===b.type)for(d=w(W(b.options)),c=d.next();!c.done;c=d.next())c=c.value,!c.disabled&&c.selected&&this.append(b.name,c.value);else"checkbox"===b.type||"radio"===b.type?b.checked&&this.append(b.name,b.value):this.append(b.name,b.value)};k=X.prototype;k.append=function(a,b,d){var c=V.get(this);c[a]||(c[a]=[]);c[a].push([b,d])};k["delete"]=function(a){delete V.get(this)[a]};k.entries=function b(){var d=this,c,e,f,g,h,q;return M(b,function(b){switch(b.b){case 1:c=V.get(d),f=new G(c);
+case 2:var u;a:{for(u=f;0<u.j.length;){var y=u.j.pop();if(y in u.w){u=y;break a}}u=null}if(null==(e=u)){b.b=0;break}g=w(c[e]);h=g.next();case 5:if(h.done){b.b=2;break}q=h.value;return F(b,[e,P(q)],6);case 6:h=g.next(),b.b=5}})};k.forEach=function(b,d){for(var c=w(this),e=c.next();!e.done;e=c.next()){var f=w(e.value);e=f.next().value;f=f.next().value;b.call(d,f,e,this)}};k.get=function(b){var d=V.get(this);return d[b]?P(d[b][0]):null};k.getAll=function(b){return(V.get(this)[b]||[]).map(P)};k.has=function(b){return b in
+V.get(this)};k.keys=function d(){var c=this,e,f,g,h,q;return M(d,function(d){1==d.b&&(e=w(c),f=e.next());if(3!=d.b){if(f.done){d.b=0;return}g=f.value;h=w(g);q=h.next().value;return F(d,q,3)}f=e.next();d.b=2})};k.set=function(d,c,e){V.get(this)[d]=[[c,e]]};k.values=function c(){var e=this,f,g,h,q,y;return M(c,function(c){1==c.b&&(f=w(e),g=f.next());if(3!=c.b){if(g.done){c.b=0;return}h=g.value;q=w(h);q.next();y=q.next().value;return F(c,y,3)}g=f.next();c.b=2})};X.prototype._asNative=function(){for(var c=
+new R,e=w(this),f=e.next();!f.done;f=e.next()){var g=w(f.value);f=g.next().value;g=g.next().value;c.append(f,g)}return c};X.prototype._blob=function(){for(var c="----formdata-polyfill-"+Math.random(),e=[],f=w(this),g=f.next();!g.done;g=f.next()){var h=w(g.value);g=h.next().value;h=h.next().value;e.push("--"+c+"\r\n");h instanceof Blob?e.push('Content-Disposition: form-data; name="'+g+'"; filename="'+h.name+'"\r\n',"Content-Type: "+(h.type||"application/octet-stream")+"\r\n\r\n",h,"\r\n"):e.push('Content-Disposition: form-data; name="'+
+g+'"\r\n\r\n'+h+"\r\n")}e.push("--"+c+"--");return new Blob(e,{type:"multipart/form-data; boundary="+c})};n();r();X.prototype[Symbol.iterator]=function(){return this.entries()};X.prototype.toString=function(){return"[object FormData]"};U&&(X.prototype[U]="FormData");[["append",N],["delete",O],["get",O],["getAll",O],["has",O],["set",N]].forEach(function(c){var e=X.prototype[c[0]];X.prototype[c[0]]=function(){return e.apply(this,c[1].apply(this,W(arguments)))}});S&&(XMLHttpRequest.prototype.send=function(c){c instanceof
+X?(c=c._blob(),this.setRequestHeader("Content-Type",c.type),S.call(this,c)):S.call(this,c)});if(T){var Y=Q.fetch;Q.fetch=function(c,e){e&&e.body&&e.body instanceof X&&(e.body=e.body._blob());return Y(c,e)}}Q.FormData=X};
+})();
+
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _StorageManager = __webpack_require__(129);
+
+var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _StaticClass2 = __webpack_require__(130);
+
+var _StaticClass3 = _interopRequireDefault(_StaticClass2);
+
+var _uuid = __webpack_require__(148);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * State container for keeping track of OAuth states (crsf tokens)
+ * @static
+ * @private
+ */
+var StateContainer = function (_StaticClass) {
+  (0, _inherits3.default)(StateContainer, _StaticClass);
+
+  function StateContainer() {
+    (0, _classCallCheck3.default)(this, StateContainer);
+    return (0, _possibleConstructorReturn3.default)(this, (StateContainer.__proto__ || Object.getPrototypeOf(StateContainer)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(StateContainer, null, [{
+    key: 'generate',
+
+
+    /**
+     * Generate and store a state that can be checked at a later point
+     * @returns {string} - state
+     */
+    value: function generate() {
+      var uuid = _uuid2.default.uuid4();
+      var key = StateContainer.prefix + uuid;
+
+      _StorageManager2.default.best.set(key, Date.now());
+      return uuid;
+    }
+
+    /**
+     * Validate a state
+     * @param {String} state - state to validate
+     * @param {Boolean} purge - remove from state db after validation
+     * @returns {Boolean} - if the state is valid
+     */
+
+  }, {
+    key: 'validate',
+    value: function validate(state) {
+      var purge = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      var storage = _StorageManager2.default.best;
+      var key = StateContainer.prefix + state;
+      var found = typeof storage.get(key) !== 'undefined';
+
+      if (purge && found) {
+        storage.remove(key);
+      }
+
+      return found;
+    }
+
+    /**
+     * Remove all states from the state db
+     * @returns {void}
+     */
+
+  }, {
+    key: 'clean',
+    value: function clean() {
+      var tokens = Object.keys(this.list());
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var token = _step.value;
+
+          _StorageManager2.default.best.remove(StateContainer.prefix + token);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+
+    /**
+     * Get states with their corresponding state db key
+     * @returns {Object<String, String>} - List of stored states
+     */
+
+  }, {
+    key: 'list',
+    value: function list() {
+      var storage = _StorageManager2.default.best;
+
+      return storage.keys().filter(function (x) {
+        return x.startsWith(StateContainer.prefix);
+      }).map(function (x) {
+        return x.replace(StateContainer.prefix, '');
+      }).reduce(function (out, key) {
+        out[key] = storage.get(key);
+
+        return out;
+      }, {});
+    }
+  }, {
+    key: 'prefix',
+
+    /**
+     * LocalStorage key prefix
+     * @returns {String} - prefix
+     * @constant
+     */
+    get: function get() {
+      return 'oauth_state_';
+    }
+  }]);
+  return StateContainer;
+}(_StaticClass3.default); /*
+                           * BSD 3-Clause License
+                           *
+                           * Copyright (c) 2017, MapCreator
+                           * All rights reserved.
+                           *
+                           * Redistribution and use in source and binary forms, with or without
+                           * modification, are permitted provided that the following conditions are met:
+                           *
+                           *  Redistributions of source code must retain the above copyright notice, this
+                           *   list of conditions and the following disclaimer.
+                           *
+                           *  Redistributions in binary form must reproduce the above copyright notice,
+                           *   this list of conditions and the following disclaimer in the documentation
+                           *   and/or other materials provided with the distribution.
+                           *
+                           *  Neither the name of the copyright holder nor the names of its
+                           *   contributors may be used to endorse or promote products derived from
+                           *   this software without specific prior written permission.
+                           *
+                           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                           * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                           * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                           * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                           * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                           * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                           * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                           * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                           * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                           */
+
+exports.default = StateContainer;
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _StaticClass2 = __webpack_require__(130);
+
+var _StaticClass3 = _interopRequireDefault(_StaticClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * UUID util class
+ * @static
+ * @private
+ */
+var Uuid = function (_StaticClass) {
+  (0, _inherits3.default)(Uuid, _StaticClass);
+
+  function Uuid() {
+    (0, _classCallCheck3.default)(this, Uuid);
+    return (0, _possibleConstructorReturn3.default)(this, (Uuid.__proto__ || Object.getPrototypeOf(Uuid)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Uuid, null, [{
+    key: 'uuid4',
+
+    /**
+     * Generate a UUID4 string
+     * @returns {string} - Uuid
+     */
+    value: function uuid4() {
+      var d = new Date().getTime();
+
+      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+        d += performance.now(); // use high-precision timer if available
+      }
+
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+      });
+    }
+
+    /**
+     * Empty uuid as per spec
+     * @returns {string} - Uuid
+     */
+
+  }, {
+    key: 'nil',
+    value: function nil() {
+      return '0000000-0000-0000-0000-000000000000';
+    }
+  }]);
+  return Uuid;
+}(_StaticClass3.default); /*
+                           * BSD 3-Clause License
+                           *
+                           * Copyright (c) 2017, MapCreator
+                           * All rights reserved.
+                           *
+                           * Redistribution and use in source and binary forms, with or without
+                           * modification, are permitted provided that the following conditions are met:
+                           *
+                           *  Redistributions of source code must retain the above copyright notice, this
+                           *   list of conditions and the following disclaimer.
+                           *
+                           *  Redistributions in binary form must reproduce the above copyright notice,
+                           *   this list of conditions and the following disclaimer in the documentation
+                           *   and/or other materials provided with the distribution.
+                           *
+                           *  Neither the name of the copyright holder nor the names of its
+                           *   contributors may be used to endorse or promote products derived from
+                           *   this software without specific prior written permission.
+                           *
+                           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                           * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                           * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                           * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                           * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                           * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                           * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                           * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                           * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                           */
+
+exports.default = Uuid;
+
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(150);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _typeof2 = __webpack_require__(26);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _RequestParameters = __webpack_require__(151);
+
+var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
+
+var _requests = __webpack_require__(138);
+
+var _SimpleResourceProxy2 = __webpack_require__(153);
+
+var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Proxy for accessing resource. This will make sure that they
+ * are properly wrapped before the promise resolves.
+ * @protected
+ */
+var ResourceProxy = function (_SimpleResourceProxy) {
+  (0, _inherits3.default)(ResourceProxy, _SimpleResourceProxy);
+
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {ResourceBase} Target - Target to wrap
+   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
+   * @param {object} seedData - Internal use, used for seeding ::new
+   */
+  function ResourceProxy(api, Target) {
+    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+    (0, _classCallCheck3.default)(this, ResourceProxy);
+    return (0, _possibleConstructorReturn3.default)(this, (ResourceProxy.__proto__ || Object.getPrototypeOf(ResourceProxy)).call(this, api, Target, altUrl, seedData));
+  }
+
+  /**
+   * Parse selector
+   * @param {Number|String|Object} [id=] - The resource id to be requested
+   * @returns {Object} - Parsed selector
+   * @private
+   */
+
+
+  (0, _createClass3.default)(ResourceProxy, [{
+    key: '_parseSelector',
+    value: function _parseSelector(id) {
+      if (id === '' || id === null) {
+        return {};
+      }
+
+      switch (typeof id === 'undefined' ? 'undefined' : (0, _typeof3.default)(id)) {
+        case 'number':
+        case 'string':
+          return (0, _defineProperty3.default)({}, this.Target.resourceUrlKey, id);
+        case 'object':
+          return id;
+        default:
+          return {};
+      }
+    }
+
+    /**
+     * Get target resource
+     * @param {Number|String|Object} [id=] - The resource id to be requested
+     * @param {String} deleted - Determains if the resource should be shown if deleted, requires special resource permissions. Possible values: only, none, all
+     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'get',
+    value: function get(id) {
+      var _this2 = this;
+
+      var deleted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _RequestParameters2.default.deleted;
+
+      var data = Object.assign({}, this._seedData, this._parseSelector(id));
+      var url = this.new(data).url;
+      var glue = url.includes('?') ? '&' : '?';
+
+      url += glue + (0, _requests.encodeQueryString)({ deleted: deleted });
+
+      return this._api.request(url).then(function (result) {
+        return _this2.new(result);
+      });
+    }
+
+    /**
+     * Select target resource without obtaining data
+     * @param {Number|String} [id=] - Resource id
+     * @returns {ResourceBase} - Empty target resource
+     * @example
+     * api.users.select('me').colors().then(doSomethingCool);
+     */
+
+  }, {
+    key: 'select',
+    value: function select(id) {
+      var data = Object.assign({}, this._seedData, this._parseSelector(id));
+
+      return this.new(data);
+    }
+  }]);
+  return ResourceProxy;
+}(_SimpleResourceProxy3.default); /*
+                                   * BSD 3-Clause License
+                                   *
+                                   * Copyright (c) 2017, MapCreator
+                                   * All rights reserved.
+                                   *
+                                   * Redistribution and use in source and binary forms, with or without
+                                   * modification, are permitted provided that the following conditions are met:
+                                   *
+                                   *  Redistributions of source code must retain the above copyright notice, this
+                                   *   list of conditions and the following disclaimer.
+                                   *
+                                   *  Redistributions in binary form must reproduce the above copyright notice,
+                                   *   this list of conditions and the following disclaimer in the documentation
+                                   *   and/or other materials provided with the distribution.
+                                   *
+                                   *  Neither the name of the copyright holder nor the names of its
+                                   *   contributors may be used to endorse or promote products derived from
+                                   *   this software without specific prior written permission.
+                                   *
+                                   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                   * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                   * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                   * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                   * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                   */
+
+exports.default = ResourceProxy;
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(6);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof2 = __webpack_require__(26);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _case = __webpack_require__(85);
+
+var _events = __webpack_require__(152);
+
+var _enums = __webpack_require__(1);
+
+var _hash = __webpack_require__(88);
+
+var _reflection = __webpack_require__(86);
+
+var _requests = __webpack_require__(138);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Used for keeping track of the request parameters
+ *
+ * @fires RequestParameters#change
+ * @fires RequestParameters#change:page
+ * @fires RequestParameters#change:perPage
+ * @fires RequestParameters#change:search
+ * @fires RequestParameters#change:sort
+ * @fires RequestParameters#change:deleted
+ * @fires RequestParameters#change:extra
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var RequestParameters = function (_EventEmitter) {
+  (0, _inherits3.default)(RequestParameters, _EventEmitter);
+
+  /**
+   * RequestParameters constructor
+   * @param {Object} object - properties
+   */
+  function RequestParameters() {
+    var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0, _classCallCheck3.default)(this, RequestParameters);
+
+    // Apply defaults
+    var _this = (0, _possibleConstructorReturn3.default)(this, (RequestParameters.__proto__ || Object.getPrototypeOf(RequestParameters)).call(this));
+
+    RequestParameters.keys().forEach(function (x) {
+      return _this._resolve(x);
+    });
+
+    // Apply properties
+    _this.apply(object);
+    return _this;
+  }
+
+  // region instance
+  // region instance getters
+  /**
+   * Get page number
+   * @returns {Number} - Page number
+   * @throws TypeError
+   */
+
+
+  (0, _createClass3.default)(RequestParameters, [{
+    key: '_resolve',
+
+
+    // endregion validators
+
+    value: function _resolve(name) {
+      var _name = '_' + name;
+
+      if (!this[_name]) {
+        // Confuse esdoc
+        (this || {})[_name] = RequestParameters[name];
+      }
+
+      return this[_name];
+    }
+  }, {
+    key: '_update',
+    value: function _update(name, value) {
+      var preventEvent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+      var _name = '_' + name;
+
+      value = RequestParameters['_validate' + (0, _case.pascal)(name)](value);
+      (this || {})[_name] = value; // Weird syntax confuses esdoc
+
+      if (!preventEvent) {
+        /**
+         * Change event.
+         *
+         * @event RequestParameters#change
+         * @type {Array<object>}
+         * @property {string} name - Parameter name
+         * @property {*} value - New value
+         */
+        this.emit('change', [{ name: name, value: value }]);
+        this.emit('change:' + name, value);
+      }
+
+      return value;
+    }
+
+    // region utils
+    /**
+     * Urlencode parameters
+     * @returns {string} - HTTP query
+     */
+
+  }, {
+    key: 'encode',
+    value: function encode() {
+      return (0, _requests.encodeQueryString)(this.toParameterObject());
+    }
+
+    /**
+     * Convert to object
+     * @returns {Object} - Object
+     */
+
+  }, {
+    key: 'toObject',
+    value: function toObject() {
+      var _this2 = this;
+
+      return RequestParameters.keys().reduce(function (obj, key) {
+        obj[(0, _case.snake)(key)] = _this2._resolve(key);
+        return obj;
+      }, {});
+    }
+
+    /**
+     * Convert to object
+     * @returns {Object} - Object
+     */
+
+  }, {
+    key: 'toParameterObject',
+    value: function toParameterObject() {
+      var _this3 = this;
+
+      var data = {};
+
+      RequestParameters.keys().forEach(function (key) {
+        // Skip extra key
+        if (key === 'extra') {
+          return;
+        }
+
+        data[(0, _case.snake)(key)] = _this3._resolve(key);
+      });
+
+      // Fix column names for sort
+      data.sort = data.sort.map(function (x) {
+        return (0, _case.snake)(x).replace(/^_/, '-');
+      }).join(',');
+
+      // Fix column names for search
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(data.search)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
+
+          var snakeKey = key.split(',').map(_case.snake).join(',');
+
+          if (key !== snakeKey) {
+            data.search[snakeKey] = data.search[key];
+            delete data.search[key];
+          }
+        }
+
+        // Cast search values
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = Object.keys(data.search)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _key = _step2.value;
+
+          if (typeof data.search[_key] === 'boolean') {
+            data.search[_key] = Number(data.search[_key]);
+          }
+
+          if (data.search[_key] === null) {
+            data.search[_key] = '';
+          }
+        }
+
+        // Overwrite using extra properties
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      var extra = this._resolve('extra');
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = Object.keys(extra)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _key2 = _step3.value;
+
+          data[_key2] = extra[_key2];
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      return data;
+    }
+
+    /**
+     * Copy object
+     * @returns {RequestParameters} - Copy
+     */
+
+  }, {
+    key: 'copy',
+    value: function copy() {
+      return new RequestParameters(this.toObject());
+    }
+
+    /**
+     * Different parameters
+     * @returns {Array<String>} - keys
+     */
+
+  }, {
+    key: 'token',
+
+
+    /**
+     * Generates a cache token
+     * @returns {string} - Cache token
+     */
+    value: function token() {
+      var data = this.toObject();
+
+      delete data['page'];
+      delete data['per_page'];
+
+      return (0, _hash.hashObject)(data);
+    }
+
+    /**
+     * Resets all parameters back to default
+     * @returns {void}
+     */
+
+  }, {
+    key: 'apply',
+
+
+    /**
+     * Apply parameters from object
+     * @param {object|RequestParameters} params - parameters
+     * @returns {Object[]} - Array containing the updated values
+     * @todo update JSDoc
+     */
+    value: function apply(params) {
+      if (params instanceof RequestParameters) {
+        params = params.toObject();
+      }
+
+      var out = [];
+
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = Object.keys(params)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var key = _step4.value;
+
+          var Key = (0, _case.camel)(key);
+
+          if (key[0] === '_' || !RequestParameters.keys().includes(Key)) {
+            continue;
+          }
+
+          out.push({
+            name: Key,
+            value: this._update(Key, params[key], true)
+          });
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      this.emit('change', out);
+
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = out[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var _ref = _step5.value;
+          var name = _ref.name;
+          var value = _ref.value;
+
+          this.emit('change:' + name, value);
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
+          }
+        }
+      }
+
+      return out;
+    }
+
+    // endregion utils
+
+  }, {
+    key: 'page',
+    get: function get() {
+      return this._resolve('page');
+    }
+
+    /**
+     * Get rows per page
+     * @returns {Number} - Per page
+     * @throws TypeError
+     */
+    ,
+
+
+    // endregion instance getters
+
+    // region instance setters
+    /**
+     * Page number
+     * @param {Number} value - Page number
+     */
+    set: function set(value) {
+      this._update('page', value);
+    }
+
+    /**
+     * Rows per page
+     * @param {Number} value - Per page
+     */
+
+  }, {
+    key: 'perPage',
+    get: function get() {
+      return this._resolve('perPage');
+    }
+
+    /**
+     * Get pagination offset
+     * @returns {Number} - Offset
+     * @throws TypeError
+     */
+    ,
+    set: function set(value) {
+      this._update('perPage', value);
+    }
+
+    /**
+     * Pagination offset
+     * @param {Number} value - Offset
+     */
+
+  }, {
+    key: 'offset',
+    get: function get() {
+      return this._resolve('offset');
+    }
+
+    /**
+     * Search query
+     * @returns {Object<String, String|Array<String>>} - Query
+     * @throws TypeError
+     */
+    ,
+    set: function set(value) {
+      this._update('offset', value);
+    }
+
+    /**
+     * Search query
+     * @param {Object<String, String|Array<String>>} value - Search query
+     */
+
+  }, {
+    key: 'search',
+    get: function get() {
+      return this._resolve('search');
+    }
+
+    /**
+     * Get sort options
+     * @returns {Array<String>} - Per page
+     * @throws TypeError
+     */
+    ,
+    set: function set(value) {
+      this._update('search', value);
+    }
+
+    /**
+     * Sort query
+     * @param {Array<String>} value - Sort query
+     */
+
+  }, {
+    key: 'sort',
+    get: function get() {
+      return this._resolve('sort');
+    }
+
+    /**
+     * If deleted items should be shown
+     * @returns {String} - Deleted items filter state
+     * @see {@link DeletedState}
+     */
+    ,
+    set: function set(value) {
+      this._update('sort', value);
+    }
+
+    /**
+     * Deleted items filter state
+     * @param {String} value - Deleted items filter state
+     * @see {@link DeletedState}
+     */
+
+  }, {
+    key: 'deleted',
+    get: function get() {
+      return this._resolve('deleted');
+    }
+
+    /**
+     * Extra parameters
+     * @returns {Object} - Extra parameters
+     */
+    ,
+    set: function set(value) {
+      this._update('deleted', value);
+    }
+
+    /**
+     * Extra request parameters
+     * @param {Object} value - Extra request parameters
+     */
+
+  }, {
+    key: 'extra',
+    get: function get() {
+      return this._resolve('extra');
+    },
+    set: function set(value) {
+      this._update('extra', value);
+    }
+
+    // endregion instance setters
+    // endregion instance
+
+    // region static
+    // region getters
+    /**
+     * Default page number
+     * @returns {Number} - Page number
+     */
+
+  }], [{
+    key: '_validatePage',
+
+
+    // endregion setters
+    // endregion static
+
+    // region validators
+    /**
+     * Validators should work the same as laravel's ::validate method. This means
+     * this means that they will throw a TypeError or return a normalized result.
+     */
+
+    value: function _validatePage(value) {
+      if (typeof value !== 'number') {
+        throw new TypeError('Expected page to be of type \'number\' instead got \'' + (typeof value === 'undefined' ? 'undefined' : (0, _typeof3.default)(value)) + '\'');
+      }
+
+      if (value < 0) {
+        throw new TypeError('Page must be a positive number');
+      }
+
+      if (Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new TypeError('Page must be a real number');
+      }
+
+      if (Math.round(value) !== value) {
+        throw new TypeError('Page must be a natural number');
+      }
+
+      return Math.round(value);
+    }
+  }, {
+    key: '_validatePerPage',
+    value: function _validatePerPage(value) {
+      if (typeof value !== 'number') {
+        throw new TypeError('Expected per page to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
+      }
+
+      if (value <= 0) {
+        throw new TypeError('Per page must be greater than zero');
+      }
+
+      if (Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new TypeError('Per page must be a real number');
+      }
+
+      if (Math.round(value) !== value) {
+        throw new TypeError('Per page must be a natural number');
+      }
+
+      // Upper limit is 50 by default
+      value = Math.min(RequestParameters.maxPerPage, value);
+
+      return value;
+    }
+  }, {
+    key: '_validateOffset',
+    value: function _validateOffset(value) {
+      if (typeof value !== 'number') {
+        throw new TypeError('Expected offset to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
+      }
+
+      if (value < 0) {
+        throw new TypeError('Offset must be a positive number');
+      }
+
+      if (Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new TypeError('Offset must be a real number');
+      }
+
+      if (Math.round(value) !== value) {
+        throw new TypeError('Offset must be a natural number');
+      }
+
+      return value;
+    }
+  }, {
+    key: '_validateMaxPerPage',
+    value: function _validateMaxPerPage(value) {
+      if (typeof value !== 'number') {
+        throw new TypeError('Expected page to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
+      }
+
+      if (value < 1) {
+        throw new TypeError('Value must be greater or equal to 1');
+      }
+
+      return value;
+    }
+  }, {
+    key: '_validateSearch',
+    value: function _validateSearch(value) {
+      if ((typeof value === 'undefined' ? 'undefined' : (0, _typeof3.default)(value)) !== 'object' || Array.isArray(value)) {
+        throw new TypeError('Expected value to be of type "Object" got "' + (0, _reflection.getTypeName)(value) + '"');
+      }
+
+      // Normalization macro
+      var normalize = function normalize(x) {
+        return typeof x === 'number' ? x.toString() : x;
+      };
+
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
+
+      try {
+        for (var _iterator6 = Object.keys(value)[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          var key = _step6.value;
+
+          key = normalize(key);
+          value[key] = normalize(value[key]);
+
+          if (typeof key !== 'string') {
+            throw new TypeError('Expected key to be of type "String" got "' + (0, _reflection.getTypeName)(key) + '"');
+          }
+
+          if (Array.isArray(value[key])) {
+            if (value[key].length > 0) {
+              var _iteratorNormalCompletion7 = true;
+              var _didIteratorError7 = false;
+              var _iteratorError7 = undefined;
+
+              try {
+                for (var _iterator7 = value[key][Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                  var query = _step7.value;
+
+                  if (!['string', 'number', 'boolean'].includes(typeof query === 'undefined' ? 'undefined' : (0, _typeof3.default)(query)) && query !== null) {
+                    throw new TypeError('Expected query for "' + key + '" to be of type "String", "Boolean", "Number" or "null" got "' + (0, _reflection.getTypeName)(query) + '"');
+                  }
+                }
+              } catch (err) {
+                _didIteratorError7 = true;
+                _iteratorError7 = err;
+              } finally {
+                try {
+                  if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                    _iterator7.return();
+                  }
+                } finally {
+                  if (_didIteratorError7) {
+                    throw _iteratorError7;
+                  }
+                }
+              }
+            } else {
+              // Drop empty nodes
+              delete value[key];
+            }
+          } else if (value[key] === null) {
+            delete value[key];
+          } else if (!['string', 'number', 'boolean'].includes((0, _typeof3.default)(value[key])) && value[key] !== null) {
+            throw new TypeError('Expected query value to be of type "String", "Boolean", "Number", "Array" or "null" got "' + (0, _reflection.getTypeName)(value[key]) + '"');
+          }
+        }
+      } catch (err) {
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion6 && _iterator6.return) {
+            _iterator6.return();
+          }
+        } finally {
+          if (_didIteratorError6) {
+            throw _iteratorError6;
+          }
+        }
+      }
+
+      return value;
+    }
+  }, {
+    key: '_validateSort',
+    value: function _validateSort(value) {
+      if (typeof value === 'string') {
+        return this._validateSort(value.split(','));
+      }
+
+      if (!(value instanceof Array)) {
+        throw new TypeError('Expected sort value to be of type "Array" got "' + (0, _reflection.getTypeName)(value) + '"');
+      }
+
+      // Array keys type checking
+      value.filter(function (x) {
+        return typeof x !== 'string';
+      }).forEach(function (x) {
+        throw new TypeError('Expected sort array values to be of type "String" got "' + (0, _reflection.getTypeName)(x) + '"');
+      });
+
+      // Don't do regex matching because it's something
+      // we can just let the server do for us.
+
+      return value;
+    }
+  }, {
+    key: '_validateDeleted',
+    value: function _validateDeleted(value) {
+      if (typeof value !== 'string') {
+        throw new TypeError('Expected deleted to be of type "string" got "' + (0, _reflection.getTypeName)(value) + '". See: DeletedState');
+      }
+
+      value = value.toLowerCase();
+
+      var possible = _enums.DeletedState.values();
+
+      if (!possible.includes(value)) {
+        throw new TypeError('Expected deleted to be one of ' + possible.join(', ') + ', got ' + value);
+      }
+
+      return value;
+    }
+  }, {
+    key: '_validateExtra',
+    value: function _validateExtra(value) {
+      if ((typeof value === 'undefined' ? 'undefined' : (0, _typeof3.default)(value)) !== 'object') {
+        throw new TypeError('Expected extra to be of type \'object\', got \'' + (0, _reflection.getTypeName)(value) + '\'');
+      }
+
+      return value;
+    }
+  }, {
+    key: 'keys',
+    value: function keys() {
+      // enumeration is disabled for properties
+      return ['page', 'perPage', 'search', 'sort', 'deleted', 'extra'];
+    }
+  }, {
+    key: 'resetDefaults',
+    value: function resetDefaults() {
+      var _iteratorNormalCompletion8 = true;
+      var _didIteratorError8 = false;
+      var _iteratorError8 = undefined;
+
+      try {
+        for (var _iterator8 = RequestParameters.keys()[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+          var key = _step8.value;
+
+          delete RequestParameters['_' + key];
+        }
+      } catch (err) {
+        _didIteratorError8 = true;
+        _iteratorError8 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion8 && _iterator8.return) {
+            _iterator8.return();
+          }
+        } finally {
+          if (_didIteratorError8) {
+            throw _iteratorError8;
+          }
+        }
+      }
+    }
+  }, {
+    key: 'page',
+    get: function get() {
+      return RequestParameters._page || 1;
+    }
+
+    /**
+     * Default per page
+     * @returns {Number} - Per page
+     */
+    ,
+
+
+    // endregion getters
+
+    // region setters
+    /**
+     * Default page number
+     * @param {Number} value - Page number
+     */
+    set: function set(value) {
+      RequestParameters._page = RequestParameters._validatePage(value);
+    }
+
+    /**
+     * Default per page
+     * @param {Number} value - Per page
+     */
+
+  }, {
+    key: 'perPage',
+    get: function get() {
+      return RequestParameters._perPage || Number("12") || 12;
+    }
+
+    /**
+     * Default pagination offset
+     * @returns {Number} - Offset
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._perPage = RequestParameters._validatePerPage(value);
+    }
+
+    /**
+     * Default pagination offset
+     * @param {Number} value - Offset
+     */
+
+  }, {
+    key: 'offset',
+    get: function get() {
+      return RequestParameters._offset || 0;
+    }
+
+    /**
+     * Gets the maximum allowed value for perPage
+     * Some users will have a special permission that allows them to fetch more than 50 resources at once
+     * @returns {Number} - Maximum amount of resources per page
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._offset = RequestParameters._validateOffset(value);
+    }
+
+    /**
+     * Sets the maximum allowed value for perPage
+     * Some users will have a special permission that allows them to fetch more than 50 resources at once
+     * @param {Number} value - Maximum amount of resources per page
+     */
+
+  }, {
+    key: 'maxPerPage',
+    get: function get() {
+      return RequestParameters._maxPerPage || 50;
+    }
+
+    /**
+     * Default search query
+     * @returns {Object<String, String|Array<String>>} - Search query
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._maxPerPage = RequestParameters._validateMaxPerPage(value);
+    }
+
+    /**
+     * Default search query
+     * @param {Object<String, String|Array<String>>} value - Search query
+     */
+
+  }, {
+    key: 'search',
+    get: function get() {
+      return RequestParameters._search || {};
+    }
+
+    /**
+     * Default sort query
+     * @returns {Array<String>} - Sort query
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._search = RequestParameters._validateSearch(value);
+    }
+
+    /**
+     * Default sort query
+     * @param {Array<String>} value - Sort query
+     */
+
+  }, {
+    key: 'sort',
+    get: function get() {
+      return RequestParameters._sort || [];
+    }
+
+    /**
+     * Default deleted items filter state
+     * @returns {String} -  Deleted items filter state
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._sort = RequestParameters._validateSort(value);
+    }
+
+    /**
+     * Default deleted items filter state
+     * @param {String} value -  Deleted items filter state
+     */
+
+  }, {
+    key: 'deleted',
+    get: function get() {
+      return RequestParameters._deleted || _enums.DeletedState.NONE;
+    }
+
+    /**
+     * Default extra request parameters
+     * @returns {Object} - Extra request parameters
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._deleted = RequestParameters._validateDeleted(value);
+    }
+
+    /**
+     * Default extra request parameters
+     * @param {Object} value - Extra request parameters
+     */
+
+  }, {
+    key: 'extra',
+    get: function get() {
+      return RequestParameters._extra || {};
+    },
+    set: function set(value) {
+      RequestParameters._extra = RequestParameters._validateExtra(value);
+    }
+  }]);
+  return RequestParameters;
+}(_events.EventEmitter);
+
+exports.default = RequestParameters;
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports) {
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+EventEmitter.defaultMaxListeners = 10;
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function(n) {
+  if (!isNumber(n) || n < 0 || isNaN(n))
+    throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function(type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events)
+    this._events = {};
+
+  // If there is no 'error' event listener then throw.
+  if (type === 'error') {
+    if (!this._events.error ||
+        (isObject(this._events.error) && !this._events.error.length)) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      } else {
+        // At least give some kind of context to the user
+        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+        err.context = er;
+        throw err;
+      }
+    }
+  }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler))
+    return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      // fast cases
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      // slower
+      default:
+        args = Array.prototype.slice.call(arguments, 1);
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    args = Array.prototype.slice.call(arguments, 1);
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++)
+      listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function(type, listener) {
+  var m;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events)
+    this._events = {};
+
+  // To avoid recursion in the case that type === "newListener"! Before
+  // adding it to the listeners, first emit "newListener".
+  if (this._events.newListener)
+    this.emit('newListener', type,
+              isFunction(listener.listener) ?
+              listener.listener : listener);
+
+  if (!this._events[type])
+    // Optimize the case of one listener. Don't need the extra array object.
+    this._events[type] = listener;
+  else if (isObject(this._events[type]))
+    // If we've already got an array, just append.
+    this._events[type].push(listener);
+  else
+    // Adding the second element, need to change to array.
+    this._events[type] = [this._events[type], listener];
+
+  // Check for listener leak
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' +
+                    'leak detected. %d listeners added. ' +
+                    'Use emitter.setMaxListeners() to increase limit.',
+                    this._events[type].length);
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function(type, listener) {
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+
+// emits a 'removeListener' event iff the listener was removed
+EventEmitter.prototype.removeListener = function(type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type])
+    return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener ||
+      (isFunction(list.listener) && list.listener === listener)) {
+    delete this._events[type];
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener ||
+          (list[i].listener && list[i].listener === listener)) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0)
+      return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function(type) {
+  var key, listeners;
+
+  if (!this._events)
+    return this;
+
+  // not listening for removeListener, no need to emit
+  if (!this._events.removeListener) {
+    if (arguments.length === 0)
+      this._events = {};
+    else if (this._events[type])
+      delete this._events[type];
+    return this;
+  }
+
+  // emit removeListener for all listeners on all events
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else if (listeners) {
+    // LIFO order
+    while (listeners.length)
+      this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function(type) {
+  var ret;
+  if (!this._events || !this._events[type])
+    ret = [];
+  else if (isFunction(this._events[type]))
+    ret = [this._events[type]];
+  else
+    ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.prototype.listenerCount = function(type) {
+  if (this._events) {
+    var evlistener = this._events[type];
+
+    if (isFunction(evlistener))
+      return 1;
+    else if (evlistener)
+      return evlistener.length;
+  }
+  return 0;
+};
+
+EventEmitter.listenerCount = function(emitter, type) {
+  return emitter.listenerCount(type);
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof2 = __webpack_require__(26);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _PaginatedResourceListing = __webpack_require__(154);
+
+var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+var _RequestParameters = __webpack_require__(151);
+
+var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
+
+var _ResourceLister = __webpack_require__(158);
+
+var _ResourceLister2 = _interopRequireDefault(_ResourceLister);
+
+var _ResourceBase = __webpack_require__(159);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+
+var _reflection = __webpack_require__(86);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Proxy for accessing resource. This will make sure that they
+ * are properly wrapped before the promise resolves.
+ * @protected
+ */
+var SimpleResourceProxy = function () {
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {ResourceBase} Target - Target to wrap
+   * @param {?string} [altUrl=null] - Internal use, Optional alternative url for more complex routing
+   * @param {object} seedData - Internal use, used for seeding ::new
+   */
+  function SimpleResourceProxy(api, Target) {
+    var altUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var seedData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+    (0, _classCallCheck3.default)(this, SimpleResourceProxy);
+
+    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, Target)) {
+      throw new TypeError('Target is not a child of ResourceBase');
+    }
+
+    if (typeof Target !== 'function') {
+      throw new TypeError('Target must to be a class not an instance');
+    }
+
+    if (altUrl) {
+      this.__baseUrl = altUrl;
+    }
+
+    this._api = api;
+    this._Target = Target;
+    this._seedData = seedData;
+  }
+
+  /**
+   * Proxy target url
+   * @returns {string} url
+   * @example
+   * api.layers.select(100).organisations.baseUrl === "https://maponline-api.dev/v1/layers/100/organisations"
+   */
+
+
+  (0, _createClass3.default)(SimpleResourceProxy, [{
+    key: 'new',
+
+
+    /**
+     * Build a new instance of the target
+     * @param {Object<String, *>} data - Data for the object to be populated with
+     * @returns {ResourceBase} - Resource with target data
+     */
+    value: function _new() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      // Merge but don't overwrite using seed data
+      data = Object.assign({}, this._seedData, data);
+
+      return new this.Target(this._api, data);
+    }
+
+    /**
+     * List target resource
+     * @param {Number|Object|RequestParameters} [params] - Parameters or the page number to be requested
+     * @param {Number} [params.page=1] - The page to be requested
+     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.sort=''] - Amount of items per page. This is silently capped by the API
+     * @param {Number} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
+     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * const search = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * };
+     *
+     * api.layers.list({perPage: 10, search});
+     */
+
+  }, {
+    key: 'list',
+    value: function list() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var resolver = this._buildResolver(params);
+
+      return resolver.getPage(resolver.page);
+    }
+
+    /**
+     * List target resource
+     * @param {Number|Object|RequestParameters} [params] - Parameters or the page to be requested
+     * @param {Number} [params.page=1] - The page to be requested
+     * @param {Number} [params.perPage=this.api.defaults.perPage] - Amount of items per page. This is silently capped by the API
+     * @param {Array<String>|string} [params.sort=''] - Comma separated list or array
+     * @param {String} [params.deleted=this.api.defaults.showDeleted] - Show deleted resources, posible values: only, none, all
+     * @param {Boolean} [params.shareCache=this.api.defaults.shareCache] - Share cache across instances
+     * @param {?Object<String, String|Array<String>>} [params.search] - Search parameters
+     * @returns {PaginatedResourceWrapper} - Wrapped paginated resource
+     * @deprecated
+     * @example
+     * // Find layers with a name that starts with "test" and a scale_min between 1 and 10
+     * // See Api documentation for search query syntax
+     * const search = {
+     *   name: '^:test',
+     *   scale_min: ['>:1', '<:10'],
+     * };
+     *
+     * api.layers.listandWrap({perPage: 10, search});
+     */
+
+  }, {
+    key: 'listAndWrap',
+    value: function listAndWrap() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var resolver = this._buildResolver(params);
+      var wrapped = resolver.wrap(resolver.page);
+
+      wrapped.get(resolver.page);
+      return wrapped;
+    }
+
+    /**
+     * Get the resource lister
+     *
+     * @param {object|RequestParameters} parameters - parameters
+     * @param {number} maxRows - Maximum amount of rows
+     * @returns {ResourceLister} - Resource lister
+     */
+
+  }, {
+    key: 'lister',
+    value: function lister() {
+      var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var maxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 50;
+
+      return new _ResourceLister2.default(this.api, this.baseUrl, this.Target, parameters, maxRows, this.Target.resourceUrlKey);
+    }
+  }, {
+    key: '_buildResolver',
+    value: function _buildResolver() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var paramType = typeof params === 'undefined' ? 'undefined' : (0, _typeof3.default)(params);
+      var url = this.baseUrl;
+
+      if (!['number', 'object'].includes(paramType)) {
+        throw new TypeError('Expected params to be of type number or object. Got "' + paramType + '"');
+      }
+
+      if (paramType === 'number') {
+        return this._buildResolver({ page: params });
+      }
+
+      if (!(params instanceof _RequestParameters2.default)) {
+        params = new _RequestParameters2.default(params);
+      }
+
+      return new _PaginatedResourceListing2.default(this._api, url, this.Target, params);
+    }
+  }, {
+    key: 'baseUrl',
+    get: function get() {
+      if (!this.__baseUrl) {
+        this.__baseUrl = this.new().baseUrl;
+      }
+
+      return this.__baseUrl;
+    }
+
+    /**
+     * Get api instance
+     * @returns {Maps4News} - Api instance
+     */
+
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Target to wrap results in
+     * @returns {ResourceBase} - Target constructor
+     * @constructor
+     */
+
+  }, {
+    key: 'Target',
+    get: function get() {
+      return this._Target;
+    }
+
+    /**
+     * The name of the target
+     * @returns {String} - Target name
+     * @example
+     * api.colors.accessorName === 'Color'
+     * api.fontFamilies.accessorName = 'Font Families'
+     */
+
+  }, {
+    key: 'accessorName',
+    get: function get() {
+      return this.Target.name.replace(/([A-Z])/g, function (x) {
+        return ' ' + x;
+      }).trim();
+    }
+  }]);
+  return SimpleResourceProxy;
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
+
+exports.default = SimpleResourceProxy;
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _Maps4News = __webpack_require__(97);
+
+var _Maps4News2 = _interopRequireDefault(_Maps4News);
+
+var _PaginatedResourceWrapper = __webpack_require__(155);
+
+var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
+
+var _RequestParameters = __webpack_require__(151);
+
+var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
+
+var _reflection = __webpack_require__(86);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Proxy for accessing paginated resources
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var PaginatedResourceListing = function () {
+  /**
+   * @param {Maps4News} api - Instance of the api
+   * @param {String} route - Resource route
+   * @param {ResourceBase} Target - Wrapper target
+   * @param {RequestParameters} parameters - Request parameters
+   * @param {Number} pageCount - Resolved page count
+   * @param {Number} rowCount - Resolved rowCount
+   * @param {Array<ResourceBase>} data - Resolved data
+   * @private
+   */
+  function PaginatedResourceListing(api, route, Target, parameters) {
+    var pageCount = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+    var rowCount = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+    var data = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
+    (0, _classCallCheck3.default)(this, PaginatedResourceListing);
+
+    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
+      throw new TypeError('Expected api to be of type Maps4News');
+    }
+
+    if (!(0, _reflection.isParentOf)(_RequestParameters2.default, parameters)) {
+      parameters = new _RequestParameters2.default(parameters);
+    }
+
+    this._api = api;
+
+    this.route = route;
+    this._Target = Target;
+    this._parameters = parameters;
+    this._pageCount = pageCount;
+    this._rows = rowCount;
+    this._data = data;
+  }
+
+  /**
+   * Get api instance
+   * @returns {Maps4News} - Api instance
+   */
+
+
+  (0, _createClass3.default)(PaginatedResourceListing, [{
+    key: 'getPage',
+
+
+    /**
+     * Get target page
+     * @param {Number} page - Page number
+     * @param {Number} perPage - Amount of items per page (max 50)
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     */
+    value: function getPage() {
+      var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.page;
+      var perPage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.perPage;
+
+      var query = this.parameters.copy();
+
+      query.page = page;
+      query.perPage = perPage;
+
+      var glue = this.route.includes('?') ? '&' : '?';
+      var url = this.route + glue + query.encode();
+
+      return this.api.request(url, 'GET', {}, {}, true).then(function (output) {
+        var headers = output.response.headers;
+
+        var getOrDefault = function getOrDefault(x, y) {
+          return headers.has(x) ? headers.get(x) : y;
+        };
+
+        var rowCount = Number(getOrDefault('X-Paginate-Total', output.data.length));
+        var totalPages = Number(getOrDefault('X-Paginate-Pages', 1));
+        var parameters = _this.parameters.copy();
+
+        parameters.page = page;
+
+        return new PaginatedResourceListing(_this.api, _this.route, _this._Target, parameters, totalPages, rowCount, output.data.map(function (row) {
+          return new _this._Target(_this.api, row);
+        }));
+      });
+    }
+
+    /**
+     * If there is a next page
+     * @returns {boolean} - If there is a next page
+     */
+
+  }, {
+    key: 'next',
+
+
+    /**
+     * Get next page
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     */
+    value: function next() {
+      return this.getPage(this.page + 1);
+    }
+
+    /**
+     * Get previous page
+     * @returns {Promise} - Resolves with {@link PaginatedResourceListing} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'previous',
+    value: function previous() {
+      return this.getPage(this.page - 1);
+    }
+
+    /**
+     * Wraps {@link PaginatedResourceWrapper} around the page
+     * @param {Boolean} shareCache - Share cache across instances
+     * @returns {PaginatedResourceWrapper} - Wrapped resource listing
+     */
+
+  }, {
+    key: 'wrap',
+    value: function wrap() {
+      var shareCache = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.api.defaults._shareCache;
+
+      return new _PaginatedResourceWrapper2.default(this, this.api, shareCache);
+    }
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Target route
+     * @returns {String} - url
+     */
+
+  }, {
+    key: 'route',
+    get: function get() {
+      return this._route;
+    }
+
+    /**
+     * Override the target route
+     * @param {String} value - route
+     */
+    ,
+    set: function set(value) {
+      if (!value.startsWith('https://') && !value.startsWith('http://')) {
+        if (!value.startsWith('/')) {
+          value = '/' + value;
+        }
+
+        value = this._api.host + '/' + this._api.version + value;
+      }
+
+      this._route = value;
+    }
+
+    /**
+     * Target to wrap results in
+     * @returns {ResourceBase} - Target constructor
+     * @constructor
+     */
+
+  }, {
+    key: 'Target',
+    get: function get() {
+      return this._Target;
+    }
+
+    /**
+     * Request parameters
+     * @returns {RequestParameters} - Request parameters
+     */
+
+  }, {
+    key: 'parameters',
+    get: function get() {
+      return this._parameters;
+    }
+
+    /**
+     * Request parameters
+     * @param {RequestParameters} value - Request parameters
+     */
+    ,
+    set: function set(value) {
+      this._parameters = value;
+    }
+
+    /**
+     * Current page number
+     * @returns {Number} - Current page
+     */
+
+  }, {
+    key: 'page',
+    get: function get() {
+      return this.parameters.page;
+    }
+
+    /**
+     * Maximum amount of items per page
+     * @returns {Number} - Amount of items
+     */
+
+  }, {
+    key: 'perPage',
+    get: function get() {
+      return this.parameters.perPage;
+    }
+
+    /**
+     * Set sort direction
+     * @returns {String} - Sort
+     * @example
+     * const sort = ['-name', 'id']
+     */
+
+  }, {
+    key: 'sort',
+    get: function get() {
+      return this.parameters.sort;
+    }
+
+    /**
+     * Current sorting value
+     * @param {String} value - Sort
+     */
+    ,
+    set: function set(value) {
+      this.parameters.sort = value;
+    }
+
+    /**
+     * Deleted items filter state
+     * @returns {String} value - Deleted items filter state
+     * @see {@link DeletedState}
+     */
+
+  }, {
+    key: 'deleted',
+    get: function get() {
+      return this.parameters.deleted;
+    }
+
+    /**
+     * Deleted items filter state
+     * @param {String} value - Deleted items filter state
+     * @see {@link DeletedState}
+     */
+    ,
+    set: function set(value) {
+      this.parameters.deleted = value;
+    }
+
+    /**
+     * Amount of pages available
+     * @returns {Number} - Page count
+     */
+
+  }, {
+    key: 'pageCount',
+    get: function get() {
+      return this._pageCount;
+    }
+
+    /**
+     * Page data
+     * @returns {Array<ResourceBase>} - Wrapped data
+     */
+
+  }, {
+    key: 'data',
+    get: function get() {
+      return this._data;
+    }
+
+    /**
+     * Row count
+     * @returns {Number} - Row count
+     */
+
+  }, {
+    key: 'rows',
+    get: function get() {
+      return this._rows;
+    }
+
+    /**
+     * Optional search query
+     * @default {}
+     * @return {Object<String, String|Array<String>>} - Query
+     */
+
+  }, {
+    key: 'query',
+    get: function get() {
+      return this.parameters.search;
+    }
+
+    /**
+     * Optional search query
+     * @param {Object<String, String|Array<String>>} value - Query
+     * @throws TypeError
+     * @default {}
+     * @see {@link ResourceProxy#search}
+     */
+    ,
+    set: function set(value) {
+      this.parameters.search = value;
+    }
+  }, {
+    key: 'hasNext',
+    get: function get() {
+      return this.page < this.pageCount;
+    }
+
+    /**
+     * If there is a previous page
+     * @returns {boolean} - If there is a previous page
+     */
+
+  }, {
+    key: 'hasPrevious',
+    get: function get() {
+      return this.page > 1;
+    }
+
+    /**
+     * Used for caching pages internally
+     * @returns {string} - Cache token
+     * @see {@link PaginatedResourceWrapper}
+     * @see {@link ResourceCache}
+     */
+
+  }, {
+    key: 'cacheToken',
+    get: function get() {
+      return this.parameters.token();
+    }
+  }]);
+  return PaginatedResourceListing;
+}();
+
+exports.default = PaginatedResourceListing;
+
+/***/ }),
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _PaginatedResourceListing = __webpack_require__(154);
+
+var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
+
+var _ResourceCache = __webpack_require__(156);
+
+var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
+
+var _hash = __webpack_require__(88);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Used for wrapping {@link PaginatedResourceListing} to make it spa friendly
+ * @todo Allow for manual cache updates, ex: a resource has been modified, deleted, created
+ * @deprecated
+ */
+var PaginatedResourceWrapper = function () {
+  /**
+   *
+   * @param {PaginatedResourceListing} listing - Listing result
+   * @param {Maps4News} api - Instance of the api
+   * @param {Boolean} shareCache - Share cache across instances
+   */
+  function PaginatedResourceWrapper(listing) {
+    var _this = this;
+
+    var api = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : listing.api;
+    var shareCache = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : api.defaults.shareCache;
+    (0, _classCallCheck3.default)(this, PaginatedResourceWrapper);
+
+
+    // Fields
+    this._api = api;
+    this._shareCache = shareCache;
+    this._currentPage = 1;
+    this._context = [];
+
+    /**
+     * Available data assembled from the cache
+     * @type {Array<ResourceBase>} - Available data
+     */
+    this.data = [];
+
+    // Internal
+    this._localCache = new _ResourceCache2.default(this.api.defaults.cacheSeconds, this.api.defaults.dereferenceCache);
+    this._inflight = [];
+    this._last = listing;
+    this._waiting = false;
+
+    this.on('invalidate', function () {
+      return _this.rebuild();
+    });
+
+    this._promiseCallback(listing);
+  }
+
+  (0, _createClass3.default)(PaginatedResourceWrapper, [{
+    key: 'get',
+
+
+    /**
+     * Manually fetch a page. This will change the current page.
+     * @param {Number|Array<Number>} pageId - Page(s) to fetch
+     * @returns {void}
+     */
+    value: function get(pageId) {
+      if (pageId instanceof Array) {
+        pageId.map(this.get);
+      } else {
+        this._waiting = true;
+
+        this._inflight.push(pageId);
+        this._last.getPage(pageId).then(this._promiseCallback);
+      }
+    }
+
+    /**
+     * Grab the next page
+     * @returns {void}
+     */
+
+  }, {
+    key: 'next',
+    value: function next() {
+      this.get(++this.currentPage);
+    }
+
+    /**
+     * Grab the previous page
+     * @returns {void}
+     */
+
+  }, {
+    key: 'previous',
+    value: function previous() {
+      this.get(--this.currentPage);
+    }
+
+    /**
+     * Manually rebuild the data
+     * @returns {void}
+     */
+
+  }, {
+    key: 'rebuild',
+    value: function rebuild() {
+      this.data = this.cache.resolve(this.route, this._last.cacheToken).filter(function (value) {
+        return typeof value !== 'undefined';
+      });
+
+      this.cache.emitter.emit('post-rebuild', { resourceUrl: this._last.route });
+    }
+
+    /**
+     * Updates the cached pages.
+     * @param {Boolean} flush - Clear the cached route data
+     * @returns {void}
+     * @example
+     * function onRefresh() {
+     *   if(wrapper.waiting) {
+     *     return; // not done yet
+     *   }
+     *
+     *   wrapper.off('post-rebuild', onRefresh);
+     *
+     *   // Do stuff here
+     * }
+     *
+     * wrapper.on('post-rebuild', onRefresh);
+     * wrapper.refresh();
+     */
+
+  }, {
+    key: 'refresh',
+    value: function refresh() {
+      var _this2 = this;
+
+      var flush = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      if (flush) {
+        this.cache.clear(this.route);
+      }
+
+      this.cache.collectPages(this.route, this._last.cacheToken).map(function (page) {
+        return _this2.get(page.page);
+      });
+    }
+
+    /**
+     * Returns the page number that is currently being used as a reference point
+     * @returns {Number} - The current page
+     * @see {@link PaginatedResourceWrapper#next}
+     * @see {@link PaginatedResourceWrapper#previous}
+     */
+
+  }, {
+    key: 'query',
+
+
+    /**
+     * Set the request params and submit
+     * @param {?Object<String, *>} value - Query
+     * @throws TypeError
+     * @default {}
+     * @see {@link ResourceProxy#search}
+     * @returns {Object<String, String|Array<String>>} - query
+     */
+    value: function query() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      if (!value || value === this.query()) {
+        return this._last.query;
+      }
+
+      this._context[this._last.cacheToken] = this._last;
+
+      var token = (0, _hash.hashObject)(value);
+
+      if (this._context[token]) {
+        this._last = this._context[token];
+      } else {
+        var parameters = this._last.parameters.copy();
+
+        parameters.page = 1;
+        parameters.apply(value);
+
+        this._last = new _PaginatedResourceListing2.default(this.api, this._last.route, this._last.Target, parameters);
+        this.get(parameters.page);
+        this.currentPage = 1;
+      }
+
+      this.rebuild();
+
+      return this.query();
+    }
+
+    /**
+     * Get api instance
+     * @returns {Maps4News} - Api instance
+     */
+
+  }, {
+    key: 'on',
+
+
+    /**
+     * Register an event handler for the given type.
+     *
+     * @param {string} type - Type of event to listen for, or `"*"` for all events.
+     * @param {function(eventType: string, event: any): void|function(event: any): void} handler - Function to call in response to the given event.
+     * @returns {void}
+     */
+    value: function on(type, handler) {
+      var _this3 = this;
+
+      this.cache.emitter.on(type, function (t, e) {
+        if (type === '*' && e.resourceUrl === _this3.route) {
+          handler(t, e);
+        } else if (type !== '*' && t.resourceUrl === _this3.route) {
+          handler(t);
+        }
+      });
+    }
+
+    /**
+     * Function to call in response to the given event
+     *
+     * @param {string} type - Type of event to unregister `handler` from, or `"*"`
+     * @param {function(event: any): void} handler - Handler function to remove.
+     * @returns {void}
+     */
+
+  }, {
+    key: 'off',
+    value: function off(type, handler) {
+      this.cache.emitter.off(type, handler);
+    }
+  }, {
+    key: '_promiseCallback',
+    get: function get() {
+      var _this4 = this;
+
+      return function (result) {
+        var query = _this4.query();
+
+        _this4._last = result;
+        _this4._query = query;
+
+        _this4.cache.push(result);
+
+        var inflightId = _this4.inflight.findIndex(function (x) {
+          return x === result.page;
+        });
+
+        if (inflightId >= 0) {
+          _this4._inflight.splice(inflightId, 1);
+        }
+
+        _this4._waiting = _this4.inflight.length > 0;
+
+        _this4.rebuild();
+      };
+    }
+  }, {
+    key: 'currentPage',
+    get: function get() {
+      return this._currentPage;
+    }
+
+    /**
+     * Set the current page number
+     * @param {Number} value - page number
+     */
+    ,
+    set: function set(value) {
+      this._currentPage = Math.max(1, value);
+    }
+
+    /**
+     * Get the route of the resource
+     * @returns {String} - route
+     */
+
+  }, {
+    key: 'route',
+    get: function get() {
+      return this._last.route;
+    }
+
+    /**
+     * Override the resource route
+     * @param {String} value - route
+     */
+    ,
+    set: function set(value) {
+      this._route = value;
+    }
+
+    /**
+     * Row count
+     * @returns {Number} - Row count
+     */
+
+  }, {
+    key: 'rows',
+    get: function get() {
+      return this._last.rows;
+    }
+
+    /**
+     * Get the number of pages available
+     * @returns {Number} - Page count
+     */
+
+  }, {
+    key: 'pageCount',
+    get: function get() {
+      return this._last.pageCount;
+    }
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Get the active cache instance
+     * @returns {ResourceCache} - Cache instance
+     */
+
+  }, {
+    key: 'cache',
+    get: function get() {
+      return this.shareCache ? this.api.cache : this._localCache;
+    }
+
+    /**
+     * Get if the shared cache should be used
+     * @returns {Boolean} - Should the shared cache be used
+     */
+
+  }, {
+    key: 'shareCache',
+    get: function get() {
+      return this._shareCache;
+    }
+
+    /**
+     * Sets if the shared cache should be used
+     * @param {Boolean} value - Should the shared cache be used
+     */
+    ,
+    set: function set(value) {
+      this._shareCache = Boolean(value);
+    }
+
+    /**
+     * If there is a next page
+     * @returns {boolean} - If there is a next page
+     */
+
+  }, {
+    key: 'hasNext',
+    get: function get() {
+      return this.inflight.length === 0 ? this._last.hasNext : this.currentPage < this.pageCount;
+    }
+
+    /**
+     * If there is a previous page
+     * @returns {boolean} - If there is a previous page
+     */
+
+  }, {
+    key: 'hasPrevious',
+    get: function get() {
+      return this._last.hasPrevious;
+    }
+
+    /**
+     * List of page numbers that are still mid-flight
+     * @returns {Array} - Page numbers that are still mid-flight
+     */
+
+  }, {
+    key: 'inflight',
+    get: function get() {
+      return this._inflight;
+    }
+
+    /**
+     * Returns if there are still requests mid-flight
+     * @returns {boolean} - Returns if the wrapper is waiting for requests to finish
+     */
+
+  }, {
+    key: 'waiting',
+    get: function get() {
+      return this._waiting;
+    }
+  }]);
+  return PaginatedResourceWrapper;
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
+
+exports.default = PaginatedResourceWrapper;
+
+/***/ }),
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _mitt = __webpack_require__(157);
+
+var _mitt2 = _interopRequireDefault(_mitt);
+
+var _Unobservable2 = __webpack_require__(93);
+
+var _Unobservable3 = _interopRequireDefault(_Unobservable2);
+
+var _uuid = __webpack_require__(148);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Used for caching resources. Requires the resource to have an unique id field
+ * @see {@link PaginatedResourceWrapper}
+ * @deprecated
+ * @todo Add periodic data refreshing while idle, most likely implemented in cache (maybe v1/resource?timestamp=123 where it will give modified records since)
+ */
+var ResourceCache = function (_Unobservable) {
+  (0, _inherits3.default)(ResourceCache, _Unobservable);
+
+  function ResourceCache(cacheTime, dereference) {
+    (0, _classCallCheck3.default)(this, ResourceCache);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceCache.__proto__ || Object.getPrototypeOf(ResourceCache)).call(this));
+
+    _this.cacheTime = cacheTime;
+    _this.dereference = dereference;
+    _this.emitter = (0, _mitt2.default)();
+
+    _this._storage = {};
+    return _this;
+  }
+
+  /**
+   * Push a page into the cache
+   * @param {PaginatedResourceListing} page - Data to be cached
+   * @returns {void}
+   */
+
+
+  (0, _createClass3.default)(ResourceCache, [{
+    key: 'push',
+    value: function push(page) {
+      var _this2 = this;
+
+      if (page.rows === 0) {
+        return; // Don't insert empty pages
+      }
+
+      delete page['__ob__']; // Remove VueJs observer
+
+      // Test if this is data we can actually work with by testing if there are any non-numeric ids (undefined etc)
+      var invalidData = page.data.map(function (row) {
+        return row.id;
+      }).filter(function (x) {
+        return typeof x !== 'number';
+      }).length > 0;
+
+      if (invalidData) {
+        throw new TypeError('Missing or invalid row.id for page.data. Data rows must to contain a numeric "id" field.');
+      }
+
+      var validThrough = this._timestamp + this.cacheTime;
+      var cacheId = _uuid2.default.uuid4();
+      var data = {
+        page: page, validThrough: validThrough,
+        id: cacheId,
+        timeout: setTimeout(function () {
+          return _this2._deleteCacheIds(cacheId);
+        }, this.cacheTime * 1000)
+      };
+
+      var storage = this._storage[page.route] || (this._storage[page.route] = {});
+
+      (storage[page.cacheToken] || (storage[page.cacheToken] = [])).push(data);
+
+      this.emitter.emit('push', { page: page, validThrough: validThrough, resourceUrl: page.route });
+      this.emitter.emit('invalidate', { resourceUrl: page.route });
+    }
+
+    /**
+     * Delete from cache using cacheId
+     * @param {String|Array<String>} ids - cache ids
+     * @returns {void}
+     */
+
+  }, {
+    key: '_deleteCacheIds',
+    value: function _deleteCacheIds(ids) {
+      if (!(ids instanceof Array)) {
+        this._deleteCacheIds([ids]);
+        return;
+      }
+
+      var found = 0;
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(this._storage)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var resourceUrl = _step.value;
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var token = _step2.value;
+
+              var entries = this._storage[resourceUrl][token];
+
+              for (var i = 0; i < entries.length; i++) {
+                if (ids.includes(entries[i].id)) {
+                  entries.splice(i, 1);
+                  i--;
+                  found++;
+
+                  if (found === ids.length) {
+                    return;
+                  }
+                }
+              }
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+
+    /**
+     * Revalidate all data and delete stale data
+     * @param {String} resourceUrl - Resource url
+     * @returns {void}
+     */
+
+  }, {
+    key: 'revalidate',
+    value: function revalidate() {
+      var _this3 = this;
+
+      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      if (!resourceUrl) {
+        Object.keys(this._storage).map(function (x) {
+          return _this3.revalidate(x);
+        });
+      } else if (this._storage[resourceUrl]) {
+        var storage = this._storage[resourceUrl];
+
+        // Remove old data from the cache and stop old timeouts
+        Object.keys(storage).forEach(function (key) {
+          storage[key].filter(function (row) {
+            return row.validThrough < _this3._timestamp;
+          }).forEach(function (row) {
+            return clearTimeout(row.timeout);
+          });
+
+          storage[key] = storage[key].filter(function (row) {
+            return row.validThrough >= _this3._timestamp;
+          });
+        });
+
+        var junk = Object.keys(storage).filter(function (key) {
+          return storage[key].length === 0;
+        });
+
+        // Delete empty
+        junk.forEach(function (key) {
+          return delete storage[key];
+        });
+        if (Object.keys(storage).length === 0) {
+          delete this._storage[resourceUrl];
+        }
+
+        if (junk.length > 0) {
+          this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
+        }
+      }
+    }
+
+    /**
+     * Collect relevant cached pages
+     * @param {String} resourceUrl - resource url
+     * @param {String} cacheToken - Cache token
+     * @see {@link PaginatedResourceListing#cacheToken}
+     * @returns {Array<PaginatedResourceListing>} - Relevant cached pages
+     */
+
+  }, {
+    key: 'collectPages',
+    value: function collectPages(resourceUrl) {
+      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      cacheToken = cacheToken.toLowerCase();
+
+      // Storage array or []
+      var storage = (this._storage[resourceUrl] || {})[cacheToken] || [];
+
+      // Sort by validThrough and extract pages
+      // SORT BY page, validThrough ASCENDING
+      return storage.sort(function (a, b) {
+        if (a.page === b.page) {
+          return a.validThrough - b.validThrough;
+        }
+
+        return a.page - b.page;
+      });
+    }
+
+    /**
+     * Clears the cache
+     * @param {String} resourceUrl - Resource url
+     * @returns {void}
+     */
+
+  }, {
+    key: 'clear',
+    value: function clear() {
+      var _this4 = this;
+
+      var resourceUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (!resourceUrl) {
+        Object.keys(this._storage).forEach(function (url) {
+          _this4.emitter.emit('invalidate', { resourceUrl: url });
+        });
+
+        this._storage = {};
+      } else {
+        delete this._storage[resourceUrl];
+        this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
+      }
+    }
+
+    /**
+     * Resolve cache and return indexed data
+     * @param {String} resourceUrl - Resource url
+     * @param {String} cacheToken - Cache token
+     * @see {@link PaginatedResourceListing#cacheToken}
+     * @returns {Array<ResourceBase>} - Indexed relevant data
+     * @todo add page numbers or range as optional parameter
+     */
+
+  }, {
+    key: 'resolve',
+    value: function resolve(resourceUrl) {
+      var cacheToken = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      cacheToken = cacheToken.toLowerCase();
+
+      // List ordered from old to new
+      var data = this.collectPages(resourceUrl, cacheToken);
+      var out = [];
+
+      var lastPage = void 0;
+      var startIndex = 0;
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var row = _step3.value;
+
+          var page = row.page;
+
+          // Skip empty pages
+          if (page.data.length === 0) {
+            continue;
+          }
+
+          // Have we parsed the same page already?
+          if (typeof lastPage !== 'undefined' && lastPage === page.page) {
+            var ii = void 0;
+
+            for (var i = 0; i < page.data.length; i++) {
+              ii = i + startIndex; // Get relative index for `out`
+
+              if (typeof out[ii] === 'undefined') {
+                out.push(page.data[i]); // Push if there is no data
+              } else if (page.data[i].id !== out[ii].id) {
+                out[ii] = page.data[i];
+
+                // lookbehind
+                for (var j = 0; j < startIndex; j++) {
+                  if (out[j].id === out[ii].id) {
+                    out.splice(j, 1);
+
+                    startIndex--;
+                    i--;
+                    ii--;
+                    j--;
+                  }
+                }
+              }
+            }
+
+            // Remove trailing data
+            if (typeof ii !== 'undefined') {
+              out.splice(ii + 1, out.length);
+            }
+          } else {
+            // First time page number is parsed, just append it.
+            startIndex = out.length;
+
+            page.data.map(function (x) {
+              return out.push(x);
+            });
+          }
+
+          lastPage = row.page.page;
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      if (this.dereference) {
+        return out.map(function (x) {
+          return x.clone();
+        });
+      }
+
+      return out;
+    }
+
+    /**
+     * Update records in the cache manually lazily. Any matching instance found will be updated.
+     * @param {ResourceBase|Array<ResourceBase>} rows - Data to be updated
+     * @returns {void} - nothing
+     */
+
+  }, {
+    key: 'update',
+    value: function update(rows) {
+      if (!(rows instanceof Array)) {
+        this.update([rows]);
+        return;
+      }
+
+      // Split up data into types
+      var data = {};
+      var ids = {};
+
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = rows[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var row = _step4.value;
+
+          var key = row.constructor.name;
+
+          (data[key] || (data[key] = [])).push(row);
+          (ids[key] || (ids[key] = [])).push(row.id);
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      var models = Object.keys(data);
+
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = Object.keys(this._storage)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var resourceUrl = _step5.value;
+
+          var invalidate = false;
+
+          var _iteratorNormalCompletion6 = true;
+          var _didIteratorError6 = false;
+          var _iteratorError6 = undefined;
+
+          try {
+            for (var _iterator6 = Object.keys(this._storage[resourceUrl])[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+              var token = _step6.value;
+
+              var entries = this._storage[resourceUrl][token];
+
+              var _iteratorNormalCompletion7 = true;
+              var _didIteratorError7 = false;
+              var _iteratorError7 = undefined;
+
+              try {
+                for (var _iterator7 = entries[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                  var entry = _step7.value;
+
+                  var page = entry.page;
+
+                  if (page.data.length === 0) {
+                    continue;
+                  }
+
+                  var _key = page.data[0].constructor.name;
+
+                  if (!models.includes(_key)) {
+                    break;
+                  }
+
+                  var _loop = function _loop(_row) {
+                    if (!ids[_key].includes(_row.id)) {
+                      return 'continue';
+                    }
+
+                    var index = ids[_key].findIndex(function (x) {
+                      return x === _row.id;
+                    });
+                    var value = data[_key][index];
+
+                    value.sanitize();
+
+                    value.fieldNames.forEach(function (x) {
+                      _row[x] = value[x];
+                    });
+
+                    invalidate = true;
+                  };
+
+                  var _iteratorNormalCompletion8 = true;
+                  var _didIteratorError8 = false;
+                  var _iteratorError8 = undefined;
+
+                  try {
+                    for (var _iterator8 = page.data[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                      var _row = _step8.value;
+
+                      var _ret = _loop(_row);
+
+                      if (_ret === 'continue') continue;
+                    }
+                  } catch (err) {
+                    _didIteratorError8 = true;
+                    _iteratorError8 = err;
+                  } finally {
+                    try {
+                      if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                        _iterator8.return();
+                      }
+                    } finally {
+                      if (_didIteratorError8) {
+                        throw _iteratorError8;
+                      }
+                    }
+                  }
+                }
+              } catch (err) {
+                _didIteratorError7 = true;
+                _iteratorError7 = err;
+              } finally {
+                try {
+                  if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                    _iterator7.return();
+                  }
+                } finally {
+                  if (_didIteratorError7) {
+                    throw _iteratorError7;
+                  }
+                }
+              }
+            }
+          } catch (err) {
+            _didIteratorError6 = true;
+            _iteratorError6 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                _iterator6.return();
+              }
+            } finally {
+              if (_didIteratorError6) {
+                throw _iteratorError6;
+              }
+            }
+          }
+
+          if (invalidate) {
+            this.emitter.emit('invalidate', { resourceUrl: resourceUrl });
+          }
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5.return) {
+            _iterator5.return();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
+          }
+        }
+      }
+    }
+
+    /**
+     * Get a usable timestamp
+     * @returns {number} - timestamp
+     * @private
+     */
+
+  }, {
+    key: '_timestamp',
+    get: function get() {
+      return Math.floor(Date.now() / 1000);
+    }
+  }]);
+  return ResourceCache;
+}(_Unobservable3.default); /*
+                            * BSD 3-Clause License
+                            *
+                            * Copyright (c) 2017, MapCreator
+                            * All rights reserved.
+                            *
+                            * Redistribution and use in source and binary forms, with or without
+                            * modification, are permitted provided that the following conditions are met:
+                            *
+                            *  Redistributions of source code must retain the above copyright notice, this
+                            *   list of conditions and the following disclaimer.
+                            *
+                            *  Redistributions in binary form must reproduce the above copyright notice,
+                            *   this list of conditions and the following disclaimer in the documentation
+                            *   and/or other materials provided with the distribution.
+                            *
+                            *  Neither the name of the copyright holder nor the names of its
+                            *   contributors may be used to endorse or promote products derived from
+                            *   this software without specific prior written permission.
+                            *
+                            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                            */
+
+exports.default = ResourceCache;
+
+/***/ }),
+/* 157 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//      
+// An event handler can take an optional event argument
+// and should not return a value
+                                          
+                                                               
+
+// An array of all currently registered event handlers for a type
+                                            
+                                                            
+// A map of event types and their corresponding event handlers.
+                        
+                                 
+                                   
+  
+
+/** Mitt: Tiny (~200b) functional event emitter / pubsub.
+ *  @name mitt
+ *  @returns {Mitt}
+ */
+function mitt(all                 ) {
+	all = all || Object.create(null);
+
+	return {
+		/**
+		 * Register an event handler for the given type.
+		 *
+		 * @param  {String} type	Type of event to listen for, or `"*"` for all events
+		 * @param  {Function} handler Function to call in response to given event
+		 * @memberOf mitt
+		 */
+		on: function on(type        , handler              ) {
+			(all[type] || (all[type] = [])).push(handler);
+		},
+
+		/**
+		 * Remove an event handler for the given type.
+		 *
+		 * @param  {String} type	Type of event to unregister `handler` from, or `"*"`
+		 * @param  {Function} handler Handler function to remove
+		 * @memberOf mitt
+		 */
+		off: function off(type        , handler              ) {
+			if (all[type]) {
+				all[type].splice(all[type].indexOf(handler) >>> 0, 1);
+			}
+		},
+
+		/**
+		 * Invoke all handlers for the given type.
+		 * If present, `"*"` handlers are invoked after type-matched handlers.
+		 *
+		 * @param {String} type  The event type to invoke
+		 * @param {Any} [evt]  Any value (object is recommended and powerful), passed to each handler
+		 * @memberOf mitt
+		 */
+		emit: function emit(type        , evt     ) {
+			(all[type] || []).slice().map(function (handler) { handler(evt); });
+			(all['*'] || []).slice().map(function (handler) { handler(type, evt); });
+		}
+	};
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (mitt);
+//# sourceMappingURL=mitt.es.js.map
+
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof2 = __webpack_require__(26);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _toConsumableArray2 = __webpack_require__(141);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _regenerator = __webpack_require__(103);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(106);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(25);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(77);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _case = __webpack_require__(85);
+
+var _events = __webpack_require__(152);
+
+var _Maps4News = __webpack_require__(97);
+
+var _Maps4News2 = _interopRequireDefault(_Maps4News);
+
+var _RequestParameters = __webpack_require__(151);
+
+var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
+
+var _ResourceBase = __webpack_require__(159);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+
+var _reflection = __webpack_require__(86);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Paginated resource lister
+ *
+ * @fires ResourceLister#update
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2018, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var ResourceLister = function (_EventEmitter) {
+  (0, _inherits3.default)(ResourceLister, _EventEmitter);
+
+  /**
+   * ResourceLister constructor
+   *
+   * @param {Maps4News} api - Api instance
+   * @param {string} route - Resource url route
+   * @param {Constructor<ResourceBase>} Resource - Resource constructor
+   * @param {?RequestParameters} parameters - Request parameters
+   * @param {number} [maxRows=50] - Initial max rows
+   * @param {string} [key=id] - Key
+   */
+  function ResourceLister(api, route) {
+    var Resource = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _ResourceBase2.default;
+    var parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+    var maxRows = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 50;
+    var key = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 'id';
+    (0, _classCallCheck3.default)(this, ResourceLister);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ResourceLister.__proto__ || Object.getPrototypeOf(ResourceLister)).call(this));
+
+    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
+      throw new TypeError('Expected api to be of type Maps4News');
+    }
+
+    _this._api = api;
+    _this._Resource = Resource;
+    _this._route = route || new _this.Resource(api, {}).baseUrl;
+    _this._parameters = new _RequestParameters2.default(parameters || { perPage: _RequestParameters2.default.maxPerPage });
+    _this._key = (0, _case.snake)(key);
+    _this._waiting = false;
+
+    _this.autoUpdate = true;
+    _this.maxRows = maxRows;
+
+    _this._reset();
+    return _this;
+  }
+
+  /**
+   * Get if there are more resources to fetch. It indicates if the maxRows can be increased.
+   * @returns {boolean} - if more rows are available
+   */
+
+
+  (0, _createClass3.default)(ResourceLister, [{
+    key: '_reset',
+
+
+    /**
+     * Reset the instance
+     *
+     * @returns {void}
+     * @private
+     */
+    value: function _reset() {
+      this._parameterToken = this.parameters.token();
+
+      this._realData = [];
+      this._data = [];
+      this._keys = [];
+
+      delete this._availableRows;
+    }
+
+    /**
+     * Update the server data
+     *
+     * @returns {Promise<void>} - Resolves when the data has been updated
+     * @async
+     */
+
+  }, {
+    key: 'update',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!this.waiting) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt('return');
+
+              case 2:
+
+                this._waiting = true;
+
+                _context.prev = 3;
+
+                if (this._parameterToken !== this.parameters.token()) {
+                  this._reset();
+                }
+
+                if (!(this._realData.length < this.maxRows)) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 8;
+                return this._fetchMore();
+
+              case 8:
+
+                if (this.data.length !== this.maxRows) {
+                  this._data = this._realData.slice(0, this.maxRows);
+                }
+
+              case 9:
+                _context.prev = 9;
+
+                this._waiting = false;
+                return _context.finish(9);
+
+              case 12:
+
+                /**
+                 * Update event.
+                 * Called when the ResourceLister has updated
+                 *
+                 * @event RequestLister#update
+                 */
+                this.emit('update');
+
+              case 13:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[3,, 9, 12]]);
+      }));
+
+      function update() {
+        return _ref.apply(this, arguments);
+      }
+
+      return update;
+    }()
+
+    /**
+     * Fetch more data from the server
+     * @returns {Promise<void>} - Resolves when _availableRows has been updated
+     * @private
+     */
+
+  }, {
+    key: '_fetchMore',
+    value: function () {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        var _ref3,
+            _this2 = this;
+
+        var startPage, endPage, glue, promises, page, parameters, url, promise, responses, data;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                startPage = 1 + Math.floor(this.rowCount / this.parameters.perPage);
+                endPage = Math.ceil(this.maxRows / this.parameters.perPage);
+                glue = this.route.includes('?') ? '&' : '?';
+                promises = [];
+
+
+                for (page = startPage; page <= endPage; page++) {
+                  parameters = this.parameters.copy();
+
+
+                  parameters.page = page;
+
+                  url = this.route + glue + parameters.encode();
+                  promise = this.api.request(url, 'GET', {}, {}, true);
+
+
+                  promises.push(promise);
+                }
+
+                // Wait for responses and flatten data
+                _context2.next = 7;
+                return Promise.all(promises);
+
+              case 7:
+                responses = _context2.sent;
+                data = (_ref3 = []).concat.apply(_ref3, (0, _toConsumableArray3.default)(responses.map(function (x) {
+                  return x.data;
+                })));
+
+
+                this._availableRows = Number(responses[0].response.headers.get('X-Paginate-Total')) || 0;
+
+                data.forEach(function (row) {
+                  return _this2.push(row, false);
+                });
+
+              case 11:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function _fetchMore() {
+        return _ref2.apply(this, arguments);
+      }
+
+      return _fetchMore;
+    }()
+
+    /**
+     * Returns the iterable
+     * @returns {Iterator} - iterator
+     */
+
+  }, {
+    key: Symbol.iterator,
+    value: function value() {
+      return this.data[Symbol.iterator]();
+    }
+
+    /**
+     * Push a row to the data collection
+     *
+     * This will append the row or update an existing row based on the key. If autoMaxRows is set to true and maxRows only needs to be increased by one for the new resource to show up it will
+     * @param {ResourceLister.Resource} row - resource
+     * @param {boolean} autoMaxRows - Increase maxRows if needed
+     * @returns {void}
+     */
+
+  }, {
+    key: 'push',
+    value: function push(row) {
+      var _this3 = this;
+
+      var autoMaxRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      if (!(0, _reflection.isParentOf)(this.Resource, row)) {
+        row = new this.Resource(this.api, row);
+      }
+
+      var index = this._keys.findIndex(function (i) {
+        return i === row[_this3._key];
+      });
+
+      if (index >= 0) {
+        this._realData[index] = row;
+
+        if (typeof this._data[index] !== 'undefined') {
+          this._data[index] = row;
+        }
+      } else {
+        this._realData.push(row);
+
+        this._keys.push(row[this._key]);
+
+        if (autoMaxRows) {
+          this.maxRows++;
+
+          this._data.push(row);
+        }
+      }
+    }
+
+    /**
+     * Same as `this.maxRows += this.parameters.perPage`
+     * @param {number} [rows=parameters.perPage] - Amount to increment maxRows with
+     * @returns {void}
+     */
+
+  }, {
+    key: 'loadMore',
+    value: function loadMore() {
+      var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.parameters.perPage;
+
+      this.maxRows += rows;
+    }
+  }, {
+    key: 'hasMore',
+    get: function get() {
+      return typeof this.availableRows === 'undefined' || this.availableRows > this.maxRows;
+    }
+
+    /**
+     * Get if the instance is waiting for data
+     * @returns {boolean} - waiting for data
+     */
+
+  }, {
+    key: 'waiting',
+    get: function get() {
+      return this._waiting;
+    }
+
+    /**
+     * Get the request parameters
+     * @returns {RequestParameters} - parameters
+     */
+
+  }, {
+    key: 'parameters',
+    get: function get() {
+      return this._parameters;
+    }
+
+    /**
+     * Set the request parameters
+     *
+     * If you set {@link ResourceLister#autoUpdate} to true then {@link ResourceLister#update}
+     * will automatically be called when the parameters are updated.
+     * @see ResourceLister#autoUpdate
+     * @param {RequestParameters} object - parameters
+     */
+    ,
+    set: function set(object) {
+      this.parameters.apply(object);
+    }
+
+    /**
+     * Resource constructor accessor, used for building the resource instance
+     * @returns {Constructor<ResourceBase>} - resource constructor
+     */
+
+  }, {
+    key: 'Resource',
+    get: function get() {
+      return this._Resource;
+    }
+
+    /**
+     * Get the route (url)
+     * @returns {string} - route
+     */
+
+  }, {
+    key: 'route',
+    get: function get() {
+      return this._route;
+    }
+
+    /**
+     * Get the data
+     * @returns {Array<ResourceLister.Resource>} - data
+     */
+
+  }, {
+    key: 'data',
+    get: function get() {
+      return this._data;
+    }
+
+    /**
+     * Get the api instance
+     * @returns {Maps4News} - api instance
+     */
+
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Get the row count
+     *
+     * @see {ResourceLister.data}
+     * @returns {number} - row count
+     */
+
+  }, {
+    key: 'rowCount',
+    get: function get() {
+      return this.data.length;
+    }
+
+    /**
+     * Get the maximum amount of rows allowed
+     * @returns {number} - max rows
+     */
+
+  }, {
+    key: 'maxRows',
+    get: function get() {
+      return this._maxRows;
+    }
+
+    /**
+     * Set the maximum amount of rows allowed
+     * @param {number} value - max rows
+     */
+    ,
+    set: function set(value) {
+      value = Number(value);
+
+      if (Number.isNaN(value)) {
+        throw new TypeError('Expected maxRows to be numeric got ' + (typeof raw === 'undefined' ? 'undefined' : (0, _typeof3.default)(raw)));
+      }
+
+      this._maxRows = value;
+
+      if (this.autoUpdate) {
+        // noinspection JSIgnoredPromiseFromCall
+        this.update();
+      }
+    }
+
+    /**
+     * Get the number of rows the server has available
+     * @returns {number} - number of rows
+     */
+
+  }, {
+    key: 'availableRows',
+    get: function get() {
+      return this._availableRows;
+    }
+
+    /**
+     * Set if {@link ResourceLister#update} should be called when {@link ResourceLister#parameters} is updated
+     *
+     * @see ResourceLister#update
+     * @see ResourceLister#parameters
+     * @param {boolean} value - auto update
+     */
+
+  }, {
+    key: 'autoUpdate',
+    set: function set(value) {
+      value = Boolean(value);
+
+      if (this.autoUpdate !== value) {
+        this._autoUpdate = value;
+
+        if (typeof this._boundUpdate === 'undefined') {
+          this._boundUpdate = this.update.bind(this);
+        }
+
+        if (this.autoUpdate) {
+          this.parameters.on('change', this._boundUpdate);
+        } else {
+          this.parameters.off('change', this._boundUpdate);
+        }
+      }
+    }
+
+    /**
+     * Get if {@link ResourceLister#update} should be called when {@link ResourceLister#parameters} is updated
+     *
+     * @see ResourceLister#update
+     * @see ResourceLister#parameters
+     */
+    ,
+    get: function get() {
+      return this._autoUpdate;
+    }
+  }]);
+  return ResourceLister;
+}(_events.EventEmitter);
+
+exports.default = ResourceLister;
 
 /***/ }),
 /* 159 */
@@ -13460,7 +13645,7 @@ var _Maps4News = __webpack_require__(97);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _SimpleResourceProxy = __webpack_require__(132);
+var _SimpleResourceProxy = __webpack_require__(153);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
@@ -13921,7 +14106,7 @@ var ResourceBase = function () {
       var seedData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
       if (!url) {
-        var resource = new Target(this.api).resourceName.replace(/s+$/, '');
+        var resource = Target.resourceName.replace(/s+$/, '');
 
         url = this.url + '/' + resource + 's';
       }
@@ -13943,7 +14128,7 @@ var ResourceBase = function () {
   }, {
     key: 'resourcePath',
     get: function get() {
-      return '/' + this.resourceName + '/{id}';
+      return '/' + this.constructor.resourceName + '/{id}';
     }
 
     /**
@@ -13951,17 +14136,6 @@ var ResourceBase = function () {
      * @returns {String} - Resource name
      * @todo move to constructor
      * @abstract
-     */
-
-  }, {
-    key: 'resourceName',
-    get: function get() {
-      throw new _AbstractError.AbstractError();
-    }
-
-    /**
-     * Returns the url key of the resource
-     * @returns {String} - Resource key
      */
 
   }, {
@@ -14069,6 +14243,17 @@ var ResourceBase = function () {
           return value;
       }
     }
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      throw new _AbstractError.AbstractError();
+    }
+
+    /**
+     * Returns the url key of the resource
+     * @returns {String} - Resource key
+     */
+
   }, {
     key: 'resourceUrlKey',
     get: function get() {
@@ -14350,7 +14535,7 @@ var Choropleth = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Choropleth.__proto__ || Object.getPrototypeOf(Choropleth)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Choropleth, [{
+  (0, _createClass3.default)(Choropleth, null, [{
     key: 'resourceName',
     get: function get() {
       return 'choropleths';
@@ -14443,7 +14628,7 @@ var Color = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Color.__proto__ || Object.getPrototypeOf(Color)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Color, [{
+  (0, _createClass3.default)(Color, null, [{
     key: 'resourceName',
     get: function get() {
       return 'colors';
@@ -14880,7 +15065,7 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _reflection = __webpack_require__(86);
 
-var _SimpleResourceProxy2 = __webpack_require__(132);
+var _SimpleResourceProxy2 = __webpack_require__(153);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -15013,7 +15198,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
      * Sync, attach or unlink resources
      * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach
      * @param {String} method - Http method to use
-     * @param {ResourceBase} Type - Resource type
+     * @param {function(new:ResourceBase)} Type - Resource type
      * @param {?String} path - Optional appended resource path, will guess if null
      * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
      * @protected
@@ -15025,7 +15210,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
       var path = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
       if (!path) {
-        var resource = new Type(this.api).resourceName.replace(/s+$/, '');
+        var resource = Type.resourceName.replace(/s+$/, '');
 
         path = resource + 's';
       }
@@ -15067,11 +15252,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(138);
+var _regenerator = __webpack_require__(103);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(141);
+var _asyncToGenerator2 = __webpack_require__(106);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -15238,19 +15423,14 @@ var Organisation = function (_CrudBase) {
       return new _OwnedResourceProxy2.default(this.api, this, Target);
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'organisations';
-    }
+    key: 'fontFamilies',
+
 
     // Resource listing
     /**
      * Get a proxy for font families linked to the organisation
      * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
-
-  }, {
-    key: 'fontFamilies',
     get: function get() {
       return this._proxyBuilder(_FontFamily2.default);
     }
@@ -15386,6 +15566,11 @@ var Organisation = function (_CrudBase) {
     get: function get() {
       return this._proxyResourceList(_Domain2.default);
     }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'organisations';
+    }
   }]);
   return Organisation;
 }(_CrudBase3.default); /*
@@ -15453,7 +15638,7 @@ var _inherits2 = __webpack_require__(77);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _SimpleResourceProxy2 = __webpack_require__(132);
+var _SimpleResourceProxy2 = __webpack_require__(153);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -15474,7 +15659,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
   function OwnedResourceProxy(api, parent, Target) {
     (0, _classCallCheck3.default)(this, OwnedResourceProxy);
 
-    var resource = new Target(api).resourceName.replace(/s+$/, '');
+    var resource = Target.resourceName.replace(/s+$/, '');
     var url = parent.url + '/' + resource + 's';
 
     return (0, _possibleConstructorReturn3.default)(this, (OwnedResourceProxy.__proto__ || Object.getPrototypeOf(OwnedResourceProxy)).call(this, api, Target, url));
@@ -15752,7 +15937,7 @@ var Contract = function (_CrudBase) {
 
       return out;
     }
-  }, {
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'contracts';
@@ -15887,14 +16072,14 @@ var DimensionSet = function (_mix) {
       return '/dimensions/sets/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'dimension-sets';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Dimension2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'dimension-sets';
     }
   }]);
   return DimensionSet;
@@ -16083,7 +16268,7 @@ var Dimension = function (_CrudSetItemBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Dimension.__proto__ || Object.getPrototypeOf(Dimension)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Dimension, [{
+  (0, _createClass3.default)(Dimension, null, [{
     key: 'resourceName',
     get: function get() {
       return 'dimensions';
@@ -16238,7 +16423,7 @@ var CrudSetItemBase = function (_CrudBase) {
   }, {
     key: 'parentKey',
     get: function get() {
-      return this.resourceName.replace(/s$/, '_set_id');
+      return this.constructor.resourceName.replace(/s$/, '_set_id');
     }
 
     /**
@@ -16302,7 +16487,7 @@ var Domain = function (_CrudBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Domain.__proto__ || Object.getPrototypeOf(Domain)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Domain, [{
+  (0, _createClass3.default)(Domain, null, [{
     key: 'resourceName',
     get: function get() {
       return 'domains';
@@ -16395,7 +16580,7 @@ var Feature = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Feature.__proto__ || Object.getPrototypeOf(Feature)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Feature, [{
+  (0, _createClass3.default)(Feature, null, [{
     key: 'resourceName',
     get: function get() {
       return 'features';
@@ -16530,14 +16715,14 @@ var FontFamily = function (_mix) {
       return '/fonts/families/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'font-families';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Font2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'font-families';
     }
   }]);
   return FontFamily;
@@ -16587,14 +16772,14 @@ var Font = function (_CrudSetItemBase) {
   }
 
   (0, _createClass3.default)(Font, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'fonts';
-    }
-  }, {
     key: 'parentKey',
     get: function get() {
       return 'font_family_id';
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'fonts';
     }
   }]);
   return Font;
@@ -16696,15 +16881,15 @@ var JobShare = function (_CrudBase) {
     get: function get() {
       return '/jobs/shares/{id}';
     }
-  }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'job-shares';
-    }
   }], [{
     key: 'visibility',
     get: function get() {
       return JobShareVisibility;
+    }
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      return 'job-shares';
     }
   }]);
   return JobShare;
@@ -16824,7 +17009,7 @@ var JobType = function (_mix) {
     get: function get() {
       return '/jobs/types/{id}';
     }
-  }, {
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'job-types';
@@ -16954,7 +17139,7 @@ var Layer = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Layer.__proto__ || Object.getPrototypeOf(Layer)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Layer, [{
+  (0, _createClass3.default)(Layer, null, [{
     key: 'resourceName',
     get: function get() {
       return 'layers';
@@ -17072,6 +17257,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _regenerator = __webpack_require__(103);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(106);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _classCallCheck2 = __webpack_require__(4);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -17080,19 +17273,19 @@ var _createClass2 = __webpack_require__(5);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _ResourceBase = __webpack_require__(159);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
-
 var _Maps4News = __webpack_require__(97);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _node = __webpack_require__(108);
+var _ResourceBase = __webpack_require__(159);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+
+var _node = __webpack_require__(133);
 
 var _reflection = __webpack_require__(86);
 
-var _requests = __webpack_require__(112);
+var _requests = __webpack_require__(138);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17167,15 +17360,43 @@ var ImageHandler = function () {
 
   }, {
     key: 'download',
-    value: function download() {
-      return this.api.request(this.url).then(function (data) {
-        if ((0, _node.isNode)()) {
-          return data;
-        }
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.api.request('' + this.url);
 
-        return (window.URL || window.webkitURL).createObjectURL(data);
-      });
-    }
+              case 2:
+                data = _context.sent;
+
+                if (!(0, _node.isNode)()) {
+                  _context.next = 5;
+                  break;
+                }
+
+                return _context.abrupt('return', data);
+
+              case 5:
+                return _context.abrupt('return', (window.URL || window.webkitURL).createObjectURL(data));
+
+              case 6:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function download() {
+        return _ref.apply(this, arguments);
+      }
+
+      return download;
+    }()
 
     /**
      * Upload new image
@@ -17344,14 +17565,14 @@ var MapstyleSet = function (_mix) {
       return '/mapstyles/sets/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'mapstyle-sets';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Mapstyle2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'mapstyle-sets';
     }
   }]);
   return MapstyleSet;
@@ -17410,7 +17631,7 @@ var Mapstyle = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Mapstyle.__proto__ || Object.getPrototypeOf(Mapstyle)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Mapstyle, [{
+  (0, _createClass3.default)(Mapstyle, null, [{
     key: 'resourceName',
     get: function get() {
       return 'mapstyles';
@@ -17545,14 +17766,14 @@ var SvgSet = function (_mix) {
       return '/svgs/sets/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'svg-sets';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Svg2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'svg-sets';
     }
   }]);
   return SvgSet;
@@ -17601,7 +17822,7 @@ var Svg = function (_CrudSetItemBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || Object.getPrototypeOf(Svg)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Svg, [{
+  (0, _createClass3.default)(Svg, null, [{
     key: 'resourceName',
     get: function get() {
       return 'svgs';
@@ -17694,7 +17915,7 @@ var Tag = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Tag.__proto__ || Object.getPrototypeOf(Tag)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Tag, [{
+  (0, _createClass3.default)(Tag, null, [{
     key: 'resourceName',
     get: function get() {
       return 'tags';
@@ -17766,7 +17987,7 @@ var _OwnedResourceProxy = __webpack_require__(167);
 
 var _OwnedResourceProxy2 = _interopRequireDefault(_OwnedResourceProxy);
 
-var _ResourceProxy = __webpack_require__(128);
+var _ResourceProxy = __webpack_require__(149);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
@@ -17923,11 +18144,6 @@ var User = function (_CrudBase) {
      */
 
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'users';
-    }
-  }, {
     key: 'notifications',
     get: function get() {
       return this._proxyResourceList(_Notification2.default);
@@ -18067,6 +18283,11 @@ var User = function (_CrudBase) {
 
     // endregion
 
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'users';
+    }
   }]);
   return User;
 }(_CrudBase3.default);
@@ -18100,11 +18321,11 @@ var _inherits2 = __webpack_require__(77);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ResourceProxy = __webpack_require__(128);
+var _ResourceProxy = __webpack_require__(149);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _requests = __webpack_require__(112);
+var _requests = __webpack_require__(138);
 
 var _CrudBase2 = __webpack_require__(163);
 
@@ -18213,10 +18434,8 @@ var Job = function (_CrudBase) {
      */
 
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'jobs';
-    }
+    key: 'lastPreviewUrl',
+
 
     /**
      * Get the most up to date preview url
@@ -18224,9 +18443,6 @@ var Job = function (_CrudBase) {
      * @deprecated
      * @see Job#previewUrl
      */
-
-  }, {
-    key: 'lastPreviewUrl',
     get: function get() {
       return this.url + '/preview';
     }
@@ -18240,6 +18456,11 @@ var Job = function (_CrudBase) {
     key: 'lastArchiveUrl',
     get: function get() {
       return this.url + '/revisions/last/result/archive';
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'jobs';
     }
   }]);
   return Job;
@@ -18304,7 +18525,7 @@ var _inherits2 = __webpack_require__(77);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _requests = __webpack_require__(112);
+var _requests = __webpack_require__(138);
 
 var _ResourceBase2 = __webpack_require__(159);
 
@@ -18416,7 +18637,7 @@ var JobResult = function (_ResourceBase) {
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
      */
     value: function downloadPreview() {
-      return (0, _requests.downloadFile)(this.previewUrl, this._getDownloadHeaders()).then(function (data) {
+      return (0, _requests.downloadFile)('' + this.previewUrl, this._getDownloadHeaders()).then(function (data) {
         return data.blob;
       });
     }
@@ -18465,18 +18686,13 @@ var JobResult = function (_ResourceBase) {
       return '/jobs/{job_id}/revisions/{revision}/result';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'job-result';
-    }
+    key: 'job',
+
 
     /**
      * Get the related job
      * @returns {Promise<Job, ApiError>} - The job related to this row
      */
-
-  }, {
-    key: 'job',
     get: function get() {
       return this.api.jobs.get(this.jobId);
     }
@@ -18516,6 +18732,11 @@ var JobResult = function (_ResourceBase) {
     key: 'previewUrl',
     get: function get() {
       return this.url + '/preview';
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'job-result';
     }
   }]);
   return JobResult;
@@ -18735,11 +18956,6 @@ var JobRevision = function (_CrudBase) {
       return '/jobs/{job_id}/revisions/{revision}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'job-revisions';
-    }
-  }, {
     key: 'layers',
 
 
@@ -18761,6 +18977,11 @@ var JobRevision = function (_CrudBase) {
       return new _JobResult2.default(this.api, data);
     }
   }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'job-revisions';
+    }
+  }, {
     key: 'resourceUrlKey',
     get: function get() {
       return 'revision';
@@ -18848,16 +19069,16 @@ var Language = function (_CrudBase) {
       return this.constructor.name + '(' + this.code + ')';
     }
   }, {
+    key: 'resourcePath',
+    get: function get() {
+      return '/' + this.constructor.resourceName + '/{code}';
+    }
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'languages';
     }
   }, {
-    key: 'resourcePath',
-    get: function get() {
-      return '/' + this.resourceName + '/{code}';
-    }
-  }], [{
     key: 'resourceUrlKey',
     get: function get() {
       return 'code';
@@ -18939,7 +19160,7 @@ var Notification = function (_CrudBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Notification, [{
+  (0, _createClass3.default)(Notification, null, [{
     key: 'resourceName',
     get: function get() {
       return 'notifications';
@@ -19021,7 +19242,7 @@ var Permission = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Permission.__proto__ || Object.getPrototypeOf(Permission)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Permission, [{
+  (0, _createClass3.default)(Permission, null, [{
     key: 'resourceName',
     get: function get() {
       return 'permissions';
@@ -19136,7 +19357,7 @@ var Role = function (_CrudBase) {
     get: function get() {
       return new _OwnedResourceProxy2.default(this.api, this, _User2.default);
     }
-  }, {
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'roles';
@@ -19191,7 +19412,7 @@ var Faq = function (_CrudBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Faq.__proto__ || Object.getPrototypeOf(Faq)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Faq, [{
+  (0, _createClass3.default)(Faq, null, [{
     key: 'resourceName',
     get: function get() {
       return 'faqs';
@@ -19273,7 +19494,7 @@ var Highlight = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Highlight.__proto__ || Object.getPrototypeOf(Highlight)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Highlight, [{
+  (0, _createClass3.default)(Highlight, null, [{
     key: 'resourceName',
     get: function get() {
       return 'highlights';
@@ -19355,7 +19576,7 @@ var InsetMap = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (InsetMap.__proto__ || Object.getPrototypeOf(InsetMap)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(InsetMap, [{
+  (0, _createClass3.default)(InsetMap, null, [{
     key: 'resourceName',
     get: function get() {
       return 'inset-maps';
@@ -19442,17 +19663,6 @@ var JobMonitorRow = function (_JobResult) {
   }
 
   (0, _createClass3.default)(JobMonitorRow, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'job-monitor';
-    }
-
-    /**
-     * Returns if the resource is readonly
-     * @returns {boolean} - readonly
-     */
-
-  }, {
     key: 'user',
 
 
@@ -19480,6 +19690,17 @@ var JobMonitorRow = function (_JobResult) {
 
       return (0, _get3.default)(JobMonitorRow.__proto__ || Object.getPrototypeOf(JobMonitorRow), '_guessType', this).call(this, name, value);
     }
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      return 'job-monitor';
+    }
+
+    /**
+     * Returns if the resource is readonly
+     * @returns {boolean} - readonly
+     */
+
   }, {
     key: 'readonly',
     get: function get() {
@@ -19683,7 +19904,7 @@ var PlaceName = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (PlaceName.__proto__ || Object.getPrototypeOf(PlaceName)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(PlaceName, [{
+  (0, _createClass3.default)(PlaceName, null, [{
     key: 'resourceName',
     get: function get() {
       return 'place-names';
@@ -19921,7 +20142,7 @@ var _JobMonitorRow2 = _interopRequireDefault(_JobMonitorRow);
 
 var _reflection = __webpack_require__(86);
 
-var _requests = __webpack_require__(112);
+var _requests = __webpack_require__(138);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19946,16 +20167,15 @@ var JobMonitor = function () {
 
     this._api = api;
 
-    this.maxRows = maxRows;
-    this.longPoll = longPoll;
-
+    this._maxAvailible = {};
+    this._maxRows = Math.max(1, Number(maxRows));
+    this._longPoll = Boolean(longPoll);
     this._lastUpdate = this._getTimestamp();
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._filterTags = [];
     this._purge = false;
     this._skipMaxUpdate = false;
-    this._maxAvailible = {};
   }
 
   /**
@@ -19965,13 +20185,29 @@ var JobMonitor = function () {
 
 
   (0, _createClass3.default)(JobMonitor, [{
-    key: 'update',
+    key: 'loadMore',
 
+
+    /**
+     * Update maxRows and run update()
+     * @param {number} [count=50] - Amount to increase maxRows by
+     * @returns {Promise<Number, ApiError>} - Resolves with the number of updated rows
+     */
+    value: function loadMore() {
+      var count = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 50;
+
+      this.maxRows += count;
+
+      return this.update();
+    }
 
     /**
      * Update the job list
      * @returns {Promise<Number, ApiError>} - Resolves with the number of updated rows
      */
+
+  }, {
+    key: 'update',
     value: function update() {
       var _this = this;
 
@@ -20374,21 +20610,21 @@ var _OAuth2 = __webpack_require__(102);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
-var _OAuthToken = __webpack_require__(103);
+var _OAuthToken = __webpack_require__(137);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _StateContainer = __webpack_require__(126);
+var _StateContainer = __webpack_require__(147);
 
 var _StateContainer2 = _interopRequireDefault(_StateContainer);
 
-var _requests = __webpack_require__(112);
+var _requests = __webpack_require__(138);
 
 var _OAuthError = __webpack_require__(101);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _node = __webpack_require__(108);
+var _node = __webpack_require__(133);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20726,7 +20962,7 @@ var _OAuthError = __webpack_require__(101);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _StorageManager = __webpack_require__(104);
+var _StorageManager = __webpack_require__(129);
 
 var _StorageManager2 = _interopRequireDefault(_StorageManager);
 
@@ -20734,7 +20970,7 @@ var _ImplicitFlow2 = __webpack_require__(210);
 
 var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
 
-var _OAuthToken = __webpack_require__(103);
+var _OAuthToken = __webpack_require__(137);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
@@ -20910,15 +21146,15 @@ var _OAuthError = __webpack_require__(101);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _node = __webpack_require__(108);
+var _node = __webpack_require__(133);
 
-var _requests = __webpack_require__(112);
+var _requests = __webpack_require__(138);
 
 var _OAuth2 = __webpack_require__(102);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
-var _OAuthToken = __webpack_require__(103);
+var _OAuthToken = __webpack_require__(137);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
@@ -20977,7 +21213,7 @@ var PasswordFlow = function (_OAuth) {
     value: function authenticate() {
       var _this2 = this;
 
-      var url = this.host + this._path;
+      var url = this.host + this.path;
       var query = {
         'grant_type': 'password',
         'client_id': this.clientId,
@@ -21156,7 +21392,7 @@ var _OAuthError2 = __webpack_require__(101);
 
 var _OAuthError3 = _interopRequireDefault(_OAuthError2);
 
-var _StaticClassError2 = __webpack_require__(106);
+var _StaticClassError2 = __webpack_require__(131);
 
 var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 

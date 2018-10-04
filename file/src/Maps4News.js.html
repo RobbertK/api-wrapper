@@ -458,7 +458,7 @@ export default class Maps4News {
    *
    * @example
    * class FooBar extends ResourceBase {
-   *    get resourceName() {
+   *    static get resourceName() {
    *      return &apos;custom&apos;;
    *    }
    * }
@@ -473,7 +473,7 @@ export default class Maps4News {
     }
 
     const Constructor = class AnonymousResource extends ResourceBase {
-      get resourceName() {
+      static get resourceName() {
         return &apos;anonymous&apos;;
       }
 
@@ -772,7 +772,7 @@ export default class Maps4News {
    * @returns {void}
    */
   logout() {
-    this.auth.forget();
+    this.auth.logout();
   }
 
   /**

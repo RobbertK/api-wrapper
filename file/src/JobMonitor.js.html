@@ -162,16 +162,15 @@ export default class JobMonitor {
 
     this._api = api;
 
-    this.maxRows = maxRows;
-    this.longPoll = longPoll;
-
+    this._maxAvailible = {};
+    this._maxRows = Math.max(1, Number(maxRows));
+    this._longPoll = Boolean(longPoll);
     this._lastUpdate = this._getTimestamp();
     this._data = [];
     this._filterStatus = JobMonitorFilter.DEFAULT;
     this._filterTags = [];
     this._purge = false;
     this._skipMaxUpdate = false;
-    this._maxAvailible = {};
   }
 
   /**
@@ -188,6 +187,17 @@ export default class JobMonitor {
    */
   get api() {
     return this._api;
+  }
+
+  /**
+   * Update maxRows and run update()
+   * @param {number} [count=50] - Amount to increase maxRows by
+   * @returns {Promise&lt;Number, ApiError&gt;} - Resolves with the number of updated rows
+   */
+  loadMore(count = 50) {
+    this.maxRows += count;
+
+    return this.update();
   }
 
   /**

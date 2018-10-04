@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:839bbd819e63ca3e4e80, chunkhash:2f7ca7e2c3f65dacc48d, name:bundle, version:v1.4.29
+ * hash:03a6c76564ef143f6f0d, chunkhash:a2abde30620e5c53ba56, name:bundle, version:v1.4.39
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -176,11 +176,11 @@ var _Maps4News2 = __webpack_require__(17);
 
 var _Maps4News3 = _interopRequireDefault(_Maps4News2);
 
-var _RequestParameters2 = __webpack_require__(42);
+var _RequestParameters2 = __webpack_require__(44);
 
 var _RequestParameters3 = _interopRequireDefault(_RequestParameters2);
 
-var _StorageManager2 = __webpack_require__(25);
+var _StorageManager2 = __webpack_require__(26);
 
 var _StorageManager3 = _interopRequireDefault(_StorageManager2);
 
@@ -220,7 +220,7 @@ var _ValidationError2 = __webpack_require__(20);
 
 var _ValidationError3 = _interopRequireDefault(_ValidationError2);
 
-var _StaticClassError2 = __webpack_require__(27);
+var _StaticClassError2 = __webpack_require__(28);
 
 var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 
@@ -228,11 +228,11 @@ var _resources2 = __webpack_require__(53);
 
 var _resources = _interopRequireWildcard(_resources2);
 
-var _helpers2 = __webpack_require__(35);
+var _helpers2 = __webpack_require__(37);
 
 var _helpers = _interopRequireWildcard(_helpers2);
 
-var _ResourceLister2 = __webpack_require__(49);
+var _ResourceLister2 = __webpack_require__(51);
 
 var _ResourceLister3 = _interopRequireDefault(_ResourceLister2);
 
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.29";
+var version = exports.version = "v1.4.39";
 
 /**
  * Package license
@@ -1499,19 +1499,19 @@ var _OAuth = __webpack_require__(23);
 
 var _OAuth2 = _interopRequireDefault(_OAuth);
 
-var _OAuthToken = __webpack_require__(24);
+var _OAuthToken = __webpack_require__(34);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _ResourceProxy = __webpack_require__(40);
+var _ResourceProxy = __webpack_require__(42);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _SimpleResourceProxy = __webpack_require__(44);
+var _SimpleResourceProxy = __webpack_require__(46);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
-var _ResourceCache = __webpack_require__(47);
+var _ResourceCache = __webpack_require__(49);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
@@ -1527,11 +1527,11 @@ var _Logger = __webpack_require__(94);
 
 var _Logger2 = _interopRequireDefault(_Logger);
 
-var _node = __webpack_require__(29);
+var _node = __webpack_require__(30);
 
 var _reflection = __webpack_require__(9);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1807,7 +1807,7 @@ var Maps4News = function () {
      *
      * @example
      * class FooBar extends ResourceBase {
-     *    get resourceName() {
+     *    static get resourceName() {
      *      return 'custom';
      *    }
      * }
@@ -1833,14 +1833,14 @@ var Maps4News = function () {
         }
 
         (0, _createClass3.default)(AnonymousResource, [{
-          key: 'resourceName',
-          get: function get() {
-            return 'anonymous';
-          }
-        }, {
           key: 'resourcePath',
           get: function get() {
             return String(Target);
+          }
+        }], [{
+          key: 'resourceName',
+          get: function get() {
+            return 'anonymous';
           }
         }]);
         return AnonymousResource;
@@ -1895,7 +1895,7 @@ var Maps4News = function () {
   }, {
     key: 'logout',
     value: function logout() {
-      this.auth.forget();
+      this.auth.logout();
     }
 
     /**
@@ -2903,6 +2903,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _regenerator = __webpack_require__(24);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(25);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _classCallCheck2 = __webpack_require__(4);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -2913,17 +2921,25 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _AbstractError = __webpack_require__(16);
 
-var _OAuthToken = __webpack_require__(24);
+var _ApiError = __webpack_require__(19);
+
+var _ApiError2 = _interopRequireDefault(_ApiError);
+
+var _OAuthError = __webpack_require__(22);
+
+var _OAuthError2 = _interopRequireDefault(_OAuthError);
+
+var _StorageManager = __webpack_require__(26);
+
+var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _OAuthToken = __webpack_require__(34);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _StateContainer = __webpack_require__(38);
+var _StateContainer = __webpack_require__(40);
 
 var _StateContainer2 = _interopRequireDefault(_StateContainer);
-
-var _StorageManager = __webpack_require__(25);
-
-var _StorageManager2 = _interopRequireDefault(_StorageManager);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3019,6 +3035,90 @@ var OAuth = function () {
     }
 
     /**
+     * Invalidates the session token
+     * @async
+     * @returns {Promise<void>} - Promise that resolves with no value
+     * @throws {OAuthError} - If de-authentication fails
+     * @throws {ApiError} - If the api returns errors
+     */
+
+  }, {
+    key: 'logout',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var url, init, response, body, data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (this.token) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt('return');
+
+              case 2:
+                url = this.host + '/oauth/logout';
+                init = {
+                  method: 'POST',
+                  mode: 'cors',
+                  redirect: 'follow',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Authorization': this.token.toString()
+                  }
+                };
+                _context.prev = 4;
+                _context.next = 7;
+                return fetch(url, init);
+
+              case 7:
+                response = _context.sent;
+                _context.next = 10;
+                return response.text();
+
+              case 10:
+                body = _context.sent;
+                data = JSON.parse(body);
+
+                if (data.success) {
+                  _context.next = 14;
+                  break;
+                }
+
+                throw new _ApiError2.default(data.error.type, data.error.message, response.status);
+
+              case 14:
+                if (response.ok) {
+                  _context.next = 16;
+                  break;
+                }
+
+                throw new _OAuthError2.default('logout_fail', 'Logout failed:\n' + body);
+
+              case 16:
+                _context.prev = 16;
+
+                this.forget();
+                return _context.finish(16);
+
+              case 19:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[4,, 16, 19]]);
+      }));
+
+      function logout() {
+        return _ref.apply(this, arguments);
+      }
+
+      return logout;
+    }()
+
+    /**
      * Manually import OAuthToken, usefull for debugging
      * @param {String} token - OAuth token
      * @param {String} [type=Bearer] - token type
@@ -3049,240 +3149,18 @@ exports.default = OAuth;
 
 /***/ }),
 /* 24 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _StorageManager = __webpack_require__(25);
-
-var _StorageManager2 = _interopRequireDefault(_StorageManager);
-
-var _requests = __webpack_require__(33);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Oauth token container
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var OAuthToken = function () {
-  /**
-   * @param {String} token - OAuth token
-   * @param {String} [type=Bearer] - token type
-   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
-   * @param {Array<string>} [scopes=[]] - Any scopes
-   */
-  function OAuthToken(token) {
-    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Bearer';
-    var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 432000;
-    var scopes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-    (0, _classCallCheck3.default)(this, OAuthToken);
-
-    this.scopes = scopes;
-    this.token = token;
-    this.type = type.toLowerCase().replace(/(\s|^)\w/g, function (x) {
-      return x.toUpperCase();
-    });
-
-    if (typeof expires === 'number') {
-      // Expires is in seconds
-      this.expires = new Date(Date.now() + expires * 1000);
-    } else if (expires instanceof Date) {
-      this.expires = expires;
-    } else {
-      throw new TypeError('Expires not of type Date or Number');
-    }
-  }
-
-  /**
-   * String representation of the token, usable in the Authorization header
-   * @returns {string} - String representation
-   */
-
-
-  (0, _createClass3.default)(OAuthToken, [{
-    key: 'toString',
-    value: function toString() {
-      return this.type + ' ' + this.token;
-    }
-
-    /**
-     * Get equivalent OAuth response object
-     * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object
-     */
-
-  }, {
-    key: 'toResponseObject',
-    value: function toResponseObject() {
-      return {
-        'access_token': this.token,
-        'token_type': this.type.toLowerCase(),
-        'expires_in': this.expires - Date.now(),
-        'scope': this.scopes
-      };
-    }
-
-    /**
-     * Export oauth response query string
-     * @returns {string} - OAuth response query
-     */
-
-  }, {
-    key: 'toQueryString',
-    value: function toQueryString() {
-      return (0, _requests.encodeQueryString)(this.toResponseObject());
-    }
-
-    /**
-     * If the token has expired
-     * @returns {Boolean} - expired
-     */
-
-  }, {
-    key: 'save',
-
-
-    /**
-     * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.
-     * @param {String} name - db key name
-     * @returns {void}
-     * @see OAuthToken#recover
-     */
-    value: function save() {
-      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
-
-      var data = {
-        token: this.token,
-        type: this.type,
-        expires: this.expires.toUTCString(),
-        scopes: this.scopes
-      };
-
-      // Third parameter is only used when we're using cookies
-      _StorageManager2.default.secure.set(name, JSON.stringify(data), this.expires);
-    }
-
-    /**
-     * Recover a token by looking through the HTTPS cookies and localStorage
-     * @param {String} name - Storage key name
-     * @returns {OAuthToken|null} - null if none could be recovered
-     * @see OAuthToken#save
-     */
-
-  }, {
-    key: 'expired',
-    get: function get() {
-      return new Date() > this.expires;
-    }
-
-    /**
-     * Internal storage key name
-     * @returns {String} - storage name
-     * @constant
-     */
-
-  }], [{
-    key: 'fromResponseObject',
-
-
-    /**
-     * Build instance from response object
-     * @param {String|Object} data - object or JSON string
-     * @returns {OAuthToken} - New OAuthToken instance
-     */
-    value: function fromResponseObject(data) {
-      if (typeof data === 'string') {
-        data = JSON.parse(data);
-      }
-
-      // Default expires = 5 days
-      var expires = 432000;
-
-      if (typeof data['exipires_in'] !== 'undefined') {
-        expires = Number(data['expires_in']);
-      } else if (typeof data['expires'] === 'string') {
-        expires = new Date(data['expires']);
-      }
-
-      return new OAuthToken(data['access_token'], data['token_type'], expires, data['scope'] || []);
-    }
-  }, {
-    key: 'recover',
-    value: function recover() {
-      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
-
-      var data = _StorageManager2.default.secure.get(name);
-
-      if (!data) {
-        return null;
-      }
-
-      var obj = JSON.parse(data);
-      var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
-
-      if (instance.expired) {
-        return null;
-      }
-
-      return instance;
-    }
-  }, {
-    key: 'storageName',
-    get: function get() {
-      return 'api_token';
-    }
-  }]);
-  return OAuthToken;
-}();
-
-exports.default = OAuthToken;
+module.exports = require("babel-runtime/regenerator");
 
 /***/ }),
 /* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/asyncToGenerator");
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3308,19 +3186,19 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _StaticClass2 = __webpack_require__(26);
+var _StaticClass2 = __webpack_require__(27);
 
 var _StaticClass3 = _interopRequireDefault(_StaticClass2);
 
-var _CookiesDriver = __webpack_require__(28);
+var _CookiesDriver = __webpack_require__(29);
 
 var _CookiesDriver2 = _interopRequireDefault(_CookiesDriver);
 
-var _FileDriver = __webpack_require__(31);
+var _FileDriver = __webpack_require__(32);
 
 var _FileDriver2 = _interopRequireDefault(_FileDriver);
 
-var _LocalStorageDriver = __webpack_require__(32);
+var _LocalStorageDriver = __webpack_require__(33);
 
 var _LocalStorageDriver2 = _interopRequireDefault(_LocalStorageDriver);
 
@@ -3453,7 +3331,7 @@ var StorageManager = function (_StaticClass) {
 exports.default = StorageManager;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3467,7 +3345,7 @@ var _classCallCheck2 = __webpack_require__(4);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _StaticClassError = __webpack_require__(27);
+var _StaticClassError = __webpack_require__(28);
 
 var _StaticClassError2 = _interopRequireDefault(_StaticClassError);
 
@@ -3516,7 +3394,7 @@ var StaticClass = function StaticClass() {
 exports.default = StaticClass;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3590,7 +3468,7 @@ var StaticClassError = function (_Error) {
 exports.default = StaticClassError;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3616,9 +3494,9 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _node = __webpack_require__(29);
+var _node = __webpack_require__(30);
 
-var _DataStoreContract2 = __webpack_require__(30);
+var _DataStoreContract2 = __webpack_require__(31);
 
 var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
 
@@ -3809,7 +3687,7 @@ var CookiesDriver = function (_DataStoreContract) {
 exports.default = CookiesDriver;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3862,7 +3740,7 @@ function isNode() {
 }
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4028,7 +3906,7 @@ var DataStoreContract = function () {
 exports.default = DataStoreContract;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4054,9 +3932,9 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _node = __webpack_require__(29);
+var _node = __webpack_require__(30);
 
-var _DataStoreContract2 = __webpack_require__(30);
+var _DataStoreContract2 = __webpack_require__(31);
 
 var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
 
@@ -4291,7 +4169,7 @@ var FileDriver = function (_DataStoreContract) {
 exports.default = FileDriver;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4317,11 +4195,11 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _DataStoreContract2 = __webpack_require__(30);
+var _DataStoreContract2 = __webpack_require__(31);
 
 var _DataStoreContract3 = _interopRequireDefault(_DataStoreContract2);
 
-var _node = __webpack_require__(29);
+var _node = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4464,7 +4342,241 @@ var LocalStorageDriver = function (_DataStoreContract) {
 exports.default = LocalStorageDriver;
 
 /***/ }),
-/* 33 */
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _StorageManager = __webpack_require__(26);
+
+var _StorageManager2 = _interopRequireDefault(_StorageManager);
+
+var _requests = __webpack_require__(35);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Oauth token container
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var OAuthToken = function () {
+  /**
+   * @param {String} token - OAuth token
+   * @param {String} [type=Bearer] - token type
+   * @param {Date|Number} [expires=5 days] - expire time in seconds or Date
+   * @param {Array<string>} [scopes=[]] - Any scopes
+   */
+  function OAuthToken(token) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Bearer';
+    var expires = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 432000;
+    var scopes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+    (0, _classCallCheck3.default)(this, OAuthToken);
+
+    this.scopes = scopes;
+    this.token = token;
+    this.type = type.toLowerCase().replace(/(\s|^)\w/g, function (x) {
+      return x.toUpperCase();
+    });
+
+    if (typeof expires === 'number') {
+      // Expires is in seconds
+      this.expires = new Date(Date.now() + expires * 1000);
+    } else if (expires instanceof Date) {
+      this.expires = expires;
+    } else {
+      throw new TypeError('Expires not of type Date or Number');
+    }
+  }
+
+  /**
+   * String representation of the token, usable in the Authorization header
+   * @returns {string} - String representation
+   */
+
+
+  (0, _createClass3.default)(OAuthToken, [{
+    key: 'toString',
+    value: function toString() {
+      return this.type + ' ' + this.token;
+    }
+
+    /**
+     * Get equivalent OAuth response object
+     * @returns {{access_token: (String|*), token_type: String, expires_in: Number, scope: (Array.<String>|Array|*)}} - Raw response object
+     */
+
+  }, {
+    key: 'toResponseObject',
+    value: function toResponseObject() {
+      return {
+        'access_token': this.token,
+        'token_type': this.type.toLowerCase(),
+        'expires_in': this.expires - Date.now(),
+        'scope': this.scopes
+      };
+    }
+
+    /**
+     * Export oauth response query string
+     * @returns {string} - OAuth response query
+     */
+
+  }, {
+    key: 'toQueryString',
+    value: function toQueryString() {
+      return (0, _requests.encodeQueryString)(this.toResponseObject());
+    }
+
+    /**
+     * If the token has expired
+     * @returns {Boolean} - expired
+     */
+
+  }, {
+    key: 'save',
+
+
+    /**
+     * Store the token for later recovery. Token will be stored in HTTPS cookie if possible.
+     * @param {String} name - db key name
+     * @returns {void}
+     * @see OAuthToken#recover
+     */
+    value: function save() {
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
+
+      var data = {
+        token: this.token,
+        type: this.type,
+        expires: this.expires.toUTCString(),
+        scopes: this.scopes
+      };
+
+      // Third parameter is only used when we're using cookies
+      _StorageManager2.default.secure.set(name, JSON.stringify(data), this.expires);
+    }
+
+    /**
+     * Recover a token by looking through the HTTPS cookies and localStorage
+     * @param {String} name - Storage key name
+     * @returns {OAuthToken|null} - null if none could be recovered
+     * @see OAuthToken#save
+     */
+
+  }, {
+    key: 'expired',
+    get: function get() {
+      return new Date() > this.expires;
+    }
+
+    /**
+     * Internal storage key name
+     * @returns {String} - storage name
+     * @constant
+     */
+
+  }], [{
+    key: 'fromResponseObject',
+
+
+    /**
+     * Build instance from response object
+     * @param {String|Object} data - object or JSON string
+     * @returns {OAuthToken} - New OAuthToken instance
+     */
+    value: function fromResponseObject(data) {
+      if (typeof data === 'string') {
+        data = JSON.parse(data);
+      }
+
+      // Default expires = 5 days
+      var expires = 432000;
+
+      if (typeof data['exipires_in'] !== 'undefined') {
+        expires = Number(data['expires_in']);
+      } else if (typeof data['expires'] === 'string') {
+        expires = new Date(data['expires']);
+      }
+
+      return new OAuthToken(data['access_token'], data['token_type'], expires, data['scope'] || []);
+    }
+  }, {
+    key: 'recover',
+    value: function recover() {
+      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : OAuthToken.storageName;
+
+      var data = _StorageManager2.default.secure.get(name);
+
+      if (!data) {
+        return null;
+      }
+
+      var obj = JSON.parse(data);
+      var instance = new OAuthToken(obj.token, obj.type, new Date(obj.expires), obj.scopes || []);
+
+      if (instance.expired) {
+        return null;
+      }
+
+      return instance;
+    }
+  }, {
+    key: 'storageName',
+    get: function get() {
+      return 'api_token';
+    }
+  }]);
+  return OAuthToken;
+}();
+
+exports.default = OAuthToken;
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4482,7 +4594,7 @@ var _typeof3 = _interopRequireDefault(_typeof2);
 exports.encodeQueryString = encodeQueryString;
 exports.downloadFile = downloadFile;
 
-var _fetchPonyfill = __webpack_require__(34);
+var _fetchPonyfill = __webpack_require__(36);
 
 var _fetchPonyfill2 = _interopRequireDefault(_fetchPonyfill);
 
@@ -4490,9 +4602,9 @@ var _ApiError = __webpack_require__(19);
 
 var _ApiError2 = _interopRequireDefault(_ApiError);
 
-var _helpers = __webpack_require__(35);
+var _helpers = __webpack_require__(37);
 
-var _node = __webpack_require__(29);
+var _node = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4547,7 +4659,7 @@ function getFormData() {
   if ((0, _helpers.windowTest)('FormData')) {
     return window.FormData;
   } else if (!(0, _node.isNode)()) {
-    return __webpack_require__(37);
+    return __webpack_require__(39);
   }
 
   // @todo find nodejs polyfill
@@ -4654,13 +4766,13 @@ function downloadFile(url) {
 }
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("fetch-ponyfill");
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4670,7 +4782,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(36);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -4775,19 +4887,19 @@ function windowTest(str) {
 }
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/helpers/toConsumableArray");
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("formdata-polyfill");
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4813,15 +4925,15 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _StorageManager = __webpack_require__(25);
+var _StorageManager = __webpack_require__(26);
 
 var _StorageManager2 = _interopRequireDefault(_StorageManager);
 
-var _StaticClass2 = __webpack_require__(26);
+var _StaticClass2 = __webpack_require__(27);
 
 var _StaticClass3 = _interopRequireDefault(_StaticClass2);
 
-var _uuid = __webpack_require__(39);
+var _uuid = __webpack_require__(41);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -4983,7 +5095,7 @@ var StateContainer = function (_StaticClass) {
 exports.default = StateContainer;
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5009,7 +5121,7 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _StaticClass2 = __webpack_require__(26);
+var _StaticClass2 = __webpack_require__(27);
 
 var _StaticClass3 = _interopRequireDefault(_StaticClass2);
 
@@ -5097,7 +5209,7 @@ var Uuid = function (_StaticClass) {
 exports.default = Uuid;
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5107,7 +5219,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = __webpack_require__(41);
+var _defineProperty2 = __webpack_require__(43);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
@@ -5131,13 +5243,13 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _RequestParameters = __webpack_require__(42);
+var _RequestParameters = __webpack_require__(44);
 
 var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
-var _SimpleResourceProxy2 = __webpack_require__(44);
+var _SimpleResourceProxy2 = __webpack_require__(46);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -5267,13 +5379,13 @@ var ResourceProxy = function (_SimpleResourceProxy) {
 exports.default = ResourceProxy;
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/helpers/defineProperty");
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5305,7 +5417,7 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _case = __webpack_require__(8);
 
-var _events = __webpack_require__(43);
+var _events = __webpack_require__(45);
 
 var _enums = __webpack_require__(1);
 
@@ -5313,7 +5425,7 @@ var _hash = __webpack_require__(11);
 
 var _reflection = __webpack_require__(9);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5733,7 +5845,7 @@ var RequestParameters = function (_EventEmitter) {
     }
 
     /**
-     * Rows per page number
+     * Rows per page
      * @param {Number} value - Per page
      */
 
@@ -5744,13 +5856,34 @@ var RequestParameters = function (_EventEmitter) {
     }
 
     /**
+     * Get pagination offset
+     * @returns {Number} - Offset
+     * @throws TypeError
+     */
+    ,
+    set: function set(value) {
+      this._update('perPage', value);
+    }
+
+    /**
+     * Pagination offset
+     * @param {Number} value - Offset
+     */
+
+  }, {
+    key: 'offset',
+    get: function get() {
+      return this._resolve('offset');
+    }
+
+    /**
      * Search query
      * @returns {Object<String, String|Array<String>>} - Query
      * @throws TypeError
      */
     ,
     set: function set(value) {
-      this._update('perPage', value);
+      this._update('offset', value);
     }
 
     /**
@@ -5858,18 +5991,62 @@ var RequestParameters = function (_EventEmitter) {
         throw new TypeError('Expected page to be of type \'number\' instead got \'' + (typeof value === 'undefined' ? 'undefined' : (0, _typeof3.default)(value)) + '\'');
       }
 
+      if (value < 0) {
+        throw new TypeError('Page must be a positive number');
+      }
+
+      if (Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new TypeError('Page must be a real number');
+      }
+
+      if (Math.round(value) !== value) {
+        throw new TypeError('Page must be a natural number');
+      }
+
       return Math.round(value);
     }
   }, {
     key: '_validatePerPage',
     value: function _validatePerPage(value) {
       if (typeof value !== 'number') {
-        throw new TypeError('Expected page to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
+        throw new TypeError('Expected per page to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
       }
 
-      value = Math.round(value);
-      value = Math.min(RequestParameters.maxPerPage, value); // Upper limit is 50 by default
-      value = Math.max(1, value); // Lower limit is 1
+      if (value <= 0) {
+        throw new TypeError('Per page must be greater than zero');
+      }
+
+      if (Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new TypeError('Per page must be a real number');
+      }
+
+      if (Math.round(value) !== value) {
+        throw new TypeError('Per page must be a natural number');
+      }
+
+      // Upper limit is 50 by default
+      value = Math.min(RequestParameters.maxPerPage, value);
+
+      return value;
+    }
+  }, {
+    key: '_validateOffset',
+    value: function _validateOffset(value) {
+      if (typeof value !== 'number') {
+        throw new TypeError('Expected offset to be of type \'Number\' instead got \'' + (0, _reflection.getTypeName)(value) + '\'');
+      }
+
+      if (value < 0) {
+        throw new TypeError('Offset must be a positive number');
+      }
+
+      if (Number.isNaN(value) || !Number.isFinite(value)) {
+        throw new TypeError('Offset must be a real number');
+      }
+
+      if (Math.round(value) !== value) {
+        throw new TypeError('Offset must be a natural number');
+      }
 
       return value;
     }
@@ -6087,13 +6264,33 @@ var RequestParameters = function (_EventEmitter) {
     }
 
     /**
+     * Default pagination offset
+     * @returns {Number} - Offset
+     */
+    ,
+    set: function set(value) {
+      RequestParameters._perPage = RequestParameters._validatePerPage(value);
+    }
+
+    /**
+     * Default pagination offset
+     * @param {Number} value - Offset
+     */
+
+  }, {
+    key: 'offset',
+    get: function get() {
+      return RequestParameters._offset || 0;
+    }
+
+    /**
      * Gets the maximum allowed value for perPage
      * Some users will have a special permission that allows them to fetch more than 50 resources at once
      * @returns {Number} - Maximum amount of resources per page
      */
     ,
     set: function set(value) {
-      RequestParameters._perPage = RequestParameters._validatePerPage(value);
+      RequestParameters._offset = RequestParameters._validateOffset(value);
     }
 
     /**
@@ -6197,13 +6394,13 @@ var RequestParameters = function (_EventEmitter) {
 exports.default = RequestParameters;
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("events");
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6225,15 +6422,15 @@ var _createClass2 = __webpack_require__(5);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _PaginatedResourceListing = __webpack_require__(45);
+var _PaginatedResourceListing = __webpack_require__(47);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
 
-var _RequestParameters = __webpack_require__(42);
+var _RequestParameters = __webpack_require__(44);
 
 var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
-var _ResourceLister = __webpack_require__(49);
+var _ResourceLister = __webpack_require__(51);
 
 var _ResourceLister2 = _interopRequireDefault(_ResourceLister);
 
@@ -6249,7 +6446,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Proxy for accessing resource. This will make sure that they
  * are properly wrapped before the promise resolves.
  * @protected
- * @deprecated
  */
 var SimpleResourceProxy = function () {
   /**
@@ -6493,7 +6689,7 @@ var SimpleResourceProxy = function () {
 exports.default = SimpleResourceProxy;
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6515,11 +6711,11 @@ var _Maps4News = __webpack_require__(17);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _PaginatedResourceWrapper = __webpack_require__(46);
+var _PaginatedResourceWrapper = __webpack_require__(48);
 
 var _PaginatedResourceWrapper2 = _interopRequireDefault(_PaginatedResourceWrapper);
 
-var _RequestParameters = __webpack_require__(42);
+var _RequestParameters = __webpack_require__(44);
 
 var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
@@ -6911,7 +7107,7 @@ var PaginatedResourceListing = function () {
 exports.default = PaginatedResourceListing;
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6929,11 +7125,11 @@ var _createClass2 = __webpack_require__(5);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _PaginatedResourceListing = __webpack_require__(45);
+var _PaginatedResourceListing = __webpack_require__(47);
 
 var _PaginatedResourceListing2 = _interopRequireDefault(_PaginatedResourceListing);
 
-var _ResourceCache = __webpack_require__(47);
+var _ResourceCache = __webpack_require__(49);
 
 var _ResourceCache2 = _interopRequireDefault(_ResourceCache);
 
@@ -7366,7 +7562,7 @@ var PaginatedResourceWrapper = function () {
 exports.default = PaginatedResourceWrapper;
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7392,7 +7588,7 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _mitt = __webpack_require__(48);
+var _mitt = __webpack_require__(50);
 
 var _mitt2 = _interopRequireDefault(_mitt);
 
@@ -7400,7 +7596,7 @@ var _Unobservable2 = __webpack_require__(13);
 
 var _Unobservable3 = _interopRequireDefault(_Unobservable2);
 
-var _uuid = __webpack_require__(39);
+var _uuid = __webpack_require__(41);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -7991,13 +8187,13 @@ var ResourceCache = function (_Unobservable) {
 exports.default = ResourceCache;
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = require("mitt");
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8011,15 +8207,15 @@ var _typeof2 = __webpack_require__(18);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _toConsumableArray2 = __webpack_require__(36);
+var _toConsumableArray2 = __webpack_require__(38);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _regenerator = __webpack_require__(50);
+var _regenerator = __webpack_require__(24);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(51);
+var _asyncToGenerator2 = __webpack_require__(25);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -8041,13 +8237,13 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _case = __webpack_require__(8);
 
-var _events = __webpack_require__(43);
+var _events = __webpack_require__(45);
 
 var _Maps4News = __webpack_require__(17);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _RequestParameters = __webpack_require__(42);
+var _RequestParameters = __webpack_require__(44);
 
 var _RequestParameters2 = _interopRequireDefault(_RequestParameters);
 
@@ -8354,7 +8550,7 @@ var ResourceLister = function (_EventEmitter) {
 
         this._keys.push(row[this._key]);
 
-        if (autoMaxRows && this.maxRows + 1 === this._realData.length) {
+        if (autoMaxRows) {
           this.maxRows++;
 
           this._data.push(row);
@@ -8560,18 +8756,6 @@ var ResourceLister = function (_EventEmitter) {
 exports.default = ResourceLister;
 
 /***/ }),
-/* 50 */
-/***/ (function(module, exports) {
-
-module.exports = require("babel-runtime/regenerator");
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports) {
-
-module.exports = require("babel-runtime/helpers/asyncToGenerator");
-
-/***/ }),
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8598,7 +8782,7 @@ var _Maps4News = __webpack_require__(17);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _SimpleResourceProxy = __webpack_require__(44);
+var _SimpleResourceProxy = __webpack_require__(46);
 
 var _SimpleResourceProxy2 = _interopRequireDefault(_SimpleResourceProxy);
 
@@ -9059,7 +9243,7 @@ var ResourceBase = function () {
       var seedData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
       if (!url) {
-        var resource = new Target(this.api).resourceName.replace(/s+$/, '');
+        var resource = Target.resourceName.replace(/s+$/, '');
 
         url = this.url + '/' + resource + 's';
       }
@@ -9081,7 +9265,7 @@ var ResourceBase = function () {
   }, {
     key: 'resourcePath',
     get: function get() {
-      return '/' + this.resourceName + '/{id}';
+      return '/' + this.constructor.resourceName + '/{id}';
     }
 
     /**
@@ -9089,17 +9273,6 @@ var ResourceBase = function () {
      * @returns {String} - Resource name
      * @todo move to constructor
      * @abstract
-     */
-
-  }, {
-    key: 'resourceName',
-    get: function get() {
-      throw new _AbstractError.AbstractError();
-    }
-
-    /**
-     * Returns the url key of the resource
-     * @returns {String} - Resource key
      */
 
   }, {
@@ -9207,6 +9380,17 @@ var ResourceBase = function () {
           return value;
       }
     }
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      throw new _AbstractError.AbstractError();
+    }
+
+    /**
+     * Returns the url key of the resource
+     * @returns {String} - Resource key
+     */
+
   }, {
     key: 'resourceUrlKey',
     get: function get() {
@@ -9488,7 +9672,7 @@ var Choropleth = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Choropleth.__proto__ || Object.getPrototypeOf(Choropleth)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Choropleth, [{
+  (0, _createClass3.default)(Choropleth, null, [{
     key: 'resourceName',
     get: function get() {
       return 'choropleths';
@@ -9581,7 +9765,7 @@ var Color = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Color.__proto__ || Object.getPrototypeOf(Color)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Color, [{
+  (0, _createClass3.default)(Color, null, [{
     key: 'resourceName',
     get: function get() {
       return 'colors';
@@ -10018,7 +10202,7 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _reflection = __webpack_require__(9);
 
-var _SimpleResourceProxy2 = __webpack_require__(44);
+var _SimpleResourceProxy2 = __webpack_require__(46);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -10151,7 +10335,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
      * Sync, attach or unlink resources
      * @param {Array<Organisation>|Array<Number>} items - List of items to sync or attach
      * @param {String} method - Http method to use
-     * @param {ResourceBase} Type - Resource type
+     * @param {function(new:ResourceBase)} Type - Resource type
      * @param {?String} path - Optional appended resource path, will guess if null
      * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
      * @protected
@@ -10163,7 +10347,7 @@ var OrganisationProxy = function (_SimpleResourceProxy) {
       var path = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
       if (!path) {
-        var resource = new Type(this.api).resourceName.replace(/s+$/, '');
+        var resource = Type.resourceName.replace(/s+$/, '');
 
         path = resource + 's';
       }
@@ -10205,11 +10389,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(50);
+var _regenerator = __webpack_require__(24);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(51);
+var _asyncToGenerator2 = __webpack_require__(25);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -10376,19 +10560,14 @@ var Organisation = function (_CrudBase) {
       return new _OwnedResourceProxy2.default(this.api, this, Target);
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'organisations';
-    }
+    key: 'fontFamilies',
+
 
     // Resource listing
     /**
      * Get a proxy for font families linked to the organisation
      * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
-
-  }, {
-    key: 'fontFamilies',
     get: function get() {
       return this._proxyBuilder(_FontFamily2.default);
     }
@@ -10524,6 +10703,11 @@ var Organisation = function (_CrudBase) {
     get: function get() {
       return this._proxyResourceList(_Domain2.default);
     }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'organisations';
+    }
   }]);
   return Organisation;
 }(_CrudBase3.default); /*
@@ -10591,7 +10775,7 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _SimpleResourceProxy2 = __webpack_require__(44);
+var _SimpleResourceProxy2 = __webpack_require__(46);
 
 var _SimpleResourceProxy3 = _interopRequireDefault(_SimpleResourceProxy2);
 
@@ -10612,7 +10796,7 @@ var OwnedResourceProxy = function (_SimpleResourceProxy) {
   function OwnedResourceProxy(api, parent, Target) {
     (0, _classCallCheck3.default)(this, OwnedResourceProxy);
 
-    var resource = new Target(api).resourceName.replace(/s+$/, '');
+    var resource = Target.resourceName.replace(/s+$/, '');
     var url = parent.url + '/' + resource + 's';
 
     return (0, _possibleConstructorReturn3.default)(this, (OwnedResourceProxy.__proto__ || Object.getPrototypeOf(OwnedResourceProxy)).call(this, api, Target, url));
@@ -10890,7 +11074,7 @@ var Contract = function (_CrudBase) {
 
       return out;
     }
-  }, {
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'contracts';
@@ -11025,14 +11209,14 @@ var DimensionSet = function (_mix) {
       return '/dimensions/sets/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'dimension-sets';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Dimension2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'dimension-sets';
     }
   }]);
   return DimensionSet;
@@ -11221,7 +11405,7 @@ var Dimension = function (_CrudSetItemBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Dimension.__proto__ || Object.getPrototypeOf(Dimension)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Dimension, [{
+  (0, _createClass3.default)(Dimension, null, [{
     key: 'resourceName',
     get: function get() {
       return 'dimensions';
@@ -11376,7 +11560,7 @@ var CrudSetItemBase = function (_CrudBase) {
   }, {
     key: 'parentKey',
     get: function get() {
-      return this.resourceName.replace(/s$/, '_set_id');
+      return this.constructor.resourceName.replace(/s$/, '_set_id');
     }
 
     /**
@@ -11440,7 +11624,7 @@ var Domain = function (_CrudBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Domain.__proto__ || Object.getPrototypeOf(Domain)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Domain, [{
+  (0, _createClass3.default)(Domain, null, [{
     key: 'resourceName',
     get: function get() {
       return 'domains';
@@ -11533,7 +11717,7 @@ var Feature = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Feature.__proto__ || Object.getPrototypeOf(Feature)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Feature, [{
+  (0, _createClass3.default)(Feature, null, [{
     key: 'resourceName',
     get: function get() {
       return 'features';
@@ -11668,14 +11852,14 @@ var FontFamily = function (_mix) {
       return '/fonts/families/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'font-families';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Font2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'font-families';
     }
   }]);
   return FontFamily;
@@ -11725,14 +11909,14 @@ var Font = function (_CrudSetItemBase) {
   }
 
   (0, _createClass3.default)(Font, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'fonts';
-    }
-  }, {
     key: 'parentKey',
     get: function get() {
       return 'font_family_id';
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'fonts';
     }
   }]);
   return Font;
@@ -11834,15 +12018,15 @@ var JobShare = function (_CrudBase) {
     get: function get() {
       return '/jobs/shares/{id}';
     }
-  }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'job-shares';
-    }
   }], [{
     key: 'visibility',
     get: function get() {
       return JobShareVisibility;
+    }
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      return 'job-shares';
     }
   }]);
   return JobShare;
@@ -11962,7 +12146,7 @@ var JobType = function (_mix) {
     get: function get() {
       return '/jobs/types/{id}';
     }
-  }, {
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'job-types';
@@ -12092,7 +12276,7 @@ var Layer = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Layer.__proto__ || Object.getPrototypeOf(Layer)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Layer, [{
+  (0, _createClass3.default)(Layer, null, [{
     key: 'resourceName',
     get: function get() {
       return 'layers';
@@ -12210,6 +12394,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _regenerator = __webpack_require__(24);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(25);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _classCallCheck2 = __webpack_require__(4);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -12218,19 +12410,19 @@ var _createClass2 = __webpack_require__(5);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _ResourceBase = __webpack_require__(52);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
-
 var _Maps4News = __webpack_require__(17);
 
 var _Maps4News2 = _interopRequireDefault(_Maps4News);
 
-var _node = __webpack_require__(29);
+var _ResourceBase = __webpack_require__(52);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+
+var _node = __webpack_require__(30);
 
 var _reflection = __webpack_require__(9);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12305,15 +12497,43 @@ var ImageHandler = function () {
 
   }, {
     key: 'download',
-    value: function download() {
-      return this.api.request(this.url).then(function (data) {
-        if ((0, _node.isNode)()) {
-          return data;
-        }
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.api.request('' + this.url);
 
-        return (window.URL || window.webkitURL).createObjectURL(data);
-      });
-    }
+              case 2:
+                data = _context.sent;
+
+                if (!(0, _node.isNode)()) {
+                  _context.next = 5;
+                  break;
+                }
+
+                return _context.abrupt('return', data);
+
+              case 5:
+                return _context.abrupt('return', (window.URL || window.webkitURL).createObjectURL(data));
+
+              case 6:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function download() {
+        return _ref.apply(this, arguments);
+      }
+
+      return download;
+    }()
 
     /**
      * Upload new image
@@ -12482,14 +12702,14 @@ var MapstyleSet = function (_mix) {
       return '/mapstyles/sets/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'mapstyle-sets';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Mapstyle2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'mapstyle-sets';
     }
   }]);
   return MapstyleSet;
@@ -12548,7 +12768,7 @@ var Mapstyle = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Mapstyle.__proto__ || Object.getPrototypeOf(Mapstyle)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Mapstyle, [{
+  (0, _createClass3.default)(Mapstyle, null, [{
     key: 'resourceName',
     get: function get() {
       return 'mapstyles';
@@ -12683,14 +12903,14 @@ var SvgSet = function (_mix) {
       return '/svgs/sets/{id}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'svg-sets';
-    }
-  }, {
     key: '_Child',
     get: function get() {
       return _Svg2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'svg-sets';
     }
   }]);
   return SvgSet;
@@ -12739,7 +12959,7 @@ var Svg = function (_CrudSetItemBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || Object.getPrototypeOf(Svg)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Svg, [{
+  (0, _createClass3.default)(Svg, null, [{
     key: 'resourceName',
     get: function get() {
       return 'svgs';
@@ -12832,7 +13052,7 @@ var Tag = function (_mix) {
     return (0, _possibleConstructorReturn3.default)(this, (Tag.__proto__ || Object.getPrototypeOf(Tag)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Tag, [{
+  (0, _createClass3.default)(Tag, null, [{
     key: 'resourceName',
     get: function get() {
       return 'tags';
@@ -12904,7 +13124,7 @@ var _OwnedResourceProxy = __webpack_require__(60);
 
 var _OwnedResourceProxy2 = _interopRequireDefault(_OwnedResourceProxy);
 
-var _ResourceProxy = __webpack_require__(40);
+var _ResourceProxy = __webpack_require__(42);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
@@ -13061,11 +13281,6 @@ var User = function (_CrudBase) {
      */
 
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'users';
-    }
-  }, {
     key: 'notifications',
     get: function get() {
       return this._proxyResourceList(_Notification2.default);
@@ -13205,6 +13420,11 @@ var User = function (_CrudBase) {
 
     // endregion
 
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'users';
+    }
   }]);
   return User;
 }(_CrudBase3.default);
@@ -13238,11 +13458,11 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ResourceProxy = __webpack_require__(40);
+var _ResourceProxy = __webpack_require__(42);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 var _CrudBase2 = __webpack_require__(56);
 
@@ -13351,10 +13571,8 @@ var Job = function (_CrudBase) {
      */
 
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'jobs';
-    }
+    key: 'lastPreviewUrl',
+
 
     /**
      * Get the most up to date preview url
@@ -13362,9 +13580,6 @@ var Job = function (_CrudBase) {
      * @deprecated
      * @see Job#previewUrl
      */
-
-  }, {
-    key: 'lastPreviewUrl',
     get: function get() {
       return this.url + '/preview';
     }
@@ -13378,6 +13593,11 @@ var Job = function (_CrudBase) {
     key: 'lastArchiveUrl',
     get: function get() {
       return this.url + '/revisions/last/result/archive';
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'jobs';
     }
   }]);
   return Job;
@@ -13442,7 +13662,7 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 var _ResourceBase2 = __webpack_require__(52);
 
@@ -13554,7 +13774,7 @@ var JobResult = function (_ResourceBase) {
      * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
      */
     value: function downloadPreview() {
-      return (0, _requests.downloadFile)(this.previewUrl, this._getDownloadHeaders()).then(function (data) {
+      return (0, _requests.downloadFile)('' + this.previewUrl, this._getDownloadHeaders()).then(function (data) {
         return data.blob;
       });
     }
@@ -13603,18 +13823,13 @@ var JobResult = function (_ResourceBase) {
       return '/jobs/{job_id}/revisions/{revision}/result';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'job-result';
-    }
+    key: 'job',
+
 
     /**
      * Get the related job
      * @returns {Promise<Job, ApiError>} - The job related to this row
      */
-
-  }, {
-    key: 'job',
     get: function get() {
       return this.api.jobs.get(this.jobId);
     }
@@ -13654,6 +13869,11 @@ var JobResult = function (_ResourceBase) {
     key: 'previewUrl',
     get: function get() {
       return this.url + '/preview';
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'job-result';
     }
   }]);
   return JobResult;
@@ -13873,11 +14093,6 @@ var JobRevision = function (_CrudBase) {
       return '/jobs/{job_id}/revisions/{revision}';
     }
   }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'job-revisions';
-    }
-  }, {
     key: 'layers',
 
 
@@ -13899,6 +14114,11 @@ var JobRevision = function (_CrudBase) {
       return new _JobResult2.default(this.api, data);
     }
   }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'job-revisions';
+    }
+  }, {
     key: 'resourceUrlKey',
     get: function get() {
       return 'revision';
@@ -13986,16 +14206,16 @@ var Language = function (_CrudBase) {
       return this.constructor.name + '(' + this.code + ')';
     }
   }, {
+    key: 'resourcePath',
+    get: function get() {
+      return '/' + this.constructor.resourceName + '/{code}';
+    }
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'languages';
     }
   }, {
-    key: 'resourcePath',
-    get: function get() {
-      return '/' + this.resourceName + '/{code}';
-    }
-  }], [{
     key: 'resourceUrlKey',
     get: function get() {
       return 'code';
@@ -14077,7 +14297,7 @@ var Notification = function (_CrudBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Notification, [{
+  (0, _createClass3.default)(Notification, null, [{
     key: 'resourceName',
     get: function get() {
       return 'notifications';
@@ -14159,7 +14379,7 @@ var Permission = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Permission.__proto__ || Object.getPrototypeOf(Permission)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Permission, [{
+  (0, _createClass3.default)(Permission, null, [{
     key: 'resourceName',
     get: function get() {
       return 'permissions';
@@ -14274,7 +14494,7 @@ var Role = function (_CrudBase) {
     get: function get() {
       return new _OwnedResourceProxy2.default(this.api, this, _User2.default);
     }
-  }, {
+  }], [{
     key: 'resourceName',
     get: function get() {
       return 'roles';
@@ -14329,7 +14549,7 @@ var Faq = function (_CrudBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Faq.__proto__ || Object.getPrototypeOf(Faq)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Faq, [{
+  (0, _createClass3.default)(Faq, null, [{
     key: 'resourceName',
     get: function get() {
       return 'faqs';
@@ -14411,7 +14631,7 @@ var Highlight = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (Highlight.__proto__ || Object.getPrototypeOf(Highlight)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Highlight, [{
+  (0, _createClass3.default)(Highlight, null, [{
     key: 'resourceName',
     get: function get() {
       return 'highlights';
@@ -14493,7 +14713,7 @@ var InsetMap = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (InsetMap.__proto__ || Object.getPrototypeOf(InsetMap)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(InsetMap, [{
+  (0, _createClass3.default)(InsetMap, null, [{
     key: 'resourceName',
     get: function get() {
       return 'inset-maps';
@@ -14580,17 +14800,6 @@ var JobMonitorRow = function (_JobResult) {
   }
 
   (0, _createClass3.default)(JobMonitorRow, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'job-monitor';
-    }
-
-    /**
-     * Returns if the resource is readonly
-     * @returns {boolean} - readonly
-     */
-
-  }, {
     key: 'user',
 
 
@@ -14618,6 +14827,17 @@ var JobMonitorRow = function (_JobResult) {
 
       return (0, _get3.default)(JobMonitorRow.__proto__ || Object.getPrototypeOf(JobMonitorRow), '_guessType', this).call(this, name, value);
     }
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      return 'job-monitor';
+    }
+
+    /**
+     * Returns if the resource is readonly
+     * @returns {boolean} - readonly
+     */
+
   }, {
     key: 'readonly',
     get: function get() {
@@ -14706,7 +14926,7 @@ var PlaceName = function (_ResourceBase) {
     return (0, _possibleConstructorReturn3.default)(this, (PlaceName.__proto__ || Object.getPrototypeOf(PlaceName)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(PlaceName, [{
+  (0, _createClass3.default)(PlaceName, null, [{
     key: 'resourceName',
     get: function get() {
       return 'place-names';
@@ -14944,7 +15164,7 @@ var _JobMonitorRow2 = _interopRequireDefault(_JobMonitorRow);
 
 var _reflection = __webpack_require__(9);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14969,16 +15189,15 @@ var JobMonitor = function () {
 
     this._api = api;
 
-    this.maxRows = maxRows;
-    this.longPoll = longPoll;
-
+    this._maxAvailible = {};
+    this._maxRows = Math.max(1, Number(maxRows));
+    this._longPoll = Boolean(longPoll);
     this._lastUpdate = this._getTimestamp();
     this._data = [];
     this._filterStatus = _enums.JobMonitorFilter.DEFAULT;
     this._filterTags = [];
     this._purge = false;
     this._skipMaxUpdate = false;
-    this._maxAvailible = {};
   }
 
   /**
@@ -14988,13 +15207,29 @@ var JobMonitor = function () {
 
 
   (0, _createClass3.default)(JobMonitor, [{
-    key: 'update',
+    key: 'loadMore',
 
+
+    /**
+     * Update maxRows and run update()
+     * @param {number} [count=50] - Amount to increase maxRows by
+     * @returns {Promise<Number, ApiError>} - Resolves with the number of updated rows
+     */
+    value: function loadMore() {
+      var count = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 50;
+
+      this.maxRows += count;
+
+      return this.update();
+    }
 
     /**
      * Update the job list
      * @returns {Promise<Number, ApiError>} - Resolves with the number of updated rows
      */
+
+  }, {
+    key: 'update',
     value: function update() {
       var _this = this;
 
@@ -15397,21 +15632,21 @@ var _OAuth2 = __webpack_require__(23);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
-var _OAuthToken = __webpack_require__(24);
+var _OAuthToken = __webpack_require__(34);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
-var _StateContainer = __webpack_require__(38);
+var _StateContainer = __webpack_require__(40);
 
 var _StateContainer2 = _interopRequireDefault(_StateContainer);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 var _OAuthError = __webpack_require__(22);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _node = __webpack_require__(29);
+var _node = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15749,7 +15984,7 @@ var _OAuthError = __webpack_require__(22);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _StorageManager = __webpack_require__(25);
+var _StorageManager = __webpack_require__(26);
 
 var _StorageManager2 = _interopRequireDefault(_StorageManager);
 
@@ -15757,7 +15992,7 @@ var _ImplicitFlow2 = __webpack_require__(96);
 
 var _ImplicitFlow3 = _interopRequireDefault(_ImplicitFlow2);
 
-var _OAuthToken = __webpack_require__(24);
+var _OAuthToken = __webpack_require__(34);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
@@ -15933,15 +16168,15 @@ var _OAuthError = __webpack_require__(22);
 
 var _OAuthError2 = _interopRequireDefault(_OAuthError);
 
-var _node = __webpack_require__(29);
+var _node = __webpack_require__(30);
 
-var _requests = __webpack_require__(33);
+var _requests = __webpack_require__(35);
 
 var _OAuth2 = __webpack_require__(23);
 
 var _OAuth3 = _interopRequireDefault(_OAuth2);
 
-var _OAuthToken = __webpack_require__(24);
+var _OAuthToken = __webpack_require__(34);
 
 var _OAuthToken2 = _interopRequireDefault(_OAuthToken);
 
@@ -16000,7 +16235,7 @@ var PasswordFlow = function (_OAuth) {
     value: function authenticate() {
       var _this2 = this;
 
-      var url = this.host + this._path;
+      var url = this.host + this.path;
       var query = {
         'grant_type': 'password',
         'client_id': this.clientId,
@@ -16179,7 +16414,7 @@ var _OAuthError2 = __webpack_require__(22);
 
 var _OAuthError3 = _interopRequireDefault(_OAuthError2);
 
-var _StaticClassError2 = __webpack_require__(27);
+var _StaticClassError2 = __webpack_require__(28);
 
 var _StaticClassError3 = _interopRequireDefault(_StaticClassError2);
 

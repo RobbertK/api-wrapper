@@ -142,12 +142,12 @@
 import CrudBase from &apos;./base/CrudBase&apos;;
 
 export default class Language extends CrudBase {
-  get resourceName() {
+  static get resourceName() {
     return &apos;languages&apos;;
   }
 
   get resourcePath() {
-    return `/${this.resourceName}/{code}`;
+    return `/${this.constructor.resourceName}/{code}`;
   }
 
   toString() {

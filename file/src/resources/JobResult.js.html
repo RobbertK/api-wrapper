@@ -147,7 +147,7 @@ export default class JobResult extends ResourceBase {
     return &apos;/jobs/{job_id}/revisions/{revision}/result&apos;;
   }
 
-  get resourceName() {
+  static get resourceName() {
     return &apos;job-result&apos;;
   }
 
@@ -228,7 +228,7 @@ export default class JobResult extends ResourceBase {
    * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
    */
   downloadPreview() {
-    return downloadFile(this.previewUrl, this._getDownloadHeaders()).then(data =&gt; data.blob);
+    return downloadFile(`${this.previewUrl}`, this._getDownloadHeaders()).then(data =&gt; data.blob);
   }
 
   /**
