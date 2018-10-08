@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:03a6c76564ef143f6f0d, chunkhash:a2abde30620e5c53ba56, name:bundle, version:v1.4.39
+ * hash:a2138180f844ac88e9ce, chunkhash:c0db757f3730c9263304, name:bundle, version:v1.4.40
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -318,7 +318,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.39";
+var version = exports.version = "v1.4.40";
 
 /**
  * Package license
@@ -9467,7 +9467,7 @@ var _InsetMap2 = __webpack_require__(90);
 
 var _InsetMap3 = _interopRequireDefault(_InsetMap2);
 
-var _Job2 = __webpack_require__(81);
+var _Job2 = __webpack_require__(70);
 
 var _Job3 = _interopRequireDefault(_Job2);
 
@@ -9475,19 +9475,19 @@ var _JobMonitorRow2 = __webpack_require__(91);
 
 var _JobMonitorRow3 = _interopRequireDefault(_JobMonitorRow2);
 
-var _JobResult2 = __webpack_require__(82);
+var _JobResult2 = __webpack_require__(71);
 
 var _JobResult3 = _interopRequireDefault(_JobResult2);
 
-var _JobRevision2 = __webpack_require__(83);
+var _JobRevision2 = __webpack_require__(72);
 
 var _JobRevision3 = _interopRequireDefault(_JobRevision2);
 
-var _JobShare2 = __webpack_require__(70);
+var _JobShare2 = __webpack_require__(73);
 
 var _JobShare3 = _interopRequireDefault(_JobShare2);
 
-var _JobType2 = __webpack_require__(71);
+var _JobType2 = __webpack_require__(77);
 
 var _JobType3 = _interopRequireDefault(_JobType2);
 
@@ -9495,15 +9495,15 @@ var _Language2 = __webpack_require__(84);
 
 var _Language3 = _interopRequireDefault(_Language2);
 
-var _Layer2 = __webpack_require__(72);
+var _Layer2 = __webpack_require__(74);
 
 var _Layer3 = _interopRequireDefault(_Layer2);
 
-var _Mapstyle2 = __webpack_require__(76);
+var _Mapstyle2 = __webpack_require__(79);
 
 var _Mapstyle3 = _interopRequireDefault(_Mapstyle2);
 
-var _MapstyleSet2 = __webpack_require__(75);
+var _MapstyleSet2 = __webpack_require__(78);
 
 var _MapstyleSet3 = _interopRequireDefault(_MapstyleSet2);
 
@@ -9527,19 +9527,19 @@ var _Role2 = __webpack_require__(87);
 
 var _Role3 = _interopRequireDefault(_Role2);
 
-var _Svg2 = __webpack_require__(78);
+var _Svg2 = __webpack_require__(81);
 
 var _Svg3 = _interopRequireDefault(_Svg2);
 
-var _SvgSet2 = __webpack_require__(77);
+var _SvgSet2 = __webpack_require__(80);
 
 var _SvgSet3 = _interopRequireDefault(_SvgSet2);
 
-var _Tag2 = __webpack_require__(79);
+var _Tag2 = __webpack_require__(82);
 
 var _Tag3 = _interopRequireDefault(_Tag2);
 
-var _User2 = __webpack_require__(80);
+var _User2 = __webpack_require__(83);
 
 var _User3 = _interopRequireDefault(_User2);
 
@@ -10445,35 +10445,71 @@ var _FontFamily = __webpack_require__(68);
 
 var _FontFamily2 = _interopRequireDefault(_FontFamily);
 
-var _JobShare = __webpack_require__(70);
+var _Job = __webpack_require__(70);
+
+var _Job2 = _interopRequireDefault(_Job);
+
+var _JobShare = __webpack_require__(73);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _JobType = __webpack_require__(71);
+var _JobType = __webpack_require__(77);
 
 var _JobType2 = _interopRequireDefault(_JobType);
 
-var _Layer = __webpack_require__(72);
+var _Layer = __webpack_require__(74);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _MapstyleSet = __webpack_require__(75);
+var _MapstyleSet = __webpack_require__(78);
 
 var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
 
-var _SvgSet = __webpack_require__(77);
+var _SvgSet = __webpack_require__(80);
 
 var _SvgSet2 = _interopRequireDefault(_SvgSet);
 
-var _Tag = __webpack_require__(79);
+var _Tag = __webpack_require__(82);
 
 var _Tag2 = _interopRequireDefault(_Tag);
 
-var _User = __webpack_require__(80);
+var _User = __webpack_require__(83);
 
 var _User2 = _interopRequireDefault(_User);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 var Organisation = function (_CrudBase) {
   (0, _inherits3.default)(Organisation, _CrudBase);
@@ -10650,6 +10686,17 @@ var Organisation = function (_CrudBase) {
     }
 
     /**
+     * Get a proxy for jobs linked to the organisation, also known as company maps
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'jobs',
+    get: function get() {
+      return this._proxyBuilder(_Job2.default);
+    }
+
+    /**
      * Get a proxy for job types linked to the organisation
      * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
@@ -10710,37 +10757,7 @@ var Organisation = function (_CrudBase) {
     }
   }]);
   return Organisation;
-}(_CrudBase3.default); /*
-                        * BSD 3-Clause License
-                        *
-                        * Copyright (c) 2017, MapCreator
-                        * All rights reserved.
-                        *
-                        * Redistribution and use in source and binary forms, with or without
-                        * modification, are permitted provided that the following conditions are met:
-                        *
-                        *  Redistributions of source code must retain the above copyright notice, this
-                        *   list of conditions and the following disclaimer.
-                        *
-                        *  Redistributions in binary form must reproduce the above copyright notice,
-                        *   this list of conditions and the following disclaimer in the documentation
-                        *   and/or other materials provided with the distribution.
-                        *
-                        *  Neither the name of the copyright holder nor the names of its
-                        *   contributors may be used to endorse or promote products derived from
-                        *   this software without specific prior written permission.
-                        *
-                        * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                        * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                        * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                        * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                        * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                        * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                        * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                        * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                        * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                        * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                        */
+}(_CrudBase3.default);
 
 exports.default = Organisation;
 
@@ -11981,1483 +11998,6 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _CrudBase2 = __webpack_require__(56);
-
-var _CrudBase3 = _interopRequireDefault(_CrudBase2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var JobShare = function (_CrudBase) {
-  (0, _inherits3.default)(JobShare, _CrudBase);
-
-  function JobShare() {
-    (0, _classCallCheck3.default)(this, JobShare);
-    return (0, _possibleConstructorReturn3.default)(this, (JobShare.__proto__ || Object.getPrototypeOf(JobShare)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(JobShare, [{
-    key: 'save',
-
-    /**
-     * Unsupported method implemented due to CrudBase abstraction
-     * @returns {void}
-     * @throws Error
-     * @private
-     */
-    value: function save() {
-      throw new Error('Unsupported method JobShare::save');
-    }
-
-    /**
-     * Accessor for {@link JobShareVisibility} enum
-     * @returns {JobShareVisibility} - Accessor for enum
-     */
-
-  }, {
-    key: 'resourcePath',
-    get: function get() {
-      return '/jobs/shares/{id}';
-    }
-  }], [{
-    key: 'visibility',
-    get: function get() {
-      return JobShareVisibility;
-    }
-  }, {
-    key: 'resourceName',
-    get: function get() {
-      return 'job-shares';
-    }
-  }]);
-  return JobShare;
-}(_CrudBase3.default);
-
-/**
- * Job share visibility enum
- * @enum {String}
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-exports.default = JobShare;
-
-var JobShareVisibility = function () {
-  function JobShareVisibility() {
-    (0, _classCallCheck3.default)(this, JobShareVisibility);
-  }
-
-  (0, _createClass3.default)(JobShareVisibility, null, [{
-    key: 'PRIVATE',
-    get: function get() {
-      return 'private';
-    }
-  }, {
-    key: 'ORGANISATION',
-    get: function get() {
-      return 'organisation';
-    }
-  }]);
-  return JobShareVisibility;
-}();
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _CrudBase = __webpack_require__(56);
-
-var _CrudBase2 = _interopRequireDefault(_CrudBase);
-
-var _OwnableResource = __webpack_require__(57);
-
-var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
-
-var _reflection = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Job type
- * @extends {CrudBase}
- * @extends {OwnableResource}
- */
-var JobType = function (_mix) {
-  (0, _inherits3.default)(JobType, _mix);
-
-  function JobType() {
-    (0, _classCallCheck3.default)(this, JobType);
-    return (0, _possibleConstructorReturn3.default)(this, (JobType.__proto__ || Object.getPrototypeOf(JobType)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(JobType, [{
-    key: 'resourcePath',
-    get: function get() {
-      return '/jobs/types/{id}';
-    }
-  }], [{
-    key: 'resourceName',
-    get: function get() {
-      return 'job-types';
-    }
-  }]);
-  return JobType;
-}((0, _reflection.mix)(_CrudBase2.default, _OwnableResource2.default)); /*
-                                                                         * BSD 3-Clause License
-                                                                         *
-                                                                         * Copyright (c) 2017, MapCreator
-                                                                         * All rights reserved.
-                                                                         *
-                                                                         * Redistribution and use in source and binary forms, with or without
-                                                                         * modification, are permitted provided that the following conditions are met:
-                                                                         *
-                                                                         *  Redistributions of source code must retain the above copyright notice, this
-                                                                         *   list of conditions and the following disclaimer.
-                                                                         *
-                                                                         *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                         *   this list of conditions and the following disclaimer in the documentation
-                                                                         *   and/or other materials provided with the distribution.
-                                                                         *
-                                                                         *  Neither the name of the copyright holder nor the names of its
-                                                                         *   contributors may be used to endorse or promote products derived from
-                                                                         *   this software without specific prior written permission.
-                                                                         *
-                                                                         * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                         * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                         * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                         * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                         * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                         * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                         * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                         * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                         * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                         * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                         */
-
-exports.default = JobType;
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _HandlesImages = __webpack_require__(73);
-
-var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
-
-var _OwnableResource = __webpack_require__(57);
-
-var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
-
-var _reflection = __webpack_require__(9);
-
-var _CrudBase = __webpack_require__(56);
-
-var _CrudBase2 = _interopRequireDefault(_CrudBase);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Layer
- * @extends {CrudBase}
- * @extends {OwnableResource}
- * @extends {HandlesImages}
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var Layer = function (_mix) {
-  (0, _inherits3.default)(Layer, _mix);
-
-  function Layer() {
-    (0, _classCallCheck3.default)(this, Layer);
-    return (0, _possibleConstructorReturn3.default)(this, (Layer.__proto__ || Object.getPrototypeOf(Layer)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(Layer, null, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'layers';
-    }
-  }]);
-  return Layer;
-}((0, _reflection.mix)(_CrudBase2.default, _OwnableResource2.default, _HandlesImages2.default));
-
-exports.default = Layer;
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _Trait2 = __webpack_require__(10);
-
-var _Trait3 = _interopRequireDefault(_Trait2);
-
-var _ImageHandler = __webpack_require__(74);
-
-var _ImageHandler2 = _interopRequireDefault(_ImageHandler);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Adds the imageHandler to a resource
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var HandlesImages = function (_Trait) {
-  (0, _inherits3.default)(HandlesImages, _Trait);
-
-  function HandlesImages() {
-    (0, _classCallCheck3.default)(this, HandlesImages);
-    return (0, _possibleConstructorReturn3.default)(this, (HandlesImages.__proto__ || Object.getPrototypeOf(HandlesImages)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(HandlesImages, [{
-    key: 'imageHandler',
-
-    /**
-     * Handler for item image management
-     * @returns {ImageHandler} - Image handler
-     */
-    get: function get() {
-      return new _ImageHandler2.default(this.api, this);
-    }
-  }]);
-  return HandlesImages;
-}(_Trait3.default);
-
-exports.default = HandlesImages;
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _regenerator = __webpack_require__(24);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(25);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _Maps4News = __webpack_require__(17);
-
-var _Maps4News2 = _interopRequireDefault(_Maps4News);
-
-var _ResourceBase = __webpack_require__(52);
-
-var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
-
-var _node = __webpack_require__(30);
-
-var _reflection = __webpack_require__(9);
-
-var _requests = __webpack_require__(35);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Image resource handler
- * @protected
- */
-var ImageHandler = function () {
-  /**
-   * @param {Maps4News} api - Api instance
-   * @param {ResourceBase} target - Instance of target item
-   */
-  function ImageHandler(api, target) {
-    (0, _classCallCheck3.default)(this, ImageHandler);
-
-    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
-      throw new TypeError('Expected api to be of type Maps4News');
-    }
-
-    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, target)) {
-      throw new TypeError('Expected target to be of type ResourceBase');
-    }
-
-    this._api = api;
-    this._target = target;
-  }
-
-  /**
-   * Get api instance
-   * @returns {Maps4News} - Api instance
-   */
-
-
-  (0, _createClass3.default)(ImageHandler, [{
-    key: 'delete',
-
-
-    /**
-     * Delete image
-     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
-     */
-    value: function _delete() {
-      return this._api.request(this.url, 'DELETE');
-    }
-
-    /**
-     * Get image base64 representation
-     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
-     * @example
-     * // Browser
-     * layer.imageHandler.download().then(url => {
-     *   $('img').src = url;
-     * });
-     *
-     * // NodeJs
-     * layer.imageHandler.download().then(buffer => {
-     *   fs.open(path, 'w', function(err, fd) {
-     *     if (err) {
-     *         throw 'could not open file: ' + err;
-     *     }
-     *
-     *     // write the contents of the buffer, from position 0 to the end, to the file descriptor returned in opening our file
-     *     fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-     *       if (err) throw 'error writing file: ' + err;
-     *       fs.close(fd, function() {
-     *         console.log('wrote the file successfully');
-     *       });
-     *     });
-     *   });
-     * });
-     */
-
-  }, {
-    key: 'download',
-    value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-        var data;
-        return _regenerator2.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return this.api.request('' + this.url);
-
-              case 2:
-                data = _context.sent;
-
-                if (!(0, _node.isNode)()) {
-                  _context.next = 5;
-                  break;
-                }
-
-                return _context.abrupt('return', data);
-
-              case 5:
-                return _context.abrupt('return', (window.URL || window.webkitURL).createObjectURL(data));
-
-              case 6:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function download() {
-        return _ref.apply(this, arguments);
-      }
-
-      return download;
-    }()
-
-    /**
-     * Upload new image
-     * @param {File|Buffer} image - Image file
-     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'upload',
-    value: function upload(image) {
-      var Type = (0, _node.isNode)() ? Buffer : File;
-
-      if (!(0, _reflection.isParentOf)(Type, image)) {
-        throw new TypeError('Expected image to be of type File');
-      }
-
-      var formData = new _requests.FormData();
-
-      formData.append('image', image);
-
-      return this.api.request(this.url, 'POST', formData);
-    }
-  }, {
-    key: 'api',
-    get: function get() {
-      return this._api;
-    }
-
-    /**
-     * Resource url, can be used in an image tag
-     * @returns {string} - Resource url
-     */
-
-  }, {
-    key: 'url',
-    get: function get() {
-      return this._target.url + '/image';
-    }
-  }]);
-  return ImageHandler;
-}(); /*
-      * BSD 3-Clause License
-      *
-      * Copyright (c) 2017, MapCreator
-      * All rights reserved.
-      *
-      * Redistribution and use in source and binary forms, with or without
-      * modification, are permitted provided that the following conditions are met:
-      *
-      *  Redistributions of source code must retain the above copyright notice, this
-      *   list of conditions and the following disclaimer.
-      *
-      *  Redistributions in binary form must reproduce the above copyright notice,
-      *   this list of conditions and the following disclaimer in the documentation
-      *   and/or other materials provided with the distribution.
-      *
-      *  Neither the name of the copyright holder nor the names of its
-      *   contributors may be used to endorse or promote products derived from
-      *   this software without specific prior written permission.
-      *
-      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-      */
-
-exports.default = ImageHandler;
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _OwnableResource = __webpack_require__(57);
-
-var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
-
-var _reflection = __webpack_require__(9);
-
-var _CrudSetBase = __webpack_require__(63);
-
-var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
-
-var _Mapstyle = __webpack_require__(76);
-
-var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Mapstyle set
- * @extends {CrudSetBase}
- * @extends {OwnableResource}
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var MapstyleSet = function (_mix) {
-  (0, _inherits3.default)(MapstyleSet, _mix);
-
-  function MapstyleSet() {
-    (0, _classCallCheck3.default)(this, MapstyleSet);
-    return (0, _possibleConstructorReturn3.default)(this, (MapstyleSet.__proto__ || Object.getPrototypeOf(MapstyleSet)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(MapstyleSet, [{
-    key: 'resourcePath',
-    get: function get() {
-      return '/mapstyles/sets/{id}';
-    }
-  }, {
-    key: '_Child',
-    get: function get() {
-      return _Mapstyle2.default;
-    }
-  }], [{
-    key: 'resourceName',
-    get: function get() {
-      return 'mapstyle-sets';
-    }
-  }]);
-  return MapstyleSet;
-}((0, _reflection.mix)(_CrudSetBase2.default, _OwnableResource2.default));
-
-exports.default = MapstyleSet;
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _HandlesImages = __webpack_require__(73);
-
-var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
-
-var _reflection = __webpack_require__(9);
-
-var _CrudSetItemBase = __webpack_require__(65);
-
-var _CrudSetItemBase2 = _interopRequireDefault(_CrudSetItemBase);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @extends {CrudSetItemBase}
- * @extends {HandlesImages}
- */
-var Mapstyle = function (_mix) {
-  (0, _inherits3.default)(Mapstyle, _mix);
-
-  function Mapstyle() {
-    (0, _classCallCheck3.default)(this, Mapstyle);
-    return (0, _possibleConstructorReturn3.default)(this, (Mapstyle.__proto__ || Object.getPrototypeOf(Mapstyle)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(Mapstyle, null, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'mapstyles';
-    }
-  }]);
-  return Mapstyle;
-}((0, _reflection.mix)(_CrudSetItemBase2.default, _HandlesImages2.default)); /*
-                                                                              * BSD 3-Clause License
-                                                                              *
-                                                                              * Copyright (c) 2017, MapCreator
-                                                                              * All rights reserved.
-                                                                              *
-                                                                              * Redistribution and use in source and binary forms, with or without
-                                                                              * modification, are permitted provided that the following conditions are met:
-                                                                              *
-                                                                              *  Redistributions of source code must retain the above copyright notice, this
-                                                                              *   list of conditions and the following disclaimer.
-                                                                              *
-                                                                              *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                              *   this list of conditions and the following disclaimer in the documentation
-                                                                              *   and/or other materials provided with the distribution.
-                                                                              *
-                                                                              *  Neither the name of the copyright holder nor the names of its
-                                                                              *   contributors may be used to endorse or promote products derived from
-                                                                              *   this software without specific prior written permission.
-                                                                              *
-                                                                              * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                              * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                              * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                              * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                              * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                              * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                              * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                              * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                              * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                              * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                              */
-
-exports.default = Mapstyle;
-
-/***/ }),
-/* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _OwnableResource = __webpack_require__(57);
-
-var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
-
-var _CrudSetBase = __webpack_require__(63);
-
-var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
-
-var _Svg = __webpack_require__(78);
-
-var _Svg2 = _interopRequireDefault(_Svg);
-
-var _reflection = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Svg set
- * @extends {CrudSetBase}
- * @extends {OwnableResource}
- */
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var SvgSet = function (_mix) {
-  (0, _inherits3.default)(SvgSet, _mix);
-
-  function SvgSet() {
-    (0, _classCallCheck3.default)(this, SvgSet);
-    return (0, _possibleConstructorReturn3.default)(this, (SvgSet.__proto__ || Object.getPrototypeOf(SvgSet)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(SvgSet, [{
-    key: 'resourcePath',
-    get: function get() {
-      return '/svgs/sets/{id}';
-    }
-  }, {
-    key: '_Child',
-    get: function get() {
-      return _Svg2.default;
-    }
-  }], [{
-    key: 'resourceName',
-    get: function get() {
-      return 'svg-sets';
-    }
-  }]);
-  return SvgSet;
-}((0, _reflection.mix)(_CrudSetBase2.default, _OwnableResource2.default));
-
-exports.default = SvgSet;
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _CrudSetItemBase2 = __webpack_require__(65);
-
-var _CrudSetItemBase3 = _interopRequireDefault(_CrudSetItemBase2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Svg = function (_CrudSetItemBase) {
-  (0, _inherits3.default)(Svg, _CrudSetItemBase);
-
-  function Svg() {
-    (0, _classCallCheck3.default)(this, Svg);
-    return (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || Object.getPrototypeOf(Svg)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(Svg, null, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'svgs';
-    }
-  }]);
-  return Svg;
-}(_CrudSetItemBase3.default); /*
-                               * BSD 3-Clause License
-                               *
-                               * Copyright (c) 2017, MapCreator
-                               * All rights reserved.
-                               *
-                               * Redistribution and use in source and binary forms, with or without
-                               * modification, are permitted provided that the following conditions are met:
-                               *
-                               *  Redistributions of source code must retain the above copyright notice, this
-                               *   list of conditions and the following disclaimer.
-                               *
-                               *  Redistributions in binary form must reproduce the above copyright notice,
-                               *   this list of conditions and the following disclaimer in the documentation
-                               *   and/or other materials provided with the distribution.
-                               *
-                               *  Neither the name of the copyright holder nor the names of its
-                               *   contributors may be used to endorse or promote products derived from
-                               *   this software without specific prior written permission.
-                               *
-                               * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                               * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                               * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                               * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                               * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                               * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                               * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                               * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                               * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                               * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                               */
-
-exports.default = Svg;
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _CrudBase = __webpack_require__(56);
-
-var _CrudBase2 = _interopRequireDefault(_CrudBase);
-
-var _OwnableResource = __webpack_require__(57);
-
-var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
-
-var _reflection = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Tag resource
- * @extends {CrudBase}
- * @extends {OwnableResource}
- */
-var Tag = function (_mix) {
-  (0, _inherits3.default)(Tag, _mix);
-
-  function Tag() {
-    (0, _classCallCheck3.default)(this, Tag);
-    return (0, _possibleConstructorReturn3.default)(this, (Tag.__proto__ || Object.getPrototypeOf(Tag)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(Tag, null, [{
-    key: 'resourceName',
-    get: function get() {
-      return 'tags';
-    }
-  }]);
-  return Tag;
-}((0, _reflection.mix)(_CrudBase2.default, _OwnableResource2.default)); /*
-                                                                         * BSD 3-Clause License
-                                                                         *
-                                                                         * Copyright (c) 2018, MapCreator
-                                                                         * All rights reserved.
-                                                                         *
-                                                                         * Redistribution and use in source and binary forms, with or without
-                                                                         * modification, are permitted provided that the following conditions are met:
-                                                                         *
-                                                                         *  Redistributions of source code must retain the above copyright notice, this
-                                                                         *   list of conditions and the following disclaimer.
-                                                                         *
-                                                                         *  Redistributions in binary form must reproduce the above copyright notice,
-                                                                         *   this list of conditions and the following disclaimer in the documentation
-                                                                         *   and/or other materials provided with the distribution.
-                                                                         *
-                                                                         *  Neither the name of the copyright holder nor the names of its
-                                                                         *   contributors may be used to endorse or promote products derived from
-                                                                         *   this software without specific prior written permission.
-                                                                         *
-                                                                         * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-                                                                         * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-                                                                         * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-                                                                         * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-                                                                         * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-                                                                         * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-                                                                         * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-                                                                         * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-                                                                         * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                                                                         * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-                                                                         */
-
-exports.default = Tag;
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _OwnedResourceProxy = __webpack_require__(60);
-
-var _OwnedResourceProxy2 = _interopRequireDefault(_OwnedResourceProxy);
-
-var _ResourceProxy = __webpack_require__(42);
-
-var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
-
-var _CrudBase2 = __webpack_require__(56);
-
-var _CrudBase3 = _interopRequireDefault(_CrudBase2);
-
-var _Color = __webpack_require__(55);
-
-var _Color2 = _interopRequireDefault(_Color);
-
-var _DimensionSet = __webpack_require__(62);
-
-var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
-
-var _Feature = __webpack_require__(67);
-
-var _Feature2 = _interopRequireDefault(_Feature);
-
-var _FontFamily = __webpack_require__(68);
-
-var _FontFamily2 = _interopRequireDefault(_FontFamily);
-
-var _Job = __webpack_require__(81);
-
-var _Job2 = _interopRequireDefault(_Job);
-
-var _JobShare = __webpack_require__(70);
-
-var _JobShare2 = _interopRequireDefault(_JobShare);
-
-var _JobType = __webpack_require__(71);
-
-var _JobType2 = _interopRequireDefault(_JobType);
-
-var _Language = __webpack_require__(84);
-
-var _Language2 = _interopRequireDefault(_Language);
-
-var _Layer = __webpack_require__(72);
-
-var _Layer2 = _interopRequireDefault(_Layer);
-
-var _MapstyleSet = __webpack_require__(75);
-
-var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
-
-var _Notification = __webpack_require__(85);
-
-var _Notification2 = _interopRequireDefault(_Notification);
-
-var _Organisation = __webpack_require__(59);
-
-var _Organisation2 = _interopRequireDefault(_Organisation);
-
-var _Permission = __webpack_require__(86);
-
-var _Permission2 = _interopRequireDefault(_Permission);
-
-var _Role = __webpack_require__(87);
-
-var _Role2 = _interopRequireDefault(_Role);
-
-var _SvgSet = __webpack_require__(77);
-
-var _SvgSet2 = _interopRequireDefault(_SvgSet);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-var User = function (_CrudBase) {
-  (0, _inherits3.default)(User, _CrudBase);
-
-  function User() {
-    (0, _classCallCheck3.default)(this, User);
-    return (0, _possibleConstructorReturn3.default)(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(User, [{
-    key: 'ips',
-
-
-    /**
-     * Get all known ips
-     * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}
-     */
-    value: function ips() {
-      var url = this.url + '/ips';
-
-      return this.api.request(url).then(function (data) {
-        return data.map(function (row) {
-          return row['ip_address'];
-        });
-      });
-    }
-
-    /**
-     * Get the user's organisation
-     * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'organisation',
-    value: function organisation() {
-      return new _ResourceProxy2.default(this.api, _Organisation2.default).get(this.organisationId);
-    }
-
-    /**
-     * Get the user's language
-     * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: 'language',
-    value: function language() {
-      return new _ResourceProxy2.default(this.api, _Language2.default).get(this.languageCode);
-    }
-
-    // region Resource listing
-    /**
-     * Get the list notifications linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'notifications',
-    get: function get() {
-      return this._proxyResourceList(_Notification2.default);
-    }
-
-    /**
-     * Get the list mapstyle sets linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'mapstyleSets',
-    get: function get() {
-      return this._proxyResourceList(_MapstyleSet2.default);
-    }
-
-    /**
-     * Get the list dimension sets linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'dimensionSets',
-    get: function get() {
-      return this._proxyResourceList(_DimensionSet2.default);
-    }
-
-    /**
-     * Get the list font families linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'fontFamilies',
-    get: function get() {
-      return this._proxyResourceList(_FontFamily2.default);
-    }
-
-    /**
-     * Get the list svg sets linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'svgSets',
-    get: function get() {
-      return this._proxyResourceList(_SvgSet2.default);
-    }
-
-    /**
-     * Get the list colors linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'colors',
-    get: function get() {
-      return this._proxyResourceList(_Color2.default);
-    }
-
-    /**
-     * Get the list jobs linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'jobs',
-    get: function get() {
-      return this._proxyResourceList(_Job2.default);
-    }
-
-    /**
-     * Get the list features linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'features',
-    get: function get() {
-      return this._proxyResourceList(_Feature2.default);
-    }
-
-    /**
-     * Get the list layers linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'layers',
-    get: function get() {
-      return this._proxyResourceList(_Layer2.default);
-    }
-
-    /**
-     * Get the list job types linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'jobTypes',
-    get: function get() {
-      return this._proxyResourceList(_JobType2.default);
-    }
-
-    /**
-     * Get the list job shares linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'jobShares',
-    get: function get() {
-      return this._proxyResourceList(_JobShare2.default);
-    }
-
-    /**
-     * Get the list permissions linked to the user
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'permissions',
-    get: function get() {
-      return this._proxyResourceList(_Permission2.default);
-    }
-
-    /**
-     * Get the list roles linked to the user
-     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: 'roles',
-    get: function get() {
-      return new _OwnedResourceProxy2.default(this.api, this, _Role2.default);
-    }
-
-    // endregion
-
-  }], [{
-    key: 'resourceName',
-    get: function get() {
-      return 'users';
-    }
-  }]);
-  return User;
-}(_CrudBase3.default);
-
-exports.default = User;
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(6);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(7);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
 var _ResourceProxy = __webpack_require__(42);
 
 var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
@@ -13468,11 +12008,11 @@ var _CrudBase2 = __webpack_require__(56);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _JobResult = __webpack_require__(82);
+var _JobResult = __webpack_require__(71);
 
 var _JobResult2 = _interopRequireDefault(_JobResult);
 
-var _JobRevision = __webpack_require__(83);
+var _JobRevision = __webpack_require__(72);
 
 var _JobRevision2 = _interopRequireDefault(_JobRevision);
 
@@ -13636,7 +12176,7 @@ var Job = function (_CrudBase) {
 exports.default = Job;
 
 /***/ }),
-/* 82 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13882,7 +12422,7 @@ var JobResult = function (_ResourceBase) {
 exports.default = JobResult;
 
 /***/ }),
-/* 83 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13914,15 +12454,15 @@ var _CrudBase2 = __webpack_require__(56);
 
 var _CrudBase3 = _interopRequireDefault(_CrudBase2);
 
-var _JobResult = __webpack_require__(82);
+var _JobResult = __webpack_require__(71);
 
 var _JobResult2 = _interopRequireDefault(_JobResult);
 
-var _JobShare = __webpack_require__(70);
+var _JobShare = __webpack_require__(73);
 
 var _JobShare2 = _interopRequireDefault(_JobShare);
 
-var _Layer = __webpack_require__(72);
+var _Layer = __webpack_require__(74);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
@@ -14158,6 +12698,1483 @@ var JobRevision = function (_CrudBase) {
                         */
 
 exports.default = JobRevision;
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _CrudBase2 = __webpack_require__(56);
+
+var _CrudBase3 = _interopRequireDefault(_CrudBase2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var JobShare = function (_CrudBase) {
+  (0, _inherits3.default)(JobShare, _CrudBase);
+
+  function JobShare() {
+    (0, _classCallCheck3.default)(this, JobShare);
+    return (0, _possibleConstructorReturn3.default)(this, (JobShare.__proto__ || Object.getPrototypeOf(JobShare)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(JobShare, [{
+    key: 'save',
+
+    /**
+     * Unsupported method implemented due to CrudBase abstraction
+     * @returns {void}
+     * @throws Error
+     * @private
+     */
+    value: function save() {
+      throw new Error('Unsupported method JobShare::save');
+    }
+
+    /**
+     * Accessor for {@link JobShareVisibility} enum
+     * @returns {JobShareVisibility} - Accessor for enum
+     */
+
+  }, {
+    key: 'resourcePath',
+    get: function get() {
+      return '/jobs/shares/{id}';
+    }
+  }], [{
+    key: 'visibility',
+    get: function get() {
+      return JobShareVisibility;
+    }
+  }, {
+    key: 'resourceName',
+    get: function get() {
+      return 'job-shares';
+    }
+  }]);
+  return JobShare;
+}(_CrudBase3.default);
+
+/**
+ * Job share visibility enum
+ * @enum {String}
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+exports.default = JobShare;
+
+var JobShareVisibility = function () {
+  function JobShareVisibility() {
+    (0, _classCallCheck3.default)(this, JobShareVisibility);
+  }
+
+  (0, _createClass3.default)(JobShareVisibility, null, [{
+    key: 'PRIVATE',
+    get: function get() {
+      return 'private';
+    }
+  }, {
+    key: 'ORGANISATION',
+    get: function get() {
+      return 'organisation';
+    }
+  }]);
+  return JobShareVisibility;
+}();
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _HandlesImages = __webpack_require__(75);
+
+var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
+
+var _OwnableResource = __webpack_require__(57);
+
+var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
+
+var _reflection = __webpack_require__(9);
+
+var _CrudBase = __webpack_require__(56);
+
+var _CrudBase2 = _interopRequireDefault(_CrudBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Layer
+ * @extends {CrudBase}
+ * @extends {OwnableResource}
+ * @extends {HandlesImages}
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var Layer = function (_mix) {
+  (0, _inherits3.default)(Layer, _mix);
+
+  function Layer() {
+    (0, _classCallCheck3.default)(this, Layer);
+    return (0, _possibleConstructorReturn3.default)(this, (Layer.__proto__ || Object.getPrototypeOf(Layer)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Layer, null, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'layers';
+    }
+  }]);
+  return Layer;
+}((0, _reflection.mix)(_CrudBase2.default, _OwnableResource2.default, _HandlesImages2.default));
+
+exports.default = Layer;
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _Trait2 = __webpack_require__(10);
+
+var _Trait3 = _interopRequireDefault(_Trait2);
+
+var _ImageHandler = __webpack_require__(76);
+
+var _ImageHandler2 = _interopRequireDefault(_ImageHandler);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Adds the imageHandler to a resource
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var HandlesImages = function (_Trait) {
+  (0, _inherits3.default)(HandlesImages, _Trait);
+
+  function HandlesImages() {
+    (0, _classCallCheck3.default)(this, HandlesImages);
+    return (0, _possibleConstructorReturn3.default)(this, (HandlesImages.__proto__ || Object.getPrototypeOf(HandlesImages)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(HandlesImages, [{
+    key: 'imageHandler',
+
+    /**
+     * Handler for item image management
+     * @returns {ImageHandler} - Image handler
+     */
+    get: function get() {
+      return new _ImageHandler2.default(this.api, this);
+    }
+  }]);
+  return HandlesImages;
+}(_Trait3.default);
+
+exports.default = HandlesImages;
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(24);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(25);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _Maps4News = __webpack_require__(17);
+
+var _Maps4News2 = _interopRequireDefault(_Maps4News);
+
+var _ResourceBase = __webpack_require__(52);
+
+var _ResourceBase2 = _interopRequireDefault(_ResourceBase);
+
+var _node = __webpack_require__(30);
+
+var _reflection = __webpack_require__(9);
+
+var _requests = __webpack_require__(35);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Image resource handler
+ * @protected
+ */
+var ImageHandler = function () {
+  /**
+   * @param {Maps4News} api - Api instance
+   * @param {ResourceBase} target - Instance of target item
+   */
+  function ImageHandler(api, target) {
+    (0, _classCallCheck3.default)(this, ImageHandler);
+
+    if (!(0, _reflection.isParentOf)(_Maps4News2.default, api)) {
+      throw new TypeError('Expected api to be of type Maps4News');
+    }
+
+    if (!(0, _reflection.isParentOf)(_ResourceBase2.default, target)) {
+      throw new TypeError('Expected target to be of type ResourceBase');
+    }
+
+    this._api = api;
+    this._target = target;
+  }
+
+  /**
+   * Get api instance
+   * @returns {Maps4News} - Api instance
+   */
+
+
+  (0, _createClass3.default)(ImageHandler, [{
+    key: 'delete',
+
+
+    /**
+     * Delete image
+     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
+     */
+    value: function _delete() {
+      return this._api.request(this.url, 'DELETE');
+    }
+
+    /**
+     * Get image base64 representation
+     * @returns {Promise} - Resolves with a {@link String} containing a blob reference to the image and rejects with {@link ApiError}
+     * @example
+     * // Browser
+     * layer.imageHandler.download().then(url => {
+     *   $('img').src = url;
+     * });
+     *
+     * // NodeJs
+     * layer.imageHandler.download().then(buffer => {
+     *   fs.open(path, 'w', function(err, fd) {
+     *     if (err) {
+     *         throw 'could not open file: ' + err;
+     *     }
+     *
+     *     // write the contents of the buffer, from position 0 to the end, to the file descriptor returned in opening our file
+     *     fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+     *       if (err) throw 'error writing file: ' + err;
+     *       fs.close(fd, function() {
+     *         console.log('wrote the file successfully');
+     *       });
+     *     });
+     *   });
+     * });
+     */
+
+  }, {
+    key: 'download',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.api.request('' + this.url);
+
+              case 2:
+                data = _context.sent;
+
+                if (!(0, _node.isNode)()) {
+                  _context.next = 5;
+                  break;
+                }
+
+                return _context.abrupt('return', data);
+
+              case 5:
+                return _context.abrupt('return', (window.URL || window.webkitURL).createObjectURL(data));
+
+              case 6:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function download() {
+        return _ref.apply(this, arguments);
+      }
+
+      return download;
+    }()
+
+    /**
+     * Upload new image
+     * @param {File|Buffer} image - Image file
+     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'upload',
+    value: function upload(image) {
+      var Type = (0, _node.isNode)() ? Buffer : File;
+
+      if (!(0, _reflection.isParentOf)(Type, image)) {
+        throw new TypeError('Expected image to be of type File');
+      }
+
+      var formData = new _requests.FormData();
+
+      formData.append('image', image);
+
+      return this.api.request(this.url, 'POST', formData);
+    }
+  }, {
+    key: 'api',
+    get: function get() {
+      return this._api;
+    }
+
+    /**
+     * Resource url, can be used in an image tag
+     * @returns {string} - Resource url
+     */
+
+  }, {
+    key: 'url',
+    get: function get() {
+      return this._target.url + '/image';
+    }
+  }]);
+  return ImageHandler;
+}(); /*
+      * BSD 3-Clause License
+      *
+      * Copyright (c) 2017, MapCreator
+      * All rights reserved.
+      *
+      * Redistribution and use in source and binary forms, with or without
+      * modification, are permitted provided that the following conditions are met:
+      *
+      *  Redistributions of source code must retain the above copyright notice, this
+      *   list of conditions and the following disclaimer.
+      *
+      *  Redistributions in binary form must reproduce the above copyright notice,
+      *   this list of conditions and the following disclaimer in the documentation
+      *   and/or other materials provided with the distribution.
+      *
+      *  Neither the name of the copyright holder nor the names of its
+      *   contributors may be used to endorse or promote products derived from
+      *   this software without specific prior written permission.
+      *
+      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+      * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+      * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+      * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+      * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+      * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+      * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+      * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+      */
+
+exports.default = ImageHandler;
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _CrudBase = __webpack_require__(56);
+
+var _CrudBase2 = _interopRequireDefault(_CrudBase);
+
+var _OwnableResource = __webpack_require__(57);
+
+var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
+
+var _reflection = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Job type
+ * @extends {CrudBase}
+ * @extends {OwnableResource}
+ */
+var JobType = function (_mix) {
+  (0, _inherits3.default)(JobType, _mix);
+
+  function JobType() {
+    (0, _classCallCheck3.default)(this, JobType);
+    return (0, _possibleConstructorReturn3.default)(this, (JobType.__proto__ || Object.getPrototypeOf(JobType)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(JobType, [{
+    key: 'resourcePath',
+    get: function get() {
+      return '/jobs/types/{id}';
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'job-types';
+    }
+  }]);
+  return JobType;
+}((0, _reflection.mix)(_CrudBase2.default, _OwnableResource2.default)); /*
+                                                                         * BSD 3-Clause License
+                                                                         *
+                                                                         * Copyright (c) 2017, MapCreator
+                                                                         * All rights reserved.
+                                                                         *
+                                                                         * Redistribution and use in source and binary forms, with or without
+                                                                         * modification, are permitted provided that the following conditions are met:
+                                                                         *
+                                                                         *  Redistributions of source code must retain the above copyright notice, this
+                                                                         *   list of conditions and the following disclaimer.
+                                                                         *
+                                                                         *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                         *   this list of conditions and the following disclaimer in the documentation
+                                                                         *   and/or other materials provided with the distribution.
+                                                                         *
+                                                                         *  Neither the name of the copyright holder nor the names of its
+                                                                         *   contributors may be used to endorse or promote products derived from
+                                                                         *   this software without specific prior written permission.
+                                                                         *
+                                                                         * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                         * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                         * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                         * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                         * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                         * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                         * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                         * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                         * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                         * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                         */
+
+exports.default = JobType;
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _OwnableResource = __webpack_require__(57);
+
+var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
+
+var _reflection = __webpack_require__(9);
+
+var _CrudSetBase = __webpack_require__(63);
+
+var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
+
+var _Mapstyle = __webpack_require__(79);
+
+var _Mapstyle2 = _interopRequireDefault(_Mapstyle);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Mapstyle set
+ * @extends {CrudSetBase}
+ * @extends {OwnableResource}
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var MapstyleSet = function (_mix) {
+  (0, _inherits3.default)(MapstyleSet, _mix);
+
+  function MapstyleSet() {
+    (0, _classCallCheck3.default)(this, MapstyleSet);
+    return (0, _possibleConstructorReturn3.default)(this, (MapstyleSet.__proto__ || Object.getPrototypeOf(MapstyleSet)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(MapstyleSet, [{
+    key: 'resourcePath',
+    get: function get() {
+      return '/mapstyles/sets/{id}';
+    }
+  }, {
+    key: '_Child',
+    get: function get() {
+      return _Mapstyle2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'mapstyle-sets';
+    }
+  }]);
+  return MapstyleSet;
+}((0, _reflection.mix)(_CrudSetBase2.default, _OwnableResource2.default));
+
+exports.default = MapstyleSet;
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _HandlesImages = __webpack_require__(75);
+
+var _HandlesImages2 = _interopRequireDefault(_HandlesImages);
+
+var _reflection = __webpack_require__(9);
+
+var _CrudSetItemBase = __webpack_require__(65);
+
+var _CrudSetItemBase2 = _interopRequireDefault(_CrudSetItemBase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @extends {CrudSetItemBase}
+ * @extends {HandlesImages}
+ */
+var Mapstyle = function (_mix) {
+  (0, _inherits3.default)(Mapstyle, _mix);
+
+  function Mapstyle() {
+    (0, _classCallCheck3.default)(this, Mapstyle);
+    return (0, _possibleConstructorReturn3.default)(this, (Mapstyle.__proto__ || Object.getPrototypeOf(Mapstyle)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Mapstyle, null, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'mapstyles';
+    }
+  }]);
+  return Mapstyle;
+}((0, _reflection.mix)(_CrudSetItemBase2.default, _HandlesImages2.default)); /*
+                                                                              * BSD 3-Clause License
+                                                                              *
+                                                                              * Copyright (c) 2017, MapCreator
+                                                                              * All rights reserved.
+                                                                              *
+                                                                              * Redistribution and use in source and binary forms, with or without
+                                                                              * modification, are permitted provided that the following conditions are met:
+                                                                              *
+                                                                              *  Redistributions of source code must retain the above copyright notice, this
+                                                                              *   list of conditions and the following disclaimer.
+                                                                              *
+                                                                              *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                              *   this list of conditions and the following disclaimer in the documentation
+                                                                              *   and/or other materials provided with the distribution.
+                                                                              *
+                                                                              *  Neither the name of the copyright holder nor the names of its
+                                                                              *   contributors may be used to endorse or promote products derived from
+                                                                              *   this software without specific prior written permission.
+                                                                              *
+                                                                              * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                              * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                              * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                              * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                              * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                              * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                              * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                              * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                              * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                              * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                              */
+
+exports.default = Mapstyle;
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _OwnableResource = __webpack_require__(57);
+
+var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
+
+var _CrudSetBase = __webpack_require__(63);
+
+var _CrudSetBase2 = _interopRequireDefault(_CrudSetBase);
+
+var _Svg = __webpack_require__(81);
+
+var _Svg2 = _interopRequireDefault(_Svg);
+
+var _reflection = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Svg set
+ * @extends {CrudSetBase}
+ * @extends {OwnableResource}
+ */
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var SvgSet = function (_mix) {
+  (0, _inherits3.default)(SvgSet, _mix);
+
+  function SvgSet() {
+    (0, _classCallCheck3.default)(this, SvgSet);
+    return (0, _possibleConstructorReturn3.default)(this, (SvgSet.__proto__ || Object.getPrototypeOf(SvgSet)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(SvgSet, [{
+    key: 'resourcePath',
+    get: function get() {
+      return '/svgs/sets/{id}';
+    }
+  }, {
+    key: '_Child',
+    get: function get() {
+      return _Svg2.default;
+    }
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'svg-sets';
+    }
+  }]);
+  return SvgSet;
+}((0, _reflection.mix)(_CrudSetBase2.default, _OwnableResource2.default));
+
+exports.default = SvgSet;
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _CrudSetItemBase2 = __webpack_require__(65);
+
+var _CrudSetItemBase3 = _interopRequireDefault(_CrudSetItemBase2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Svg = function (_CrudSetItemBase) {
+  (0, _inherits3.default)(Svg, _CrudSetItemBase);
+
+  function Svg() {
+    (0, _classCallCheck3.default)(this, Svg);
+    return (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || Object.getPrototypeOf(Svg)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Svg, null, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'svgs';
+    }
+  }]);
+  return Svg;
+}(_CrudSetItemBase3.default); /*
+                               * BSD 3-Clause License
+                               *
+                               * Copyright (c) 2017, MapCreator
+                               * All rights reserved.
+                               *
+                               * Redistribution and use in source and binary forms, with or without
+                               * modification, are permitted provided that the following conditions are met:
+                               *
+                               *  Redistributions of source code must retain the above copyright notice, this
+                               *   list of conditions and the following disclaimer.
+                               *
+                               *  Redistributions in binary form must reproduce the above copyright notice,
+                               *   this list of conditions and the following disclaimer in the documentation
+                               *   and/or other materials provided with the distribution.
+                               *
+                               *  Neither the name of the copyright holder nor the names of its
+                               *   contributors may be used to endorse or promote products derived from
+                               *   this software without specific prior written permission.
+                               *
+                               * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                               * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                               * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                               * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                               * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                               * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                               * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                               * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                               * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                               * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                               */
+
+exports.default = Svg;
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _CrudBase = __webpack_require__(56);
+
+var _CrudBase2 = _interopRequireDefault(_CrudBase);
+
+var _OwnableResource = __webpack_require__(57);
+
+var _OwnableResource2 = _interopRequireDefault(_OwnableResource);
+
+var _reflection = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Tag resource
+ * @extends {CrudBase}
+ * @extends {OwnableResource}
+ */
+var Tag = function (_mix) {
+  (0, _inherits3.default)(Tag, _mix);
+
+  function Tag() {
+    (0, _classCallCheck3.default)(this, Tag);
+    return (0, _possibleConstructorReturn3.default)(this, (Tag.__proto__ || Object.getPrototypeOf(Tag)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Tag, null, [{
+    key: 'resourceName',
+    get: function get() {
+      return 'tags';
+    }
+  }]);
+  return Tag;
+}((0, _reflection.mix)(_CrudBase2.default, _OwnableResource2.default)); /*
+                                                                         * BSD 3-Clause License
+                                                                         *
+                                                                         * Copyright (c) 2018, MapCreator
+                                                                         * All rights reserved.
+                                                                         *
+                                                                         * Redistribution and use in source and binary forms, with or without
+                                                                         * modification, are permitted provided that the following conditions are met:
+                                                                         *
+                                                                         *  Redistributions of source code must retain the above copyright notice, this
+                                                                         *   list of conditions and the following disclaimer.
+                                                                         *
+                                                                         *  Redistributions in binary form must reproduce the above copyright notice,
+                                                                         *   this list of conditions and the following disclaimer in the documentation
+                                                                         *   and/or other materials provided with the distribution.
+                                                                         *
+                                                                         *  Neither the name of the copyright holder nor the names of its
+                                                                         *   contributors may be used to endorse or promote products derived from
+                                                                         *   this software without specific prior written permission.
+                                                                         *
+                                                                         * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+                                                                         * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                                                                         * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+                                                                         * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+                                                                         * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+                                                                         * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+                                                                         * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+                                                                         * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+                                                                         * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+                                                                         * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                         */
+
+exports.default = Tag;
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(5);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(6);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(7);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _OwnedResourceProxy = __webpack_require__(60);
+
+var _OwnedResourceProxy2 = _interopRequireDefault(_OwnedResourceProxy);
+
+var _ResourceProxy = __webpack_require__(42);
+
+var _ResourceProxy2 = _interopRequireDefault(_ResourceProxy);
+
+var _CrudBase2 = __webpack_require__(56);
+
+var _CrudBase3 = _interopRequireDefault(_CrudBase2);
+
+var _Color = __webpack_require__(55);
+
+var _Color2 = _interopRequireDefault(_Color);
+
+var _DimensionSet = __webpack_require__(62);
+
+var _DimensionSet2 = _interopRequireDefault(_DimensionSet);
+
+var _Feature = __webpack_require__(67);
+
+var _Feature2 = _interopRequireDefault(_Feature);
+
+var _FontFamily = __webpack_require__(68);
+
+var _FontFamily2 = _interopRequireDefault(_FontFamily);
+
+var _Job = __webpack_require__(70);
+
+var _Job2 = _interopRequireDefault(_Job);
+
+var _JobShare = __webpack_require__(73);
+
+var _JobShare2 = _interopRequireDefault(_JobShare);
+
+var _JobType = __webpack_require__(77);
+
+var _JobType2 = _interopRequireDefault(_JobType);
+
+var _Language = __webpack_require__(84);
+
+var _Language2 = _interopRequireDefault(_Language);
+
+var _Layer = __webpack_require__(74);
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _MapstyleSet = __webpack_require__(78);
+
+var _MapstyleSet2 = _interopRequireDefault(_MapstyleSet);
+
+var _Notification = __webpack_require__(85);
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
+var _Organisation = __webpack_require__(59);
+
+var _Organisation2 = _interopRequireDefault(_Organisation);
+
+var _Permission = __webpack_require__(86);
+
+var _Permission2 = _interopRequireDefault(_Permission);
+
+var _Role = __webpack_require__(87);
+
+var _Role2 = _interopRequireDefault(_Role);
+
+var _SvgSet = __webpack_require__(80);
+
+var _SvgSet2 = _interopRequireDefault(_SvgSet);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var User = function (_CrudBase) {
+  (0, _inherits3.default)(User, _CrudBase);
+
+  function User() {
+    (0, _classCallCheck3.default)(this, User);
+    return (0, _possibleConstructorReturn3.default)(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(User, [{
+    key: 'ips',
+
+
+    /**
+     * Get all known ips
+     * @returns {Promise} - Resolves with {@link array<string>} instance and rejects with {@link ApiError}
+     */
+    value: function ips() {
+      var url = this.url + '/ips';
+
+      return this.api.request(url).then(function (data) {
+        return data.map(function (row) {
+          return row['ip_address'];
+        });
+      });
+    }
+
+    /**
+     * Get the user's organisation
+     * @returns {Promise} - Resolves with {@link Organisation} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'organisation',
+    value: function organisation() {
+      return new _ResourceProxy2.default(this.api, _Organisation2.default).get(this.organisationId);
+    }
+
+    /**
+     * Get the user's language
+     * @returns {Promise} - Resolves with {@link Language} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: 'language',
+    value: function language() {
+      return new _ResourceProxy2.default(this.api, _Language2.default).get(this.languageCode);
+    }
+
+    // region Resource listing
+    /**
+     * Get the list notifications linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'notifications',
+    get: function get() {
+      return this._proxyResourceList(_Notification2.default);
+    }
+
+    /**
+     * Get the list mapstyle sets linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'mapstyleSets',
+    get: function get() {
+      return this._proxyResourceList(_MapstyleSet2.default);
+    }
+
+    /**
+     * Get the list dimension sets linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'dimensionSets',
+    get: function get() {
+      return this._proxyResourceList(_DimensionSet2.default);
+    }
+
+    /**
+     * Get the list font families linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'fontFamilies',
+    get: function get() {
+      return this._proxyResourceList(_FontFamily2.default);
+    }
+
+    /**
+     * Get the list svg sets linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'svgSets',
+    get: function get() {
+      return this._proxyResourceList(_SvgSet2.default);
+    }
+
+    /**
+     * Get the list colors linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'colors',
+    get: function get() {
+      return this._proxyResourceList(_Color2.default);
+    }
+
+    /**
+     * Get the list jobs linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'jobs',
+    get: function get() {
+      return this._proxyResourceList(_Job2.default);
+    }
+
+    /**
+     * Get the list features linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'features',
+    get: function get() {
+      return this._proxyResourceList(_Feature2.default);
+    }
+
+    /**
+     * Get the list layers linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'layers',
+    get: function get() {
+      return this._proxyResourceList(_Layer2.default);
+    }
+
+    /**
+     * Get the list job types linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'jobTypes',
+    get: function get() {
+      return this._proxyResourceList(_JobType2.default);
+    }
+
+    /**
+     * Get the list job shares linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'jobShares',
+    get: function get() {
+      return this._proxyResourceList(_JobShare2.default);
+    }
+
+    /**
+     * Get the list permissions linked to the user
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'permissions',
+    get: function get() {
+      return this._proxyResourceList(_Permission2.default);
+    }
+
+    /**
+     * Get the list roles linked to the user
+     * @returns {OwnedResourceProxy} - A proxy for accessing the resource
+     */
+
+  }, {
+    key: 'roles',
+    get: function get() {
+      return new _OwnedResourceProxy2.default(this.api, this, _Role2.default);
+    }
+
+    // endregion
+
+  }], [{
+    key: 'resourceName',
+    get: function get() {
+      return 'users';
+    }
+  }]);
+  return User;
+}(_CrudBase3.default);
+
+exports.default = User;
 
 /***/ }),
 /* 84 */
@@ -14459,7 +14476,7 @@ var _Permission = __webpack_require__(86);
 
 var _Permission2 = _interopRequireDefault(_Permission);
 
-var _User = __webpack_require__(80);
+var _User = __webpack_require__(83);
 
 var _User2 = _interopRequireDefault(_User);
 
@@ -14785,7 +14802,7 @@ var _inherits2 = __webpack_require__(7);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _JobResult2 = __webpack_require__(82);
+var _JobResult2 = __webpack_require__(71);
 
 var _JobResult3 = _interopRequireDefault(_JobResult2);
 

@@ -147,6 +147,7 @@ import DimensionSet from &apos;./DimensionSet&apos;;
 import Domain from &apos;./Domain&apos;;
 import Feature from &apos;./Feature&apos;;
 import FontFamily from &apos;./FontFamily&apos;;
+import Job from &apos;./Job&apos;;
 import JobShare from &apos;./JobShare&apos;;
 import JobType from &apos;./JobType&apos;;
 import Layer from &apos;./Layer&apos;;
@@ -224,6 +225,14 @@ export default class Organisation extends CrudBase {
    */
   get layers() {
     return this._proxyBuilder(Layer);
+  }
+
+  /**
+   * Get a proxy for jobs linked to the organisation, also known as company maps
+   * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+   */
+  get jobs() {
+    return this._proxyBuilder(Job);
   }
 
   /**
