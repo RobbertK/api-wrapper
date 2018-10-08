@@ -29,11 +29,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:688fd38bd2628178358e, chunkhash:b1fe9bc79628bdee57c0, name:bundle.browser, version:v1.4.40
+ * hash:82754b5d2548be56bf24, chunkhash:b268f3a8f05681933c8c, name:bundle.browser, version:v1.4.41
  */
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.40) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.41) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ babel-runtime (6.26.0) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/babel-runtime/package.json
  *    │  ├─ core-js (2.5.6) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/core-js/package.json
  *    │  └─ regenerator-runtime (0.11.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/regenerator-runtime/package.json
@@ -333,7 +333,7 @@ exports.errors = _errors;
  * @private
  */
 
-var version = exports.version = "v1.4.40";
+var version = exports.version = "v1.4.41";
 
 /**
  * Package license
