@@ -141,6 +141,7 @@
 
 import StaticClass from &apos;../utils/StaticClass&apos;;
 import CookiesDriver from &apos;./CookiesDriver&apos;;
+import DummyDriver from &apos;./DummyDriver&apos;;
 import FileDriver from &apos;./FileDriver&apos;;
 import LocalStorageDriver from &apos;./LocalStorageDriver&apos;;
 
@@ -154,6 +155,7 @@ export default class StorageManager extends StaticClass {
    */
   static get available() {
     return [
+      DummyDriver,
       LocalStorageDriver,
       // CookiesDriver,
       FileDriver,
@@ -182,6 +184,14 @@ export default class StorageManager extends StaticClass {
    */
   static get file() {
     return new FileDriver();
+  }
+
+  /**
+   * Get DummyDriver instance
+   * @returns {DummyDriver} - instance
+   */
+  static get dummy() {
+    return new DummyDriver();
   }
 
   /**

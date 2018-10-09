@@ -799,13 +799,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/jobmonitor.js~jobmonitor#filtertags",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-get-filterTags",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-filterTags",
     "src/JobMonitor.js~JobMonitor#filterTags",
     "member"
   ],
   [
     "src/jobmonitor.js~jobmonitor#filtertags",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-set-filterTags",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-filterTags",
     "src/JobMonitor.js~JobMonitor#filterTags",
     "member"
   ],
@@ -835,25 +835,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/jobmonitor.js~jobmonitor#longpoll",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-get-longPoll",
-    "src/JobMonitor.js~JobMonitor#longPoll",
-    "member"
-  ],
-  [
-    "src/jobmonitor.js~jobmonitor#longpoll",
     "class/src/JobMonitor.js~JobMonitor.html#instance-set-longPoll",
     "src/JobMonitor.js~JobMonitor#longPoll",
     "member"
   ],
   [
-    "src/jobmonitor.js~jobmonitor#maxrows",
-    "class/src/JobMonitor.js~JobMonitor.html#instance-set-maxRows",
-    "src/JobMonitor.js~JobMonitor#maxRows",
+    "src/jobmonitor.js~jobmonitor#longpoll",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-get-longPoll",
+    "src/JobMonitor.js~JobMonitor#longPoll",
     "member"
   ],
   [
     "src/jobmonitor.js~jobmonitor#maxrows",
     "class/src/JobMonitor.js~JobMonitor.html#instance-get-maxRows",
+    "src/JobMonitor.js~JobMonitor#maxRows",
+    "member"
+  ],
+  [
+    "src/jobmonitor.js~jobmonitor#maxrows",
+    "class/src/JobMonitor.js~JobMonitor.html#instance-set-maxRows",
     "src/JobMonitor.js~JobMonitor#maxRows",
     "member"
   ],
@@ -883,13 +883,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
   [
     "src/maps4news.js~maps4news#auth",
-    "class/src/Maps4News.js~Maps4News.html#instance-set-auth",
+    "class/src/Maps4News.js~Maps4News.html#instance-get-auth",
     "src/Maps4News.js~Maps4News#auth",
     "member"
   ],
@@ -1249,13 +1249,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#parameters",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-parameters",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-parameters",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#parameters",
     "member"
   ],
@@ -1285,13 +1285,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-route",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "member"
   ],
   [
     "src/paginatedresourcelisting.js~paginatedresourcelisting#route",
-    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-set-route",
+    "class/src/PaginatedResourceListing.js~PaginatedResourceListing.html#instance-get-route",
     "src/PaginatedResourceListing.js~PaginatedResourceListing#route",
     "member"
   ],
@@ -1435,13 +1435,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
   [
     "src/paginatedresourcewrapper.js~paginatedresourcewrapper#route",
-    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-get-route",
+    "class/src/PaginatedResourceWrapper.js~PaginatedResourceWrapper.html#instance-set-route",
     "src/PaginatedResourceWrapper.js~PaginatedResourceWrapper#route",
     "member"
   ],
@@ -1495,13 +1495,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-deleted",
     "src/RequestParameters.js~RequestParameters#deleted",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#deleted",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-deleted",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-deleted",
     "src/RequestParameters.js~RequestParameters#deleted",
     "member"
   ],
@@ -1513,25 +1513,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#extra",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-extra",
-    "src/RequestParameters.js~RequestParameters#extra",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters#extra",
     "class/src/RequestParameters.js~RequestParameters.html#instance-get-extra",
     "src/RequestParameters.js~RequestParameters#extra",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters#offset",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-offset",
-    "src/RequestParameters.js~RequestParameters#offset",
+    "src/requestparameters.js~requestparameters#extra",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-extra",
+    "src/RequestParameters.js~RequestParameters#extra",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#offset",
     "class/src/RequestParameters.js~RequestParameters.html#instance-set-offset",
+    "src/RequestParameters.js~RequestParameters#offset",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters#offset",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-offset",
     "src/RequestParameters.js~RequestParameters#offset",
     "member"
   ],
@@ -1549,13 +1549,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-perPage",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-perPage",
     "src/RequestParameters.js~RequestParameters#perPage",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#perpage",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-perPage",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-perPage",
     "src/RequestParameters.js~RequestParameters#perPage",
     "member"
   ],
@@ -1573,13 +1573,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters#sort",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-set-sort",
     "src/RequestParameters.js~RequestParameters#sort",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters#sort",
-    "class/src/RequestParameters.js~RequestParameters.html#instance-set-sort",
+    "class/src/RequestParameters.js~RequestParameters.html#instance-get-sort",
     "src/RequestParameters.js~RequestParameters#sort",
     "member"
   ],
@@ -1633,13 +1633,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.maxperpage",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-maxPerPage",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-maxPerPage",
     "src/RequestParameters.js~RequestParameters.maxPerPage",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.maxperpage",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-maxPerPage",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-maxPerPage",
     "src/RequestParameters.js~RequestParameters.maxPerPage",
     "member"
   ],
@@ -1687,25 +1687,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/requestparameters.js~requestparameters.search",
-    "class/src/RequestParameters.js~RequestParameters.html#static-get-search",
-    "src/RequestParameters.js~RequestParameters.search",
-    "member"
-  ],
-  [
-    "src/requestparameters.js~requestparameters.search",
     "class/src/RequestParameters.js~RequestParameters.html#static-set-search",
     "src/RequestParameters.js~RequestParameters.search",
     "member"
   ],
   [
-    "src/requestparameters.js~requestparameters.sort",
-    "class/src/RequestParameters.js~RequestParameters.html#static-set-sort",
-    "src/RequestParameters.js~RequestParameters.sort",
+    "src/requestparameters.js~requestparameters.search",
+    "class/src/RequestParameters.js~RequestParameters.html#static-get-search",
+    "src/RequestParameters.js~RequestParameters.search",
     "member"
   ],
   [
     "src/requestparameters.js~requestparameters.sort",
     "class/src/RequestParameters.js~RequestParameters.html#static-get-sort",
+    "src/RequestParameters.js~RequestParameters.sort",
+    "member"
+  ],
+  [
+    "src/requestparameters.js~requestparameters.sort",
+    "class/src/RequestParameters.js~RequestParameters.html#static-set-sort",
     "src/RequestParameters.js~RequestParameters.sort",
     "member"
   ],
@@ -1855,13 +1855,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/resourcelister.js~resourcelister#parameters",
-    "class/src/ResourceLister.js~ResourceLister.html#instance-get-parameters",
+    "class/src/ResourceLister.js~ResourceLister.html#instance-set-parameters",
     "src/ResourceLister.js~ResourceLister#parameters",
     "member"
   ],
   [
     "src/resourcelister.js~resourcelister#parameters",
-    "class/src/ResourceLister.js~ResourceLister.html#instance-set-parameters",
+    "class/src/ResourceLister.js~ResourceLister.html#instance-get-parameters",
     "src/ResourceLister.js~ResourceLister#parameters",
     "member"
   ],
@@ -2407,13 +2407,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#password",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-password",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-password",
     "src/oauth/PasswordFlow.js~PasswordFlow#password",
     "member"
   ],
@@ -2449,13 +2449,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
   [
     "src/oauth/passwordflow.js~passwordflow#username",
-    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-set-username",
+    "class/src/oauth/PasswordFlow.js~PasswordFlow.html#instance-get-username",
     "src/oauth/PasswordFlow.js~PasswordFlow#username",
     "member"
   ],
@@ -3711,6 +3711,12 @@ window.esdocSearchIndex = [
     "src/storage/datastorecontract.js",
     "file/src/storage/DataStoreContract.js.html",
     "src/storage/DataStoreContract.js",
+    "file"
+  ],
+  [
+    "src/storage/dummydriver.js",
+    "file/src/storage/DummyDriver.js.html",
+    "src/storage/DummyDriver.js",
     "file"
   ],
   [

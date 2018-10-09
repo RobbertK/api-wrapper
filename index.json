@@ -20137,6 +20137,265 @@
   {
     "__docId__": 822,
     "kind": "file",
+    "name": "src/storage/DummyDriver.js",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2018, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport DataStoreContract from './DataStoreContract';\n\n/**\n * Used for storing data during tests\n * @private\n */\nexport default class DummyDriver extends DataStoreContract {\n  static _data = {};\n\n  /**\n   * @inheritDoc\n   */\n  static get available() {\n    return (process.env || {}).NODE_ENV === 'test';\n  }\n\n  /**\n   * If the storage is secure\n   * @returns {boolean} - Secure storage\n   */\n  static get secure() {\n    return true;\n  }\n\n  /**\n   * Store a value in the storage\n   * @param {String} name - value name\n   * @param {*} value - value\n   * @returns {void}\n   */\n  set(name, value) {\n    this.constructor._data[name] = value;\n  }\n\n  /**\n   * Get a value from the store\n   * @param {String} name - value name\n   * @returns {*} - value\n   */\n  get(name) {\n    return this.constructor._data[name];\n  }\n\n  /**\n   * Remove a value from the store\n   * @param {String} name - value name\n   * @returns {void}\n   */\n  remove(name) {\n    delete this.constructor._data[name];\n  }\n\n  /**\n   * Storage keys\n   * @returns {Array<String>} - Stored keys\n   */\n  keys() {\n    return Object.keys(this.constructor._data);\n  }\n}\n",
+    "static": true,
+    "longname": "/home/jenkins/workspace/Creator_api-wrapper_develop-2NQCQ7AGLHGGIPDK7BB6AFW3LGCULDH7GAJGUMN43QSLA6NZ2TWQ/src/storage/DummyDriver.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 823,
+    "kind": "class",
+    "name": "DummyDriver",
+    "memberof": "src/storage/DummyDriver.js",
+    "static": true,
+    "longname": "src/storage/DummyDriver.js~DummyDriver",
+    "access": "private",
+    "export": true,
+    "importPath": "@mapcreator/maps4news/src/storage/DummyDriver.js",
+    "importStyle": "DummyDriver",
+    "description": "Used for storing data during tests",
+    "lineNumber": 39,
+    "interface": false,
+    "extends": [
+      "src/storage/DataStoreContract.js~DataStoreContract"
+    ],
+    "ignore": true
+  },
+  {
+    "__docId__": 824,
+    "kind": "member",
+    "name": "_data",
+    "memberof": "src/storage/DummyDriver.js~DummyDriver",
+    "static": true,
+    "longname": "src/storage/DummyDriver.js~DummyDriver._data",
+    "access": "private",
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "ignore": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 825,
+    "kind": "get",
+    "name": "available",
+    "memberof": "src/storage/DummyDriver.js~DummyDriver",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/storage/DummyDriver.js~DummyDriver.available",
+    "access": "public",
+    "description": "",
+    "lineNumber": 45,
+    "unknown": [
+      {
+        "tagName": "@inheritDoc",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 826,
+    "kind": "get",
+    "name": "secure",
+    "memberof": "src/storage/DummyDriver.js~DummyDriver",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/storage/DummyDriver.js~DummyDriver.secure",
+    "access": "public",
+    "description": "If the storage is secure",
+    "lineNumber": 53,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{boolean} - Secure storage"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "Secure storage"
+    },
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 827,
+    "kind": "method",
+    "name": "set",
+    "memberof": "src/storage/DummyDriver.js~DummyDriver",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/storage/DummyDriver.js~DummyDriver#set",
+    "access": "public",
+    "description": "Store a value in the storage",
+    "lineNumber": 63,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "value name"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "value"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 828,
+    "kind": "method",
+    "name": "get",
+    "memberof": "src/storage/DummyDriver.js~DummyDriver",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/storage/DummyDriver.js~DummyDriver#get",
+    "access": "public",
+    "description": "Get a value from the store",
+    "lineNumber": 72,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - value"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "value name"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": "value"
+    }
+  },
+  {
+    "__docId__": 829,
+    "kind": "method",
+    "name": "remove",
+    "memberof": "src/storage/DummyDriver.js~DummyDriver",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/storage/DummyDriver.js~DummyDriver#remove",
+    "access": "public",
+    "description": "Remove a value from the store",
+    "lineNumber": 81,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "value name"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 830,
+    "kind": "method",
+    "name": "keys",
+    "memberof": "src/storage/DummyDriver.js~DummyDriver",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/storage/DummyDriver.js~DummyDriver#keys",
+    "access": "public",
+    "description": "Storage keys",
+    "lineNumber": 89,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Array<String>} - Stored keys"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array<String>"
+      ],
+      "spread": false,
+      "description": "Stored keys"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 831,
+    "kind": "file",
     "name": "src/storage/FileDriver.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport {isNode} from '../utils/node';\nimport DataStoreContract from './DataStoreContract';\n\n/**\n * @private\n */\nexport default class FileDriver extends DataStoreContract {\n  /**\n   * @param {String} path - File storage path\n   * @inheritDoc\n   */\n  constructor(path = '.m4n') {\n    super();\n\n    this._path = path;\n  }\n\n  /**\n   * File storage path\n   * @returns {String} - path\n   */\n  get path() {\n    return this._path;\n  }\n\n  /**\n   * File storage path\n   * @param {String} value - path\n   */\n  set path(value) {\n    if (typeof value !== 'string') {\n      throw new TypeError('Expected \"path\" value to be of type \"string\"');\n    }\n\n    this._path = value;\n  }\n\n  get realPath() {\n    if (this.path.startsWith('/')) {\n      return this.path;\n    }\n\n    // eslint-disable-next-line no-undef\n    return this._fs.realpathSync(this.path);\n  }\n\n  /**\n   * @inheritDoc\n   */\n  static get available() {\n    return isNode();\n  }\n\n  /**\n   * @inheritDoc\n   */\n  static get secure() {\n    return true;\n  }\n\n  /**\n   * @inheritDoc\n   */\n  set(name, value) {\n    const data = this._read();\n\n    data[name] = value;\n\n    this._write(data);\n  }\n\n  /**\n   * @inheritDoc\n   */\n  get(name) {\n    return this._read()[name];\n  }\n\n  /**\n   * @inheritDoc\n   */\n  remove(name) {\n    const data = this._read();\n\n    delete data[name];\n\n    this._write(data);\n  }\n\n  /**\n   * @inheritDoc\n   */\n  clear() {\n    this._write({});\n  }\n\n  /**\n   * @inheritDoc\n   */\n  keys() {\n    return Object.keys(this._read());\n  }\n\n  /**\n   * Read file and parse\n   * @returns {Object<String, String>} - Key, value object\n   * @private\n   */\n  _read() {\n    let data;\n\n    try {\n      data = this._fs.readFileSync(this.realPath).toString();\n    } catch (e) {\n      data = '{}';\n    }\n\n    if (!data) {\n      return {};\n    }\n\n    return JSON.parse(data);\n  }\n\n  /**\n   * Write data to file\n   * @param {Object<String, String>} obj - Key, value object\n   * @returns {void}\n   * @private\n   */\n  _write(obj) {\n    const data = JSON.stringify(obj);\n    const fd = this._fs.openSync(this.realPath, 'w');\n\n    this._fs.writeSync(fd, data);\n    this._fs.closeSync(fd);\n  }\n\n  /**\n   * Get fs instance\n   * @returns {fs} - fs instance\n   * @private\n   */\n  get _fs() {\n    if (!this.__fs) {\n      // eslint-disable-next-line no-eval\n      this.__fs = eval('require(\"fs\")');\n    }\n\n    return this.__fs;\n  }\n}\n",
     "static": true,
@@ -20146,7 +20405,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 823,
+    "__docId__": 832,
     "kind": "class",
     "name": "FileDriver",
     "memberof": "src/storage/FileDriver.js",
@@ -20165,7 +20424,7 @@
     "ignore": true
   },
   {
-    "__docId__": 824,
+    "__docId__": 833,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20196,7 +20455,7 @@
     ]
   },
   {
-    "__docId__": 825,
+    "__docId__": 834,
     "kind": "member",
     "name": "_path",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20214,7 +20473,7 @@
     }
   },
   {
-    "__docId__": 826,
+    "__docId__": 835,
     "kind": "get",
     "name": "path",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20246,7 +20505,7 @@
     }
   },
   {
-    "__docId__": 827,
+    "__docId__": 836,
     "kind": "set",
     "name": "path",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20271,7 +20530,7 @@
     ]
   },
   {
-    "__docId__": 829,
+    "__docId__": 838,
     "kind": "get",
     "name": "realPath",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20290,7 +20549,7 @@
     }
   },
   {
-    "__docId__": 830,
+    "__docId__": 839,
     "kind": "get",
     "name": "available",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20314,7 +20573,7 @@
     }
   },
   {
-    "__docId__": 831,
+    "__docId__": 840,
     "kind": "get",
     "name": "secure",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20338,7 +20597,7 @@
     }
   },
   {
-    "__docId__": 832,
+    "__docId__": 841,
     "kind": "method",
     "name": "set",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20372,7 +20631,7 @@
     "return": null
   },
   {
-    "__docId__": 833,
+    "__docId__": 842,
     "kind": "method",
     "name": "get",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20404,7 +20663,7 @@
     }
   },
   {
-    "__docId__": 834,
+    "__docId__": 843,
     "kind": "method",
     "name": "remove",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20432,7 +20691,7 @@
     "return": null
   },
   {
-    "__docId__": 835,
+    "__docId__": 844,
     "kind": "method",
     "name": "clear",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20453,7 +20712,7 @@
     "return": null
   },
   {
-    "__docId__": 836,
+    "__docId__": 845,
     "kind": "method",
     "name": "keys",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20478,7 +20737,7 @@
     }
   },
   {
-    "__docId__": 837,
+    "__docId__": 846,
     "kind": "method",
     "name": "_read",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20507,7 +20766,7 @@
     "params": []
   },
   {
-    "__docId__": 838,
+    "__docId__": 847,
     "kind": "method",
     "name": "_write",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20547,7 +20806,7 @@
     "ignore": true
   },
   {
-    "__docId__": 839,
+    "__docId__": 848,
     "kind": "get",
     "name": "_fs",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20580,7 +20839,7 @@
     }
   },
   {
-    "__docId__": 840,
+    "__docId__": 849,
     "kind": "member",
     "name": "__fs",
     "memberof": "src/storage/FileDriver.js~FileDriver",
@@ -20598,7 +20857,7 @@
     }
   },
   {
-    "__docId__": 841,
+    "__docId__": 850,
     "kind": "file",
     "name": "src/storage/LocalStorageDriver.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport DataStoreContract from './DataStoreContract';\nimport {isNode} from '../utils/node';\n\n/**\n * @private\n */\nexport default class LocalStorageDriver extends DataStoreContract {\n  /**\n   * LocalStorage name prefix\n   * @returns {String} - Prefix\n   * @private\n   */\n  static get _prefix() {\n    return '_m4n_';\n  }\n\n  /**\n   * @inheritDoc\n   */\n  static get available() {\n    return !isNode();\n  }\n\n  /**\n   * Store a value in the storage\n   * @param {String} name - value name\n   * @param {*} value - value\n   * @returns {void}\n   */\n  set(name, value) {\n    name = LocalStorageDriver._prefix + name;\n\n    window.localStorage.setItem(name, value);\n  }\n\n  /**\n   * Get a value from the store\n   * @param {String} name - value name\n   * @returns {void}\n   */\n  get(name) {\n    name = LocalStorageDriver._prefix + name;\n\n    return window.localStorage.getItem(name);\n  }\n\n  /**\n   * Remove a value from the store\n   * @param {String} name - value name\n   * @returns {void}\n   */\n  remove(name) {\n    name = LocalStorageDriver._prefix + name;\n\n    window.localStorage.removeItem(name);\n  }\n\n  /**\n   * Storage keys\n   * @returns {Array<String>} - Stored keys\n   */\n  keys() {\n    const keys = [];\n    const storage = window.localStorage;\n    const prefix = LocalStorageDriver._prefix;\n\n    for (let i = 0; i < storage.length; i++) {\n      let key = storage.key(i);\n\n      if (key.startsWith(prefix)) {\n        key = key.replace(new RegExp(`^${prefix}`), '');\n\n        keys.push(key);\n      }\n    }\n\n    return keys;\n  }\n}\n",
@@ -20609,7 +20868,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 842,
+    "__docId__": 851,
     "kind": "class",
     "name": "LocalStorageDriver",
     "memberof": "src/storage/LocalStorageDriver.js",
@@ -20628,7 +20887,7 @@
     "ignore": true
   },
   {
-    "__docId__": 843,
+    "__docId__": 852,
     "kind": "get",
     "name": "_prefix",
     "memberof": "src/storage/LocalStorageDriver.js~LocalStorageDriver",
@@ -20661,7 +20920,7 @@
     }
   },
   {
-    "__docId__": 844,
+    "__docId__": 853,
     "kind": "get",
     "name": "available",
     "memberof": "src/storage/LocalStorageDriver.js~LocalStorageDriver",
@@ -20685,7 +20944,7 @@
     }
   },
   {
-    "__docId__": 845,
+    "__docId__": 854,
     "kind": "method",
     "name": "set",
     "memberof": "src/storage/LocalStorageDriver.js~LocalStorageDriver",
@@ -20734,7 +20993,7 @@
     }
   },
   {
-    "__docId__": 846,
+    "__docId__": 855,
     "kind": "method",
     "name": "get",
     "memberof": "src/storage/LocalStorageDriver.js~LocalStorageDriver",
@@ -20773,7 +21032,7 @@
     }
   },
   {
-    "__docId__": 847,
+    "__docId__": 856,
     "kind": "method",
     "name": "remove",
     "memberof": "src/storage/LocalStorageDriver.js~LocalStorageDriver",
@@ -20812,7 +21071,7 @@
     }
   },
   {
-    "__docId__": 848,
+    "__docId__": 857,
     "kind": "method",
     "name": "keys",
     "memberof": "src/storage/LocalStorageDriver.js~LocalStorageDriver",
@@ -20840,10 +21099,10 @@
     "params": []
   },
   {
-    "__docId__": 849,
+    "__docId__": 858,
     "kind": "file",
     "name": "src/storage/StorageManager.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from '../utils/StaticClass';\nimport CookiesDriver from './CookiesDriver';\nimport FileDriver from './FileDriver';\nimport LocalStorageDriver from './LocalStorageDriver';\n\n/**\n * @private\n */\nexport default class StorageManager extends StaticClass {\n  /**\n   * Available storage drivers\n   * @returns {Array.<function>} - Available storage drivers\n   */\n  static get available() {\n    return [\n      LocalStorageDriver,\n      // CookiesDriver,\n      FileDriver,\n    ].filter(x => x.available);\n  }\n\n  /**\n   * Get LocalStorageDriver instance\n   * @returns {LocalStorageDriver} - instance\n   */\n  static get localStorage() {\n    return new LocalStorageDriver();\n  }\n\n  /**\n   * Get CookiesDriver instance\n   * @returns {CookiesDriver} - instance\n   */\n  static get cookies() {\n    return new CookiesDriver();\n  }\n\n  /**\n   * Get FileDriver instance\n   * @returns {FileDriver} - instance\n   */\n  static get file() {\n    return new FileDriver();\n  }\n\n  /**\n   * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}\n   * @returns {DataStoreContract} - Best available storage driver\n   */\n  static get best() {\n    return new this.available[0]();\n  }\n\n  /**\n   * Returns the a secure storage driver\n   * @returns {DataStoreContract} - Secure storage driver\n   */\n  static get secure() {\n    const C = this.available.filter(x => x.secure)[0];\n\n    if (typeof C === 'undefined') {\n      return StorageManager.best;\n    }\n\n    return new C();\n  }\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from '../utils/StaticClass';\nimport CookiesDriver from './CookiesDriver';\nimport DummyDriver from './DummyDriver';\nimport FileDriver from './FileDriver';\nimport LocalStorageDriver from './LocalStorageDriver';\n\n/**\n * @private\n */\nexport default class StorageManager extends StaticClass {\n  /**\n   * Available storage drivers\n   * @returns {Array.<function>} - Available storage drivers\n   */\n  static get available() {\n    return [\n      DummyDriver,\n      LocalStorageDriver,\n      // CookiesDriver,\n      FileDriver,\n    ].filter(x => x.available);\n  }\n\n  /**\n   * Get LocalStorageDriver instance\n   * @returns {LocalStorageDriver} - instance\n   */\n  static get localStorage() {\n    return new LocalStorageDriver();\n  }\n\n  /**\n   * Get CookiesDriver instance\n   * @returns {CookiesDriver} - instance\n   */\n  static get cookies() {\n    return new CookiesDriver();\n  }\n\n  /**\n   * Get FileDriver instance\n   * @returns {FileDriver} - instance\n   */\n  static get file() {\n    return new FileDriver();\n  }\n\n  /**\n   * Get DummyDriver instance\n   * @returns {DummyDriver} - instance\n   */\n  static get dummy() {\n    return new DummyDriver();\n  }\n\n  /**\n   * Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}\n   * @returns {DataStoreContract} - Best available storage driver\n   */\n  static get best() {\n    return new this.available[0]();\n  }\n\n  /**\n   * Returns the a secure storage driver\n   * @returns {DataStoreContract} - Secure storage driver\n   */\n  static get secure() {\n    const C = this.available.filter(x => x.secure)[0];\n\n    if (typeof C === 'undefined') {\n      return StorageManager.best;\n    }\n\n    return new C();\n  }\n}\n",
     "static": true,
     "longname": "/home/jenkins/workspace/Creator_api-wrapper_develop-2NQCQ7AGLHGGIPDK7BB6AFW3LGCULDH7GAJGUMN43QSLA6NZ2TWQ/src/storage/StorageManager.js",
     "access": "public",
@@ -20851,7 +21110,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 850,
+    "__docId__": 859,
     "kind": "class",
     "name": "StorageManager",
     "memberof": "src/storage/StorageManager.js",
@@ -20862,7 +21121,7 @@
     "importPath": "@mapcreator/maps4news/src/storage/StorageManager.js",
     "importStyle": "StorageManager",
     "description": "",
-    "lineNumber": 41,
+    "lineNumber": 42,
     "interface": false,
     "extends": [
       "src/utils/StaticClass.js~StaticClass"
@@ -20870,7 +21129,7 @@
     "ignore": true
   },
   {
-    "__docId__": 851,
+    "__docId__": 860,
     "kind": "get",
     "name": "available",
     "memberof": "src/storage/StorageManager.js~StorageManager",
@@ -20880,7 +21139,7 @@
     "longname": "src/storage/StorageManager.js~StorageManager.available",
     "access": "public",
     "description": "Available storage drivers",
-    "lineNumber": 46,
+    "lineNumber": 47,
     "unknown": [
       {
         "tagName": "@returns",
@@ -20902,7 +21161,7 @@
     }
   },
   {
-    "__docId__": 852,
+    "__docId__": 861,
     "kind": "get",
     "name": "localStorage",
     "memberof": "src/storage/StorageManager.js~StorageManager",
@@ -20912,7 +21171,7 @@
     "longname": "src/storage/StorageManager.js~StorageManager.localStorage",
     "access": "public",
     "description": "Get LocalStorageDriver instance",
-    "lineNumber": 58,
+    "lineNumber": 60,
     "unknown": [
       {
         "tagName": "@returns",
@@ -20934,7 +21193,7 @@
     }
   },
   {
-    "__docId__": 853,
+    "__docId__": 862,
     "kind": "get",
     "name": "cookies",
     "memberof": "src/storage/StorageManager.js~StorageManager",
@@ -20944,7 +21203,7 @@
     "longname": "src/storage/StorageManager.js~StorageManager.cookies",
     "access": "public",
     "description": "Get CookiesDriver instance",
-    "lineNumber": 66,
+    "lineNumber": 68,
     "unknown": [
       {
         "tagName": "@returns",
@@ -20966,7 +21225,7 @@
     }
   },
   {
-    "__docId__": 854,
+    "__docId__": 863,
     "kind": "get",
     "name": "file",
     "memberof": "src/storage/StorageManager.js~StorageManager",
@@ -20976,7 +21235,7 @@
     "longname": "src/storage/StorageManager.js~StorageManager.file",
     "access": "public",
     "description": "Get FileDriver instance",
-    "lineNumber": 74,
+    "lineNumber": 76,
     "unknown": [
       {
         "tagName": "@returns",
@@ -20998,7 +21257,39 @@
     }
   },
   {
-    "__docId__": 855,
+    "__docId__": 864,
+    "kind": "get",
+    "name": "dummy",
+    "memberof": "src/storage/StorageManager.js~StorageManager",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/storage/StorageManager.js~StorageManager.dummy",
+    "access": "public",
+    "description": "Get DummyDriver instance",
+    "lineNumber": 84,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{DummyDriver} - instance"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "DummyDriver"
+      ],
+      "spread": false,
+      "description": "instance"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 865,
     "kind": "get",
     "name": "best",
     "memberof": "src/storage/StorageManager.js~StorageManager",
@@ -21008,7 +21299,7 @@
     "longname": "src/storage/StorageManager.js~StorageManager.best",
     "access": "public",
     "description": "Returns the best available storage driver. For a secure driver use {@link StorageManager#secure}",
-    "lineNumber": 82,
+    "lineNumber": 92,
     "unknown": [
       {
         "tagName": "@returns",
@@ -21030,7 +21321,7 @@
     }
   },
   {
-    "__docId__": 856,
+    "__docId__": 866,
     "kind": "get",
     "name": "secure",
     "memberof": "src/storage/StorageManager.js~StorageManager",
@@ -21040,7 +21331,7 @@
     "longname": "src/storage/StorageManager.js~StorageManager.secure",
     "access": "public",
     "description": "Returns the a secure storage driver",
-    "lineNumber": 90,
+    "lineNumber": 100,
     "unknown": [
       {
         "tagName": "@returns",
@@ -21062,7 +21353,7 @@
     }
   },
   {
-    "__docId__": 857,
+    "__docId__": 867,
     "kind": "file",
     "name": "src/traits/HandlesImages.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Trait from './Trait';\nimport ImageHandler from '../ImageHandler';\n\n\n/**\n * Adds the imageHandler to a resource\n */\nexport default class HandlesImages extends Trait {\n  /**\n   * Handler for item image management\n   * @returns {ImageHandler} - Image handler\n   */\n  get imageHandler() {\n    return new ImageHandler(this.api, this);\n  }\n}\n",
@@ -21073,7 +21364,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 858,
+    "__docId__": 868,
     "kind": "class",
     "name": "HandlesImages",
     "memberof": "src/traits/HandlesImages.js",
@@ -21091,7 +21382,7 @@
     ]
   },
   {
-    "__docId__": 859,
+    "__docId__": 869,
     "kind": "get",
     "name": "imageHandler",
     "memberof": "src/traits/HandlesImages.js~HandlesImages",
@@ -21123,7 +21414,7 @@
     }
   },
   {
-    "__docId__": 860,
+    "__docId__": 870,
     "kind": "file",
     "name": "src/traits/OwnableResource.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport OrganisationProxy from '../proxy/OrganisationProxy';\nimport Trait from './Trait';\n\n/**\n * Provides a {@link ResourceBase} with functions for dealing with being ownable by an organisation\n * @mixin\n */\nexport default class OwnableResource extends Trait {\n  /**\n   * Get the list of associated organisations\n   * @returns {SimpleResourceProxy} - A proxy for accessing the resource\n   */\n  get organisations() {\n    return new OrganisationProxy(this.api, this);\n  }\n\n  /**\n   * If the resource can be owned by an organisation\n   * @returns {boolean} - Can be owned by an organisation\n   */\n  get ownable() {\n    return true;\n  }\n}\n",
@@ -21134,7 +21425,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 861,
+    "__docId__": 871,
     "kind": "class",
     "name": "OwnableResource",
     "memberof": "src/traits/OwnableResource.js",
@@ -21158,7 +21449,7 @@
     ]
   },
   {
-    "__docId__": 862,
+    "__docId__": 872,
     "kind": "get",
     "name": "organisations",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -21190,7 +21481,7 @@
     }
   },
   {
-    "__docId__": 863,
+    "__docId__": 873,
     "kind": "get",
     "name": "ownable",
     "memberof": "src/traits/OwnableResource.js~OwnableResource",
@@ -21222,7 +21513,7 @@
     }
   },
   {
-    "__docId__": 864,
+    "__docId__": 874,
     "kind": "file",
     "name": "src/traits/Trait.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Trait interface\n * @interface\n */\nexport default class Trait {\n  /**\n   * Optional initialization method\n   * @returns {void}\n   * @abstract\n   */\n  initializer() {\n\n  }\n}\n",
@@ -21233,7 +21524,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 865,
+    "__docId__": 875,
     "kind": "class",
     "name": "Trait",
     "memberof": "src/traits/Trait.js",
@@ -21248,7 +21539,7 @@
     "interface": true
   },
   {
-    "__docId__": 866,
+    "__docId__": 876,
     "kind": "method",
     "name": "initializer",
     "memberof": "src/traits/Trait.js~Trait",
@@ -21277,7 +21568,7 @@
     "params": []
   },
   {
-    "__docId__": 867,
+    "__docId__": 877,
     "kind": "file",
     "name": "src/utils/Logger.js",
     "content": "/**\n * Simple logger implementation\n */\nexport default class Logger {\n  /**\n   * Create a Logger instance\n   * @param {string} [logLevel=warn] - Log level\n   */\n  constructor(logLevel = 'warn') {\n    this.logLevel = logLevel;\n  }\n\n  /**\n   * Get available log levels\n   * @returns {Array<string>} - Log levels\n   */\n  getLogLevels() {\n    return [\n      'debug',\n      'info',\n      'warn',\n      'error',\n      'none',\n    ];\n  }\n\n  /**\n   * Log a message\n   * @param {string} message - Message to be logged\n   * @param {string} level - Log level\n   * @returns {void}\n   */\n  log(message, level = 'info') {\n    if (level === 'none') {\n      return;\n    }\n\n    if (this._shouldLog(level)) {\n      // eslint-disable-next-line no-console\n      console[level](message);\n    }\n  }\n\n  /**\n   * Log a debug message\n   * @param {string} message - Message to be logged\n   * @returns {void}\n   */\n  debug(message) {\n    this.log(message, 'debug');\n  }\n\n  /**\n   * Log an informative message\n   * @param {string} message - Message to be logged\n   * @returns {void}\n   */\n  info(message) {\n    this.log(message, 'info');\n  }\n\n  /**\n   * Log a warning message\n   * @param {string} message - Message to be logged\n   * @returns {void}\n   */\n  warn(message) {\n    this.log(message, 'warn');\n  }\n\n  /**\n   * Log an error message\n   * @param {string} message - Message to be logged\n   * @returns {void}\n   */\n  error(message) {\n    this.log(message, 'error');\n  }\n\n  /**\n   * Get the current log level\n   * @returns {string} - log level\n   */\n  get logLevel() {\n    return this._logLevel;\n  }\n\n  /**\n   * Set the current log level\n   * @param {string} value - log level\n   * @see Logger#getLogLevels\n   */\n  set logLevel(value) {\n    value = value.toLowerCase();\n\n    if (!this.getLogLevels().includes(value)) {\n      throw new TypeError(`Expected one of ${this.getLogLevels().join(', ')}. Got ${value}`);\n    }\n\n    this._logLevel = value;\n  }\n\n  _shouldLog(level) {\n    const logLevels = this.getLogLevels();\n\n    const targetLevel = logLevels.findIndex(x => x === level);\n    const currentLevel = logLevels.findIndex(x => x === this.logLevel);\n\n    return targetLevel >= currentLevel;\n  }\n}\n",
@@ -21288,7 +21579,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 868,
+    "__docId__": 878,
     "kind": "class",
     "name": "Logger",
     "memberof": "src/utils/Logger.js",
@@ -21303,7 +21594,7 @@
     "interface": false
   },
   {
-    "__docId__": 869,
+    "__docId__": 879,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21330,7 +21621,7 @@
     ]
   },
   {
-    "__docId__": 871,
+    "__docId__": 881,
     "kind": "method",
     "name": "getLogLevels",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21358,7 +21649,7 @@
     "params": []
   },
   {
-    "__docId__": 872,
+    "__docId__": 882,
     "kind": "method",
     "name": "log",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21407,7 +21698,7 @@
     }
   },
   {
-    "__docId__": 873,
+    "__docId__": 883,
     "kind": "method",
     "name": "debug",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21446,7 +21737,7 @@
     }
   },
   {
-    "__docId__": 874,
+    "__docId__": 884,
     "kind": "method",
     "name": "info",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21485,7 +21776,7 @@
     }
   },
   {
-    "__docId__": 875,
+    "__docId__": 885,
     "kind": "method",
     "name": "warn",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21524,7 +21815,7 @@
     }
   },
   {
-    "__docId__": 876,
+    "__docId__": 886,
     "kind": "method",
     "name": "error",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21563,7 +21854,7 @@
     }
   },
   {
-    "__docId__": 877,
+    "__docId__": 887,
     "kind": "get",
     "name": "logLevel",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21595,7 +21886,7 @@
     }
   },
   {
-    "__docId__": 878,
+    "__docId__": 888,
     "kind": "set",
     "name": "logLevel",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21623,7 +21914,7 @@
     ]
   },
   {
-    "__docId__": 879,
+    "__docId__": 889,
     "kind": "member",
     "name": "_logLevel",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21641,7 +21932,7 @@
     }
   },
   {
-    "__docId__": 880,
+    "__docId__": 890,
     "kind": "method",
     "name": "_shouldLog",
     "memberof": "src/utils/Logger.js~Logger",
@@ -21669,7 +21960,7 @@
     }
   },
   {
-    "__docId__": 881,
+    "__docId__": 891,
     "kind": "file",
     "name": "src/utils/Singleton.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Singletons will always return the same instance\n *\n * @private\n */\nexport default class Singleton {\n  constructor() {\n    if (!this.constructor.instance) {\n      this.constructor.instance = this;\n      this._instanceCount = 0;\n    }\n\n    this._instanceCount++;\n\n    return this.constructor.instance;\n  }\n}\n",
@@ -21680,7 +21971,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 882,
+    "__docId__": 892,
     "kind": "class",
     "name": "Singleton",
     "memberof": "src/utils/Singleton.js",
@@ -21696,7 +21987,7 @@
     "ignore": true
   },
   {
-    "__docId__": 883,
+    "__docId__": 893,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -21710,7 +22001,7 @@
     "undocument": true
   },
   {
-    "__docId__": 884,
+    "__docId__": 894,
     "kind": "member",
     "name": "_instanceCount",
     "memberof": "src/utils/Singleton.js~Singleton",
@@ -21728,7 +22019,7 @@
     }
   },
   {
-    "__docId__": 885,
+    "__docId__": 895,
     "kind": "file",
     "name": "src/utils/StaticClass.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClassError from '../errors/StaticClassError';\n\n/**\n * Disables the constructor and throws a {@link StaticClassError} when an instance is created.\n * @protected\n */\nexport default class StaticClass {\n  constructor() {\n    throw new StaticClassError();\n  }\n}\n",
@@ -21739,7 +22030,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 886,
+    "__docId__": 896,
     "kind": "class",
     "name": "StaticClass",
     "memberof": "src/utils/StaticClass.js",
@@ -21754,7 +22045,7 @@
     "interface": false
   },
   {
-    "__docId__": 887,
+    "__docId__": 897,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/utils/StaticClass.js~StaticClass",
@@ -21768,7 +22059,7 @@
     "undocument": true
   },
   {
-    "__docId__": 888,
+    "__docId__": 898,
     "kind": "file",
     "name": "src/utils/Unobservable.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Makes an object and it's children unobservable by frameworks like Vuejs\n * @protected\n */\nexport default class Unobservable {\n  /**\n   * Overrides the `Object.prototype.toString.call(obj)` result\n   * @returns {string} - type name\n   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag\n   */\n  get [Symbol.toStringTag]() {\n    // Anything can go here really as long as it's not 'Object'\n    return 'ObjectNoObserve';\n  }\n}\n",
@@ -21779,7 +22070,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 889,
+    "__docId__": 899,
     "kind": "class",
     "name": "Unobservable",
     "memberof": "src/utils/Unobservable.js",
@@ -21794,7 +22085,7 @@
     "interface": false
   },
   {
-    "__docId__": 890,
+    "__docId__": 900,
     "kind": "get",
     "name": "[Symbol.toStringTag]",
     "memberof": "src/utils/Unobservable.js~Unobservable",
@@ -21829,7 +22120,7 @@
     }
   },
   {
-    "__docId__": 891,
+    "__docId__": 901,
     "kind": "file",
     "name": "src/utils/hash.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport stringify from 'json-stable-stringify';\n\nconst FNV1_32A_INIT = 0x811c9dc5;\n\n/**\n * Fast hash function for non-cryptographic use\n * @param {string} str - Input to be hashed\n * @returns {string} - String representation of the hash\n * @private\n */\nexport function fnv32b(str) {\n  let hash = str\n    .split('')\n    .map(x => x.charCodeAt(0))\n    .reduce((sum, val) => {\n      sum ^= val;\n      return sum + (sum << 1) + (sum << 4) + (sum << 7) + (sum << 8) + (sum << 24);\n    }, FNV1_32A_INIT);\n\n  // Avalanche\n  hash ^= hash << 3;\n  hash += hash >> 5;\n  hash ^= hash << 4;\n  hash += hash >> 17;\n  hash ^= hash << 25;\n  hash += hash >> 6;\n\n  return ('0000000' + (hash >>> 0).toString(16)).substr(-8);\n}\n\n/**\n * Fast object hashing for non-cryptographic use\n * @param {object} data - input data\n * @returns {string} - String reprisentation of the hash\n * @private\n */\nexport function hashObject(data) {\n  return fnv32b(stringify(data));\n}\n",
@@ -21840,7 +22131,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 892,
+    "__docId__": 902,
     "kind": "variable",
     "name": "FNV1_32A_INIT",
     "memberof": "src/utils/hash.js",
@@ -21861,7 +22152,7 @@
     "ignore": true
   },
   {
-    "__docId__": 893,
+    "__docId__": 903,
     "kind": "function",
     "name": "fnv32b",
     "memberof": "src/utils/hash.js",
@@ -21904,7 +22195,7 @@
     "ignore": true
   },
   {
-    "__docId__": 894,
+    "__docId__": 904,
     "kind": "function",
     "name": "hashObject",
     "memberof": "src/utils/hash.js",
@@ -21947,7 +22238,7 @@
     "ignore": true
   },
   {
-    "__docId__": 895,
+    "__docId__": 905,
     "kind": "file",
     "name": "src/utils/helpers.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Get all the pages from a {@link PaginatedResourceListing} or a range\n * @param {Promise<PaginatedResourceListing>|PaginatedResourceListing} page - Promise that returns a {@link PaginatedResourceWrapper}\n * @param {?Number} [start=1] - Start page\n * @param {?Number} [stop] - Stop page, defaults to the page count if not filled in.\n * @returns {Promise<Array<ResourceBase>>} - Resolves with an {@link Array} containing {@link PaginatedResourceListing} instance and rejects with {@link ApiError}\n * @example\n * import { helpers } from \"@mapcreator/maps4news\";\n *\n * const promise = api.users.list(1, 50); // 50 per page is more efficient\n *\n * helpers.getPaginatedRange(promise).then(data => {\n *    data.map(row => `[${row.id}] ${row.name}`) // We just want the names\n *        .forEach(console.log) // Log the names and ids of every user\n * })\n */\nexport function getPaginatedRange(page, start = 1, stop) {\n  // Resolve promise if any\n  if (page instanceof Promise) {\n    return page.then(res => getPaginatedRange(res, start, stop));\n  }\n\n  const out = page.data;\n  const promises = [];\n\n  // Handle defaults\n  start = start || page.page;\n  stop = stop || page.pageCount;\n\n  if (start === page.page) {\n    start++;\n  }\n\n  return new Promise((resolve, reject) => {\n    // Get all pages\n    for (let i = start; i <= stop; i++) {\n      promises.push(page.get(i));\n    }\n\n    // Resolve\n    Promise.all(promises).then(rows => {\n      resolve(out.concat(...rows.map(x => x.data)));\n    }, reject);\n  });\n}\n\n/**\n * Quickly check if the window contains a variable\n * @param {string} str - target variable\n * @returns {boolean} - If the window contains the variable\n * @private\n */\nexport function windowTest(str) {\n  return typeof window !== 'undefined' && typeof window[str] !== 'undefined';\n}\n",
@@ -21958,7 +22249,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 896,
+    "__docId__": 906,
     "kind": "function",
     "name": "getPaginatedRange",
     "memberof": "src/utils/helpers.js",
@@ -22026,7 +22317,7 @@
     }
   },
   {
-    "__docId__": 897,
+    "__docId__": 907,
     "kind": "function",
     "name": "windowTest",
     "memberof": "src/utils/helpers.js",
@@ -22069,10 +22360,10 @@
     "ignore": true
   },
   {
-    "__docId__": 898,
+    "__docId__": 908,
     "kind": "file",
     "name": "src/utils/node.js",
-    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined'\n    && typeof module !== 'undefined'\n    && typeof module.exports !== 'undefined';\n}\n",
+    "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n/**\n * Test if the application is running under nodejs\n * @returns {boolean} - Is the application running under node?\n * @see https://nodejs.org\n * @private\n */\nexport function isNode() {\n  return typeof window === 'undefined' && typeof global !== 'undefined' || process.env;\n}\n",
     "static": true,
     "longname": "/home/jenkins/workspace/Creator_api-wrapper_develop-2NQCQ7AGLHGGIPDK7BB6AFW3LGCULDH7GAJGUMN43QSLA6NZ2TWQ/src/utils/node.js",
     "access": "public",
@@ -22080,7 +22371,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 899,
+    "__docId__": 909,
     "kind": "function",
     "name": "isNode",
     "memberof": "src/utils/node.js",
@@ -22115,7 +22406,7 @@
     "params": []
   },
   {
-    "__docId__": 900,
+    "__docId__": 910,
     "kind": "file",
     "name": "src/utils/reflection.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport Trait from '../traits/Trait';\nimport {fnv32b} from './hash';\n\n/**\n * Tests if the parent is a parent of child\n * @param {function|object} parent - Instance or Class\n * @param {function|object} child - Instance or Class\n * @returns {boolean} - is parent a parent of child\n * @private\n * @example\n * class A {}\n * class B extends A {}\n * class C extends B {}\n *\n * isParentOf(A, C) // true\n * isParentOf(B, C) // true\n * isParentOf(C, C) // true\n * isParentOf(B, A) // false\n */\nexport function isParentOf(parent, child) {\n  if (parent == null || child == null) {\n    return false;\n  }\n\n  parent = typeof parent === 'function' ? parent : parent.constructor;\n  child = typeof child === 'function' ? child : child.constructor;\n\n  do {\n    if (child.name === parent.name) {\n      return true;\n    }\n\n    child = Object.getPrototypeOf(child);\n  } while (child.name !== '');\n\n  return false;\n}\n\n\n/**\n * Get the name of the value type\n * @param {*} value - Any value\n * @private\n * @returns {string} - Value type name\n */\nexport function getTypeName(value) {\n  value = typeof value === 'function' ? value : value.constructor;\n\n  return value.name;\n}\n\n/**\n * Mix traits into the target class\n * @param {Function} baseClass - Target base class for the traits to be applied to\n * @param {Function} mixins - Traits to be applied\n * @returns {Function} - Constructor with any traits applied\n * @private\n */\nexport function mix(baseClass, ...mixins) {\n  const cocktail = class _Cocktail extends baseClass {\n    constructor(...args) {\n      super(...args);\n      mixins\n        .map(mixin => mixin.prototype.initializer)\n        .filter(_ => _)\n        .forEach(initializer => initializer.call(this));\n    }\n  };\n\n\n  for (const mixin of mixins) {\n    if (!isParentOf(Trait, mixin)) {\n      throw new TypeError(`Expected mixin to implement Trait for ${mixin.name}`);\n    }\n\n    copyProps(cocktail.prototype, mixin.prototype);\n    copyProps(cocktail, mixin);\n  }\n\n  cocktail.__mixins = mixins;\n\n  const hash = fnv32b(mixins.map(x => x.name).join(','));\n\n  Object.defineProperty(cocktail, 'name', {value: `Cocktail_${hash}`});\n\n  return cocktail;\n}\n\n/**\n * Copy properties from target to source\n * @param {object} target - Object for the properties to be copied to\n * @param {object} source - Object containing properties to be copied\n * @returns {object} - Resulting object with properties from both parameters\n */\nfunction copyProps(target, source) {\n  Object\n    .getOwnPropertyNames(source)\n    .concat(Object.getOwnPropertySymbols(source))\n    .forEach((prop) => {\n      if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {\n        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));\n      }\n    });\n}\n",
@@ -22126,7 +22417,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 901,
+    "__docId__": 911,
     "kind": "function",
     "name": "isParentOf",
     "memberof": "src/utils/reflection.js",
@@ -22184,7 +22475,7 @@
     "ignore": true
   },
   {
-    "__docId__": 902,
+    "__docId__": 912,
     "kind": "function",
     "name": "getTypeName",
     "memberof": "src/utils/reflection.js",
@@ -22227,7 +22518,7 @@
     "ignore": true
   },
   {
-    "__docId__": 903,
+    "__docId__": 913,
     "kind": "function",
     "name": "mix",
     "memberof": "src/utils/reflection.js",
@@ -22280,7 +22571,7 @@
     "ignore": true
   },
   {
-    "__docId__": 904,
+    "__docId__": 914,
     "kind": "function",
     "name": "copyProps",
     "memberof": "src/utils/reflection.js",
@@ -22333,7 +22624,7 @@
     "ignore": true
   },
   {
-    "__docId__": 905,
+    "__docId__": 915,
     "kind": "file",
     "name": "src/utils/requests.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport fetchPonyfill from 'fetch-ponyfill';\nimport ApiError from '../errors/ApiError';\nimport {windowTest} from './helpers';\nimport {isNode} from './node';\n\n/**\n * @private\n */\nexport const {fetch, Request, Response, Headers} = windowTest('fetch') ? window : fetchPonyfill({Promise});\n\nfunction getFormData() {\n  if (windowTest('FormData')) {\n    return window.FormData;\n  } else if (!isNode()) {\n    return require('formdata-polyfill');\n  }\n\n  // @todo find nodejs polyfill\n  return null;\n}\n\n/**\n * @private\n */\nexport const FormData = getFormData();\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {object<string, *>} paramsObject - data to be encoded\n * @returns {string} - encoded http query string\n *\n * @private\n */\nexport function encodeQueryString(paramsObject) {\n  const query = _encodeQueryString(paramsObject);\n\n  // Removes any extra unused &'s.\n  return query.replace(/^&*|&+(?=&)|&*$/g, '');\n}\n\n/**\n * Encodes an object to a http query string with support for recursion\n * @param {Object<string, *>} paramsObject - data to be encoded\n * @param {Array<string>} _basePrefix - Used internally for tracking recursion\n * @returns {string} - encoded http query string\n *\n * @see http://stackoverflow.com/a/39828481\n * @private\n */\nfunction _encodeQueryString(paramsObject, _basePrefix = []) {\n  return Object\n    .keys(paramsObject)\n    .sort()\n    .map(key => {\n      const prefix = _basePrefix.slice(0);\n\n      if (typeof paramsObject[key] === 'object' && paramsObject[key] !== null) {\n        prefix.push(key);\n\n        return _encodeQueryString(paramsObject[key], prefix);\n      }\n\n      prefix.push(key);\n\n      let out = '';\n\n      out += encodeURIComponent(prefix.shift()); // main key\n      out += prefix.map(item => `[${encodeURIComponent(item)}]`).join(''); // optional array keys\n\n      const value = paramsObject[key];\n\n      if (value !== null && typeof value !== 'undefined') {\n        out += '=' + encodeURIComponent(value); // value\n      }\n\n      return out;\n    }).join('&');\n}\n\n/**\n * @param {string} url - Target url\n * @param {object<string, string>} headers - Request headers\n * @returns {PromiseLike<{filename: string, blob: string}>} - filename and blob\n * @private\n */\nexport function downloadFile(url, headers = {}) {\n  const out = {};\n\n  return fetch(url, {headers})\n    .then(res => {\n      if (res.ok) {\n        const disposition = res.headers.get('Content-Disposition');\n\n        if (disposition && disposition.indexOf('attachment') !== -1) {\n          const matches = /filename[^;=\\n]*=((['\"]).*?\\2|[^;\\n]*)/.exec(disposition);\n\n          if (matches != null && matches[1]) {\n            out.filename = matches[1].replace(/['\"]/g, '');\n          }\n        } else {\n          out.filename = 'Unknown Filename.zip';\n        }\n\n        return res.blob();\n      }\n\n      return res.json().then(data => {\n        const err = data.error;\n\n        throw new ApiError(err.type, err.message, res.status, err.trace);\n      });\n    })\n    .then(blob => {\n      out.blob = (window.URL || window.webkitURL).createObjectURL(blob);\n\n      return out;\n    });\n}\n",
@@ -22344,7 +22635,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 906,
+    "__docId__": 916,
     "kind": "variable",
     "name": "fetch",
     "memberof": "src/utils/requests.js",
@@ -22364,7 +22655,7 @@
     }
   },
   {
-    "__docId__": 907,
+    "__docId__": 917,
     "kind": "function",
     "name": "getFormData",
     "memberof": "src/utils/requests.js",
@@ -22388,7 +22679,7 @@
     "ignore": true
   },
   {
-    "__docId__": 908,
+    "__docId__": 918,
     "kind": "variable",
     "name": "FormData",
     "memberof": "src/utils/requests.js",
@@ -22408,7 +22699,7 @@
     }
   },
   {
-    "__docId__": 909,
+    "__docId__": 919,
     "kind": "function",
     "name": "encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -22451,7 +22742,7 @@
     "ignore": true
   },
   {
-    "__docId__": 910,
+    "__docId__": 920,
     "kind": "function",
     "name": "_encodeQueryString",
     "memberof": "src/utils/requests.js",
@@ -22507,7 +22798,7 @@
     "ignore": true
   },
   {
-    "__docId__": 911,
+    "__docId__": 921,
     "kind": "function",
     "name": "downloadFile",
     "memberof": "src/utils/requests.js",
@@ -22560,7 +22851,7 @@
     "ignore": true
   },
   {
-    "__docId__": 912,
+    "__docId__": 922,
     "kind": "file",
     "name": "src/utils/uuid.js",
     "content": "/*\n * BSD 3-Clause License\n *\n * Copyright (c) 2017, MapCreator\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *\n *  Redistributions of source code must retain the above copyright notice, this\n *   list of conditions and the following disclaimer.\n *\n *  Redistributions in binary form must reproduce the above copyright notice,\n *   this list of conditions and the following disclaimer in the documentation\n *   and/or other materials provided with the distribution.\n *\n *  Neither the name of the copyright holder nor the names of its\n *   contributors may be used to endorse or promote products derived from\n *   this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\nimport StaticClass from './StaticClass';\n\n/**\n * UUID util class\n * @static\n * @private\n */\nexport default class Uuid extends StaticClass {\n  /**\n   * Generate a UUID4 string\n   * @returns {string} - Uuid\n   */\n  static uuid4() {\n    let d = new Date().getTime();\n\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      d += performance.now(); // use high-precision timer if available\n    }\n\n    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {\n      const r = (d + Math.random() * 16) % 16 | 0;\n\n      d = Math.floor(d / 16);\n      return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);\n    });\n  }\n\n  /**\n   * Empty uuid as per spec\n   * @returns {string} - Uuid\n   */\n  static nil() {\n    return '0000000-0000-0000-0000-000000000000';\n  }\n}\n",
@@ -22571,7 +22862,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 913,
+    "__docId__": 923,
     "kind": "class",
     "name": "Uuid",
     "memberof": "src/utils/uuid.js",
@@ -22590,7 +22881,7 @@
     "ignore": true
   },
   {
-    "__docId__": 914,
+    "__docId__": 924,
     "kind": "method",
     "name": "uuid4",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -22618,7 +22909,7 @@
     "params": []
   },
   {
-    "__docId__": 915,
+    "__docId__": 925,
     "kind": "method",
     "name": "nil",
     "memberof": "src/utils/uuid.js~Uuid",
@@ -22655,7 +22946,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@mapcreator/maps4news\",\n  \"version\": \"1.4.41\",\n  \"description\": \"Maps4News JavaScript Api\",\n  \"main\": \"dist/bundle.js\",\n  \"repository\": \"git@github.com:MapCreatorEU/api-wrapper.git\",\n  \"author\": \"Bas Bieling <b.bieling@mapcreator.eu>\",\n  \"license\": \"BSD-3-Clause\",\n  \"files\": [\n    \"dist\",\n    \"src\"\n  ],\n  \"dependencies\": {\n    \"babel-runtime\": \"^6.26.0\",\n    \"case\": \"^1.5.3\",\n    \"fetch-ponyfill\": \"^6.0.2\",\n    \"formdata-polyfill\": \"^3.0.12\",\n    \"json-stable-stringify\": \"^1.0.1\",\n    \"mitt\": \"^1.1.2\"\n  },\n  \"devDependencies\": {\n    \"ava\": \"^0.25.0\",\n    \"babel-cli\": \"^6.24.1\",\n    \"babel-core\": \"^6.25.0\",\n    \"babel-eslint\": \"^8.2.6\",\n    \"babel-loader\": \"^7.1.5\",\n    \"babel-plugin-transform-export-extensions\": \"^6.22.0\",\n    \"babel-plugin-transform-runtime\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.5.2\",\n    \"babel-preset-node8\": \"^1.2.0\",\n    \"babel-register\": \"^6.26.0\",\n    \"contributors\": \"^0.5.1\",\n    \"dotenv-webpack\": \"^1.5.7\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-inject-script-plugin\": \"^1.0.0\",\n    \"esdoc-inject-style-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.2.0\",\n    \"eslint-plugin-compat\": \"^2.4.0\",\n    \"fs-extra\": \"^6.0.1\",\n    \"licensecheck\": \"^1.3.0\",\n    \"nyc\": \"^11.9.0\",\n    \"tap-nyc\": \"^1.0.3\",\n    \"uglifyjs-webpack-plugin\": \"^1.3.0\",\n    \"webpack\": \"^4.19.0\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"webpack-node-externals\": \"^1.7.2\"\n  },\n  \"scripts\": {\n    \"build\": \"./scripts/build.sh\",\n    \"watch\": \"npx webpack --progress --watch\",\n    \"docs\": \"npx esdoc\",\n    \"lint\": \"npx eslint --no-color --max-warnings 5 --format checkstyle --output-file build/checkstyle.xml src\",\n    \"clean\": \"rm -r dist docs .nyc_output build || true\",\n    \"all\": \"./scripts/all.sh\",\n    \"test\": \"npx ava\",\n    \"test-ci\": \"./scripts/test-ci.sh\"\n  },\n  \"contributors\": [\n    \"Bas Bieling <b.bieling@mapcreator.eu> (https://GitHub.com/Mechazawa)\"\n  ],\n  \"browserslist\": [\n    \"> 1%\",\n    \"Firefox ESR\",\n    \"not dead\",\n    \"not IE_mob < 12\",\n    \"not OperaMini all\"\n  ],\n  \"esdoc\": {\n    \"source\": \"./src\",\n    \"destination\": \"./docs\",\n    \"name\": \"maps4news\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\",\n        \"option\": {\n          \"accessor\": {\n            \"access\": [\n              \"public\",\n              \"protected\"\n            ],\n            \"autoPrivate\": true\n          },\n          \"undocumentIdentifier\": {\n            \"enable\": true\n          },\n          \"unexportedIdentifier\": {\n            \"enable\": false\n          },\n          \"typeInference\": {\n            \"enable\": true\n          },\n          \"brand\": {\n            \"title\": \"Maps4News Api Wrapper\",\n            \"description\": \"Maps4News Api Javascript Wrapper\"\n          },\n          \"manual\": {\n            \"asset\": \"./manual/assets\",\n            \"index\": \"./README.md\",\n            \"files\": [\n              \"./manual/examples.md\",\n              \"./manual/examples.authentication.md\",\n              \"./manual/building.md\",\n              \"./manual/installation.md\"\n            ]\n          }\n        }\n      },\n      {\n        \"name\": \"esdoc-ecmascript-proposal-plugin\",\n        \"option\": {\n          \"all\": true\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-script-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"scripts\": [\n            \"./dist/bundle.browser.js\",\n            \"./manual/js/sandbox.js\"\n          ]\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-style-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"styles\": [\n            \"./manual/css/sidebar_fix.css\",\n            \"./manual/css/hide_import.css\"\n          ]\n        }\n      }\n    ]\n  },\n  \"ava\": {\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"babel\": \"inherit\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@mapcreator/maps4news\",\n  \"version\": \"1.4.42\",\n  \"description\": \"Maps4News JavaScript Api\",\n  \"main\": \"dist/bundle.js\",\n  \"repository\": \"git@github.com:MapCreatorEU/api-wrapper.git\",\n  \"author\": \"Bas Bieling <b.bieling@mapcreator.eu>\",\n  \"license\": \"BSD-3-Clause\",\n  \"files\": [\n    \"dist\",\n    \"src\"\n  ],\n  \"dependencies\": {\n    \"case\": \"^1.5.3\",\n    \"fetch-ponyfill\": \"^6.0.2\",\n    \"formdata-polyfill\": \"^3.0.12\",\n    \"json-stable-stringify\": \"^1.0.1\",\n    \"mitt\": \"^1.1.2\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"^7.1.2\",\n    \"@babel/plugin-proposal-class-properties\": \"^7.1.0\",\n    \"@babel/plugin-proposal-export-default-from\": \"^7.0.0\",\n    \"@babel/plugin-proposal-export-namespace-from\": \"^7.0.0\",\n    \"@babel/plugin-transform-runtime\": \"^7.1.0\",\n    \"@babel/preset-env\": \"^7.1.0\",\n    \"babel-core\": \"^7.0.0-bridge.0\",\n    \"babel-eslint\": \"^10.0.1\",\n    \"babel-jest\": \"^23.6.0\",\n    \"babel-loader\": \"^8.0.4\",\n    \"contributors\": \"^0.5.1\",\n    \"dotenv-webpack\": \"^1.5.7\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-inject-script-plugin\": \"^1.0.0\",\n    \"esdoc-inject-style-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.2.0\",\n    \"eslint-plugin-compat\": \"^2.4.0\",\n    \"fs-extra\": \"^6.0.1\",\n    \"jest\": \"^23.6.0\",\n    \"jest-junit\": \"^5.2.0\",\n    \"licensecheck\": \"^1.3.0\",\n    \"nyc\": \"^11.9.0\",\n    \"tap-nyc\": \"^1.0.3\",\n    \"uglifyjs-webpack-plugin\": \"^1.3.0\",\n    \"webpack\": \"^4.19.0\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"webpack-merge\": \"^4.1.4\",\n    \"webpack-node-externals\": \"^1.7.2\"\n  },\n  \"scripts\": {\n    \"build\": \"./scripts/build.sh\",\n    \"watch\": \"npx webpack --progress --watch\",\n    \"docs\": \"npx esdoc\",\n    \"lint\": \"npx eslint --no-color --max-warnings 5 --format checkstyle --output-file build/checkstyle.xml src\",\n    \"clean\": \"rm -fr dist docs build || true\",\n    \"all\": \"./scripts/all.sh\",\n    \"test\": \"npx jest\",\n    \"test-ci\": \"npx jest --coverage --ci || true\"\n  },\n  \"contributors\": [\n    \"Bas Bieling <b.bieling@mapcreator.eu> (https://GitHub.com/Mechazawa)\"\n  ],\n  \"browserslist\": [\n    \"> 1%\",\n    \"Firefox ESR\",\n    \"not dead\",\n    \"not IE_mob < 12\",\n    \"not OperaMini all\"\n  ],\n  \"esdoc\": {\n    \"source\": \"./src\",\n    \"destination\": \"./docs\",\n    \"name\": \"maps4news\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\",\n        \"option\": {\n          \"accessor\": {\n            \"access\": [\n              \"public\",\n              \"protected\"\n            ],\n            \"autoPrivate\": true\n          },\n          \"undocumentIdentifier\": {\n            \"enable\": true\n          },\n          \"unexportedIdentifier\": {\n            \"enable\": false\n          },\n          \"typeInference\": {\n            \"enable\": true\n          },\n          \"brand\": {\n            \"title\": \"Maps4News Api Wrapper\",\n            \"description\": \"Maps4News Api Javascript Wrapper\"\n          },\n          \"manual\": {\n            \"asset\": \"./manual/assets\",\n            \"index\": \"./README.md\",\n            \"files\": [\n              \"./manual/examples.md\",\n              \"./manual/examples.authentication.md\",\n              \"./manual/building.md\",\n              \"./manual/installation.md\"\n            ]\n          }\n        }\n      },\n      {\n        \"name\": \"esdoc-ecmascript-proposal-plugin\",\n        \"option\": {\n          \"all\": true\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-script-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"scripts\": [\n            \"./dist/bundle.browser.js\",\n            \"./manual/js/sandbox.js\"\n          ]\n        }\n      },\n      {\n        \"name\": \"esdoc-inject-style-plugin\",\n        \"option\": {\n          \"enable\": true,\n          \"styles\": [\n            \"./manual/css/sidebar_fix.css\",\n            \"./manual/css/hide_import.css\"\n          ]\n        }\n      }\n    ]\n  }\n}\n",
     "longname": "/home/jenkins/workspace/Creator_api-wrapper_develop-2NQCQ7AGLHGGIPDK7BB6AFW3LGCULDH7GAJGUMN43QSLA6NZ2TWQ/package.json",
     "name": "package.json",
     "static": true,

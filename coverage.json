@@ -1,7 +1,7 @@
 {
-  "coverage": "72.09%",
-  "expectCount": 724,
-  "actualCount": 522,
+  "coverage": "72.3%",
+  "expectCount": 733,
+  "actualCount": 530,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -596,6 +596,13 @@
         41
       ]
     },
+    "src/storage/DummyDriver.js": {
+      "expectCount": 8,
+      "actualCount": 7,
+      "undocumentLines": [
+        40
+      ]
+    },
     "src/storage/FileDriver.js": {
       "expectCount": 17,
       "actualCount": 14,
@@ -611,8 +618,8 @@
       "undocumentLines": []
     },
     "src/storage/StorageManager.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 8,
+      "actualCount": 8,
       "undocumentLines": []
     },
     "src/traits/HandlesImages.js": {
