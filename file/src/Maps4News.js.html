@@ -96,12 +96,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/CrudSetItemBase.js~CrudSetItemBase.html">CrudSetItemBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#traits">traits</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/Injectable.js~Injectable.html">Injectable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-hasTrait">hasTrait</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -155,7 +157,6 @@ import {
   Contract,
   Dimension,
   DimensionSet,
-  Domain,
   Faq,
   Feature,
   Font,
@@ -180,21 +181,26 @@ import {
   User,
 } from &apos;./resources&apos;;
 import ResourceBase from &apos;./resources/base/ResourceBase&apos;;
+import Injectable from &apos;./traits/Injectable&apos;;
 import {fnv32b} from &apos;./utils/hash&apos;;
 import Logger from &apos;./utils/Logger&apos;;
 import {isNode} from &apos;./utils/node&apos;;
-import {isParentOf} from &apos;./utils/reflection&apos;;
+import {isParentOf, mix} from &apos;./utils/reflection&apos;;
 import {fetch, FormData, Headers} from &apos;./utils/requests&apos;;
 
 /**
  * Base API class
+ *
+ * @mixes Injectable
  */
-export default class Maps4News {
+export default class Maps4News extends mix(null, Injectable) {
   /**
    * @param {OAuth|string} auth - Authentication flow
    * @param {string} host - Remote API host
    */
   constructor(auth = new DummyFlow(), host = process.env.HOST) {
+    super();
+
     if (typeof auth === &apos;string&apos;) {
       const token = auth;
 
@@ -539,15 +545,6 @@ export default class Maps4News {
    */
   get dimensionSets() {
     return this.static(DimensionSet);
-  }
-
-  /**
-   * Domain accessor
-   * @see {@link Domain}
-   * @returns {ResourceProxy} - A proxy for accessing the resource
-   */
-  get domains() {
-    return this.static(Domain);
   }
 
   /**

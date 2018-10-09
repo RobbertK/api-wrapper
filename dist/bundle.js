@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:eaa46a2370c61f51b85e, chunkhash:ecb6641833ae17cffff0, name:bundle, version:v1.4.42
+ * hash:5b12336988933edb3532, chunkhash:c8161637f8c3fd601520, name:bundle, version:v1.4.43
  */
 exports["maps4news"] =
 /******/ (function(modules) { // webpackBootstrap
@@ -115,7 +115,7 @@ exports["maps4news"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 82);
+/******/ 	return __webpack_require__(__webpack_require__.s = 83);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -157,18 +157,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isParentOf", function() { return isParentOf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTypeName", function() { return getTypeName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mix", function() { return mix; });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(23);
-/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _traits_Trait__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(50);
-/* harmony import */ var _hash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(33);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasTrait", function() { return hasTrait; });
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _traits_Trait__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(34);
+/* harmony import */ var _hash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(35);
 
 
 
@@ -255,12 +256,21 @@ function getTypeName(value) {
   return value.name;
 }
 /**
+ * Helper class for mix
+ * @see mix
+ */
+
+var Empty = function Empty() {
+  _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4___default()(this, Empty);
+};
+/**
  * Mix traits into the target class
  * @param {Function} baseClass - Target base class for the traits to be applied to
  * @param {Function} mixins - Traits to be applied
  * @returns {Function} - Constructor with any traits applied
  * @private
  */
+
 
 function mix(baseClass) {
   for (var _len = arguments.length, mixins = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -269,33 +279,33 @@ function mix(baseClass) {
 
   var cocktail =
   /*#__PURE__*/
-  function (_baseClass) {
-    _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(_Cocktail, _baseClass);
+  function (_ref) {
+    _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(_Cocktail, _ref);
 
     function _Cocktail() {
       var _getPrototypeOf2;
 
       var _this;
 
-      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, _Cocktail);
+      _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4___default()(this, _Cocktail);
 
       for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
         args[_key2] = arguments[_key2];
       }
 
-      _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_1___default()(this, (_getPrototypeOf2 = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2___default()(_Cocktail)).call.apply(_getPrototypeOf2, [this].concat(args)));
+      _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0___default()(this, (_getPrototypeOf2 = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1___default()(_Cocktail)).call.apply(_getPrototypeOf2, [this].concat(args)));
       mixins.map(function (mixin) {
         return mixin.prototype.initializer;
-      }).filter(function (_) {
-        return _;
+      }).filter(function (initializer) {
+        return typeof initializer === 'function';
       }).forEach(function (initializer) {
-        return initializer.call(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this)));
+        return initializer.call(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this)));
       });
       return _this;
     }
 
     return _Cocktail;
-  }(baseClass);
+  }(baseClass || Empty);
 
   for (var _i = 0; _i < mixins.length; _i++) {
     var mixin = mixins[_i];
@@ -326,10 +336,32 @@ function mix(baseClass) {
 
 function copyProps(target, source) {
   Object.getOwnPropertyNames(source).concat(Object.getOwnPropertySymbols(source)).forEach(function (prop) {
-    if (!prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {
+    if (!prop.match(/^(?:constructor|initializer|prototype|arguments|caller|name|bind|call|apply|toString|length)$/)) {
       Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop));
     }
   });
+}
+/**
+ * Checks if the target has a certain trait.
+ *
+ * @param {Function|Object} Subject - Instance or class
+ * @param {Function} Trait - Trait to check for
+ * @returns {boolean} - If the subject has the trait
+ */
+
+
+function hasTrait(Subject, Trait) {
+  Subject = typeof Subject === 'function' ? Subject : Subject.constructor;
+
+  do {
+    if (Array.isArray(Subject.__mixins) && Subject.__mixins.includes(Trait)) {
+      return true;
+    }
+
+    Subject = Object.getPrototypeOf(Subject);
+  } while (Subject.name !== '');
+
+  return false;
 }
 
 /***/ }),
@@ -350,7 +382,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _errors_AbstractError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _ResourceBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
+/* harmony import */ var _ResourceBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
 
 
 
@@ -608,7 +640,7 @@ var inherits_ = __webpack_require__(4);
 var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits_);
 
 // EXTERNAL MODULE: ./src/resources/base/ResourceBase.js
-var ResourceBase = __webpack_require__(9);
+var ResourceBase = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/resources/Choropleth.js
 
@@ -676,19 +708,19 @@ function (_ResourceBase) {
 
 
 // EXTERNAL MODULE: ./src/resources/Color.js
-var Color = __webpack_require__(40);
+var Color = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./src/resources/Contract.js
-var Contract = __webpack_require__(58);
+var Contract = __webpack_require__(59);
 
 // EXTERNAL MODULE: ./src/resources/Dimension.js
-var Dimension = __webpack_require__(59);
+var Dimension = __webpack_require__(60);
 
 // EXTERNAL MODULE: ./src/resources/DimensionSet.js
-var DimensionSet = __webpack_require__(41);
+var DimensionSet = __webpack_require__(42);
 
 // EXTERNAL MODULE: ./src/resources/Domain.js
-var Domain = __webpack_require__(60);
+var Domain = __webpack_require__(61);
 
 // EXTERNAL MODULE: ./src/resources/base/CrudBase.js
 var CrudBase = __webpack_require__(6);
@@ -759,13 +791,13 @@ function (_CrudBase) {
 
 
 // EXTERNAL MODULE: ./src/resources/Feature.js
-var Feature = __webpack_require__(42);
+var Feature = __webpack_require__(43);
 
 // EXTERNAL MODULE: ./src/resources/Font.js
-var Font = __webpack_require__(61);
+var Font = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./src/resources/FontFamily.js
-var FontFamily = __webpack_require__(43);
+var FontFamily = __webpack_require__(44);
 
 // CONCATENATED MODULE: ./src/resources/Highlight.js
 
@@ -892,43 +924,43 @@ function (_ResourceBase) {
 
 
 // EXTERNAL MODULE: ./src/resources/Job.js
-var Job = __webpack_require__(44);
+var Job = __webpack_require__(45);
 
 // EXTERNAL MODULE: ./src/resources/JobMonitorRow.js
-var JobMonitorRow = __webpack_require__(55);
+var JobMonitorRow = __webpack_require__(56);
 
 // EXTERNAL MODULE: ./src/resources/JobResult.js
-var JobResult = __webpack_require__(30);
+var JobResult = __webpack_require__(31);
 
 // EXTERNAL MODULE: ./src/resources/JobRevision.js
-var JobRevision = __webpack_require__(62);
+var JobRevision = __webpack_require__(63);
 
 // EXTERNAL MODULE: ./src/resources/JobShare.js
-var JobShare = __webpack_require__(28);
+var JobShare = __webpack_require__(29);
 
 // EXTERNAL MODULE: ./src/resources/JobType.js
-var JobType = __webpack_require__(45);
+var JobType = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/resources/Language.js
-var Language = __webpack_require__(66);
+var Language = __webpack_require__(67);
 
 // EXTERNAL MODULE: ./src/resources/Layer.js
-var Layer = __webpack_require__(31);
+var Layer = __webpack_require__(32);
 
 // EXTERNAL MODULE: ./src/resources/Mapstyle.js
-var Mapstyle = __webpack_require__(63);
+var Mapstyle = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./src/resources/MapstyleSet.js
-var MapstyleSet = __webpack_require__(46);
+var MapstyleSet = __webpack_require__(47);
 
 // EXTERNAL MODULE: ./src/resources/Notification.js
-var Notification = __webpack_require__(67);
+var Notification = __webpack_require__(68);
 
 // EXTERNAL MODULE: ./src/resources/Organisation.js
-var Organisation = __webpack_require__(52);
+var Organisation = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./src/resources/Permission.js
-var Permission = __webpack_require__(49);
+var Permission = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./src/resources/PlaceName.js
 
@@ -993,22 +1025,22 @@ function (_ResourceBase) {
 
 
 // EXTERNAL MODULE: ./src/resources/Role.js
-var Role = __webpack_require__(68);
+var Role = __webpack_require__(69);
 
 // EXTERNAL MODULE: ./src/resources/Svg.js
-var Svg = __webpack_require__(64);
+var Svg = __webpack_require__(65);
 
 // EXTERNAL MODULE: ./src/resources/SvgSet.js
-var SvgSet = __webpack_require__(47);
+var SvgSet = __webpack_require__(48);
 
 // EXTERNAL MODULE: ./src/resources/Tag.js
-var Tag = __webpack_require__(65);
+var Tag = __webpack_require__(66);
 
 // EXTERNAL MODULE: ./src/resources/User.js
-var User = __webpack_require__(48);
+var User = __webpack_require__(49);
 
 // EXTERNAL MODULE: ./src/resources/base/CrudSetBase.js
-var CrudSetBase = __webpack_require__(27);
+var CrudSetBase = __webpack_require__(28);
 
 // CONCATENATED MODULE: ./src/resources/index.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base", function() { return base; });
@@ -1155,6 +1187,585 @@ var base = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ResourceBase; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var case__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
+/* harmony import */ var case__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(case__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _errors_AbstractError__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(10);
+/* harmony import */ var _Maps4News__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(23);
+/* harmony import */ var _proxy_SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(30);
+/* harmony import */ var _traits_Injectable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(75);
+/* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(5);
+
+
+
+
+
+
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
+
+
+
+
+
+function unique(input) {
+  return input.filter(function (v, i) {
+    return input.findIndex(function (vv) {
+      return vv === v;
+    }) === i;
+  });
+}
+/**
+ * Resource base
+ * @abstract
+ */
+
+
+var ResourceBase =
+/*#__PURE__*/
+function (_mix) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(ResourceBase, _mix);
+
+  /**
+   * @param {Maps4News} api - Api instance
+   * @param {Object<String, *>} data - Item data
+   */
+  function ResourceBase(api) {
+    var _this;
+
+    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ResourceBase);
+
+    _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(ResourceBase).call(this));
+
+    if (_this.constructor === ResourceBase) {
+      throw new _errors_AbstractError__WEBPACK_IMPORTED_MODULE_7__["AbstractClassError"]();
+    }
+
+    if (!Object(_utils_reflection__WEBPACK_IMPORTED_MODULE_11__["isParentOf"])(_Maps4News__WEBPACK_IMPORTED_MODULE_8__["default"], api)) {
+      throw new TypeError('Expected api to be of type Maps4News');
+    } // Normalize keys to snake_case
+    // Fix data types
+
+
+    var _arr = Object.keys(data);
+
+    for (var _i = 0; _i < _arr.length; _i++) {
+      var key = _arr[_i];
+      var newKey = Object(case__WEBPACK_IMPORTED_MODULE_6__["snake"])(key);
+      data[newKey] = _this.constructor._guessType(newKey, data[key]);
+
+      if (newKey !== key) {
+        delete data[key];
+      }
+    }
+
+    _this._baseProperties = data || {};
+    _this._properties = {};
+    _this._api = api;
+    var fields = Object.keys(_this._baseProperties); // Apply properties
+
+    for (var _i2 = 0; _i2 < fields.length; _i2++) {
+      var _key = fields[_i2];
+
+      _this._applyProperty(_key);
+    } // Add deleted field if possible
+
+
+    if (fields.includes('deleted_at')) {
+      Object.defineProperty(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5___default()(_this)), 'deleted', {
+        enumerable: true,
+        configurable: true,
+        get: function get() {
+          return Boolean(_this.deletedAt);
+        }
+      });
+    }
+    /* We keep track of any new fields by recording the
+     * keys the object currently has. We don't need no
+     * fancy-pants observers, Proxies etc.
+     * snake_case only
+     */
+
+
+    _this._knownFields = Object.keys(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5___default()(_this))).filter(function (x) {
+      return x[0] !== '_';
+    });
+    return _this;
+  }
+  /**
+   * Get api instance
+   * @returns {Maps4News} - Api instance
+   */
+
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ResourceBase, [{
+    key: "_updateProperties",
+
+    /**
+     * Moves new fields to this._properties and turns them into a getter/setter
+     * @returns {void}
+     * @protected
+     */
+    value: function _updateProperties() {
+      var _this2 = this;
+
+      // Build a list of new fields
+      var fields = Object.keys(this).filter(function (x) {
+        return x[0] !== '_';
+      }).filter(function (x) {
+        return !_this2._knownFields.includes(x);
+      }); // Move the pointer from this to the properties object
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
+          var newKey = Object(case__WEBPACK_IMPORTED_MODULE_6__["snake"])(key);
+          this._properties[newKey] = this[key];
+          delete this[key];
+
+          this._applyProperty(newKey);
+
+          this._knownFields.push(newKey);
+        } // Build a list of new BaseProperty fields
+
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      fields = Object.keys(this._baseProperties).filter(function (x) {
+        return !_this2._knownFields.includes(Object(case__WEBPACK_IMPORTED_MODULE_6__["camel"])(x));
+      });
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _key2 = _step2.value;
+
+          this._applyProperty(_key2);
+
+          this._knownFields.push(_key2);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      this._knownFields = unique(this._knownFields);
+    }
+    /**
+     * Clean up instance and commit all changes locally.
+     * This means that any changed fields will be marked
+     * as unchanged whilst  keeping their new values. The
+     * changes will not be saved.
+     * @returns {void}
+     */
+
+  }, {
+    key: "sanitize",
+    value: function sanitize() {
+      this._updateProperties();
+
+      Object.assign(this._baseProperties, this._properties);
+      this._properties = {};
+    }
+    /**
+     * Resets model instance to it's original state
+     * @param {Array<string>|string|null} [fields=null] - Fields to reset, defaults to all fields
+     * @returns {void}
+     */
+
+  }, {
+    key: "reset",
+    value: function reset() {
+      var _this3 = this;
+
+      var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      this._updateProperties();
+
+      if (typeof fields === 'string') {
+        this.reset([fields]);
+      } else if (fields === null) {
+        this._properties = {}; // Delete all
+      } else if (Array.isArray(fields)) {
+        fields.map(String).map(case__WEBPACK_IMPORTED_MODULE_6__["snake"]).forEach(function (field) {
+          return delete _this3._properties[field];
+        });
+      }
+    }
+    /**
+     * Clone the object
+     * @returns {ResourceBase} - Exact clone of the object
+     */
+
+  }, {
+    key: "clone",
+    value: function clone() {
+      this._updateProperties();
+
+      var out = new this.constructor(this.api, this._baseProperties);
+
+      var _arr2 = Object.keys(this._properties);
+
+      for (var _i3 = 0; _i3 < _arr2.length; _i3++) {
+        var key = _arr2[_i3];
+        out[key] = this._properties[key];
+      }
+
+      return out;
+    }
+    /**
+     * Refresh the resource by requesting it from the server again
+     * @param {Boolean} updateSelf - Update the current instance
+     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
+     */
+
+  }, {
+    key: "refresh",
+    value: function refresh() {
+      var _this4 = this;
+
+      var updateSelf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      return this._api.request(this.url).then(function (data) {
+        if (updateSelf) {
+          _this4._properties = {};
+          _this4._baseProperties = data;
+
+          _this4._updateProperties();
+        }
+
+        return new _this4.constructor(_this4._api, data);
+      });
+    }
+    /**
+     * Create proxy for property
+     * @param {string} key - property key
+     * @returns {void}
+     * @private
+     */
+
+  }, {
+    key: "_applyProperty",
+    value: function _applyProperty(key) {
+      var _this5 = this;
+
+      var desc = {
+        enumerable: true,
+        configurable: true,
+        get: function get() {
+          if (_this5._properties.hasOwnProperty(key)) {
+            return _this5._properties[key];
+          }
+
+          return _this5._baseProperties[key];
+        }
+      };
+
+      if (!this._protectedFields.includes(key) && !this.constructor.readonly) {
+        desc.set = function (val) {
+          _this5._properties[key] = ResourceBase._guessType(key, val);
+          delete _this5._url; // Clears url cache
+        };
+      }
+
+      var newKey = Object(case__WEBPACK_IMPORTED_MODULE_6__["camel"])(key);
+      Object.defineProperty(this, newKey, desc);
+    }
+    /**
+     * Guess type based on property name
+     * @param {string} name - Field name
+     * @param {*} value - Field Value
+     * @private
+     * @returns {*} - Original or converted value
+     */
+
+  }, {
+    key: "toString",
+
+    /**
+     * String representation of the resource, similar to Python's __repr__
+     * @returns {string} - Resource name and id
+     */
+    value: function toString() {
+      return "".concat(this.constructor.name, "(").concat(this[this.resourceUrlKey], ")");
+    }
+    /**
+     * Transform instance to object
+     * @param {boolean} [camelCaseKeys=false] - camelCase object keys
+     * @returns {{}} - object
+     */
+
+  }, {
+    key: "toObject",
+    value: function toObject() {
+      var camelCaseKeys = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      this._updateProperties();
+
+      var out = Object.assign({}, this._baseProperties, this._properties);
+
+      if (camelCaseKeys) {
+        for (var key in Object.keys(out)) {
+          var ccKey = Object(case__WEBPACK_IMPORTED_MODULE_6__["camel"])(key);
+
+          if (key !== ccKey) {
+            out[ccKey] = out[key];
+            delete out[key];
+          }
+        }
+      }
+
+      return out;
+    }
+    /**
+     * Macro for resource listing
+     * @param {ResourceBase} Target - Target object
+     * @param {?String} url - Target url, if null it will guess
+     * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new
+     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
+     * @protected
+     */
+
+  }, {
+    key: "_proxyResourceList",
+    value: function _proxyResourceList(Target) {
+      var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var seedData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      if (!url) {
+        var resource = Target.resourceName.replace(/s+$/, '');
+        url = "".concat(this.url, "/").concat(resource, "s");
+      }
+
+      return new _proxy_SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_9__["default"](this.api, Target, url, seedData);
+    }
+  }, {
+    key: "api",
+    get: function get() {
+      return this._api;
+    }
+    /**
+     * Resource path template
+     * @returns {String} - Path template
+     * @todo move to constructor
+     */
+
+  }, {
+    key: "resourcePath",
+    get: function get() {
+      return "/".concat(this.constructor.resourceName, "/{id}");
+    }
+    /**
+     * Resource name
+     * @returns {String} - Resource name
+     * @todo move to constructor
+     * @abstract
+     */
+
+  }, {
+    key: "_protectedFields",
+
+    /**
+     * Protected read-only fields
+     * @returns {Array<string>} - Array containing the protected fields
+     * @todo move to constructor
+     * @protected
+     */
+    get: function get() {
+      return ['id', 'created_at', 'updated_at', 'deleted_at'];
+    }
+    /**
+     * Returns if the resource is readonly
+     * @returns {boolean} - readonly
+     */
+
+  }, {
+    key: "ownable",
+
+    /**
+     * If the resource can be owned by an organisation
+     * @returns {boolean} - Can be owned by an organisation
+     */
+    get: function get() {
+      return false;
+    }
+    /**
+     * Auto generated resource url
+     * @returns {string} - Resource url
+     */
+
+  }, {
+    key: "url",
+    get: function get() {
+      var _this6 = this;
+
+      if (!this._url) {
+        var url = "".concat(this._api.host, "/").concat(this._api.version).concat(this.resourcePath); // Find and replace any keys
+
+        url = url.replace(/{(\w+)}/g, function (match, key) {
+          return _this6[Object(case__WEBPACK_IMPORTED_MODULE_6__["camel"])(key)];
+        });
+        this._url = url;
+      }
+
+      return this._url;
+    }
+    /**
+     * Auto generated Resource base url
+     * @returns {string} - Resource base url
+     */
+
+  }, {
+    key: "baseUrl",
+    get: function get() {
+      var basePath = this.resourcePath.match(/^(\/[^{]+\b)/)[1];
+      return "".concat(this._api.host, "/").concat(this._api.version).concat(basePath);
+    }
+    /**
+     * List fields that contain object data
+     * @returns {Array<String>} - A list of fields
+     */
+
+  }, {
+    key: "fieldNames",
+    get: function get() {
+      return Object.keys(this._baseProperties).map(case__WEBPACK_IMPORTED_MODULE_6__["camel"]);
+    }
+  }], [{
+    key: "_guessType",
+    value: function _guessType(name, value) {
+      var regexp = /(?:^|_)([^_$]+)$/g;
+      var match = regexp.exec(name);
+      var idMacros = ['last', 'me', 'mine'];
+
+      if (match === null || typeof value !== 'string') {
+        return value;
+      }
+
+      switch (match[1]) {
+        case 'end':
+        case 'start':
+        case 'at':
+          return new Date(value.replace(' ', 'T'));
+
+        case 'id':
+          // Test if the value is in fact a macro
+          if (idMacros.includes(String(value).toLowerCase())) {
+            return value;
+          }
+
+          return Number(value);
+
+        default:
+          return value;
+      }
+    }
+  }, {
+    key: "resourceName",
+    get: function get() {
+      throw new _errors_AbstractError__WEBPACK_IMPORTED_MODULE_7__["AbstractError"]();
+    }
+    /**
+     * Returns the url key of the resource
+     * @returns {String} - Resource key
+     */
+
+  }, {
+    key: "resourceUrlKey",
+    get: function get() {
+      return 'id';
+    }
+  }, {
+    key: "readonly",
+    get: function get() {
+      return false;
+    }
+  }]);
+
+  return ResourceBase;
+}(Object(_utils_reflection__WEBPACK_IMPORTED_MODULE_11__["mix"])(null, _traits_Injectable__WEBPACK_IMPORTED_MODULE_10__["default"]));
+
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetch", function() { return fetch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Request", function() { return Request; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Response", function() { return Response; });
@@ -1162,12 +1773,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormData", function() { return FormData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeQueryString", function() { return encodeQueryString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downloadFile", function() { return downloadFile; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var fetch_ponyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(78);
+/* harmony import */ var fetch_ponyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(79);
 /* harmony import */ var fetch_ponyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fetch_ponyfill__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _errors_ApiError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(54);
+/* harmony import */ var _errors_ApiError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(55);
 /* harmony import */ var _node__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(14);
 
 
@@ -1224,7 +1835,7 @@ function getFormData() {
   if (Object(_helpers__WEBPACK_IMPORTED_MODULE_3__["windowTest"])('FormData')) {
     return window.FormData;
   } else if (!Object(_node__WEBPACK_IMPORTED_MODULE_4__["isNode"])()) {
-    return __webpack_require__(81);
+    return __webpack_require__(82);
   } // @todo find nodejs polyfill
 
 
@@ -1329,566 +1940,6 @@ function downloadFile(url) {
 }
 
 /***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ResourceBase; });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var case__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var case__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(case__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _errors_AbstractError__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
-/* harmony import */ var _Maps4News__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(21);
-/* harmony import */ var _proxy_SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(29);
-/* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-
-
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-
-
-
-
-
-function unique(input) {
-  return input.filter(function (v, i) {
-    return input.findIndex(function (vv) {
-      return vv === v;
-    }) === i;
-  });
-}
-/**
- * Resource base
- * @abstract
- */
-
-
-var ResourceBase =
-/*#__PURE__*/
-function () {
-  /**
-   * @param {Maps4News} api - Api instance
-   * @param {Object<String, *>} data - Item data
-   */
-  function ResourceBase(api) {
-    var _this = this;
-
-    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ResourceBase);
-
-    if (this.constructor === ResourceBase) {
-      throw new _errors_AbstractError__WEBPACK_IMPORTED_MODULE_3__["AbstractClassError"]();
-    }
-
-    if (!Object(_utils_reflection__WEBPACK_IMPORTED_MODULE_6__["isParentOf"])(_Maps4News__WEBPACK_IMPORTED_MODULE_4__["default"], api)) {
-      throw new TypeError('Expected api to be of type Maps4News');
-    } // Normalize keys to snake_case
-    // Fix data types
-
-
-    var _arr = Object.keys(data);
-
-    for (var _i = 0; _i < _arr.length; _i++) {
-      var key = _arr[_i];
-      var newKey = Object(case__WEBPACK_IMPORTED_MODULE_2__["snake"])(key);
-      data[newKey] = this.constructor._guessType(newKey, data[key]);
-
-      if (newKey !== key) {
-        delete data[key];
-      }
-    }
-
-    this._baseProperties = data || {};
-    this._properties = {};
-    this._api = api;
-    var fields = Object.keys(this._baseProperties); // Apply properties
-
-    for (var _i2 = 0; _i2 < fields.length; _i2++) {
-      var _key = fields[_i2];
-
-      this._applyProperty(_key);
-    } // Add deleted field if possible
-
-
-    if (fields.includes('deleted_at')) {
-      Object.defineProperty(this, 'deleted', {
-        enumerable: true,
-        configurable: true,
-        get: function get() {
-          return Boolean(_this.deletedAt);
-        }
-      });
-    }
-    /* We keep track of any new fields by recording the
-     * keys the object currently has. We don't need no
-     * fancy-pants observers, Proxies etc.
-     * snake_case only
-     */
-
-
-    this._knownFields = Object.keys(this).filter(function (x) {
-      return x[0] !== '_';
-    });
-  }
-  /**
-   * Get api instance
-   * @returns {Maps4News} - Api instance
-   */
-
-
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ResourceBase, [{
-    key: "_updateProperties",
-
-    /**
-     * Moves new fields to this._properties and turns them into a getter/setter
-     * @returns {void}
-     * @protected
-     */
-    value: function _updateProperties() {
-      var _this2 = this;
-
-      // Build a list of new fields
-      var fields = Object.keys(this).filter(function (x) {
-        return x[0] !== '_';
-      }).filter(function (x) {
-        return !_this2._knownFields.includes(x);
-      }); // Move the pointer from this to the properties object
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var key = _step.value;
-          var newKey = Object(case__WEBPACK_IMPORTED_MODULE_2__["snake"])(key);
-          this._properties[newKey] = this[key];
-          delete this[key];
-
-          this._applyProperty(newKey);
-
-          this._knownFields.push(newKey);
-        } // Build a list of new BaseProperty fields
-
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      fields = Object.keys(this._baseProperties).filter(function (x) {
-        return !_this2._knownFields.includes(Object(case__WEBPACK_IMPORTED_MODULE_2__["camel"])(x));
-      });
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var _key2 = _step2.value;
-
-          this._applyProperty(_key2);
-
-          this._knownFields.push(_key2);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      this._knownFields = unique(this._knownFields);
-    }
-    /**
-     * Clean up instance and commit all changes locally.
-     * This means that any changed fields will be marked
-     * as unchanged whilst  keeping their new values. The
-     * changes will not be saved.
-     * @returns {void}
-     */
-
-  }, {
-    key: "sanitize",
-    value: function sanitize() {
-      this._updateProperties();
-
-      Object.assign(this._baseProperties, this._properties);
-      this._properties = {};
-    }
-    /**
-     * Resets model instance to it's original state
-     * @param {Array<string>|string|null} [fields=null] - Fields to reset, defaults to all fields
-     * @returns {void}
-     */
-
-  }, {
-    key: "reset",
-    value: function reset() {
-      var _this3 = this;
-
-      var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      this._updateProperties();
-
-      if (typeof fields === 'string') {
-        this.reset([fields]);
-      } else if (fields === null) {
-        this._properties = {}; // Delete all
-      } else if (Array.isArray(fields)) {
-        fields.map(String).map(case__WEBPACK_IMPORTED_MODULE_2__["snake"]).forEach(function (field) {
-          return delete _this3._properties[field];
-        });
-      }
-    }
-    /**
-     * Clone the object
-     * @returns {ResourceBase} - Exact clone of the object
-     */
-
-  }, {
-    key: "clone",
-    value: function clone() {
-      this._updateProperties();
-
-      var out = new this.constructor(this.api, this._baseProperties);
-
-      var _arr2 = Object.keys(this._properties);
-
-      for (var _i3 = 0; _i3 < _arr2.length; _i3++) {
-        var key = _arr2[_i3];
-        out[key] = this._properties[key];
-      }
-
-      return out;
-    }
-    /**
-     * Refresh the resource by requesting it from the server again
-     * @param {Boolean} updateSelf - Update the current instance
-     * @returns {Promise} - Resolves with {@link ResourceBase} instance and rejects with {@link ApiError}
-     */
-
-  }, {
-    key: "refresh",
-    value: function refresh() {
-      var _this4 = this;
-
-      var updateSelf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      return this._api.request(this.url).then(function (data) {
-        if (updateSelf) {
-          _this4._properties = {};
-          _this4._baseProperties = data;
-
-          _this4._updateProperties();
-        }
-
-        return new _this4.constructor(_this4._api, data);
-      });
-    }
-    /**
-     * Create proxy for property
-     * @param {string} key - property key
-     * @returns {void}
-     * @private
-     */
-
-  }, {
-    key: "_applyProperty",
-    value: function _applyProperty(key) {
-      var _this5 = this;
-
-      var desc = {
-        enumerable: true,
-        configurable: true,
-        get: function get() {
-          if (_this5._properties.hasOwnProperty(key)) {
-            return _this5._properties[key];
-          }
-
-          return _this5._baseProperties[key];
-        }
-      };
-
-      if (!this._protectedFields.includes(key) && !this.constructor.readonly) {
-        desc.set = function (val) {
-          _this5._properties[key] = ResourceBase._guessType(key, val);
-          delete _this5._url; // Clears url cache
-        };
-      }
-
-      var newKey = Object(case__WEBPACK_IMPORTED_MODULE_2__["camel"])(key);
-      Object.defineProperty(this, newKey, desc);
-    }
-    /**
-     * Guess type based on property name
-     * @param {string} name - Field name
-     * @param {*} value - Field Value
-     * @private
-     * @returns {*} - Original or converted value
-     */
-
-  }, {
-    key: "toString",
-
-    /**
-     * String representation of the resource, similar to Python's __repr__
-     * @returns {string} - Resource name and id
-     */
-    value: function toString() {
-      return "".concat(this.constructor.name, "(").concat(this[this.resourceUrlKey], ")");
-    }
-    /**
-     * Transform instance to object
-     * @param {boolean} [camelCaseKeys=false] - camelCase object keys
-     * @returns {{}} - object
-     */
-
-  }, {
-    key: "toObject",
-    value: function toObject() {
-      var camelCaseKeys = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-      this._updateProperties();
-
-      var out = Object.assign({}, this._baseProperties, this._properties);
-
-      if (camelCaseKeys) {
-        for (var key in Object.keys(out)) {
-          var ccKey = Object(case__WEBPACK_IMPORTED_MODULE_2__["camel"])(key);
-
-          if (key !== ccKey) {
-            out[ccKey] = out[key];
-            delete out[key];
-          }
-        }
-      }
-
-      return out;
-    }
-    /**
-     * Macro for resource listing
-     * @param {ResourceBase} Target - Target object
-     * @param {?String} url - Target url, if null it will guess
-     * @param {object} seedData - Internal use, used for seeding SimpleResourceProxy::new
-     * @returns {SimpleResourceProxy} - A proxy for accessing the resource
-     * @protected
-     */
-
-  }, {
-    key: "_proxyResourceList",
-    value: function _proxyResourceList(Target) {
-      var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var seedData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-      if (!url) {
-        var resource = Target.resourceName.replace(/s+$/, '');
-        url = "".concat(this.url, "/").concat(resource, "s");
-      }
-
-      return new _proxy_SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_5__["default"](this.api, Target, url, seedData);
-    }
-  }, {
-    key: "api",
-    get: function get() {
-      return this._api;
-    }
-    /**
-     * Resource path template
-     * @returns {String} - Path template
-     * @todo move to constructor
-     */
-
-  }, {
-    key: "resourcePath",
-    get: function get() {
-      return "/".concat(this.constructor.resourceName, "/{id}");
-    }
-    /**
-     * Resource name
-     * @returns {String} - Resource name
-     * @todo move to constructor
-     * @abstract
-     */
-
-  }, {
-    key: "_protectedFields",
-
-    /**
-     * Protected read-only fields
-     * @returns {Array<string>} - Array containing the protected fields
-     * @todo move to constructor
-     * @protected
-     */
-    get: function get() {
-      return ['id', 'created_at', 'updated_at', 'deleted_at'];
-    }
-    /**
-     * Returns if the resource is readonly
-     * @returns {boolean} - readonly
-     */
-
-  }, {
-    key: "ownable",
-
-    /**
-     * If the resource can be owned by an organisation
-     * @returns {boolean} - Can be owned by an organisation
-     */
-    get: function get() {
-      return false;
-    }
-    /**
-     * Auto generated resource url
-     * @returns {string} - Resource url
-     */
-
-  }, {
-    key: "url",
-    get: function get() {
-      var _this6 = this;
-
-      if (!this._url) {
-        var url = "".concat(this._api.host, "/").concat(this._api.version).concat(this.resourcePath); // Find and replace any keys
-
-        url = url.replace(/{(\w+)}/g, function (match, key) {
-          return _this6[Object(case__WEBPACK_IMPORTED_MODULE_2__["camel"])(key)];
-        });
-        this._url = url;
-      }
-
-      return this._url;
-    }
-    /**
-     * Auto generated Resource base url
-     * @returns {string} - Resource base url
-     */
-
-  }, {
-    key: "baseUrl",
-    get: function get() {
-      var basePath = this.resourcePath.match(/^(\/[^{]+\b)/)[1];
-      return "".concat(this._api.host, "/").concat(this._api.version).concat(basePath);
-    }
-    /**
-     * List fields that contain object data
-     * @returns {Array<String>} - A list of fields
-     */
-
-  }, {
-    key: "fieldNames",
-    get: function get() {
-      return Object.keys(this._baseProperties).map(case__WEBPACK_IMPORTED_MODULE_2__["camel"]);
-    }
-  }], [{
-    key: "_guessType",
-    value: function _guessType(name, value) {
-      var regexp = /(?:^|_)([^_$]+)$/g;
-      var match = regexp.exec(name);
-      var idMacros = ['last', 'me', 'mine'];
-
-      if (match === null || typeof value !== 'string') {
-        return value;
-      }
-
-      switch (match[1]) {
-        case 'end':
-        case 'start':
-        case 'at':
-          return new Date(value.replace(' ', 'T'));
-
-        case 'id':
-          // Test if the value is in fact a macro
-          if (idMacros.includes(String(value).toLowerCase())) {
-            return value;
-          }
-
-          return Number(value);
-
-        default:
-          return value;
-      }
-    }
-  }, {
-    key: "resourceName",
-    get: function get() {
-      throw new _errors_AbstractError__WEBPACK_IMPORTED_MODULE_3__["AbstractError"]();
-    }
-    /**
-     * Returns the url key of the resource
-     * @returns {String} - Resource key
-     */
-
-  }, {
-    key: "resourceUrlKey",
-    get: function get() {
-      return 'id';
-    }
-  }, {
-    key: "readonly",
-    get: function get() {
-      return false;
-    }
-  }]);
-
-  return ResourceBase;
-}();
-
-
-
-/***/ }),
 /* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1905,7 +1956,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
+/* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
 /* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__);
 
 
@@ -2018,6 +2069,12 @@ module.exports = require("case");
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("@babel/runtime/helpers/typeof");
+
+/***/ }),
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2046,7 +2103,7 @@ var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits_);
 var reflection = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./src/proxy/SimpleResourceProxy.js + 2 modules
-var SimpleResourceProxy = __webpack_require__(29);
+var SimpleResourceProxy = __webpack_require__(30);
 
 // CONCATENATED MODULE: ./src/proxy/OrganisationProxy.js
 
@@ -2104,7 +2161,7 @@ function (_SimpleResourceProxy) {
     classCallCheck_default()(this, OrganisationProxy);
 
     // Fixes dependency issue
-    var Organisation = __webpack_require__(52).default;
+    var Organisation = __webpack_require__(53).default;
 
     _this = possibleConstructorReturn_default()(this, getPrototypeOf_default()(OrganisationProxy).call(this, api, Organisation, "".concat(parent.url, "/organisations"), {}));
     _this._parent = parent;
@@ -2223,7 +2280,7 @@ function (_SimpleResourceProxy) {
 
 
 // EXTERNAL MODULE: ./src/traits/Trait.js
-var Trait = __webpack_require__(50);
+var Trait = __webpack_require__(34);
 
 // CONCATENATED MODULE: ./src/traits/OwnableResource.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OwnableResource_OwnableResource; });
@@ -2310,18 +2367,16 @@ function (_Trait) {
 
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("@babel/runtime/helpers/typeof");
-
-/***/ }),
 /* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNode", function() { return isNode; });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+
+
 /*
  * BSD 3-Clause License
  *
@@ -2361,17 +2416,201 @@ __webpack_require__.r(__webpack_exports__);
  * @private
  */
 function isNode() {
-  return typeof window === 'undefined' && typeof global !== 'undefined' || process.env;
+  return typeof window === 'undefined' && typeof global !== 'undefined' || (typeof process === "undefined" ? "undefined" : _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(process)) === 'object' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(process.env) === 'object';
 }
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("@babel/runtime/helpers/assertThisInitialized");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OwnedResourceProxy; });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(30);
+
+
+
+
+
+
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Used for proxying resource => organisation
+ */
+
+var OwnedResourceProxy =
+/*#__PURE__*/
+function (_SimpleResourceProxy) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(OwnedResourceProxy, _SimpleResourceProxy);
+
+  /**
+   * OwnedResourceProxy Constructor
+   * @param {Maps4News} api - api instance
+   * @param {ResourceBase} parent - parent instance
+   * @param {constructor} Target - target constructor
+   */
+  function OwnedResourceProxy(api, parent, Target) {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, OwnedResourceProxy);
+
+    var resource = Target.resourceName.replace(/s+$/, '');
+    var url = "".concat(parent.url, "/").concat(resource, "s");
+    return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(OwnedResourceProxy).call(this, api, Target, url));
+  }
+  /**
+   * Sync items to the organisation
+   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync
+   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
+   * @throws {TypeError} If the provided items are not of the same type as the proxy target
+   * @see http://es6-features.org/#PromiseCombination
+   */
+
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(OwnedResourceProxy, [{
+    key: "sync",
+    value: function sync(items) {
+      return this._modifyResourceLink(items, 'PATCH');
+    }
+    /**
+     * Attach items to the organisation
+     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to attach
+     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
+     * @throws {TypeError}If the provided items are not of the same type as the proxy target
+     * @see http://es6-features.org/#PromiseCombination
+     */
+
+  }, {
+    key: "attach",
+    value: function attach(items) {
+      return this._modifyResourceLink(items, 'POST');
+    }
+    /**
+     * Detach items from the organisation
+     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to unlink
+     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
+     * @throws {TypeError} If the provided items are not of the same type as the proxy target
+     * @see http://es6-features.org/#PromiseCombination
+     */
+
+  }, {
+    key: "detach",
+    value: function detach(items) {
+      return this._modifyResourceLink(items, 'DELETE');
+    }
+    /**
+     * Attach parent resource to all organisations
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+
+  }, {
+    key: "attachAll",
+    value: function attachAll() {
+      var url = this.baseUrl + '/all';
+      return this.api.request(url, 'POST');
+    }
+    /**
+     * Detach parent resource to all organisations
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     */
+
+  }, {
+    key: "detachAll",
+    value: function detachAll() {
+      var url = this.baseUrl + '/all';
+      return this.api.request(url, 'DELETE');
+    }
+    /**
+     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync, attach or detach
+     * @param {string} method - http method
+     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
+     * @private
+     */
+
+  }, {
+    key: "_modifyResourceLink",
+    value: function _modifyResourceLink(items, method) {
+      if (!(items instanceof Array)) {
+        items = [items];
+      }
+
+      var keys = items.map(function (x) {
+        return _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(x) === 'object' && x.id ? x.id : x;
+      }).map(Number).filter(function (x) {
+        return !Number.isNaN(x);
+      });
+
+      if (!keys.length === 0) {
+        throw new TypeError('Expected items to be of type Array<ResourceBase>, Array<number>, ResourceBase or number}');
+      }
+
+      return this.api.request(this.baseUrl, method, {
+        keys: keys
+      });
+    }
+  }]);
+
+  return OwnedResourceProxy;
+}(_SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_6__["default"]);
+
+
+
+/***/ }),
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./src/enums/Enum.js
-var Enum = __webpack_require__(24);
+var Enum = __webpack_require__(25);
 
 // CONCATENATED MODULE: ./src/enums/DeletedState.js
 /*
@@ -2565,7 +2804,7 @@ var JobMonitorFilter = new Enum["default"](Object.assign({}, ResultStatus, {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2597,7 +2836,7 @@ var StaticClass = __webpack_require__(51);
 var node = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/storage/DataStoreContract.js
-var DataStoreContract = __webpack_require__(34);
+var DataStoreContract = __webpack_require__(36);
 
 // CONCATENATED MODULE: ./src/storage/CookiesDriver.js
 
@@ -2783,7 +3022,7 @@ function (_DataStoreContract) {
 
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/defineProperty"
-var defineProperty_ = __webpack_require__(70);
+var defineProperty_ = __webpack_require__(52);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty_);
 
 // CONCATENATED MODULE: ./src/storage/DummyDriver.js
@@ -2825,6 +3064,7 @@ var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty_)
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 
 /**
  * Used for storing data during tests
@@ -2893,7 +3133,7 @@ function (_DataStoreContract) {
      * @inheritDoc
      */
     get: function get() {
-      return (process.env || {}).NODE_ENV === 'test';
+      return Object(node["isNode"])() && (process.env || {}).NODE_ENV === 'test';
     }
     /**
      * If the storage is secure
@@ -2914,7 +3154,7 @@ defineProperty_default()(DummyDriver_DummyDriver, "_data", {});
 
 
 // EXTERNAL MODULE: ./src/storage/FileDriver.js
-var FileDriver = __webpack_require__(76);
+var FileDriver = __webpack_require__(77);
 
 // CONCATENATED MODULE: ./src/storage/LocalStorageDriver.js
 
@@ -3205,13 +3445,13 @@ function (_StaticClass) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/runtime/regenerator");
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3227,7 +3467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(26);
+/* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(27);
 /* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_5__);
 
 
@@ -3344,13 +3584,13 @@ function (_Error) {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RequestParameters; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
@@ -3366,10 +3606,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var case__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(case__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(73);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _enums__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15);
-/* harmony import */ var _utils_hash__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(33);
+/* harmony import */ var _enums__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(17);
+/* harmony import */ var _utils_hash__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(35);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5);
-/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(8);
+/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(9);
 
 
 
@@ -4186,7 +4426,7 @@ function (_EventEmitter) {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4349,10 +4589,22 @@ function () {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+
+// EXTERNAL MODULE: external "@babel/runtime/helpers/typeof"
+var typeof_ = __webpack_require__(12);
+var typeof_default = /*#__PURE__*/__webpack_require__.n(typeof_);
+
+// EXTERNAL MODULE: external "@babel/runtime/helpers/classCallCheck"
+var classCallCheck_ = __webpack_require__(0);
+var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck_);
+
+// EXTERNAL MODULE: external "@babel/runtime/helpers/createClass"
+var createClass_ = __webpack_require__(1);
+var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass_);
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/possibleConstructorReturn"
 var possibleConstructorReturn_ = __webpack_require__(3);
@@ -4366,41 +4618,29 @@ var getPrototypeOf_default = /*#__PURE__*/__webpack_require__.n(getPrototypeOf_)
 var inherits_ = __webpack_require__(4);
 var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits_);
 
-// EXTERNAL MODULE: external "@babel/runtime/helpers/typeof"
-var typeof_ = __webpack_require__(13);
-var typeof_default = /*#__PURE__*/__webpack_require__.n(typeof_);
-
-// EXTERNAL MODULE: external "@babel/runtime/helpers/classCallCheck"
-var classCallCheck_ = __webpack_require__(0);
-var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck_);
-
-// EXTERNAL MODULE: external "@babel/runtime/helpers/createClass"
-var createClass_ = __webpack_require__(1);
-var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass_);
-
 // EXTERNAL MODULE: ./src/enums/index.js + 3 modules
-var enums = __webpack_require__(15);
+var enums = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/errors/ApiError.js
-var ApiError = __webpack_require__(20);
+var ApiError = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/errors/ValidationError.js
-var ValidationError = __webpack_require__(38);
+var ValidationError = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/oauth/DummyFlow.js
-var DummyFlow = __webpack_require__(53);
+var DummyFlow = __webpack_require__(54);
 
 // EXTERNAL MODULE: ./src/oauth/OAuth.js
-var OAuth = __webpack_require__(25);
+var OAuth = __webpack_require__(26);
 
 // EXTERNAL MODULE: ./src/oauth/OAuthToken.js
-var OAuthToken = __webpack_require__(22);
+var OAuthToken = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./src/proxy/ResourceProxy.js
-var ResourceProxy = __webpack_require__(36);
+var ResourceProxy = __webpack_require__(37);
 
 // EXTERNAL MODULE: ./src/proxy/SimpleResourceProxy.js + 2 modules
-var SimpleResourceProxy = __webpack_require__(29);
+var SimpleResourceProxy = __webpack_require__(30);
 
 // EXTERNAL MODULE: ./src/ResourceCache.js
 var ResourceCache = __webpack_require__(74);
@@ -4409,10 +4649,13 @@ var ResourceCache = __webpack_require__(74);
 var resources = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./src/resources/base/ResourceBase.js
-var ResourceBase = __webpack_require__(9);
+var ResourceBase = __webpack_require__(8);
+
+// EXTERNAL MODULE: ./src/traits/Injectable.js
+var Injectable = __webpack_require__(75);
 
 // EXTERNAL MODULE: ./src/utils/hash.js
-var hash = __webpack_require__(33);
+var hash = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./src/utils/Logger.js
 
@@ -4563,7 +4806,7 @@ var node = __webpack_require__(14);
 var reflection = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./src/utils/requests.js
-var requests = __webpack_require__(8);
+var requests = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/Maps4News.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Maps4News_Maps4News; });
@@ -4621,22 +4864,31 @@ var requests = __webpack_require__(8);
 
 
 
+
 /**
  * Base API class
+ *
+ * @mixes Injectable
  */
 
 var Maps4News_Maps4News =
 /*#__PURE__*/
-function () {
+function (_mix) {
+  inherits_default()(Maps4News, _mix);
+
   /**
    * @param {OAuth|string} auth - Authentication flow
    * @param {string} host - Remote API host
    */
   function Maps4News() {
+    var _this;
+
     var auth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new DummyFlow["default"]();
     var host = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "https://api.maps4news.com";
 
     classCallCheck_default()(this, Maps4News);
+
+    _this = possibleConstructorReturn_default()(this, getPrototypeOf_default()(Maps4News).call(this));
 
     if (typeof auth === 'string') {
       var token = auth;
@@ -4644,9 +4896,9 @@ function () {
       auth.token = new OAuthToken["default"](token, 'Bearer', new Date('2100-01-01T01:00:00'), ['*']);
     }
 
-    this.auth = auth;
-    this.host = host;
-    this.autoLogout = true;
+    _this.auth = auth;
+    _this.host = host;
+    _this.autoLogout = true;
 
     var bool = function bool(str) {
       return String(str).toLowerCase() === 'true';
@@ -4657,14 +4909,15 @@ function () {
      */
 
 
-    this.defaults = {
+    _this.defaults = {
       cacheSeconds: Number("1800"),
       shareCache: bool("true"),
       autoUpdateSharedCache: bool("true"),
       dereferenceCache: bool("false")
     };
-    this._cache = new ResourceCache["default"](this.defaults.cacheSeconds, this.defaults.dereferenceCache);
-    this._logger = new Logger_Logger("warn");
+    _this._cache = new ResourceCache["default"](_this.defaults.cacheSeconds, _this.defaults.dereferenceCache);
+    _this._logger = new Logger_Logger("warn");
+    return _this;
   }
   /**
    * Get api version
@@ -4693,10 +4946,10 @@ function () {
   }, {
     key: "authenticate",
     value: function authenticate() {
-      var _this = this;
+      var _this2 = this;
 
       return this.auth.authenticate().then(function () {
-        return _this;
+        return _this2;
       });
     }
     /**
@@ -4773,7 +5026,7 @@ function () {
   }, {
     key: "_fetch",
     value: function _fetch(url, init, bundleResponse) {
-      var _this2 = this;
+      var _this3 = this;
 
       return Object(requests["fetch"])(url, init).then(function (response) {
         var respond = function respond(data) {
@@ -4788,7 +5041,7 @@ function () {
           var waitTime = resetTimestamp - Date.now();
           return new Promise(function (resolve, reject) {
             setTimeout(function () {
-              _this2._fetch(url, init, bundleResponse).then(resolve).catch(reject);
+              _this3._fetch(url, init, bundleResponse).then(resolve).catch(reject);
             }, waitTime);
           });
         } // Check if there is an error response and parse it
@@ -4796,7 +5049,7 @@ function () {
 
         if (!response.ok) {
           return response.json().then(function (data) {
-            throw _this2._parseErrorResponse(data, response.status);
+            throw _this3._parseErrorResponse(data, response.status);
           });
         }
 
@@ -4812,7 +5065,7 @@ function () {
             return response.json().then(function (x) {
               // Just in case, code path should in theory never be reached
               if (typeof x.success === 'boolean' && !x.success) {
-                throw _this2._parseErrorResponse(x, response.status);
+                throw _this3._parseErrorResponse(x, response.status);
               }
 
               return x;
@@ -5094,17 +5347,6 @@ function () {
       return this.static(resources["DimensionSet"]);
     }
     /**
-     * Domain accessor
-     * @see {@link Domain}
-     * @returns {ResourceProxy} - A proxy for accessing the resource
-     */
-
-  }, {
-    key: "domains",
-    get: function get() {
-      return this.static(resources["Domain"]);
-    }
-    /**
      * Faq accessor
      * @see {@link Faq}
      * @returns {ResourceProxy} - A proxy for accessing the resource
@@ -5363,12 +5605,12 @@ function () {
   }]);
 
   return Maps4News;
-}();
+}(Object(reflection["mix"])(null, Injectable["default"]));
 
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5378,8 +5620,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _storage_StorageManager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var _storage_StorageManager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
+/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
 
 
 
@@ -5586,13 +5828,7 @@ function () {
 
 
 /***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = require("@babel/runtime/helpers/assertThisInitialized");
-
-/***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5608,12 +5844,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(23);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
 /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var case__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
 /* harmony import */ var case__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(case__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
-/* harmony import */ var _utils_Unobservable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(69);
+/* harmony import */ var _utils_Unobservable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(70);
 
 
 
@@ -5820,26 +6056,26 @@ function (_Unobservable) {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OAuth; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _errors_AbstractError__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10);
-/* harmony import */ var _errors_ApiError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20);
-/* harmony import */ var _errors_OAuthError__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(18);
-/* harmony import */ var _storage_StorageManager__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(16);
-/* harmony import */ var _OAuthToken__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(22);
-/* harmony import */ var _StateContainer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(56);
+/* harmony import */ var _errors_ApiError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(22);
+/* harmony import */ var _errors_OAuthError__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20);
+/* harmony import */ var _storage_StorageManager__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(18);
+/* harmony import */ var _OAuthToken__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(24);
+/* harmony import */ var _StateContainer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(57);
 
 
 
@@ -6052,13 +6288,13 @@ function () {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/runtime/helpers/wrapNativeSuper");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6144,7 +6380,7 @@ function (_CrudBase) {
     get: function get() {
       var url = "".concat(this.url, "/items");
       var data = {};
-      data[this.foreignKeyName] = this.id;
+      data[this.constructor.foreignKeyName] = this.id;
       return this._proxyResourceList(this._Child, url, data);
     }
     /**
@@ -6164,14 +6400,14 @@ function (_CrudBase) {
      * Get the foreign key name
      * @returns {string} - Foreign key name
      * @example
-     * api.fontFamilies.select(1).foreignKeyName === 'fontFamilyId'
+     * api.fontFamilies.select(1).constructor.foreignKeyName === 'fontFamilyId'
      */
 
-  }, {
+  }], [{
     key: "foreignKeyName",
     get: function get() {
       if (!this._fk) {
-        var key = this.constructor.name; // ex: FontFamily
+        var key = this.name; // ex: FontFamily
 
         key = Object(case__WEBPACK_IMPORTED_MODULE_7__["camel"])(key); // ex: fontFamily
 
@@ -6188,7 +6424,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6322,13 +6558,13 @@ function () {
 }();
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/typeof"
-var typeof_ = __webpack_require__(13);
+var typeof_ = __webpack_require__(12);
 var typeof_default = /*#__PURE__*/__webpack_require__.n(typeof_);
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/classCallCheck"
@@ -6340,13 +6576,13 @@ var createClass_ = __webpack_require__(1);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass_);
 
 // EXTERNAL MODULE: ./src/Maps4News.js + 1 modules
-var Maps4News = __webpack_require__(21);
+var Maps4News = __webpack_require__(23);
 
 // EXTERNAL MODULE: ./src/ResourceCache.js
 var ResourceCache = __webpack_require__(74);
 
 // EXTERNAL MODULE: ./src/utils/hash.js
-var hash = __webpack_require__(33);
+var hash = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./src/PaginatedResourceWrapper.js
 
@@ -6759,7 +6995,7 @@ function () {
 
 
 // EXTERNAL MODULE: ./src/RequestParameters.js
-var RequestParameters = __webpack_require__(19);
+var RequestParameters = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/utils/reflection.js
 var reflection = __webpack_require__(5);
@@ -7129,10 +7365,10 @@ function () {
 
 
 // EXTERNAL MODULE: ./src/ResourceLister.js
-var ResourceLister = __webpack_require__(57);
+var ResourceLister = __webpack_require__(58);
 
 // EXTERNAL MODULE: ./src/resources/base/ResourceBase.js
-var ResourceBase = __webpack_require__(9);
+var ResourceBase = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/proxy/SimpleResourceProxy.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SimpleResourceProxy_SimpleResourceProxy; });
@@ -7390,7 +7626,7 @@ function () {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7406,8 +7642,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
-/* harmony import */ var _base_ResourceBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
+/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
+/* harmony import */ var _base_ResourceBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
 
 
 
@@ -7617,7 +7853,7 @@ function (_ResourceBase) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7633,8 +7869,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _traits_HandlesImages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(75);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _traits_HandlesImages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(76);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6);
 
@@ -7680,9 +7916,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Layer
- * @extends {CrudBase}
- * @extends {OwnableResource}
- * @extends {HandlesImages}
+ * @extends CrudBase
+ * @mixes OwnableResource
+ * @mixes HandlesImages
  */
 
 var Layer =
@@ -7709,20 +7945,93 @@ function (_mix) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/runtime/helpers/asyncToGenerator");
 
 /***/ }),
-/* 33 */
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Trait; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * Trait interface
+ * @interface
+ * @mixin
+ */
+var Trait =
+/*#__PURE__*/
+function () {
+  function Trait() {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Trait);
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Trait, [{
+    key: "initializer",
+
+    /**
+     * Optional initialization method
+     * @returns {void}
+     */
+    value: function initializer() {}
+  }]);
+
+  return Trait;
+}();
+
+
+
+/***/ }),
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fnv32b", function() { return fnv32b; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hashObject", function() { return hashObject; });
-/* harmony import */ var json_stable_stringify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(77);
+/* harmony import */ var json_stable_stringify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(78);
 /* harmony import */ var json_stable_stringify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(json_stable_stringify__WEBPACK_IMPORTED_MODULE_0__);
 /*
  * BSD 3-Clause License
@@ -7792,7 +8101,7 @@ function hashObject(data) {
 }
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7949,145 +8258,15 @@ function () {
 
 
 /***/ }),
-/* 35 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CrudSetItemBase; });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _errors_AbstractError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var _CrudBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6);
-
-
-
-
-
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2018, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-
-/**
- * Items that are part of a set
- * @abstract
- */
-
-var CrudSetItemBase =
-/*#__PURE__*/
-function (_CrudBase) {
-  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(CrudSetItemBase, _CrudBase);
-
-  /**
-   * @param {Maps4News} api - Api instance
-   * @param {Object<String, *>} data - Item data
-   */
-  function CrudSetItemBase(api) {
-    var _this;
-
-    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CrudSetItemBase);
-
-    _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(CrudSetItemBase).call(this, api, data));
-
-    if (_this.constructor === _CrudBase__WEBPACK_IMPORTED_MODULE_6__["default"]) {
-      throw new _errors_AbstractError__WEBPACK_IMPORTED_MODULE_5__["AbstractClassError"]();
-    }
-
-    return _this;
-  }
-  /**
-   * Get the parent id
-   * @returns {?number|undefined} - Parent number
-   */
-
-
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CrudSetItemBase, [{
-    key: "parentId",
-    get: function get() {
-      if (this.hasParent) {
-        return Number(this[this.parentKey]);
-      }
-
-      return [][0]; // same as "undefined"
-    }
-    /**
-     * Get the parent key
-     * @returns {string} - Parent key
-     */
-
-  }, {
-    key: "parentKey",
-    get: function get() {
-      return this.constructor.resourceName.replace(/s$/, '_set_id');
-    }
-    /**
-     * Returns if the resource has a parent resource set
-     * @returns {boolean} - if the resource has a parent
-     * @see ResourceBase::hasParent
-     */
-
-  }, {
-    key: "hasParent",
-    get: function get() {
-      return typeof this.parentKey === 'string';
-    }
-  }]);
-
-  return CrudSetItemBase;
-}(_CrudBase__WEBPACK_IMPORTED_MODULE_6__["default"]);
-
-
-
-/***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ResourceProxy; });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(52);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
@@ -8099,9 +8278,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _RequestParameters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(19);
-/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8);
-/* harmony import */ var _SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(29);
+/* harmony import */ var _RequestParameters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(21);
+/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(9);
+/* harmony import */ var _SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(30);
 
 
 
@@ -8241,26 +8420,24 @@ function (_SimpleResourceProxy) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return OwnedResourceProxy; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(29);
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CrudSetItemBase; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _errors_AbstractError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
+/* harmony import */ var _CrudBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6);
 
 
 
@@ -8270,7 +8447,7 @@ __webpack_require__.r(__webpack_exports__);
 /*
  * BSD 3-Clause License
  *
- * Copyright (c) 2017, MapCreator
+ * Copyright (c) 2018, MapCreator
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -8299,127 +8476,70 @@ __webpack_require__.r(__webpack_exports__);
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 /**
- * Used for proxying resource => organisation
+ * Items that are part of a set
+ * @abstract
  */
 
-var OwnedResourceProxy =
+var CrudSetItemBase =
 /*#__PURE__*/
-function (_SimpleResourceProxy) {
-  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(OwnedResourceProxy, _SimpleResourceProxy);
+function (_CrudBase) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(CrudSetItemBase, _CrudBase);
 
   /**
-   * OwnedResourceProxy Constructor
-   * @param {Maps4News} api - api instance
-   * @param {ResourceBase} parent - parent instance
-   * @param {constructor} Target - target constructor
+   * @param {Maps4News} api - Api instance
+   * @param {Object<String, *>} data - Item data
    */
-  function OwnedResourceProxy(api, parent, Target) {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, OwnedResourceProxy);
+  function CrudSetItemBase(api) {
+    var _this;
 
-    var resource = Target.resourceName.replace(/s+$/, '');
-    var url = "".concat(parent.url, "/").concat(resource, "s");
-    return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(OwnedResourceProxy).call(this, api, Target, url));
+    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CrudSetItemBase);
+
+    _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(CrudSetItemBase).call(this, api, data));
+
+    if (_this.constructor === _CrudBase__WEBPACK_IMPORTED_MODULE_6__["default"]) {
+      throw new _errors_AbstractError__WEBPACK_IMPORTED_MODULE_5__["AbstractClassError"]();
+    }
+
+    return _this;
   }
   /**
-   * Sync items to the organisation
-   * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync
-   * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
-   * @throws {TypeError} If the provided items are not of the same type as the proxy target
-   * @see http://es6-features.org/#PromiseCombination
+   * Get the parent id
+   * @returns {?number|undefined} - Parent number
    */
 
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(OwnedResourceProxy, [{
-    key: "sync",
-    value: function sync(items) {
-      return this._modifyResourceLink(items, 'PATCH');
-    }
-    /**
-     * Attach items to the organisation
-     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to attach
-     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
-     * @throws {TypeError}If the provided items are not of the same type as the proxy target
-     * @see http://es6-features.org/#PromiseCombination
-     */
-
-  }, {
-    key: "attach",
-    value: function attach(items) {
-      return this._modifyResourceLink(items, 'POST');
-    }
-    /**
-     * Detach items from the organisation
-     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to unlink
-     * @returns {Promise} - Resolves with an empty {@link Object} and rejects with an {@link ApiError} instance.
-     * @throws {TypeError} If the provided items are not of the same type as the proxy target
-     * @see http://es6-features.org/#PromiseCombination
-     */
-
-  }, {
-    key: "detach",
-    value: function detach(items) {
-      return this._modifyResourceLink(items, 'DELETE');
-    }
-    /**
-     * Attach parent resource to all organisations
-     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-     */
-
-  }, {
-    key: "attachAll",
-    value: function attachAll() {
-      var url = this.baseUrl + '/all';
-      return this.api.request(url, 'POST');
-    }
-    /**
-     * Detach parent resource to all organisations
-     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-     */
-
-  }, {
-    key: "detachAll",
-    value: function detachAll() {
-      var url = this.baseUrl + '/all';
-      return this.api.request(url, 'DELETE');
-    }
-    /**
-     * @param {Array<ResourceBase>|Array<number>|ResourceBase|number} items - List of items to sync, attach or detach
-     * @param {string} method - http method
-     * @returns {Promise} - Promise will resolve with no value and reject with an {@link ApiError} instance.
-     * @private
-     */
-
-  }, {
-    key: "_modifyResourceLink",
-    value: function _modifyResourceLink(items, method) {
-      if (!(items instanceof Array)) {
-        items = [items];
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CrudSetItemBase, [{
+    key: "parentId",
+    get: function get() {
+      if (this.hasParent) {
+        return Number(this[this.constructor.parentKey]);
       }
 
-      var keys = items.map(function (x) {
-        return _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(x) === 'object' && x.id ? x.id : x;
-      }).map(Number).filter(function (x) {
-        return !Number.isNaN(x);
-      });
+      return [][0]; // same as "undefined"
+    }
+    /**
+     * Get the parent key
+     * @returns {string} - Parent key
+     */
 
-      if (!keys.length === 0) {
-        throw new TypeError('Expected items to be of type Array<ResourceBase>, Array<number>, ResourceBase or number}');
-      }
-
-      return this.api.request(this.baseUrl, method, {
-        keys: keys
-      });
+  }], [{
+    key: "parentKey",
+    get: function get() {
+      return this.resourceName.replace(/s$/, '_set_id');
     }
   }]);
 
-  return OwnedResourceProxy;
-}(_SimpleResourceProxy__WEBPACK_IMPORTED_MODULE_6__["default"]);
+  return CrudSetItemBase;
+}(_CrudBase__WEBPACK_IMPORTED_MODULE_6__["default"]);
 
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8435,7 +8555,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _ApiError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20);
+/* harmony import */ var _ApiError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(22);
 
 
 
@@ -8531,7 +8651,7 @@ function (_ApiError) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8545,7 +8665,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(26);
+/* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
 /* harmony import */ var _babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__);
 
 
@@ -8606,7 +8726,7 @@ function (_Error) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8623,7 +8743,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
 
 
@@ -8667,8 +8787,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Color resource
- * @extends {CrudBase}
- * @extends {OwnableResource}
+ * @extends CrudBase
+ * @mixes OwnableResource
  */
 
 var Color =
@@ -8695,7 +8815,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8711,9 +8831,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(27);
-/* harmony import */ var _Dimension__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(59);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(12);
+/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
+/* harmony import */ var _Dimension__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(60);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5);
 
 
@@ -8758,8 +8878,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Dimension sets
- * @extends {CrudSetBase}
- * @extends {OwnableResource}
+ * @extends CrudSetBase
+ * @mixes OwnableResource
  */
 
 var DimensionSet =
@@ -8796,7 +8916,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8813,7 +8933,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
 
 
@@ -8857,8 +8977,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Feature
- * @extends {CrudBase}
- * @extends {OwnableResource}
+ * @extends CrudBase
+ * @mixes OwnableResource
  */
 
 var Feature =
@@ -8885,7 +9005,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8901,10 +9021,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(12);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(27);
-/* harmony import */ var _Font__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(61);
+/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(28);
+/* harmony import */ var _Font__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(62);
 
 
 
@@ -8948,8 +9068,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Font family
- * @extends {CrudSetBase}
- * @extends {OwnableResource}
+ * @extends CrudSetBase
+ * @mixes OwnableResource
  */
 
 var FontFamily =
@@ -8986,7 +9106,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9002,11 +9122,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _proxy_ResourceProxy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(36);
-/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
+/* harmony import */ var _proxy_ResourceProxy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(37);
+/* harmony import */ var _utils_requests__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6);
-/* harmony import */ var _JobResult__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(30);
-/* harmony import */ var _JobRevision__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(62);
+/* harmony import */ var _JobResult__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(31);
+/* harmony import */ var _JobRevision__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(63);
 
 
 
@@ -9173,7 +9293,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9190,7 +9310,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
 
 
@@ -9234,8 +9354,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Job type
- * @extends {CrudBase}
- * @extends {OwnableResource}
+ * @extends CrudBase
+ * @mixes OwnableResource
  */
 
 var JobType =
@@ -9267,7 +9387,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9283,10 +9403,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(12);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(27);
-/* harmony import */ var _Mapstyle__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(63);
+/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(28);
+/* harmony import */ var _Mapstyle__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(64);
 
 
 
@@ -9330,8 +9450,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Mapstyle set
- * @extends {CrudSetBase}
- * @extends {OwnableResource}
+ * @extends CrudSetBase
+ * @mixes OwnableResource
  */
 
 var MapstyleSet =
@@ -9368,7 +9488,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9384,9 +9504,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(12);
-/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(27);
-/* harmony import */ var _Svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(64);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _base_CrudSetBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(28);
+/* harmony import */ var _Svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(65);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5);
 
 
@@ -9431,8 +9551,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Svg set
- * @extends {CrudSetBase}
- * @extends {OwnableResource}
+ * @extends CrudSetBase
+ * @mixes OwnableResource
  */
 
 var SvgSet =
@@ -9469,7 +9589,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9485,24 +9605,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(37);
-/* harmony import */ var _proxy_ResourceProxy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36);
+/* harmony import */ var _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
+/* harmony import */ var _proxy_ResourceProxy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(37);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6);
-/* harmony import */ var _Color__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(40);
-/* harmony import */ var _DimensionSet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(41);
-/* harmony import */ var _Feature__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(42);
-/* harmony import */ var _FontFamily__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(43);
-/* harmony import */ var _Job__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(44);
-/* harmony import */ var _JobShare__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(28);
-/* harmony import */ var _JobType__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(45);
-/* harmony import */ var _Language__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(66);
-/* harmony import */ var _Layer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(31);
-/* harmony import */ var _MapstyleSet__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(46);
-/* harmony import */ var _Notification__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(67);
-/* harmony import */ var _Organisation__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(52);
-/* harmony import */ var _Permission__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(49);
-/* harmony import */ var _Role__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(68);
-/* harmony import */ var _SvgSet__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(47);
+/* harmony import */ var _Color__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(41);
+/* harmony import */ var _DimensionSet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(42);
+/* harmony import */ var _Feature__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(43);
+/* harmony import */ var _FontFamily__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(44);
+/* harmony import */ var _Job__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(45);
+/* harmony import */ var _JobShare__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(29);
+/* harmony import */ var _JobType__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(46);
+/* harmony import */ var _Language__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(67);
+/* harmony import */ var _Layer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(32);
+/* harmony import */ var _MapstyleSet__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(47);
+/* harmony import */ var _Notification__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(68);
+/* harmony import */ var _Organisation__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(53);
+/* harmony import */ var _Permission__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(50);
+/* harmony import */ var _Role__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(69);
+/* harmony import */ var _SvgSet__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(48);
 
 
 
@@ -9750,7 +9870,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9766,7 +9886,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _base_ResourceBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
+/* harmony import */ var _base_ResourceBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
 
 
 
@@ -9830,79 +9950,6 @@ function (_ResourceBase) {
 
 
 /***/ }),
-/* 50 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Trait; });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2017, MapCreator
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *  Redistributions of source code must retain the above copyright notice, this
- *   list of conditions and the following disclaimer.
- *
- *  Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- *  Neither the name of the copyright holder nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * Trait interface
- * @interface
- */
-var Trait =
-/*#__PURE__*/
-function () {
-  function Trait() {
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Trait);
-  }
-
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Trait, [{
-    key: "initializer",
-
-    /**
-     * Optional initialization method
-     * @returns {void}
-     * @abstract
-     */
-    value: function initializer() {}
-  }]);
-
-  return Trait;
-}();
-
-
-
-/***/ }),
 /* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9911,7 +9958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return StaticClass; });
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _errors_StaticClassError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(39);
+/* harmony import */ var _errors_StaticClassError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(40);
 
 
 /*
@@ -9961,14 +10008,20 @@ var StaticClass = function StaticClass() {
 
 /***/ }),
 /* 52 */
+/***/ (function(module, exports) {
+
+module.exports = require("@babel/runtime/helpers/defineProperty");
+
+/***/ }),
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Organisation; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(33);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
@@ -9980,22 +10033,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(37);
+/* harmony import */ var _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(16);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6);
-/* harmony import */ var _Color__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(40);
-/* harmony import */ var _Contract__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(58);
-/* harmony import */ var _DimensionSet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(41);
-/* harmony import */ var _Domain__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(60);
-/* harmony import */ var _Feature__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(42);
-/* harmony import */ var _FontFamily__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(43);
-/* harmony import */ var _Job__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(44);
-/* harmony import */ var _JobShare__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(28);
-/* harmony import */ var _JobType__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(45);
-/* harmony import */ var _Layer__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(31);
-/* harmony import */ var _MapstyleSet__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(46);
-/* harmony import */ var _SvgSet__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(47);
-/* harmony import */ var _Tag__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(65);
-/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(48);
+/* harmony import */ var _Color__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(41);
+/* harmony import */ var _Contract__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(59);
+/* harmony import */ var _DimensionSet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(42);
+/* harmony import */ var _Domain__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(61);
+/* harmony import */ var _Feature__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(43);
+/* harmony import */ var _FontFamily__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(44);
+/* harmony import */ var _Job__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(45);
+/* harmony import */ var _JobShare__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(29);
+/* harmony import */ var _JobType__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(46);
+/* harmony import */ var _Layer__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(32);
+/* harmony import */ var _MapstyleSet__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(47);
+/* harmony import */ var _SvgSet__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(48);
+/* harmony import */ var _Tag__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(66);
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(49);
 
 
 
@@ -10123,18 +10176,6 @@ function (_CrudBase) {
       });
       return node;
     }
-    /**
-     * Builds OwnedResourceProxy instance
-     * @param {constructor} Target - target class
-     * @returns {OwnedResourceProxy} - proxy instance
-     * @private
-     */
-
-  }, {
-    key: "_proxyBuilder",
-    value: function _proxyBuilder(Target) {
-      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, Target);
-    }
   }, {
     key: "fontFamilies",
     // Resource listing
@@ -10144,7 +10185,7 @@ function (_CrudBase) {
      * @returns {OwnedResourceProxy} - A proxy for accessing the resource
      */
     get: function get() {
-      return this._proxyBuilder(_FontFamily__WEBPACK_IMPORTED_MODULE_14__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _FontFamily__WEBPACK_IMPORTED_MODULE_14__["default"]);
     }
     /**
      * Get a proxy for dimension sets linked to the organisation
@@ -10154,7 +10195,7 @@ function (_CrudBase) {
   }, {
     key: "dimensionSets",
     get: function get() {
-      return this._proxyBuilder(_DimensionSet__WEBPACK_IMPORTED_MODULE_11__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _DimensionSet__WEBPACK_IMPORTED_MODULE_11__["default"]);
     }
     /**
      * Get a proxy for mapstyle sets linked to the organisation
@@ -10164,7 +10205,7 @@ function (_CrudBase) {
   }, {
     key: "mapstyleSets",
     get: function get() {
-      return this._proxyBuilder(_MapstyleSet__WEBPACK_IMPORTED_MODULE_19__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _MapstyleSet__WEBPACK_IMPORTED_MODULE_19__["default"]);
     }
     /**
      * Get a proxy for svg sets linked to the organisation
@@ -10174,7 +10215,7 @@ function (_CrudBase) {
   }, {
     key: "svgSets",
     get: function get() {
-      return this._proxyBuilder(_SvgSet__WEBPACK_IMPORTED_MODULE_20__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _SvgSet__WEBPACK_IMPORTED_MODULE_20__["default"]);
     }
     /**
      * Get a proxy for colors linked to the organisation
@@ -10184,7 +10225,7 @@ function (_CrudBase) {
   }, {
     key: "colors",
     get: function get() {
-      return this._proxyBuilder(_Color__WEBPACK_IMPORTED_MODULE_9__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _Color__WEBPACK_IMPORTED_MODULE_9__["default"]);
     }
     /**
      * Get a proxy for tags linked to the organisation
@@ -10194,7 +10235,7 @@ function (_CrudBase) {
   }, {
     key: "tags",
     get: function get() {
-      return this._proxyBuilder(_Tag__WEBPACK_IMPORTED_MODULE_21__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _Tag__WEBPACK_IMPORTED_MODULE_21__["default"]);
     }
     /**
      * Get a proxy for features linked to the organisation
@@ -10204,7 +10245,7 @@ function (_CrudBase) {
   }, {
     key: "features",
     get: function get() {
-      return this._proxyBuilder(_Feature__WEBPACK_IMPORTED_MODULE_13__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _Feature__WEBPACK_IMPORTED_MODULE_13__["default"]);
     }
     /**
      * Get a proxy for layers linked to the organisation
@@ -10214,7 +10255,7 @@ function (_CrudBase) {
   }, {
     key: "layers",
     get: function get() {
-      return this._proxyBuilder(_Layer__WEBPACK_IMPORTED_MODULE_18__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _Layer__WEBPACK_IMPORTED_MODULE_18__["default"]);
     }
     /**
      * Get a proxy for jobs linked to the organisation, also known as company maps
@@ -10234,7 +10275,7 @@ function (_CrudBase) {
   }, {
     key: "jobTypes",
     get: function get() {
-      return this._proxyBuilder(_JobType__WEBPACK_IMPORTED_MODULE_17__["default"]);
+      return new _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_7__["default"](this.api, this, _JobType__WEBPACK_IMPORTED_MODULE_17__["default"]);
     }
     /**
      * Get a proxy for job shares linked to the organisation
@@ -10289,7 +10330,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10305,8 +10346,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _errors_OAuthError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
-/* harmony import */ var _OAuth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25);
+/* harmony import */ var _errors_OAuthError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20);
+/* harmony import */ var _OAuth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(26);
 
 
 
@@ -10396,7 +10437,7 @@ function (_OAuth) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10502,7 +10543,7 @@ function windowTest(str) {
 }
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10516,11 +10557,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(80);
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(81);
 /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _JobResult__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(30);
+/* harmony import */ var _JobResult__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(31);
 
 
 
@@ -10622,7 +10663,7 @@ function (_JobResult) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10638,7 +10679,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _storage_StorageManager__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
+/* harmony import */ var _storage_StorageManager__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
 /* harmony import */ var _utils_StaticClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(51);
 /* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(72);
 
@@ -10784,19 +10825,19 @@ function (_StaticClass) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ResourceLister; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(33);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(0);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_4__);
@@ -10812,9 +10853,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var case__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(case__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(73);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _Maps4News__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(21);
-/* harmony import */ var _RequestParameters__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(19);
-/* harmony import */ var _resources_base_ResourceBase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(9);
+/* harmony import */ var _Maps4News__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(23);
+/* harmony import */ var _RequestParameters__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(21);
+/* harmony import */ var _resources_base_ResourceBase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(5);
 
 
@@ -11304,7 +11345,7 @@ function (_EventEmitter) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11480,7 +11521,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11496,7 +11537,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(35);
+/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(38);
 
 
 
@@ -11563,7 +11604,7 @@ function (_CrudSetItemBase) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11646,7 +11687,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11662,7 +11703,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(35);
+/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(38);
 
 
 
@@ -11713,15 +11754,15 @@ function (_CrudSetItemBase) {
     return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(Font).apply(this, arguments));
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Font, [{
-    key: "parentKey",
-    get: function get() {
-      return 'font_family_id';
-    }
-  }], [{
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Font, null, [{
     key: "resourceName",
     get: function get() {
       return 'fonts';
+    }
+  }, {
+    key: "parentKey",
+    get: function get() {
+      return 'font_family_id';
     }
   }]);
 
@@ -11731,7 +11772,7 @@ function (_CrudSetItemBase) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11749,9 +11790,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6);
-/* harmony import */ var _JobResult__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(30);
-/* harmony import */ var _JobShare__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(28);
-/* harmony import */ var _Layer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(31);
+/* harmony import */ var _JobResult__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(31);
+/* harmony import */ var _JobShare__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(29);
+/* harmony import */ var _Layer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(32);
 
 
 
@@ -11987,7 +12028,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12003,9 +12044,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _traits_HandlesImages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(75);
+/* harmony import */ var _traits_HandlesImages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(76);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
-/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(35);
+/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(38);
 
 
 
@@ -12047,8 +12088,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * @extends {CrudSetItemBase}
- * @extends {HandlesImages}
+ * @extends CrudSetItemBase
+ * @mixes HandlesImages
  */
 
 var Mapstyle =
@@ -12075,7 +12116,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12091,7 +12132,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(35);
+/* harmony import */ var _base_CrudSetItemBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(38);
 
 
 
@@ -12155,7 +12196,7 @@ function (_CrudSetItemBase) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12172,7 +12213,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
-/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(12);
+/* harmony import */ var _traits_OwnableResource__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
 /* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
 
 
@@ -12216,8 +12257,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * Tag resource
- * @extends {CrudBase}
- * @extends {OwnableResource}
+ * @extends CrudBase
+ * @mixes OwnableResource
  */
 
 var Tag =
@@ -12244,7 +12285,7 @@ function (_mix) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12339,7 +12380,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12419,7 +12460,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12435,10 +12476,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(37);
+/* harmony import */ var _proxy_OwnedResourceProxy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
 /* harmony import */ var _base_CrudBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6);
-/* harmony import */ var _Permission__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(49);
-/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(48);
+/* harmony import */ var _Permission__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(50);
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(49);
 
 
 
@@ -12493,7 +12534,7 @@ function (_CrudBase) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12567,12 +12608,6 @@ function () {
 }();
 
 
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports) {
-
-module.exports = require("@babel/runtime/helpers/defineProperty");
 
 /***/ }),
 /* 71 */
@@ -12713,9 +12748,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var mitt__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(79);
+/* harmony import */ var mitt__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(80);
 /* harmony import */ var mitt__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(mitt__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _utils_Unobservable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69);
+/* harmony import */ var _utils_Unobservable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(70);
 /* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(72);
 
 
@@ -13232,6 +13267,270 @@ function (_Unobservable) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Injectable; });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(52);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _resources_base_ResourceBase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
+/* harmony import */ var _utils_reflection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5);
+/* harmony import */ var _Trait__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(34);
+
+
+
+
+
+
+
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2017, MapCreator
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ *  Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *  Neither the name of the copyright holder nor the names of its
+ *   contributors may be used to endorse or promote products derived from
+ *   this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
+
+/**
+ * Adds the possibility to inject proxies/methods
+ *
+ * @mixin
+ */
+
+var Injectable =
+/*#__PURE__*/
+function (_Trait) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(Injectable, _Trait);
+
+  function Injectable() {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, Injectable);
+
+    return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(Injectable).apply(this, arguments));
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(Injectable, [{
+    key: "initializer",
+    value: function initializer() {
+      var injectable = this.constructor._injectable || {};
+
+      var _arr = Object.keys(injectable);
+
+      for (var _i = 0; _i < _arr.length; _i++) {
+        var name = _arr[_i];
+        var _injectable$name = injectable[name],
+            value = _injectable$name.value,
+            isProxy = _injectable$name.isProxy;
+
+        if (isProxy) {
+          this.injectProxy(name, value);
+        } else {
+          this.inject(name, value);
+        }
+      }
+    }
+    /**
+     * Inject a proxy property into future instances
+     *
+     * @param {string|object} name - Name of the property
+     * @param {function?} value - Either a resource or a function that returns a proxy
+     *
+     * @returns {void}
+     * @example
+     *
+     * Maps4News.injectProxy({Domain});
+     *
+     * // After creating new api instance
+     *
+     * api.domains // returns proxy
+     */
+
+  }, {
+    key: "injectProxy",
+
+    /**
+     * Inject a proxy
+     * @param {string} name - Name of the property
+     * @param {function?} value - Either a resource or a function that returns a proxy
+     */
+    value: function injectProxy(name, value) {
+      if (!value) {
+        // Handle vue-style injections `.inject({ Foo, Bar, Baz })`
+        var _arr2 = Object.keys(name);
+
+        for (var _i2 = 0; _i2 < _arr2.length; _i2++) {
+          var key = _arr2[_i2];
+          this.injectProxy(key, name[key]);
+        }
+      } else if (Object(_utils_reflection__WEBPACK_IMPORTED_MODULE_7__["isParentOf"])(_resources_base_ResourceBase__WEBPACK_IMPORTED_MODULE_6__["default"], value)) {
+        this._injectProxy(name, value);
+      } else {
+        this._inject(name, value);
+      }
+    }
+    /**
+     * Inject a property into the instance
+     *
+     * @param {string|object} name - Name of the property
+     * @param {function?} value - Any function that does not return a proxy
+     *
+     * @returns {void}
+     */
+
+  }, {
+    key: "inject",
+    value: function inject(name, value) {
+      this._inject(name, value, false);
+    }
+  }, {
+    key: "_injectProxy",
+    value: function _injectProxy(name, value) {
+      if (name === value.name) {
+        name = name.replace(/^\w/, function (c) {
+          return c.toLowerCase();
+        }) + 's';
+      }
+
+      var OwnableResource = __webpack_require__(13).default;
+
+      if (Object(_utils_reflection__WEBPACK_IMPORTED_MODULE_7__["hasTrait"])(value, OwnableResource)) {
+        var OwnedResourceProxy = __webpack_require__(16).default;
+
+        this._inject(name, function () {
+          new OwnedResourceProxy(this.api, this, value);
+        });
+      } else if (Object(_utils_reflection__WEBPACK_IMPORTED_MODULE_7__["isParentOf"])(_resources_base_ResourceBase__WEBPACK_IMPORTED_MODULE_6__["default"], value) && this._proxyResourceList) {
+        // returns a SimpleResourceProxy
+        this._inject(name, function () {
+          return this._proxyResourceList(value);
+        });
+      } else {
+        var ResourceProxy = __webpack_require__(37).default;
+
+        this._inject(name, function () {
+          return new ResourceProxy(this, value);
+        });
+      }
+    }
+  }, {
+    key: "_inject",
+    value: function _inject(name, value) {
+      var getter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+      Object.defineProperty(this, name, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
+        enumerable: false,
+        configurable: false
+      }, getter ? 'get' : 'value', value));
+    }
+  }], [{
+    key: "injectProxy",
+    value: function injectProxy(name, value) {
+      if (!value) {
+        // Handle vue-style injections `.inject({ Foo, Bar, Baz })`
+        var _arr3 = Object.keys(name);
+
+        for (var _i3 = 0; _i3 < _arr3.length; _i3++) {
+          var key = _arr3[_i3];
+          this.inject(key, name[key]);
+        }
+      } else {
+        if (typeof this._injectable === 'undefined') {
+          this._injectable = {};
+        }
+
+        this._injectable[name] = {
+          value: value,
+          isProxy: true
+        };
+      }
+    }
+    /**
+     * Inject a property into future instances
+     *
+     * @param {string|object} name - Name of the property
+     * @param {function?} value - Any function that does not return a proxy
+     *
+     * @returns {void}
+     */
+
+  }, {
+    key: "inject",
+    value: function inject(name, value) {
+      if (!value) {
+        // Handle vue-style injections `.inject({ Foo, Bar, Baz })`
+        var _arr4 = Object.keys(name);
+
+        for (var _i4 = 0; _i4 < _arr4.length; _i4++) {
+          var key = _arr4[_i4];
+          this.inject(key, name[key]);
+        }
+      } else {
+        if (typeof this._injectable === 'undefined') {
+          this._injectable = {};
+        }
+
+        this._injectable[name] = {
+          value: value,
+          isProxy: false
+        };
+      }
+    }
+    /**
+     * Prevent a property from being injected
+     * @param {string} name - Name of the property
+     */
+
+  }, {
+    key: "uninject",
+    value: function uninject(name) {
+      if (typeof this._injectable !== 'undefined') {
+        delete this._injectable[name];
+      }
+    }
+  }]);
+
+  return Injectable;
+}(_Trait__WEBPACK_IMPORTED_MODULE_8__["default"]);
+
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/classCallCheck"
 var classCallCheck_ = __webpack_require__(0);
@@ -13254,21 +13553,21 @@ var inherits_ = __webpack_require__(4);
 var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits_);
 
 // EXTERNAL MODULE: ./src/traits/Trait.js
-var Trait = __webpack_require__(50);
+var Trait = __webpack_require__(34);
 
 // EXTERNAL MODULE: external "@babel/runtime/regenerator"
-var regenerator_ = __webpack_require__(17);
+var regenerator_ = __webpack_require__(19);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator_);
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/asyncToGenerator"
-var asyncToGenerator_ = __webpack_require__(32);
+var asyncToGenerator_ = __webpack_require__(33);
 var asyncToGenerator_default = /*#__PURE__*/__webpack_require__.n(asyncToGenerator_);
 
 // EXTERNAL MODULE: ./src/Maps4News.js + 1 modules
-var Maps4News = __webpack_require__(21);
+var Maps4News = __webpack_require__(23);
 
 // EXTERNAL MODULE: ./src/resources/base/ResourceBase.js
-var ResourceBase = __webpack_require__(9);
+var ResourceBase = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./src/utils/node.js
 var node = __webpack_require__(14);
@@ -13277,7 +13576,7 @@ var node = __webpack_require__(14);
 var reflection = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./src/utils/requests.js
-var requests = __webpack_require__(8);
+var requests = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/ImageHandler.js
 
@@ -13512,6 +13811,8 @@ function () {
 
 /**
  * Adds the imageHandler to a resource
+ *
+ * @mixin
  */
 
 var HandlesImages_HandlesImages =
@@ -13543,7 +13844,7 @@ function (_Trait) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13560,7 +13861,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _utils_node__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14);
-/* harmony import */ var _DataStoreContract__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(34);
+/* harmony import */ var _DataStoreContract__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36);
 
 
 
@@ -13793,37 +14094,37 @@ function (_DataStoreContract) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = require("json-stable-stringify");
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = require("fetch-ponyfill");
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = require("mitt");
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/runtime/helpers/get");
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = require("formdata-polyfill");
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13840,13 +14141,13 @@ __webpack_require__.d(errors_namespaceObject, "UnsupportedCrudError", function()
 __webpack_require__.d(errors_namespaceObject, "ValidationError", function() { return ValidationError["default"]; });
 
 // EXTERNAL MODULE: ./src/Maps4News.js + 1 modules
-var Maps4News = __webpack_require__(21);
+var Maps4News = __webpack_require__(23);
 
 // EXTERNAL MODULE: ./src/RequestParameters.js
-var RequestParameters = __webpack_require__(19);
+var RequestParameters = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/storage/StorageManager.js + 3 modules
-var StorageManager = __webpack_require__(16);
+var StorageManager = __webpack_require__(18);
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/classCallCheck"
 var classCallCheck_ = __webpack_require__(0);
@@ -13857,16 +14158,16 @@ var createClass_ = __webpack_require__(1);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass_);
 
 // EXTERNAL MODULE: ./src/enums/index.js + 3 modules
-var enums = __webpack_require__(15);
+var enums = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/resources/JobMonitorRow.js
-var JobMonitorRow = __webpack_require__(55);
+var JobMonitorRow = __webpack_require__(56);
 
 // EXTERNAL MODULE: ./src/utils/reflection.js
 var reflection = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./src/utils/requests.js
-var utils_requests = __webpack_require__(8);
+var utils_requests = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/JobMonitor.js
 
@@ -14281,10 +14582,10 @@ function () {
 
 
 // EXTERNAL MODULE: ./src/enums/Enum.js
-var Enum = __webpack_require__(24);
+var Enum = __webpack_require__(25);
 
 // EXTERNAL MODULE: ./src/oauth/OAuth.js
-var OAuth = __webpack_require__(25);
+var OAuth = __webpack_require__(26);
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/possibleConstructorReturn"
 var possibleConstructorReturn_ = __webpack_require__(3);
@@ -14299,13 +14600,13 @@ var inherits_ = __webpack_require__(4);
 var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits_);
 
 // EXTERNAL MODULE: ./src/oauth/OAuthToken.js
-var OAuthToken = __webpack_require__(22);
+var OAuthToken = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./src/oauth/StateContainer.js
-var StateContainer = __webpack_require__(56);
+var StateContainer = __webpack_require__(57);
 
 // EXTERNAL MODULE: ./src/errors/OAuthError.js
-var OAuthError = __webpack_require__(18);
+var OAuthError = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./src/utils/node.js
 var node = __webpack_require__(14);
@@ -14967,31 +15268,31 @@ function (_OAuth) {
 
 
 // EXTERNAL MODULE: ./src/oauth/DummyFlow.js
-var DummyFlow = __webpack_require__(53);
+var DummyFlow = __webpack_require__(54);
 
 // EXTERNAL MODULE: ./src/errors/ApiError.js
-var ApiError = __webpack_require__(20);
+var ApiError = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/errors/AbstractError.js
 var AbstractError = __webpack_require__(10);
 
 // EXTERNAL MODULE: ./src/errors/ValidationError.js
-var ValidationError = __webpack_require__(38);
+var ValidationError = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./src/errors/StaticClassError.js
-var StaticClassError = __webpack_require__(39);
+var StaticClassError = __webpack_require__(40);
 
 // EXTERNAL MODULE: ./src/resources/index.js + 5 modules
 var resources = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./src/utils/helpers.js
-var helpers = __webpack_require__(54);
+var helpers = __webpack_require__(55);
 
 // EXTERNAL MODULE: ./src/ResourceLister.js
-var ResourceLister = __webpack_require__(57);
+var ResourceLister = __webpack_require__(58);
 
 // EXTERNAL MODULE: external "@babel/runtime/helpers/wrapNativeSuper"
-var wrapNativeSuper_ = __webpack_require__(26);
+var wrapNativeSuper_ = __webpack_require__(27);
 var wrapNativeSuper_default = /*#__PURE__*/__webpack_require__.n(wrapNativeSuper_);
 
 // CONCATENATED MODULE: ./src/errors/NodeError.js
@@ -15179,6 +15480,7 @@ function (_Error) {
 /* concated harmony reexport helpers */__webpack_require__.d(__webpack_exports__, "helpers", function() { return helpers; });
 /* concated harmony reexport ResourceLister */__webpack_require__.d(__webpack_exports__, "ResourceLister", function() { return ResourceLister["default"]; });
 /* concated harmony reexport errors */__webpack_require__.d(__webpack_exports__, "errors", function() { return errors_namespaceObject; });
+/* concated harmony reexport reflection */__webpack_require__.d(__webpack_exports__, "reflection", function() { return reflection; });
 /*
  * BSD 3-Clause License
  *
@@ -15253,12 +15555,14 @@ function (_Error) {
 
 
 
+
+
 /**
  * Package version
  * @private
  */
 
-var version = "v1.4.42";
+var version = "v1.4.43";
 /**
  * Package license
  * @private

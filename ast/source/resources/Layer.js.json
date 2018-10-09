@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 2026,
+  "end": 2016,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 2026,
+    "end": 2016,
     "loc": {
       "start": {
         "line": 1,
@@ -343,9 +343,9 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Layer\n * @extends {CrudBase}\n * @extends {OwnableResource}\n * @extends {HandlesImages}\n ",
+            "value": "*\n * Layer\n * @extends CrudBase\n * @mixes OwnableResource\n * @mixes HandlesImages\n ",
             "start": 1788,
-            "end": 1885,
+            "end": 1875,
             "loc": {
               "start": {
                 "line": 38,
@@ -361,8 +361,8 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 1886,
-        "end": 2025,
+        "start": 1876,
+        "end": 2015,
         "loc": {
           "start": {
             "line": 44,
@@ -375,8 +375,8 @@
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 1901,
-          "end": 2025,
+          "start": 1891,
+          "end": 2015,
           "loc": {
             "start": {
               "line": 44,
@@ -389,8 +389,8 @@
           },
           "id": {
             "type": "Identifier",
-            "start": 1907,
-            "end": 1912,
+            "start": 1897,
+            "end": 1902,
             "loc": {
               "start": {
                 "line": 44,
@@ -407,8 +407,8 @@
           },
           "superClass": {
             "type": "CallExpression",
-            "start": 1921,
-            "end": 1966,
+            "start": 1911,
+            "end": 1956,
             "loc": {
               "start": {
                 "line": 44,
@@ -421,8 +421,8 @@
             },
             "callee": {
               "type": "Identifier",
-              "start": 1921,
-              "end": 1924,
+              "start": 1911,
+              "end": 1914,
               "loc": {
                 "start": {
                   "line": 44,
@@ -439,8 +439,8 @@
             "arguments": [
               {
                 "type": "Identifier",
-                "start": 1925,
-                "end": 1933,
+                "start": 1915,
+                "end": 1923,
                 "loc": {
                   "start": {
                     "line": 44,
@@ -456,8 +456,8 @@
               },
               {
                 "type": "Identifier",
-                "start": 1935,
-                "end": 1950,
+                "start": 1925,
+                "end": 1940,
                 "loc": {
                   "start": {
                     "line": 44,
@@ -473,8 +473,8 @@
               },
               {
                 "type": "Identifier",
-                "start": 1952,
-                "end": 1965,
+                "start": 1942,
+                "end": 1955,
                 "loc": {
                   "start": {
                     "line": 44,
@@ -492,8 +492,8 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 1967,
-            "end": 2025,
+            "start": 1957,
+            "end": 2015,
             "loc": {
               "start": {
                 "line": 44,
@@ -507,8 +507,8 @@
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 1971,
-                "end": 2023,
+                "start": 1961,
+                "end": 2013,
                 "loc": {
                   "start": {
                     "line": 45,
@@ -523,8 +523,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1982,
-                  "end": 1994,
+                  "start": 1972,
+                  "end": 1984,
                   "loc": {
                     "start": {
                       "line": 45,
@@ -546,8 +546,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1997,
-                  "end": 2023,
+                  "start": 1987,
+                  "end": 2013,
                   "loc": {
                     "start": {
                       "line": 45,
@@ -561,8 +561,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 2003,
-                      "end": 2019,
+                      "start": 1993,
+                      "end": 2009,
                       "loc": {
                         "start": {
                           "line": 46,
@@ -575,8 +575,8 @@
                       },
                       "argument": {
                         "type": "StringLiteral",
-                        "start": 2010,
-                        "end": 2018,
+                        "start": 2000,
+                        "end": 2008,
                         "loc": {
                           "start": {
                             "line": 46,
@@ -603,9 +603,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Layer\n * @extends {CrudBase}\n * @extends {OwnableResource}\n * @extends {HandlesImages}\n ",
+              "value": "*\n * Layer\n * @extends CrudBase\n * @mixes OwnableResource\n * @mixes HandlesImages\n ",
               "start": 1788,
-              "end": 1885,
+              "end": 1875,
               "loc": {
                 "start": {
                   "line": 38,
@@ -623,9 +623,9 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Layer\n * @extends {CrudBase}\n * @extends {OwnableResource}\n * @extends {HandlesImages}\n ",
+            "value": "*\n * Layer\n * @extends CrudBase\n * @mixes OwnableResource\n * @mixes HandlesImages\n ",
             "start": 1788,
-            "end": 1885,
+            "end": 1875,
             "loc": {
               "start": {
                 "line": 38,
@@ -661,9 +661,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Layer\n * @extends {CrudBase}\n * @extends {OwnableResource}\n * @extends {HandlesImages}\n ",
+      "value": "*\n * Layer\n * @extends CrudBase\n * @mixes OwnableResource\n * @mixes HandlesImages\n ",
       "start": 1788,
-      "end": 1885,
+      "end": 1875,
       "loc": {
         "start": {
           "line": 38,
@@ -1277,9 +1277,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Layer\n * @extends {CrudBase}\n * @extends {OwnableResource}\n * @extends {HandlesImages}\n ",
+      "value": "*\n * Layer\n * @extends CrudBase\n * @mixes OwnableResource\n * @mixes HandlesImages\n ",
       "start": 1788,
-      "end": 1885,
+      "end": 1875,
       "loc": {
         "start": {
           "line": 38,
@@ -1306,8 +1306,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 1886,
-      "end": 1892,
+      "start": 1876,
+      "end": 1882,
       "loc": {
         "start": {
           "line": 44,
@@ -1334,8 +1334,8 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 1893,
-      "end": 1900,
+      "start": 1883,
+      "end": 1890,
       "loc": {
         "start": {
           "line": 44,
@@ -1362,8 +1362,8 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 1901,
-      "end": 1906,
+      "start": 1891,
+      "end": 1896,
       "loc": {
         "start": {
           "line": 44,
@@ -1388,8 +1388,8 @@
         "binop": null
       },
       "value": "Layer",
-      "start": 1907,
-      "end": 1912,
+      "start": 1897,
+      "end": 1902,
       "loc": {
         "start": {
           "line": 44,
@@ -1416,8 +1416,8 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 1913,
-      "end": 1920,
+      "start": 1903,
+      "end": 1910,
       "loc": {
         "start": {
           "line": 44,
@@ -1442,8 +1442,8 @@
         "binop": null
       },
       "value": "mix",
-      "start": 1921,
-      "end": 1924,
+      "start": 1911,
+      "end": 1914,
       "loc": {
         "start": {
           "line": 44,
@@ -1467,8 +1467,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1924,
-      "end": 1925,
+      "start": 1914,
+      "end": 1915,
       "loc": {
         "start": {
           "line": 44,
@@ -1493,8 +1493,8 @@
         "binop": null
       },
       "value": "CrudBase",
-      "start": 1925,
-      "end": 1933,
+      "start": 1915,
+      "end": 1923,
       "loc": {
         "start": {
           "line": 44,
@@ -1519,8 +1519,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1933,
-      "end": 1934,
+      "start": 1923,
+      "end": 1924,
       "loc": {
         "start": {
           "line": 44,
@@ -1545,8 +1545,8 @@
         "binop": null
       },
       "value": "OwnableResource",
-      "start": 1935,
-      "end": 1950,
+      "start": 1925,
+      "end": 1940,
       "loc": {
         "start": {
           "line": 44,
@@ -1571,8 +1571,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1950,
-      "end": 1951,
+      "start": 1940,
+      "end": 1941,
       "loc": {
         "start": {
           "line": 44,
@@ -1597,8 +1597,8 @@
         "binop": null
       },
       "value": "HandlesImages",
-      "start": 1952,
-      "end": 1965,
+      "start": 1942,
+      "end": 1955,
       "loc": {
         "start": {
           "line": 44,
@@ -1622,8 +1622,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1965,
-      "end": 1966,
+      "start": 1955,
+      "end": 1956,
       "loc": {
         "start": {
           "line": 44,
@@ -1647,8 +1647,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1967,
-      "end": 1968,
+      "start": 1957,
+      "end": 1958,
       "loc": {
         "start": {
           "line": 44,
@@ -1673,8 +1673,8 @@
         "binop": null
       },
       "value": "static",
-      "start": 1971,
-      "end": 1977,
+      "start": 1961,
+      "end": 1967,
       "loc": {
         "start": {
           "line": 45,
@@ -1699,8 +1699,8 @@
         "binop": null
       },
       "value": "get",
-      "start": 1978,
-      "end": 1981,
+      "start": 1968,
+      "end": 1971,
       "loc": {
         "start": {
           "line": 45,
@@ -1725,8 +1725,8 @@
         "binop": null
       },
       "value": "resourceName",
-      "start": 1982,
-      "end": 1994,
+      "start": 1972,
+      "end": 1984,
       "loc": {
         "start": {
           "line": 45,
@@ -1750,8 +1750,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1994,
-      "end": 1995,
+      "start": 1984,
+      "end": 1985,
       "loc": {
         "start": {
           "line": 45,
@@ -1775,8 +1775,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1995,
-      "end": 1996,
+      "start": 1985,
+      "end": 1986,
       "loc": {
         "start": {
           "line": 45,
@@ -1800,8 +1800,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1997,
-      "end": 1998,
+      "start": 1987,
+      "end": 1988,
       "loc": {
         "start": {
           "line": 45,
@@ -1828,8 +1828,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 2003,
-      "end": 2009,
+      "start": 1993,
+      "end": 1999,
       "loc": {
         "start": {
           "line": 46,
@@ -1855,8 +1855,8 @@
         "updateContext": null
       },
       "value": "layers",
-      "start": 2010,
-      "end": 2018,
+      "start": 2000,
+      "end": 2008,
       "loc": {
         "start": {
           "line": 46,
@@ -1881,8 +1881,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2018,
-      "end": 2019,
+      "start": 2008,
+      "end": 2009,
       "loc": {
         "start": {
           "line": 46,
@@ -1906,8 +1906,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2022,
-      "end": 2023,
+      "start": 2012,
+      "end": 2013,
       "loc": {
         "start": {
           "line": 47,
@@ -1931,8 +1931,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2024,
-      "end": 2025,
+      "start": 2014,
+      "end": 2015,
       "loc": {
         "start": {
           "line": 48,
@@ -1957,8 +1957,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2026,
-      "end": 2026,
+      "start": 2016,
+      "end": 2016,
       "loc": {
         "start": {
           "line": 49,

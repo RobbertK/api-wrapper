@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/utils/requests.js | Maps4News Api Wrapper</title>
+  <title data-ice="title">src/traits/Injectable.js | Maps4News Api Wrapper</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -108,7 +108,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/utils/requests.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/traits/Injectable.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * BSD 3-Clause License
  *
@@ -141,123 +141,159 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import fetchPonyfill from &apos;fetch-ponyfill&apos;;
-import ApiError from &apos;../errors/ApiError&apos;;
-import {windowTest} from &apos;./helpers&apos;;
-import {isNode} from &apos;./node&apos;;
+import ResourceBase from &apos;../resources/base/ResourceBase&apos;;
+import {hasTrait, isParentOf} from &apos;../utils/reflection&apos;;
+import Trait from &apos;./Trait&apos;;
+
 
 /**
- * @private
+ * Adds the possibility to inject proxies/methods
+ *
+ * @mixin
  */
-export const {fetch, Request, Response, Headers} = windowTest(&apos;fetch&apos;) ? window : fetchPonyfill({Promise});
+export default class Injectable extends Trait {
+  initializer() {
+    const injectable = this.constructor._injectable || {};
 
-function getFormData() {
-  if (windowTest(&apos;FormData&apos;)) {
-    return window.FormData;
-  } else if (!isNode()) {
-    return require(&apos;formdata-polyfill&apos;);
+    for (const name of Object.keys(injectable)) {
+      const {value, isProxy} = injectable[name];
+
+      if (isProxy) {
+        this.injectProxy(name, value);
+      } else {
+        this.inject(name, value);
+      }
+    }
   }
 
-  // @todo find nodejs polyfill
-  return null;
-}
-
-/**
- * @private
- */
-export const FormData = getFormData();
-
-/**
- * Encodes an object to a http query string with support for recursion
- * @param {object&lt;string, *&gt;} paramsObject - data to be encoded
- * @returns {string} - encoded http query string
- *
- * @private
- */
-export function encodeQueryString(paramsObject) {
-  const query = _encodeQueryString(paramsObject);
-
-  // Removes any extra unused &amp;&apos;s.
-  return query.replace(/^&amp;*|&amp;+(?=&amp;)|&amp;*$/g, &apos;&apos;);
-}
-
-/**
- * Encodes an object to a http query string with support for recursion
- * @param {Object&lt;string, *&gt;} paramsObject - data to be encoded
- * @param {Array&lt;string&gt;} _basePrefix - Used internally for tracking recursion
- * @returns {string} - encoded http query string
- *
- * @see http://stackoverflow.com/a/39828481
- * @private
- */
-function _encodeQueryString(paramsObject, _basePrefix = []) {
-  return Object
-    .keys(paramsObject)
-    .sort()
-    .map(key =&gt; {
-      const prefix = _basePrefix.slice(0);
-
-      if (typeof paramsObject[key] === &apos;object&apos; &amp;&amp; paramsObject[key] !== null) {
-        prefix.push(key);
-
-        return _encodeQueryString(paramsObject[key], prefix);
+  /**
+   * Inject a proxy property into future instances
+   *
+   * @param {string|object} name - Name of the property
+   * @param {function?} value - Either a resource or a function that returns a proxy
+   *
+   * @returns {void}
+   * @example
+   *
+   * Maps4News.injectProxy({Domain});
+   *
+   * // After creating new api instance
+   *
+   * api.domains // returns proxy
+   */
+  static injectProxy(name, value) {
+    if (!value) {
+      // Handle vue-style injections `.inject({ Foo, Bar, Baz })`
+      for (const key of Object.keys(name)) {
+        this.inject(key, name[key]);
+      }
+    } else {
+      if (typeof this._injectable === &apos;undefined&apos;) {
+        this._injectable = {};
       }
 
-      prefix.push(key);
+      this._injectable[name] = {value, isProxy: true};
+    }
+  }
 
-      let out = &apos;&apos;;
-
-      out += encodeURIComponent(prefix.shift()); // main key
-      out += prefix.map(item =&gt; `[${encodeURIComponent(item)}]`).join(&apos;&apos;); // optional array keys
-
-      const value = paramsObject[key];
-
-      if (value !== null &amp;&amp; typeof value !== &apos;undefined&apos;) {
-        out += &apos;=&apos; + encodeURIComponent(value); // value
+  /**
+   * Inject a property into future instances
+   *
+   * @param {string|object} name - Name of the property
+   * @param {function?} value - Any function that does not return a proxy
+   *
+   * @returns {void}
+   */
+  static inject(name, value) {
+    if (!value) {
+      // Handle vue-style injections `.inject({ Foo, Bar, Baz })`
+      for (const key of Object.keys(name)) {
+        this.inject(key, name[key]);
+      }
+    } else {
+      if (typeof this._injectable === &apos;undefined&apos;) {
+        this._injectable = {};
       }
 
-      return out;
-    }).join(&apos;&amp;&apos;);
-}
+      this._injectable[name] = {value, isProxy: false};
+    }
+  }
 
-/**
- * @param {string} url - Target url
- * @param {object&lt;string, string&gt;} headers - Request headers
- * @returns {PromiseLike&lt;{filename: string, blob: string}&gt;} - filename and blob
- * @private
- */
-export function downloadFile(url, headers = {}) {
-  const out = {};
+  /**
+   * Prevent a property from being injected
+   * @param {string} name - Name of the property
+   */
+  static uninject(name) {
+    if (typeof this._injectable !== &apos;undefined&apos;) {
+      delete this._injectable[name];
+    }
+  }
 
-  return fetch(url, {headers})
-    .then(res =&gt; {
-      if (res.ok) {
-        const disposition = res.headers.get(&apos;Content-Disposition&apos;);
-
-        if (disposition &amp;&amp; disposition.indexOf(&apos;attachment&apos;) !== -1) {
-          const matches = /filename[^;=\n]*=(([&apos;&quot;]).*?\2|[^;\n]*)/.exec(disposition);
-
-          if (matches != null &amp;&amp; matches[1]) {
-            out.filename = matches[1].replace(/[&apos;&quot;]/g, &apos;&apos;);
-          }
-        } else {
-          out.filename = &apos;Unknown Filename.zip&apos;;
-        }
-
-        return res.blob();
+  /**
+   * Inject a proxy
+   * @param {string} name - Name of the property
+   * @param {function?} value - Either a resource or a function that returns a proxy
+   */
+  injectProxy(name, value) {
+    if (!value) {
+      // Handle vue-style injections `.inject({ Foo, Bar, Baz })`
+      for (const key of Object.keys(name)) {
+        this.injectProxy(key, name[key]);
       }
+    } else if (isParentOf(ResourceBase, value)) {
+      this._injectProxy(name, value);
+    } else {
+      this._inject(name, value);
+    }
+  }
 
-      return res.json().then(data =&gt; {
-        const err = data.error;
+  /**
+   * Inject a property into the instance
+   *
+   * @param {string|object} name - Name of the property
+   * @param {function?} value - Any function that does not return a proxy
+   *
+   * @returns {void}
+   */
+  inject(name, value) {
+    this._inject(name, value, false);
+  }
 
-        throw new ApiError(err.type, err.message, res.status, err.trace);
+  _injectProxy(name, value) {
+    if (name === value.name) {
+      name = name.replace(/^\w/, c =&gt; c.toLowerCase()) + &apos;s&apos;;
+    }
+
+    const OwnableResource = require(&apos;./OwnableResource&apos;).default;
+
+    if (hasTrait(value, OwnableResource)) {
+      const OwnedResourceProxy = require(&apos;../proxy/OwnedResourceProxy&apos;).default;
+
+      this._inject(name, function () {
+        new OwnedResourceProxy(this.api, this, value);
       });
-    })
-    .then(blob =&gt; {
-      out.blob = (window.URL || window.webkitURL).createObjectURL(blob);
+    } else if (isParentOf(ResourceBase, value) &amp;&amp; this._proxyResourceList) {
+      // returns a SimpleResourceProxy
+      this._inject(name, function () {
+        return this._proxyResourceList(value);
+      });
+    } else {
+      const ResourceProxy = require(&apos;../proxy/ResourceProxy&apos;).default;
 
-      return out;
+      this._inject(name, function () {
+        return new ResourceProxy(this, value);
+      });
+    }
+  }
+
+  _inject(name, value, getter = true) {
+    Object.defineProperty(this, name, {
+      enumerable: false,
+      configurable: false,
+
+      [getter ? &apos;get&apos; : &apos;value&apos;]: value,
     });
+  }
 }
 </code></pre>
 

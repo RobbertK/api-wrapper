@@ -1,7 +1,7 @@
 {
-  "coverage": "72.3%",
-  "expectCount": 733,
-  "actualCount": 530,
+  "coverage": "72.1%",
+  "expectCount": 742,
+  "actualCount": 535,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -34,16 +34,16 @@
       ]
     },
     "src/Maps4News.js": {
-      "expectCount": 56,
-      "actualCount": 49,
+      "expectCount": 55,
+      "actualCount": 48,
       "undocumentLines": [
-        114,
-        115,
-        160,
-        185,
-        269,
-        323,
-        684
+        118,
+        119,
+        164,
+        189,
+        273,
+        327,
+        679
       ]
     },
     "src/PaginatedResourceListing.js": {
@@ -480,8 +480,8 @@
       ]
     },
     "src/resources/Organisation.js": {
-      "expectCount": 19,
-      "actualCount": 16,
+      "expectCount": 18,
+      "actualCount": 15,
       "undocumentLines": [
         51,
         52,
@@ -560,20 +560,20 @@
       ]
     },
     "src/resources/base/CrudSetItemBase.js": {
-      "expectCount": 5,
-      "actualCount": 5,
+      "expectCount": 4,
+      "actualCount": 4,
       "undocumentLines": []
     },
     "src/resources/base/ResourceBase.js": {
       "expectCount": 28,
       "actualCount": 22,
       "undocumentLines": [
-        39,
-        73,
-        74,
-        75,
-        101,
-        344
+        40,
+        76,
+        77,
+        78,
+        104,
+        347
       ]
     },
     "src/resources/index.js": {
@@ -600,7 +600,7 @@
       "expectCount": 8,
       "actualCount": 7,
       "undocumentLines": [
-        40
+        41
       ]
     },
     "src/storage/FileDriver.js": {
@@ -626,6 +626,16 @@
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
+    },
+    "src/traits/Injectable.js": {
+      "expectCount": 10,
+      "actualCount": 6,
+      "undocumentLines": [
+        44,
+        81,
+        151,
+        178
+      ]
     },
     "src/traits/OwnableResource.js": {
       "expectCount": 3,
@@ -683,8 +693,8 @@
       "undocumentLines": []
     },
     "src/utils/reflection.js": {
-      "expectCount": 4,
-      "actualCount": 4,
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/utils/requests.js": {

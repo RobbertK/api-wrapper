@@ -96,12 +96,14 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/CrudSetItemBase.js~CrudSetItemBase.html">CrudSetItemBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#traits">traits</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/HandlesImages.js~HandlesImages.html">HandlesImages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/Injectable.js~Injectable.html">Injectable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/traits/OwnableResource.js~OwnableResource.html">OwnableResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/traits/Trait.js~Trait.html">Trait</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/StaticClass.js~StaticClass.html">StaticClass</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Unobservable.js~Unobservable.html">Unobservable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getPaginatedRange">getPaginatedRange</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-hasTrait">hasTrait</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -124,7 +126,7 @@
   
   
   <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/resources/base/ResourceBase.js~ResourceBase.html">ResourceBase</a></span> &#x2192; <span><a href="class/src/resources/base/CrudBase.js~CrudBase.html">CrudBase</a></span> &#x2192; CrudSetBase</div></div>
-  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="class/src/resources/DimensionSet.js~DimensionSet.html">DimensionSet</a></span>, <span><a href="class/src/resources/FontFamily.js~FontFamily.html">FontFamily</a></span>, <span><a href="class/src/resources/MapstyleSet.js~MapstyleSet.html">MapstyleSet</a></span>, <span><a href="class/src/resources/SvgSet.js~SvgSet.html">SvgSet</a></span></div></div>
+  
   
   
   
@@ -146,17 +148,14 @@
   
 </div>
 
-
-
-
-<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+<div data-ice="staticMemberSummary"><h2>Static Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Members</td></tr></thead>
   <tbody>
   
   <tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
-      
+      <span data-ice="static">static</span>
       <span class="kind" data-ice="kind">get</span>
       
       <span class="override" data-ice="override"></span>
@@ -167,7 +166,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resources/base/CrudSetBase.js~CrudSetBase.html#instance-get-foreignKeyName">foreignKeyName</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resources/base/CrudSetBase.js~CrudSetBase.html#static-get-foreignKeyName">foreignKeyName</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -182,7 +181,16 @@
       
     </td>
   </tr>
-<tr data-ice="target">
+</tbody>
+</table>
+</div>
+
+
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       
@@ -904,15 +912,12 @@
 </table>
 </div>
 
-
-
-
-<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+<div data-ice="staticMemberDetails"><h2 data-ice="title">Static Public Members</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-foreignKeyName">
+  <h3 data-ice="anchor" id="static-get-foreignKeyName">
     <span class="access" data-ice="access">public</span>
-    
+    <span data-ice="static">static</span>
     <span class="kind" data-ice="kind">get</span>
     
     
@@ -964,7 +969,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">api.fontFamilies.select(1).foreignKeyName === &apos;fontFamilyId&apos;</code></pre>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">api.fontFamilies.select(1).constructor.foreignKeyName === &apos;fontFamilyId&apos;</code></pre>
     </div>
 </div>
 
@@ -973,6 +978,11 @@
   
   
 </div>
+</div>
+
+
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
 <div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-items">
     <span class="access" data-ice="access">public</span>
