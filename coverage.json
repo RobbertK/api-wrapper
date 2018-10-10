@@ -1,7 +1,7 @@
 {
-  "coverage": "72.1%",
-  "expectCount": 742,
-  "actualCount": 535,
+  "coverage": "72.13%",
+  "expectCount": 743,
+  "actualCount": 536,
   "files": {
     "src/ImageHandler.js": {
       "expectCount": 9,
@@ -187,8 +187,8 @@
       "undocumentLines": []
     },
     "src/errors/ValidationError.js": {
-      "expectCount": 5,
-      "actualCount": 4,
+      "expectCount": 6,
+      "actualCount": 5,
       "undocumentLines": [
         47
       ]
