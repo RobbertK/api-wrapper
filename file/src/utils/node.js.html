@@ -148,8 +148,7 @@
  * @private
  */
 export function isNode() {
-  return typeof window === &apos;undefined&apos; &amp;&amp; typeof global !== &apos;undefined&apos; ||
-    typeof process === &apos;object&apos; &amp;&amp; typeof process.env === &apos;object&apos;;
+  return typeof window === &apos;undefined&apos; || typeof global !== &apos;undefined&apos;;
 }
 </code></pre>
 
