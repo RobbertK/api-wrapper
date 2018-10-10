@@ -29,9 +29,9 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:4410828fa11773443290, chunkhash:9c192e3b04b79029c26b, name:bundle, version:v1.4.45
+ * hash:0d10fd43a9f5546a6e52, chunkhash:f5e7831f3a60d12295a2, name:bundle, version:v1.4.46
  */
-exports["maps4news"] =
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -15579,7 +15579,7 @@ function (_Error) {
  * @private
  */
 
-var version = "v1.4.45";
+var version = "v1.4.46";
 /**
  * Package license
  * @private

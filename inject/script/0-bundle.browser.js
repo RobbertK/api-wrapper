@@ -1,6 +1,6 @@
 /*!
  * This bundle contains the following packages:
- * └─ @mapcreator/maps4news (1.4.45) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
+ * └─ @mapcreator/maps4news (1.4.46) ── BSD 3-clause "New" or "Revised" License (http://www.opensource.org/licenses/BSD-3-Clause) ── package.json
  *    ├─ @babel/runtime (7.1.2) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/@babel/runtime/package.json
  *    │  └─ regenerator-runtime (0.12.1) ── MIT License (http://www.opensource.org/licenses/MIT) ── node_modules/@babel/runtime ~ regenerator-runtime/package.json
  *    ├─ case (1.5.5) ── MIT (http://www.opensource.org/licenses/mit-license.php), GPL (http://www.gnu.org/licenses/gpl.html) ── node_modules/case/package.json
@@ -43,7 +43,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
- * hash:152f6992f2b605255cb7, chunkhash:81e6b00cc93c3d89aaf3, name:bundle.browser, version:v1.4.45
+ * hash:4788551b523f8e5028cf, chunkhash:dfc1bc6c1dc21d62bb28, name:bundle.browser, version:v1.4.46
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -18278,7 +18278,7 @@ function (_Error) {
  * @private
  */
 
-var version = "v1.4.45";
+var version = "v1.4.46";
 /**
  * Package license
  * @private
