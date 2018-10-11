@@ -41,7 +41,7 @@ See the [LICENSE] file for license information. This project is licensed under a
 
 [installation]: https://mapcreatoreu.github.io/api-wrapper/manual/installation/installation.html
 [building]: https://mapcreatoreu.github.io/api-wrapper/manual/installation/building.html
-[api documentation]: https://api.beta.maps4news.com/docs/
+[api documentation]: https://docs.maps4news.com/v1/
 [docs]: https://mapcreatoreu.github.io/api-wrapper/
 [docs-auth]: https://mapcreatoreu.github.io/api-wrapper/manual/example/examples.authentication.html
 [manual]: https://mapcreatoreu.github.io/api-wrapper/manual/index.html
